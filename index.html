@@ -265,5 +265,25 @@
     © 2026 TORVO TOOLS PRIVATE LIMITED
   </footer>
 
+<script>
+document.addEventListener("DOMContentLoaded", function () {
+
+  const loginBtn = document.querySelector(".login");
+  const registerBtn = document.querySelector(".register");
+
+  if (loginBtn) {
+    loginBtn.addEventListener("click", function () {
+      window.location.href = "login.html";
+    });
+  }
+
+  if (registerBtn) {
+    registerBtn.addEventListener("click", function () {
+      window.location.href = "register.html";
+    });
+  }
+
+});
+</script>
 </body>
 </html>
