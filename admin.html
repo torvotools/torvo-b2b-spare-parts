@@ -19,14 +19,16 @@ body{
 }
 button,input,select,textarea{font:inherit}
 
-/* LEFT */
+/* ================= LEFT SIDEBAR ================= */
 .sidebar{
   position:fixed;
-  left:0;top:0;bottom:0;
+  left:0;
+  top:0;
+  bottom:0;
   width:190px;
   background:#eef1f5;
-  border-right:1px solid #d6dbe3;
-  padding:12px 9px;
+  border-right:1px solid #cbd5e1;
+  padding:11px 9px;
   overflow-y:auto;
   z-index:20;
 }
@@ -41,16 +43,16 @@ button,input,select,textarea{font:inherit}
   font-size:9px;
   color:#64748b;
   padding:0 8px 10px;
-  border-bottom:1px solid #d6dbe3;
+  border-bottom:1px solid #cbd5e1;
 }
 .menu-heading{
-  font-size:9px;
-  color:#334155;
+  font-size:10px;
+  color:#111827;
   font-weight:900;
-  margin:12px 8px 5px;
+  margin:13px 7px 5px;
   text-transform:uppercase;
-  letter-spacing:.5px;
-  border-bottom:1px solid #cbd5e1;
+  letter-spacing:.65px;
+  border-bottom:2px solid #94a3b8;
   padding-bottom:4px;
 }
 .menu-btn{
@@ -64,7 +66,7 @@ button,input,select,textarea{font:inherit}
   border-radius:6px;
   cursor:pointer;
   font-size:11px;
-  font-weight:600;
+  font-weight:650;
 }
 .menu-btn:hover{background:#e2e8f0}
 .menu-btn.active{
@@ -72,14 +74,16 @@ button,input,select,textarea{font:inherit}
   color:white;
 }
 
-/* RIGHT */
+/* ================= RIGHT QUICK PANEL ================= */
 .rightbar{
   position:fixed;
-  right:0;top:0;bottom:0;
+  right:0;
+  top:0;
+  bottom:0;
   width:190px;
   background:#fff;
   border-left:1px solid #d6dbe3;
-  padding:12px 10px;
+  padding:11px 10px;
   overflow-y:auto;
   z-index:20;
 }
@@ -94,13 +98,13 @@ button,input,select,textarea{font:inherit}
   border-bottom:1px solid #e5e7eb;
 }
 .quick-heading{
-  font-size:9px;
-  color:#334155;
+  font-size:10px;
+  color:#111827;
   font-weight:900;
   text-transform:uppercase;
   margin:11px 2px 5px;
   padding-bottom:3px;
-  border-bottom:1px solid #e2e8f0;
+  border-bottom:1px solid #cbd5e1;
 }
 .quick-btn{
   width:100%;
@@ -120,15 +124,15 @@ button,input,select,textarea{font:inherit}
 }
 .quick-red{
   background:#d71920;
-  color:white;
+  color:#fff;
   border-color:#d71920;
 }
 .quick-red:hover{
   background:#b91c1c;
-  color:white;
+  color:#fff;
 }
 
-/* CENTER */
+/* ================= CENTER ================= */
 .main{
   margin-left:190px;
   margin-right:190px;
@@ -145,7 +149,7 @@ button,input,select,textarea{font:inherit}
   gap:7px;
   box-shadow:0 1px 5px rgba(0,0,0,.06);
 }
-.top-title{min-width:150px}
+.top-title{min-width:145px}
 .top-title h1{font-size:17px}
 .top-title p{
   font-size:9px;
@@ -163,7 +167,7 @@ button,input,select,textarea{font:inherit}
   height:34px;
   border:1px solid #cbd5e1;
   border-radius:7px;
-  padding:7px 38px 7px 9px;
+  padding:7px 40px 7px 9px;
   outline:none;
 }
 .search-wrap input:focus{
@@ -184,10 +188,9 @@ button,input,select,textarea{font:inherit}
   display:flex;
   align-items:center;
   justify-content:center;
-  font-size:17px;
+  font-size:16px;
 }
 .inline-mic:hover{background:#f1f5f9}
-
 .top-control{
   height:34px;
   border-radius:7px;
@@ -211,11 +214,11 @@ button,input,select,textarea{font:inherit}
 .owner-button{min-width:80px}
 .logout-button{min-width:55px}
 
-/* GENERAL */
+/* ================= GENERAL ================= */
 .section{display:none}
 .section.active{display:block}
 .panel{
-  background:white;
+  background:#fff;
   border-radius:8px;
   padding:10px;
   margin-bottom:8px;
@@ -228,18 +231,20 @@ button,input,select,textarea{font:inherit}
   gap:8px;
   margin-bottom:8px;
 }
-.panel h2{font-size:14px}
-.panel h3{font-size:12px}
-.entry-title{
+.section-title{
   display:flex;
   align-items:center;
   gap:7px;
   margin-bottom:9px;
   padding-bottom:7px;
-  border-bottom:1px solid #e5e7eb;
+  border-bottom:2px solid #cbd5e1;
 }
-.entry-badge{
-  background:#111827;
+.section-title h2{
+  font-size:14px;
+  font-weight:900;
+}
+.section-badge{
+  background:#334155;
   color:white;
   padding:5px 8px;
   border-radius:5px;
@@ -249,7 +254,7 @@ button,input,select,textarea{font:inherit}
 .btn{
   border:0;
   background:#d71920;
-  color:white;
+  color:#fff;
   padding:7px 9px;
   border-radius:6px;
   cursor:pointer;
@@ -258,10 +263,11 @@ button,input,select,textarea{font:inherit}
 }
 .btn-dark{background:#475569}
 .btn-light{
-  background:white;
+  background:#fff;
   color:#111827;
   border:1px solid #d1d5db;
 }
+.btn-danger{background:#b91c1c}
 .cards{
   display:grid;
   grid-template-columns:repeat(4,1fr);
@@ -269,7 +275,7 @@ button,input,select,textarea{font:inherit}
   margin-bottom:8px;
 }
 .card{
-  background:white;
+  background:#fff;
   border-radius:8px;
   padding:9px 10px;
   min-height:59px;
@@ -284,6 +290,10 @@ button,input,select,textarea{font:inherit}
   font-size:20px;
   font-weight:900;
 }
+.card.clickable{cursor:pointer}
+.card.clickable:hover{
+  outline:1px solid #d71920;
+}
 .toolbar{
   display:flex;
   gap:5px;
@@ -294,7 +304,7 @@ button,input,select,textarea{font:inherit}
   border:1px solid #d1d5db;
   border-radius:6px;
   padding:7px;
-  min-width:130px;
+  min-width:125px;
 }
 .form-grid{
   display:grid;
@@ -317,22 +327,21 @@ button,input,select,textarea{font:inherit}
   background:#fff;
 }
 .field-full{grid-column:1/-1}
-.select-row{
+.master-row{
   display:flex;
   gap:4px;
 }
-.select-row select{flex:1}
-.small-add{
+.master-row select{flex:1}
+.mini-btn{
   width:31px;
   min-width:31px;
   border:1px solid #cbd5e1;
   background:#f8fafc;
   border-radius:6px;
   cursor:pointer;
-  font-size:16px;
   font-weight:900;
 }
-.small-add:hover{background:#eef2f7}
+.mini-btn:hover{background:#e2e8f0}
 .note{
   font-size:9px;
   color:#6b7280;
@@ -345,8 +354,8 @@ button,input,select,textarea{font:inherit}
   padding:8px;
 }
 .admin-title{
-  font-size:9px;
-  color:#b91c1c;
+  font-size:10px;
+  color:#991b1b;
   font-weight:900;
   margin-bottom:7px;
 }
@@ -405,14 +414,35 @@ th{
   margin-bottom:8px;
   font-size:10px;
 }
+.mapping-list{
+  display:flex;
+  flex-wrap:wrap;
+  gap:5px;
+  margin-top:8px;
+}
+.mapping-chip{
+  display:flex;
+  align-items:center;
+  gap:5px;
+  border:1px solid #cbd5e1;
+  background:#fff;
+  padding:5px 7px;
+  border-radius:14px;
+  font-size:9px;
+}
+.mapping-chip button{
+  border:0;
+  background:transparent;
+  color:#b91c1c;
+  cursor:pointer;
+  font-weight:900;
+}
 .footer{
   text-align:center;
   color:#9ca3af;
   font-size:8px;
   padding:7px;
 }
-
-/* TOAST */
 .toast{
   position:fixed;
   right:205px;
@@ -442,33 +472,33 @@ th{
 
 <body>
 
-<!-- LEFT -->
+<!-- LEFT MENU -->
 <aside class="sidebar">
 
 <div class="logo" onclick="goHome()">TORVO</div>
 <div class="logo-sub">B2B Dealer Business System</div>
 
-<div class="menu-heading">Home</div>
+<div class="menu-heading">HOME</div>
 <button class="menu-btn active" onclick="openSection('dashboard',this)">Dashboard</button>
 
-<div class="menu-heading">Catalog</div>
-<button class="menu-btn" onclick="openSection('spareParts',this)">Spare Parts</button>
+<div class="menu-heading">CATALOG</div>
+<button class="menu-btn" onclick="openSection('spares',this)">Spare Parts</button>
 <button class="menu-btn" onclick="openSection('machines',this)">Machines</button>
 <button class="menu-btn" onclick="openSection('purchaseHistory',this)">Purchase Rate History</button>
-<button class="menu-btn" onclick="openSection('stock',this)">Stock / Availability</button>
+<button class="menu-btn" onclick="openSection('stockReports',this)">Stock Reports</button>
 <button class="menu-btn" onclick="openSection('suitable',this)">Suitable Mapping</button>
 
-<div class="menu-heading">Online Orders</div>
+<div class="menu-heading">ONLINE ORDERS</div>
 <button class="menu-btn" onclick="openSection('orders',this)">Sales Orders</button>
 <button class="menu-btn" onclick="openSection('estimates',this)">Estimates</button>
 <button class="menu-btn" onclick="openSection('confirmed',this)">Confirmed Orders</button>
 <button class="menu-btn" onclick="openSection('delivery',this)">Delivery / Tracking</button>
 
-<div class="menu-heading">Dealers</div>
+<div class="menu-heading">DEALERS</div>
 <button class="menu-btn" onclick="openSection('inquiries',this)">Dealer Inquiries</button>
 <button class="menu-btn" onclick="openSection('dealers',this)">Approved Dealers</button>
 
-<div class="menu-heading">Management</div>
+<div class="menu-heading">REPORTS & CONTROL</div>
 <button class="menu-btn" onclick="openSection('reports',this)">Reports / Export</button>
 <button class="menu-btn" onclick="openSection('employees',this)">Employees & Roles</button>
 <button class="menu-btn" onclick="openSection('backup',this)">Backup</button>
@@ -476,31 +506,32 @@ th{
 
 </aside>
 
-<!-- RIGHT -->
+<!-- RIGHT PANEL -->
 <aside class="rightbar">
 
 <div class="right-title">Quick Actions</div>
-<div class="right-sub">Direct entry shortcuts</div>
+<div class="right-sub">Direct shortcuts</div>
 
-<div class="quick-heading">Catalog</div>
-<button class="quick-btn quick-red" onclick="goQuick('spareParts','sparePartFormPanel')">+ New Spare Part</button>
-<button class="quick-btn" onclick="goQuick('machines','machineFormPanel')">+ New Machine</button>
-<button class="quick-btn" onclick="goQuick('purchaseHistory')">Purchase Rate History</button>
-<button class="quick-btn" onclick="goQuick('stock')">Stock Check</button>
+<div class="quick-heading">CATALOG</div>
+<button class="quick-btn quick-red" onclick="goQuick('spares','spareFormPanel')">Spare Part Entry</button>
+<button class="quick-btn" onclick="goQuick('machines','machineFormPanel')">Machine Entry</button>
+<button class="quick-btn" onclick="goQuick('purchaseHistory')">Purchase History</button>
+<button class="quick-btn" onclick="goQuick('stockReports')">Stock Reports</button>
 
-<div class="quick-heading">Orders</div>
-<button class="quick-btn" onclick="goQuick('orders')">Review New Orders</button>
+<div class="quick-heading">ORDERS</div>
+<button class="quick-btn" onclick="goQuick('orders')">Review Orders</button>
 <button class="quick-btn" onclick="goQuick('estimates')">Create Estimate</button>
 <button class="quick-btn" onclick="goQuick('confirmed')">Confirmed Orders</button>
 <button class="quick-btn" onclick="goQuick('delivery')">Delivery Status</button>
 
-<div class="quick-heading">Dealers</div>
+<div class="quick-heading">DEALERS</div>
 <button class="quick-btn" onclick="goQuick('inquiries')">Dealer Inquiry</button>
 <button class="quick-btn" onclick="goQuick('dealers')">Dealer Rate Group</button>
 
-<div class="quick-heading">Control</div>
-<button class="quick-btn" onclick="goQuick('reports')">Export Report</button>
-<button class="quick-btn" onclick="goQuick('backup')">Backup Status</button>
+<div class="quick-heading">REPORTS</div>
+<button class="quick-btn" onclick="showReport('out')">Out of Stock</button>
+<button class="quick-btn" onclick="showReport('low')">Low Stock</button>
+<button class="quick-btn" onclick="showReport('fast')">Fast Moving</button>
 
 </aside>
 
@@ -517,7 +548,7 @@ th{
 <div class="search-wrap">
 <input
 id="globalSearch"
-placeholder="Search item, machine, model, dealer, order..."
+placeholder="Search spare part, item no., machine, model, dealer or order..."
 onkeydown="if(event.key==='Enter')runSearch()"
 >
 <button class="inline-mic" onclick="startVoiceSearch()" title="Voice Search">🎙️</button>
@@ -535,14 +566,47 @@ onkeydown="if(event.key==='Enter')runSearch()"
 <section id="dashboard" class="section active">
 
 <div class="cards">
-<div class="card"><div class="card-label">Active Spare Parts</div><div class="card-value" id="dashboardSpareCount">0</div></div>
-<div class="card"><div class="card-label">Machines</div><div class="card-value" id="dashboardMachineCount">0</div></div>
-<div class="card"><div class="card-label">New Online Orders</div><div class="card-value">0</div></div>
-<div class="card"><div class="card-label">Pending Estimates</div><div class="card-value">0</div></div>
-<div class="card"><div class="card-label">Confirmed Orders</div><div class="card-value">0</div></div>
-<div class="card"><div class="card-label">Approved Dealers</div><div class="card-value">0</div></div>
-<div class="card"><div class="card-label">Low Stock Items</div><div class="card-value">0</div></div>
-<div class="card"><div class="card-label">Ready for Dispatch</div><div class="card-value">0</div></div>
+
+<div class="card">
+<div class="card-label">Active Spare Parts</div>
+<div class="card-value" id="dashSpares">0</div>
+</div>
+
+<div class="card">
+<div class="card-label">Machines</div>
+<div class="card-value" id="dashMachines">0</div>
+</div>
+
+<div class="card clickable" onclick="showReport('out')">
+<div class="card-label">Out of Stock</div>
+<div class="card-value" id="dashOut">0</div>
+</div>
+
+<div class="card clickable" onclick="showReport('low')">
+<div class="card-label">Low Stock</div>
+<div class="card-value" id="dashLow">0</div>
+</div>
+
+<div class="card">
+<div class="card-label">New Online Orders</div>
+<div class="card-value">0</div>
+</div>
+
+<div class="card">
+<div class="card-label">Pending Estimates</div>
+<div class="card-value">0</div>
+</div>
+
+<div class="card">
+<div class="card-label">Approved Dealers</div>
+<div class="card-value">0</div>
+</div>
+
+<div class="card clickable" onclick="showReport('fast')">
+<div class="card-label">Fast Moving Items</div>
+<div class="card-value">View</div>
+</div>
+
 </div>
 
 <div class="panel">
@@ -552,36 +616,44 @@ onkeydown="if(event.key==='Enter')runSearch()"
 </div>
 
 <div class="flow">
-<span class="flow-step">Dealer Order</span><span class="arrow">→</span>
-<span class="flow-step">Admin Review</span><span class="arrow">→</span>
-<span class="flow-step">Estimate</span><span class="arrow">→</span>
-<span class="flow-step">Send Dealer</span><span class="arrow">→</span>
-<span class="flow-step">Dealer OK / Change</span><span class="arrow">→</span>
-<span class="flow-step">Confirmed Order</span><span class="arrow">→</span>
+<span class="flow-step">Dealer Order</span>
+<span class="arrow">→</span>
+<span class="flow-step">Admin Review</span>
+<span class="arrow">→</span>
+<span class="flow-step">Estimate</span>
+<span class="arrow">→</span>
+<span class="flow-step">Send Dealer</span>
+<span class="arrow">→</span>
+<span class="flow-step">Dealer OK / Change</span>
+<span class="arrow">→</span>
+<span class="flow-step">Confirmed</span>
+<span class="arrow">→</span>
 <span class="flow-step">Dispatch</span>
 </div>
+
 </div>
 
 </section>
 
 <!-- SPARE PARTS -->
-<section id="spareParts" class="section">
+<section id="spares" class="section">
 
 <div class="panel">
-<div class="panel-head">
+
+<div class="section-title">
+<span class="section-badge">SPARE PART MASTER</span>
 <h2>Spare Parts</h2>
-<button class="btn" onclick="focusPanel('sparePartFormPanel','spareItemNumber')">+ New Spare Part</button>
 </div>
 
 <div class="toolbar">
-<select id="spareFilterBrand"><option value="">All Brands</option></select>
-<select id="spareFilterCategory"><option value="">All Categories</option></select>
-<select id="spareFilterStatus">
+<select id="filterSpareBrand"><option value="">All Brands</option></select>
+<select id="filterSpareCategory"><option value="">All Categories</option></select>
+<select id="filterSpareStatus">
 <option value="">All Status</option>
 <option>Active</option>
 <option>Inactive</option>
 </select>
-<button class="btn btn-dark" onclick="renderSpareParts()">Apply Filter</button>
+<button class="btn btn-dark" onclick="renderSpares()">Apply Filter</button>
 <button class="btn btn-light" onclick="clearSpareFilters()">Clear</button>
 </div>
 
@@ -596,36 +668,51 @@ onkeydown="if(event.key==='Enter')runSearch()"
 <th>Rate A</th>
 <th>Rate B</th>
 <th>Rate C</th>
-<th>Purchase Rate</th>
+<th>Purchase</th>
 <th>Stock</th>
+<th>Reorder</th>
+<th>Machines</th>
 <th>Status</th>
 <th>Action</th>
 </tr>
 </thead>
-<tbody id="sparePartTableBody"></tbody>
+<tbody id="spareTableBody"></tbody>
 </table>
 </div>
+
 </div>
 
-<div class="panel" id="sparePartFormPanel">
+<div class="panel" id="spareFormPanel">
 
-<div class="entry-title">
-<span class="entry-badge">SPARE PART ENTRY</span>
+<div class="section-title">
+<span class="section-badge">SPARE PART ENTRY</span>
 <h2>Add / Edit Spare Part</h2>
 </div>
 
-<form id="sparePartForm" onsubmit="saveSparePart(event)">
+<form id="spareForm" onsubmit="saveSpare(event)">
 
 <div class="form-grid">
 
 <div class="field">
 <label>Item Number *</label>
-<input id="spareItemNumber" required placeholder="Example ARM-801">
+<div class="master-row">
+<select id="itemNumberMaster" required>
+<option value="">Select / Create Item No.</option>
+</select>
+<button type="button" class="mini-btn" onclick="addMasterValue('itemNumbers','Item Number','itemNumberMaster')">+</button>
+<button type="button" class="mini-btn" onclick="editMasterValue('itemNumbers','Item Number','itemNumberMaster')">✎</button>
+</div>
 </div>
 
 <div class="field">
 <label>Spare Part Name *</label>
-<input id="spareItemName" required placeholder="Armature / Gear / Switch">
+<div class="master-row">
+<select id="spareNameMaster" required>
+<option value="">Select Spare Part</option>
+</select>
+<button type="button" class="mini-btn" onclick="addMasterValue('spareNames','Spare Part Name','spareNameMaster')">+</button>
+<button type="button" class="mini-btn" onclick="editMasterValue('spareNames','Spare Part Name','spareNameMaster')">✎</button>
+</div>
 </div>
 
 <div class="field">
@@ -635,43 +722,45 @@ onkeydown="if(event.key==='Enter')runSearch()"
 
 <div class="field">
 <label>Brand *</label>
-<div class="select-row">
-<select id="spareBrand" required><option value="">Select Brand</option></select>
-<button type="button" class="small-add" onclick="addMaster('brand','spareBrand')">+</button>
+<div class="master-row">
+<select id="spareBrand" required></select>
+<button type="button" class="mini-btn" onclick="addMasterValue('brands','Brand','spareBrand')">+</button>
+<button type="button" class="mini-btn" onclick="editMasterValue('brands','Brand','spareBrand')">✎</button>
 </div>
 </div>
 
 <div class="field">
 <label>Category *</label>
-<div class="select-row">
-<select id="spareCategory" required><option value="">Select Category</option></select>
-<button type="button" class="small-add" onclick="addMaster('category','spareCategory')">+</button>
+<div class="master-row">
+<select id="spareCategory" required></select>
+<button type="button" class="mini-btn" onclick="addMasterValue('categories','Category','spareCategory')">+</button>
+<button type="button" class="mini-btn" onclick="editMasterValue('categories','Category','spareCategory')">✎</button>
 </div>
 </div>
 
 <div class="field">
 <label>Pieces Per Box</label>
-<input id="piecesPerBox" type="number" min="0" step="1" value="0" oninput="preventNegative(this)">
+<input id="piecesPerBox" type="number" min="0" step="1" value="0" oninput="noNegative(this)">
 </div>
 
 <div class="field">
 <label>Net Rate A</label>
-<input id="rateA" type="number" min="0" step="0.01" value="0" oninput="preventNegative(this)">
+<input id="rateA" type="number" min="0" step="0.01" value="0" oninput="noNegative(this)">
 </div>
 
 <div class="field">
 <label>Net Rate B</label>
-<input id="rateB" type="number" min="0" step="0.01" value="0" oninput="preventNegative(this)">
+<input id="rateB" type="number" min="0" step="0.01" value="0" oninput="noNegative(this)">
 </div>
 
 <div class="field">
 <label>Net Rate C</label>
-<input id="rateC" type="number" min="0" step="0.01" value="0" oninput="preventNegative(this)">
+<input id="rateC" type="number" min="0" step="0.01" value="0" oninput="noNegative(this)">
 </div>
 
 <div class="field">
 <label>Current Net Purchase Rate</label>
-<input id="purchaseRate" type="number" min="0" step="0.01" value="0" oninput="preventNegative(this)">
+<input id="purchaseRate" type="number" min="0" step="0.01" value="0" oninput="noNegative(this)">
 </div>
 
 <div class="field">
@@ -681,7 +770,12 @@ onkeydown="if(event.key==='Enter')runSearch()"
 
 <div class="field">
 <label>Current Stock</label>
-<input id="currentStock" type="number" min="0" step="1" value="0" oninput="preventNegative(this)">
+<input id="currentStock" type="number" min="0" step="1" value="0" oninput="noNegative(this)">
+</div>
+
+<div class="field">
+<label>Minimum / Reorder Level</label>
+<input id="reorderLevel" type="number" min="0" step="1" value="0" oninput="noNegative(this)">
 </div>
 
 <div class="field">
@@ -700,53 +794,51 @@ onkeydown="if(event.key==='Enter')runSearch()"
 </select>
 </div>
 
-<div class="field">
-<label>Suitable Machine</label>
-<div class="select-row">
-<select id="suitableMachineSelect">
-<option value="">Select Existing Machine</option>
-</select>
-<button type="button" class="small-add" onclick="quickCreateMachine()">+</button>
-</div>
-</div>
-
 <div class="field-full admin-box">
 
-<div class="admin-title">SUITABLE MACHINE MAPPING — ADMIN ONLY</div>
+<div class="admin-title">
+SUITABLE MACHINES — ADMIN ONLY — MULTIPLE MACHINES ALLOWED
+</div>
 
 <div class="form-grid">
 
 <div class="field">
-<label>Machine</label>
-<select id="mappingMachineSelect">
-<option value="">Select Existing Machine</option>
+<label>Select Existing Machine</label>
+<select id="machineMappingSelect">
+<option value="">Select Machine</option>
 </select>
 </div>
 
 <div class="field">
-<label>Add Mapping</label>
-<button type="button" class="btn btn-dark" onclick="addSuitableMapping()">+ Add Selected Machine</button>
+<label>Add Machine</label>
+<button type="button" class="btn btn-dark" onclick="addMachineMapping()">+ Add Selected Machine</button>
 </div>
 
 <div class="field">
-<label>Create New Machine</label>
-<button type="button" class="btn btn-light" onclick="goQuick('machines','machineFormPanel')">Open Machine Entry</button>
+<label>Machine Not Available?</label>
+<button type="button" class="btn btn-light" onclick="goQuick('machines','machineFormPanel')">Open Machine Master</button>
 </div>
 
 </div>
 
-<div id="mappingDisplay" class="note">No suitable machine added yet.</div>
+<div id="machineMappingList" class="mapping-list"></div>
+
+<div class="note">
+एक Spare Part को जितनी चाहें Machines से map किया जा सकता है।
+</div>
 
 </div>
 
 <div class="field-full">
 <button class="btn" type="submit">Save Spare Part</button>
-<button class="btn btn-dark" type="button" onclick="saveSpareAndNext()">Save & Add Next</button>
-<button class="btn btn-light" type="button" onclick="resetSpareForm()">Clear</button>
+<button class="btn btn-dark" type="button" onclick="saveSpareNext()">Save & Add Next</button>
+<button class="btn btn-light" type="button" onclick="clearSpareForm()">Clear</button>
 </div>
 
 </div>
+
 </form>
+
 </div>
 
 </section>
@@ -755,14 +847,15 @@ onkeydown="if(event.key==='Enter')runSearch()"
 <section id="machines" class="section">
 
 <div class="panel">
-<div class="panel-head">
+
+<div class="section-title">
+<span class="section-badge">MACHINE MASTER</span>
 <h2>Machines</h2>
-<button class="btn" onclick="focusPanel('machineFormPanel','machineModel')">+ New Machine</button>
 </div>
 
 <div class="toolbar">
-<select id="machineFilterBrand"><option value="">All Brands</option></select>
-<select id="machineFilterType"><option value="">All Machine Types</option></select>
+<select id="filterMachineBrand"><option value="">All Brands</option></select>
+<select id="filterMachineType"><option value="">All Machine Types</option></select>
 <button class="btn btn-dark" onclick="renderMachines()">Apply Filter</button>
 <button class="btn btn-light" onclick="clearMachineFilters()">Clear</button>
 </div>
@@ -776,6 +869,7 @@ onkeydown="if(event.key==='Enter')runSearch()"
 <th>Machine Type</th>
 <th>Model No.</th>
 <th>Description</th>
+<th>Used in Spares</th>
 <th>Status</th>
 <th>Action</th>
 </tr>
@@ -783,12 +877,13 @@ onkeydown="if(event.key==='Enter')runSearch()"
 <tbody id="machineTableBody"></tbody>
 </table>
 </div>
+
 </div>
 
 <div class="panel" id="machineFormPanel">
 
-<div class="entry-title">
-<span class="entry-badge">MACHINE ENTRY</span>
+<div class="section-title">
+<span class="section-badge">MACHINE ENTRY</span>
 <h2>Add / Edit Machine</h2>
 </div>
 
@@ -798,17 +893,19 @@ onkeydown="if(event.key==='Enter')runSearch()"
 
 <div class="field">
 <label>Machine Brand *</label>
-<div class="select-row">
-<select id="machineBrand" required><option value="">Select Brand</option></select>
-<button type="button" class="small-add" onclick="addMaster('brand','machineBrand')">+</button>
+<div class="master-row">
+<select id="machineBrand" required></select>
+<button type="button" class="mini-btn" onclick="addMasterValue('brands','Brand','machineBrand')">+</button>
+<button type="button" class="mini-btn" onclick="editMasterValue('brands','Brand','machineBrand')">✎</button>
 </div>
 </div>
 
 <div class="field">
 <label>Machine Type *</label>
-<div class="select-row">
-<select id="machineType" required><option value="">Select Machine Type</option></select>
-<button type="button" class="small-add" onclick="addMaster('machineType','machineType')">+</button>
+<div class="master-row">
+<select id="machineType" required></select>
+<button type="button" class="mini-btn" onclick="addMasterValue('machineTypes','Machine Type','machineType')">+</button>
+<button type="button" class="mini-btn" onclick="editMasterValue('machineTypes','Machine Type','machineType')">✎</button>
 </div>
 </div>
 
@@ -819,7 +916,7 @@ onkeydown="if(event.key==='Enter')runSearch()"
 
 <div class="field">
 <label>Machine ID</label>
-<input id="machineId" placeholder="Auto generated" readonly>
+<input id="machineId" readonly placeholder="Auto generated">
 </div>
 
 <div class="field">
@@ -837,27 +934,31 @@ onkeydown="if(event.key==='Enter')runSearch()"
 
 <div class="field-full">
 <label>Description / Note</label>
-<textarea id="machineDescription" rows="2" placeholder="Optional"></textarea>
+<textarea id="machineDescription" rows="2"></textarea>
 </div>
 
 <div class="field-full">
 <button class="btn" type="submit">Save Machine</button>
-<button class="btn btn-dark" type="button" onclick="saveMachineAndNext()">Save & Add Next</button>
-<button class="btn btn-light" type="button" onclick="resetMachineForm()">Clear</button>
+<button class="btn btn-dark" type="button" onclick="saveMachineNext()">Save & Add Next</button>
+<button class="btn btn-light" type="button" onclick="clearMachineForm()">Clear</button>
 </div>
 
 </div>
+
 </form>
 
 </div>
+
 </section>
 
 <!-- PURCHASE HISTORY -->
 <section id="purchaseHistory" class="section">
+
 <div class="panel">
-<div class="panel-head">
-<h2>Purchase Rate History — Admin Only</h2>
-<button class="btn btn-dark" onclick="renderPurchaseHistory()">Refresh</button>
+
+<div class="section-title">
+<span class="section-badge">ADMIN ONLY</span>
+<h2>Purchase Rate History</h2>
 </div>
 
 <div class="table-wrap">
@@ -865,6 +966,7 @@ onkeydown="if(event.key==='Enter')runSearch()"
 <thead>
 <tr>
 <th>Date</th>
+<th>Brand</th>
 <th>Item No.</th>
 <th>Spare Part</th>
 <th>Earlier Rate</th>
@@ -876,107 +978,105 @@ onkeydown="if(event.key==='Enter')runSearch()"
 </table>
 </div>
 
-<div class="note">
-Every time a Spare Part is saved with a changed purchase rate, its dated rate history will be kept.
 </div>
-</div>
+
 </section>
 
-<!-- STOCK -->
-<section id="stock" class="section">
+<!-- STOCK REPORTS -->
+<section id="stockReports" class="section">
+
 <div class="panel">
-<div class="panel-head">
-<h2>Stock / Availability</h2>
-<button class="btn btn-dark" onclick="actionInfo('Stock view refreshed')">Refresh</button>
+
+<div class="section-title">
+<span class="section-badge">INVENTORY REPORTS</span>
+<h2>Stock & Movement Reports</h2>
 </div>
-<div class="placeholder">
-Spare Part Stock • Box / Pieces • Low Stock • Manual Adjustment will be connected with database later.
+
+<div class="toolbar">
+<button class="btn btn-danger" onclick="showReport('out')">Out of Stock</button>
+<button class="btn btn-dark" onclick="showReport('low')">Low Stock</button>
+<button class="btn btn-dark" onclick="showReport('fast')">Fast Moving</button>
+<button class="btn btn-light" onclick="showReport('slow')">Slow / Non-Moving</button>
+<button class="btn btn-light" onclick="exportDemoReport('excel')">Excel</button>
+<button class="btn btn-light" onclick="exportDemoReport('pdf')">PDF</button>
 </div>
+
+<div id="stockReportBox" class="placeholder">
+Select a report.
 </div>
+
+</div>
+
 </section>
 
 <!-- SUITABLE -->
 <section id="suitable" class="section">
+
 <div class="panel">
-<h2 style="margin-bottom:8px">Suitable Mapping — Admin Only</h2>
+
+<div class="section-title">
+<span class="section-badge">ADMIN ONLY</span>
+<h2>Suitable Mapping Search</h2>
+</div>
 
 <div class="form-grid">
 
 <div class="field">
 <label>Select Machine</label>
-<select id="suitableSearchMachine">
-<option value="">Select Existing Machine</option>
-</select>
-</div>
-
-<div class="field">
-<label>Machine Filter</label>
-<select id="suitableMachineTypeFilter">
-<option value="">All Machine Types</option>
-</select>
+<select id="suitableSearchMachine"></select>
 </div>
 
 <div class="field">
 <label>Action</label>
-<button class="btn btn-dark" onclick="showSuitableForMachine()">Show Suitable Spare Parts</button>
+<button class="btn btn-dark" onclick="showSuitableParts()">Show Spare Parts</button>
+</div>
+
+<div class="field">
+<label>Total Machines</label>
+<input id="suitableMachineCount" readonly value="0">
 </div>
 
 </div>
 
 <div id="suitableResult" class="placeholder" style="margin-top:8px">
-Select a machine to see linked spare parts.
+Select Machine to see Spare Parts.
 </div>
+
 </div>
+
 </section>
 
 <!-- ORDERS -->
 <section id="orders" class="section">
 <div class="panel">
-<div class="panel-head">
-<h2>Online Sales Orders</h2>
-<button class="btn btn-dark" onclick="actionInfo('Orders refreshed')">Refresh</button>
+<div class="section-title">
+<span class="section-badge">ONLINE ORDERS</span>
+<h2>Sales Orders</h2>
 </div>
-
-<div class="table-wrap">
-<table>
-<thead>
-<tr>
-<th>Order No.</th>
-<th>Date</th>
-<th>Dealer</th>
-<th>Rate Group</th>
-<th>Items</th>
-<th>Amount</th>
-<th>Status</th>
-<th>Action</th>
-</tr>
-</thead>
-<tbody>
-<tr>
-<td colspan="8" style="text-align:center;color:#6b7280">
-Online B2B orders will appear here automatically after database connection.
-</td>
-</tr>
-</tbody>
-</table>
+<div class="placeholder">
+Dealer website orders will automatically arrive here after Supabase connection.
 </div>
 </div>
 </section>
 
 <!-- ESTIMATES -->
 <section id="estimates" class="section">
+
 <div class="panel">
 
-<div class="entry-title">
-<span class="entry-badge">ESTIMATE</span>
+<div class="section-title">
+<span class="section-badge">ESTIMATE</span>
 <h2>Sales Order → Estimate</h2>
 </div>
 
 <div class="flow" style="margin-bottom:9px">
-<span class="flow-step">Sales Order</span><span class="arrow">→</span>
-<span class="flow-step">Admin Review</span><span class="arrow">→</span>
-<span class="flow-step">Estimate</span><span class="arrow">→</span>
-<span class="flow-step">Dealer OK / Change</span>
+<span class="flow-step">Sales Order</span>
+<span class="arrow">→</span>
+<span class="flow-step">Estimate</span>
+<span class="arrow">→</span>
+<span class="flow-step">Dealer</span>
+<span class="arrow">→</span>
+<span class="flow-step">OK / Change</span>
 </div>
 
 <form id="estimateForm">
@@ -985,27 +1085,27 @@ Online B2B orders will appear here automatically after database connection.
 
 <div class="field">
 <label>Sales Order No.</label>
-<input placeholder="Select order">
+<input placeholder="Order No.">
 </div>
 
 <div class="field">
 <label>Dealer</label>
-<input placeholder="Auto from order">
+<input placeholder="Auto">
 </div>
 
 <div class="field">
 <label>Estimate No.</label>
-<input placeholder="Auto generate">
+<input placeholder="Auto">
 </div>
 
 <div class="field">
 <label>Item Discount %</label>
-<input type="number" min="0" step="0.01" value="0" oninput="preventNegative(this)">
+<input type="number" min="0" step="0.01" value="0" oninput="noNegative(this)">
 </div>
 
 <div class="field">
 <label>Overall Discount</label>
-<input type="number" min="0" step="0.01" value="0" oninput="preventNegative(this)">
+<input type="number" min="0" step="0.01" value="0" oninput="noNegative(this)">
 </div>
 
 <div class="field">
@@ -1018,51 +1118,58 @@ Online B2B orders will appear here automatically after database connection.
 
 <div class="field">
 <label>Delivery Charge</label>
-<input type="number" min="0" step="0.01" value="0" oninput="preventNegative(this)">
+<input type="number" min="0" step="0.01" value="0" oninput="noNegative(this)">
 </div>
 
 <div class="field">
 <label>Transport Office Charge</label>
-<input type="number" min="0" step="0.01" value="0" oninput="preventNegative(this)">
+<input type="number" min="0" step="0.01" value="0" oninput="noNegative(this)">
 </div>
 
 <div class="field">
 <label>Other Charge</label>
-<input type="number" min="0" step="0.01" value="0" oninput="preventNegative(this)">
+<input type="number" min="0" step="0.01" value="0" oninput="noNegative(this)">
 </div>
 
 <div class="field-full">
-<label>Estimate Notes</label>
+<label>Notes / Terms</label>
 <textarea rows="2"></textarea>
 </div>
 
 <div class="field-full">
 <button type="button" class="btn" onclick="actionSuccess('Estimate saved')">Save Estimate</button>
 <button type="button" class="btn btn-dark" onclick="actionSuccess('Estimate ready to send')">Send Dealer</button>
-<button type="button" class="btn btn-light" onclick="actionInfo('Estimate preview')">Preview</button>
+<button type="button" class="btn btn-light" onclick="actionInfo('Preview ready')">Preview</button>
 </div>
 
 </div>
+
 </form>
+
 </div>
+
 </section>
 
 <!-- CONFIRMED -->
 <section id="confirmed" class="section">
 <div class="panel">
-<h2 style="margin-bottom:8px">Confirmed Orders</h2>
+<div class="section-title">
+<span class="section-badge">CONFIRMED</span>
+<h2>Confirmed Orders</h2>
+</div>
 <div class="placeholder">
-Dealer-approved estimates will appear here for packing and dispatch.
+Dealer-approved estimates will appear here.
 </div>
 </div>
 </section>
 
 <!-- DELIVERY -->
 <section id="delivery" class="section">
+
 <div class="panel">
 
-<div class="entry-title">
-<span class="entry-badge">DELIVERY</span>
+<div class="section-title">
+<span class="section-badge">DELIVERY</span>
 <h2>Delivery / Tracking</h2>
 </div>
 
@@ -1072,22 +1179,22 @@ Dealer-approved estimates will appear here for packing and dispatch.
 
 <div class="field">
 <label>Order No.</label>
-<input placeholder="Order No.">
+<input>
 </div>
 
 <div class="field">
 <label>Transport / Courier</label>
-<input placeholder="Transport Name">
+<input>
 </div>
 
 <div class="field">
-<label>LR / Tracking No.</label>
-<input placeholder="Tracking / LR">
+<label>LR / Tracking</label>
+<input>
 </div>
 
 <div class="field">
 <label>Dispatch Date</label>
-<input type="date">
+<input id="dispatchDate" type="date">
 </div>
 
 <div class="field">
@@ -1101,7 +1208,7 @@ Dealer-approved estimates will appear here for packing and dispatch.
 
 <div class="field">
 <label>Remark</label>
-<input placeholder="Optional">
+<input>
 </div>
 
 <div class="field-full">
@@ -1109,19 +1216,22 @@ Dealer-approved estimates will appear here for packing and dispatch.
 </div>
 
 </div>
+
 </form>
+
 </div>
+
 </section>
 
-<!-- DEALER INQUIRIES -->
+<!-- INQUIRIES -->
 <section id="inquiries" class="section">
 <div class="panel">
-<div class="panel-head">
+<div class="section-title">
+<span class="section-badge">DEALER</span>
 <h2>Dealer Inquiries</h2>
-<button class="btn btn-dark" onclick="actionInfo('Dealer inquiries refreshed')">Refresh</button>
 </div>
 <div class="placeholder">
-New Inquiry → Review → Assign Rate A/B/C → Approve / Reject
+New Inquiry → Review → Rate Group A/B/C → Approve / Reject
 </div>
 </div>
 </section>
@@ -1129,63 +1239,52 @@ New Inquiry → Review → Assign Rate A/B/C → Approve / Reject
 <!-- DEALERS -->
 <section id="dealers" class="section">
 <div class="panel">
-<div class="panel-head">
+<div class="section-title">
+<span class="section-badge">DEALERS</span>
 <h2>Approved Dealers</h2>
-<button class="btn" onclick="actionInfo('Dealer form will connect next')">+ Add Dealer</button>
 </div>
-
-<div class="table-wrap">
-<table>
-<thead>
-<tr>
-<th>Dealer</th>
-<th>City</th>
-<th>Mobile</th>
-<th>Rate Group</th>
-<th>Login</th>
-<th>Orders</th>
-<th>Status</th>
-<th>Action</th>
-</tr>
-</thead>
-<tbody>
-<tr>
-<td colspan="8" style="text-align:center;color:#6b7280">
-No approved dealer data loaded yet.
-</td>
-</tr>
-</tbody>
-</table>
+<div class="placeholder">
+Approved dealers and Rate A/B/C assignment will connect with Supabase.
 </div>
 </div>
 </section>
 
 <!-- REPORTS -->
 <section id="reports" class="section">
+
 <div class="panel">
-<h2 style="margin-bottom:8px">Reports / Export</h2>
+
+<div class="section-title">
+<span class="section-badge">REPORTS</span>
+<h2>Reports / Export</h2>
+</div>
+
 <div class="form-grid">
-<button class="quick-btn">Orders Excel</button>
-<button class="quick-btn">Estimates Excel</button>
-<button class="quick-btn">Dealer-wise Orders</button>
-<button class="quick-btn">Item-wise Orders</button>
-<button class="quick-btn">Stock Excel</button>
-<button class="quick-btn">Purchase Rate History</button>
+
+<button class="quick-btn" onclick="showReport('out')">Out of Stock</button>
+<button class="quick-btn" onclick="showReport('low')">Low Stock</button>
+<button class="quick-btn" onclick="showReport('fast')">Fast Moving</button>
+<button class="quick-btn" onclick="showReport('slow')">Slow / Non-Moving</button>
+<button class="quick-btn" onclick="actionInfo('Dealer-wise report will connect later')">Dealer-wise Orders</button>
+<button class="quick-btn" onclick="actionInfo('Item-wise report will connect later')">Item-wise Orders</button>
+
 </div>
+
 </div>
+
 </section>
 
 <!-- EMPLOYEES -->
 <section id="employees" class="section">
 <div class="panel">
-<div class="panel-head">
+<div class="section-title">
+<span class="section-badge">ACCESS CONTROL</span>
 <h2>Employees & Roles</h2>
-<button class="btn">+ Add Employee</button>
 </div>
 <div class="placeholder">
 OWNER / ADMIN — Full Access<br><br>
 MANAGER — Selected Access<br><br>
-EMPLOYEE — Item Search • Spare Part Entry • Machine Entry • Basic Order View • Only Allowed Functions
+EMPLOYEE — Item Search • Machine / Spare Entry • Basic Order View • Only Allowed Options
 </div>
 </div>
 </section>
@@ -1193,18 +1292,25 @@ EMPLOYEE — Item Search • Spare Part Entry • Machine Entry • Basic Order 
 <!-- BACKUP -->
 <section id="backup" class="section">
 <div class="panel">
-<h2 style="margin-bottom:8px">Backup</h2>
+<div class="section-title">
+<span class="section-badge">SAFETY</span>
+<h2>Backup</h2>
+</div>
 <div class="placeholder">
-Database Backup • Export • Restore Controls will be connected after Supabase tables are finalized.
+Supabase Database Backup • Export • Restore Controls will connect later.
 </div>
 </div>
 </section>
 
 <!-- SETTINGS -->
 <section id="settings" class="section">
+
 <div class="panel">
 
-<h2 style="margin-bottom:8px">Portal Settings</h2>
+<div class="section-title">
+<span class="section-badge">SETTINGS</span>
+<h2>Portal Settings</h2>
+</div>
 
 <form id="settingsForm">
 
@@ -1217,17 +1323,17 @@ Database Backup • Export • Restore Controls will be connected after Supabase
 
 <div class="field">
 <label>Website</label>
-<input placeholder="Website">
+<input>
 </div>
 
 <div class="field">
 <label>Email</label>
-<input placeholder="Email">
+<input>
 </div>
 
 <div class="field">
 <label>Mobile / WhatsApp</label>
-<input placeholder="Number">
+<input>
 </div>
 
 <div class="field">
@@ -1246,12 +1352,15 @@ Database Backup • Export • Restore Controls will be connected after Supabase
 </div>
 
 <div class="field-full">
-<button type="button" class="btn" onclick="actionSuccess('Portal settings saved for demo')">Save Settings</button>
+<button type="button" class="btn" onclick="actionSuccess('Settings saved for demo')">Save Settings</button>
 </div>
 
 </div>
+
 </form>
+
 </div>
+
 </section>
 
 <div class="footer">
@@ -1264,943 +1373,1265 @@ TORVO TOOLS PRIVATE LIMITED — B2B Internal Admin System
 
 <script>
 
+/* ================= BASIC STATE ================= */
+
 const titles={
-dashboard:"TORVO Dashboard",
-spareParts:"Spare Parts",
-machines:"Machines",
-purchaseHistory:"Purchase Rate History",
-stock:"Stock / Availability",
-suitable:"Suitable Mapping",
-orders:"Online Sales Orders",
-estimates:"Estimates",
-confirmed:"Confirmed Orders",
-delivery:"Delivery / Tracking",
-inquiries:"Dealer Inquiries",
-dealers:"Approved Dealers",
-reports:"Reports / Export",
-employees:"Employees & Roles",
-backup:"Backup",
-settings:"Portal Settings"
+  dashboard:"TORVO Dashboard",
+  spares:"Spare Parts",
+  machines:"Machines",
+  purchaseHistory:"Purchase Rate History",
+  stockReports:"Stock Reports",
+  suitable:"Suitable Mapping",
+  orders:"Sales Orders",
+  estimates:"Estimates",
+  confirmed:"Confirmed Orders",
+  delivery:"Delivery / Tracking",
+  inquiries:"Dealer Inquiries",
+  dealers:"Approved Dealers",
+  reports:"Reports / Export",
+  employees:"Employees & Roles",
+  backup:"Backup",
+  settings:"Portal Settings"
 };
 
 let formDirty=false;
-let suitableMappings=[];
+let selectedMachineMappings=[];
 
 document.addEventListener("input",function(e){
-if(
-e.target.closest("#sparePartForm") ||
-e.target.closest("#machineForm") ||
-e.target.closest("#estimateForm") ||
-e.target.closest("#deliveryForm") ||
-e.target.closest("#settingsForm")
-){
-formDirty=true;
-}
+  if(
+    e.target.closest("#spareForm") ||
+    e.target.closest("#machineForm") ||
+    e.target.closest("#estimateForm") ||
+    e.target.closest("#deliveryForm") ||
+    e.target.closest("#settingsForm")
+  ){
+    formDirty=true;
+  }
 });
 
+/* ================= NAVIGATION ================= */
+
 function openSection(id,btn){
-clickSound();
+  clickSound();
 
-document.querySelectorAll(".section").forEach(x=>x.classList.remove("active"));
-document.querySelectorAll(".menu-btn").forEach(x=>x.classList.remove("active"));
+  document.querySelectorAll(".section").forEach(x=>x.classList.remove("active"));
+  document.querySelectorAll(".menu-btn").forEach(x=>x.classList.remove("active"));
 
-const section=document.getElementById(id);
-if(section)section.classList.add("active");
-if(btn)btn.classList.add("active");
+  const section=document.getElementById(id);
+  if(section)section.classList.add("active");
+  if(btn)btn.classList.add("active");
 
-document.getElementById("pageTitle").textContent=titles[id]||"TORVO B2B Admin";
-window.scrollTo(0,0);
+  document.getElementById("pageTitle").textContent=titles[id]||"TORVO B2B Admin";
+  window.scrollTo(0,0);
 }
 
 function goQuick(id,panelId){
-clickSound();
+  clickSound();
 
-document.querySelectorAll(".section").forEach(x=>x.classList.remove("active"));
-document.querySelectorAll(".menu-btn").forEach(x=>x.classList.remove("active"));
+  document.querySelectorAll(".section").forEach(x=>x.classList.remove("active"));
+  document.querySelectorAll(".menu-btn").forEach(x=>x.classList.remove("active"));
 
-const section=document.getElementById(id);
-if(section)section.classList.add("active");
+  const section=document.getElementById(id);
+  if(section)section.classList.add("active");
 
-document.getElementById("pageTitle").textContent=titles[id]||"TORVO B2B Admin";
+  document.getElementById("pageTitle").textContent=titles[id]||"TORVO B2B Admin";
+  window.scrollTo(0,0);
 
-window.scrollTo(0,0);
-
-if(panelId){
-setTimeout(function(){
-const panel=document.getElementById(panelId);
-if(panel)panel.scrollIntoView({behavior:"smooth",block:"start"});
-},100);
-}
+  if(panelId){
+    setTimeout(function(){
+      const panel=document.getElementById(panelId);
+      if(panel)panel.scrollIntoView({behavior:"smooth",block:"start"});
+    },100);
+  }
 }
 
 function goHome(){
-clickSound();
+  alertSound();
 
-if(formDirty){
-const leave=confirm(
-"Some entry is not finalized. Close the unfinished entry and return to Home?"
-);
+  if(formDirty){
+    const ok=confirm(
+      "An entry is not finalized. Close the unfinished entry and return Home?"
+    );
 
-if(!leave)return;
+    if(!ok)return;
+  }
+
+  clearTemporaryForms();
+
+  document.querySelectorAll(".section").forEach(x=>x.classList.remove("active"));
+  document.getElementById("dashboard").classList.add("active");
+
+  document.querySelectorAll(".menu-btn").forEach(x=>x.classList.remove("active"));
+
+  const first=document.querySelector(".menu-btn");
+  if(first)first.classList.add("active");
+
+  document.getElementById("pageTitle").textContent="TORVO Dashboard";
+  document.getElementById("searchResult").style.display="none";
+
+  window.scrollTo(0,0);
+  showToast("Home opened. Unfinished entry cleared.","info");
 }
 
-resetTemporaryForms();
+function clearTemporaryForms(){
+  ["spareForm","machineForm","estimateForm","deliveryForm"].forEach(id=>{
+    const f=document.getElementById(id);
+    if(f)f.reset();
+  });
 
-document.querySelectorAll(".section").forEach(x=>x.classList.remove("active"));
-document.getElementById("dashboard").classList.add("active");
-
-document.querySelectorAll(".menu-btn").forEach(x=>x.classList.remove("active"));
-const first=document.querySelector(".menu-btn");
-if(first)first.classList.add("active");
-
-document.getElementById("pageTitle").textContent="TORVO Dashboard";
-document.getElementById("searchResult").style.display="none";
-
-window.scrollTo(0,0);
-showToast("Home opened. Temporary entry closed.","info");
+  selectedMachineMappings=[];
+  renderMachineMappingChips();
+  setAutomaticDates();
+  formDirty=false;
 }
 
-function resetTemporaryForms(){
-["sparePartForm","machineForm","estimateForm","deliveryForm"].forEach(function(id){
-const form=document.getElementById(id);
-if(form)form.reset();
-});
+/* ================= NEGATIVE BLOCK ================= */
 
-suitableMappings=[];
-updateMappingDisplay();
-formDirty=false;
+function noNegative(input){
+  if(Number(input.value)<0){
+    input.value=0;
+    errorSound();
+    showToast("Negative value is not allowed.","error");
+  }
 }
 
-function preventNegative(input){
-if(Number(input.value)<0){
-input.value=0;
-errorSound();
-showToast("Negative value is not allowed.","error");
-}
-}
+/* ================= SEARCH / MIC ================= */
 
 function runSearch(){
-clickSound();
+  clickSound();
 
-const q=document.getElementById("globalSearch").value.trim();
-const box=document.getElementById("searchResult");
+  const q=document.getElementById("globalSearch").value.trim();
+  const box=document.getElementById("searchResult");
 
-box.style.display="block";
+  box.style.display="block";
 
-if(!q){
-errorSound();
-box.textContent="Enter or speak an Item, Machine, Model, Dealer or Order Number.";
-return;
-}
+  if(!q){
+    errorSound();
+    box.textContent="Enter or speak Spare Part, Item No., Machine, Model, Dealer or Order.";
+    return;
+  }
 
-const text=normalize(q);
-const spareParts=getSpareParts();
-const machines=getMachines();
+  const term=normalize(q);
 
-const matchedSpare=spareParts.filter(function(p){
-return [
-p.itemNumber,
-p.itemName,
-p.brand,
-p.category
-].some(v=>normalize(v||"").includes(text));
-});
+  const spares=getSpares().filter(p=>
+    [p.itemNo,p.name,p.brand,p.category]
+    .some(v=>normalize(v).includes(term))
+  );
 
-const matchedMachine=machines.filter(function(m){
-return [
-m.machineId,
-m.brand,
-m.type,
-m.model,
-m.description
-].some(v=>normalize(v||"").includes(text));
-});
+  const machines=getMachines().filter(m=>
+    [m.id,m.brand,m.type,m.model,m.description]
+    .some(v=>normalize(v).includes(term))
+  );
 
-successSound();
+  successSound();
 
-box.innerHTML=
-"<strong>Spare Parts:</strong> "+matchedSpare.length+
-" &nbsp; | &nbsp; <strong>Machines:</strong> "+matchedMachine.length+
-" &nbsp; | &nbsp; Dealer/Order search will connect with database later.";
+  box.innerHTML=
+    "<strong>Spare Parts:</strong> "+spares.length+
+    " &nbsp; | &nbsp; <strong>Machines:</strong> "+machines.length+
+    " &nbsp; | &nbsp; Dealer / Order search will connect with Supabase.";
 }
 
 function startVoiceSearch(){
-clickSound();
+  clickSound();
 
-const SpeechRecognition=
-window.SpeechRecognition ||
-window.webkitSpeechRecognition;
+  const SR=window.SpeechRecognition||window.webkitSpeechRecognition;
 
-if(!SpeechRecognition){
-errorSound();
-showToast("Voice search is not supported in this browser.","error");
-return;
+  if(!SR){
+    errorSound();
+    showToast("Voice search is not supported in this browser.","error");
+    return;
+  }
+
+  const recognition=new SR();
+
+  recognition.lang="en-IN";
+  recognition.interimResults=false;
+  recognition.maxAlternatives=1;
+
+  showToast("Listening...","info");
+
+  recognition.onresult=function(event){
+    document.getElementById("globalSearch").value=
+      event.results[0][0].transcript;
+
+    runSearch();
+  };
+
+  recognition.onerror=function(){
+    errorSound();
+    showToast("Voice could not be recognized.","error");
+  };
+
+  recognition.start();
 }
 
-const recognition=new SpeechRecognition();
-recognition.lang="en-IN";
-recognition.interimResults=false;
-recognition.maxAlternatives=1;
+/* ================= MASTER DATA ================= */
 
-showToast("Listening...","info");
-
-recognition.onresult=function(event){
-const text=event.results[0][0].transcript;
-document.getElementById("globalSearch").value=text;
-runSearch();
+const defaults={
+  itemNumbers:[],
+  spareNames:[
+    "Armature",
+    "Field / Stator",
+    "Gear",
+    "Switch",
+    "Carbon Brush",
+    "Bearing"
+  ],
+  brands:[
+    "Bosch",
+    "Makita",
+    "DeWalt"
+  ],
+  categories:[
+    "Armature",
+    "Field / Stator",
+    "Gear",
+    "Switch",
+    "Carbon Brush",
+    "Bearing"
+  ],
+  machineTypes:[
+    "Angle Grinder",
+    "Marble Cutter",
+    "Drill Machine",
+    "Rotary Hammer",
+    "Demolition Hammer",
+    "Cut Off Machine"
+  ]
 };
 
-recognition.onerror=function(){
-errorSound();
-showToast("Voice could not be recognized.","error");
-};
-
-recognition.start();
+function normalize(v){
+  return String(v||"")
+    .trim()
+    .replace(/\s+/g," ")
+    .toLowerCase();
 }
-
-/* MASTER DATA */
-
-const defaultMasters={
-brands:["Bosch","Makita","DeWalt"],
-categories:["Armature","Field / Stator","Gear","Switch","Carbon Brush","Bearing"],
-machineTypes:["Angle Grinder","Marble Cutter","Drill Machine","Demolition Hammer","Rotary Hammer","Cut Off Machine"]
-};
 
 function getMaster(key){
-try{
-const saved=localStorage.getItem("torvo_master_"+key);
-if(saved)return JSON.parse(saved);
-}catch(e){}
-return defaultMasters[key]||[];
+  try{
+    const x=localStorage.getItem("torvo_master_"+key);
+    if(x)return JSON.parse(x);
+  }catch(e){}
+
+  return [...(defaults[key]||[])];
 }
 
 function saveMaster(key,list){
-localStorage.setItem("torvo_master_"+key,JSON.stringify(list));
+  localStorage.setItem("torvo_master_"+key,JSON.stringify(list));
 }
 
-function normalize(value){
-return String(value||"")
-.trim()
-.replace(/\s+/g," ")
-.toLowerCase();
+function addMasterValue(key,label,selectId){
+  clickSound();
+
+  const raw=prompt("Enter new "+label+":");
+  if(!raw)return;
+
+  const value=raw.trim().replace(/\s+/g," ");
+  if(!value)return;
+
+  const list=getMaster(key);
+
+  if(list.some(x=>normalize(x)===normalize(value))){
+    errorSound();
+    showToast(label+" already exists: "+value,"error");
+    setSelect(selectId,value);
+    return;
+  }
+
+  list.push(value);
+  list.sort((a,b)=>a.localeCompare(b));
+
+  saveMaster(key,list);
+  loadDropdowns();
+  setSelect(selectId,value);
+
+  successSound();
+  showToast(value+" added.","success");
+  formDirty=true;
 }
 
-function addMaster(type,targetSelect){
-clickSound();
+function editMasterValue(key,label,selectId){
+  alertSound();
 
-const map={
-brand:{key:"brands",label:"Brand"},
-category:{key:"categories",label:"Category"},
-machineType:{key:"machineTypes",label:"Machine Type"}
-};
+  const select=document.getElementById(selectId);
+  const oldValue=select.value;
 
-const conf=map[type];
-if(!conf)return;
+  if(!oldValue){
+    errorSound();
+    showToast("Select "+label+" first.","error");
+    return;
+  }
 
-const value=prompt("Enter new "+conf.label+":");
-if(!value)return;
+  const usage=getMasterUsage(key,oldValue);
 
-const clean=value.trim().replace(/\s+/g," ");
-const list=getMaster(conf.key);
+  if(usage>0){
+    errorSound();
 
-const exists=list.some(x=>normalize(x)===normalize(clean));
+    showToast(
+      label+" is used in "+usage+
+      " record(s). Change linked records first.",
+      "error"
+    );
 
-if(exists){
-errorSound();
-showToast(conf.label+" already exists: "+clean,"error");
-setSelectValue(targetSelect,clean);
-return;
+    return;
+  }
+
+  const raw=prompt("Edit "+label+":",oldValue);
+  if(!raw)return;
+
+  const newValue=raw.trim().replace(/\s+/g," ");
+  if(!newValue)return;
+
+  const list=getMaster(key);
+
+  if(
+    normalize(newValue)!==normalize(oldValue) &&
+    list.some(x=>normalize(x)===normalize(newValue))
+  ){
+    errorSound();
+    showToast("This "+label+" already exists.","error");
+    return;
+  }
+
+  const index=list.findIndex(x=>normalize(x)===normalize(oldValue));
+
+  if(index>=0){
+    list[index]=newValue;
+    saveMaster(key,list);
+    loadDropdowns();
+    setSelect(selectId,newValue);
+
+    successSound();
+    showToast(label+" updated.","success");
+  }
 }
 
-list.push(clean);
-list.sort((a,b)=>a.localeCompare(b));
-saveMaster(conf.key,list);
+function getMasterUsage(key,value){
+  const spares=getSpares();
+  const machines=getMachines();
 
-loadAllDropdowns();
-setSelectValue(targetSelect,clean);
+  if(key==="itemNumbers"){
+    return spares.filter(x=>normalize(x.itemNo)===normalize(value)).length;
+  }
 
-successSound();
-showToast(clean+" added successfully.","success");
-formDirty=true;
+  if(key==="spareNames"){
+    return spares.filter(x=>normalize(x.name)===normalize(value)).length;
+  }
+
+  if(key==="brands"){
+    return (
+      spares.filter(x=>normalize(x.brand)===normalize(value)).length+
+      machines.filter(x=>normalize(x.brand)===normalize(value)).length
+    );
+  }
+
+  if(key==="categories"){
+    return spares.filter(x=>normalize(x.category)===normalize(value)).length;
+  }
+
+  if(key==="machineTypes"){
+    return machines.filter(x=>normalize(x.type)===normalize(value)).length;
+  }
+
+  return 0;
 }
 
 function fillSelect(id,list,placeholder){
-const select=document.getElementById(id);
-if(!select)return;
+  const s=document.getElementById(id);
+  if(!s)return;
 
-const old=select.value;
+  const old=s.value;
 
-select.innerHTML='<option value="">'+placeholder+'</option>';
+  s.innerHTML='<option value="">'+placeholder+'</option>';
 
-list.forEach(function(value){
-const opt=document.createElement("option");
-opt.value=value;
-opt.textContent=value;
-select.appendChild(opt);
-});
+  list.forEach(v=>{
+    const o=document.createElement("option");
+    o.value=v;
+    o.textContent=v;
+    s.appendChild(o);
+  });
 
-if([...select.options].some(x=>x.value===old)){
-select.value=old;
-}
-}
-
-function setSelectValue(id,value){
-const select=document.getElementById(id);
-if(!select)return;
-
-[...select.options].forEach(function(opt){
-if(normalize(opt.value)===normalize(value)){
-select.value=opt.value;
-}
-});
+  if([...s.options].some(o=>o.value===old)){
+    s.value=old;
+  }
 }
 
-function loadAllDropdowns(){
-const brands=getMaster("brands");
-const categories=getMaster("categories");
-const machineTypes=getMaster("machineTypes");
+function setSelect(id,value){
+  const s=document.getElementById(id);
+  if(!s)return;
 
-fillSelect("spareBrand",brands,"Select Brand");
-fillSelect("machineBrand",brands,"Select Brand");
-fillSelect("spareFilterBrand",brands,"All Brands");
-fillSelect("machineFilterBrand",brands,"All Brands");
-
-fillSelect("spareCategory",categories,"Select Category");
-fillSelect("spareFilterCategory",categories,"All Categories");
-
-fillSelect("machineType",machineTypes,"Select Machine Type");
-fillSelect("machineFilterType",machineTypes,"All Machine Types");
-fillSelect("suitableMachineTypeFilter",machineTypes,"All Machine Types");
-
-refreshMachineDropdowns();
+  [...s.options].forEach(o=>{
+    if(normalize(o.value)===normalize(value)){
+      s.value=o.value;
+    }
+  });
 }
 
-/* MACHINES */
+function loadDropdowns(){
+  const itemNumbers=getMaster("itemNumbers");
+  const spareNames=getMaster("spareNames");
+  const brands=getMaster("brands");
+  const categories=getMaster("categories");
+  const machineTypes=getMaster("machineTypes");
+
+  fillSelect("itemNumberMaster",itemNumbers,"Select / Create Item No.");
+  fillSelect("spareNameMaster",spareNames,"Select Spare Part");
+  fillSelect("spareBrand",brands,"Select Brand");
+  fillSelect("spareCategory",categories,"Select Category");
+
+  fillSelect("machineBrand",brands,"Select Brand");
+  fillSelect("machineType",machineTypes,"Select Machine Type");
+
+  fillSelect("filterSpareBrand",brands,"All Brands");
+  fillSelect("filterSpareCategory",categories,"All Categories");
+
+  fillSelect("filterMachineBrand",brands,"All Brands");
+  fillSelect("filterMachineType",machineTypes,"All Machine Types");
+
+  refreshMachineDropdowns();
+}
+
+/* ================= MACHINES ================= */
 
 function getMachines(){
-try{
-return JSON.parse(localStorage.getItem("torvo_demo_machines"))||[];
-}catch(e){
-return [];
-}
+  try{
+    return JSON.parse(localStorage.getItem("torvo_machines"))||[];
+  }catch(e){
+    return [];
+  }
 }
 
 function saveMachines(list){
-localStorage.setItem("torvo_demo_machines",JSON.stringify(list));
+  localStorage.setItem("torvo_machines",JSON.stringify(list));
 }
 
-function generateMachineId(){
-return "MCH-"+String(Date.now()).slice(-6);
+function machineId(){
+  return "MCH-"+String(Date.now()).slice(-7);
 }
 
 function saveMachine(event){
-event.preventDefault();
-clickSound();
+  event.preventDefault();
+  clickSound();
 
-const brand=document.getElementById("machineBrand").value;
-const type=document.getElementById("machineType").value;
-const model=document.getElementById("machineModel").value.trim();
+  const brand=document.getElementById("machineBrand").value;
+  const type=document.getElementById("machineType").value;
+  const model=document.getElementById("machineModel").value.trim();
 
-if(!brand || !type || !model){
-errorSound();
-showToast("Brand, Machine Type and Model Number are required.","error");
-return false;
+  if(!brand||!type||!model){
+    errorSound();
+    showToast("Brand, Machine Type and Model Number are required.","error");
+    return false;
+  }
+
+  const machines=getMachines();
+
+  const duplicate=machines.some(m=>
+    normalize(m.brand)===normalize(brand) &&
+    normalize(m.type)===normalize(type) &&
+    normalize(m.model)===normalize(model)
+  );
+
+  if(duplicate){
+    errorSound();
+    showToast("This Machine Brand + Type + Model already exists.","error");
+    return false;
+  }
+
+  const record={
+    id:machineId(),
+    brand,
+    type,
+    model,
+    description:document.getElementById("machineDescription").value.trim(),
+    status:document.getElementById("machineStatus").value
+  };
+
+  machines.push(record);
+  saveMachines(machines);
+
+  document.getElementById("machineId").value=record.id;
+
+  renderMachines();
+  refreshMachineDropdowns();
+  updateDashboard();
+
+  formDirty=false;
+  successSound();
+  showToast("Machine saved successfully.","success");
+
+  return true;
 }
 
-const machines=getMachines();
+function saveMachineNext(){
+  if(!document.getElementById("machineForm").reportValidity()){
+    errorSound();
+    return;
+  }
 
-const duplicate=machines.some(function(m){
-return normalize(m.brand)===normalize(brand) &&
-normalize(m.model)===normalize(model);
-});
+  const fake={preventDefault(){}};
 
-if(duplicate){
-errorSound();
-showToast("This Brand + Model Number already exists.","error");
-return false;
+  if(saveMachine(fake)){
+    clearMachineForm();
+    document.getElementById("machineModel").focus();
+  }
 }
 
-const machine={
-machineId:generateMachineId(),
-brand,
-type,
-model,
-description:document.getElementById("machineDescription").value.trim(),
-status:document.getElementById("machineStatus").value
-};
-
-machines.push(machine);
-saveMachines(machines);
-
-renderMachines();
-refreshMachineDropdowns();
-updateDashboardCounts();
-
-document.getElementById("machineId").value=machine.machineId;
-
-formDirty=false;
-successSound();
-showToast("Machine saved successfully.","success");
-
-return true;
+function clearMachineForm(){
+  document.getElementById("machineForm").reset();
+  document.getElementById("machineId").value="";
+  formDirty=false;
+  clickSound();
 }
 
-function saveMachineAndNext(){
-const form=document.getElementById("machineForm");
-
-if(!form.reportValidity()){
-errorSound();
-return;
+function machineUsage(machineIdValue){
+  return getSpares().filter(
+    p=>Array.isArray(p.machines)&&p.machines.includes(machineIdValue)
+  ).length;
 }
 
-const fake={preventDefault:function(){}};
+function deleteMachine(id){
+  alertSound();
 
-if(saveMachine(fake)){
-resetMachineForm();
-document.getElementById("machineModel").focus();
-}
-}
+  const usage=machineUsage(id);
 
-function resetMachineForm(){
-document.getElementById("machineForm").reset();
-document.getElementById("machineId").value="";
-formDirty=false;
-clickSound();
-showToast("Machine form cleared.","info");
+  if(usage>0){
+    errorSound();
+
+    showToast(
+      "This Machine is used in "+usage+
+      " Spare Part(s). Remove those mappings first.",
+      "error"
+    );
+
+    return;
+  }
+
+  if(!confirm("Delete this Machine?")){
+    return;
+  }
+
+  const list=getMachines().filter(x=>x.id!==id);
+  saveMachines(list);
+
+  renderMachines();
+  refreshMachineDropdowns();
+  updateDashboard();
+
+  successSound();
+  showToast("Machine deleted.","success");
 }
 
 function renderMachines(){
-const body=document.getElementById("machineTableBody");
-let machines=getMachines();
+  const body=document.getElementById("machineTableBody");
+  let list=getMachines();
 
-const brand=document.getElementById("machineFilterBrand").value;
-const type=document.getElementById("machineFilterType").value;
+  const brand=document.getElementById("filterMachineBrand").value;
+  const type=document.getElementById("filterMachineType").value;
 
-if(brand)machines=machines.filter(m=>m.brand===brand);
-if(type)machines=machines.filter(m=>m.type===type);
+  if(brand)list=list.filter(x=>x.brand===brand);
+  if(type)list=list.filter(x=>x.type===type);
 
-if(machines.length===0){
-body.innerHTML='<tr><td colspan="7" style="text-align:center;color:#6b7280">No machines added yet.</td></tr>';
-return;
-}
+  if(!list.length){
+    body.innerHTML=
+      '<tr><td colspan="8" style="text-align:center;color:#6b7280">No Machines added yet.</td></tr>';
+    return;
+  }
 
-body.innerHTML="";
+  body.innerHTML="";
 
-machines.forEach(function(m){
-const tr=document.createElement("tr");
+  list.forEach(m=>{
+    const tr=document.createElement("tr");
 
-tr.innerHTML=
-"<td>"+safeText(m.machineId)+"</td>"+
-"<td>"+safeText(m.brand)+"</td>"+
-"<td>"+safeText(m.type)+"</td>"+
-"<td>"+safeText(m.model)+"</td>"+
-"<td>"+safeText(m.description||"—")+"</td>"+
-"<td>"+safeText(m.status)+"</td>"+
-"<td>—</td>";
+    tr.innerHTML=
+      "<td>"+safe(m.id)+"</td>"+
+      "<td>"+safe(m.brand)+"</td>"+
+      "<td>"+safe(m.type)+"</td>"+
+      "<td>"+safe(m.model)+"</td>"+
+      "<td>"+safe(m.description||"—")+"</td>"+
+      "<td>"+machineUsage(m.id)+"</td>"+
+      "<td>"+safe(m.status)+"</td>"+
+      '<td><button class="btn btn-danger" onclick="deleteMachine(\''+
+      safe(m.id)+
+      '\')">Delete</button></td>';
 
-body.appendChild(tr);
-});
+    body.appendChild(tr);
+  });
 }
 
 function clearMachineFilters(){
-document.getElementById("machineFilterBrand").value="";
-document.getElementById("machineFilterType").value="";
-renderMachines();
+  document.getElementById("filterMachineBrand").value="";
+  document.getElementById("filterMachineType").value="";
+  renderMachines();
 }
 
 function refreshMachineDropdowns(){
-const machines=getMachines();
+  const machines=getMachines();
 
-const options=machines.map(function(m){
-return {
-value:m.machineId,
-label:m.brand+" | "+m.type+" | "+m.model
-};
-});
+  ["machineMappingSelect","suitableSearchMachine"].forEach(id=>{
+    const s=document.getElementById(id);
+    if(!s)return;
 
-["suitableMachineSelect","mappingMachineSelect","suitableSearchMachine"].forEach(function(id){
-const select=document.getElementById(id);
-if(!select)return;
+    const old=s.value;
 
-const old=select.value;
-select.innerHTML='<option value="">Select Existing Machine</option>';
+    s.innerHTML='<option value="">Select Machine</option>';
 
-options.forEach(function(o){
-const opt=document.createElement("option");
-opt.value=o.value;
-opt.textContent=o.label;
-select.appendChild(opt);
-});
+    machines.forEach(m=>{
+      const o=document.createElement("option");
+      o.value=m.id;
+      o.textContent=m.brand+" | "+m.type+" | "+m.model;
+      s.appendChild(o);
+    });
 
-if([...select.options].some(x=>x.value===old))select.value=old;
-});
+    if([...s.options].some(o=>o.value===old)){
+      s.value=old;
+    }
+  });
+
+  const count=document.getElementById("suitableMachineCount");
+  if(count)count.value=machines.length;
 }
 
-function quickCreateMachine(){
-goQuick("machines","machineFormPanel");
-showToast("Create the machine first, then return to Spare Part Entry.","info");
+/* ================= MULTIPLE MACHINE MAPPING ================= */
+
+function addMachineMapping(){
+  clickSound();
+
+  const id=document.getElementById("machineMappingSelect").value;
+
+  if(!id){
+    errorSound();
+    showToast("Select a Machine first.","error");
+    return;
+  }
+
+  if(selectedMachineMappings.includes(id)){
+    errorSound();
+    showToast("This Machine is already selected.","error");
+    return;
+  }
+
+  selectedMachineMappings.push(id);
+  renderMachineMappingChips();
+
+  successSound();
+  formDirty=true;
 }
 
-/* SPARE PARTS */
+function removeMachineMapping(id){
+  clickSound();
 
-function getSpareParts(){
-try{
-return JSON.parse(localStorage.getItem("torvo_demo_spares"))||[];
-}catch(e){
-return [];
-}
+  selectedMachineMappings=
+    selectedMachineMappings.filter(x=>x!==id);
+
+  renderMachineMappingChips();
+  formDirty=true;
 }
 
-function saveSpareParts(list){
-localStorage.setItem("torvo_demo_spares",JSON.stringify(list));
+function renderMachineMappingChips(){
+  const box=document.getElementById("machineMappingList");
+  if(!box)return;
+
+  box.innerHTML="";
+
+  const machines=getMachines();
+
+  selectedMachineMappings.forEach(id=>{
+    const m=machines.find(x=>x.id===id);
+    if(!m)return;
+
+    const chip=document.createElement("div");
+    chip.className="mapping-chip";
+
+    chip.innerHTML=
+      safe(m.brand+" | "+m.type+" | "+m.model)+
+      ' <button type="button" onclick="removeMachineMapping(\''+
+      safe(id)+
+      '\')">×</button>';
+
+    box.appendChild(chip);
+  });
+
+  if(!selectedMachineMappings.length){
+    box.innerHTML='<span class="note">No Machine selected yet.</span>';
+  }
+}
+
+/* ================= SPARE PARTS ================= */
+
+function getSpares(){
+  try{
+    return JSON.parse(localStorage.getItem("torvo_spares"))||[];
+  }catch(e){
+    return [];
+  }
+}
+
+function saveSpares(list){
+  localStorage.setItem("torvo_spares",JSON.stringify(list));
 }
 
 function getPurchaseHistory(){
-try{
-return JSON.parse(localStorage.getItem("torvo_purchase_history"))||[];
-}catch(e){
-return [];
-}
+  try{
+    return JSON.parse(localStorage.getItem("torvo_purchase_history"))||[];
+  }catch(e){
+    return [];
+  }
 }
 
 function savePurchaseHistory(list){
-localStorage.setItem("torvo_purchase_history",JSON.stringify(list));
+  localStorage.setItem("torvo_purchase_history",JSON.stringify(list));
 }
 
-function saveSparePart(event){
-event.preventDefault();
-clickSound();
+function saveSpare(event){
+  event.preventDefault();
+  clickSound();
 
-const itemNumber=document.getElementById("spareItemNumber").value.trim();
-const itemName=document.getElementById("spareItemName").value.trim();
-const brand=document.getElementById("spareBrand").value;
-const category=document.getElementById("spareCategory").value;
+  const itemNo=document.getElementById("itemNumberMaster").value;
+  const name=document.getElementById("spareNameMaster").value;
+  const brand=document.getElementById("spareBrand").value;
+  const category=document.getElementById("spareCategory").value;
 
-if(!itemNumber || !itemName || !brand || !category){
-errorSound();
-showToast("Item Number, Spare Part Name, Brand and Category are required.","error");
-return false;
+  if(!itemNo||!name||!brand||!category){
+    errorSound();
+    showToast("Item No., Spare Part, Brand and Category are required.","error");
+    return false;
+  }
+
+  const numericIds=[
+    "piecesPerBox",
+    "rateA",
+    "rateB",
+    "rateC",
+    "purchaseRate",
+    "currentStock",
+    "reorderLevel"
+  ];
+
+  for(const id of numericIds){
+    if(Number(document.getElementById(id).value||0)<0){
+      errorSound();
+      showToast("Negative values are not allowed.","error");
+      return false;
+    }
+  }
+
+  const spares=getSpares();
+
+  if(
+    spares.some(x=>normalize(x.itemNo)===normalize(itemNo))
+  ){
+    errorSound();
+    showToast("This Item Number is already used. Duplicate item blocked.","error");
+    return false;
+  }
+
+  const purchaseRate=Number(document.getElementById("purchaseRate").value||0);
+  const purchaseDate=document.getElementById("purchaseDate").value;
+
+  const record={
+    itemNo,
+    name,
+    brand,
+    category,
+    piecesPerBox:Number(document.getElementById("piecesPerBox").value||0),
+    rateA:Number(document.getElementById("rateA").value||0),
+    rateB:Number(document.getElementById("rateB").value||0),
+    rateC:Number(document.getElementById("rateC").value||0),
+    purchaseRate,
+    purchaseDate,
+    stock:Number(document.getElementById("currentStock").value||0),
+    reorder:Number(document.getElementById("reorderLevel").value||0),
+    status:document.getElementById("spareStatus").value,
+    visibility:document.getElementById("dealerVisibility").value,
+    machines:[...selectedMachineMappings],
+    salesQty:0
+  };
+
+  spares.push(record);
+  saveSpares(spares);
+
+  if(purchaseRate>0){
+    const history=getPurchaseHistory();
+
+    history.push({
+      date:purchaseDate,
+      brand,
+      itemNo,
+      name,
+      rate:purchaseRate
+    });
+
+    savePurchaseHistory(history);
+  }
+
+  renderSpares();
+  renderPurchaseHistory();
+  updateDashboard();
+
+  formDirty=false;
+  successSound();
+  showToast("Spare Part saved successfully.","success");
+
+  return true;
 }
 
-const numericIds=[
-"piecesPerBox",
-"rateA",
-"rateB",
-"rateC",
-"purchaseRate",
-"currentStock"
-];
+function saveSpareNext(){
+  if(!document.getElementById("spareForm").reportValidity()){
+    errorSound();
+    return;
+  }
 
-for(const id of numericIds){
-const value=Number(document.getElementById(id).value||0);
+  const fake={preventDefault(){}};
 
-if(value<0){
-errorSound();
-showToast("Negative values are not allowed.","error");
-return false;
-}
+  if(saveSpare(fake)){
+    clearSpareForm();
+  }
 }
 
-const spares=getSpareParts();
+function deleteSpare(itemNo){
+  alertSound();
 
-const duplicate=spares.some(p=>normalize(p.itemNumber)===normalize(itemNumber));
+  if(!confirm(
+    "Delete this Spare Part? Final database version will also check Orders/Estimates before deletion."
+  )){
+    return;
+  }
 
-if(duplicate){
-errorSound();
-showToast("This Item Number already exists.","error");
-return false;
+  const list=getSpares().filter(
+    x=>normalize(x.itemNo)!==normalize(itemNo)
+  );
+
+  saveSpares(list);
+
+  renderSpares();
+  updateDashboard();
+
+  successSound();
+  showToast("Spare Part deleted.","success");
 }
 
-const purchaseRate=Number(document.getElementById("purchaseRate").value||0);
-const purchaseDate=document.getElementById("purchaseDate").value;
+function clearSpareForm(){
+  document.getElementById("spareForm").reset();
 
-const spare={
-itemNumber,
-itemName,
-brand,
-category,
-piecesPerBox:Number(document.getElementById("piecesPerBox").value||0),
-rateA:Number(document.getElementById("rateA").value||0),
-rateB:Number(document.getElementById("rateB").value||0),
-rateC:Number(document.getElementById("rateC").value||0),
-purchaseRate,
-purchaseDate,
-stock:Number(document.getElementById("currentStock").value||0),
-status:document.getElementById("spareStatus").value,
-visibility:document.getElementById("dealerVisibility").value,
-suitableMachines:[...suitableMappings]
-};
+  [
+    "piecesPerBox",
+    "rateA",
+    "rateB",
+    "rateC",
+    "purchaseRate",
+    "currentStock",
+    "reorderLevel"
+  ].forEach(id=>{
+    const e=document.getElementById(id);
+    if(e)e.value=0;
+  });
 
-spares.push(spare);
-saveSpareParts(spares);
+  selectedMachineMappings=[];
+  renderMachineMappingChips();
+  setAutomaticDates();
 
-if(purchaseRate>0){
-const history=getPurchaseHistory();
-
-history.push({
-date:purchaseDate || new Date().toISOString().slice(0,10),
-itemNumber,
-itemName,
-rate:purchaseRate
-});
-
-savePurchaseHistory(history);
+  formDirty=false;
+  clickSound();
 }
 
-renderSpareParts();
-renderPurchaseHistory();
-updateDashboardCounts();
+function machineLabels(ids){
+  const machines=getMachines();
 
-formDirty=false;
-successSound();
-showToast("Spare Part saved successfully.","success");
-
-return true;
+  return (ids||[])
+    .map(id=>{
+      const m=machines.find(x=>x.id===id);
+      return m ? m.brand+" "+m.model : id;
+    })
+    .join(", ");
 }
 
-function saveSpareAndNext(){
-const form=document.getElementById("sparePartForm");
+function renderSpares(){
+  const body=document.getElementById("spareTableBody");
+  let list=getSpares();
 
-if(!form.reportValidity()){
-errorSound();
-return;
-}
+  const brand=document.getElementById("filterSpareBrand").value;
+  const category=document.getElementById("filterSpareCategory").value;
+  const status=document.getElementById("filterSpareStatus").value;
 
-const fake={preventDefault:function(){}};
+  if(brand)list=list.filter(x=>x.brand===brand);
+  if(category)list=list.filter(x=>x.category===category);
+  if(status)list=list.filter(x=>x.status===status);
 
-if(saveSparePart(fake)){
-resetSpareForm();
-document.getElementById("spareItemNumber").focus();
-}
-}
+  if(!list.length){
+    body.innerHTML=
+      '<tr><td colspan="13" style="text-align:center;color:#6b7280">No Spare Parts added yet.</td></tr>';
+    return;
+  }
 
-function resetSpareForm(){
-document.getElementById("sparePartForm").reset();
+  body.innerHTML="";
 
-[
-"piecesPerBox",
-"rateA",
-"rateB",
-"rateC",
-"purchaseRate",
-"currentStock"
-].forEach(id=>{
-const el=document.getElementById(id);
-if(el)el.value=0;
-});
+  list.forEach(p=>{
+    const tr=document.createElement("tr");
 
-suitableMappings=[];
-updateMappingDisplay();
+    tr.innerHTML=
+      "<td>"+safe(p.itemNo)+"</td>"+
+      "<td>"+safe(p.name)+"</td>"+
+      "<td>"+safe(p.brand)+"</td>"+
+      "<td>"+safe(p.category)+"</td>"+
+      "<td>"+safe(p.rateA)+"</td>"+
+      "<td>"+safe(p.rateB)+"</td>"+
+      "<td>"+safe(p.rateC)+"</td>"+
+      "<td>"+safe(p.purchaseRate)+"</td>"+
+      "<td>"+safe(p.stock)+"</td>"+
+      "<td>"+safe(p.reorder)+"</td>"+
+      "<td>"+safe(machineLabels(p.machines))+"</td>"+
+      "<td>"+safe(p.status)+"</td>"+
+      '<td><button class="btn btn-danger" onclick="deleteSpare(\''+
+      safe(p.itemNo)+
+      '\')">Delete</button></td>';
 
-formDirty=false;
-clickSound();
-showToast("Spare Part form cleared.","info");
-}
-
-function renderSpareParts(){
-const body=document.getElementById("sparePartTableBody");
-let spares=getSpareParts();
-
-const brand=document.getElementById("spareFilterBrand").value;
-const category=document.getElementById("spareFilterCategory").value;
-const status=document.getElementById("spareFilterStatus").value;
-
-if(brand)spares=spares.filter(p=>p.brand===brand);
-if(category)spares=spares.filter(p=>p.category===category);
-if(status)spares=spares.filter(p=>p.status===status);
-
-if(spares.length===0){
-body.innerHTML='<tr><td colspan="11" style="text-align:center;color:#6b7280">No Spare Parts added yet.</td></tr>';
-return;
-}
-
-body.innerHTML="";
-
-spares.forEach(function(p){
-const tr=document.createElement("tr");
-
-tr.innerHTML=
-"<td>"+safeText(p.itemNumber)+"</td>"+
-"<td>"+safeText(p.itemName)+"</td>"+
-"<td>"+safeText(p.brand)+"</td>"+
-"<td>"+safeText(p.category)+"</td>"+
-"<td>"+safeText(p.rateA)+"</td>"+
-"<td>"+safeText(p.rateB)+"</td>"+
-"<td>"+safeText(p.rateC)+"</td>"+
-"<td>"+safeText(p.purchaseRate)+"</td>"+
-"<td>"+safeText(p.stock)+"</td>"+
-"<td>"+safeText(p.status)+"</td>"+
-"<td>—</td>";
-
-body.appendChild(tr);
-});
+    body.appendChild(tr);
+  });
 }
 
 function clearSpareFilters(){
-document.getElementById("spareFilterBrand").value="";
-document.getElementById("spareFilterCategory").value="";
-document.getElementById("spareFilterStatus").value="";
-renderSpareParts();
+  document.getElementById("filterSpareBrand").value="";
+  document.getElementById("filterSpareCategory").value="";
+  document.getElementById("filterSpareStatus").value="";
+  renderSpares();
 }
 
-/* SUITABLE */
-
-function addSuitableMapping(){
-clickSound();
-
-const machineId=document.getElementById("mappingMachineSelect").value;
-
-if(!machineId){
-errorSound();
-showToast("Select a Machine first.","error");
-return;
-}
-
-if(suitableMappings.includes(machineId)){
-errorSound();
-showToast("This Machine is already mapped.","error");
-return;
-}
-
-suitableMappings.push(machineId);
-updateMappingDisplay();
-
-successSound();
-showToast("Suitable Machine added.","success");
-formDirty=true;
-}
-
-function updateMappingDisplay(){
-const box=document.getElementById("mappingDisplay");
-
-if(!box)return;
-
-if(suitableMappings.length===0){
-box.textContent="No suitable machine added yet.";
-return;
-}
-
-const machines=getMachines();
-
-const labels=suitableMappings.map(function(id){
-const m=machines.find(x=>x.machineId===id);
-
-return m
-? m.brand+" | "+m.type+" | "+m.model
-: id;
-});
-
-box.innerHTML="<strong>Mapped:</strong> "+labels.map(safeText).join(" | ");
-}
-
-function showSuitableForMachine(){
-const machineId=document.getElementById("suitableSearchMachine").value;
-const result=document.getElementById("suitableResult");
-
-if(!machineId){
-errorSound();
-result.textContent="Please select a Machine.";
-return;
-}
-
-const machine=getMachines().find(x=>x.machineId===machineId);
-const spares=getSpareParts().filter(p=>
-Array.isArray(p.suitableMachines) &&
-p.suitableMachines.includes(machineId)
-);
-
-result.innerHTML=
-"<strong>"+
-safeText(machine ? machine.brand+" | "+machine.type+" | "+machine.model : machineId)+
-"</strong><br><br>"+
-(
-spares.length
-? spares.map(p=>safeText(p.itemNumber+" — "+p.itemName)).join("<br>")
-: "No Spare Part mapped to this Machine yet."
-);
-
-successSound();
-}
-
-/* PURCHASE HISTORY */
+/* ================= PURCHASE HISTORY ================= */
 
 function renderPurchaseHistory(){
-const body=document.getElementById("purchaseHistoryBody");
-const history=getPurchaseHistory();
+  const body=document.getElementById("purchaseHistoryBody");
+  const history=getPurchaseHistory();
 
-if(history.length===0){
-body.innerHTML='<tr><td colspan="6" style="text-align:center;color:#6b7280">No Purchase Rate History yet.</td></tr>';
-return;
+  if(!history.length){
+    body.innerHTML=
+      '<tr><td colspan="7" style="text-align:center;color:#6b7280">No Purchase Rate History yet.</td></tr>';
+    return;
+  }
+
+  const grouped={};
+
+  history.forEach(h=>{
+    if(!grouped[h.itemNo])grouped[h.itemNo]=[];
+    grouped[h.itemNo].push(h);
+  });
+
+  body.innerHTML="";
+
+  Object.values(grouped).forEach(entries=>{
+    entries.sort((a,b)=>new Date(a.date)-new Date(b.date));
+
+    const current=entries.at(-1);
+    const previous=entries.at(-2);
+    const earlier=entries.at(-3);
+
+    const tr=document.createElement("tr");
+
+    tr.innerHTML=
+      "<td>"+safe(current.date)+"</td>"+
+      "<td>"+safe(current.brand)+"</td>"+
+      "<td>"+safe(current.itemNo)+"</td>"+
+      "<td>"+safe(current.name)+"</td>"+
+      "<td>"+safe(earlier?earlier.rate:"—")+"</td>"+
+      "<td>"+safe(previous?previous.rate:"—")+"</td>"+
+      "<td>"+safe(current.rate)+"</td>";
+
+    body.appendChild(tr);
+  });
 }
 
-const groups={};
+/* ================= STOCK REPORTS ================= */
 
-history.forEach(function(h){
-if(!groups[h.itemNumber])groups[h.itemNumber]=[];
-groups[h.itemNumber].push(h);
-});
+function showReport(type){
+  goQuick("stockReports");
 
-body.innerHTML="";
+  const box=document.getElementById("stockReportBox");
+  const spares=getSpares();
 
-Object.values(groups).forEach(function(entries){
-entries.sort((a,b)=>new Date(a.date)-new Date(b.date));
+  let list=[];
+  let title="";
 
-const last=entries[entries.length-1];
-const previous=entries[entries.length-2];
-const earlier=entries[entries.length-3];
+  if(type==="out"){
+    title="Out of Stock";
+    list=spares.filter(x=>Number(x.stock)<=0);
+  }
 
-const tr=document.createElement("tr");
+  if(type==="low"){
+    title="Low Stock";
+    list=spares.filter(
+      x=>Number(x.stock)>0 &&
+      Number(x.stock)<=Number(x.reorder||0)
+    );
+  }
 
-tr.innerHTML=
-"<td>"+safeText(last.date)+"</td>"+
-"<td>"+safeText(last.itemNumber)+"</td>"+
-"<td>"+safeText(last.itemName)+"</td>"+
-"<td>"+safeText(earlier ? earlier.rate : "—")+"</td>"+
-"<td>"+safeText(previous ? previous.rate : "—")+"</td>"+
-"<td>"+safeText(last.rate)+"</td>";
+  if(type==="fast"){
+    title="Fast Moving Items";
+    list=[...spares]
+      .sort((a,b)=>Number(b.salesQty||0)-Number(a.salesQty||0))
+      .slice(0,30);
+  }
 
-body.appendChild(tr);
-});
+  if(type==="slow"){
+    title="Slow / Non-Moving Items";
+    list=[...spares]
+      .sort((a,b)=>Number(a.salesQty||0)-Number(b.salesQty||0))
+      .slice(0,30);
+  }
+
+  if(!list.length){
+    box.innerHTML=
+      "<strong>"+title+"</strong><br><br>No matching items.";
+    return;
+  }
+
+  let html=
+    "<strong>"+title+"</strong><br><br>"+
+    '<div class="table-wrap"><table>'+
+    "<thead><tr>"+
+    "<th>Brand</th>"+
+    "<th>Item No.</th>"+
+    "<th>Spare Part</th>"+
+    "<th>Machine(s)</th>"+
+    "<th>Purchase Rate</th>"+
+    "<th>Rate A</th>"+
+    "<th>Rate B</th>"+
+    "<th>Rate C</th>"+
+    "<th>Stock</th>"+
+    "<th>Sales Qty</th>"+
+    "</tr></thead><tbody>";
+
+  list.forEach(p=>{
+    html+=
+      "<tr>"+
+      "<td>"+safe(p.brand)+"</td>"+
+      "<td>"+safe(p.itemNo)+"</td>"+
+      "<td>"+safe(p.name)+"</td>"+
+      "<td>"+safe(machineLabels(p.machines))+"</td>"+
+      "<td>"+safe(p.purchaseRate)+"</td>"+
+      "<td>"+safe(p.rateA)+"</td>"+
+      "<td>"+safe(p.rateB)+"</td>"+
+      "<td>"+safe(p.rateC)+"</td>"+
+      "<td>"+safe(p.stock)+"</td>"+
+      "<td>"+safe(p.salesQty||0)+"</td>"+
+      "</tr>";
+  });
+
+  html+="</tbody></table></div>";
+
+  box.innerHTML=html;
+  successSound();
 }
 
-/* COMMON */
+function exportDemoReport(type){
+  clickSound();
 
-function focusPanel(panelId,inputId){
-clickSound();
-
-const panel=document.getElementById(panelId);
-
-if(panel){
-panel.scrollIntoView({
-behavior:"smooth",
-block:"start"
-});
+  if(type==="excel"){
+    showToast(
+      "Excel export will connect after real Supabase data is connected.",
+      "info"
+    );
+  }else{
+    showToast(
+      "PDF export will connect after real Supabase data is connected.",
+      "info"
+    );
+  }
 }
 
-setTimeout(function(){
-const input=document.getElementById(inputId);
-if(input)input.focus();
-},200);
+/* ================= SUITABLE SEARCH ================= */
+
+function showSuitableParts(){
+  const machineId=document.getElementById("suitableSearchMachine").value;
+  const box=document.getElementById("suitableResult");
+
+  if(!machineId){
+    errorSound();
+    box.textContent="Please select a Machine.";
+    return;
+  }
+
+  const machine=getMachines().find(x=>x.id===machineId);
+
+  const spares=getSpares().filter(
+    p=>Array.isArray(p.machines)&&
+    p.machines.includes(machineId)
+  );
+
+  box.innerHTML=
+    "<strong>"+
+    safe(
+      machine
+      ? machine.brand+" | "+machine.type+" | "+machine.model
+      : machineId
+    )+
+    "</strong><br><br>"+
+    (
+      spares.length
+      ? spares.map(p=>safe(p.itemNo+" — "+p.name)).join("<br>")
+      : "No Spare Part mapped."
+    );
+
+  successSound();
 }
 
-function updateDashboardCounts(){
-document.getElementById("dashboardSpareCount").textContent=getSpareParts().length;
-document.getElementById("dashboardMachineCount").textContent=getMachines().length;
+/* ================= AUTOMATIC DATES ================= */
+
+function setAutomaticDates(){
+  const today=new Date().toISOString().slice(0,10);
+
+  const purchase=document.getElementById("purchaseDate");
+  const dispatch=document.getElementById("dispatchDate");
+
+  if(purchase&&!purchase.value)purchase.value=today;
+  if(dispatch&&!dispatch.value)dispatch.value=today;
 }
+
+/* ================= DASHBOARD ================= */
+
+function updateDashboard(){
+  const spares=getSpares();
+  const machines=getMachines();
+
+  const out=spares.filter(x=>Number(x.stock)<=0).length;
+
+  const low=spares.filter(
+    x=>Number(x.stock)>0 &&
+    Number(x.stock)<=Number(x.reorder||0)
+  ).length;
+
+  document.getElementById("dashSpares").textContent=spares.length;
+  document.getElementById("dashMachines").textContent=machines.length;
+  document.getElementById("dashOut").textContent=out;
+  document.getElementById("dashLow").textContent=low;
+}
+
+/* ================= COMMON ================= */
 
 function demoLogout(){
-clickSound();
-showToast("Logout will connect with Admin Authentication next.","info");
+  clickSound();
+
+  showToast(
+    "Logout will connect with Admin Authentication.",
+    "info"
+  );
 }
 
-function safeText(value){
-const div=document.createElement("div");
-div.textContent=value==null ? "" : String(value);
-return div.innerHTML;
+function safe(value){
+  const d=document.createElement("div");
+  d.textContent=value==null?"":String(value);
+  return d.innerHTML;
 }
 
-/* TOAST */
+/* ================= TOAST ================= */
 
 let toastTimer=null;
 
 function showToast(message,type){
-const toast=document.getElementById("toast");
+  const t=document.getElementById("toast");
 
-toast.textContent=message;
-toast.className="toast "+(type||"info");
-toast.style.display="block";
+  t.textContent=message;
+  t.className="toast "+(type||"info");
+  t.style.display="block";
 
-clearTimeout(toastTimer);
+  clearTimeout(toastTimer);
 
-toastTimer=setTimeout(function(){
-toast.style.display="none";
-},2800);
+  toastTimer=setTimeout(()=>{
+    t.style.display="none";
+  },3000);
 }
 
 function actionSuccess(message){
-successSound();
-formDirty=false;
-showToast(message,"success");
+  successSound();
+  formDirty=false;
+  showToast(message,"success");
 }
 
 function actionInfo(message){
-clickSound();
-showToast(message,"info");
+  clickSound();
+  showToast(message,"info");
 }
 
-/* SOUND */
+/* ================= SOUND ================= */
 
 let audioContext=null;
 
 function getAudioContext(){
-if(!audioContext){
-audioContext=new (
-window.AudioContext ||
-window.webkitAudioContext
-)();
+  if(!audioContext){
+    audioContext=new(
+      window.AudioContext||
+      window.webkitAudioContext
+    )();
+  }
+
+  return audioContext;
 }
-return audioContext;
-}
 
-function tone(frequency,duration,volume){
-try{
-const ctx=getAudioContext();
+function tone(freq,duration,volume){
+  try{
+    const ctx=getAudioContext();
+    const osc=ctx.createOscillator();
+    const gain=ctx.createGain();
 
-const osc=ctx.createOscillator();
-const gain=ctx.createGain();
+    osc.type="sine";
+    osc.frequency.value=freq;
+    gain.gain.value=volume;
 
-osc.type="sine";
-osc.frequency.value=frequency;
-gain.gain.value=volume;
+    osc.connect(gain);
+    gain.connect(ctx.destination);
 
-osc.connect(gain);
-gain.connect(ctx.destination);
+    osc.start();
 
-osc.start();
+    gain.gain.exponentialRampToValueAtTime(
+      .0001,
+      ctx.currentTime+duration
+    );
 
-gain.gain.exponentialRampToValueAtTime(
-0.0001,
-ctx.currentTime+duration
-);
+    osc.stop(ctx.currentTime+duration);
 
-osc.stop(ctx.currentTime+duration);
-}catch(e){}
+  }catch(e){}
 }
 
 function clickSound(){
-tone(520,.04,.018);
+  tone(520,.04,.018);
 }
 
 function successSound(){
-tone(660,.07,.03);
+  tone(660,.07,.03);
 
-setTimeout(function(){
-tone(880,.08,.025);
-},65);
+  setTimeout(()=>{
+    tone(880,.08,.025);
+  },65);
 }
 
 function errorSound(){
-tone(220,.13,.035);
+  tone(220,.13,.04);
 }
 
-/* INITIAL LOAD */
+function alertSound(){
+  tone(330,.06,.035);
+
+  setTimeout(()=>{
+    tone(260,.10,.035);
+  },70);
+}
+
+/* ================= INITIAL LOAD ================= */
 
 document.addEventListener("DOMContentLoaded",function(){
 
-loadAllDropdowns();
+  loadDropdowns();
 
-renderMachines();
-renderSpareParts();
-renderPurchaseHistory();
+  renderMachines();
+  renderSpares();
+  renderPurchaseHistory();
 
-refreshMachineDropdowns();
+  refreshMachineDropdowns();
+  renderMachineMappingChips();
 
-updateMappingDisplay();
-updateDashboardCounts();
+  setAutomaticDates();
+  updateDashboard();
 
 });
 
 </script>
-
 </body>
 </html>
