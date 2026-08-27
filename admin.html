@@ -1,1418 +1,627 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>TORVO Business Admin</title>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width,initial-scale=1.0">
+<title>TORVO B2B Admin</title>
 
-  <style>
-    *{
-      box-sizing:border-box;
-      margin:0;
-      padding:0;
-      font-family:Arial,sans-serif;
-    }
+<style>
+*{box-sizing:border-box;margin:0;padding:0;font-family:Arial,sans-serif}
+body{background:#f3f4f6;color:#111827;font-size:12px}
+button,input,select,textarea{font:inherit}
 
-    body{
-      background:#f3f4f6;
-      color:#111827;
-      font-size:12px;
-    }
+/* LEFT */
+.sidebar{
+ position:fixed;left:0;top:0;bottom:0;width:190px;
+ background:#eef1f5;border-right:1px solid #d6dbe3;
+ padding:12px 9px;overflow-y:auto;z-index:20
+}
+.logo{font-size:23px;font-weight:900;padding:4px 8px;color:#111827}
+.logo-sub{font-size:9px;color:#64748b;padding:0 8px 10px;border-bottom:1px solid #d6dbe3}
+.menu-heading{font-size:9px;color:#64748b;font-weight:900;margin:11px 8px 4px;text-transform:uppercase}
+.menu-btn{
+ width:100%;border:0;background:transparent;color:#1f2937;
+ text-align:left;padding:7px 9px;margin-bottom:2px;border-radius:6px;
+ cursor:pointer;font-size:11px;font-weight:600
+}
+.menu-btn:hover{background:#e2e8f0}
+.menu-btn.active{background:#d71920;color:white}
 
-    button,input,select,textarea{
-      font:inherit;
-    }
+/* RIGHT */
+.rightbar{
+ position:fixed;right:0;top:0;bottom:0;width:190px;
+ background:#fff;border-left:1px solid #d6dbe3;
+ padding:12px 10px;overflow-y:auto;z-index:20
+}
+.right-title{font-size:14px;font-weight:900}
+.right-sub{font-size:9px;color:#6b7280;padding:3px 0 9px;border-bottom:1px solid #e5e7eb}
+.quick-heading{font-size:9px;color:#6b7280;font-weight:900;text-transform:uppercase;margin:11px 2px 5px}
+.quick-btn{
+ width:100%;border:1px solid #d1d5db;background:#fff;
+ padding:8px;border-radius:7px;text-align:left;margin-bottom:5px;
+ cursor:pointer;font-size:10px;font-weight:700
+}
+.quick-btn:hover{border-color:#d71920;color:#d71920}
+.quick-red{background:#d71920;color:white;border-color:#d71920}
+.quick-red:hover{background:#b91c1c;color:white}
 
-    /* LEFT SIDEBAR */
-    .sidebar{
-      position:fixed;
-      left:0;
-      top:0;
-      bottom:0;
-      width:190px;
-      background:#111827;
-      color:#fff;
-      padding:12px 9px;
-      overflow-y:auto;
-      z-index:20;
-    }
+/* CENTER */
+.main{margin-left:190px;margin-right:190px;padding:10px;min-height:100vh}
+.topbar{
+ background:white;border-radius:9px;padding:9px 11px;margin-bottom:8px;
+ display:flex;align-items:center;gap:9px;
+ box-shadow:0 1px 5px rgba(0,0,0,.06)
+}
+.top-title{min-width:155px}
+.top-title h1{font-size:17px}
+.top-title p{font-size:9px;color:#6b7280;margin-top:2px}
 
-    .logo{
-      font-size:23px;
-      font-weight:900;
-      letter-spacing:1px;
-      padding:4px 8px 1px;
-    }
+.global-search{flex:1;display:flex;gap:4px}
+.global-search input{
+ width:100%;border:1px solid #cbd5e1;border-radius:7px;padding:7px 8px
+}
+.icon-btn{
+ border:0;background:#111827;color:white;border-radius:7px;
+ padding:7px 9px;cursor:pointer;font-weight:700
+}
+.mic-btn{font-size:15px;padding:5px 9px}
+.role{background:#111827;color:white;border-radius:14px;padding:6px 8px;font-size:9px;font-weight:800;white-space:nowrap}
+.logout{border:1px solid #d1d5db;background:white;border-radius:6px;padding:6px 8px;font-size:9px;cursor:pointer}
 
-    .logo-sub{
-      font-size:9px;
-      color:#cbd5e1;
-      padding:0 8px 11px;
-      border-bottom:1px solid #334155;
-      margin-bottom:8px;
-    }
+/* GENERAL */
+.section{display:none}
+.section.active{display:block}
+.panel{
+ background:white;border-radius:8px;padding:10px;margin-bottom:8px;
+ box-shadow:0 1px 5px rgba(0,0,0,.05)
+}
+.panel-head{display:flex;justify-content:space-between;align-items:center;gap:8px;margin-bottom:8px}
+.panel h2{font-size:14px}
+.panel h3{font-size:12px}
+.btn{border:0;background:#d71920;color:white;padding:7px 9px;border-radius:6px;cursor:pointer;font-size:10px;font-weight:700}
+.btn-dark{background:#111827}
+.btn-light{background:white;color:#111827;border:1px solid #d1d5db}
+.btn-green{background:#15803d}
+.btn-orange{background:#c2410c}
 
-    .menu-heading{
-      font-size:9px;
-      color:#94a3b8;
-      margin:10px 8px 4px;
-      text-transform:uppercase;
-      font-weight:800;
-    }
+.cards{display:grid;grid-template-columns:repeat(4,1fr);gap:7px;margin-bottom:8px}
+.card{background:white;border-radius:8px;padding:9px 10px;min-height:59px;box-shadow:0 1px 4px rgba(0,0,0,.05)}
+.card-label{font-size:9px;color:#6b7280;margin-bottom:4px}
+.card-value{font-size:20px;font-weight:900}
 
-    .menu-btn{
-      display:block;
-      width:100%;
-      border:0;
-      background:transparent;
-      color:#e5e7eb;
-      text-align:left;
-      padding:7px 9px;
-      margin-bottom:2px;
-      border-radius:6px;
-      cursor:pointer;
-      font-size:11px;
-    }
+.toolbar{display:flex;gap:5px;flex-wrap:wrap;margin-bottom:8px}
+.toolbar input,.toolbar select{border:1px solid #d1d5db;border-radius:6px;padding:7px;min-width:120px}
+.grow{flex:1;min-width:180px}
 
-    .menu-btn:hover,
-    .menu-btn.active{
-      background:#d71920;
-      color:#fff;
-    }
+.form-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:7px}
+.field label{display:block;font-size:9px;font-weight:800;margin-bottom:3px}
+.field input,.field select,.field textarea{
+ width:100%;border:1px solid #d1d5db;border-radius:6px;padding:7px;background:white
+}
+.field-full{grid-column:1/-1}
+.note{font-size:9px;color:#6b7280;margin-top:5px}
 
-    /* RIGHT QUICK PANEL */
-    .rightbar{
-      position:fixed;
-      right:0;
-      top:0;
-      bottom:0;
-      width:190px;
-      background:#fff;
-      border-left:1px solid #d1d5db;
-      padding:12px 10px;
-      overflow-y:auto;
-      z-index:20;
-    }
+.admin-box{border:1px solid #fecaca;background:#fff7f7;border-radius:7px;padding:8px}
+.admin-title{font-size:9px;color:#b91c1c;font-weight:900;margin-bottom:7px}
 
-    .right-title{
-      font-size:14px;
-      font-weight:900;
-      margin-bottom:3px;
-    }
+table{width:100%;border-collapse:collapse;min-width:760px;font-size:10px}
+.table-wrap{overflow:auto}
+th,td{padding:7px 6px;border-bottom:1px solid #e5e7eb;text-align:left;white-space:nowrap}
+th{background:#f8fafc;font-weight:800}
 
-    .right-sub{
-      font-size:9px;
-      color:#6b7280;
-      padding-bottom:10px;
-      border-bottom:1px solid #e5e7eb;
-      margin-bottom:10px;
-    }
+.placeholder{
+ border:1px dashed #cbd5e1;border-radius:7px;padding:17px 9px;
+ color:#6b7280;text-align:center;line-height:1.6
+}
 
-    .quick-heading{
-      color:#6b7280;
-      font-size:9px;
-      font-weight:900;
-      text-transform:uppercase;
-      margin:11px 2px 5px;
-    }
+.flow{
+ display:flex;align-items:center;gap:5px;flex-wrap:wrap;
+ padding:8px;background:#f8fafc;border-radius:7px
+}
+.flow-step{background:white;border:1px solid #d1d5db;border-radius:15px;padding:5px 8px;font-size:9px;font-weight:700}
+.arrow{color:#9ca3af;font-weight:bold}
 
-    .quick-btn{
-      width:100%;
-      border:1px solid #d1d5db;
-      background:#fff;
-      border-radius:7px;
-      padding:8px 8px;
-      text-align:left;
-      cursor:pointer;
-      margin-bottom:5px;
-      font-size:10px;
-      font-weight:700;
-    }
+.search-result{
+ display:none;background:#fff7ed;border:1px solid #fed7aa;
+ border-radius:7px;padding:7px 9px;margin-bottom:8px;font-size:10px
+}
+.footer{text-align:center;color:#9ca3af;font-size:8px;padding:7px}
 
-    .quick-btn:hover{
-      border-color:#d71920;
-      color:#d71920;
-    }
-
-    .quick-red{
-      background:#d71920;
-      color:#fff;
-      border-color:#d71920;
-    }
-
-    .quick-red:hover{
-      color:#fff;
-      background:#b91c1c;
-    }
-
-    /* CENTER */
-    .main{
-      margin-left:190px;
-      margin-right:190px;
-      padding:10px;
-      min-height:100vh;
-    }
-
-    .topbar{
-      background:#fff;
-      border-radius:9px;
-      padding:10px 12px;
-      margin-bottom:9px;
-      display:flex;
-      align-items:center;
-      gap:12px;
-      box-shadow:0 1px 5px rgba(0,0,0,.06);
-    }
-
-    .top-title{
-      min-width:175px;
-    }
-
-    .top-title h1{
-      font-size:18px;
-      margin-bottom:2px;
-    }
-
-    .top-title p{
-      color:#6b7280;
-      font-size:9px;
-    }
-
-    .global-search{
-      flex:1;
-      display:flex;
-      gap:5px;
-    }
-
-    .global-search input{
-      width:100%;
-      padding:8px 9px;
-      border:1px solid #cbd5e1;
-      border-radius:7px;
-      outline:none;
-    }
-
-    .global-search input:focus{
-      border-color:#d71920;
-    }
-
-    .search-btn{
-      border:0;
-      background:#111827;
-      color:#fff;
-      border-radius:7px;
-      padding:7px 11px;
-      cursor:pointer;
-      font-weight:700;
-    }
-
-    .role{
-      background:#111827;
-      color:#fff;
-      border-radius:15px;
-      padding:6px 8px;
-      font-size:9px;
-      white-space:nowrap;
-      font-weight:800;
-    }
-
-    .section{
-      display:none;
-    }
-
-    .section.active{
-      display:block;
-    }
-
-    /* DASHBOARD */
-    .cards{
-      display:grid;
-      grid-template-columns:repeat(4,1fr);
-      gap:7px;
-      margin-bottom:8px;
-    }
-
-    .card{
-      background:#fff;
-      border-radius:8px;
-      padding:9px 10px;
-      min-height:61px;
-      box-shadow:0 1px 4px rgba(0,0,0,.05);
-    }
-
-    .card-label{
-      color:#6b7280;
-      font-size:9px;
-      margin-bottom:4px;
-    }
-
-    .card-value{
-      font-size:21px;
-      font-weight:900;
-    }
-
-    .panel{
-      background:#fff;
-      border-radius:9px;
-      padding:11px;
-      margin-bottom:8px;
-      box-shadow:0 1px 5px rgba(0,0,0,.05);
-    }
-
-    .panel-head{
-      display:flex;
-      justify-content:space-between;
-      align-items:center;
-      gap:8px;
-      margin-bottom:9px;
-    }
-
-    .panel h2{
-      font-size:15px;
-    }
-
-    .panel h3{
-      font-size:13px;
-    }
-
-    .btn{
-      border:0;
-      background:#d71920;
-      color:#fff;
-      padding:7px 10px;
-      border-radius:6px;
-      cursor:pointer;
-      font-weight:700;
-      font-size:10px;
-    }
-
-    .btn-dark{
-      background:#111827;
-    }
-
-    .btn-light{
-      background:#fff;
-      color:#111827;
-      border:1px solid #d1d5db;
-    }
-
-    .toolbar{
-      display:flex;
-      flex-wrap:wrap;
-      gap:6px;
-      margin-bottom:8px;
-    }
-
-    .toolbar input,
-    .toolbar select{
-      border:1px solid #d1d5db;
-      padding:7px 8px;
-      border-radius:6px;
-      background:#fff;
-      min-width:130px;
-    }
-
-    .toolbar .grow{
-      flex:1;
-      min-width:190px;
-    }
-
-    .form-grid{
-      display:grid;
-      grid-template-columns:repeat(3,1fr);
-      gap:8px;
-    }
-
-    .field label{
-      display:block;
-      font-weight:700;
-      font-size:10px;
-      margin-bottom:3px;
-    }
-
-    .field input,
-    .field select,
-    .field textarea{
-      width:100%;
-      border:1px solid #d1d5db;
-      border-radius:6px;
-      padding:7px 8px;
-      background:#fff;
-    }
-
-    .field-full{
-      grid-column:1/-1;
-    }
-
-    .admin-box{
-      background:#fff7f7;
-      border:1px solid #fecaca;
-      border-radius:7px;
-      padding:9px;
-    }
-
-    .admin-title{
-      font-size:9px;
-      font-weight:900;
-      color:#b91c1c;
-      margin-bottom:7px;
-    }
-
-    .note{
-      font-size:9px;
-      color:#6b7280;
-      margin-top:5px;
-    }
-
-    .table-wrap{
-      overflow:auto;
-    }
-
-    table{
-      width:100%;
-      border-collapse:collapse;
-      min-width:800px;
-      font-size:10px;
-    }
-
-    th,td{
-      padding:7px 6px;
-      border-bottom:1px solid #e5e7eb;
-      text-align:left;
-      white-space:nowrap;
-    }
-
-    th{
-      background:#f8fafc;
-      font-weight:800;
-    }
-
-    .placeholder{
-      border:1px dashed #cbd5e1;
-      border-radius:7px;
-      padding:20px 10px;
-      text-align:center;
-      color:#6b7280;
-      line-height:1.6;
-    }
-
-    .status{
-      display:inline-block;
-      padding:4px 7px;
-      border-radius:11px;
-      background:#e5e7eb;
-      font-size:9px;
-      font-weight:800;
-    }
-
-    .search-result{
-      display:none;
-      margin-bottom:8px;
-      background:#fff7ed;
-      border:1px solid #fed7aa;
-      padding:8px 10px;
-      border-radius:7px;
-      font-size:10px;
-    }
-
-    .footer{
-      text-align:center;
-      color:#9ca3af;
-      font-size:8px;
-      padding:8px;
-    }
-
-    @media(max-width:1100px){
-      .rightbar{
-        width:165px;
-      }
-
-      .main{
-        margin-right:165px;
-      }
-
-      .cards{
-        grid-template-columns:repeat(2,1fr);
-      }
-    }
-  </style>
+@media(max-width:1100px){
+ .rightbar{width:165px}
+ .main{margin-right:165px}
+ .cards{grid-template-columns:repeat(2,1fr)}
+}
+</style>
 </head>
 
 <body>
 
 <!-- LEFT MENU -->
 <aside class="sidebar">
+ <div class="logo">TORVO</div>
+ <div class="logo-sub">B2B Dealer Business System</div>
 
-  <div class="logo">TORVO</div>
-  <div class="logo-sub">Business Admin & Accounting</div>
+ <div class="menu-heading">Home</div>
+ <button class="menu-btn active" onclick="openSection('dashboard',this)">Dashboard</button>
 
-  <div class="menu-heading">Home</div>
-  <button class="menu-btn active" onclick="openSection('dashboard',this)">Dashboard</button>
+ <div class="menu-heading">Products</div>
+ <button class="menu-btn" onclick="openSection('products',this)">Products / Items</button>
+ <button class="menu-btn" onclick="openSection('purchaseHistory',this)">Purchase Rate History</button>
+ <button class="menu-btn" onclick="openSection('stock',this)">Stock / Availability</button>
+ <button class="menu-btn" onclick="openSection('suitable',this)">Suitable Mapping</button>
 
-  <div class="menu-heading">Items & Stock</div>
-  <button class="menu-btn" onclick="openSection('products',this)">Products / Items</button>
-  <button class="menu-btn" onclick="openSection('stock',this)">Stock Management</button>
-  <button class="menu-btn" onclick="openSection('suitable',this)">Suitable Mapping</button>
+ <div class="menu-heading">Online Orders</div>
+ <button class="menu-btn" onclick="openSection('orders',this)">Sales Orders</button>
+ <button class="menu-btn" onclick="openSection('estimates',this)">Estimates</button>
+ <button class="menu-btn" onclick="openSection('confirmed',this)">Confirmed Orders</button>
+ <button class="menu-btn" onclick="openSection('delivery',this)">Delivery / Tracking</button>
 
-  <div class="menu-heading">Sales</div>
-  <button class="menu-btn" onclick="openSection('salesOrders',this)">Sales Orders</button>
-  <button class="menu-btn" onclick="openSection('salesInvoices',this)">Sales Invoices</button>
-  <button class="menu-btn" onclick="openSection('delivery',this)">Delivery / Courier</button>
+ <div class="menu-heading">Dealers</div>
+ <button class="menu-btn" onclick="openSection('inquiries',this)">Dealer Inquiries</button>
+ <button class="menu-btn" onclick="openSection('dealers',this)">Approved Dealers</button>
 
-  <div class="menu-heading">Purchase</div>
-  <button class="menu-btn" onclick="openSection('purchase',this)">Purchase Invoices</button>
-  <button class="menu-btn" onclick="openSection('suppliers',this)">Suppliers / Parties</button>
-
-  <div class="menu-heading">Accounts</div>
-  <button class="menu-btn" onclick="openSection('customers',this)">Customers</button>
-  <button class="menu-btn" onclick="openSection('receive',this)">Receive Payment</button>
-  <button class="menu-btn" onclick="openSection('pay',this)">Pay Party</button>
-  <button class="menu-btn" onclick="openSection('outstanding',this)">Outstanding</button>
-  <button class="menu-btn" onclick="openSection('accounts',this)">Profit & Accounts</button>
-
-  <div class="menu-heading">Dealer Portal</div>
-  <button class="menu-btn" onclick="openSection('inquiries',this)">Dealer Inquiries</button>
-  <button class="menu-btn" onclick="openSection('dealers',this)">Approved Dealers</button>
-
-  <div class="menu-heading">Reports</div>
-  <button class="menu-btn" onclick="openSection('gst',this)">GST Reports</button>
-  <button class="menu-btn" onclick="openSection('reports',this)">PDF / Excel / JSON</button>
-
-  <div class="menu-heading">Management</div>
-  <button class="menu-btn" onclick="openSection('employees',this)">Employees & Roles</button>
-  <button class="menu-btn" onclick="openSection('backup',this)">Backup & Restore</button>
-  <button class="menu-btn" onclick="openSection('settings',this)">Settings</button>
-
+ <div class="menu-heading">Management</div>
+ <button class="menu-btn" onclick="openSection('reports',this)">Reports / Export</button>
+ <button class="menu-btn" onclick="openSection('employees',this)">Employees & Roles</button>
+ <button class="menu-btn" onclick="openSection('backup',this)">Backup</button>
+ <button class="menu-btn" onclick="openSection('settings',this)">Settings</button>
 </aside>
 
-
-<!-- RIGHT QUICK PANEL -->
+<!-- RIGHT QUICK ACTIONS -->
 <aside class="rightbar">
+ <div class="right-title">Quick Actions</div>
+ <div class="right-sub">Frequently used options</div>
 
-  <div class="right-title">Quick Actions</div>
-  <div class="right-sub">Frequently used business entries</div>
+ <div class="quick-heading">Products</div>
+ <button class="quick-btn quick-red" onclick="goQuick('products')">+ Add New Item</button>
+ <button class="quick-btn" onclick="goQuick('purchaseHistory')">+ Purchase Rate</button>
+ <button class="quick-btn" onclick="goQuick('stock')">Check Stock</button>
+ <button class="quick-btn" onclick="goQuick('suitable')">Suitable Search</button>
 
-  <div class="quick-heading">Sales</div>
+ <div class="quick-heading">Orders</div>
+ <button class="quick-btn" onclick="goQuick('orders')">New Orders</button>
+ <button class="quick-btn" onclick="goQuick('estimates')">Create Estimate</button>
+ <button class="quick-btn" onclick="goQuick('confirmed')">Confirmed Orders</button>
+ <button class="quick-btn" onclick="goQuick('delivery')">Delivery Status</button>
 
-  <button class="quick-btn quick-red"
-          onclick="goQuick('salesOrders')">
-    + New Sales Order
-  </button>
+ <div class="quick-heading">Dealers</div>
+ <button class="quick-btn" onclick="goQuick('inquiries')">Dealer Inquiry</button>
+ <button class="quick-btn" onclick="goQuick('dealers')">Dealer Rate Group</button>
 
-  <button class="quick-btn"
-          onclick="goQuick('salesInvoices')">
-    + Sales Invoice
-  </button>
-
-  <button class="quick-btn"
-          onclick="goQuick('customers')">
-    + Customer
-  </button>
-
-  <div class="quick-heading">Purchase</div>
-
-  <button class="quick-btn"
-          onclick="goQuick('purchase')">
-    + Purchase Entry
-  </button>
-
-  <button class="quick-btn"
-          onclick="goQuick('suppliers')">
-    + Supplier
-  </button>
-
-  <div class="quick-heading">Payments</div>
-
-  <button class="quick-btn"
-          onclick="goQuick('receive')">
-    + Receive Payment
-  </button>
-
-  <button class="quick-btn"
-          onclick="goQuick('pay')">
-    + Pay Party
-  </button>
-
-  <div class="quick-heading">Items</div>
-
-  <button class="quick-btn"
-          onclick="goQuick('products')">
-    + Add New Item
-  </button>
-
-  <button class="quick-btn"
-          onclick="goQuick('stock')">
-    Check Stock
-  </button>
-
-  <button class="quick-btn"
-          onclick="goQuick('suitable')">
-    Suitable Search
-  </button>
-
-  <div class="quick-heading">Dealer</div>
-
-  <button class="quick-btn"
-          onclick="goQuick('inquiries')">
-    Dealer Inquiry
-  </button>
-
-  <div class="quick-heading">Reports</div>
-
-  <button class="quick-btn"
-          onclick="goQuick('gst')">
-    GST Review
-  </button>
-
-  <button class="quick-btn"
-          onclick="goQuick('reports')">
-    Export Reports
-  </button>
-
+ <div class="quick-heading">Control</div>
+ <button class="quick-btn" onclick="goQuick('reports')">Export Report</button>
+ <button class="quick-btn" onclick="goQuick('backup')">Backup Status</button>
 </aside>
 
-
-<!-- CENTER AREA -->
+<!-- MAIN -->
 <main class="main">
 
-  <div class="topbar">
+<div class="topbar">
+ <div class="top-title">
+  <h1 id="pageTitle">TORVO Dashboard</h1>
+  <p>B2B Online Dealer Portal</p>
+ </div>
 
-    <div class="top-title">
-      <h1 id="pageTitle">TORVO Dashboard</h1>
-      <p>Inventory, sales, purchase & accounts</p>
-    </div>
+ <div class="global-search">
+  <input id="globalSearch" placeholder="Search Item No., item, brand, model, dealer or order..." onkeydown="if(event.key==='Enter')runSearch()">
+  <button class="icon-btn mic-btn" onclick="startVoiceSearch()" title="Voice Search">🎤</button>
+  <button class="icon-btn" onclick="runSearch()">Search</button>
+ </div>
 
-    <div class="global-search">
-      <input
-        id="globalSearch"
-        type="text"
-        placeholder="Search item no., item name, brand, model, customer, invoice..."
-        onkeydown="if(event.key==='Enter'){runGlobalSearch();}"
-      >
-      <button class="search-btn" onclick="runGlobalSearch()">Search</button>
-    </div>
+ <div class="role">OWNER / ADMIN</div>
+ <button class="logout">Logout</button>
+</div>
 
-    <div class="role">OWNER / ADMIN</div>
+<div id="searchResult" class="search-result"></div>
 
+<!-- DASHBOARD -->
+<section id="dashboard" class="section active">
+ <div class="cards">
+  <div class="card"><div class="card-label">Active Products</div><div class="card-value">0</div></div>
+  <div class="card"><div class="card-label">New Online Orders</div><div class="card-value">0</div></div>
+  <div class="card"><div class="card-label">Pending Estimates</div><div class="card-value">0</div></div>
+  <div class="card"><div class="card-label">Confirmed Orders</div><div class="card-value">0</div></div>
+  <div class="card"><div class="card-label">Approved Dealers</div><div class="card-value">0</div></div>
+  <div class="card"><div class="card-label">New Dealer Inquiries</div><div class="card-value">0</div></div>
+  <div class="card"><div class="card-label">Low Stock Items</div><div class="card-value">0</div></div>
+  <div class="card"><div class="card-label">Ready for Dispatch</div><div class="card-value">0</div></div>
+ </div>
+
+ <div class="panel">
+  <div class="panel-head">
+   <h2>Online Order Flow</h2>
+   <button class="btn btn-dark">Refresh</button>
   </div>
 
-  <div id="searchResult" class="search-result"></div>
-
-
-  <!-- DASHBOARD -->
-  <section id="dashboard" class="section active">
-
-    <div class="cards">
-
-      <div class="card">
-        <div class="card-label">Today's Sales</div>
-        <div class="card-value">₹0</div>
-      </div>
-
-      <div class="card">
-        <div class="card-label">Today's Purchase</div>
-        <div class="card-value">₹0</div>
-      </div>
-
-      <div class="card">
-        <div class="card-label">Customer Outstanding</div>
-        <div class="card-value">₹0</div>
-      </div>
-
-      <div class="card">
-        <div class="card-label">Net Profit</div>
-        <div class="card-value">₹0</div>
-      </div>
-
-      <div class="card">
-        <div class="card-label">Active Products</div>
-        <div class="card-value">0</div>
-      </div>
-
-      <div class="card">
-        <div class="card-label">Low Stock Items</div>
-        <div class="card-value">0</div>
-      </div>
-
-      <div class="card">
-        <div class="card-label">New Dealer Inquiries</div>
-        <div class="card-value">0</div>
-      </div>
-
-      <div class="card">
-        <div class="card-label">Today's Orders</div>
-        <div class="card-value">0</div>
-      </div>
-
-    </div>
-
-    <div class="panel">
-
-      <div class="panel-head">
-        <h2>Business Overview</h2>
-        <button class="btn btn-dark">Refresh</button>
-      </div>
-
-      <div class="table-wrap">
-        <table>
-          <thead>
-            <tr>
-              <th>Activity</th>
-              <th>Today</th>
-              <th>This Month</th>
-              <th>Pending</th>
-            </tr>
-          </thead>
-
-          <tbody>
-            <tr>
-              <td>Sales Orders</td>
-              <td>0</td>
-              <td>0</td>
-              <td>0</td>
-            </tr>
-
-            <tr>
-              <td>Sales Invoices</td>
-              <td>0</td>
-              <td>0</td>
-              <td>0</td>
-            </tr>
-
-            <tr>
-              <td>Purchase Invoices</td>
-              <td>0</td>
-              <td>0</td>
-              <td>0</td>
-            </tr>
-
-            <tr>
-              <td>Dealer Inquiries</td>
-              <td>0</td>
-              <td>0</td>
-              <td>0</td>
-            </tr>
-          </tbody>
-        </table>
-      </div>
-
-    </div>
-
-  </section>
-
-
-  <!-- PRODUCTS -->
-  <section id="products" class="section">
-
-    <div class="panel">
-
-      <div class="panel-head">
-        <h2>Products / Items</h2>
-        <button class="btn">+ Add New Item</button>
-      </div>
-
-      <div class="toolbar">
-
-        <input class="grow" placeholder="Search Item No., Name, Brand or Model">
-
-        <select>
-          <option>All Brands</option>
-        </select>
-
-        <select>
-          <option>All Categories</option>
-        </select>
-
-        <button class="btn btn-dark">Search</button>
-
-      </div>
-
-      <div class="table-wrap">
-        <table>
-          <thead>
-            <tr>
-              <th>Photo</th>
-              <th>Item No.</th>
-              <th>Item Name</th>
-              <th>Brand</th>
-              <th>Category</th>
-              <th>Stock</th>
-              <th>Rate A</th>
-              <th>Rate B</th>
-              <th>Rate C</th>
-              <th>GST</th>
-              <th>Status</th>
-              <th>Action</th>
-            </tr>
-          </thead>
-
-          <tbody>
-            <tr>
-              <td colspan="12" style="text-align:center;color:#6b7280;">
-                No item data loaded yet.
-              </td>
-            </tr>
-          </tbody>
-        </table>
-      </div>
-
-    </div>
-
-
-    <div class="panel">
-
-      <h2 style="margin-bottom:9px;">Add / Edit Item</h2>
-
-      <div class="form-grid">
-
-        <div class="field">
-          <label>Item Number</label>
-          <input placeholder="Example: ARM-801">
-        </div>
-
-        <div class="field">
-          <label>Item Name</label>
-          <input placeholder="Armature / Gear / Switch">
-        </div>
-
-        <div class="field">
-          <label>Brand</label>
-          <select>
-            <option>Select Brand</option>
-          </select>
-        </div>
-
-        <div class="field">
-          <label>Category</label>
-          <select>
-            <option>Select Category</option>
-          </select>
-        </div>
-
-        <div class="field">
-          <label>Model Number</label>
-          <input placeholder="Machine / Model">
-        </div>
-
-        <div class="field">
-          <label>Product Photo</label>
-          <input type="file">
-        </div>
-
-
-        <div class="field">
-          <label>Rate A</label>
-          <input type="number" placeholder="0.00">
-        </div>
-
-        <div class="field">
-          <label>Rate B</label>
-          <input type="number" placeholder="0.00">
-        </div>
-
-        <div class="field">
-          <label>Rate C</label>
-          <input type="number" placeholder="0.00">
-        </div>
-
-
-        <div class="field">
-          <label>Sale GST</label>
-          <select>
-            <option>GST Extra</option>
-            <option>GST Included</option>
-          </select>
-        </div>
-
-        <div class="field">
-          <label>GST Rate</label>
-          <select>
-            <option>18%</option>
-            <option>12%</option>
-            <option>5%</option>
-            <option>28%</option>
-            <option>0%</option>
-          </select>
-        </div>
-
-        <div class="field">
-          <label>Opening / Current Quantity</label>
-          <input type="number" placeholder="0">
-        </div>
-
-
-        <div class="field">
-          <label>Purchase Rate</label>
-          <input type="number" placeholder="0.00">
-        </div>
-
-        <div class="field">
-          <label>Purchase GST</label>
-          <select>
-            <option>GST Extra</option>
-            <option>GST Included</option>
-            <option>Without GST</option>
-          </select>
-        </div>
-
-        <div class="field">
-          <label>Status</label>
-          <select>
-            <option>Active</option>
-            <option>Inactive</option>
-          </select>
-        </div>
-
-
-        <div class="field-full admin-box">
-
-          <div class="admin-title">
-            SUITABLE MACHINE MAPPING — ADMIN ONLY
-          </div>
-
-          <div class="form-grid">
-
-            <div class="field">
-              <label>Machine Company</label>
-              <select>
-                <option>Select Company</option>
-              </select>
-            </div>
-
-            <div class="field">
-              <label>Machine / Model</label>
-              <select>
-                <option>Select Model</option>
-              </select>
-            </div>
-
-            <div class="field">
-              <label>Add Mapping</label>
-              <button class="btn btn-dark" type="button">
-                + Add Suitable Machine
-              </button>
-            </div>
-
-          </div>
-
-          <div class="note">
-            This information will remain private for Admin unless separately enabled for dealers.
-          </div>
-
-        </div>
-
-
-        <div class="field-full">
-          <button class="btn">Save Item</button>
-          <button class="btn btn-dark">Save & Add Next</button>
-          <button class="btn btn-light">Duplicate Item</button>
-        </div>
-
-      </div>
-
-    </div>
-
-  </section>
-
-
-  <!-- STOCK -->
-  <section id="stock" class="section">
-    <div class="panel">
-      <div class="panel-head">
-        <h2>Stock Management</h2>
-        <button class="btn">+ Stock Entry</button>
-      </div>
-
-      <div class="placeholder">
-        Current Stock • Stock In • Stock Out • Opening Stock • Adjustment • Low Stock Alert
-      </div>
-    </div>
-  </section>
-
-
-  <!-- SUITABLE -->
-  <section id="suitable" class="section">
-    <div class="panel">
-      <h2 style="margin-bottom:9px;">Suitable Part Mapping — Admin Only</h2>
-
-      <div class="toolbar">
-        <input class="grow" placeholder="Search spare part, company or machine model">
-        <button class="btn btn-dark">Search</button>
-      </div>
-
-      <div class="placeholder">
-        Search a spare part and see all machines/models in which it can be used.
-      </div>
-    </div>
-  </section>
-
-
-  <!-- SALES ORDERS -->
-  <section id="salesOrders" class="section">
-    <div class="panel">
-
-      <div class="panel-head">
-        <h2>Sales Orders / Estimates</h2>
-        <button class="btn">+ New Sales Order</button>
-      </div>
-
-      <div class="placeholder">
-        Draft → Send to Customer → Confirm → Convert to Sales Invoice
-      </div>
-
-    </div>
-  </section>
-
-
-  <!-- SALES INVOICE -->
-  <section id="salesInvoices" class="section">
-    <div class="panel">
-
-      <div class="panel-head">
-        <h2>Sales Invoices</h2>
-        <button class="btn">+ New Invoice</button>
-      </div>
-
-      <div class="placeholder">
-        GST Sale • Cash Sale • Credit Sale • Offline Sale • Invoice Number • PDF • Payment Status
-      </div>
-
-    </div>
-  </section>
-
-
-  <!-- DELIVERY -->
-  <section id="delivery" class="section">
-    <div class="panel">
-
-      <h2 style="margin-bottom:9px;">Delivery / Courier</h2>
-
-      <div class="placeholder">
-        Transport Name • LR / Tracking No. • Customer Delivery Charge • Actual Courier Expense • Delivery Status
-      </div>
-
-    </div>
-  </section>
-
-
-  <!-- PURCHASE -->
-  <section id="purchase" class="section">
-    <div class="panel">
-
-      <div class="panel-head">
-        <h2>Purchase Invoices</h2>
-        <button class="btn">+ Purchase Entry</button>
-      </div>
-
-      <div class="placeholder">
-        Supplier • Purchase Invoice Number • Item • Quantity • Rate • GST Included / Extra / Without GST • Payment Status
-      </div>
-
-    </div>
-  </section>
-
-
-  <!-- SUPPLIERS -->
-  <section id="suppliers" class="section">
-    <div class="panel">
-
-      <div class="panel-head">
-        <h2>Suppliers / Parties</h2>
-        <button class="btn">+ Add Supplier</button>
-      </div>
-
-      <div class="placeholder">
-        Supplier Profile • Purchase History • Payment Made • Balance Payable • Ledger
-      </div>
-
-    </div>
-  </section>
-
-
-  <!-- CUSTOMERS -->
-  <section id="customers" class="section">
-    <div class="panel">
-
-      <div class="panel-head">
-        <h2>Customers</h2>
-        <button class="btn">+ Add Customer</button>
-      </div>
-
-      <div class="placeholder">
-        Customer / Firm • Mobile • GSTIN • Sales History • Payment Received • Outstanding • Ledger
-      </div>
-
-    </div>
-  </section>
-
-
-  <!-- RECEIVE -->
-  <section id="receive" class="section">
-    <div class="panel">
-
-      <h2 style="margin-bottom:9px;">Receive Payment</h2>
-
-      <div class="form-grid">
-
-        <div class="field">
-          <label>Customer</label>
-          <select>
-            <option>Select Customer</option>
-          </select>
-        </div>
-
-        <div class="field">
-          <label>Amount</label>
-          <input type="number" placeholder="0.00">
-        </div>
-
-        <div class="field">
-          <label>Payment Mode</label>
-          <select>
-            <option>Cash</option>
-            <option>Bank</option>
-            <option>UPI</option>
-            <option>Cheque</option>
-          </select>
-        </div>
-
-        <div class="field-full">
-          <button class="btn">Save Receipt</button>
-        </div>
-
-      </div>
-
-    </div>
-  </section>
-
-
-  <!-- PAY PARTY -->
-  <section id="pay" class="section">
-    <div class="panel">
-
-      <h2 style="margin-bottom:9px;">Pay Supplier / Party</h2>
-
-      <div class="form-grid">
-
-        <div class="field">
-          <label>Supplier</label>
-          <select>
-            <option>Select Supplier</option>
-          </select>
-        </div>
-
-        <div class="field">
-          <label>Amount</label>
-          <input type="number" placeholder="0.00">
-        </div>
-
-        <div class="field">
-          <label>Payment Mode</label>
-          <select>
-            <option>Cash</option>
-            <option>Bank</option>
-            <option>UPI</option>
-            <option>Cheque</option>
-          </select>
-        </div>
-
-        <div class="field-full">
-          <button class="btn">Save Payment</button>
-        </div>
-
-      </div>
-
-    </div>
-  </section>
-
-
-  <!-- OUTSTANDING -->
-  <section id="outstanding" class="section">
-    <div class="panel">
-
-      <h2 style="margin-bottom:9px;">Outstanding</h2>
-
-      <div class="placeholder">
-        Customer Receivable • Supplier Payable • Ageing • Overdue • Follow-up
-      </div>
-
-    </div>
-  </section>
-
-
-  <!-- ACCOUNTS -->
-  <section id="accounts" class="section">
-
-    <div class="cards">
-
-      <div class="card">
-        <div class="card-label">Total Sales</div>
-        <div class="card-value">₹0</div>
-      </div>
-
-      <div class="card">
-        <div class="card-label">Total Purchase</div>
-        <div class="card-value">₹0</div>
-      </div>
-
-      <div class="card">
-        <div class="card-label">Gross Profit</div>
-        <div class="card-value">₹0</div>
-      </div>
-
-      <div class="card">
-        <div class="card-label">Net Profit</div>
-        <div class="card-value">₹0</div>
-      </div>
-
-    </div>
-
-    <div class="panel">
-      <h2 style="margin-bottom:9px;">Profit & Accounts</h2>
-
-      <div class="placeholder">
-        Sales − Cost of Goods = Gross Profit<br>
-        Gross Profit + Delivery Charged − Courier Expense − Other Expenses = Net Profit
-      </div>
-    </div>
-
-  </section>
-
-
-  <!-- INQUIRIES -->
-  <section id="inquiries" class="section">
-    <div class="panel">
-
-      <div class="panel-head">
-        <h2>Dealer Inquiries</h2>
-        <button class="btn btn-dark">Refresh</button>
-      </div>
-
-      <div class="placeholder">
-        New → Under Review → Approved / Rejected
-      </div>
-
-    </div>
-  </section>
-
-
-  <!-- DEALERS -->
-  <section id="dealers" class="section">
-    <div class="panel">
-
-      <h2 style="margin-bottom:9px;">Approved Dealers</h2>
-
-      <div class="placeholder">
-        Dealer Profile • Rate Group A/B/C • Login Status • Order History • Outstanding
-      </div>
-
-    </div>
-  </section>
-
-
-  <!-- GST -->
-  <section id="gst" class="section">
-    <div class="panel">
-
-      <h2 style="margin-bottom:9px;">GST Review</h2>
-
-      <div class="placeholder">
-        GST Sales • GST Purchase • Tax Summary • Missing GSTIN • HSN Check • Invoice Check • Return Preparation
-      </div>
-
-    </div>
-  </section>
-
-
-  <!-- REPORTS -->
-  <section id="reports" class="section">
-    <div class="panel">
-
-      <h2 style="margin-bottom:9px;">Reports & Export</h2>
-
-      <div class="form-grid">
-
-        <button class="quick-btn">Sales Excel</button>
-        <button class="quick-btn">Purchase Excel</button>
-        <button class="quick-btn">GST Excel</button>
-        <button class="quick-btn">GST JSON</button>
-        <button class="quick-btn">Invoice PDF</button>
-        <button class="quick-btn">Ledger PDF</button>
-
-      </div>
-
-      <div class="note">
-        Export formats will be connected after accounting and GST tables are finalized.
-      </div>
-
-    </div>
-  </section>
-
-
-  <!-- EMPLOYEES -->
-  <section id="employees" class="section">
-    <div class="panel">
-
-      <div class="panel-head">
-        <h2>Employees & Roles</h2>
-        <button class="btn">+ Add Employee</button>
-      </div>
-
-      <div class="placeholder">
-        OWNER / ADMIN — Full Access<br><br>
-        MANAGER — Selected operational access<br><br>
-        EMPLOYEE — Basic Sales View • Item Search • Add Item • Only Allowed Functions
-      </div>
-
-    </div>
-  </section>
-
-
-  <!-- BACKUP -->
-  <section id="backup" class="section">
-    <div class="panel">
-
-      <h2 style="margin-bottom:9px;">Backup & Restore</h2>
-
-      <div class="placeholder">
-        Daily Backup Status • Manual Backup • Download Backup • Controlled Restore
-      </div>
-
-    </div>
-  </section>
-
-
-  <!-- SETTINGS -->
-  <section id="settings" class="section">
-    <div class="panel">
-
-      <h2 style="margin-bottom:9px;">Settings</h2>
-
-      <div class="placeholder">
-        Company Details • Financial Year • Invoice Series • GST Settings • User Permissions • System Controls
-      </div>
-
-    </div>
-  </section>
-
-
-  <div class="footer">
-    TORVO TOOLS PRIVATE LIMITED — Internal Business System
+  <div class="flow">
+   <span class="flow-step">Dealer Order</span><span class="arrow">→</span>
+   <span class="flow-step">Admin Review</span><span class="arrow">→</span>
+   <span class="flow-step">Estimate</span><span class="arrow">→</span>
+   <span class="flow-step">Send Dealer</span><span class="arrow">→</span>
+   <span class="flow-step">Dealer OK / Change</span><span class="arrow">→</span>
+   <span class="flow-step">Confirmed Order</span><span class="arrow">→</span>
+   <span class="flow-step">Dispatch</span>
   </div>
+ </div>
+</section>
+
+<!-- PRODUCTS -->
+<section id="products" class="section">
+ <div class="panel">
+  <div class="panel-head">
+   <h2>Products / Items</h2>
+   <button class="btn">+ Add New Item</button>
+  </div>
+
+  <div class="toolbar">
+   <input class="grow" placeholder="Search item no., name, brand or model">
+   <select><option>All Brands</option></select>
+   <select><option>All Categories</option></select>
+   <button class="btn btn-dark">Search</button>
+  </div>
+
+  <div class="table-wrap">
+   <table>
+    <thead>
+     <tr>
+      <th>Photo</th><th>Item No.</th><th>Item Name</th>
+      <th>Brand</th><th>Category</th><th>Stock</th>
+      <th>Rate A</th><th>Rate B</th><th>Rate C</th>
+      <th>Purchase Rate</th><th>Status</th><th>Action</th>
+     </tr>
+    </thead>
+    <tbody>
+     <tr><td colspan="12" style="text-align:center;color:#6b7280">No items loaded yet.</td></tr>
+    </tbody>
+   </table>
+  </div>
+ </div>
+
+ <div class="panel">
+  <h2 style="margin-bottom:8px">Add / Edit Product</h2>
+
+  <div class="form-grid">
+   <div class="field"><label>Item Number</label><input placeholder="Example ARM-801"></div>
+   <div class="field"><label>Item Name</label><input placeholder="Armature / Gear / Switch"></div>
+   <div class="field"><label>Photo</label><input type="file"></div>
+
+   <div class="field"><label>Brand</label><select><option>Select Brand</option></select></div>
+   <div class="field"><label>Category</label><select><option>Select Category</option></select></div>
+   <div class="field"><label>Model / Reference</label><input placeholder="Optional"></div>
+
+   <div class="field"><label>Net Rate A</label><input type="number" placeholder="0.00"></div>
+   <div class="field"><label>Net Rate B</label><input type="number" placeholder="0.00"></div>
+   <div class="field"><label>Net Rate C</label><input type="number" placeholder="0.00"></div>
+
+   <div class="field"><label>Current Net Purchase Rate</label><input type="number" placeholder="Admin only"></div>
+   <div class="field"><label>Purchase Date</label><input type="date"></div>
+   <div class="field"><label>Current Stock</label><input type="number" placeholder="0"></div>
+
+   <div class="field"><label>Pieces Per Box</label><input type="number" placeholder="Example 8"></div>
+   <div class="field"><label>Status</label><select><option>Active</option><option>Inactive</option></select></div>
+   <div class="field"><label>Dealer Visibility</label><select><option>Show</option><option>Hide</option></select></div>
+
+   <div class="field-full admin-box">
+    <div class="admin-title">SUITABLE FOR — ADMIN ONLY</div>
+    <div class="form-grid">
+     <div class="field"><label>Machine Company</label><select><option>Select Company</option></select></div>
+     <div class="field"><label>Machine / Model</label><select><option>Select Model</option></select></div>
+     <div class="field"><label>Add Mapping</label><button class="btn btn-dark">+ Add Suitable Machine</button></div>
+    </div>
+    <div class="note">Dealer will not see this mapping unless you enable it separately in future.</div>
+   </div>
+
+   <div class="field-full">
+    <button class="btn">Save Item</button>
+    <button class="btn btn-dark">Save & Add Next</button>
+    <button class="btn btn-light">Duplicate Item</button>
+   </div>
+  </div>
+ </div>
+</section>
+
+<!-- PURCHASE HISTORY -->
+<section id="purchaseHistory" class="section">
+ <div class="panel">
+  <div class="panel-head">
+   <h2>Purchase Rate History — Admin Only</h2>
+   <button class="btn">+ Add Purchase Rate</button>
+  </div>
+
+  <div class="toolbar">
+   <input class="grow" placeholder="Search Item No. / Item Name">
+   <button class="btn btn-dark">Search</button>
+  </div>
+
+  <div class="table-wrap">
+   <table>
+    <thead>
+     <tr>
+      <th>Date</th><th>Item No.</th><th>Item</th>
+      <th>Earlier Rate</th><th>Previous Rate</th><th>Current Rate</th>
+      <th>Qty / Note</th><th>Action</th>
+     </tr>
+    </thead>
+    <tbody>
+     <tr><td colspan="8" style="text-align:center;color:#6b7280">No purchase rate history yet.</td></tr>
+    </tbody>
+   </table>
+  </div>
+
+  <div class="note">Purchase cost is private and never visible to dealers.</div>
+ </div>
+</section>
+
+<!-- STOCK -->
+<section id="stock" class="section">
+ <div class="panel">
+  <div class="panel-head"><h2>Stock / Availability</h2><button class="btn">+ Stock Adjustment</button></div>
+  <div class="placeholder">Item-wise available quantity • Box / Pieces • Low stock • Manual adjustment</div>
+ </div>
+</section>
+
+<!-- SUITABLE -->
+<section id="suitable" class="section">
+ <div class="panel">
+  <h2 style="margin-bottom:8px">Suitable Part Search — Admin Only</h2>
+  <div class="toolbar">
+   <input class="grow" placeholder="Search part, machine company or machine model">
+   <button class="btn btn-dark">Search</button>
+  </div>
+  <div class="placeholder">Search which spare part fits which company / machine / model.</div>
+ </div>
+</section>
+
+<!-- SALES ORDERS -->
+<section id="orders" class="section">
+ <div class="panel">
+  <div class="panel-head"><h2>Online Sales Orders</h2><button class="btn btn-dark">Refresh Orders</button></div>
+
+  <div class="table-wrap">
+   <table>
+    <thead>
+     <tr>
+      <th>Order No.</th><th>Date</th><th>Dealer</th><th>Rate Group</th>
+      <th>Items</th><th>Amount</th><th>Status</th><th>Action</th>
+     </tr>
+    </thead>
+    <tbody>
+     <tr><td colspan="8" style="text-align:center;color:#6b7280">Online dealer orders will appear here automatically.</td></tr>
+    </tbody>
+   </table>
+  </div>
+
+  <div class="note">Dealer website order → automatic Sales Order Number → Admin Review.</div>
+ </div>
+</section>
+
+<!-- ESTIMATES -->
+<section id="estimates" class="section">
+ <div class="panel">
+  <div class="panel-head"><h2>Estimates</h2><button class="btn">+ Create Estimate</button></div>
+
+  <div class="flow" style="margin-bottom:9px">
+   <span class="flow-step">Sales Order</span><span class="arrow">→</span>
+   <span class="flow-step">Convert to Estimate</span><span class="arrow">→</span>
+   <span class="flow-step">Send Dealer</span><span class="arrow">→</span>
+   <span class="flow-step">OK / Change Request</span>
+  </div>
+
+  <div class="form-grid">
+   <div class="field"><label>Sales Order No.</label><input placeholder="Select / Search order"></div>
+   <div class="field"><label>Dealer</label><input placeholder="Auto from order"></div>
+   <div class="field"><label>Estimate No.</label><input placeholder="Auto generate"></div>
+
+   <div class="field"><label>Item Discount %</label><input type="number" placeholder="Optional"></div>
+   <div class="field"><label>Overall Discount</label><input type="number" placeholder="Optional"></div>
+   <div class="field">
+    <label>Discount Type</label>
+    <select><option>Percentage %</option><option>Fixed Amount ₹</option></select>
+   </div>
+
+   <div class="field"><label>Delivery Charge</label><input type="number" placeholder="0.00"></div>
+   <div class="field"><label>Transport Office Charge</label><input type="number" placeholder="0.00"></div>
+   <div class="field"><label>Other Charge</label><input type="number" placeholder="0.00"></div>
+
+   <div class="field-full"><label>Estimate Notes / Terms</label><textarea rows="2" placeholder="Optional notes for dealer"></textarea></div>
+
+   <div class="field-full">
+    <button class="btn">Save Estimate</button>
+    <button class="btn btn-dark">Send to Dealer</button>
+    <button class="btn btn-light">Preview</button>
+   </div>
+  </div>
+ </div>
+</section>
+
+<!-- CONFIRMED -->
+<section id="confirmed" class="section">
+ <div class="panel">
+  <div class="panel-head"><h2>Confirmed Orders</h2><button class="btn btn-dark">Refresh</button></div>
+  <div class="placeholder">Dealer-approved estimates will move here for packing and dispatch.</div>
+ </div>
+</section>
+
+<!-- DELIVERY -->
+<section id="delivery" class="section">
+ <div class="panel">
+  <h2 style="margin-bottom:8px">Delivery / Tracking</h2>
+  <div class="form-grid">
+   <div class="field"><label>Order No.</label><input placeholder="Order No."></div>
+   <div class="field"><label>Transport / Courier</label><input placeholder="Transport name"></div>
+   <div class="field"><label>LR / Tracking No.</label><input placeholder="Tracking / LR"></div>
+   <div class="field"><label>Dispatch Date</label><input type="date"></div>
+   <div class="field"><label>Status</label><select><option>Packing</option><option>Dispatched</option><option>Delivered</option></select></div>
+   <div class="field"><label>Remark</label><input placeholder="Optional"></div>
+   <div class="field-full"><button class="btn">Update Dealer</button></div>
+  </div>
+ </div>
+</section>
+
+<!-- INQUIRIES -->
+<section id="inquiries" class="section">
+ <div class="panel">
+  <div class="panel-head"><h2>Dealer Inquiries</h2><button class="btn btn-dark">Refresh</button></div>
+  <div class="placeholder">New Inquiry → Review → Assign Rate Group → Approve / Reject</div>
+ </div>
+</section>
+
+<!-- DEALERS -->
+<section id="dealers" class="section">
+ <div class="panel">
+  <div class="panel-head"><h2>Approved Dealers</h2><button class="btn">+ Add Dealer</button></div>
+
+  <div class="table-wrap">
+   <table>
+    <thead>
+     <tr>
+      <th>Dealer</th><th>City</th><th>Mobile</th><th>Rate Group</th>
+      <th>Login</th><th>Orders</th><th>Status</th><th>Action</th>
+     </tr>
+    </thead>
+    <tbody>
+     <tr><td colspan="8" style="text-align:center;color:#6b7280">No approved dealers loaded yet.</td></tr>
+    </tbody>
+   </table>
+  </div>
+
+  <div class="note">Each dealer receives only their assigned Net Rate A, B or C.</div>
+ </div>
+</section>
+
+<!-- REPORTS -->
+<section id="reports" class="section">
+ <div class="panel">
+  <h2 style="margin-bottom:8px">Reports / Export</h2>
+  <div class="form-grid">
+   <button class="quick-btn">Orders Excel</button>
+   <button class="quick-btn">Estimates Excel</button>
+   <button class="quick-btn">Dealer-wise Sales</button>
+   <button class="quick-btn">Item-wise Sales</button>
+   <button class="quick-btn">Stock Excel</button>
+   <button class="quick-btn">Purchase Rate History</button>
+  </div>
+ </div>
+</section>
+
+<!-- EMPLOYEES -->
+<section id="employees" class="section">
+ <div class="panel">
+  <div class="panel-head"><h2>Employees & Roles</h2><button class="btn">+ Add Employee</button></div>
+  <div class="placeholder">
+   OWNER / ADMIN — Full Access<br><br>
+   MANAGER — Selected Permissions<br><br>
+   EMPLOYEE — Item Search / Add Item / Basic Orders / Only Allowed Options
+  </div>
+ </div>
+</section>
+
+<!-- BACKUP -->
+<section id="backup" class="section">
+ <div class="panel">
+  <h2 style="margin-bottom:8px">Backup</h2>
+  <div class="placeholder">Database backup status • Manual export • Restore controls will be connected later.</div>
+ </div>
+</section>
+
+<!-- SETTINGS -->
+<section id="settings" class="section">
+ <div class="panel">
+  <h2 style="margin-bottom:8px">Portal Settings</h2>
+  <div class="form-grid">
+   <div class="field"><label>Company Name</label><input value="TORVO TOOLS PRIVATE LIMITED"></div>
+   <div class="field"><label>Website</label><input placeholder="Website"></div>
+   <div class="field"><label>Email</label><input placeholder="Email"></div>
+   <div class="field"><label>Mobile / WhatsApp</label><input placeholder="Number"></div>
+   <div class="field"><label>Order Prefix</label><input value="TORVO-ORD"></div>
+   <div class="field"><label>Estimate Prefix</label><input value="TORVO-EST"></div>
+   <div class="field-full"><label>Business Address</label><textarea rows="2"></textarea></div>
+   <div class="field-full"><button class="btn">Save Settings</button></div>
+  </div>
+ </div>
+</section>
+
+<div class="footer">TORVO TOOLS PRIVATE LIMITED — B2B Internal Admin System</div>
 
 </main>
 
-
 <script>
+const titles={
+ dashboard:"TORVO Dashboard",
+ products:"Products / Items",
+ purchaseHistory:"Purchase Rate History",
+ stock:"Stock / Availability",
+ suitable:"Suitable Mapping",
+ orders:"Online Sales Orders",
+ estimates:"Estimates",
+ confirmed:"Confirmed Orders",
+ delivery:"Delivery / Tracking",
+ inquiries:"Dealer Inquiries",
+ dealers:"Approved Dealers",
+ reports:"Reports / Export",
+ employees:"Employees & Roles",
+ backup:"Backup",
+ settings:"Portal Settings"
+};
 
-  const titles = {
-    dashboard:"TORVO Dashboard",
-    products:"Products / Items",
-    stock:"Stock Management",
-    suitable:"Suitable Part Mapping",
-    salesOrders:"Sales Orders / Estimates",
-    salesInvoices:"Sales Invoices",
-    delivery:"Delivery / Courier",
-    purchase:"Purchase Invoices",
-    suppliers:"Suppliers / Parties",
-    customers:"Customers",
-    receive:"Receive Payment",
-    pay:"Pay Supplier / Party",
-    outstanding:"Outstanding",
-    accounts:"Profit & Accounts",
-    inquiries:"Dealer Inquiries",
-    dealers:"Approved Dealers",
-    gst:"GST Reports",
-    reports:"Reports & Export",
-    employees:"Employees & Roles",
-    backup:"Backup & Restore",
-    settings:"Settings"
-  };
+function openSection(id,btn){
+ document.querySelectorAll(".section").forEach(x=>x.classList.remove("active"));
+ document.querySelectorAll(".menu-btn").forEach(x=>x.classList.remove("active"));
+ const section=document.getElementById(id);
+ if(section)section.classList.add("active");
+ if(btn)btn.classList.add("active");
+ document.getElementById("pageTitle").textContent=titles[id]||"TORVO B2B Admin";
+ window.scrollTo(0,0);
+}
 
+function goQuick(id){
+ document.querySelectorAll(".section").forEach(x=>x.classList.remove("active"));
+ document.querySelectorAll(".menu-btn").forEach(x=>x.classList.remove("active"));
+ const section=document.getElementById(id);
+ if(section)section.classList.add("active");
+ document.getElementById("pageTitle").textContent=titles[id]||"TORVO B2B Admin";
+ window.scrollTo(0,0);
+}
 
-  function openSection(id,button){
+function runSearch(){
+ const q=document.getElementById("globalSearch").value.trim();
+ const box=document.getElementById("searchResult");
+ box.style.display="block";
 
-    document.querySelectorAll(".section").forEach(function(section){
-      section.classList.remove("active");
-    });
+ if(!q){
+  box.textContent="Enter or speak an Item No., Item Name, Brand, Model, Dealer or Order No.";
+  return;
+ }
 
-    document.querySelectorAll(".menu-btn").forEach(function(btn){
-      btn.classList.remove("active");
-    });
+ box.textContent='Search ready for: "'+q+'". Database search will be connected after the UI is approved.';
+}
 
-    const section = document.getElementById(id);
+function startVoiceSearch(){
+ const SpeechRecognition=window.SpeechRecognition||window.webkitSpeechRecognition;
 
-    if(section){
-      section.classList.add("active");
-    }
+ if(!SpeechRecognition){
+  alert("Voice search is not supported in this browser. You can type in the search box.");
+  return;
+ }
 
-    if(button){
-      button.classList.add("active");
-    }
+ const recognition=new SpeechRecognition();
+ recognition.lang="en-IN";
+ recognition.interimResults=false;
+ recognition.maxAlternatives=1;
 
-    document.getElementById("pageTitle").textContent =
-      titles[id] || "TORVO Business Admin";
+ recognition.onresult=function(event){
+  const text=event.results[0][0].transcript;
+  document.getElementById("globalSearch").value=text;
+  runSearch();
+ };
 
-    window.scrollTo(0,0);
-  }
+ recognition.onerror=function(){
+  alert("Voice could not be recognized. Please try again.");
+ };
 
-
-  function goQuick(id){
-
-    document.querySelectorAll(".section").forEach(function(section){
-      section.classList.remove("active");
-    });
-
-    document.querySelectorAll(".menu-btn").forEach(function(btn){
-      btn.classList.remove("active");
-    });
-
-    const section = document.getElementById(id);
-
-    if(section){
-      section.classList.add("active");
-    }
-
-    document.getElementById("pageTitle").textContent =
-      titles[id] || "TORVO Business Admin";
-
-    window.scrollTo(0,0);
-  }
-
-
-  function runGlobalSearch(){
-
-    const input = document.getElementById("globalSearch");
-    const result = document.getElementById("searchResult");
-
-    const query = input.value.trim();
-
-    if(!query){
-      result.style.display = "block";
-      result.textContent =
-        "Please enter Item No., Item Name, Brand, Model, Customer, Order or Invoice.";
-      return;
-    }
-
-    result.style.display = "block";
-
-    result.innerHTML =
-      "<strong>Searching:</strong> " +
-      escapeHtml(query) +
-      " &nbsp; — &nbsp; Global search UI is ready. Database search will be connected in the next stage.";
-  }
-
-
-  function escapeHtml(value){
-
-    return value
-      .replace(/&/g,"&amp;")
-      .replace(/</g,"&lt;")
-      .replace(/>/g,"&gt;")
-      .replace(/"/g,"&quot;")
-      .replace(/'/g,"&#039;");
-  }
-
+ recognition.start();
+}
 </script>
 
 </body>
