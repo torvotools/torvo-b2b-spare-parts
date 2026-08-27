@@ -499,33 +499,80 @@
       );
     }
 
-    function submitDemoInquiry(event) {
-      event.preventDefault();
+   async function submitDemoInquiry(event) {
+  event.preventDefault();
 
-      const mobile = document.getElementById("mobile").value.trim();
-      const whatsapp = document.getElementById("whatsapp").value.trim();
+  const shopName = document.getElementById("shopName").value.trim();
+  const contactPerson = document.getElementById("contactPerson").value.trim();
+  const mobile = document.getElementById("mobile").value.trim();
+  const whatsapp = document.getElementById("whatsapp").value.trim();
+  const email = document.getElementById("email").value.trim();
+  const state = document.getElementById("state").value.trim();
+  const district = document.getElementById("district").value.trim();
+  const city = document.getElementById("city").value.trim();
 
-      if (!/^[0-9]{10}$/.test(mobile)) {
-        showMessage(
-          "inquiryStatus",
-          "Please enter a valid 10 digit mobile number."
-        );
-        return;
+  if (!/^[0-9]{10}$/.test(mobile)) {
+    showMessage(
+      "inquiryStatus",
+      "Please enter a valid 10 digit mobile number."
+    );
+    return;
+  }
+
+  if (!/^[0-9]{10}$/.test(whatsapp)) {
+    showMessage(
+      "inquiryStatus",
+      "Please enter a valid 10 digit WhatsApp number."
+    );
+    return;
+  }
+
+  showMessage(
+    "inquiryStatus",
+    "Submitting inquiry..."
+  );
+
+  const { error } = await torvoSupabase
+    .from("dealer_inquiries")
+    .insert([
+      {
+        shop_name: shopName,
+        contact_person: contactPerson,
+        mobile: mobile,
+        whatsapp: whatsapp,
+        email: email,
+        state: state,
+        district: district,
+        city: city
       }
+    ]);
 
-      if (!/^[0-9]{10}$/.test(whatsapp)) {
-        showMessage(
-          "inquiryStatus",
-          "Please enter a valid 10 digit WhatsApp number."
-        );
-        return;
-      }
+  if (error) {
+    console.error(error);
 
+    if (error.code === "23505") {
       showMessage(
         "inquiryStatus",
-        "Form design is working. In the next step this inquiry will be connected to TORVO database."
+        "An inquiry already exists for this mobile number. Please contact TORVO Customer Care."
+      );
+    } else {
+      showMessage(
+        "inquiryStatus",
+        "Inquiry could not be submitted. Please try again."
       );
     }
+
+    return;
+  }
+
+  showMessage(
+    "inquiryStatus",
+    "Inquiry submitted successfully. TORVO team will contact you after verification."
+  );
+
+  document.getElementById("inquiryForm").reset();
+}
+     
   </script>
 <script>
   const SUPABASE_URL = "https://gckafjiitjocodlrwanm.supabase.co";
