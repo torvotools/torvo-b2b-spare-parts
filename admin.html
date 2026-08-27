@@ -1,9 +1,430 @@
 <!DOCTYPE html>
-<html>
+<html lang="en">
 <head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <title>TORVO Admin Panel</title>
+
+  <style>
+    * {
+      box-sizing: border-box;
+      margin: 0;
+      padding: 0;
+      font-family: Arial, sans-serif;
+    }
+
+    body {
+      background: #f4f6f8;
+      color: #1f2937;
+    }
+
+    .app {
+      display: flex;
+      min-height: 100vh;
+    }
+
+    .sidebar {
+      width: 245px;
+      background: #111827;
+      color: white;
+      padding: 22px 14px;
+    }
+
+    .brand {
+      font-size: 25px;
+      font-weight: 800;
+      margin-bottom: 5px;
+    }
+
+    .brand-sub {
+      font-size: 12px;
+      color: #cbd5e1;
+      margin-bottom: 25px;
+    }
+
+    .menu-title {
+      font-size: 11px;
+      color: #94a3b8;
+      margin: 20px 10px 8px;
+      text-transform: uppercase;
+    }
+
+    .menu-btn {
+      width: 100%;
+      padding: 12px 14px;
+      border: none;
+      border-radius: 8px;
+      background: transparent;
+      color: white;
+      text-align: left;
+      cursor: pointer;
+      font-size: 14px;
+      margin-bottom: 5px;
+    }
+
+    .menu-btn:hover,
+    .menu-btn.active {
+      background: #d71920;
+    }
+
+    .main {
+      flex: 1;
+      padding: 22px;
+    }
+
+    .topbar {
+      background: white;
+      padding: 16px 18px;
+      border-radius: 10px;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      margin-bottom: 20px;
+      box-shadow: 0 2px 8px rgba(0,0,0,0.06);
+    }
+
+    .topbar h2 {
+      font-size: 22px;
+    }
+
+    .role-box {
+      text-align: right;
+    }
+
+    .role-badge {
+      display: inline-block;
+      background: #111827;
+      color: white;
+      padding: 6px 10px;
+      border-radius: 20px;
+      font-size: 12px;
+      font-weight: bold;
+    }
+
+    .role-text {
+      margin-top: 5px;
+      font-size: 12px;
+      color: #6b7280;
+    }
+
+    .cards {
+      display: grid;
+      grid-template-columns: repeat(4, 1fr);
+      gap: 15px;
+      margin-bottom: 20px;
+    }
+
+    .card {
+      background: white;
+      padding: 18px;
+      border-radius: 10px;
+      box-shadow: 0 2px 8px rgba(0,0,0,0.06);
+    }
+
+    .card-title {
+      color: #6b7280;
+      font-size: 13px;
+      margin-bottom: 10px;
+    }
+
+    .card-number {
+      font-size: 28px;
+      font-weight: 800;
+      color: #111827;
+    }
+
+    .quick-section {
+      background: white;
+      padding: 20px;
+      border-radius: 10px;
+      box-shadow: 0 2px 8px rgba(0,0,0,0.06);
+    }
+
+    .quick-section h3 {
+      margin-bottom: 15px;
+    }
+
+    .quick-grid {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 12px;
+    }
+
+    .quick-btn {
+      padding: 18px;
+      border: 1px solid #d1d5db;
+      background: white;
+      border-radius: 9px;
+      cursor: pointer;
+      font-weight: 700;
+      text-align: left;
+    }
+
+    .quick-btn:hover {
+      border-color: #d71920;
+      color: #d71920;
+    }
+
+    .section {
+      display: none;
+    }
+
+    .section.active {
+      display: block;
+    }
+
+    .panel-box {
+      background: white;
+      padding: 20px;
+      border-radius: 10px;
+      box-shadow: 0 2px 8px rgba(0,0,0,0.06);
+    }
+
+    .panel-box h3 {
+      margin-bottom: 15px;
+    }
+
+    .placeholder {
+      padding: 25px;
+      border: 2px dashed #d1d5db;
+      border-radius: 8px;
+      color: #6b7280;
+      text-align: center;
+    }
+
+    @media (max-width: 900px) {
+      .sidebar {
+        width: 190px;
+      }
+
+      .cards {
+        grid-template-columns: repeat(2, 1fr);
+      }
+
+      .quick-grid {
+        grid-template-columns: 1fr;
+      }
+    }
+  </style>
 </head>
+
 <body>
-  <h1>TORVO ADMIN PANEL</h1>
+
+  <div class="app">
+
+    <aside class="sidebar">
+      <div class="brand">TORVO</div>
+      <div class="brand-sub">B2B Admin Panel</div>
+
+      <div class="menu-title">Main</div>
+
+      <button class="menu-btn active" onclick="showSection('dashboard', this)">
+        Dashboard
+      </button>
+
+      <button class="menu-btn" onclick="showSection('products', this)">
+        Products / Items
+      </button>
+
+      <button class="menu-btn" onclick="showSection('inquiries', this)">
+        Dealer Inquiries
+      </button>
+
+      <button class="menu-btn" onclick="showSection('dealers', this)">
+        Approved Dealers
+      </button>
+
+      <button class="menu-btn" onclick="showSection('orders', this)">
+        Orders / Estimates
+      </button>
+
+      <button class="menu-btn" onclick="showSection('suitable', this)">
+        Suitable Parts
+      </button>
+
+      <button class="menu-title">Management</button>
+
+      <button class="menu-btn" onclick="showSection('employees', this)">
+        Employees & Roles
+      </button>
+
+      <button class="menu-btn" onclick="showSection('backup', this)">
+        Backup & Restore
+      </button>
+
+      <button class="menu-btn" onclick="showSection('settings', this)">
+        Settings
+      </button>
+    </aside>
+
+    <main class="main">
+
+      <div class="topbar">
+        <div>
+          <h2>TORVO Admin Dashboard</h2>
+        </div>
+
+        <div class="role-box">
+          <span class="role-badge">OWNER / ADMIN</span>
+          <div class="role-text">Full Access</div>
+        </div>
+      </div>
+
+      <section id="dashboard" class="section active">
+
+        <div class="cards">
+          <div class="card">
+            <div class="card-title">New Dealer Inquiries</div>
+            <div class="card-number">0</div>
+          </div>
+
+          <div class="card">
+            <div class="card-title">Active Products</div>
+            <div class="card-number">0</div>
+          </div>
+
+          <div class="card">
+            <div class="card-title">Approved Dealers</div>
+            <div class="card-number">0</div>
+          </div>
+
+          <div class="card">
+            <div class="card-title">Today's Orders</div>
+            <div class="card-number">0</div>
+          </div>
+        </div>
+
+        <div class="quick-section">
+          <h3>Quick Actions</h3>
+
+          <div class="quick-grid">
+            <button class="quick-btn" onclick="openSection('products')">
+              + Add New Item
+            </button>
+
+            <button class="quick-btn" onclick="openSection('inquiries')">
+              Review Dealer Inquiry
+            </button>
+
+            <button class="quick-btn" onclick="openSection('orders')">
+              Create Estimate
+            </button>
+
+            <button class="quick-btn" onclick="openSection('suitable')">
+              Map Suitable Part
+            </button>
+
+            <button class="quick-btn" onclick="openSection('employees')">
+              Manage Employee Access
+            </button>
+
+            <button class="quick-btn" onclick="openSection('backup')">
+              Backup Status
+            </button>
+          </div>
+        </div>
+      </section>
+
+      <section id="products" class="section">
+        <div class="panel-box">
+          <h3>Products / Items</h3>
+          <div class="placeholder">
+            Item Add, Edit, Search, Photo, Brand, Category, Model and Stock controls will come here.
+          </div>
+        </div>
+      </section>
+
+      <section id="inquiries" class="section">
+        <div class="panel-box">
+          <h3>Dealer Inquiries</h3>
+          <div class="placeholder">
+            New, Under Review, Approved and Rejected dealer inquiries will appear here.
+          </div>
+        </div>
+      </section>
+
+      <section id="dealers" class="section">
+        <div class="panel-box">
+          <h3>Approved Dealers</h3>
+          <div class="placeholder">
+            Approved dealer list and account controls will appear here.
+          </div>
+        </div>
+      </section>
+
+      <section id="orders" class="section">
+        <div class="panel-box">
+          <h3>Orders / Estimates</h3>
+          <div class="placeholder">
+            Orders, estimates and sales information will appear here.
+          </div>
+        </div>
+      </section>
+
+      <section id="suitable" class="section">
+        <div class="panel-box">
+          <h3>Suitable Parts</h3>
+          <div class="placeholder">
+            Cross-fit / suitable spare part mapping will appear here.
+          </div>
+        </div>
+      </section>
+
+      <section id="employees" class="section">
+        <div class="panel-box">
+          <h3>Employees & Roles</h3>
+          <div class="placeholder">
+            Owner, Manager and Employee access permissions will be managed here.
+          </div>
+        </div>
+      </section>
+
+      <section id="backup" class="section">
+        <div class="panel-box">
+          <h3>Backup & Restore</h3>
+          <div class="placeholder">
+            Backup status, restore controls and safety information will appear here.
+          </div>
+        </div>
+      </section>
+
+      <section id="settings" class="section">
+        <div class="panel-box">
+          <h3>Settings</h3>
+          <div class="placeholder">
+            TORVO system settings will appear here.
+          </div>
+        </div>
+      </section>
+
+    </main>
+  </div>
+
+  <script>
+    function showSection(sectionId, button) {
+      document.querySelectorAll(".section").forEach(section => {
+        section.classList.remove("active");
+      });
+
+      document.querySelectorAll(".menu-btn").forEach(btn => {
+        btn.classList.remove("active");
+      });
+
+      document.getElementById(sectionId).classList.add("active");
+
+      if (button) {
+        button.classList.add("active");
+      }
+    }
+
+    function openSection(sectionId) {
+      document.querySelectorAll(".section").forEach(section => {
+        section.classList.remove("active");
+      });
+
+      document.getElementById(sectionId).classList.add("active");
+    }
+  </script>
+
 </body>
 </html>
