@@ -3,971 +3,445 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width,initial-scale=1">
-<title>TORVO B2B Admin</title>
-
+<title>TORVO B2B ADMIN</title>
 <style>
 :root{
---red:#d71920;--green:#16813d;--blue:#2368b0;--purple:#7651b8;
---orange:#e47b18;--teal:#11776d;--dark:#34465c;--bg:#eef3f7;
---line:#ced8e3;--text:#162234;--muted:#667487
+  --red:#d71920;--green:#16813d;--blue:#2368b0;--purple:#7651b8;--orange:#e47b18;
+  --teal:#11776d;--indigo:#4338ca;--dark:#34465c;--bg:#eef3f7;--line:#ced8e3;
+  --text:#162234;--muted:#667487
 }
 *{box-sizing:border-box}
 body{margin:0;background:var(--bg);color:var(--text);font:12px Arial,sans-serif}
 button,input,select,textarea{font:inherit}button{cursor:pointer}
-.app{display:grid;grid-template-columns:190px minmax(0,1fr) 190px;min-height:100vh}
-.left,.right{height:100vh;position:sticky;top:0;overflow:auto;padding:11px 9px}
-.left{background:#eef1f5;border-right:1px solid var(--line)}
-.right{background:#fff;border-left:1px solid var(--line)}
+.app{display:grid;grid-template-columns:210px minmax(0,1fr) 210px;min-height:100vh}
+.left,.right{height:100vh;position:sticky;top:0;overflow:auto;padding:12px 9px}
+.left,.right{background:#fff}
+.left{border-right:1px solid var(--line)}
+.right{border-left:1px solid var(--line)}
 .main{padding:9px;min-width:0}
-.logo{font-size:25px;font-weight:900;padding:5px 7px;cursor:pointer}
+.logo{font-size:26px;font-weight:900;padding:4px 7px;cursor:pointer}
 .logo:hover{color:var(--red)}
 .sub{font-size:9px;color:var(--muted);padding:0 7px 10px;border-bottom:1px solid var(--line)}
 .menuTitle{font-size:10px;font-weight:900;text-transform:uppercase;margin:13px 5px 5px;padding-bottom:4px;border-bottom:2px solid #94a3b8}
 .nav,.rnav{width:100%;position:relative;text-align:left;border-radius:6px;font-weight:700}
-.nav{border:0;background:transparent;padding:7px 8px;margin:2px 0}
-.nav:hover{background:#e2e8f0}.nav.active{background:var(--red);color:#fff}
-.rnav{border:1px solid #d1d5db;background:#fff;padding:8px;margin:3px 0}
-.rnav:hover{border-color:var(--red);color:var(--red)}
+.nav,.rnav{border:1px solid #d1d5db;background:#fff;padding:8px;margin:3px 0}
+.nav:hover,.rnav:hover{border-color:var(--blue);background:#f8fbff}
+.nav.active,.rnav.active{background:var(--blue);border-color:var(--blue);color:#fff}
 .badge{position:absolute;right:6px;top:50%;transform:translateY(-50%);background:var(--red);color:#fff;border-radius:12px;padding:2px 6px;font-size:9px;display:none}
 .top{background:#fff;border-radius:9px;padding:9px;display:flex;gap:7px;align-items:center;position:sticky;top:0;z-index:10;box-shadow:0 1px 5px #0001}
-.title{min-width:145px}.title b{font-size:17px}.title small{display:block;color:var(--muted)}
+.title{min-width:160px}.title b{font-size:17px}.title small{display:block;color:var(--muted)}
 .search{flex:1;position:relative}.search input{width:100%;height:35px;border:1px solid var(--line);border-radius:7px;padding:7px 40px 7px 9px}
 .mic{position:absolute;right:5px;top:4px;width:28px;height:27px;border:0;background:#edf3f8;border-radius:50%}
 .topBtn{height:35px;border:0;border-radius:7px;padding:0 10px;font-weight:900;color:#fff}
-.searchBtn{background:var(--green)}.logout{background:var(--red)}.owner{background:#f8fafc;color:#111;border:1px solid var(--line)}
-.bell{position:relative}.bell button{width:36px;height:36px;border:1px solid #fdba74;background:#fff7ed;border-radius:9px;font-size:18px}
+.searchBtn{background:var(--green)}.verifyBtn{background:var(--orange)}.logout{background:var(--red)}
+.owner{background:linear-gradient(135deg,#0f766e,#15803d);color:#fff;border:0;display:flex;align-items:center;gap:6px}
+.owner:before{content:'';width:8px;height:8px;border-radius:50%;background:#86efac;box-shadow:0 0 0 3px #ffffff25}
+.bell{position:relative}.bell button{width:38px;height:36px;border:1px solid #f59e0b;background:linear-gradient(135deg,#fff7ed,#ffedd5);border-radius:9px;font-size:18px;box-shadow:0 1px 3px #0001}
 .bellNum{position:absolute;right:-5px;top:-6px;min-width:18px;height:18px;background:var(--red);color:#fff;border-radius:10px;font-size:8px;font-weight:900;display:none;align-items:center;justify-content:center}
 .section{display:none}.section.active{display:block}
 .panel{background:#fff;border-radius:9px;padding:10px;margin-top:9px;box-shadow:0 1px 5px #0001}
 .pTitle{display:flex;align-items:center;gap:7px;border-bottom:2px solid var(--line);padding-bottom:7px;margin-bottom:9px}
 .tag{color:#fff;padding:5px 8px;border-radius:5px;font-size:9px;font-weight:900}
-.blue{background:var(--blue)}.green{background:var(--green)}.red{background:var(--red)}.purple{background:var(--purple)}.orange{background:var(--orange)}.teal{background:var(--teal)}.dark{background:var(--dark)}
+.blue{background:var(--blue)}.green{background:var(--green)}.red{background:var(--red)}.purple{background:var(--purple)}.orange{background:var(--orange)}.teal{background:var(--teal)}.indigo{background:var(--indigo)}.dark{background:var(--dark)}
 .cards{display:grid;grid-template-columns:repeat(4,1fr);gap:7px}.card{background:#fff;border-radius:8px;padding:10px;border-top:3px solid var(--blue);box-shadow:0 1px 4px #0001;cursor:pointer}.card small{color:var(--muted)}.card strong{display:block;font-size:21px;margin-top:4px}
 .btn{border:0;border-radius:6px;color:#fff;padding:7px 10px;font-size:10px;font-weight:800}.light{background:#fff;color:#111;border:1px solid var(--line)}
 .toolbar{display:flex;gap:5px;align-items:center;flex-wrap:wrap;margin-bottom:8px}.toolbar input,.toolbar select{border:1px solid var(--line);border-radius:6px;padding:7px}.grow{flex:1;min-width:180px}
 .grid{display:grid;grid-template-columns:repeat(3,1fr);gap:8px}.full{grid-column:1/-1}
 .field label{display:block;font-size:10px;font-weight:800;margin-bottom:4px}.field input,.field select,.field textarea{width:100%;border:1px solid var(--line);border-radius:6px;padding:8px;background:#fff}
-.field input.ok,.field select.ok{border-color:#22c55e;background:#f0fdf4}.field input.bad,.field select.bad{border-color:#ef4444;background:#fff1f2}
+.field input.ok,.field select.ok,.field textarea.ok{border-color:#22c55e;background:#f0fdf4}
+.field input.bad,.field select.bad,.field textarea.bad{border-color:#ef4444;background:#fff1f2}
 .help{font-size:9px;color:var(--muted);margin-top:3px}.help.ok{color:var(--green);font-weight:700}.help.bad{color:var(--red);font-weight:700}
 .box{grid-column:1/-1;border:1px solid;border-radius:9px;padding:10px}.bBlue{background:#eff6ff;border-color:#bfdbfe}.bYellow{background:#fffbeb;border-color:#fde68a}.bGreen{background:#f0fdf4;border-color:#bbf7d0}.bOrange{background:#fff7ed;border-color:#fed7aa}.bPurple{background:#f5f3ff;border-color:#ddd6fe}.bTeal{background:#f0fdfa;border-color:#99f6e4}.boxTitle{font-size:11px;font-weight:900;margin-bottom:8px}
 .row{display:flex;gap:4px}.row input,.row select{flex:1}.mini{width:31px;min-width:31px;border:1px solid var(--line);background:#f8fafc;border-radius:6px;font-weight:900}.mini.edit{background:#eff6ff}.mini.del{background:#fff1f2;color:var(--red)}
 .scroll{overflow:auto}table{width:100%;border-collapse:collapse;min-width:760px;font-size:10px}th,td{padding:7px 6px;border-bottom:1px solid #e5e7eb;text-align:left;white-space:nowrap}th{background:#f8fafc;font-weight:900}
 .empty{text-align:center;padding:18px;color:var(--muted)}
-.itemGrid{display:grid;grid-template-columns:repeat(3,1fr);gap:8px}.itemCard{background:#fff;border:1px solid #e5e7eb;border-radius:9px;padding:9px}.pic{height:75px;border:1px dashed var(--line);border-radius:6px;background:#f8fafc;display:flex;align-items:center;justify-content:center;color:#94a3b8}.pic img{max-width:100%;max-height:100%}.itemName{font-size:12px;font-weight:900;margin:6px 0}.meta{font-size:9px;color:var(--muted);margin:2px 0}
-.rates{display:grid;grid-template-columns:repeat(4,1fr);gap:4px;margin-top:6px}.rate{border:1px solid #e5e7eb;border-radius:5px;padding:5px;text-align:center;font-size:9px}.cost{background:#fff7ed}.ra{background:#eff6ff}.rb{background:#f0fdf4}.rc{background:#f5f3ff}.stock{display:flex;justify-content:space-between;background:#f8fafc;border-radius:5px;padding:6px;margin-top:6px;font-size:9px}.bulk{background:#fffbeb;border:1px solid #fde68a;border-radius:6px;padding:6px;margin-top:6px;font-size:9px}
+.itemGrid{display:grid;grid-template-columns:repeat(3,1fr);gap:8px}.itemCard{background:#fff;border:1px solid #e5e7eb;border-radius:9px;padding:9px}.pic{height:82px;border:1px dashed var(--line);border-radius:6px;background:#f8fafc;display:flex;align-items:center;justify-content:center;color:#94a3b8;gap:4px}.pic img{max-width:48%;max-height:100%}.itemName{font-size:12px;font-weight:900;margin:6px 0}.meta{font-size:9px;color:var(--muted);margin:2px 0}
+.rates{display:grid;grid-template-columns:repeat(4,1fr);gap:4px;margin-top:6px}.rate{border:1px solid #e5e7eb;border-radius:5px;padding:5px;text-align:center;font-size:9px}.cost{background:#fff7ed}.ra{background:#eff6ff}.rb{background:#f0fdf4}.rc{background:#f5f3ff}.stock{display:flex;justify-content:space-between;background:#f8fafc;border-radius:5px;padding:6px;margin-top:6px;font-size:9px}
 .chips{display:flex;gap:5px;flex-wrap:wrap;margin-top:7px}.chip{border:1px solid var(--line);background:#fff;border-radius:14px;padding:5px 7px;font-size:9px}.chip b{color:var(--red);cursor:pointer}
-.notice{padding:8px;background:#fff7ed;border-left:4px solid var(--orange);border-radius:6px;font-size:9px}.flow{display:flex;gap:5px;flex-wrap:wrap}.step{padding:6px 8px;border:1px solid var(--line);background:#f8fafc;border-radius:14px;font-size:9px;font-weight:700}
-.history{border:1px solid #fde68a;background:#fffef5;border-radius:7px;padding:8px;margin-top:7px}.historyRow{display:grid;grid-template-columns:1fr 1fr;gap:5px;font-size:9px;padding:3px 0;border-bottom:1px dashed #ddd}
-.reportGrid{display:grid;grid-template-columns:repeat(3,1fr);gap:8px}.reportBtn{background:#f8fafc;border:1px solid var(--line);border-radius:7px;padding:12px;font-weight:800;text-align:left}
-.notif{display:none;position:fixed;right:195px;top:56px;width:340px;max-height:430px;overflow:auto;background:#fff;border:1px solid var(--line);border-radius:10px;box-shadow:0 10px 25px #0003;padding:10px;z-index:50}.notifTitle{font-weight:900;margin-bottom:7px}.notifItem{padding:8px;border:1px solid #e5e7eb;border-radius:7px;margin-bottom:5px;cursor:pointer}.nOrder{background:#fff7ed}.nDealer{background:#f0fdfa}.nRequest{background:#fff1f2}.nEstimate{background:#eff6ff}.nDelivery{background:#f5f3ff}
-.toast{position:fixed;right:205px;bottom:17px;display:none;padding:10px 13px;border-radius:8px;color:#fff;background:var(--dark);z-index:99}
-@media(max-width:1100px){.app{grid-template-columns:170px minmax(0,1fr) 170px}.cards{grid-template-columns:repeat(2,1fr)}.itemGrid{grid-template-columns:repeat(2,1fr)}}
+.notice{padding:8px;background:#fff7ed;border-left:4px solid var(--orange);border-radius:6px;font-size:9px}
+.notif{display:none;position:fixed;right:210px;top:56px;width:350px;max-height:430px;overflow:auto;background:#fff;border:1px solid var(--line);border-radius:10px;box-shadow:0 10px 25px #0003;padding:10px;z-index:50}
+.notifTitle{font-weight:900;margin-bottom:7px}.notifItem{padding:8px;border:1px solid #e5e7eb;border-radius:7px;margin-bottom:5px;cursor:pointer}
+.toast{position:fixed;right:220px;bottom:17px;display:none;padding:10px 13px;border-radius:8px;color:#fff;background:var(--dark);z-index:99}
+.photoPreview{display:flex;gap:6px;flex-wrap:wrap;margin-top:5px}.photoPreview img{width:90px;height:70px;object-fit:contain;border:1px solid var(--line);border-radius:6px;background:#fff}
+.verifyList{display:grid;gap:6px}.issue{border:1px solid #fecaca;background:#fff1f2;border-radius:7px;padding:8px}.issue.ok{border-color:#bbf7d0;background:#f0fdf4}
+@media(max-width:1180px){.app{grid-template-columns:175px minmax(0,1fr) 175px}.cards{grid-template-columns:repeat(2,1fr)}.itemGrid{grid-template-columns:repeat(2,1fr)}}
+
+.statusPill{display:inline-block;padding:3px 7px;border-radius:20px;font-size:9px;font-weight:900}
+.statusActive{background:#dcfce7;color:#166534}.statusBlocked{background:#fee2e2;color:#991b1b}.statusPending{background:#ffedd5;color:#9a3412}
+.bizCard{border:1px solid var(--line);border-radius:9px;background:#fff;padding:9px;margin-top:7px}
+.bizCard.blocked{border:2px solid var(--red);background:#fff7f7}
+.smartCard{border:1px solid #ddd6fe;background:#faf5ff;border-radius:8px;padding:9px}
+.updateCard{border:1px solid var(--line);border-radius:9px;background:#fff;padding:10px;margin-top:7px}
+.updateRecommended{border-left:5px solid var(--green)}.updateOptional{border-left:5px solid var(--orange)}
+.successNotice{padding:9px;border-radius:7px;border-left:5px solid var(--green);background:#f0fdf4;color:#166534;font-weight:800}
+.infoNotice{padding:9px;border-radius:7px;border-left:5px solid var(--blue);background:#eff6ff;color:#1e3a8a;font-weight:800}
 </style>
 </head>
-
 <body>
 <div class="app">
 
 <aside class="left">
-<div class="logo" onclick="goHome()">TORVO</div>
-<div class="sub">B2B Dealer Business System</div>
-
+<div class="logo" onclick="goHome()">TORVO</div><div class="sub">B2B DEALER BUSINESS SYSTEM</div>
 <div class="menuTitle">HOME & CATALOG</div>
-<button class="nav active" onclick="openSection('dashboard',this)">Dashboard</button>
-<button class="nav" onclick="openSection('machines',this)">Machines</button>
-<button class="nav" onclick="openSection('spares',this)">Spare Parts</button>
-<button class="nav" onclick="openSection('items',this)">ITEM</button>
-<button class="nav" onclick="openSection('suitable',this)">Suitable Mapping</button>
-
+<button class="nav active" onclick="openSection('dashboard',this)">DASHBOARD</button>
+<button class="nav" onclick="openSection('machines',this)">MACHINE MASTER</button>
+<button class="nav" onclick="openSection('spares',this)">ADD SPARE PART</button>
+<button class="nav" onclick="openSection('accessories',this)">ADD ACCESSORY</button>
+<button class="nav" onclick="openSection('itemmaster',this)">ITEM MASTER</button>
+<button class="nav" onclick="openSection('suitable',this)">SUITABLE SEARCH</button>
+<button class="nav" onclick="openSection('drawings',this)">MACHINE DRAWINGS</button>
 <div class="menuTitle">ONLINE PROCESS</div>
-<button class="nav" onclick="openSection('orders',this)">Sales Orders <span id="badgeOrders" class="badge">0</span></button>
-<button class="nav" onclick="openSection('estimates',this)">Estimates <span id="badgeEst" class="badge">0</span></button>
-<button class="nav" onclick="openSection('confirmed',this)">Confirmed Orders <span id="badgeConf" class="badge">0</span></button>
-<button class="nav" onclick="openSection('delivery',this)">Delivery & Tracking <span id="badgeDelivery" class="badge">0</span></button>
+<button class="nav" onclick="openSection('orders',this)">SALES ORDERS <span class="badge" id="badgeOrders">0</span></button>
+<button class="nav" onclick="openSection('estimates',this)">FINAL ESTIMATES / SALES <span class="badge" id="badgeEst">0</span></button>
+<button class="nav" onclick="openSection('delivery',this)">DELIVERY & TRACKING</button>
+<button class="nav" onclick="openSection('inquiries',this)">INQUIRIES <span class="badge" id="badgeInquiry">0</span></button>
+<div class="menuTitle">DEALERS</div>
+<button class="nav" onclick="openSection('dealers',this)">DEALER MANAGEMENT</button>
+<button class="nav" onclick="openSection('customers',this)">CUSTOMER HISTORY</button>
+<button class="nav" onclick="openSection('journey',this)">30-DAY DEALER JOURNEY</button>
+<button class="nav" onclick="openSection('chat',this)">DEALER CHAT</button>
+<button class="nav" onclick="openSection('points',this)">POINTS & YEARLY SCHEME</button>
 </aside>
 
 <main class="main">
-
 <div class="top">
-<div class="title"><b id="pageTitle">TORVO Dashboard</b><small>B2B Online Dealer Portal</small></div>
-
-<div class="search">
-<input id="globalSearch" placeholder="Search item, machine, model, dealer, order..." onkeydown="if(event.key==='Enter')globalFind()">
-<button class="mic" onclick="voiceSearch()">🎙️</button>
-</div>
-
-<button class="topBtn searchBtn" onclick="globalFind()">Search</button>
-
-<div class="bell">
-<button onclick="toggleNotifications()">🔔</button>
-<span id="bellNum" class="bellNum">0</span>
-</div>
-
-<div class="topBtn owner">OWNER / ADMIN</div>
-<button class="topBtn logout" onclick="logoutAdmin()">Logout</button>
+<div class="title"><b id="pageTitle">TORVO DASHBOARD</b><small>B2B DEALER PORTAL ADMIN</small></div>
+<div class="search"><input id="globalSearch" class="upper" placeholder="SEARCH ITEM, MACHINE, MODEL, DRAWING CODE, DEALER, ORDER..." onkeydown="if(event.key==='Enter')globalFind()"><button class="mic" onclick="voiceSearch()">🎙</button><button class="mic" style="right:36px" onclick="E('cameraSearchInput').click()">📷</button><input id="cameraSearchInput" type="file" accept="image/*" capture="environment" style="display:none" onchange="cameraSearch(this.files[0])"></div>
+<button class="topBtn searchBtn" onclick="globalFind()">SEARCH</button>
+<button class="topBtn verifyBtn" onclick="runSystemCheck()">VERIFY SYSTEM</button>
+<div class="bell"><button onclick="toggleNotifications()">🔔</button><span id="bellNum" class="bellNum">0</span></div>
+<div class="topBtn owner">ONLINE ADMIN</div><button class="topBtn logout" onclick="logoutAdmin()">LOGOUT</button>
 </div>
 
 <section id="dashboard" class="section active">
 <div class="cards">
-<div class="card" onclick="openSection('items')"><small>Total Items</small><strong id="dItems">0</strong></div>
-<div class="card" onclick="openSection('machines')"><small>Machines</small><strong id="dMachines">0</strong></div>
-<div class="card" onclick="openFiltered('in')"><small>In Stock</small><strong id="dIn">0</strong></div>
-<div class="card" onclick="openFiltered('out')"><small>Out of Stock</small><strong id="dOut">0</strong></div>
-<div class="card" onclick="openFiltered('reorder')"><small>Reorder Required</small><strong id="dReorder">0</strong></div>
-<div class="card" onclick="openSection('orders')"><small>New Sales Orders</small><strong id="dOrders">0</strong></div>
-<div class="card" onclick="openSection('dealers')"><small>Dealer Inquiries</small><strong id="dDealer">0</strong></div>
-<div class="card" onclick="openSection('requests')"><small>Spare Part Requests</small><strong id="dRequests">0</strong></div>
+<div class="card" onclick="openSection('itemmaster')"><small>TOTAL PRODUCTS</small><strong id="dItems">0</strong></div>
+<div class="card" onclick="openSection('machines')"><small>MACHINES</small><strong id="dMachines">0</strong></div>
+<div class="card" onclick="openFiltered('in')"><small>IN STOCK</small><strong id="dIn">0</strong></div>
+<div class="card" onclick="openFiltered('out')"><small>OUT OF STOCK</small><strong id="dOut">0</strong></div>
+<div class="card" onclick="openFiltered('reorder')"><small>REORDER REQUIRED</small><strong id="dReorder">0</strong></div>
+<div class="card" onclick="runSystemCheck()"><small>SYSTEM ISSUES</small><strong id="dIssues">0</strong></div>
+<div class="card" onclick="openSection('customers')"><small>CUSTOMERS</small><strong id="dCustomers">0</strong></div>
+<div class="card" onclick="openSection('customers')"><small>30 DAY CUSTOMER VIEWS</small><strong id="dRecentViews">0</strong></div>
 </div>
-
-<div class="panel">
-<div class="pTitle"><span class="tag orange">ORDER FLOW</span><b>Website Dealer Order Process</b></div>
-<div class="flow">
-<span class="step">Dealer Website Order</span><span>→</span>
-<span class="step">Sales Order</span><span>→</span>
-<span class="step">Admin Modify</span><span>→</span>
-<span class="step">Estimate</span><span>→</span>
-<span class="step">Dealer Modify / OK</span><span>→</span>
-<span class="step">Admin Final Approval</span><span>→</span>
-<span class="step">Delivery / Tracking</span>
-</div>
-<div class="notice" style="margin-top:8px">Sales Order और Estimate manually create नहीं होंगे. Process B2B website dealer order से शुरू होगा.</div>
-</div>
+<div class="panel"><div class="pTitle"><span class="tag orange">SYSTEM RULES</span><b>DATA SAFETY & ORDER FLOW</b></div><div class="notice">NEGATIVE STOCK NEVER ALLOWED. DUPLICATE MASTER VALUES BLOCKED. CUSTOMER ADMIN HISTORY IS PERMANENT; DEALER-SIDE VIEW CAN BE LIMITED TO LAST 30 DAYS.</div></div>
 </section>
 
 <section id="machines" class="section">
 <div class="panel">
-<div class="pTitle"><span class="tag purple">MACHINE</span><b>Machine Master</b></div>
-
-<div class="box bPurple">
-<div class="grid">
-<div class="field"><label>Entry Date *</label><input id="machineDate" type="date"></div>
-
-<div class="field">
-<label>Brand *</label>
-<div class="row">
-<input id="mBrand" list="brandList" oninput="validateMachineBrand()">
-<button class="mini" onclick="addMaster('brand','mBrand')">+</button>
-<button class="mini edit" onclick="editMaster('brand','mBrand')">✎</button>
-<button class="mini del" onclick="deleteMaster('brand','mBrand')">🗑️</button>
+<div class="pTitle"><span class="tag purple">MACHINE MASTER</span><b>MACHINE ADD / EDIT / DELETE</b></div>
+<div class="box bPurple"><div class="grid">
+<div class="field"><label>ENTRY DATE *</label><input id="machineDate" type="date"></div>
+<div class="field"><label>BRAND *</label><div class="row"><input id="mBrand" class="upper" list="brandList" oninput="validateMachineBrand()"><button class="mini" onclick="addMaster('brand','mBrand')">+</button><button class="mini edit" onclick="editMaster('brand','mBrand')">✎</button><button class="mini del" onclick="deleteMaster('brand','mBrand')">🗑</button></div><div id="mBrandHelp" class="help"></div></div>
+<div class="field"><label>MACHINE TYPE *</label><div class="row"><input id="mType" class="upper" list="machineTypeList" oninput="validateMachineType()"><button class="mini" onclick="addMaster('machineType','mType')">+</button><button class="mini edit" onclick="editMaster('machineType','mType')">✎</button><button class="mini del" onclick="deleteMaster('machineType','mType')">🗑</button></div><datalist id="machineTypeList"></datalist><div id="mTypeHelp" class="help"></div></div>
+<div class="field"><label>MACHINE / WORK TYPE *</label><div class="row"><input id="mWork" class="upper" list="workTypeList"><button class="mini" onclick="addMaster('workType','mWork')">+</button><button class="mini edit" onclick="editMaster('workType','mWork')">✎</button><button class="mini del" onclick="deleteMaster('workType','mWork')">🗑</button></div><datalist id="workTypeList"></datalist></div>
+<div class="field"><label>MODEL NUMBER *</label><div class="row"><input id="mModel" class="upper" list="modelList" oninput="validateModel()"><button class="mini" onclick="addMaster('model','mModel')">+</button><button class="mini edit" onclick="editMaster('model','mModel')">✎</button><button class="mini del" onclick="deleteMaster('model','mModel')">🗑</button></div><datalist id="modelList"></datalist><div id="mModelHelp" class="help"></div></div>
+<div class="field"><label>ALTERNATE MODEL</label><input id="mAlt" class="upper"></div>
+<div class="field"><label>DESCRIPTION</label><input id="mDesc" class="upper"></div>
+<div class="field"><label>STATUS</label><select id="mStatus"><option>ACTIVE</option><option>INACTIVE</option></select></div>
 </div>
-<div id="mBrandHelp" class="help"></div>
-</div>
-
-<div class="field"><label>Machine Type *</label><input id="mType" list="machineTypeList" oninput="markFilled(this)"><datalist id="machineTypeList"></datalist></div>
-
-<div class="field"><label>Model Number *</label><input id="mModel" oninput="validateModel()"><div id="mModelHelp" class="help"></div></div>
-
-<div class="field"><label>Description</label><input id="mDesc"></div>
-
-<div class="field"><label>Status</label><select id="mStatus"><option>Active</option><option>Inactive</option></select></div>
-</div>
-
-<div class="toolbar" style="margin-top:8px">
-<button class="btn green" onclick="saveMachine(false)">Save Machine</button>
-<button class="btn blue" onclick="saveMachine(true)">Save & Add Next</button>
-<button class="btn light" onclick="clearMachine()">Clear</button>
-</div>
-</div>
-
-<div class="scroll" style="margin-top:9px">
-<table>
-<thead><tr><th>Date</th><th>ID</th><th>Brand</th><th>Machine</th><th>Model</th><th>Status</th><th>Action</th></tr></thead>
-<tbody id="machineRows"></tbody>
-</table>
-</div>
+<div class="toolbar" style="margin-top:8px"><button class="btn green" onclick="saveMachine(false)">SAVE MACHINE</button><button class="btn blue" onclick="saveMachine(true)">SAVE & ADD NEXT</button><button class="btn light" onclick="clearMachine()">CLEAR</button></div></div>
+<div class="scroll" style="margin-top:9px"><table><thead><tr><th>DATE</th><th>ID</th><th>BRAND</th><th>TYPE</th><th>WORK TYPE</th><th>MODEL</th><th>ALT MODEL</th><th>STATUS</th><th>ACTION</th></tr></thead><tbody id="machineRows"></tbody></table></div>
 </div>
 </section>
 
-<section id="spares" class="section">
-<div class="panel">
-<div class="pTitle"><span class="tag blue">SPARE PART</span><b>Add / Edit Spare Part</b></div>
+<section id="spares" class="section"><div class="panel"><div class="pTitle"><span class="tag blue">ADD ITEM — SPARE PART</span><b>COMPLETE SPARE PART INVENTORY ENTRY</b></div><div id="spareFormHost"></div></div></section>
+<section id="accessories" class="section"><div class="panel"><div class="pTitle"><span class="tag teal">ADD ITEM — ACCESSORY</span><b>POWER TOOL ACCESSORIES</b></div><div id="accessoryFormHost"></div></div></section>
 
-<div class="grid">
-
-<div class="box bTeal">
-<div class="boxTitle">1. ENTRY DATE</div>
-<div class="grid">
-<div class="field"><label>Date *</label><input id="spDate" type="date"></div>
+<section id="itemmaster" class="section">
+<div class="panel"><div class="pTitle"><span class="tag blue">ITEM MASTER</span><b>COMPLETE INVENTORY MANAGEMENT</b></div>
+<div class="cards">
+<div class="card" onclick="setFilter('all')"><small>TOTAL</small><strong id="imTotal">0</strong></div>
+<div class="card" onclick="setFilter('in')"><small>IN STOCK</small><strong id="imIn">0</strong></div>
+<div class="card" onclick="setFilter('out')"><small>OUT OF STOCK</small><strong id="imOut">0</strong></div>
+<div class="card" onclick="setFilter('reorder')"><small>REORDER</small><strong id="imReorder">0</strong></div>
+<div class="card" onclick="setFilter('online')"><small>ONLINE</small><strong id="imOnline">0</strong></div>
+<div class="card" onclick="setFilter('offline')"><small>OFFLINE</small><strong id="imOffline">0</strong></div>
+<div class="card" onclick="setFilter('top')"><small>TOP SELLING</small><strong id="imTop">0</strong></div>
+<div class="card" onclick="setFilter('low')"><small>LEAST SELLING</small><strong id="imLow">0</strong></div>
 </div>
-</div>
-
-<div class="box bBlue">
-<div class="boxTitle">2. BASIC ITEM DETAILS</div>
-<div class="grid">
-
-<div class="field">
-<label>Item Number *</label>
-<div class="row">
-<input id="spNo" list="itemNoList" oninput="validateMasterField('item','spNo','spNoHelp')">
-<button class="mini" onclick="addMaster('item','spNo')">+</button>
-<button class="mini edit" onclick="editMaster('item','spNo')">✎</button>
-<button class="mini del" onclick="deleteMaster('item','spNo')">🗑️</button>
-</div>
-<datalist id="itemNoList"></datalist>
-<div id="spNoHelp" class="help"></div>
-</div>
-
-<div class="field">
-<label>Spare Part Name *</label>
-<div class="row">
-<input id="spName" list="spareNameList" oninput="validateMasterField('name','spName','spNameHelp')">
-<button class="mini" onclick="addMaster('name','spName')">+</button>
-<button class="mini edit" onclick="editMaster('name','spName')">✎</button>
-<button class="mini del" onclick="deleteMaster('name','spName')">🗑️</button>
-</div>
-<datalist id="spareNameList"></datalist>
-<div id="spNameHelp" class="help"></div>
-</div>
-
-<div class="field"><label>Photo</label><input id="spPhoto" type="file" accept="image/*"></div>
-
-<div class="field">
-<label>Brand *</label>
-<div class="row">
-<input id="spBrand" list="brandList" oninput="validateMasterField('brand','spBrand','spBrandHelp')">
-<button class="mini" onclick="addMaster('brand','spBrand')">+</button>
-<button class="mini edit" onclick="editMaster('brand','spBrand')">✎</button>
-<button class="mini del" onclick="deleteMaster('brand','spBrand')">🗑️</button>
-</div>
-<div id="spBrandHelp" class="help"></div>
-</div>
-
-<div class="field">
-<label>Category *</label>
-<div class="row">
-<input id="spCategory" list="categoryList" oninput="validateMasterField('category','spCategory','spCategoryHelp')">
-<button class="mini" onclick="addMaster('category','spCategory')">+</button>
-<button class="mini edit" onclick="editMaster('category','spCategory')">✎</button>
-<button class="mini del" onclick="deleteMaster('category','spCategory')">🗑️</button>
-</div>
-<datalist id="categoryList"></datalist>
-<div id="spCategoryHelp" class="help"></div>
-</div>
-
-<div class="field"><label>Pieces Per Box</label><input id="spBox" type="number" min="0" value="1"></div>
-</div>
-</div>
-
-<div class="box bYellow">
-<div class="boxTitle">3. PURCHASE COST & SELLING RATES</div>
-<div class="grid">
-<div class="field"><label>Purchase Cost</label><input id="spCost" type="number" min="0" step="0.01" value="0"></div>
-<div class="field"><label>Rate A</label><input id="spA" type="number" min="0" step="0.01" value="0"></div>
-<div class="field"><label>Rate B</label><input id="spB" type="number" min="0" step="0.01" value="0"></div>
-<div class="field"><label>Rate C</label><input id="spC" type="number" min="0" step="0.01" value="0"></div>
-</div>
-<div id="costHistory" class="history"><b>Purchase Cost History</b><div class="meta">Item save होने के बाद date-wise history यहाँ दिखेगी.</div></div>
-</div>
-
-<div class="box bGreen">
-<div class="boxTitle">4. STOCK & AVAILABILITY</div>
-<div class="grid">
-<div class="field"><label>Current Quantity</label><input id="spQty" type="number" min="0" value="0"></div>
-<div class="field"><label>Minimum / Reorder Level</label><input id="spMin" type="number" min="0" value="0"></div>
-<div class="field"><label>Status</label><select id="spStatus"><option>Active</option><option>Inactive</option></select></div>
-<div class="field"><label>Dealer Visibility</label><select id="spVisible"><option>Show</option><option>Hide</option></select></div>
-</div>
-</div>
-
-<div class="box bOrange">
-<div class="boxTitle">5. QUANTITY SLAB / BULK PRICE</div>
-<div class="grid">
-<div class="field"><label>Minimum Quantity</label><input id="bulkQty" type="number" min="0" value="0"></div>
-<div class="field"><label>Special Rate</label><input id="bulkRate" type="number" min="0" step="0.01" value="0"></div>
-<div class="field"><label>Add</label><button class="btn orange" onclick="addSlab()">+ Add Quantity Slab</button></div>
-</div>
-<div id="slabChips" class="chips"></div>
-</div>
-
-<div class="box bPurple">
-<div class="boxTitle">6. SUITABLE MACHINES — MULTIPLE ALLOWED</div>
-<div class="grid">
-<div class="field"><label>Select Machine</label><select id="machineSelect"></select></div>
-<div class="field"><label>Add</label><button class="btn purple" onclick="addSuitable()">+ Add Machine</button></div>
-<div class="field"><label>Machine Missing?</label><button class="btn light" onclick="openSection('machines')">Open Machine Master</button></div>
-</div>
-<div id="machineChips" class="chips"></div>
-</div>
-
-<div class="full toolbar">
-<button class="btn green" onclick="saveSpare(false)">Save Spare Part</button>
-<button class="btn blue" onclick="saveSpare(true)">Save & Add Next</button>
-<button class="btn light" onclick="clearSpare()">Clear</button>
-</div>
-
-</div>
-</div>
+<div class="toolbar" style="margin-top:8px"><button class="btn green" onclick="openSection('spares')">+ ADD SPARE PART</button><button class="btn teal" onclick="openSection('accessories')">+ ADD ACCESSORY</button><input id="itemSearch" class="grow upper" placeholder="SEARCH ITEM NO., PRODUCT, BRAND, MACHINE, SIZE..." oninput="renderItems()"><button class="btn blue" onclick="setFilter('all')">ALL</button><button class="btn green" onclick="setFilter('in')">IN STOCK</button><button class="btn red" onclick="setFilter('out')">OUT</button><button class="btn orange" onclick="setFilter('reorder')">REORDER</button><button class="btn purple" onclick="setFilter('top')">TOP</button><button class="btn dark" onclick="setFilter('low')">LEAST</button></div>
+<div id="itemGrid" class="itemGrid"></div></div>
 </section>
 
-<section id="items" class="section">
-<div class="panel">
-<div class="pTitle"><span class="tag blue">ITEM</span><b>Master Item View</b></div>
+<section id="suitable" class="section"><div class="panel"><div class="pTitle"><span class="tag purple">SUITABLE SEARCH</span><b>ADVANCED SPARE PART COMPATIBILITY</b></div>
+<div class="grid"><div class="field"><label>MACHINE BRAND</label><select id="sBrand" onchange="renderSuitableResults()"></select></div><div class="field"><label>MACHINE TYPE</label><select id="sType" onchange="renderSuitableResults()"></select></div><div class="field"><label>MODEL / ALT MODEL</label><input id="sModel" class="upper" oninput="renderSuitableResults()"></div><div class="field"><label>ITEM / SPARE / REF NO.</label><input id="sPart" class="upper" oninput="renderSuitableResults()"></div><div class="field"><label>SIZE / SPECIFICATION</label><input id="sSpec" class="upper" oninput="renderSuitableResults()"></div><div class="field"><label>MATCH TYPE</label><select id="sMatch" onchange="renderSuitableResults()"><option value="">ALL</option><option>EXACT FIT</option><option>TESTED SUITABLE</option><option>MARKET COMPATIBLE</option><option>NEEDS VERIFICATION</option></select></div></div>
+<div id="suitableResults" class="empty">SEARCH BY MACHINE, MODEL, ITEM, REF NO. OR SPECIFICATION.</div></div></section>
 
-<div class="toolbar">
-<button class="btn green" onclick="openSection('spares')">+ Add Item</button>
-<input id="itemSearch" class="grow" placeholder="Search item no., item, brand, machine..." oninput="renderItems()">
-<button class="btn blue" onclick="setFilter('all')">All Items</button>
-<button class="btn green" onclick="setFilter('in')">In Stock</button>
-<button class="btn red" onclick="setFilter('out')">Out of Stock</button>
-<button class="btn orange" onclick="setFilter('reorder')">Reorder</button>
-<button class="btn purple" onclick="setFilter('top')">Top Selling</button>
-<button class="btn dark" onclick="setFilter('low')">Least Selling</button>
-</div>
+<section id="orders" class="section"><div class="panel"><div class="pTitle"><span class="tag orange">SALES ORDERS</span><b>DEALER DEMAND — NOT ACTUAL SALE</b></div><div class="notice">SALES ORDER IS ONLY DEALER DEMAND. IT IS NOT COUNTED AS SALE. ONLY FINAL ESTIMATE IS COUNTED AS ACTUAL SALE.</div><div class="scroll"><table><thead><tr><th>ORDER</th><th>CUSTOMER ID</th><th>DEALER</th><th>DATE</th><th>AMOUNT</th><th>STATUS</th></tr></thead><tbody id="orderRows"></tbody></table></div></div></section>
+<section id="estimates" class="section"><div class="panel"><div class="pTitle"><span class="tag green">FINAL ESTIMATES / SALES</span><b>FINAL ESTIMATE = ACTUAL SALE</b></div><div class="successNotice">FINAL ESTIMATE VALUE IS YOUR ACTUAL SALE. TAX INVOICE WILL BE GENERATED SEPARATELY IN ACCOUNTING SOFTWARE.</div><div class="scroll"><table><thead><tr><th>ESTIMATE</th><th>ORDER</th><th>DEALER</th><th>AMOUNT</th><th>REPLY</th></tr></thead><tbody id="estimateRows"></tbody></table></div></div></section>
 
-<div class="toolbar">
-<button class="btn green" onclick="exportItems()">Excel</button>
-<button class="btn red" onclick="window.print()">PDF / Print</button>
-<button class="btn orange" onclick="createReorder()">Create Order List</button>
-</div>
+<section id="delivery" class="section"><div class="panel"><div class="pTitle"><span class="tag teal">DELIVERY</span><b>COURIER / TRANSPORT / TRACKING</b></div><div class="notice">ADD 2–3 COURIERS AND 5–7 OR MORE TRANSPORT PARTNERS HERE.</div>
+<div class="box bTeal" style="margin-top:8px"><div class="grid"><div class="field"><label>TYPE</label><select id="partnerType"><option>COURIER</option><option>TRANSPORT</option></select></div><div class="field"><label>NAME</label><input id="partnerName" class="upper"></div><div class="field"><label>MOBILE</label><input id="partnerMobile"></div><div class="field"><label>PERSON</label><input id="partnerPerson" class="upper"></div><div class="field"><label>CITY / BRANCH</label><input id="partnerCity" class="upper"></div><div class="field"><label>ACTION</label><button class="btn teal" onclick="savePartner()">+ ADD PARTNER</button></div></div></div>
+<div class="scroll" style="margin-top:8px"><table><thead><tr><th>TYPE</th><th>NAME</th><th>PERSON</th><th>MOBILE</th><th>CITY</th><th>ACTION</th></tr></thead><tbody id="partnerRows"></tbody></table></div></div></section>
 
-<div id="itemGrid" class="itemGrid"></div>
-</div>
+<section id="customers" class="section">
+<div class="panel"><div class="pTitle"><span class="tag indigo">CUSTOMER HISTORY</span><b>PERMANENT ADMIN CUSTOMER PROFILE</b></div>
+<div class="toolbar"><input id="customerSearch" class="grow upper" placeholder="SEARCH CUSTOMER NAME / ID / MOBILE..." oninput="renderCustomerHistory()"><select id="customerRange" onchange="renderCustomerHistory()"><option value="ALL">ADMIN: ALL HISTORY</option><option value="30">LAST 30 DAYS</option></select></div>
+<div class="notice">ADMIN HISTORY IS KEPT PERMANENTLY IN THIS PROTOTYPE. DEALER-SIDE HISTORY CAN LATER BE LIMITED TO LAST 30 DAYS AFTER DATABASE CONNECTION.</div>
+<div id="customerHistoryBox"></div></div>
 </section>
 
-<section id="suitable" class="section">
-<div class="panel">
-<div class="pTitle"><span class="tag purple">SUITABLE</span><b>Machine → Spare Parts</b></div>
-<div class="toolbar"><select id="suitableMachine" class="grow"></select><button class="btn purple" onclick="showSuitable()">Show Spare Parts</button></div>
-<div id="suitableResult" class="empty">Select Machine.</div>
-</div>
-</section>
-
-<section id="orders" class="section">
-<div class="panel">
-<div class="pTitle"><span class="tag orange">SALES ORDER</span><b>Website Dealer Orders</b></div>
-<div class="notice">Sales Orders केवल B2B website से आएँगे. Admin manually Sales Order create नहीं करेगा.</div>
-<div class="scroll"><table><thead><tr><th>Order</th><th>Dealer Code</th><th>Dealer</th><th>Date</th><th>Amount</th><th>Status</th><th>Action</th></tr></thead><tbody id="orderRows"></tbody></table></div>
-</div>
-</section>
-
-<section id="estimates" class="section">
-<div class="panel">
-<div class="pTitle"><span class="tag orange">ESTIMATE</span><b>Dealer Estimates</b></div>
-<div class="scroll"><table><thead><tr><th>Estimate</th><th>Order</th><th>Dealer</th><th>Amount</th><th>Dealer Reply</th><th>Action</th></tr></thead><tbody id="estimateRows"></tbody></table></div>
-</div>
-</section>
-
-<section id="confirmed" class="section">
-<div class="panel">
-<div class="pTitle"><span class="tag green">CONFIRMED</span><b>Confirmed Orders</b></div>
-<div id="confirmedBox" class="empty">No confirmed orders.</div>
-</div>
-</section>
-
-<section id="delivery" class="section">
-<div class="panel">
-<div class="pTitle"><span class="tag teal">DELIVERY</span><b>Courier / Transport / Tracking</b></div>
-
-<div class="notice">
-आप 2–3 Courier और 5–7 या उससे अधिक Transport companies बना सकते हैं। Delivery के समय Order के हिसाब से Courier या Transport select करें।
-</div>
-
-<div class="box bTeal" style="margin-top:8px">
-<div class="boxTitle">DELIVERY PARTNER MASTER</div>
-<div class="grid">
-
-<div class="field"><label>Partner Type</label><select id="partnerType"><option>Courier</option><option>Transport</option></select></div>
-
-<div class="field"><label>Partner Name</label><input id="partnerName" placeholder="Courier / Transport name"></div>
-
-<div class="field"><label>Contact Number</label><input id="partnerMobile"></div>
-
-<div class="field"><label>Contact Person</label><input id="partnerPerson"></div>
-
-<div class="field"><label>City / Branch</label><input id="partnerCity"></div>
-
-<div class="field"><label>Action</label><button class="btn teal" onclick="savePartner()">+ Add Partner</button></div>
-
-</div>
-</div>
-
-<div class="scroll" style="margin-top:8px">
-<table>
-<thead><tr><th>Type</th><th>Name</th><th>Contact Person</th><th>Mobile</th><th>City/Branch</th><th>Action</th></tr></thead>
-<tbody id="partnerRows"></tbody>
-</table>
-</div>
-
-<div class="pTitle" style="margin-top:12px"><span class="tag teal">DISPATCH</span><b>Delivery Orders</b></div>
-<div class="scroll">
-<table>
-<thead><tr><th>Order</th><th>Dealer</th><th>Mode</th><th>Partner</th><th>LR / Tracking</th><th>Dispatch Date</th><th>Status</th><th>Action</th></tr></thead>
-<tbody id="deliveryRows"></tbody>
-</table>
-</div>
-</div>
-</section>
-
-<section id="dealers" class="section">
-<div class="panel">
-<div class="pTitle"><span class="tag teal">DEALER INQUIRY</span><b>Dealer Approval Requests</b></div>
-<div class="scroll"><table><thead><tr><th>Date</th><th>Dealer Code</th><th>Shop</th><th>Person</th><th>Mobile</th><th>Rate Group</th><th>Status</th><th>Action</th></tr></thead><tbody id="dealerRows"></tbody></table></div>
-</div>
-</section>
-
-<section id="requests" class="section">
-<div class="panel">
-<div class="pTitle"><span class="tag red">SPARE PART REQUEST</span><b>Part Not Found Requests</b></div>
-<div class="notice">Dealer Machine Photo + Spare Part Photo + Spare Part Name + Quantity + Remark भेज सकेगा.</div>
-<div class="scroll"><table><thead><tr><th>Date</th><th>Dealer</th><th>Machine</th><th>Spare Part</th><th>Qty</th><th>Status</th></tr></thead><tbody id="requestRows"></tbody></table></div>
-</div>
-</section>
-
-<section id="reports" class="section">
-<div class="panel">
-<div class="pTitle"><span class="tag dark">REPORTS</span><b>Reports Center</b></div>
-<div class="reportGrid">
-<button class="reportBtn" onclick="showReport('all')">All Items</button>
-<button class="reportBtn" onclick="showReport('in')">In Stock</button>
-<button class="reportBtn" onclick="showReport('out')">Out of Stock</button>
-<button class="reportBtn" onclick="showReport('reorder')">Reorder</button>
-<button class="reportBtn" onclick="showReport('top')">Top Selling</button>
-<button class="reportBtn" onclick="showReport('low')">Least Selling</button>
-<button class="reportBtn" onclick="showReport('purchase')">Purchase Rate History</button>
-<button class="reportBtn" onclick="showReport('mapping')">Machine-wise Parts</button>
-<button class="reportBtn" onclick="showReport('orders')">Sales Orders</button>
-<button class="reportBtn" onclick="showReport('dealers')">Dealer Report</button>
-<button class="reportBtn" onclick="showReport('delivery')">Delivery Report</button>
-<button class="reportBtn" onclick="showReport('partners')">Courier / Transport Partners</button>
-</div>
-<div id="reportOutput" class="empty">Select Report.</div>
-</div>
-</section>
-
-<section id="activity" class="section">
-<div class="panel">
-<div class="pTitle"><span class="tag dark">ACTIVITY</span><b>Activity History</b></div>
-<div id="activityRows"></div>
-</div>
-</section>
-
-<section id="backup" class="section">
-<div class="panel">
-<div class="pTitle"><span class="tag dark">BACKUP</span><b>Data Safety</b></div>
-<div class="notice">अभी यह browser local data पर है. अगला major step Supabase cloud database और automatic backup रहेगा.</div>
-</div>
-</section>
-
-<section id="settings" class="section">
-<div class="panel">
-<div class="pTitle"><span class="tag dark">SETTINGS</span><b>Portal Settings</b></div>
-<div class="grid">
-<div class="field"><label>Company</label><input id="companyName" value="TORVO TOOLS PRIVATE LIMITED"></div>
-<div class="field"><label>Website</label><input id="companyWebsite"></div>
-<div class="field"><label>Email</label><input id="companyEmail"></div>
-<div class="field"><label>WhatsApp / Mobile</label><input id="companyMobile"></div>
-<div class="field full"><label>Address</label><textarea id="companyAddress" rows="2"></textarea></div>
-</div>
-</div>
-</section>
-
+<section id="dealers" class="section"><div class="panel"><div class="pTitle"><span class="tag blue">DEALER MANAGEMENT</span><b>RATE A/B/C + ACTIVE / BLOCK / REACTIVATE</b></div><div class="notice">IF A DEALER IS NOT REGULAR, ADMIN CAN BLOCK / DISCONTINUE THE ACCOUNT. A STANDARD DISCONTINUE MESSAGE IS SAVED FOR THE DEALER. ADMIN CAN REACTIVATE LATER AFTER CUSTOMER-CARE DISCUSSION.</div><div class="toolbar"><input id="dealerSearch" class="grow upper" placeholder="SEARCH DEALER ID / SHOP / MOBILE..." oninput="renderDealers()"><select id="dealerFilter" onchange="renderDealers()"><option value="ALL">ALL DEALERS</option><option>ACTIVE</option><option>BLOCKED</option><option>PENDING</option></select></div><div id="dealerList"></div></div></section>
+<section id="inquiries" class="section"><div class="panel"><div class="pTitle"><span class="tag orange">INQUIRY CENTER</span><b>DEALER / NEW DEALER / PRODUCT / WEBSITE INQUIRIES</b></div><div class="infoNotice">EVERY NEW INQUIRY CAN SHOW A RED NUMBER ON THE BELL AND MENU. OPENING THE INQUIRY MARKS IT READ.</div><div class="toolbar"><select id="inqFilter" onchange="renderInquiries()"><option value="ALL">ALL</option><option>DEALER ENQUIRY</option><option>NEW DEALER INQUIRY</option><option>PRODUCT INQUIRY</option><option>SPARE PART REQUEST</option><option>CAMERA SEARCH</option><option>WEBSITE MESSAGE</option></select><input id="inqSearch" class="grow upper" placeholder="SEARCH NAME / MOBILE / MESSAGE..." oninput="renderInquiries()"></div><div id="inquiryList"></div></div></section>
+<section id="journey" class="section"><div class="panel"><div class="pTitle"><span class="tag teal">30-DAY DEALER JOURNEY</span><b>ORDER → ESTIMATE → PENDING → FINAL → DELIVERY</b></div><div class="notice">DEALER-SIDE JOURNEY IS FOR LAST 30 DAYS. ADMIN CAN DELETE EARLIER. ADMIN PERMANENT BUSINESS HISTORY REMAINS SEPARATE.</div><div class="toolbar"><input id="journeySearch" class="grow upper" placeholder="SEARCH DEALER ID / NAME..." oninput="renderJourney()"><button class="btn red" onclick="purgeJourney()">DELETE EXPIRED 30-DAY VIEW</button></div><div id="journeyList"></div></div></section>
+<section id="chat" class="section"><div class="panel"><div class="pTitle"><span class="tag blue">DEALER CHAT</span><b>ADMIN MESSAGE CENTER</b></div><div class="grid"><div class="field"><label>DEALER ID *</label><input id="chatDealer" class="upper" oninput="renderChat()"></div><div class="field full"><label>MESSAGE</label><textarea id="chatMessage" class="upper" rows="3"></textarea></div></div><div class="toolbar"><button class="btn blue" onclick="sendDealerChat()">SEND / SAVE MESSAGE</button></div><div id="chatList"></div></div></section>
+<section id="points" class="section"><div class="panel"><div class="pTitle"><span class="tag purple">DEALER POINTS & SCHEMES</span><b>YEAR 1 APRIL TO 31 MARCH</b></div><div class="notice">POINTS REMAIN VISIBLE UNTIL REDEEMED. QUARTER OFFERS MAY CHANGE. ANNUAL SCHEME YEAR RUNS FROM 1 APRIL TO 31 MARCH.</div><div class="box bPurple"><div class="grid"><div class="field"><label>DEALER ID *</label><input id="ptDealer" class="upper"></div><div class="field"><label>ADD POINTS</label><input id="ptAdd" type="number" min="0" value="0"></div><div class="field"><label>REDEEM POINTS</label><input id="ptRedeem" type="number" min="0" value="0"></div><div class="field"><label>SCHEME YEAR</label><input id="ptYear" class="upper" placeholder="2026-27"></div><div class="field"><label>QUARTER</label><select id="ptQuarter"><option>Q1 APR-JUN</option><option>Q2 JUL-SEP</option><option>Q3 OCT-DEC</option><option>Q4 JAN-MAR</option></select></div><div class="field"><label>SCHEME / BENEFIT</label><input id="ptScheme" class="upper"></div><div class="field full"><label>MESSAGE</label><textarea id="ptMessage" class="upper" rows="2"></textarea></div></div><div class="toolbar"><button class="btn purple" onclick="savePoints()">UPDATE POINTS / SCHEME</button></div></div><div id="pointsList"></div></div></section>
+<section id="salesReport" class="section"><div class="panel"><div class="pTitle"><span class="tag blue">SALES REPORT</span><b>ORDER RECEIVED vs FINAL ESTIMATE SALE</b></div><div class="notice">ORDER VALUE = DEALER DEMAND. FINAL ESTIMATE VALUE = ACTUAL SALE. PENDING VALUE SHOWS BUSINESS YOU COULD NOT FULFIL YET.</div><div class="grid"><div class="field"><label>FROM DATE</label><input id="srFrom" type="date" onchange="renderSalesReport()"></div><div class="field"><label>TO DATE</label><input id="srTo" type="date" onchange="renderSalesReport()"></div><div class="field"><label>SEARCH</label><input id="srSearch" class="upper" oninput="renderSalesReport()"></div></div><div class="cards" style="margin-top:8px"><div class="card"><small>ORDER VALUE RECEIVED</small><strong id="srOrders">₹0</strong></div><div class="card"><small>ACTUAL SALE</small><strong id="srSales">₹0</strong></div><div class="card"><small>PENDING / UNFULFILLED</small><strong id="srPending">₹0</strong></div><div class="card"><small>FULFILMENT</small><strong id="srPercent">0%</strong></div></div><div id="salesReportList" style="margin-top:8px"></div></div></section>
+<section id="profit" class="section"><div class="panel"><div class="pTitle"><span class="tag green">PROFIT / INCOME</span><b>FINAL ESTIMATE BASED PROFIT</b></div><div class="notice">NET PROFIT = FINAL ESTIMATE SALE − PURCHASE COST − COURIER − DELIVERY / TRANSPORT − PACKING − PAYMENT FEE − OTHER EXPENSE.</div><div class="box bGreen"><div class="grid"><div class="field"><label>FINAL ESTIMATE NO. *</label><input id="pfEstimate" class="upper"></div><div class="field"><label>DATE</label><input id="pfDate" type="date"></div><div class="field"><label>DEALER</label><input id="pfDealer" class="upper"></div><div class="field"><label>FINAL SALE VALUE</label><input id="pfSale" type="number" min="0" value="0"></div><div class="field"><label>PURCHASE COST</label><input id="pfPurchase" type="number" min="0" value="0"></div><div class="field"><label>COURIER</label><input id="pfCourier" type="number" min="0" value="0"></div><div class="field"><label>DELIVERY / TRANSPORT</label><input id="pfDelivery" type="number" min="0" value="0"></div><div class="field"><label>PACKING</label><input id="pfPacking" type="number" min="0" value="0"></div><div class="field"><label>PAYMENT FEE</label><input id="pfGateway" type="number" min="0" value="0"></div><div class="field"><label>OTHER</label><input id="pfOther" type="number" min="0" value="0"></div><div class="field"><label>NOTE</label><input id="pfNote" class="upper"></div><div class="field"><label>ACTION</label><button class="btn green" onclick="saveProfit()">SAVE PROFIT ENTRY</button></div></div></div><div class="cards" style="margin-top:8px"><div class="card"><small>ACTUAL SALES</small><strong id="pfSalesTotal">₹0</strong></div><div class="card"><small>TOTAL COST / EXPENSE</small><strong id="pfCostTotal">₹0</strong></div><div class="card"><small>NET PROFIT</small><strong id="pfProfitTotal">₹0</strong></div><div class="card"><small>PROFIT %</small><strong id="pfPercent">0%</strong></div></div><div class="scroll"><table><thead><tr><th>DATE</th><th>ESTIMATE</th><th>DEALER</th><th>SALE</th><th>PURCHASE</th><th>COURIER</th><th>DELIVERY</th><th>PACKING</th><th>PAYMENT</th><th>OTHER</th><th>NET</th><th>ACTION</th></tr></thead><tbody id="profitRows"></tbody></table></div></div></section>
+<section id="drawings" class="section"><div class="panel"><div class="pTitle"><span class="tag purple">MACHINE DRAWINGS</span><b>EXPLODED VIEW / PART CODE LIBRARY</b></div><div class="notice">STORE DRAWING AGAINST EXACT BRAND + MODEL. MAP DRAWING PART CODE TO TORVO ITEM NUMBER. IF DRAWING IS NOT AVAILABLE, DEALER SIDE CAN SHOW DRAWING NOT AVAILABLE.</div><div class="box bPurple"><div class="grid"><div class="field"><label>BRAND *</label><input id="drBrand" class="upper" list="brandList"></div><div class="field"><label>MODEL *</label><input id="drModel" class="upper" list="modelList"></div><div class="field"><label>DRAWING TITLE</label><input id="drTitle" class="upper"></div><div class="field"><label>DRAWING IMAGE</label><input id="drImage" type="file" accept="image/*" onchange="readDrawingImage(this.files[0])"></div><div class="field"><label>PDF NAME / URL</label><input id="drPdf"></div><div class="field"><label>VERSION</label><input id="drVersion" class="upper"></div></div><div id="drawingPreview" class="photoPreview"></div><div class="box bBlue" style="margin-top:8px"><div class="grid"><div class="field"><label>DRAWING PART CODE</label><input id="drCode" class="upper"></div><div class="field"><label>PART NAME</label><input id="drPartName" class="upper"></div><div class="field"><label>LINK TORVO ITEM NO.</label><input id="drItemNo" class="upper"></div></div><div class="toolbar"><button class="btn blue" onclick="addDrawingPart()">+ ADD PART CODE</button></div><div id="drawingPartChips" class="chips"></div></div><div class="toolbar"><button class="btn green" onclick="saveDrawing()">SAVE DRAWING</button></div></div><div class="toolbar"><input id="drawingSearch" class="grow upper" placeholder="SEARCH BRAND / MODEL / PART CODE..." oninput="renderDrawings()"></div><div id="drawingList"></div></div></section>
+<section id="ads" class="section"><div class="panel"><div class="pTitle"><span class="tag orange">ADS & PROMOTIONS</span><b>TORVO OWN BRAND + PRIORITY PRODUCTS</b></div><div class="notice">USE THIS TO HIGHLIGHT TORVO OWN BRAND, BEST SELLERS, SPARE PARTS, ACCESSORIES, NEW PRODUCTS AND OFFERS ON PUBLIC HOME PAGE OR DEALER DASHBOARD.</div><div class="box bOrange"><div class="grid"><div class="field"><label>AD TITLE *</label><input id="adTitle" class="upper"></div><div class="field"><label>TYPE</label><select id="adType"><option>TORVO OWN BRAND</option><option>BEST SELLER</option><option>SPARE PART RANGE</option><option>ACCESSORY</option><option>NEW PRODUCT</option><option>OFFER</option></select></div><div class="field"><label>PLACEMENT</label><select id="adPlace"><option>PUBLIC HOME PAGE</option><option>DEALER DASHBOARD</option><option>SPARE PART PAGE</option><option>ACCESSORIES PAGE</option><option>ALL PAGES</option></select></div><div class="field"><label>START DATE</label><input id="adStart" type="date"></div><div class="field"><label>END DATE</label><input id="adEnd" type="date"></div><div class="field"><label>STATUS</label><select id="adStatus"><option>ACTIVE</option><option>PAUSED</option><option>OFFLINE</option></select></div><div class="field"><label>IMAGE FILE</label><input id="adImage" type="file" accept="image/*"></div><div class="field"><label>VIDEO LINK</label><input id="adVideo"></div><div class="field"><label>PRODUCT / BUTTON LINK</label><input id="adLink"></div><div class="field full"><label>MESSAGE</label><textarea id="adMessage" class="upper" rows="3"></textarea></div></div><div class="toolbar"><button class="btn orange" onclick="saveAd()">SAVE AD</button></div></div><div id="adList"></div></div></section>
+<section id="homepage" class="section"><div class="panel"><div class="pTitle"><span class="tag blue">HOME PAGE CONTENT</span><b>WHO WE ARE + WHAT WE SELL</b></div><div class="box bBlue"><div class="grid"><div class="field"><label>SECTION TITLE *</label><input id="homeTitle" class="upper"></div><div class="field"><label>SECTION TYPE</label><select id="homeType"><option>ABOUT TORVO</option><option>SPARE PART RANGE</option><option>ACCESSORIES RANGE</option><option>TORVO OWN BRAND</option><option>FEATURED PRODUCT</option><option>VIDEO</option><option>DEALER BENEFIT</option><option>MESSAGE</option></select></div><div class="field"><label>STATUS</label><select id="homeStatus"><option>SHOW</option><option>HIDE</option></select></div><div class="field"><label>PHOTO FILE</label><input id="homePhoto" type="file" accept="image/*"></div><div class="field"><label>VIDEO LINK</label><input id="homeVideo"></div><div class="field"><label>BUTTON / LINK</label><input id="homeLink"></div><div class="field full"><label>CONTENT / MESSAGE</label><textarea id="homeText" class="upper" rows="4"></textarea></div></div><div class="toolbar"><button class="btn blue" onclick="saveHome()">SAVE HOME CONTENT</button></div></div><div id="homeList"></div></div></section>
+<section id="ai" class="section"><div class="panel"><div class="pTitle"><span class="tag purple">AI & API HUB</span><b>OPTIONAL FUTURE SMART FEATURES</b></div><div class="notice">NO PAID AI IS REQUIRED NOW. DO NOT PUT SECRET API KEYS DIRECTLY IN THIS HTML. LATER CONNECT AI THROUGH A SECURE BACKEND / SUPABASE EDGE FUNCTION.</div><div class="grid" style="margin-top:8px"><div class="smartCard"><b>📷 AI PHOTO SEARCH</b><div class="help">PHOTO → LIKELY SPARE PART SUGGESTIONS.</div></div><div class="smartCard"><b>🧩 AI DRAWING READER</b><div class="help">DRAWING / PART CODE → ITEM SUGGESTION.</div></div><div class="smartCard"><b>💬 AI DEALER HELP</b><div class="help">BASIC PRODUCT / SEARCH ASSISTANCE.</div></div><div class="smartCard"><b>📦 SMART REORDER</b><div class="help">STOCK + SALES SPEED → PURCHASE SUGGESTION.</div></div><div class="smartCard"><b>📈 SALES GAP ANALYSIS</b><div class="help">ORDER vs FINAL ESTIMATE SHORTFALL.</div></div><div class="smartCard"><b>🔌 FUTURE API CONNECTOR</b><div class="help">AI / COURIER / ACCOUNTING / OTHER APIs.</div></div></div><div class="box bPurple" style="margin-top:8px"><div class="grid"><div class="field"><label>AI MASTER STATUS</label><select id="aiStatus"><option>OFF</option><option>READY FOR FUTURE CONNECTION</option></select></div><div class="field"><label>PREFERRED PROVIDER</label><select id="aiProvider"><option>OPENAI</option><option>GEMINI</option><option>OTHER API</option></select></div><div class="field"><label>MODEL / PLAN NOTE</label><input id="aiModel" class="upper"></div><div class="field"><label>PHOTO SEARCH</label><select id="aiPhoto"><option>OFF</option><option>READY</option></select></div><div class="field"><label>DRAWING READER</label><select id="aiDrawing"><option>OFF</option><option>READY</option></select></div><div class="field"><label>DEALER HELP</label><select id="aiHelp"><option>OFF</option><option>READY</option></select></div><div class="field"><label>API BASE URL</label><input id="apiBase"></div><div class="field"><label>CONNECTOR NAME</label><input id="apiConnector" class="upper"></div><div class="field"><label>API STATUS</label><select id="apiStatus"><option>OFF</option><option>READY</option></select></div><div class="field full"><label>AI SAFETY RULE</label><textarea id="aiRule" class="upper" rows="3"></textarea></div></div><div class="toolbar"><button class="btn purple" onclick="saveAI()">SAVE AI / API SETTINGS</button></div></div></div></section>
+<section id="updates" class="section"><div class="panel"><div class="pTitle"><span class="tag teal">UPDATE CENTER</span><b>CONTROLLED FUTURE UPDATES</b></div><div class="infoNotice">NO AUTOMATIC CHANGE. VIEW BENEFIT FIRST, VERIFY, THEN CHOOSE WHETHER TO UPDATE. CREATE A RESTORE POINT BEFORE ANY FUTURE MAJOR CHANGE.</div><div class="updateCard updateRecommended"><b>UPDATE 01 — CLOUD DATABASE + STORAGE</b><div class="help">LIVE PRODUCTS, DEALERS, STOCK, DRAWINGS, ORDERS AND ESTIMATES.</div><div class="toolbar"><button class="btn green" onclick="previewUpdate('CLOUD DATABASE + STORAGE','LIVE MULTI-DEVICE DATA AND DEALER WEBSITE SYNC.')">VIEW UPDATE</button></div></div><div class="updateCard updateRecommended"><b>UPDATE 02 — DEALER WEBSITE LIVE SYNC</b><div class="help">ADMIN CONTROLS A/B/C RATE, STOCK, ADS, SCHEMES AND VISIBILITY.</div><div class="toolbar"><button class="btn green" onclick="previewUpdate('DEALER WEBSITE LIVE SYNC','DEALER WEBSITE WILL READ LIVE ADMIN DATA.')">VIEW UPDATE</button></div></div><div class="updateCard updateOptional"><b>UPDATE 03 — AI PHOTO SEARCH</b><div class="help">OPTIONAL LATER AFTER BASIC PORTAL IS LIVE.</div><div class="toolbar"><button class="btn orange" onclick="previewUpdate('AI PHOTO SEARCH','PHOTO CAN SUGGEST LIKELY SPARE PARTS. FINAL MATCH MUST BE VERIFIED.')">VIEW UPDATE</button></div></div><div class="updateCard updateOptional"><b>UPDATE 04 — AI DRAWING READER</b><div class="help">OPTIONAL LATER.</div><div class="toolbar"><button class="btn orange" onclick="previewUpdate('AI DRAWING READER','AI CAN HELP READ DRAWING TEXT / PART CODES.')">VIEW UPDATE</button></div></div><div class="box bBlue"><div class="boxTitle">VERSION / RESTORE CONTROL</div><div class="grid"><div class="field"><label>CURRENT VERSION</label><input value="TORVO ADMIN V1" readonly></div><div class="field"><label>LAST LOCAL BACKUP</label><input id="backupVersion" value="NO BACKUP YET" readonly></div><div class="field"><label>ACTION</label><button class="btn dark" onclick="createRestorePoint()">CREATE RESTORE POINT</button></div></div><div class="toolbar"><button class="btn red" onclick="restorePoint()">RESTORE PREVIOUS LOCAL DATA</button></div></div></div></section>
+<section id="verify" class="section"><div class="panel"><div class="pTitle"><span class="tag orange">SYSTEM VERIFY</span><b>DATA HEALTH CHECK</b></div><div id="verifySummary" class="notice">CLICK VERIFY SYSTEM TO SCAN.</div><div id="verifyList" class="verifyList" style="margin-top:8px"></div></div></section>
 </main>
 
 <aside class="right">
-<div style="font-size:14px;font-weight:900">TORVO Control</div>
-<div class="sub">Dealer, Reports & System</div>
-
-<div class="menuTitle">DEALERS</div>
-<button class="rnav" onclick="openSection('dealers',this)">Dealer Inquiries <span id="badgeDealer" class="badge">0</span></button>
-<button class="rnav" onclick="openSection('requests',this)">Spare Part Requests <span id="badgeRequest" class="badge">0</span></button>
-
-<div class="menuTitle">LOGISTICS</div>
-<button class="rnav" onclick="openSection('delivery',this)">Courier / Transport</button>
-
-<div class="menuTitle">REPORTS</div>
-<button class="rnav" onclick="openSection('reports',this)">REPORTS CENTER</button>
-
+<div class="logo" onclick="goHome()">TORVO</div><div class="sub">CONTROL & MANAGEMENT</div>
+<div class="menuTitle">BUSINESS</div>
+<button class="rnav" onclick="openSection('salesReport',this)">SALES REPORT</button>
+<button class="rnav" onclick="openSection('profit',this)">PROFIT / INCOME</button>
+<button class="rnav" onclick="openSection('dealers',this)">DEALER CONTROL</button>
+<button class="rnav" onclick="openSection('points',this)">POINTS & SCHEME</button>
+<div class="menuTitle">PROMOTION</div>
+<button class="rnav" onclick="openSection('ads',this)">ADS & PROMOTIONS</button>
+<button class="rnav" onclick="openSection('homepage',this)">HOME PAGE CONTENT</button>
+<div class="menuTitle">SMART CONTROL</div>
+<button class="rnav" onclick="openSection('drawings',this)">MACHINE DRAWINGS</button>
+<button class="rnav" onclick="openSection('ai',this)">AI & API HUB</button>
+<button class="rnav" onclick="openSection('updates',this)">UPDATE CENTER</button>
 <div class="menuTitle">SYSTEM</div>
-<button class="rnav" onclick="openSection('activity',this)">Activity History</button>
-<button class="rnav" onclick="openSection('backup',this)">Backup</button>
-<button class="rnav" onclick="openSection('settings',this)">Settings</button>
+<button class="rnav" onclick="runSystemCheck()">VERIFY SYSTEM</button>
+<button class="rnav" onclick="openSection('settings',this)">SETTINGS</button>
+<button class="rnav" onclick="openSection('dashboard',this)">DASHBOARD</button>
 </aside>
-
 </div>
 
-<div id="notificationPanel" class="notif"></div>
-<div id="toast" class="toast"></div>
+<datalist id="brandList"></datalist><datalist id="machineTypeList"></datalist><datalist id="workTypeList"></datalist><datalist id="modelList"></datalist>
+<div id="notificationPanel" class="notif"></div><div id="toast" class="toast"></div>
 
 <script>
-var KEY="TORVO_ADMIN_FINAL_2026";
-
+var KEY="TORVO_ADMIN_CUSTOMER_HISTORY_2026";
 var DB=JSON.parse(localStorage.getItem(KEY)||"null")||{
-items:[],machines:[],orders:[],estimates:[],confirmed:[],deliveries:[],
-dealers:[],requests:[],partners:[],purchaseHistory:[],activity:[],
-brands:["Bosch","Makita","DeWalt"],
-categories:["Armature","Field / Stator","Gear","Switch","Carbon Brush","Bearing"],
-spareNames:["Armature","Field / Stator","Gear","Switch","Carbon Brush","Bearing"],
-machineTypes:["Angle Grinder","Marble Cutter","Drill Machine","Rotary Hammer","Demolition Hammer","Cut Off Machine"]
+ items:[],machines:[],orders:[],estimates:[],deliveries:[],partners:[],dealers:[],inquiries:[],messages:[],points:[],drawings:[],profitEntries:[],ads:[],homeContent:[],customerEvents:[],
+ purchaseHistory:[],stockHistory:[],activity:[],customerEvents:[],
+ brands:["BOSCH","MAKITA","DEWALT","TORVO"],
+ categories:["ARMATURE","FIELD / STATOR","GEAR","SWITCH","CARBON BRUSH","BEARING"],
+ accessoryCategories:["CUTTING WHEEL","GRINDING WHEEL","DIAMOND BLADE","CORING BIT","DRILL BIT","HOLE SAW","CHISEL","SAW BLADE"],
+ machineTypes:["ANGLE GRINDER","MARBLE CUTTER","DRILL MACHINE","ROTARY HAMMER","DEMOLITION HAMMER","CUT OFF MACHINE"],
+ workTypes:["ANGLE GRINDER","MARBLE CUTTER","DRILL MACHINE","ROTARY HAMMER","DEMOLITION HAMMER","CUT OFF MACHINE","POLISHER","JIGSAW","CIRCULAR SAW","OTHER"]
 };
-
-var selectedMachines=[];
-var slabs=[];
-var itemFilter="all";
-var editingItem=-1;
-var editingMachine=-1;
-var audio=null;
-var dirty=false;
-var toastTimer=null;
+var selectedMachines=[],slabs=[],itemFilter="all",editingItem=-1,editingMachine=-1,audio=null,dirty=false,toastTimer=null,tempPhotos=["",""];
 
 function E(id){return document.getElementById(id)}
-function N(v){return String(v||"").trim().replace(/\s+/g," ").toLowerCase()}
+function U(v){return String(v==null?"":v).toUpperCase()}
+function N(v){return U(v).trim().replace(/\s+/g," ").toLowerCase()}
 function H(v){return String(v==null?"":v).replace(/[&<>"']/g,function(c){return{"&":"&amp;","<":"&lt;",">":"&gt;",'"':"&quot;","'":"&#39;"}[c]})}
 function TODAY(){return new Date().toISOString().slice(0,10)}
+function DAYSAGO(n){var d=new Date();d.setDate(d.getDate()-n);return d.toISOString().slice(0,10)}
+document.addEventListener("input",function(e){if(e.target.classList.contains("upper")){var s=e.target.selectionStart;e.target.value=U(e.target.value);try{e.target.setSelectionRange(s,s)}catch(x){}}});
 
-function sound(freq,duration,volume){
-try{
-audio=audio||new(window.AudioContext||window.webkitAudioContext)();
-var o=audio.createOscillator(),g=audio.createGain();
-o.type="sine";o.frequency.value=freq;g.gain.value=volume||.025;
-o.connect(g);g.connect(audio.destination);o.start();
-g.gain.exponentialRampToValueAtTime(.0001,audio.currentTime+(duration||.06));
-o.stop(audio.currentTime+(duration||.06));
-}catch(e){}
-}
-function sndClick(){sound(520,.04,.018)}
-function sndOK(){sound(660,.07,.03);setTimeout(function(){sound(880,.07,.025)},65)}
-function sndError(){sound(220,.14,.04)}
-function sndAlert(){sound(330,.06,.03);setTimeout(function(){sound(260,.1,.03)},70)}
-function sndDelete(){sound(240,.07,.035);setTimeout(function(){sound(180,.12,.035)},65)}
-function sndOpen(){sound(460,.04,.015)}
-function sndSave(){sound(620,.06,.025);setTimeout(function(){sound(780,.06,.025)},55);setTimeout(function(){sound(930,.07,.02)},110)}
-
-function toast(text,type){
-var t=E("toast");clearTimeout(toastTimer);t.textContent=text;
-if(type==="error"){t.style.background="#b91c1c";sndError()}
-else if(type==="success"){t.style.background="#15803d";sndOK()}
-else if(type==="alert"){t.style.background="#ea580c";sndAlert()}
-else{t.style.background="#34465c";sndClick()}
-t.style.display="block";toastTimer=setTimeout(function(){t.style.display="none"},2500)
-}
-
+function sound(f,d,v){try{audio=audio||new(window.AudioContext||window.webkitAudioContext)();var o=audio.createOscillator(),g=audio.createGain();o.frequency.value=f;g.gain.value=v||.025;o.connect(g);g.connect(audio.destination);o.start();g.gain.exponentialRampToValueAtTime(.0001,audio.currentTime+(d||.06));o.stop(audio.currentTime+(d||.06))}catch(e){}}
+function sndClick(){sound(520,.04,.018)}function sndOK(){sound(660,.07,.03);setTimeout(function(){sound(880,.07,.025)},65)}function sndError(){sound(220,.14,.04)}function sndAlert(){sound(330,.06,.03);setTimeout(function(){sound(260,.1,.03)},70)}function sndDelete(){sound(240,.07,.035);setTimeout(function(){sound(180,.12,.035)},65)}function sndSave(){sound(620,.06,.025);setTimeout(function(){sound(780,.06,.025)},55);setTimeout(function(){sound(930,.07,.02)},110)}
+function toast(t,type){var x=E("toast");clearTimeout(toastTimer);x.textContent=U(t);if(type==="error"){x.style.background="#b91c1c";sndError()}else if(type==="success"){x.style.background="#15803d";sndOK()}else if(type==="alert"){x.style.background="#ea580c";sndAlert()}else{x.style.background="#34465c";sndClick()}x.style.display="block";toastTimer=setTimeout(function(){x.style.display="none"},2500)}
 function saveDB(){localStorage.setItem(KEY,JSON.stringify(DB));refreshAll()}
-function logActivity(text){DB.activity.unshift({time:new Date().toLocaleString(),text:text});DB.activity=DB.activity.slice(0,100)}
+function logActivity(t){DB.activity.unshift({time:new Date().toLocaleString(),text:U(t)});DB.activity=DB.activity.slice(0,100)}
 
-var titles={
-dashboard:"TORVO Dashboard",machines:"Machines",spares:"Spare Parts",items:"ITEM",
-suitable:"Suitable Mapping",orders:"Sales Orders",estimates:"Estimates",
-confirmed:"Confirmed Orders",delivery:"Delivery & Tracking",dealers:"Dealer Inquiries",
-requests:"Spare Part Requests",reports:"Reports Center",activity:"Activity History",
-backup:"Backup",settings:"Settings"
-};
+var titles={dashboard:"TORVO DASHBOARD",machines:"MACHINES",spares:"ADD SPARE PART",accessories:"ADD ACCESSORY",itemmaster:"ITEM MASTER",suitable:"SUITABLE SEARCH",orders:"SALES ORDERS",estimates:"ESTIMATES",delivery:"DELIVERY & TRACKING",customers:"CUSTOMER HISTORY",dealers:"DEALER MANAGEMENT",inquiries:"INQUIRY CENTER",journey:"30-DAY DEALER JOURNEY",chat:"DEALER CHAT",points:"POINTS & YEARLY SCHEME",salesReport:"SALES REPORT",profit:"PROFIT / INCOME",drawings:"MACHINE DRAWINGS",ads:"ADS & PROMOTIONS",homepage:"HOME PAGE CONTENT",ai:"AI & API HUB",updates:"UPDATE CENTER",verify:"SYSTEM VERIFY"};
+function openSection(id,btn){sndClick();document.querySelectorAll(".section").forEach(function(x){x.classList.remove("active")});document.querySelectorAll(".nav,.rnav").forEach(function(x){x.classList.remove("active")});var s=E(id);if(!s)return;s.classList.add("active");if(btn)btn.classList.add("active");E("pageTitle").textContent=titles[id]||"TORVO";if(id==="spares")buildItemForm("SPARE PART");if(id==="accessories")buildItemForm("ACCESSORY");if(id==="itemmaster")renderItems();if(id==="suitable")renderSuitableResults();if(id==="customers")renderCustomerHistory();if(id==="dealers")renderDealers();if(id==="inquiries")renderInquiries();if(id==="journey")renderJourney();if(id==="chat")renderChat();if(id==="points")renderPoints();if(id==="salesReport")renderSalesReport();if(id==="profit")renderProfit();if(id==="drawings")renderDrawings();if(id==="ads")renderAds();if(id==="homepage")renderHome();if(id==="ai")loadAI();window.scrollTo(0,0)}
+function goHome(){sndAlert();if(dirty&&!confirm("UNSAVED ENTRY EXISTS. CONTINUE TO HOME?"))return;clearItemForm();clearMachine();openSection("dashboard",document.querySelector(".nav"));toast("HOME OPENED","success")}
 
-function openSection(id,btn){
-sndOpen();
-document.querySelectorAll(".section").forEach(function(x){x.classList.remove("active")});
-document.querySelectorAll(".nav,.rnav").forEach(function(x){x.classList.remove("active")});
-var s=E(id);if(!s)return;s.classList.add("active");if(btn)btn.classList.add("active");
-E("pageTitle").textContent=titles[id]||"TORVO";
-if(id==="items")renderItems();
-if(id==="suitable")refreshMachineSelects();
-if(id==="activity")renderActivity();
-window.scrollTo(0,0)
-}
+function masterArray(type){if(type==="brand")return DB.brands;if(type==="category")return DB.categories;if(type==="machineType")return DB.machineTypes;if(type==="workType")return DB.workTypes;if(type==="model")return DB.machines.map(function(x){return x.model});if(type==="item")return DB.items.map(function(x){return x.no});return[]}
+function masterUsage(type,v){if(type==="brand")return DB.items.filter(function(x){return N(x.brand)===N(v)}).length+DB.machines.filter(function(x){return N(x.brand)===N(v)}).length;if(type==="category")return DB.items.filter(function(x){return N(x.category)===N(v)}).length;if(type==="machineType")return DB.machines.filter(function(x){return N(x.type)===N(v)}).length;if(type==="workType")return DB.machines.filter(function(x){return N(x.work)===N(v)}).length;if(type==="model")return DB.machines.filter(function(x){return N(x.model)===N(v)}).length+DB.items.filter(function(x){return(x.machines||[]).includes(U(v))}).length;if(type==="item")return DB.items.filter(function(x){return N(x.no)===N(v)}).length;return 0}
+function addMaster(type,inputId){var input=E(inputId),v=U(input.value.trim());if(!v)v=U((prompt("NEW "+type+":")||"").trim());if(!v)return;if(masterArray(type).some(function(x){return N(x)===N(v)}))return toast("DATABASE MATCH: VALUE ALREADY EXISTS","error");if(type==="brand")DB.brands.push(v);if(type==="category")DB.categories.push(v);if(type==="machineType")DB.machineTypes.push(v);if(type==="workType")DB.workTypes.push(v);input.value=v;logActivity("MASTER ADDED: "+v);saveDB();toast("VALUE ADDED","success")}
+function editMaster(type,inputId){var input=E(inputId),old=U(input.value.trim());if(!old)return toast("SELECT VALUE FIRST","error");var use=masterUsage(type,old);if(use>0)return toast("VALUE USED IN "+use+" RECORD(S). CHANGE LINKED RECORD FIRST","error");var v=U((prompt("EDIT VALUE:",old)||"").trim());if(!v)return;if(masterArray(type).some(function(x){return N(x)===N(v)&&N(x)!==N(old)}))return toast("NEW VALUE ALREADY EXISTS","error");if(type==="brand")DB.brands=DB.brands.map(function(x){return N(x)===N(old)?v:x});if(type==="category")DB.categories=DB.categories.map(function(x){return N(x)===N(old)?v:x});if(type==="machineType")DB.machineTypes=DB.machineTypes.map(function(x){return N(x)===N(old)?v:x});if(type==="workType")DB.workTypes=DB.workTypes.map(function(x){return N(x)===N(old)?v:x});input.value=v;logActivity("MASTER EDITED: "+old+" → "+v);saveDB();toast("VALUE UPDATED","success")}
+function deleteMaster(type,inputId){var input=E(inputId),v=U(input.value.trim());if(!v)return toast("SELECT VALUE FIRST","error");var use=masterUsage(type,v);if(use>0)return toast("DELETE BLOCKED: USED IN "+use+" RECORD(S)","error");if(!confirm("DELETE "+v+" ?"))return;if(type==="brand")DB.brands=DB.brands.filter(function(x){return N(x)!==N(v)});if(type==="category")DB.categories=DB.categories.filter(function(x){return N(x)!==N(v)});if(type==="machineType")DB.machineTypes=DB.machineTypes.filter(function(x){return N(x)!==N(v)});if(type==="workType")DB.workTypes=DB.workTypes.filter(function(x){return N(x)!==N(v)});input.value="";logActivity("MASTER DELETED: "+v);saveDB();sndDelete();toast("VALUE DELETED","success")}
 
-function goHome(){
-sndAlert();
-if(dirty&&!confirm("Unsaved entry है. Home जाने पर temporary entry clear होगी. Continue?"))return;
-clearSpare();clearMachine();openSection("dashboard",document.querySelector(".nav"));
-toast("Home opened.","success")
-}
-
-function markFilled(input){
-dirty=true;
-if(input.value.trim()){input.classList.add("ok");input.classList.remove("bad")}
-else input.classList.remove("ok","bad")
-}
-
-function masterArray(type){
-if(type==="brand")return DB.brands;
-if(type==="category")return DB.categories;
-if(type==="name")return DB.spareNames;
-if(type==="item")return DB.items.map(function(x){return x.no});
-return[]
-}
-
-function masterUsage(type,value){
-if(type==="item")return DB.items.filter(function(x){return N(x.no)===N(value)}).length;
-if(type==="name")return DB.items.filter(function(x){return N(x.name)===N(value)}).length;
-if(type==="brand")return DB.items.filter(function(x){return N(x.brand)===N(value)}).length+DB.machines.filter(function(x){return N(x.brand)===N(value)}).length;
-if(type==="category")return DB.items.filter(function(x){return N(x.category)===N(value)}).length;
-return 0
-}
-
-function addMaster(type,inputId){
-sndClick();var input=E(inputId),v=input.value.trim();
-if(!v)v=(prompt("New "+type+":")||"").trim();if(!v)return;
-if(masterArray(type).some(function(x){return N(x)===N(v)})){toast("Database Match: यह value पहले से मौजूद है.","error");return}
-if(type==="brand")DB.brands.push(v);
-if(type==="category")DB.categories.push(v);
-if(type==="name")DB.spareNames.push(v);
-input.value=v;logActivity("Master added: "+v);saveDB();toast("Value added.","success")
-}
-
-function editMaster(type,inputId){
-sndClick();var input=E(inputId),old=input.value.trim();if(!old)return toast("पहले value select करें.","error");
-var use=masterUsage(type,old);if(use>0)return toast("यह value "+use+" record(s) में use हो रही है. पहले linked record बदलें.","error");
-var v=(prompt("Edit value:",old)||"").trim();if(!v)return;
-if(masterArray(type).some(function(x){return N(x)===N(v)&&N(x)!==N(old)}))return toast("यह नया नाम पहले से मौजूद है.","error");
-if(type==="brand")DB.brands=DB.brands.map(function(x){return N(x)===N(old)?v:x});
-if(type==="category")DB.categories=DB.categories.map(function(x){return N(x)===N(old)?v:x});
-if(type==="name")DB.spareNames=DB.spareNames.map(function(x){return N(x)===N(old)?v:x});
-input.value=v;logActivity("Master edited: "+old+" → "+v);saveDB();toast("Value updated.","success")
-}
-
-function deleteMaster(type,inputId){
-sndAlert();var input=E(inputId),v=input.value.trim();if(!v)return toast("पहले value select करें.","error");
-var use=masterUsage(type,v);if(use>0)return toast("Delete नहीं हो सकता. यह "+use+" record(s) में use हो रही है.","error");
-if(!confirm("Delete "+v+" ?"))return;
-if(type==="brand")DB.brands=DB.brands.filter(function(x){return N(x)!==N(v)});
-if(type==="category")DB.categories=DB.categories.filter(function(x){return N(x)!==N(v)});
-if(type==="name")DB.spareNames=DB.spareNames.filter(function(x){return N(x)!==N(v)});
-input.value="";logActivity("Master deleted: "+v);saveDB();sndDelete();toast("Value deleted.","success")
-}
-
-function setValidation(input,help,state,text){
-input.classList.remove("ok","bad");help.className="help";
-if(state==="ok"){input.classList.add("ok");help.classList.add("ok")}
-if(state==="bad"){input.classList.add("bad");help.classList.add("bad")}
-help.textContent=text
-}
-
-function validateMasterField(type,inputId,helpId){
-dirty=true;var input=E(inputId),help=E(helpId),v=input.value.trim();
-if(!v){setValidation(input,help,"","");return}
-if(type==="item"){
-var ix=DB.items.findIndex(function(x){return N(x.no)===N(v)});
-if(ix>=0&&ix!==editingItem){setValidation(input,help,"bad","Database Match: Item Number पहले से मौजूद है.");sndError();return}
-}
-var match=masterArray(type).find(function(x){return N(x)===N(v)});
-setValidation(input,help,"ok",match?"✓ Database Match: "+match:"✓ New / Available")
-}
-
-function validateMachineBrand(){
-dirty=true;var input=E("mBrand"),v=input.value.trim(),help=E("mBrandHelp");
-if(!v){setValidation(input,help,"","");return}
-var match=DB.brands.find(function(x){return N(x)===N(v)});
-setValidation(input,help,"ok",match?"✓ Existing Brand":"✓ New Brand")
-}
-
-function validateModel(){
-dirty=true;var input=E("mModel"),v=input.value.trim(),help=E("mModelHelp");
-if(!v){setValidation(input,help,"","");return}
-var ix=DB.machines.findIndex(function(x){return N(x.model)===N(v)});
-if(ix>=0&&ix!==editingMachine){setValidation(input,help,"bad","Database Match: Model पहले से मौजूद है.");sndError()}
-else setValidation(input,help,"ok","✓ Model Available")
-}
+function setValidation(input,help,state,text){input.classList.remove("ok","bad");help.className="help";if(state==="ok"){input.classList.add("ok");help.classList.add("ok")}if(state==="bad"){input.classList.add("bad");help.classList.add("bad")}help.textContent=U(text)}
+function validateMachineBrand(){dirty=true;var v=U(E("mBrand").value.trim());if(!v)return setValidation(E("mBrand"),E("mBrandHelp"),"","");setValidation(E("mBrand"),E("mBrandHelp"),"ok",DB.brands.some(function(x){return N(x)===N(v)})?"DATABASE MATCH ✓":"NEW BRAND ✓")}
+function validateMachineType(){dirty=true;var v=U(E("mType").value.trim());if(!v)return setValidation(E("mType"),E("mTypeHelp"),"","");setValidation(E("mType"),E("mTypeHelp"),"ok",DB.machineTypes.some(function(x){return N(x)===N(v)})?"DATABASE MATCH ✓":"NEW MACHINE TYPE ✓")}
+function validateModel(){dirty=true;var v=U(E("mModel").value.trim());if(!v)return setValidation(E("mModel"),E("mModelHelp"),"","");var ix=DB.machines.findIndex(function(x,i){return N(x.model)===N(v)&&i!==editingMachine});if(ix>=0){setValidation(E("mModel"),E("mModelHelp"),"bad","DATABASE MATCH: MODEL ALREADY EXISTS");sndError()}else setValidation(E("mModel"),E("mModelHelp"),"ok","MODEL AVAILABLE ✓")}
 
 function refreshLists(){
-var brands=[].concat(DB.brands,DB.items.map(function(x){return x.brand}),DB.machines.map(function(x){return x.brand})).filter(Boolean);
-brands=[...new Set(brands)];
-E("brandList").innerHTML=brands.map(function(x){return'<option value="'+H(x)+'">'}).join("");
-E("categoryList").innerHTML=[...new Set([].concat(DB.categories,DB.items.map(function(x){return x.category})).filter(Boolean))].map(function(x){return'<option value="'+H(x)+'">'}).join("");
-E("spareNameList").innerHTML=[...new Set([].concat(DB.spareNames,DB.items.map(function(x){return x.name})).filter(Boolean))].map(function(x){return'<option value="'+H(x)+'">'}).join("");
-E("itemNoList").innerHTML=DB.items.map(function(x){return'<option value="'+H(x.no)+'">'}).join("");
-E("machineTypeList").innerHTML=DB.machineTypes.map(function(x){return'<option value="'+H(x)+'">'}).join("");
-refreshMachineSelects()
-}
-
-function refreshMachineSelects(){
-var html='<option value="">Select Machine</option>';
-DB.machines.forEach(function(m,i){html+='<option value="'+i+'">'+H(m.brand)+' | '+H(m.type)+' | '+H(m.model)+'</option>'});
-E("machineSelect").innerHTML=html;E("suitableMachine").innerHTML=html
+ var brands=[...new Set([].concat(DB.brands,DB.items.map(function(x){return x.brand}),DB.machines.map(function(x){return x.brand})).filter(Boolean).map(U))];
+ E("brandList").innerHTML=brands.map(function(x){return'<option value="'+H(x)+'">'}).join("");
+ E("machineTypeList").innerHTML=[...new Set(DB.machineTypes.map(U))].map(function(x){return'<option value="'+H(x)+'">'}).join("");
+ E("workTypeList").innerHTML=[...new Set(DB.workTypes.map(U))].map(function(x){return'<option value="'+H(x)+'">'}).join("");
+ E("modelList").innerHTML=DB.machines.map(function(x){return'<option value="'+H(x.model)+'">'}).join("");
+ if(E("sBrand"))E("sBrand").innerHTML='<option value="">ALL / SELECT BRAND</option>'+brands.map(function(x){return'<option>'+H(x)+'</option>'}).join("");
+ if(E("sType"))E("sType").innerHTML='<option value="">ALL / SELECT TYPE</option>'+DB.machineTypes.map(function(x){return'<option>'+H(x)+'</option>'}).join("");
+ refreshMachineSelects()
 }
 
 function saveMachine(addNext){
-var brand=E("mBrand").value.trim(),type=E("mType").value.trim(),model=E("mModel").value.trim();
-if(!brand||!type||!model)return toast("Brand, Machine Type और Model जरूरी हैं.","error");
-var dup=DB.machines.findIndex(function(x,i){return N(x.model)===N(model)&&i!==editingMachine});
-if(dup>=0)return toast("यह Model Number पहले से मौजूद है.","error");
-var obj={date:E("machineDate").value||TODAY(),id:editingMachine>=0?DB.machines[editingMachine].id:"MCH-"+String(Date.now()).slice(-6),brand:brand,type:type,model:model,desc:E("mDesc").value.trim(),status:E("mStatus").value};
-if(editingMachine>=0){DB.machines[editingMachine]=obj;logActivity("Machine updated: "+model)}
-else{DB.machines.push(obj);logActivity("Machine added: "+model)}
-if(!DB.brands.some(function(x){return N(x)===N(brand)}))DB.brands.push(brand);
-saveDB();sndSave();toast("Machine saved.","success");clearMachine();
-if(addNext)setTimeout(function(){E("mBrand").focus()},100)
+ var brand=U(E("mBrand").value.trim()),type=U(E("mType").value.trim()),work=U(E("mWork").value.trim()),model=U(E("mModel").value.trim());
+ if(!brand||!type||!work||!model)return toast("BRAND, MACHINE TYPE, WORK TYPE AND MODEL REQUIRED","error");
+ var dup=DB.machines.findIndex(function(x,i){return N(x.model)===N(model)&&i!==editingMachine});if(dup>=0)return toast("MODEL NUMBER ALREADY EXISTS","error");
+ var obj={date:E("machineDate").value||TODAY(),id:editingMachine>=0?DB.machines[editingMachine].id:"MCH-"+String(Date.now()).slice(-6),brand:brand,type:type,work:work,model:model,alt:U(E("mAlt").value.trim()),desc:U(E("mDesc").value.trim()),status:U(E("mStatus").value)};
+ if(editingMachine>=0){DB.machines[editingMachine]=obj;logActivity("MACHINE UPDATED: "+model)}else{DB.machines.push(obj);logActivity("MACHINE ADDED: "+model)}
+ if(!DB.brands.some(function(x){return N(x)===N(brand)}))DB.brands.push(brand);if(!DB.machineTypes.some(function(x){return N(x)===N(type)}))DB.machineTypes.push(type);if(!DB.workTypes.some(function(x){return N(x)===N(work)}))DB.workTypes.push(work);
+ saveDB();sndSave();toast("MACHINE SAVED","success");clearMachine();if(addNext)setTimeout(function(){E("mBrand").focus()},100)
+}
+function editMachine(i){var x=DB.machines[i];editingMachine=i;E("machineDate").value=x.date||TODAY();E("mBrand").value=x.brand;E("mType").value=x.type;E("mWork").value=x.work||"";E("mModel").value=x.model;E("mAlt").value=x.alt||"";E("mDesc").value=x.desc||"";E("mStatus").value=x.status||"ACTIVE";openSection("machines");toast("MACHINE EDIT MODE OPENED","success")}
+function deleteMachine(i){var x=DB.machines[i],used=DB.items.some(function(p){return(p.machines||[]).includes(x.model)});if(used)return toast("DELETE BLOCKED: MACHINE USED IN SPARE PART MAPPING","error");if(!confirm("DELETE "+x.model+" ?"))return;DB.machines.splice(i,1);logActivity("MACHINE DELETED: "+x.model);saveDB();sndDelete();toast("MACHINE DELETED","success")}
+function clearMachine(){editingMachine=-1;E("machineDate").value=TODAY();["mBrand","mType","mWork","mModel","mAlt","mDesc"].forEach(function(id){E(id).value="";E(id).classList.remove("ok","bad")});E("mStatus").value="ACTIVE";E("mBrandHelp").textContent="";E("mTypeHelp").textContent="";E("mModelHelp").textContent="";dirty=false}
+function renderMachines(){E("machineRows").innerHTML=DB.machines.length?DB.machines.map(function(x,i){return"<tr><td>"+H(x.date)+"</td><td>"+H(x.id)+"</td><td>"+H(x.brand)+"</td><td>"+H(x.type)+"</td><td>"+H(x.work||"")+"</td><td>"+H(x.model)+"</td><td>"+H(x.alt||"")+"</td><td>"+H(x.status)+"</td><td><button class='btn blue' onclick='editMachine("+i+")'>EDIT</button> <button class='btn red' onclick='deleteMachine("+i+")'>DELETE</button></td></tr>"}).join(""):"<tr><td colspan='9' class='empty'>NO MACHINES YET.</td></tr>"}
+function refreshMachineSelects(){var html='<option value="">SELECT MACHINE</option>';DB.machines.forEach(function(m,i){html+='<option value="'+i+'">'+H(m.brand)+' | '+H(m.type)+' | '+H(m.work||"")+' | '+H(m.model)+'</option>'});if(E("machineSelect"))E("machineSelect").innerHTML=html}
+
+function buildItemForm(type){
+ var isSpare=type==="SPARE PART",cats=isSpare?DB.categories:DB.accessoryCategories,host=isSpare?E("spareFormHost"):E("accessoryFormHost");
+ host.innerHTML='<div class="grid">'+
+ '<div class="box bTeal"><div class="boxTitle">1. ENTRY DATE & PRODUCT TYPE</div><div class="grid"><div class="field"><label>DATE *</label><input id="pDate" type="date" value="'+TODAY()+'"></div><div class="field"><label>PRODUCT TYPE</label><input id="pType" value="'+type+'" readonly></div><div class="field"><label>OWN BRAND HIGHLIGHT</label><select id="pOwn"><option>NO</option><option>YES - TORVO</option></select></div></div></div>'+
+ '<div class="box bBlue"><div class="boxTitle">2. BASIC PRODUCT DETAILS</div><div class="grid"><div class="field"><label>ITEM NUMBER *</label><input id="pNo" class="upper"></div><div class="field"><label>PRODUCT NAME *</label><input id="pName" class="upper"></div><div class="field"><label>BRAND *</label><input id="pBrand" class="upper" list="brandList"></div><div class="field"><label>CATEGORY *</label><input id="pCategory" class="upper" list="catX"><datalist id="catX">'+cats.map(function(x){return'<option value="'+H(U(x))+'">'}).join("")+'</datalist></div><div class="field"><label>PIECES PER BOX</label><input id="pBox" type="number" min="0" value="1"></div><div class="field"><label>OEM / REFERENCE PART NO.</label><input id="pRef" class="upper"></div><div class="field"><label>SIZE / DIMENSION</label><input id="pSize" class="upper"></div><div class="field"><label>SPECIFICATION / KEY SPECS</label><input id="pSpec" class="upper"></div><div class="field"><label>POSITION / LOCATION</label><input id="pPosition" class="upper"></div></div></div>'+
+ '<div class="box bPurple"><div class="boxTitle">3. PRODUCT PHOTOS — UP TO 2</div><div class="grid"><div class="field"><label>PHOTO 1</label><input id="pPhoto1" type="file" accept="image/*" onchange="previewPhoto(1,this.files[0])"></div><div class="field"><label>PHOTO 2</label><input id="pPhoto2" type="file" accept="image/*" onchange="previewPhoto(2,this.files[0])"></div><div class="field"><label>PREVIEW</label><div id="photoPreview" class="photoPreview"></div></div></div></div>'+
+ '<div class="box bYellow"><div class="boxTitle">4. COST & DEALER RATES</div><div class="grid"><div class="field"><label>PURCHASE COST</label><input id="pCost" type="number" min="0" step="0.01" value="0"></div><div class="field"><label>RATE A</label><input id="pA" type="number" min="0" step="0.01" value="0"></div><div class="field"><label>RATE B</label><input id="pB" type="number" min="0" step="0.01" value="0"></div><div class="field"><label>RATE C</label><input id="pC" type="number" min="0" step="0.01" value="0"></div></div></div>'+
+ '<div class="box bGreen"><div class="boxTitle">5. INVENTORY & VISIBILITY</div><div class="grid"><div class="field"><label>CURRENT STOCK</label><input id="pQty" type="number" min="0" value="0"></div><div class="field"><label>MINIMUM / REORDER STOCK</label><input id="pMin" type="number" min="0" value="0"></div><div class="field"><label>ONLINE / OFFLINE</label><select id="pOnline"><option>ONLINE</option><option>OFFLINE</option></select></div><div class="field"><label>ACTIVE / INACTIVE</label><select id="pStatus"><option>ACTIVE</option><option>INACTIVE</option></select></div><div class="field"><label>DEALER VISIBILITY</label><select id="pVisible"><option>SHOW</option><option>HIDE</option></select></div><div class="field"><label>FEATURED TAG</label><select id="pFeatured"><option>NORMAL</option><option>FEATURED</option><option>BEST SELLER</option><option>NEW LAUNCH</option><option>RECOMMENDED</option></select></div></div></div>'+
+ '<div class="box bOrange"><div class="boxTitle">6. QUANTITY SLAB / BULK PRICE</div><div class="grid"><div class="field"><label>MINIMUM QUANTITY</label><input id="bulkQty" type="number" min="0" value="0"></div><div class="field"><label>SPECIAL RATE</label><input id="bulkRate" type="number" min="0" step="0.01" value="0"></div><div class="field"><label>ADD</label><button class="btn orange" onclick="addSlab()">+ ADD QUANTITY SLAB</button></div></div><div id="slabChips" class="chips"></div></div>'+
+ (isSpare?'<div class="box bPurple"><div class="boxTitle">7. SUITABLE / COMPATIBILITY</div><div class="grid"><div class="field"><label>SELECT MACHINE</label><select id="machineSelect"></select></div><div class="field"><label>ADD</label><button class="btn purple" onclick="addSuitable()">+ ADD MACHINE</button></div><div class="field"><label>MATCH TYPE</label><select id="pMatch"><option>EXACT FIT</option><option>TESTED SUITABLE</option><option>MARKET COMPATIBLE</option><option>NEEDS VERIFICATION</option></select></div><div class="field"><label>COMPATIBLE GROUP / FAMILY</label><input id="pGroup" class="upper"></div><div class="field"><label>VERIFIED BY</label><input id="pVerifiedBy" class="upper"></div><div class="field"><label>VERIFIED DATE</label><input id="pVerifiedDate" type="date" value="'+TODAY()+'"></div></div><div id="machineChips" class="chips"></div></div>':'')+
+ '<div class="full toolbar"><button class="btn green" onclick="saveItem(false)">SAVE ITEM</button><button class="btn blue" onclick="saveItem(true)">SAVE & ADD NEXT</button><button class="btn light" onclick="clearItemForm()">CLEAR</button></div></div>';
+ refreshMachineSelects();renderMachineChips();renderSlabs()
 }
 
-function editMachine(i){
-var x=DB.machines[i];editingMachine=i;E("machineDate").value=x.date||TODAY();E("mBrand").value=x.brand;E("mType").value=x.type;E("mModel").value=x.model;E("mDesc").value=x.desc||"";E("mStatus").value=x.status||"Active";openSection("machines");toast("Machine edit mode opened.","success")
-}
+function previewPhoto(slot,file){if(!file)return;var r=new FileReader();r.onload=function(){tempPhotos[slot-1]=r.result;renderPhotoPreview()};r.readAsDataURL(file)}
+function renderPhotoPreview(){if(!E("photoPreview"))return;E("photoPreview").innerHTML=tempPhotos.filter(Boolean).map(function(x){return'<img src="'+x+'">'}).join("")}
+function addSuitable(){var i=E("machineSelect").value;if(i==="")return toast("SELECT MACHINE","error");var model=DB.machines[i].model;if(selectedMachines.includes(model))return toast("MACHINE ALREADY SELECTED","error");selectedMachines.push(model);renderMachineChips();sndOK()}
+function renderMachineChips(){if(!E("machineChips"))return;E("machineChips").innerHTML=selectedMachines.map(function(x,i){return'<span class="chip">'+H(x)+' <b onclick="selectedMachines.splice('+i+',1);renderMachineChips()">×</b></span>'}).join("")}
+function addSlab(){var q=Number(E("bulkQty").value||0),r=Number(E("bulkRate").value||0);if(q<=0||r<=0)return toast("ENTER VALID QUANTITY AND RATE","error");if(slabs.some(function(x){return x.qty===q}))return toast("SLAB ALREADY EXISTS","error");slabs.push({qty:q,rate:r});slabs.sort(function(a,b){return a.qty-b.qty});renderSlabs();E("bulkQty").value=0;E("bulkRate").value=0;sndOK()}
+function renderSlabs(){if(!E("slabChips"))return;E("slabChips").innerHTML=slabs.map(function(x,i){return'<span class="chip">'+x.qty+' PCS → ₹'+x.rate+' <b onclick="slabs.splice('+i+',1);renderSlabs()">×</b></span>'}).join("")}
 
-function deleteMachine(i){
-var x=DB.machines[i],used=DB.items.some(function(p){return(p.machines||[]).includes(x.model)});
-if(used)return toast("Delete नहीं हो सकता. Machine Spare Part mapping में use हो रही है.","error");
-if(!confirm("Delete "+x.model+" ?"))return;
-DB.machines.splice(i,1);logActivity("Machine deleted: "+x.model);saveDB();sndDelete();toast("Machine deleted.","success")
+function saveItem(addNext){
+ var no=U(E("pNo").value.trim()),name=U(E("pName").value.trim()),brand=U(E("pBrand").value.trim()),cat=U(E("pCategory").value.trim());
+ if(!no||!name||!brand||!cat)return toast("ITEM NO, NAME, BRAND AND CATEGORY REQUIRED","error");
+ var dup=DB.items.findIndex(function(x,i){return N(x.no)===N(no)&&i!==editingItem});if(dup>=0)return toast("ITEM NUMBER ALREADY EXISTS","error");
+ var qty=Math.max(0,Number(E("pQty").value||0)),min=Math.max(0,Number(E("pMin").value||0));
+ var old=editingItem>=0?DB.items[editingItem]:{},oldQty=Number(old.qty||0);
+ var obj={date:E("pDate").value||TODAY(),type:U(E("pType").value),own:U(E("pOwn").value),no:no,name:name,brand:brand,category:cat,box:Math.max(0,Number(E("pBox").value||0)),ref:U(E("pRef").value.trim()),size:U(E("pSize").value.trim()),spec:U(E("pSpec").value.trim()),position:U(E("pPosition").value.trim()),photos:tempPhotos.filter(Boolean),cost:Math.max(0,Number(E("pCost").value||0)),a:Math.max(0,Number(E("pA").value||0)),b:Math.max(0,Number(E("pB").value||0)),c:Math.max(0,Number(E("pC").value||0)),qty:qty,min:min,online:U(E("pOnline").value),status:U(E("pStatus").value),visible:U(E("pVisible").value),featured:U(E("pFeatured").value),slabs:slabs.slice(),machines:selectedMachines.slice(),sold:Number(old.sold||0),match:E("pMatch")?U(E("pMatch").value):"",group:E("pGroup")?U(E("pGroup").value.trim()):"",verifiedBy:E("pVerifiedBy")?U(E("pVerifiedBy").value.trim()):"",verifiedDate:E("pVerifiedDate")?E("pVerifiedDate").value:""};
+ if(editingItem>=0){DB.items[editingItem]=obj;logActivity("ITEM UPDATED: "+no)}else{DB.items.push(obj);logActivity("ITEM ADDED: "+no)}
+ if(oldQty!==qty)DB.stockHistory.push({item:no,date:TODAY(),before:oldQty,change:qty-oldQty,after:qty,reason:editingItem>=0?"ITEM EDIT":"NEW ITEM"});
+ if(!DB.brands.some(function(x){return N(x)===N(brand)}))DB.brands.push(brand);
+ saveDB();sndSave();toast("ITEM SAVED","success");clearItemForm();if(addNext)openSection(obj.type==="ACCESSORY"?"accessories":"spares")
 }
-
-function clearMachine(){
-editingMachine=-1;E("machineDate").value=TODAY();E("mBrand").value="";E("mType").value="";E("mModel").value="";E("mDesc").value="";E("mStatus").value="Active";["mBrand","mType","mModel"].forEach(function(id){E(id).classList.remove("ok","bad")});E("mBrandHelp").textContent="";E("mModelHelp").textContent="";dirty=false
-}
-
-function renderMachines(){
-E("machineRows").innerHTML=DB.machines.length?DB.machines.map(function(x,i){
-return"<tr><td>"+H(x.date)+"</td><td>"+H(x.id)+"</td><td>"+H(x.brand)+"</td><td>"+H(x.type)+"</td><td>"+H(x.model)+"</td><td>"+H(x.status)+"</td><td><button class='btn blue' onclick='editMachine("+i+")'>Edit</button> <button class='btn red' onclick='deleteMachine("+i+")'>Delete</button></td></tr>"
-}).join(""):'<tr><td colspan="7" class="empty">No Machines yet.</td></tr>'
-}
-
-function addSuitable(){
-var i=E("machineSelect").value;if(i==="")return toast("Machine select करें.","error");
-var model=DB.machines[i].model;if(selectedMachines.includes(model))return toast("Machine पहले से selected है.","error");
-selectedMachines.push(model);renderMachineChips();sndOK();dirty=true
-}
-
-function renderMachineChips(){
-E("machineChips").innerHTML=selectedMachines.map(function(x,i){return'<span class="chip">'+H(x)+' <b onclick="removeSuitable('+i+')">×</b></span>'}).join("")
-}
-function removeSuitable(i){selectedMachines.splice(i,1);renderMachineChips();sndClick()}
-
-function addSlab(){
-var q=Number(E("bulkQty").value||0),r=Number(E("bulkRate").value||0);
-if(q<=0||r<=0)return toast("Quantity और Special Rate सही डालें.","error");
-if(slabs.some(function(x){return x.qty===q}))return toast("यह Quantity Slab पहले से मौजूद है.","error");
-slabs.push({qty:q,rate:r});slabs.sort(function(a,b){return a.qty-b.qty});renderSlabs();E("bulkQty").value=0;E("bulkRate").value=0;sndOK();dirty=true
-}
-function renderSlabs(){E("slabChips").innerHTML=slabs.map(function(x,i){return'<span class="chip">'+x.qty+' pcs → ₹'+x.rate+' <b onclick="removeSlab('+i+')">×</b></span>'}).join("")}
-function removeSlab(i){slabs.splice(i,1);renderSlabs();sndClick()}
-
-function readPhoto(file,cb){if(!file)return cb("");var r=new FileReader();r.onload=function(){cb(r.result)};r.readAsDataURL(file)}
-
-function saveSpare(addNext){
-var ids=["spBox","spCost","spA","spB","spC","spQty","spMin"];
-ids.forEach(function(id){if(Number(E(id).value)<0)E(id).value=0});
-var no=E("spNo").value.trim(),name=E("spName").value.trim(),brand=E("spBrand").value.trim(),cat=E("spCategory").value.trim();
-if(!no||!name||!brand||!cat)return toast("Item No., Spare Part Name, Brand और Category जरूरी हैं.","error");
-var dup=DB.items.findIndex(function(x,i){return N(x.no)===N(no)&&i!==editingItem});
-if(dup>=0)return toast("Database Match: यह Item Number पहले से मौजूद है.","error");
-var old=editingItem>=0?DB.items[editingItem]:{},oldCost=Number(old.cost||0),cost=Number(E("spCost").value||0);
-var obj={date:E("spDate").value||TODAY(),no:no,name:name,brand:brand,category:cat,box:Number(E("spBox").value||0),cost:cost,a:Number(E("spA").value||0),b:Number(E("spB").value||0),c:Number(E("spC").value||0),qty:Number(E("spQty").value||0),min:Number(E("spMin").value||0),status:E("spStatus").value,visible:E("spVisible").value,machines:selectedMachines.slice(),slabs:slabs.slice(),sold:Number(old.sold||0),photo:old.photo||""};
-readPhoto(E("spPhoto").files[0],function(photo){
-if(photo)obj.photo=photo;
-if(editingItem>=0){DB.items[editingItem]=obj;logActivity("Item updated: "+no)}else{DB.items.push(obj);logActivity("Item added: "+no)}
-if(cost>0&&(editingItem<0||oldCost!==cost))DB.purchaseHistory.push({item:no,date:obj.date,cost:cost});
-if(!DB.brands.some(function(x){return N(x)===N(brand)}))DB.brands.push(brand);
-if(!DB.categories.some(function(x){return N(x)===N(cat)}))DB.categories.push(cat);
-if(!DB.spareNames.some(function(x){return N(x)===N(name)}))DB.spareNames.push(name);
-saveDB();sndSave();toast("Spare Part saved.","success");clearSpare();if(addNext){openSection("spares");setTimeout(function(){E("spNo").focus()},100)}
-})
-}
-
-function clearSpare(){
-editingItem=-1;E("spDate").value=TODAY();["spNo","spName","spBrand","spCategory"].forEach(function(id){E(id).value="";E(id).classList.remove("ok","bad")});
-E("spBox").value=1;["spCost","spA","spB","spC","spQty","spMin","bulkQty","bulkRate"].forEach(function(id){E(id).value=0});
-E("spStatus").value="Active";E("spVisible").value="Show";E("spPhoto").value="";
-["spNoHelp","spNameHelp","spBrandHelp","spCategoryHelp"].forEach(function(id){E(id).textContent=""});
-selectedMachines=[];slabs=[];renderMachineChips();renderSlabs();E("costHistory").innerHTML="<b>Purchase Cost History</b><div class='meta'>Item save होने के बाद date-wise history यहाँ दिखेगी.</div>";dirty=false
-}
-
-function editItem(i){
-var x=DB.items[i];editingItem=i;E("spDate").value=x.date||TODAY();E("spNo").value=x.no;E("spName").value=x.name;E("spBrand").value=x.brand;E("spCategory").value=x.category;E("spBox").value=x.box||0;E("spCost").value=x.cost||0;E("spA").value=x.a||0;E("spB").value=x.b||0;E("spC").value=x.c||0;E("spQty").value=x.qty||0;E("spMin").value=x.min||0;E("spStatus").value=x.status||"Active";E("spVisible").value=x.visible||"Show";selectedMachines=(x.machines||[]).slice();slabs=(x.slabs||[]).slice();renderMachineChips();renderSlabs();renderCostHistory(x.no);openSection("spares");dirty=false;toast("Item edit mode opened.","success")
-}
-
-function deleteItem(i){
-var x=DB.items[i],used=DB.orders.some(function(o){return(o.items||[]).some(function(a){return N(a.no)===N(x.no)})});
-if(used)return toast("Item Sales Order में use हो चुका है. Delete नहीं होगा.","error");
-if(!confirm("Delete Item "+x.no+" ?"))return;
-DB.items.splice(i,1);logActivity("Item deleted: "+x.no);saveDB();sndDelete();toast("Item deleted.","success")
-}
-
-function renderCostHistory(no){
-var a=DB.purchaseHistory.filter(function(x){return N(x.item)===N(no)}).slice(-5).reverse();
-E("costHistory").innerHTML="<b>Purchase Cost History</b>"+(a.length?a.map(function(x,i){return"<div class='historyRow'><span>"+(i===0?"Latest":"Previous "+i)+"</span><span>"+H(x.date)+" — ₹"+x.cost+"</span></div>"}).join(""):"<div class='meta'>No history yet.</div>")
-}
+function clearItemForm(){editingItem=-1;selectedMachines=[];slabs=[];tempPhotos=["",""];dirty=false}
+function editItem(i){var x=DB.items[i];editingItem=i;openSection(x.type==="ACCESSORY"?"accessories":"spares");setTimeout(function(){E("pDate").value=x.date||TODAY();E("pType").value=x.type;E("pOwn").value=x.own||"NO";E("pNo").value=x.no;E("pName").value=x.name;E("pBrand").value=x.brand;E("pCategory").value=x.category;E("pBox").value=x.box||0;E("pRef").value=x.ref||"";E("pSize").value=x.size||"";E("pSpec").value=x.spec||"";E("pPosition").value=x.position||"";E("pCost").value=x.cost||0;E("pA").value=x.a||0;E("pB").value=x.b||0;E("pC").value=x.c||0;E("pQty").value=x.qty||0;E("pMin").value=x.min||0;E("pOnline").value=x.online||"ONLINE";E("pStatus").value=x.status||"ACTIVE";E("pVisible").value=x.visible||"SHOW";E("pFeatured").value=x.featured||"NORMAL";tempPhotos=(x.photos||[]).slice(0,2);slabs=(x.slabs||[]).slice();selectedMachines=(x.machines||[]).slice();if(E("pMatch"))E("pMatch").value=x.match||"EXACT FIT";if(E("pGroup"))E("pGroup").value=x.group||"";if(E("pVerifiedBy"))E("pVerifiedBy").value=x.verifiedBy||"";if(E("pVerifiedDate"))E("pVerifiedDate").value=x.verifiedDate||TODAY();renderPhotoPreview();renderSlabs();renderMachineChips()},50)}
+function deleteItem(i){var x=DB.items[i];if(!confirm("DELETE ITEM "+x.no+" ?"))return;DB.items.splice(i,1);logActivity("ITEM DELETED: "+x.no);saveDB();sndDelete();toast("ITEM DELETED","success")}
+function stockChange(i,delta){var x=DB.items[i],before=Number(x.qty||0),after=before+delta;if(after<0)return toast("NEGATIVE STOCK NOT ALLOWED. AVAILABLE "+before,"error");x.qty=after;DB.stockHistory.push({item:x.no,date:TODAY(),before:before,change:delta,after:after,reason:"MANUAL STOCK CHANGE"});logActivity("STOCK CHANGE "+x.no+" : "+before+" → "+after);saveDB();toast("STOCK UPDATED","success")}
+function toggleOnline(i){DB.items[i].online=DB.items[i].online==="ONLINE"?"OFFLINE":"ONLINE";saveDB();toast("ONLINE STATUS UPDATED","success")}
+function toggleActive(i){DB.items[i].status=DB.items[i].status==="ACTIVE"?"INACTIVE":"ACTIVE";saveDB();toast("ITEM STATUS UPDATED","success")}
 
 function setFilter(f){itemFilter=f;renderItems();sndClick()}
-function openFiltered(f){itemFilter=f;openSection("items");renderItems()}
-function filteredItems(){
-var a=DB.items.slice(),q=N(E("itemSearch")?E("itemSearch").value:"");
-if(q)a=a.filter(function(x){return N([x.no,x.name,x.brand,x.category].concat(x.machines||[]).join(" ")).includes(q)});
-if(itemFilter==="in")a=a.filter(function(x){return Number(x.qty)>0});
-if(itemFilter==="out")a=a.filter(function(x){return Number(x.qty)<=0});
-if(itemFilter==="reorder")a=a.filter(function(x){return Number(x.qty)<=Number(x.min||0)});
-if(itemFilter==="top")a.sort(function(a,b){return Number(b.sold||0)-Number(a.sold||0)});
-if(itemFilter==="low")a.sort(function(a,b){return Number(a.sold||0)-Number(b.sold||0)});
-return a
+function openFiltered(f){itemFilter=f;openSection("itemmaster");renderItems()}
+function filteredItems(){var a=DB.items.slice(),q=N(E("itemSearch")?E("itemSearch").value:"");if(q)a=a.filter(function(x){return N([x.no,x.name,x.brand,x.category,x.ref,x.size,x.spec].concat(x.machines||[]).join(" ")).includes(q)});if(itemFilter==="in")a=a.filter(function(x){return x.qty>0});if(itemFilter==="out")a=a.filter(function(x){return x.qty<=0});if(itemFilter==="reorder")a=a.filter(function(x){return x.qty<=x.min});if(itemFilter==="online")a=a.filter(function(x){return x.online==="ONLINE"});if(itemFilter==="offline")a=a.filter(function(x){return x.online==="OFFLINE"});if(itemFilter==="top")a.sort(function(a,b){return(b.sold||0)-(a.sold||0)});if(itemFilter==="low")a.sort(function(a,b){return(a.sold||0)-(b.sold||0)});return a}
+function renderItems(){var a=filteredItems();E("itemGrid").innerHTML=a.length?a.map(function(x){var i=DB.items.indexOf(x);return"<div class='itemCard'><div class='pic'>"+((x.photos||[]).length?x.photos.map(function(p){return"<img src='"+p+"'>"}).join(""):"NO PHOTO")+"</div><div class='itemName'>"+H(x.name)+"</div><div class='meta'>"+H(x.type)+" | "+H(x.no)+" | "+H(x.brand)+"</div><div class='meta'>"+H(x.category)+" | "+H(x.size||"")+" | "+H(x.ref||"")+"</div><div class='meta'>MACHINES: "+H((x.machines||[]).join(", ")||"—")+"</div><div class='rates'><div class='rate cost'>COST<br><b>₹"+x.cost+"</b></div><div class='rate ra'>A<br><b>₹"+x.a+"</b></div><div class='rate rb'>B<br><b>₹"+x.b+"</b></div><div class='rate rc'>C<br><b>₹"+x.c+"</b></div></div><div class='stock'><span>STOCK <b>"+x.qty+"</b></span><span>SOLD <b>"+(x.sold||0)+"</b></span></div><div class='toolbar' style='margin-top:6px'><button class='btn blue' onclick='editItem("+i+")'>EDIT</button><button class='btn green' onclick='stockChange("+i+",1)'>STOCK +1</button><button class='btn orange' onclick='stockChange("+i+",-1)'>STOCK -1</button><button class='btn teal' onclick='toggleOnline("+i+")'>"+H(x.online)+"</button><button class='btn dark' onclick='toggleActive("+i+")'>"+H(x.status)+"</button><button class='btn red' onclick='deleteItem("+i+")'>DELETE</button></div></div>"}).join(""):"<div class='empty'>NO MATCHING ITEMS.</div>"}
+
+function renderSuitableResults(){if(!E("suitableResults"))return;var b=E("sBrand").value,t=E("sType").value,m=N(E("sModel").value),p=N(E("sPart").value),s=N(E("sSpec").value),match=E("sMatch").value;var machines=DB.machines.filter(function(x){return(!b||x.brand===b)&&(!t||x.type===t)&&(!m||N([x.model,x.alt].join(" ")).includes(m))});var models=machines.map(function(x){return x.model});var a=DB.items.filter(function(x){if(x.type!=="SPARE PART")return false;if(models.length&&!(x.machines||[]).some(function(mm){return models.includes(mm)}))return false;if(p&&!N([x.no,x.name,x.ref].join(" ")).includes(p))return false;if(s&&!N([x.size,x.spec,x.group].join(" ")).includes(s))return false;if(match&&x.match!==match)return false;return true});E("suitableResults").innerHTML=a.length?"<div class='scroll'><table><thead><tr><th>ITEM</th><th>NAME</th><th>BRAND</th><th>MACHINES</th><th>SIZE</th><th>REF</th><th>MATCH</th><th>STOCK</th></tr></thead><tbody>"+a.map(function(x){return"<tr><td>"+H(x.no)+"</td><td>"+H(x.name)+"</td><td>"+H(x.brand)+"</td><td>"+H((x.machines||[]).join(", "))+"</td><td>"+H(x.size||"")+"</td><td>"+H(x.ref||"")+"</td><td>"+H(x.match||"")+"</td><td>"+x.qty+"</td></tr>"}).join("")+"</tbody></table></div>":"<div class='empty'>NO SUITABLE MATCH FOUND.</div>"}
+
+function savePartner(){var type=U(E("partnerType").value),name=U(E("partnerName").value.trim());if(!name)return toast("PARTNER NAME REQUIRED","error");if(DB.partners.some(function(x){return N(x.type)===N(type)&&N(x.name)===N(name)}))return toast("PARTNER ALREADY EXISTS","error");DB.partners.push({type:type,name:name,mobile:E("partnerMobile").value.trim(),person:U(E("partnerPerson").value.trim()),city:U(E("partnerCity").value.trim())});saveDB();toast("PARTNER SAVED","success");E("partnerName").value="";E("partnerMobile").value="";E("partnerPerson").value="";E("partnerCity").value=""}
+function deletePartner(i){if(!confirm("DELETE "+DB.partners[i].name+" ?"))return;DB.partners.splice(i,1);saveDB();sndDelete()}
+function renderPartners(){E("partnerRows").innerHTML=DB.partners.length?DB.partners.map(function(x,i){return"<tr><td>"+H(x.type)+"</td><td>"+H(x.name)+"</td><td>"+H(x.person)+"</td><td>"+H(x.mobile)+"</td><td>"+H(x.city)+"</td><td><button class='btn red' onclick='deletePartner("+i+")'>DELETE</button></td></tr>"}).join(""):"<tr><td colspan='6' class='empty'>NO PARTNERS YET.</td></tr>"}
+
+function customerKey(o){return U(o.customerId||o.code||o.dealerId||o.mobile||o.dealer||"UNKNOWN")}
+function buildCustomerStats(){
+ var map={};
+ DB.orders.forEach(function(o){
+   var k=customerKey(o);if(!map[k])map[k]={id:k,name:U(o.dealer||o.customerName||"UNKNOWN"),mobile:U(o.mobile||""),orders:0,accepted:0,cancelled:0,delivered:0,value:0,itemsAdded:0,itemsDeleted:0,lastDate:"",events:[]};
+   var c=map[k];c.orders++;c.value+=Number(o.amount||0);c.lastDate=o.date||c.lastDate;
+   var st=U(o.status||"");if(st.includes("CANCEL"))c.cancelled++;else c.accepted++;if(st.includes("DELIVER"))c.delivered++;
+   c.itemsAdded+=Number(o.itemsAdded||0);c.itemsDeleted+=Number(o.itemsDeleted||0);
+   c.events.push({date:o.date||"",type:"ORDER",detail:"ORDER "+U(o.no||"")+" | ₹"+Number(o.amount||0)+" | "+st});
+ });
+ DB.customerEvents.forEach(function(e){
+   var k=U(e.customerId||"UNKNOWN");if(!map[k])map[k]={id:k,name:U(e.customerName||"UNKNOWN"),mobile:U(e.mobile||""),orders:0,accepted:0,cancelled:0,delivered:0,value:0,itemsAdded:0,itemsDeleted:0,lastDate:e.date||"",events:[]};
+   map[k].events.push({date:e.date||"",type:U(e.type||"EVENT"),detail:U(e.detail||"")});
+ });
+ return Object.values(map)
+}
+function renderCustomerHistory(){
+ var q=N(E("customerSearch")?E("customerSearch").value:""),range=E("customerRange")?E("customerRange").value:"ALL",cut=DAYSAGO(30);
+ var a=buildCustomerStats().filter(function(c){return !q||N([c.id,c.name,c.mobile].join(" ")).includes(q)});
+ var html=a.length?a.map(function(c){
+   var ev=c.events.filter(function(e){return range==="ALL"||String(e.date)>=cut}).sort(function(a,b){return String(b.date).localeCompare(String(a.date))});
+   return "<div class='box bBlue' style='margin-bottom:8px'><div class='boxTitle'>"+H(c.name)+" | CUSTOMER ID: "+H(c.id)+"</div><div class='grid'><div class='field'><label>TOTAL ORDERS</label><input value='"+c.orders+"' readonly></div><div class='field'><label>TOTAL PURCHASE VALUE</label><input value='₹"+c.value+"' readonly></div><div class='field'><label>DELIVERED</label><input value='"+c.delivered+"' readonly></div><div class='field'><label>ACCEPTED</label><input value='"+c.accepted+"' readonly></div><div class='field'><label>CANCELLED</label><input value='"+c.cancelled+"' readonly></div><div class='field'><label>ITEMS DELETED / REDUCED</label><input value='"+c.itemsDeleted+"' readonly></div></div><div class='scroll' style='margin-top:8px'><table><thead><tr><th>DATE</th><th>TYPE</th><th>DETAIL</th></tr></thead><tbody>"+(ev.length?ev.map(function(e){return"<tr><td>"+H(e.date)+"</td><td>"+H(e.type)+"</td><td>"+H(e.detail)+"</td></tr>"}).join(""):"<tr><td colspan='3' class='empty'>NO HISTORY IN SELECTED RANGE.</td></tr>")+"</tbody></table></div></div>"
+ }).join(""):"<div class='empty'>NO CUSTOMER HISTORY FOUND.</div>";
+ E("customerHistoryBox").innerHTML=html
 }
 
-function renderItems(){
-var a=filteredItems();E("itemGrid").innerHTML=a.length?a.map(function(x){
-var i=DB.items.indexOf(x),bulk=(x.slabs||[]).length?"<div class='bulk'><b>Bulk Price</b><br>"+x.slabs.map(function(s){return s.qty+"+ pcs → ₹"+s.rate}).join("<br>")+"</div>":"";
-return"<div class='itemCard'><div class='pic'>"+(x.photo?"<img src='"+x.photo+"'>":"ITEM PHOTO")+"</div><div class='itemName'>"+H(x.name)+"</div><div class='meta'>Date: "+H(x.date)+"</div><div class='meta'>Item No: "+H(x.no)+"</div><div class='meta'>Brand: "+H(x.brand)+"</div><div class='meta'>Machine(s): "+H((x.machines||[]).join(", ")||"—")+"</div><div class='rates'><div class='rate cost'>Cost<br><b>₹"+x.cost+"</b></div><div class='rate ra'>A<br><b>₹"+x.a+"</b></div><div class='rate rb'>B<br><b>₹"+x.b+"</b></div><div class='rate rc'>C<br><b>₹"+x.c+"</b></div></div><div class='stock'><span>Stock <b>"+x.qty+"</b></span><span>Sold <b>"+(x.sold||0)+"</b></span></div>"+bulk+"<div class='toolbar' style='margin-top:6px'><button class='btn blue' onclick='editItem("+i+")'>Edit</button><button class='btn red' onclick='deleteItem("+i+")'>Delete</button></div></div>"
-}).join(""):"<div class='empty'>No matching Items.</div>"
+function runSystemCheck(){
+ var issues=[],seen={};
+ DB.machines.forEach(function(x,i){if(!x.brand)issues.push("MACHINE "+(i+1)+": BRAND MISSING");if(!x.type)issues.push("MACHINE "+(i+1)+": MACHINE TYPE MISSING");if(!x.work)issues.push("MACHINE "+(i+1)+": WORK TYPE MISSING");if(!x.model)issues.push("MACHINE "+(i+1)+": MODEL MISSING");var k=N(x.model);if(k){if(seen["M"+k])issues.push("DUPLICATE MACHINE MODEL: "+x.model);seen["M"+k]=1}});
+ DB.items.forEach(function(x,i){if(!x.no)issues.push("ITEM "+(i+1)+": ITEM NO MISSING");if(!x.name)issues.push("ITEM "+(i+1)+": NAME MISSING");if(!x.brand)issues.push("ITEM "+(i+1)+": BRAND MISSING");if(x.qty<0)issues.push("ITEM "+x.no+": NEGATIVE STOCK");if(x.min<0)issues.push("ITEM "+x.no+": NEGATIVE REORDER LEVEL");var k=N(x.no);if(k){if(seen["I"+k])issues.push("DUPLICATE ITEM NO: "+x.no);seen["I"+k]=1}if(x.type==="SPARE PART"&&!(x.machines||[]).length)issues.push("ITEM "+x.no+": NO SUITABLE MACHINE MAPPED")});
+ E("dIssues").textContent=issues.length;openSection("verify");E("verifySummary").textContent=issues.length?"SYSTEM CHECK FOUND "+issues.length+" ISSUE(S). FIX THEM AND RUN VERIFY AGAIN.":"SYSTEM CHECK PASSED. NO ISSUES FOUND.";E("verifySummary").style.borderLeftColor=issues.length?"#ea580c":"#15803d";E("verifyList").innerHTML=issues.length?issues.map(function(x){return"<div class='issue'>"+H(x)+"</div>"}).join(""):"<div class='issue ok'>ALL DATA CHECKS PASSED ✓</div>";issues.length?sndAlert():sndOK()
 }
 
-function showSuitable(){
-var i=E("suitableMachine").value;if(i===""){E("suitableResult").innerHTML="Select Machine.";return}
-var m=DB.machines[i],a=DB.items.filter(function(x){return(x.machines||[]).includes(m.model)});
-E("suitableResult").innerHTML="<b>"+H(m.brand)+" | "+H(m.type)+" | "+H(m.model)+"</b><br><br>"+(a.length?a.map(function(x){return H(x.no)+" — "+H(x.name)}).join("<br>"):"No mapped Spare Parts.");sndOK()
-}
+function globalFindDrawing(q){
+var d=DB.drawings.find(function(x){return N(x.model)===N(q)||N(x.brand+" "+x.model)===N(q)||(x.parts||[]).some(function(p){return N(p.code)===N(q)||N(p.itemNo)===N(q)})});
+if(d){openSection("drawings");E("drawingSearch").value=q;renderDrawings();return true}return false}
+function globalFind(){var q=E("globalSearch").value.trim();if(!q)return toast("ENTER SEARCH VALUE","error");openSection("itemmaster");E("itemSearch").value=U(q);renderItems()}
+function voiceSearch(){var SR=window.SpeechRecognition||window.webkitSpeechRecognition;if(!SR)return toast("VOICE SEARCH NOT SUPPORTED","error");var r=new SR();r.lang="en-IN";r.onresult=function(e){E("globalSearch").value=U(e.results[0][0].transcript);globalFind()};r.onerror=function(){toast("VOICE NOT UNDERSTOOD","error")};r.start();toast("LISTENING","alert")}
+function toggleNotifications(){var p=E("notificationPanel");if(p.style.display==="block"){p.style.display="none";return}p.innerHTML="<div class='notifTitle'>TORVO NOTIFICATIONS</div><div class='notifItem'>NEW ORDERS: "+DB.orders.length+"</div><div class='notifItem'>DELIVERY PENDING: "+DB.deliveries.length+"</div><div class='notifItem' onclick='runSystemCheck()'>RUN SYSTEM VERIFY</div>";p.style.display="block";sndAlert()}
+function logoutAdmin(){if(dirty&&!confirm("UNSAVED ENTRY EXISTS. LOGOUT ANYWAY?"))return;if(confirm("LOGOUT FROM TORVO ADMIN?"))location.href="index.html"}
 
-function renderOrders(){
-E("orderRows").innerHTML=DB.orders.length?DB.orders.map(function(o,i){return"<tr><td>"+H(o.no)+"</td><td>"+H(o.code||"")+"</td><td>"+H(o.dealer||"")+"</td><td>"+H(o.date||"")+"</td><td>₹"+Number(o.amount||0)+"</td><td>"+H(o.status||"New")+"</td><td><button class='btn orange' onclick='createEstimate("+i+")'>Sales Modify → Estimate</button></td></tr>"}).join(""):"<tr><td colspan='7' class='empty'>Website connection के बाद Sales Orders यहाँ आएँगे.</td></tr>"
-}
 
-function createEstimate(i){
-var o=DB.orders[i];if(DB.estimates.some(function(x){return x.order===o.no}))return toast("Estimate पहले से बना हुआ है.","error");
-var discount=Math.max(0,Number(prompt("Discount ₹","0")||0)),delivery=Math.max(0,Number(prompt("Delivery / Transport Charge ₹","0")||0));
-DB.estimates.push({no:"EST-"+String(DB.estimates.length+1).padStart(5,"0"),order:o.no,dealer:o.dealer,amount:Math.max(0,Number(o.amount||0)-discount+delivery),reply:"Waiting",status:"Sent"});
-o.status="Estimate Sent";logActivity("Estimate created: "+o.no);saveDB();sndSave();toast("Estimate prepared for Dealer.","success")
-}
-
-function renderEstimates(){
-E("estimateRows").innerHTML=DB.estimates.length?DB.estimates.map(function(x,i){return"<tr><td>"+H(x.no)+"</td><td>"+H(x.order)+"</td><td>"+H(x.dealer)+"</td><td>₹"+x.amount+"</td><td>"+H(x.reply)+"</td><td><button class='btn green' onclick='approveEstimate("+i+")'>Approve / Finalize</button></td></tr>"}).join(""):"<tr><td colspan='6' class='empty'>No Estimates yet.</td></tr>"
-}
-
-function approveEstimate(i){
-var e=DB.estimates[i];e.reply="Approved";
-if(!DB.confirmed.some(function(x){return x.order===e.order}))DB.confirmed.push({order:e.order,dealer:e.dealer,amount:e.amount,status:"Confirmed"});
-if(!DB.deliveries.some(function(x){return x.order===e.order}))DB.deliveries.push({order:e.order,dealer:e.dealer,mode:"Transport",partner:"",track:"",date:TODAY(),status:"Ready"});
-logActivity("Order confirmed: "+e.order);saveDB();sndSave();toast("Order moved to Delivery.","success")
-}
-
-function renderConfirmed(){
-E("confirmedBox").innerHTML=DB.confirmed.length?"<div class='scroll'><table><thead><tr><th>Order</th><th>Dealer</th><th>Amount</th><th>Status</th></tr></thead><tbody>"+DB.confirmed.map(function(x){return"<tr><td>"+H(x.order)+"</td><td>"+H(x.dealer)+"</td><td>₹"+x.amount+"</td><td>"+H(x.status)+"</td></tr>"}).join("")+"</tbody></table></div>":"No confirmed orders."
-}
-
-function savePartner(){
-var type=E("partnerType").value,name=E("partnerName").value.trim();if(!name)return toast("Partner Name डालें.","error");
-if(DB.partners.some(function(x){return N(x.type)===N(type)&&N(x.name)===N(name)}))return toast("यह Courier / Transport पहले से मौजूद है.","error");
-DB.partners.push({type:type,name:name,mobile:E("partnerMobile").value.trim(),person:E("partnerPerson").value.trim(),city:E("partnerCity").value.trim()});
-E("partnerName").value="";E("partnerMobile").value="";E("partnerPerson").value="";E("partnerCity").value="";
-logActivity(type+" Partner added: "+name);saveDB();sndSave();toast(type+" Partner saved.","success")
-}
-
-function deletePartner(i){
-var x=DB.partners[i],used=DB.deliveries.some(function(d){return N(d.partner)===N(x.name)});
-if(used)return toast("Partner Delivery record में use हो रहा है. Delete नहीं होगा.","error");
-if(!confirm("Delete "+x.name+" ?"))return;DB.partners.splice(i,1);logActivity("Partner deleted: "+x.name);saveDB();sndDelete();toast("Partner deleted.","success")
-}
-
-function renderPartners(){
-E("partnerRows").innerHTML=DB.partners.length?DB.partners.map(function(x,i){return"<tr><td>"+H(x.type)+"</td><td>"+H(x.name)+"</td><td>"+H(x.person)+"</td><td>"+H(x.mobile)+"</td><td>"+H(x.city)+"</td><td><button class='btn red' onclick='deletePartner("+i+")'>Delete</button></td></tr>"}).join(""):"<tr><td colspan='6' class='empty'>No Courier / Transport Partners yet.</td></tr>"
-}
-
-function partnerOptions(mode,current){
-var a=DB.partners.filter(function(x){return x.type===mode}),html="<option value=''>Select Partner</option>";
-a.forEach(function(x){html+="<option "+(x.name===current?"selected":"")+" value='"+H(x.name)+"'>"+H(x.name)+"</option>"});return html
-}
-
-function deliveryMode(i,value){DB.deliveries[i].mode=value;DB.deliveries[i].partner="";saveDB();sndClick()}
-function updateDelivery(i,field,value){DB.deliveries[i][field]=value;saveDB();sndClick()}
-
-function renderDeliveries(){
-E("deliveryRows").innerHTML=DB.deliveries.length?DB.deliveries.map(function(d,i){
-return"<tr><td>"+H(d.order)+"</td><td>"+H(d.dealer)+"</td><td><select onchange=\"deliveryMode("+i+",this.value)\"><option "+(d.mode==="Courier"?"selected":"")+">Courier</option><option "+(d.mode==="Transport"?"selected":"")+">Transport</option></select></td><td><select onchange=\"updateDelivery("+i+",'partner',this.value)\">"+partnerOptions(d.mode,d.partner)+"</select></td><td><input value='"+H(d.track)+"' onchange=\"updateDelivery("+i+",'track',this.value)\"></td><td><input type='date' value='"+H(d.date||TODAY())+"' onchange=\"updateDelivery("+i+",'date',this.value)\"></td><td><select onchange=\"updateDelivery("+i+",'status',this.value)\"><option selected>"+H(d.status)+"</option><option>Ready</option><option>Dispatched</option><option>In Transit</option><option>Delivered</option></select></td><td><button class='btn green' onclick=\"toast('Delivery updated.','success')\">Update</button></td></tr>"
-}).join(""):"<tr><td colspan='8' class='empty'>No Delivery records.</td></tr>"
-}
-
-function renderDealers(){
-E("dealerRows").innerHTML=DB.dealers.length?DB.dealers.map(function(x,i){return"<tr><td>"+H(x.date||"")+"</td><td>"+H(x.code||"")+"</td><td>"+H(x.shop||"")+"</td><td>"+H(x.person||"")+"</td><td>"+H(x.mobile||"")+"</td><td>"+H(x.rateGroup||"")+"</td><td>"+H(x.status||"New")+"</td><td><button class='btn green' onclick='approveDealer("+i+")'>Approve</button></td></tr>"}).join(""):"<tr><td colspan='8' class='empty'>No Dealer Inquiries.</td></tr>"
-}
-
-function approveDealer(i){
-var x=DB.dealers[i],g=(prompt("Rate Group A / B / C:","A")||"").toUpperCase();if(!["A","B","C"].includes(g))return toast("Rate Group केवल A, B या C.","error");
-x.rateGroup=g;x.status="Approved";if(!x.code)x.code="DLR-"+String(i+1).padStart(4,"0");logActivity("Dealer approved: "+(x.shop||x.code));saveDB();sndSave();toast("Dealer approved.","success")
-}
-
-function renderRequests(){
-E("requestRows").innerHTML=DB.requests.length?DB.requests.map(function(x){return"<tr><td>"+H(x.date||"")+"</td><td>"+H(x.dealer||"")+"</td><td>"+H(x.machine||"")+"</td><td>"+H(x.part||"")+"</td><td>"+H(x.qty||"")+"</td><td>"+H(x.status||"New")+"</td></tr>"}).join(""):"<tr><td colspan='6' class='empty'>No Spare Part Requests.</td></tr>"
-}
-
-function showReport(type){
-if(type==="partners"){
-E("reportOutput").innerHTML="<div class='scroll'><table><thead><tr><th>Type</th><th>Name</th><th>Person</th><th>Mobile</th><th>City</th></tr></thead><tbody>"+(DB.partners.length?DB.partners.map(function(x){return"<tr><td>"+H(x.type)+"</td><td>"+H(x.name)+"</td><td>"+H(x.person)+"</td><td>"+H(x.mobile)+"</td><td>"+H(x.city)+"</td></tr>"}).join(""):"<tr><td colspan='5' class='empty'>No Partners.</td></tr>")+"</tbody></table></div>";sndOK();return
-}
-if(type==="orders"){E("reportOutput").innerHTML="<div class='scroll'><table><thead><tr><th>Order</th><th>Dealer</th><th>Amount</th><th>Status</th></tr></thead><tbody>"+(DB.orders.length?DB.orders.map(function(x){return"<tr><td>"+H(x.no)+"</td><td>"+H(x.dealer||"")+"</td><td>₹"+Number(x.amount||0)+"</td><td>"+H(x.status||"New")+"</td></tr>"}).join(""):"<tr><td colspan='4' class='empty'>No Orders.</td></tr>")+"</tbody></table></div>";return}
-if(type==="dealers"){E("reportOutput").innerHTML="<div class='scroll'><table><thead><tr><th>Code</th><th>Shop</th><th>Mobile</th><th>Rate</th><th>Status</th></tr></thead><tbody>"+(DB.dealers.length?DB.dealers.map(function(x){return"<tr><td>"+H(x.code||"")+"</td><td>"+H(x.shop||"")+"</td><td>"+H(x.mobile||"")+"</td><td>"+H(x.rateGroup||"")+"</td><td>"+H(x.status||"New")+"</td></tr>"}).join(""):"<tr><td colspan='5' class='empty'>No Dealers.</td></tr>")+"</tbody></table></div>";return}
-if(type==="delivery"){E("reportOutput").innerHTML="<div class='scroll'><table><thead><tr><th>Order</th><th>Dealer</th><th>Mode</th><th>Partner</th><th>Tracking</th><th>Status</th></tr></thead><tbody>"+(DB.deliveries.length?DB.deliveries.map(function(x){return"<tr><td>"+H(x.order)+"</td><td>"+H(x.dealer)+"</td><td>"+H(x.mode)+"</td><td>"+H(x.partner)+"</td><td>"+H(x.track)+"</td><td>"+H(x.status)+"</td></tr>"}).join(""):"<tr><td colspan='6' class='empty'>No Deliveries.</td></tr>")+"</tbody></table></div>";return}
-var a=DB.items.slice();
-if(type==="in")a=a.filter(function(x){return x.qty>0});
-if(type==="out")a=a.filter(function(x){return x.qty<=0});
-if(type==="reorder")a=a.filter(function(x){return x.qty<=x.min});
-if(type==="top")a.sort(function(a,b){return(b.sold||0)-(a.sold||0)});
-if(type==="low")a.sort(function(a,b){return(a.sold||0)-(b.sold||0)});
-if(type==="purchase")a.sort(function(a,b){return String(b.date).localeCompare(String(a.date))});
-E("reportOutput").innerHTML="<div class='toolbar'><button class='btn green' onclick='exportItems()'>Excel</button><button class='btn red' onclick='window.print()'>PDF / Print</button></div><div class='scroll'><table><thead><tr><th>Date</th><th>Brand</th><th>Item</th><th>Name</th><th>Machines</th><th>Cost</th><th>A</th><th>B</th><th>C</th><th>Qty</th><th>Sold</th></tr></thead><tbody>"+a.map(function(x){return"<tr><td>"+H(x.date)+"</td><td>"+H(x.brand)+"</td><td>"+H(x.no)+"</td><td>"+H(x.name)+"</td><td>"+H((x.machines||[]).join(", "))+"</td><td>₹"+x.cost+"</td><td>₹"+x.a+"</td><td>₹"+x.b+"</td><td>₹"+x.c+"</td><td>"+x.qty+"</td><td>"+(x.sold||0)+"</td></tr>"}).join("")+"</tbody></table></div>";sndOK()
-}
-
-function exportItems(){
-var rows=[["Date","Item No","Name","Brand","Category","Machines","Cost","A","B","C","Qty","Sold"]];
-filteredItems().forEach(function(x){rows.push([x.date,x.no,x.name,x.brand,x.category,(x.machines||[]).join("|"),x.cost,x.a,x.b,x.c,x.qty,x.sold||0])});
-var csv=rows.map(function(r){return r.map(function(v){return'"'+String(v).replace(/"/g,'""')+'"'}).join(",")}).join("\n");
-var b=new Blob([csv],{type:"text/csv"}),u=URL.createObjectURL(b),a=document.createElement("a");a.href=u;a.download="TORVO_Item_Report.csv";a.click();URL.revokeObjectURL(u);sndSave();toast("Excel report created.","success")
-}
-
-function createReorder(){
-var a=DB.items.filter(function(x){return x.qty<=x.min});if(!a.length)return toast("No Reorder Items.","error");
-var txt="TORVO REORDER LIST\n\n"+a.map(function(x,i){return(i+1)+". "+x.brand+" | "+x.no+" | "+x.name+" | Stock "+x.qty+" | Minimum "+x.min}).join("\n");
-var b=new Blob([txt],{type:"text/plain"}),u=URL.createObjectURL(b),z=document.createElement("a");z.href=u;z.download="TORVO_Reorder_List.txt";z.click();URL.revokeObjectURL(u);sndSave();toast("Order List created.","success")
-}
-
-function globalFind(){
-var q=E("globalSearch").value.trim();if(!q)return toast("Search value लिखें या बोलें.","error");
-openSection("items");E("itemSearch").value=q;itemFilter="all";renderItems();sndOK()
-}
-
-function voiceSearch(){
-var SR=window.SpeechRecognition||window.webkitSpeechRecognition;if(!SR)return toast("Voice search इस browser में supported नहीं है.","error");
-var r=new SR();r.lang="en-IN";toast("Listening...","alert");
-r.onresult=function(e){E("globalSearch").value=e.results[0][0].transcript;globalFind()};
-r.onerror=function(){toast("Voice समझ नहीं आया.","error")};r.start()
-}
-
-function setBadge(id,n){var x=E(id);if(!x)return;x.textContent=n;x.style.display=n>0?"inline-block":"none"}
-
-function notificationData(){
-return{
-orders:DB.orders.filter(function(x){return!x.status||x.status==="New"}).length,
-est:DB.estimates.filter(function(x){return x.reply==="Waiting"}).length,
-conf:DB.confirmed.length,
-delivery:DB.deliveries.filter(function(x){return x.status!=="Delivered"}).length,
-dealer:DB.dealers.filter(function(x){return!x.status||x.status==="New"}).length,
-request:DB.requests.filter(function(x){return!x.status||x.status==="New"}).length
-}
-}
-
-function updateNotifications(){
-var n=notificationData();setBadge("badgeOrders",n.orders);setBadge("badgeEst",n.est);setBadge("badgeConf",n.conf);setBadge("badgeDelivery",n.delivery);setBadge("badgeDealer",n.dealer);setBadge("badgeRequest",n.request);
-var total=n.orders+n.est+n.delivery+n.dealer+n.request;E("bellNum").textContent=total;E("bellNum").style.display=total?"flex":"none";
-E("dOrders").textContent=n.orders;E("dDealer").textContent=n.dealer;E("dRequests").textContent=n.request
-}
-
-function toggleNotifications(){
-sndAlert();var p=E("notificationPanel");if(p.style.display==="block"){p.style.display="none";return}
-var n=notificationData(),html="<div class='notifTitle'>🔔 TORVO Notifications</div>";
-if(n.orders)html+="<div class='notifItem nOrder' onclick=\"openSection('orders');hideNotifications()\"><b>"+n.orders+" New Sales Order</b><br>Open full Sales Order list</div>";
-if(n.est)html+="<div class='notifItem nEstimate' onclick=\"openSection('estimates');hideNotifications()\"><b>"+n.est+" Estimate Waiting</b><br>Dealer reply / approval pending</div>";
-if(n.dealer)html+="<div class='notifItem nDealer' onclick=\"openSection('dealers');hideNotifications()\"><b>"+n.dealer+" Dealer Inquiry</b><br>Open complete Dealer Inquiry list</div>";
-if(n.request)html+="<div class='notifItem nRequest' onclick=\"openSection('requests');hideNotifications()\"><b>"+n.request+" Spare Part Request</b><br>Open complete request list</div>";
-if(n.delivery)html+="<div class='notifItem nDelivery' onclick=\"openSection('delivery');hideNotifications()\"><b>"+n.delivery+" Delivery Pending</b><br>Open Courier / Transport tracking</div>";
-if(!n.orders&&!n.est&&!n.dealer&&!n.request&&!n.delivery)html+="<div class='notifItem'>No new notifications.</div>";
-p.innerHTML=html;p.style.display="block"
-}
-function hideNotifications(){E("notificationPanel").style.display="none"}
-
-function renderActivity(){
-E("activityRows").innerHTML=DB.activity.length?DB.activity.map(function(x){return"<div style='padding:7px;border-bottom:1px solid #e5e7eb'><b>"+H(x.text)+"</b><br><span class='meta'>"+H(x.time)+"</span></div>"}).join(""):"<div class='empty'>No activity yet.</div>"
-}
+var drawingImage="",drawingParts=[],RESTORE_KEY="TORVO_ADMIN_LOCAL_RESTORE_POINT";
+function money(v){return "₹"+Number(v||0).toFixed(2)}
+function finalEstimates(){return DB.estimates.filter(function(e){return !U(e.status||"FINAL").includes("CANCEL")})}
+function dealerKey(o){return U(o.dealerId||o.customerId||o.mobile||o.dealer||"UNKNOWN")}
+function cameraSearch(file){if(!file)return;DB.inquiries.push({id:"INQ-"+String(Date.now()).slice(-6),type:"CAMERA SEARCH",name:"WEBSITE USER",mobile:"",message:"PHOTO SEARCH REQUEST",date:TODAY(),read:false});saveDB();toast(DB.ai&&DB.ai.photo==="READY"?"PHOTO CAPTURED — AI SEARCH READY AFTER BACKEND CONNECTION":"PHOTO CAPTURED — REQUEST SAVED FOR MANUAL REVIEW","success")}
+function renderDealers(){if(!E("dealerList"))return;var q=N(E("dealerSearch").value),f=E("dealerFilter").value,a=DB.dealers.filter(function(d){var st=U(d.status||"PENDING");return(!q||N([d.id,d.shop,d.person,d.mobile,d.city].join(" ")).includes(q))&&(f==="ALL"||st===f)});E("dealerList").innerHTML=a.length?a.map(function(d){var i=DB.dealers.indexOf(d),st=U(d.status||"PENDING");return"<div class='bizCard "+(st==="BLOCKED"?"blocked":"")+"'><div style='display:flex;justify-content:space-between;gap:8px'><div><b>"+H(d.shop||"DEALER")+"</b><div class='help'>"+H(d.id||"NO ID")+" | "+H(d.person||"")+" | "+H(d.mobile||"")+" | "+H(d.city||"")+"</div></div><span class='statusPill "+(st==="ACTIVE"?"statusActive":st==="BLOCKED"?"statusBlocked":"statusPending")+"'>"+H(st)+"</span></div><div class='toolbar'><select onchange='changeDealerRate("+i+",this.value)'><option "+(d.rateGroup==="A"?"selected":"")+">A</option><option "+(d.rateGroup==="B"?"selected":"")+">B</option><option "+(d.rateGroup==="C"?"selected":"")+">C</option></select>"+(st==="BLOCKED"?"<button class='btn green' onclick='reactivateDealer("+i+")'>REACTIVATE</button>":"<button class='btn red' onclick='blockDealer("+i+")'>BLOCK / DISCONTINUE</button>")+"<button class='btn orange' onclick='growthMessage("+i+")'>BUSINESS GROWTH MESSAGE</button><button class='btn purple' onclick='openPointsForDealer("+i+")'>POINTS / SCHEME</button></div>"+(d.lastAdminMessage?"<div class='infoNotice'>LAST ADMIN MESSAGE: "+H(d.lastAdminMessage)+"</div>":"")+"</div>"}).join(""):"<div class='empty'>NO DEALERS FOUND.</div>"}
+function changeDealerRate(i,v){DB.dealers[i].rateGroup=v;saveDB();toast("DEALER RATE GROUP UPDATED","success")}
+function blockDealer(i){var d=DB.dealers[i];if(!confirm("BLOCK / DISCONTINUE "+(d.shop||d.id||"DEALER")+" ?"))return;d.status="BLOCKED";d.blockedDate=TODAY();d.blockReason=U(prompt("BLOCK REASON","BUSINESS INACTIVITY / NOT REGULAR")||"BUSINESS INACTIVITY / NOT REGULAR");var m="DUE TO BUSINESS INACTIVITY, YOUR ACCOUNT IS BEING DISCONTINUED. IF YOU WISH TO RESUME BUSINESS IN FUTURE, PLEASE CONTACT TORVO CUSTOMER CARE FOR REACTIVATION.";d.lastAdminMessage=m;DB.messages.push({dealerId:d.id||d.mobile||d.shop,from:"ADMIN",message:m,date:new Date().toLocaleString(),read:false});saveDB();toast("DEALER BLOCKED / DISCONTINUED","warning")}
+function reactivateDealer(i){var d=DB.dealers[i];if(!confirm("REACTIVATE "+(d.shop||d.id||"DEALER")+" ?"))return;d.status="ACTIVE";d.reactivatedDate=TODAY();var m="YOUR TORVO DEALER ACCOUNT HAS BEEN REACTIVATED. YOU MAY CONTINUE BUSINESS WITH US.";d.lastAdminMessage=m;DB.messages.push({dealerId:d.id||d.mobile||d.shop,from:"ADMIN",message:m,date:new Date().toLocaleString(),read:false});saveDB();toast("DEALER REACTIVATED","success")}
+function growthMessage(i){var d=DB.dealers[i],m=U(prompt("BUSINESS GROWTH MESSAGE","INCREASE YOUR BUSINESS WITH TORVO. CHECK OUR LATEST SPARE PART RANGE, ACCESSORIES, POINTS AND ACTIVE SCHEMES.")||"");if(!m)return;d.lastAdminMessage=m;DB.messages.push({dealerId:d.id||d.mobile||d.shop,from:"ADMIN",message:m,date:new Date().toLocaleString(),read:false});saveDB();toast("GROWTH MESSAGE SAVED","success")}
+function openPointsForDealer(i){openSection("points");E("ptDealer").value=U(DB.dealers[i].id||DB.dealers[i].mobile||DB.dealers[i].shop)}
+function renderInquiries(){if(!E("inquiryList"))return;var f=E("inqFilter").value,q=N(E("inqSearch").value),a=DB.inquiries.filter(function(x){return(f==="ALL"||U(x.type)===f)&&(!q||N([x.id,x.type,x.name,x.mobile,x.message].join(" ")).includes(q))});E("inquiryList").innerHTML=a.length?a.map(function(x){var i=DB.inquiries.indexOf(x);return"<div class='bizCard'><div style='display:flex;justify-content:space-between'><b>"+H(x.type||"INQUIRY")+" — "+H(x.id||"")+"</b><span class='statusPill "+(x.read?"statusActive":"statusPending")+"'>"+(x.read?"READ":"NEW")+"</span></div><div class='help'>"+H(x.date||"")+" | "+H(x.name||"")+" | "+H(x.mobile||"")+"</div><div style='margin-top:5px'>"+H(x.message||"")+"</div><div class='toolbar'><button class='btn blue' onclick='markInquiryRead("+i+")'>OPEN / MARK READ</button><button class='btn red' onclick='DB.inquiries.splice("+i+",1);saveDB()'>DELETE</button></div></div>"}).join(""):"<div class='empty'>NO INQUIRIES.</div>"}
+function markInquiryRead(i){DB.inquiries[i].read=true;saveDB();toast("INQUIRY OPENED","success")}
+function sendDealerChat(){var d=U(E("chatDealer").value.trim()),m=U(E("chatMessage").value.trim());if(!d)return toast("DEALER ID REQUIRED","error");if(!m)return toast("MESSAGE REQUIRED","error");DB.messages.push({dealerId:d,from:"ADMIN",message:m,date:new Date().toLocaleString(),read:false});E("chatMessage").value="";saveDB();toast("MESSAGE SAVED / SENT IN PORTAL","success")}
+function renderChat(){if(!E("chatList"))return;var d=N(E("chatDealer")?E("chatDealer").value:""),a=DB.messages.filter(function(x){return !d||N(x.dealerId)===d});E("chatList").innerHTML=a.length?a.slice().reverse().map(function(x){return"<div class='bizCard'><b>"+H(x.dealerId)+" | "+H(x.from||"ADMIN")+"</b><div class='help'>"+H(x.date||"")+"</div><div>"+H(x.message||"")+"</div></div>"}).join(""):"<div class='empty'>NO MESSAGES.</div>"}
+function journeyEvents(k){var a=[];DB.orders.forEach(function(o){if(N(dealerKey(o))===N(k)||N(o.dealer)===N(k))a.push({date:String(o.date||"").slice(0,10),type:"ORDER RECEIVED",detail:(o.no||"")+" | "+money(o.amount)+" | "+U(o.status||"NEW")})});DB.estimates.forEach(function(e){if(N(e.dealerId||e.dealer)===N(k)||N(e.dealer)===N(k))a.push({date:String(e.date||"").slice(0,10),type:"FINAL ESTIMATE / SALE",detail:(e.no||"")+" | "+money(e.amount)+" | "+U(e.status||"FINAL")})});DB.deliveries.forEach(function(d){if(N(d.dealerId||d.dealer)===N(k))a.push({date:String(d.date||"").slice(0,10),type:"DELIVERY",detail:U([d.order,d.partner,d.tracking,d.status].filter(Boolean).join(" | "))})});DB.messages.forEach(function(m){if(N(m.dealerId)===N(k))a.push({date:String(m.date||"").slice(0,10),type:"MESSAGE",detail:m.message})});return a.sort(function(a,b){return String(b.date).localeCompare(String(a.date))})}
+function renderJourney(){if(!E("journeyList"))return;var q=N(E("journeySearch").value),cut=DAYSAGO(30),keys=[...new Set(DB.dealers.map(function(d){return U(d.id||d.mobile||d.shop)}).concat(DB.orders.map(dealerKey)).filter(Boolean))].filter(function(k){return !q||N(k).includes(q)});E("journeyList").innerHTML=keys.length?keys.map(function(k){var ev=journeyEvents(k).filter(function(e){return !e.date||e.date>=cut});return"<div class='box bTeal' style='margin-top:8px'><b>DEALER: "+H(k)+"</b><div class='help'>DEALER VIEW: LAST 30 DAYS ONLY</div><div class='scroll'><table><thead><tr><th>DATE</th><th>STAGE</th><th>DETAIL</th></tr></thead><tbody>"+(ev.length?ev.map(function(e){return"<tr><td>"+H(e.date)+"</td><td>"+H(e.type)+"</td><td>"+H(e.detail)+"</td></tr>"}).join(""):"<tr><td colspan='3' class='empty'>NO RECENT JOURNEY.</td></tr>")+"</tbody></table></div></div>"}).join(""):"<div class='empty'>NO DEALER JOURNEY.</div>"}
+function purgeJourney(){toast("EXPIRED DEALER HISTORY IS AUTOMATICALLY HIDDEN FROM THE 30-DAY VIEW.","success")}
+function savePoints(){var d=U(E("ptDealer").value.trim());if(!d)return toast("DEALER ID REQUIRED","error");var i=DB.points.findIndex(function(x){return N(x.dealer)===N(d)}),o=i>=0?DB.points[i]:{dealer:d,points:0};o.points=Math.max(0,Number(o.points||0)+Number(E("ptAdd").value||0)-Number(E("ptRedeem").value||0));o.year=U(E("ptYear").value.trim());o.quarter=E("ptQuarter").value;o.scheme=U(E("ptScheme").value.trim());o.message=U(E("ptMessage").value.trim());o.updated=TODAY();if(i>=0)DB.points[i]=o;else DB.points.push(o);saveDB();toast("POINTS / SCHEME UPDATED","success")}
+function renderPoints(){if(!E("pointsList"))return;E("pointsList").innerHTML=DB.points.length?DB.points.map(function(x){return"<div class='box bPurple' style='margin-top:8px'><b>"+H(x.dealer)+" — "+Number(x.points||0)+" POINTS</b><div class='help'>SCHEME YEAR: "+H(x.year||"")+" | "+H(x.quarter||"")+"</div><div>"+H(x.scheme||"")+"</div><div class='help'>"+H(x.message||"")+"</div></div>"}).join(""):"<div class='empty'>NO DEALER POINTS YET.</div>"}
+function renderSalesReport(){if(!E("salesReportList"))return;var from=E("srFrom").value,to=E("srTo").value,q=N(E("srSearch").value),orders=DB.orders.filter(function(o){var d=String(o.date||"").slice(0,10);return(!from||!d||d>=from)&&(!to||!d||d<=to)&&(!q||N([o.no,o.dealer,dealerKey(o)].join(" ")).includes(q))}),est=finalEstimates().filter(function(e){var d=String(e.date||"").slice(0,10);return(!from||!d||d>=from)&&(!to||!d||d<=to)&&(!q||N([e.no,e.order,e.dealer].join(" ")).includes(q))}),ov=orders.reduce(function(s,x){return s+Number(x.amount||0)},0),sv=est.reduce(function(s,x){return s+Number(x.amount||0)},0),pv=Math.max(0,ov-sv),pc=ov?Math.min(100,sv/ov*100):0;E("srOrders").textContent=money(ov);E("srSales").textContent=money(sv);E("srPending").textContent=money(pv);E("srPercent").textContent=pc.toFixed(1)+"%";var rows=orders.map(function(o){var ev=est.filter(function(e){return N(e.order)===N(o.no)}).reduce(function(s,e){return s+Number(e.amount||0)},0),gap=Math.max(0,Number(o.amount||0)-ev);return{order:o.no,dealer:o.dealer||"",ov:Number(o.amount||0),ev:ev,gap:gap,status:gap>0?"PENDING / UNFULFILLED":"COMPLETE"}});E("salesReportList").innerHTML=rows.length?"<div class='scroll'><table><thead><tr><th>ORDER</th><th>DEALER</th><th>ORDER VALUE</th><th>FINAL ESTIMATE SALE</th><th>PENDING</th><th>RESULT</th></tr></thead><tbody>"+rows.map(function(r){return"<tr><td>"+H(r.order)+"</td><td>"+H(r.dealer)+"</td><td>"+money(r.ov)+"</td><td>"+money(r.ev)+"</td><td>"+money(r.gap)+"</td><td>"+H(r.status)+"</td></tr>"}).join("")+"</tbody></table></div>":"<div class='empty'>NO ORDERS IN THIS RANGE.</div>"}
+function profitNet(x){return Number(x.sale||0)-Number(x.purchase||0)-Number(x.courier||0)-Number(x.delivery||0)-Number(x.packing||0)-Number(x.gateway||0)-Number(x.other||0)}
+function saveProfit(){var eno=U(E("pfEstimate").value.trim());if(!eno)return toast("FINAL ESTIMATE NUMBER REQUIRED","error");var e=DB.estimates.find(function(x){return N(x.no)===N(eno)}),sale=Number(E("pfSale").value||0);if(e&&sale===0)sale=Number(e.amount||0);var o={estimate:eno,date:E("pfDate").value||TODAY(),dealer:U(E("pfDealer").value.trim()||(e?e.dealer:"")),sale:sale,purchase:Number(E("pfPurchase").value||0),courier:Number(E("pfCourier").value||0),delivery:Number(E("pfDelivery").value||0),packing:Number(E("pfPacking").value||0),gateway:Number(E("pfGateway").value||0),other:Number(E("pfOther").value||0),note:U(E("pfNote").value.trim())};var i=DB.profitEntries.findIndex(function(x){return N(x.estimate)===N(eno)});if(i>=0)DB.profitEntries[i]=o;else DB.profitEntries.push(o);saveDB();toast("PROFIT ENTRY SAVED","success")}
+function renderProfit(){if(!E("profitRows"))return;var sales=DB.profitEntries.reduce(function(s,x){return s+Number(x.sale||0)},0),cost=DB.profitEntries.reduce(function(s,x){return s+Number(x.purchase||0)+Number(x.courier||0)+Number(x.delivery||0)+Number(x.packing||0)+Number(x.gateway||0)+Number(x.other||0)},0),net=sales-cost;E("pfSalesTotal").textContent=money(sales);E("pfCostTotal").textContent=money(cost);E("pfProfitTotal").textContent=money(net);E("pfPercent").textContent=(sales?net/sales*100:0).toFixed(1)+"%";E("profitRows").innerHTML=DB.profitEntries.length?DB.profitEntries.map(function(x,i){return"<tr><td>"+H(x.date)+"</td><td>"+H(x.estimate)+"</td><td>"+H(x.dealer)+"</td><td>"+money(x.sale)+"</td><td>"+money(x.purchase)+"</td><td>"+money(x.courier)+"</td><td>"+money(x.delivery)+"</td><td>"+money(x.packing)+"</td><td>"+money(x.gateway)+"</td><td>"+money(x.other)+"</td><td><b>"+money(profitNet(x))+"</b></td><td><button class='btn red' onclick='DB.profitEntries.splice("+i+",1);saveDB()'>DELETE</button></td></tr>"}).join(""):"<tr><td colspan='12' class='empty'>NO PROFIT ENTRIES YET.</td></tr>"}
+function readDrawingImage(file){if(!file)return;var r=new FileReader();r.onload=function(){drawingImage=r.result;E("drawingPreview").innerHTML="<img src='"+drawingImage+"' style='max-width:220px;max-height:160px'>"};r.readAsDataURL(file)}
+function addDrawingPart(){var c=U(E("drCode").value.trim());if(!c)return toast("DRAWING PART CODE REQUIRED","error");drawingParts.push({code:c,name:U(E("drPartName").value.trim()),itemNo:U(E("drItemNo").value.trim())});E("drCode").value="";E("drPartName").value="";E("drItemNo").value="";renderDrawingPartChips()}
+function renderDrawingPartChips(){if(E("drawingPartChips"))E("drawingPartChips").innerHTML=drawingParts.map(function(x,i){return"<span class='chip'>"+H(x.code)+" | "+H(x.name)+" | "+H(x.itemNo)+" <b onclick='drawingParts.splice("+i+",1);renderDrawingPartChips()'>×</b></span>"}).join("")}
+function saveDrawing(){var b=U(E("drBrand").value.trim()),m=U(E("drModel").value.trim());if(!b||!m)return toast("BRAND AND MODEL REQUIRED","error");var o={brand:b,model:m,title:U(E("drTitle").value.trim()||"EXPLODED VIEW"),image:drawingImage,pdf:E("drPdf").value.trim(),version:U(E("drVersion").value.trim()),parts:drawingParts.slice()};var i=DB.drawings.findIndex(function(x){return N(x.brand)===N(b)&&N(x.model)===N(m)});if(i>=0)DB.drawings[i]=o;else DB.drawings.push(o);drawingImage="";drawingParts=[];saveDB();toast("DRAWING SAVED","success")}
+function renderDrawings(){if(!E("drawingList"))return;var q=N(E("drawingSearch").value),a=DB.drawings.filter(function(x){return !q||N([x.brand,x.model,x.title].concat((x.parts||[]).map(function(p){return p.code+" "+p.name+" "+p.itemNo})).join(" ")).includes(q)});E("drawingList").innerHTML=a.length?a.map(function(d){return"<div class='box bPurple' style='margin-top:8px'><b>"+H(d.brand)+" | "+H(d.model)+" | "+H(d.title)+"</b>"+(d.image?"<div><img src='"+d.image+"' style='max-width:100%;max-height:350px'></div>":"<div class='notice'>DRAWING IMAGE NOT AVAILABLE</div>")+"<div class='scroll'><table><thead><tr><th>PART CODE</th><th>PART NAME</th><th>TORVO ITEM</th></tr></thead><tbody>"+((d.parts||[]).length?(d.parts||[]).map(function(p){return"<tr><td>"+H(p.code)+"</td><td>"+H(p.name)+"</td><td>"+H(p.itemNo)+"</td></tr>"}).join(""):"<tr><td colspan='3' class='empty'>NO PART MAPPING.</td></tr>")+"</tbody></table></div></div>"}).join(""):"<div class='empty'>DRAWING NOT AVAILABLE FOR THIS MACHINE.</div>"}
+function saveAd(){var t=U(E("adTitle").value.trim());if(!t)return toast("AD TITLE REQUIRED","error");DB.ads.push({title:t,type:E("adType").value,place:E("adPlace").value,start:E("adStart").value,end:E("adEnd").value,status:E("adStatus").value,image:E("adImage").files[0]?E("adImage").files[0].name:"",video:E("adVideo").value.trim(),link:E("adLink").value.trim(),message:U(E("adMessage").value.trim())});saveDB();toast("AD SAVED","success")}
+function renderAds(){if(!E("adList"))return;E("adList").innerHTML=DB.ads.length?DB.ads.map(function(x,i){return"<div class='box bOrange' style='margin-top:8px'><b>"+H(x.title)+"</b><div class='help'>"+H(x.type)+" | "+H(x.place)+" | "+H(x.status)+"</div><div>"+H(x.message||"")+"</div><button class='btn red' onclick='DB.ads.splice("+i+",1);saveDB()'>DELETE</button></div>"}).join(""):"<div class='empty'>NO ADS YET.</div>"}
+function saveHome(){var t=U(E("homeTitle").value.trim());if(!t)return toast("SECTION TITLE REQUIRED","error");DB.homeContent.push({title:t,type:E("homeType").value,status:E("homeStatus").value,photo:E("homePhoto").files[0]?E("homePhoto").files[0].name:"",video:E("homeVideo").value.trim(),link:E("homeLink").value.trim(),text:U(E("homeText").value.trim())});saveDB();toast("HOME CONTENT SAVED","success")}
+function renderHome(){if(!E("homeList"))return;E("homeList").innerHTML=DB.homeContent.length?DB.homeContent.map(function(x,i){return"<div class='box bBlue' style='margin-top:8px'><b>"+H(x.title)+"</b><div class='help'>"+H(x.type)+" | "+H(x.status)+"</div><div>"+H(x.text||"")+"</div><button class='btn red' onclick='DB.homeContent.splice("+i+",1);saveDB()'>DELETE</button></div>"}).join(""):"<div class='empty'>NO HOME PAGE CONTENT.</div>"}
+function loadAI(){E("aiStatus").value=DB.ai.status||"OFF";E("aiProvider").value=DB.ai.provider||"OPENAI";E("aiModel").value=DB.ai.model||"";E("aiPhoto").value=DB.ai.photo||"OFF";E("aiDrawing").value=DB.ai.drawing||"OFF";E("aiHelp").value=DB.ai.help||"OFF";E("apiBase").value=DB.ai.apiBase||"";E("apiConnector").value=DB.ai.connector||"";E("apiStatus").value=DB.ai.apiStatus||"OFF";E("aiRule").value=DB.ai.rule||""}
+function saveAI(){DB.ai={status:E("aiStatus").value,provider:E("aiProvider").value,model:U(E("aiModel").value.trim()),photo:E("aiPhoto").value,drawing:E("aiDrawing").value,help:E("aiHelp").value,apiBase:E("apiBase").value.trim(),connector:U(E("apiConnector").value.trim()),apiStatus:E("apiStatus").value,rule:U(E("aiRule").value.trim())};saveDB();toast("AI / API SETTINGS SAVED","success")}
+function previewUpdate(t,b){alert("TORVO UPDATE REVIEW\\n\\n"+t+"\\n\\nWHY THIS UPDATE MAY HELP:\\n"+b+"\\n\\nNO UPDATE HAS BEEN INSTALLED. ADMIN APPROVAL IS REQUIRED.")}
+function createRestorePoint(){localStorage.setItem(RESTORE_KEY,JSON.stringify(DB));E("backupVersion").value="BACKUP "+new Date().toLocaleString();toast("RESTORE POINT CREATED","success")}
+function restorePoint(){var b=localStorage.getItem(RESTORE_KEY);if(!b)return toast("NO RESTORE POINT FOUND","error");if(!confirm("RESTORE PREVIOUS LOCAL DATA?"))return;DB=JSON.parse(b);saveDB();toast("PREVIOUS DATA RESTORED","success")}
 
 function dashboard(){
-E("dItems").textContent=DB.items.length;E("dMachines").textContent=DB.machines.length;E("dIn").textContent=DB.items.filter(function(x){return x.qty>0}).length;E("dOut").textContent=DB.items.filter(function(x){return x.qty<=0}).length;E("dReorder").textContent=DB.items.filter(function(x){return x.qty<=x.min}).length
+ E("dItems").textContent=DB.items.length;E("dMachines").textContent=DB.machines.length;E("dIn").textContent=DB.items.filter(function(x){return x.qty>0}).length;E("dOut").textContent=DB.items.filter(function(x){return x.qty<=0}).length;E("dReorder").textContent=DB.items.filter(function(x){return x.qty<=x.min}).length;
+ var customers=buildCustomerStats();E("dCustomers").textContent=customers.length;var cut=DAYSAGO(30),recent=0;customers.forEach(function(c){recent+=c.events.filter(function(e){return String(e.date)>=cut}).length});E("dRecentViews").textContent=recent;
+ E("imTotal").textContent=DB.items.length;E("imIn").textContent=DB.items.filter(function(x){return x.qty>0}).length;E("imOut").textContent=DB.items.filter(function(x){return x.qty<=0}).length;E("imReorder").textContent=DB.items.filter(function(x){return x.qty<=x.min}).length;E("imOnline").textContent=DB.items.filter(function(x){return x.online==="ONLINE"}).length;E("imOffline").textContent=DB.items.filter(function(x){return x.online==="OFFLINE"}).length;E("imTop").textContent=DB.items.filter(function(x){return(x.sold||0)>0}).length;E("imLow").textContent=DB.items.length
 }
-
-function logoutAdmin(){
-sndAlert();if(dirty&&!confirm("Unsaved entry है. फिर भी Logout करना है?"))return;
-if(confirm("Logout from TORVO Admin?"))location.href="index.html"
-}
-
-document.addEventListener("input",function(e){
-if(e.target.closest("#spares")||e.target.closest("#machines"))dirty=true
-});
-
+function renderOrders(){E("orderRows").innerHTML=DB.orders.length?DB.orders.map(function(x){return"<tr><td>"+H(x.no||"")+"</td><td>"+H(customerKey(x))+"</td><td>"+H(x.dealer||"")+"</td><td>"+H(x.date||"")+"</td><td>₹"+Number(x.amount||0)+"</td><td>"+H(x.status||"NEW")+"</td></tr>"}).join(""):"<tr><td colspan='6' class='empty'>NO SALES ORDERS YET.</td></tr>"}
+function renderEstimates(){E("estimateRows").innerHTML=DB.estimates.length?DB.estimates.map(function(x){return"<tr><td>"+H(x.no||"")+"</td><td>"+H(x.order||"")+"</td><td>"+H(x.dealer||"")+"</td><td>₹"+Number(x.amount||0)+"</td><td>"+H(x.reply||"WAITING")+"</td></tr>"}).join(""):"<tr><td colspan='5' class='empty'>NO ESTIMATES YET.</td></tr>"}
 function refreshAll(){
-refreshLists();renderMachines();renderItems();renderOrders();renderEstimates();renderConfirmed();renderPartners();renderDeliveries();renderDealers();renderRequests();dashboard();updateNotifications();renderActivity()
+refreshLists();renderMachines();renderItems();renderPartners();renderOrders();renderEstimates();dashboard();
+if(E("customerHistoryBox"))renderCustomerHistory();
+if(E("dealerList"))renderDealers();if(E("inquiryList"))renderInquiries();if(E("journeyList"))renderJourney();if(E("chatList"))renderChat();if(E("pointsList"))renderPoints();
+if(E("salesReportList"))renderSalesReport();if(E("profitRows"))renderProfit();if(E("drawingList"))renderDrawings();if(E("adList"))renderAds();if(E("homeList"))renderHome();
+var bi=E("badgeInquiry"),un=DB.inquiries.filter(function(x){return !x.read}).length;if(bi){bi.textContent=un;bi.style.display=un?"inline-block":"none"}
 }
-
 document.addEventListener("DOMContentLoaded",function(){
-E("spDate").value=TODAY();E("machineDate").value=TODAY();refreshAll();renderMachineChips();renderSlabs()
+E("machineDate").value=TODAY();
+if(E("pfDate"))E("pfDate").value=TODAY();
+if(E("srTo"))E("srTo").value=TODAY();
+if(E("srFrom")){var d=new Date();d.setDate(1);E("srFrom").value=d.toISOString().slice(0,10)}
+if(E("adStart"))E("adStart").value=TODAY();
+refreshAll()
 });
 </script>
 </body>
