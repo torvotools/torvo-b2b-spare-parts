@@ -2,34 +2,15 @@
 <html lang="en">
 <head>
 <meta charset="UTF-8">
-<meta name="viewport" content="width=device-width,initial-scale=1">
+<meta name="viewport" content="width=device-width,initial-scale=1.0">
 <title>TORVO B2B Admin</title>
 <style>
-:root{--red:#d71920;--red2:#b91c1c;--green:#16823c;--blue:#1769aa;--purple:#7447b8;--orange:#e27818;--teal:#13776e;--indigo:#4338ca;--dark:#28394e;--bg:#edf2f7;--line:#cbd5e1;--text:#172033}
-*{box-sizing:border-box}body{margin:0;font-family:Arial,sans-serif;background:var(--bg);color:var(--text);font-size:12px}button,input,select,textarea{font:inherit}button{cursor:pointer}
-.app{display:grid;grid-template-columns:185px 1fr 185px;min-height:100vh}.left,.right{position:sticky;top:0;height:100vh;overflow:auto;padding:12px 9px}.left{background:#eef1f5;border-right:1px solid var(--line)}.right{background:#fff;border-left:1px solid var(--line)}
-.logo{font-size:25px;font-weight:900;padding:4px 7px;cursor:pointer}.sub{font-size:9px;color:#64748b;padding:0 7px 10px;border-bottom:1px solid var(--line)}
-.head{font-size:10px;font-weight:900;margin:13px 5px 5px;padding-bottom:4px;border-bottom:2px solid #94a3b8;text-transform:uppercase}.nav{width:100%;border:0;background:transparent;text-align:left;padding:7px 8px;border-radius:6px;margin:2px 0;font-weight:700;position:relative}.nav:hover{background:#e2e8f0}.nav.active{background:var(--red);color:#fff}.rnav{width:100%;border:1px solid #d1d5db;background:#fff;text-align:left;padding:8px;border-radius:7px;margin:3px 0;font-weight:700;position:relative}.rnav:hover{border-color:var(--red);color:var(--red)}.badge{position:absolute;right:6px;top:50%;transform:translateY(-50%);background:var(--red);color:#fff;border-radius:12px;padding:2px 6px;font-size:9px;display:none}
-.main{min-width:0;padding:9px}.top{background:#fff;border-radius:9px;padding:9px;display:flex;gap:7px;align-items:center;position:sticky;top:0;z-index:5;box-shadow:0 1px 5px #0001}.title{min-width:145px}.title b{font-size:17px}.title small{display:block;color:#6b7280}
-.search{flex:1;position:relative}.search input{width:100%;height:35px;border:1px solid var(--line);border-radius:7px;padding:7px 38px 7px 9px}.mic{position:absolute;right:5px;top:4px;width:28px;height:27px;border:0;background:#eef4f9;border-radius:50%}
-.topbtn{height:35px;border-radius:7px;border:0;color:#fff;font-weight:900;padding:0 10px}.searchbtn{background:var(--green)}.logout{background:var(--red)}.owner{background:#f8fafc;color:#111;border:1px solid var(--line)}
-.bell{position:relative}.bell button{width:35px;height:35px;border:1px solid var(--line);background:#fff;border-radius:7px}.bellnum{position:absolute;right:-4px;top:-5px;background:var(--red);color:#fff;border-radius:10px;min-width:17px;height:17px;font-size:8px;font-weight:900;display:none;align-items:center;justify-content:center}
-.section{display:none}.section.active{display:block}.panel{background:#fff;border-radius:9px;padding:10px;margin-top:9px;box-shadow:0 1px 5px #0001}.ptitle{display:flex;align-items:center;gap:7px;border-bottom:2px solid var(--line);padding-bottom:7px;margin-bottom:9px}.tag{color:#fff;padding:5px 8px;border-radius:5px;font-size:9px;font-weight:900}.blue{background:var(--blue)}.green{background:var(--green)}.red{background:var(--red)}.orange{background:var(--orange)}.purple{background:var(--purple)}.teal{background:var(--teal)}.indigo{background:var(--indigo)}.dark{background:var(--dark)}
-.cards{display:grid;grid-template-columns:repeat(4,1fr);gap:7px}.card{background:#fff;border-radius:8px;padding:10px;border-top:3px solid var(--blue);box-shadow:0 1px 4px #0001}.card:nth-child(2){border-top-color:var(--purple)}.card:nth-child(3){border-top-color:var(--green)}.card:nth-child(4){border-top-color:var(--red)}.card small{color:#6b7280}.card strong{display:block;font-size:21px;margin-top:4px}
-.btn{border:0;border-radius:6px;color:#fff;padding:7px 10px;font-weight:800;font-size:10px}.btn-light{background:#fff;color:#111;border:1px solid var(--line)}.toolbar{display:flex;gap:5px;flex-wrap:wrap;align-items:center;margin-bottom:8px}.toolbar input,.toolbar select{padding:7px;border:1px solid var(--line);border-radius:6px}.grow{flex:1;min-width:180px}
-.grid{display:grid;grid-template-columns:repeat(3,1fr);gap:8px}.field label{display:block;font-size:10px;font-weight:800;margin-bottom:4px}.field input,.field select,.field textarea{width:100%;border:1px solid var(--line);border-radius:6px;padding:8px}.full{grid-column:1/-1}
-.box{grid-column:1/-1;border-radius:9px;padding:10px;border:1px solid}.bblue{background:#eff6ff;border-color:#bfdbfe}.byellow{background:#fffbeb;border-color:#fde68a}.bgreen{background:#f0fdf4;border-color:#bbf7d0}.borange{background:#fff7ed;border-color:#fed7aa}.bpurple{background:#f5f3ff;border-color:#ddd6fe}.bteal{background:#f0fdfa;border-color:#99f6e4}.btitle{font-size:11px;font-weight:900;margin-bottom:8px}
-.row{display:flex;gap:4px}.row input,.row select{flex:1}.mini{width:31px;border:1px solid var(--line);background:#f8fafc;border-radius:6px;font-weight:900}
-table{width:100%;border-collapse:collapse;min-width:760px;font-size:10px}th,td{padding:7px 6px;border-bottom:1px solid #e5e7eb;text-align:left;white-space:nowrap}th{background:#f8fafc;font-weight:900}.scroll{overflow:auto}
-.itemgrid{display:grid;grid-template-columns:repeat(3,1fr);gap:8px}.icard{border:1px solid #e5e7eb;border-radius:9px;padding:9px;background:#fff}.ipic{height:75px;background:#f8fafc;border:1px dashed var(--line);border-radius:6px;display:flex;align-items:center;justify-content:center;color:#94a3b8}.ipic img{max-width:100%;max-height:100%}.iname{font-size:12px;font-weight:900;margin:6px 0}.meta{font-size:9px;color:#64748b;margin:2px 0}.rates{display:grid;grid-template-columns:repeat(4,1fr);gap:4px;margin-top:6px}.rate{font-size:9px;text-align:center;border:1px solid #e5e7eb;border-radius:5px;padding:5px}.cost{background:#fff7ed}.ra{background:#eff6ff}.rb{background:#f0fdf4}.rc{background:#f5f3ff}.stock{display:flex;justify-content:space-between;background:#f8fafc;padding:6px;border-radius:5px;margin-top:6px;font-size:9px}.bulk{background:#fffbeb;border:1px solid #fde68a;padding:6px;border-radius:6px;margin-top:6px;font-size:9px}
-.chips{display:flex;gap:5px;flex-wrap:wrap;margin-top:7px}.chip{background:#fff;border:1px solid var(--line);border-radius:14px;padding:5px 7px;font-size:9px}.chip b{color:var(--red);cursor:pointer}
-.flow{display:flex;gap:5px;flex-wrap:wrap}.step{padding:6px 8px;border:1px solid #d1d5db;background:#f8fafc;border-radius:14px;font-size:9px;font-weight:700}.empty{text-align:center;padding:18px;color:#6b7280}.notice{padding:8px;background:#fff7ed;border-left:4px solid var(--orange);border-radius:6px;font-size:9px}.toast{position:fixed;right:200px;bottom:15px;padding:10px 12px;border-radius:8px;color:#fff;background:var(--dark);display:none;z-index:99}.notif{display:none;position:fixed;right:195px;top:55px;width:290px;background:#fff;border:1px solid var(--line);border-radius:8px;box-shadow:0 10px 25px #0002;padding:10px;z-index:50}.notif div{padding:6px;border-bottom:1px solid #eee;font-size:9px}
-@media(max-width:1100px){.app{grid-template-columns:170px 1fr 170px}.cards{grid-template-columns:repeat(2,1fr)}.itemgrid{grid-template-columns:repeat(2,1fr)}}
+:root{--red:#d71920;--green:#15803d;--blue:#2563eb;--purple:#7c3aed;--orange:#ea580c;--teal:#0f766e;--indigo:#4338ca;--dark:#334155;--bg:#eef3f8;--line:#cbd5e1;--text:#172033;--muted:#64748b}
+*{box-sizing:border-box}body{margin:0;font-family:Arial,sans-serif;background:var(--bg);color:var(--text);font-size:12px}button,input,select,textarea{font:inherit}button{cursor:pointer}.app{display:grid;grid-template-columns:185px 1fr 185px;min-height:100vh}.left,.right{height:100vh;position:sticky;top:0;overflow:auto;padding:12px 9px;background:#fff}.left{background:#edf1f5;border-right:1px solid var(--line)}.right{border-left:1px solid var(--line)}.main{min-width:0;padding:9px}.logo{font-size:25px;font-weight:900;padding:4px 7px;cursor:pointer}.sub{font-size:9px;color:var(--muted);padding:0 7px 10px;border-bottom:1px solid var(--line)}.head{font-size:10px;font-weight:900;margin:13px 5px 5px;padding-bottom:4px;border-bottom:2px solid #94a3b8;text-transform:uppercase}.nav,.rnav{width:100%;position:relative;text-align:left;border-radius:6px;font-weight:700}.nav{border:0;background:transparent;padding:7px 8px;margin:2px 0}.nav:hover{background:#e2e8f0}.nav.active{background:var(--red);color:#fff}.rnav{border:1px solid #d1d5db;background:#fff;padding:8px;margin:3px 0}.rnav:hover{border-color:var(--red);color:var(--red)}.badge{position:absolute;right:6px;top:50%;transform:translateY(-50%);background:var(--red);color:#fff;border-radius:12px;padding:2px 6px;font-size:9px;display:none}.top{background:#fff;border-radius:9px;padding:9px;display:flex;gap:7px;align-items:center;position:sticky;top:0;z-index:5;box-shadow:0 1px 5px #0001}.title{min-width:145px}.title b{font-size:17px}.title small{display:block;color:#6b7280}.search{flex:1;position:relative}.search input{width:100%;height:35px;border:1px solid var(--line);border-radius:7px;padding:7px 38px 7px 9px}.mic{position:absolute;right:5px;top:4px;width:28px;height:27px;border:0;background:#eef4f9;border-radius:50%}.topbtn{height:35px;border-radius:7px;border:0;color:#fff;font-weight:900;padding:0 10px}.searchbtn{background:var(--green)}.logout{background:var(--red)}.owner{background:#f8fafc;color:#111;border:1px solid var(--line)}.bell{position:relative}.bell button{width:35px;height:35px;border:1px solid var(--line);background:#fff;border-radius:7px}.bellnum{position:absolute;right:-4px;top:-5px;background:var(--red);color:#fff;border-radius:10px;min-width:17px;height:17px;font-size:8px;font-weight:900;display:none;align-items:center;justify-content:center}.section{display:none}.section.active{display:block}.panel{background:#fff;border-radius:9px;padding:10px;margin-top:9px;box-shadow:0 1px 5px #0001}.ptitle{display:flex;align-items:center;gap:7px;border-bottom:2px solid var(--line);padding-bottom:7px;margin-bottom:9px}.tag{color:#fff;padding:5px 8px;border-radius:5px;font-size:9px;font-weight:900}.blue{background:var(--blue)}.green{background:var(--green)}.red{background:var(--red)}.orange{background:var(--orange)}.purple{background:var(--purple)}.teal{background:var(--teal)}.indigo{background:var(--indigo)}.dark{background:var(--dark)}.cards{display:grid;grid-template-columns:repeat(4,1fr);gap:7px}.card{background:#fff;border-radius:8px;padding:10px;border-top:3px solid var(--blue);box-shadow:0 1px 4px #0001}.card small{color:#6b7280}.card strong{display:block;font-size:21px;margin-top:4px}.btn{border:0;border-radius:6px;color:#fff;padding:7px 10px;font-weight:800;font-size:10px}.btn-light{background:#fff;color:#111;border:1px solid var(--line)}.toolbar{display:flex;gap:5px;flex-wrap:wrap;align-items:center;margin-bottom:8px}.toolbar input,.toolbar select{padding:7px;border:1px solid var(--line);border-radius:6px}.grow{flex:1;min-width:180px}.grid{display:grid;grid-template-columns:repeat(3,1fr);gap:8px}.field label{display:block;font-size:10px;font-weight:800;margin-bottom:4px}.field input,.field select,.field textarea{width:100%;border:1px solid var(--line);border-radius:6px;padding:8px}.full{grid-column:1/-1}.box{grid-column:1/-1;border-radius:9px;padding:10px;border:1px solid}.bblue{background:#eff6ff;border-color:#bfdbfe}.byellow{background:#fffbeb;border-color:#fde68a}.bgreen{background:#f0fdf4;border-color:#bbf7d0}.borange{background:#fff7ed;border-color:#fed7aa}.bpurple{background:#f5f3ff;border-color:#ddd6fe}.bteal{background:#f0fdfa;border-color:#99f6e4}.btitle{font-size:11px;font-weight:900;margin-bottom:8px}.row{display:flex;gap:4px}.row input,.row select{flex:1}.mini{width:31px;border:1px solid var(--line);background:#f8fafc;border-radius:6px;font-weight:900}table{width:100%;border-collapse:collapse;min-width:760px;font-size:10px}th,td{padding:7px 6px;border-bottom:1px solid #e5e7eb;text-align:left;white-space:nowrap}th{background:#f8fafc;font-weight:900}.scroll{overflow:auto}.itemgrid{display:grid;grid-template-columns:repeat(3,1fr);gap:8px}.icard{border:1px solid #e5e7eb;border-radius:9px;padding:9px;background:#fff}.ipic{height:75px;background:#f8fafc;border:1px dashed var(--line);border-radius:6px;display:flex;align-items:center;justify-content:center;color:#94a3b8}.ipic img{max-width:100%;max-height:100%}.iname{font-size:12px;font-weight:900;margin:6px 0}.meta{font-size:9px;color:#64748b;margin:2px 0}.rates{display:grid;grid-template-columns:repeat(4,1fr);gap:4px;margin-top:6px}.rate{font-size:9px;text-align:center;border:1px solid #e5e7eb;border-radius:5px;padding:5px}.cost{background:#fff7ed}.ra{background:#eff6ff}.rb{background:#f0fdf4}.rc{background:#f5f3ff}.stock{display:flex;justify-content:space-between;background:#f8fafc;padding:6px;border-radius:5px;margin-top:6px;font-size:9px}.bulk{background:#fffbeb;border:1px solid #fde68a;padding:6px;border-radius:6px;margin-top:6px;font-size:9px}.chips{display:flex;gap:5px;flex-wrap:wrap;margin-top:7px}.chip{background:#fff;border:1px solid var(--line);border-radius:14px;padding:5px 7px;font-size:9px}.chip b{color:var(--red);cursor:pointer}.flow{display:flex;gap:5px;flex-wrap:wrap}.step{padding:6px 8px;border:1px solid #d1d5db;background:#f8fafc;border-radius:14px;font-size:9px;font-weight:700}.empty{text-align:center;padding:18px;color:#6b7280}.notice{padding:8px;background:#fff7ed;border-left:4px solid var(--orange);border-radius:6px;font-size:9px}.toast{position:fixed;right:200px;bottom:15px;padding:10px 12px;border-radius:8px;color:#fff;background:var(--dark);display:none;z-index:99}.notif{display:none;position:fixed;right:195px;top:55px;width:290px;background:#fff;border:1px solid var(--line);border-radius:8px;box-shadow:0 10px 25px #0002;padding:10px;z-index:50}.notif div{padding:6px;border-bottom:1px solid #eee;font-size:9px}.reportgrid{display:grid;grid-template-columns:repeat(3,1fr);gap:8px}.reportbtn{background:#f8fafc;border:1px solid var(--line);padding:12px;border-radius:7px;font-weight:800;text-align:left}@media(max-width:1100px){.app{grid-template-columns:170px 1fr 170px}.cards{grid-template-columns:repeat(2,1fr)}.itemgrid{grid-template-columns:repeat(2,1fr)}}
 </style>
 </head>
 <body>
 <div class="app">
-
 <aside class="left">
 <div class="logo" onclick="home()">TORVO</div><div class="sub">B2B Dealer Business System</div>
 <div class="head">HOME & CATALOG</div>
@@ -67,39 +48,25 @@ table{width:100%;border-collapse:collapse;min-width:760px;font-size:10px}th,td{p
 <div class="notice" style="margin-top:8px">Sales Order और Estimate manually create नहीं होंगे. Website dealer order से process शुरू होगा.</div></div>
 </section>
 
-<section id="items" class="section">
-<div class="panel"><div class="ptitle"><span class="tag blue">ITEM</span><b>Master Item View</b></div>
-<div class="toolbar">
-<input id="itemSearch" class="grow" placeholder="Search item no., name, brand, machine..." oninput="renderItems()">
-<button class="btn blue" onclick="setFilter('all')">All Items</button>
-<button class="btn green" onclick="setFilter('in')">In Stock</button>
-<button class="btn red" onclick="setFilter('out')">Out of Stock</button>
-<button class="btn orange" onclick="setFilter('reorder')">Reorder Recommended</button>
-<button class="btn purple" onclick="setFilter('top')">Top Selling</button>
-<button class="btn dark" onclick="setFilter('low')">Least Selling</button>
-</div>
-<div class="toolbar"><button class="btn green" onclick="exportCSV()">Excel</button><button class="btn red" onclick="window.print()">PDF / Print</button><button class="btn orange" onclick="reorderList()">Create Order List</button></div>
-<div id="itemGrid" class="itemgrid"></div></div>
-</section>
+<section id="items" class="section"><div class="panel"><div class="ptitle"><span class="tag blue">ITEM</span><b>Master Item View</b></div>
+<div class="toolbar"><input id="itemSearch" class="grow" placeholder="Search item no., name, brand, machine..." oninput="renderItems()"><button class="btn blue" onclick="setFilter('all')">All Items</button><button class="btn green" onclick="setFilter('in')">In Stock</button><button class="btn red" onclick="setFilter('out')">Out of Stock</button><button class="btn orange" onclick="setFilter('reorder')">Reorder Recommended</button><button class="btn purple" onclick="setFilter('top')">Top Selling</button><button class="btn dark" onclick="setFilter('low')">Least Selling</button></div>
+<div class="toolbar"><button class="btn green" onclick="exportCSV()">Excel</button><button class="btn red" onclick="window.print()">PDF / Print</button><button class="btn orange" onclick="reorderList()">Create Order List</button></div><div id="itemGrid" class="itemgrid"></div></div></section>
 
-<section id="spares" class="section">
-<div class="panel"><div class="ptitle"><span class="tag blue">SPARE PART ENTRY</span><b>Add / Edit Spare Part</b></div>
-<div class="grid">
+<section id="spares" class="section"><div class="panel"><div class="ptitle"><span class="tag blue">SPARE PART ENTRY</span><b>Add / Edit Spare Part</b></div><div class="grid">
 <div class="box bblue"><div class="btitle">1. BASIC ITEM DETAILS</div><div class="grid">
-<div class="field"><label>Item Number *</label><div class="row"><input id="spNo" list="itemNoList"><button class="mini" onclick="masterAdd('item')">+</button></div><datalist id="itemNoList"></datalist></div>
-<div class="field"><label>Spare Part Name *</label><div class="row"><input id="spName" list="spareNameList"><button class="mini" onclick="masterAdd('name')">+</button></div><datalist id="spareNameList"></datalist></div>
+<div class="field"><label>Item Number *</label><div class="row"><input id="spNo" list="itemNoList"><button class="mini" type="button" onclick="masterAdd('item')">+</button></div><datalist id="itemNoList"></datalist></div>
+<div class="field"><label>Spare Part Name *</label><div class="row"><input id="spName" list="spareNameList"><button class="mini" type="button" onclick="masterAdd('name')">+</button></div><datalist id="spareNameList"></datalist></div>
 <div class="field"><label>Photo</label><input id="spPhoto" type="file" accept="image/*"></div>
-<div class="field"><label>Brand *</label><div class="row"><input id="spBrand" list="brandList"><button class="mini" onclick="masterAdd('brand')">+</button></div><datalist id="brandList"></datalist></div>
-<div class="field"><label>Category *</label><div class="row"><input id="spCat" list="catList"><button class="mini" onclick="masterAdd('cat')">+</button></div><datalist id="catList"></datalist></div>
-<div class="field"><label>Pieces Per Box</label><input id="spBox" type="number" min="0" value="1"></div>
-</div></div>
+<div class="field"><label>Brand *</label><div class="row"><input id="spBrand" list="brandList"><button class="mini" type="button" onclick="masterAdd('brand')">+</button></div><datalist id="brandList"></datalist></div>
+<div class="field"><label>Category *</label><div class="row"><input id="spCat" list="catList"><button class="mini" type="button" onclick="masterAdd('cat')">+</button></div><datalist id="catList"></datalist></div>
+<div class="field"><label>Pieces Per Box</label><input id="spBox" type="number" min="0" value="1"></div></div></div>
 
 <div class="box byellow"><div class="btitle">2. COST & SELLING RATES</div><div class="grid">
-<div class="field"><label>Purchase Cost</label><input id="spCost" type="number" min="0" value="0"></div>
+<div class="field"><label>Purchase Cost</label><input id="spCost" type="number" min="0" step="0.01" value="0"></div>
 <div class="field"><label>Purchase Date</label><input id="spDate" type="date"></div>
-<div class="field"><label>Rate A</label><input id="spA" type="number" min="0" value="0"></div>
-<div class="field"><label>Rate B</label><input id="spB" type="number" min="0" value="0"></div>
-<div class="field"><label>Rate C</label><input id="spC" type="number" min="0" value="0"></div>
+<div class="field"><label>Rate A</label><input id="spA" type="number" min="0" step="0.01" value="0"></div>
+<div class="field"><label>Rate B</label><input id="spB" type="number" min="0" step="0.01" value="0"></div>
+<div class="field"><label>Rate C</label><input id="spC" type="number" min="0" step="0.01" value="0"></div>
 </div></div>
 
 <div class="box bgreen"><div class="btitle">3. STOCK & AVAILABILITY</div><div class="grid">
@@ -111,45 +78,84 @@ table{width:100%;border-collapse:collapse;min-width:760px;font-size:10px}th,td{p
 
 <div class="box borange"><div class="btitle">4. QUANTITY SLAB / BULK PRICE</div><div class="grid">
 <div class="field"><label>Minimum Quantity</label><input id="bulkQty" type="number" min="0" value="0"></div>
-<div class="field"><label>Special Rate</label><input id="bulkRate" type="number" min="0" value="0"></div>
-<div class="field"><label>Add Slab</label><button class="btn orange" onclick="addSlab()">+ Add Quantity Slab</button></div>
+<div class="field"><label>Special Rate</label><input id="bulkRate" type="number" min="0" step="0.01" value="0"></div>
+<div class="field"><label>Add Slab</label><button class="btn orange" type="button" onclick="addSlab()">+ Add Quantity Slab</button></div>
 </div><div id="slabChips" class="chips"></div></div>
 
 <div class="box bpurple"><div class="btitle">5. SUITABLE MACHINES — MULTIPLE ALLOWED</div><div class="grid">
 <div class="field"><label>Select Machine</label><select id="machineSelect"></select></div>
-<div class="field"><label>Add</label><button class="btn purple" onclick="addMachineMap()">+ Add Machine</button></div>
-<div class="field"><label>Machine Missing?</label><button class="btn btn-light" onclick="openSec('machines')">Open Machines</button></div>
+<div class="field"><label>Add</label><button class="btn purple" type="button" onclick="addMachineMap()">+ Add Machine</button></div>
+<div class="field"><label>Machine Missing?</label><button class="btn btn-light" type="button" onclick="openSec('machines')">Open Machines</button></div>
 </div><div id="machineChips" class="chips"></div></div>
 
-<div class="full"><button class="btn green" onclick="saveSpare()">Save Spare Part</button> <button class="btn btn-light" onclick="clearSpare()">Clear</button></div>
-</div></div>
-</section>
+<div class="full"><button class="btn green" type="button" onclick="saveSpare()">Save Spare Part</button> <button class="btn btn-light" type="button" onclick="clearSpare()">Clear</button></div>
+</div></div></section>
 
-<section id="machines" class="section">
-<div class="panel"><div class="ptitle"><span class="tag purple">MACHINE ENTRY</span><b>Machines</b></div>
+<section id="machines" class="section"><div class="panel"><div class="ptitle"><span class="tag purple">MACHINE ENTRY</span><b>Machines</b></div>
 <div class="box bpurple"><div class="grid">
 <div class="field"><label>Brand *</label><input id="mBrand" list="brandList"></div>
 <div class="field"><label>Machine Type *</label><input id="mType" placeholder="Angle Grinder / Drill..."></div>
 <div class="field"><label>Model Number *</label><input id="mModel"></div>
 <div class="field"><label>Description</label><input id="mDesc"></div>
 <div class="field"><label>Status</label><select id="mStatus"><option>Active</option><option>Inactive</option></select></div>
-<div class="field"><label>Save</label><button class="btn green" onclick="saveMachine()">Save Machine</button></div>
+<div class="field"><label>Save</label><button class="btn green" type="button" onclick="saveMachine()">Save Machine</button></div>
 </div></div>
-<div class="scroll" style="margin-top:9px"><table><thead><tr><th>ID</th><th>Brand</th><th>Machine</th><th>Model</th><th>Status</th><th>Action</th></tr></thead><tbody id="machineRows"></tbody></table></div>
-</div>
-</section>
+<div class="scroll" style="margin-top:9px"><table><thead><tr><th>ID</th><th>Brand</th><th>Machine</th><th>Model</th><th>Status</th><th>Action</th></tr></thead><tbody id="machineRows"></tbody></table></div></div></section>
 
 <section id="suitable" class="section"><div class="panel"><div class="ptitle"><span class="tag purple">SUITABLE MAPPING</span><b>Machine → Spare Parts</b></div>
-<div class="toolbar"><select id="suitableMachine" class="grow"></select><button class="btn purple" onclick="showSuitable()">Show Spare Parts</button></div><div id="suitableResult" class="empty">Select Machine.</div></div></section>
+<div class="toolbar"><select id="suitableMachine" class="grow"></select><button class="btn purple" onclick="showSuitable()">Show Spare Parts</button></div>
+<div id="suitableResult" class="empty">Select Machine.</div></div></section>
 
-<section id="orders" class="section"><div class="panel"><div class="ptitle"><span class="tag orange">SALES ORDERS</span><b>Website Orders</b></div><div class="notice">Admin manually नया Sales Order नहीं बनाएगा.</div><div class="scroll"><table><thead><tr><th>Order</th><th>Dealer Code</th><th>Dealer</th><th>Amount</th><th>Status</th><th>Action</th></tr></thead><tbody id="orderRows"></tbody></table></div></div></section>
+<section id="orders" class="section"><div class="panel"><div class="ptitle"><span class="tag orange">SALES ORDERS</span><b>Website Orders</b></div>
+<div class="notice">Admin manually नया Sales Order नहीं बनाएगा.</div>
+<div class="scroll"><table><thead><tr><th>Order</th><th>Dealer Code</th><th>Dealer</th><th>Amount</th><th>Status</th><th>Action</th></tr></thead><tbody id="orderRows"></tbody></table></div></div></section>
 
-<section id="estimates" class="section"><div class="panel"><div class="ptitle"><span class="tag orange">ESTIMATES</span><b>Dealer Estimate Approval</b></div><div class="scroll"><table><thead><tr><th>Estimate</th><th>Order</th><th>Dealer</th><th>Amount</th><th>Reply</th><th>Action</th></tr></thead><tbody id="estimateRows"></tbody></table></div></div></section>
+<section id="estimates" class="section"><div class="panel"><div class="ptitle"><span class="tag orange">ESTIMATES</span><b>Dealer Estimate Approval</b></div>
+<div class="scroll"><table><thead><tr><th>Estimate</th><th>Order</th><th>Dealer</th><th>Amount</th><th>Reply</th><th>Action</th></tr></thead><tbody id="estimateRows"></tbody></table></div></div></section>
 
-<section id="confirmed" class="section"><div class="panel"><div class="ptitle"><span class="tag green">CONFIRMED</span><b>Confirmed Orders</b></div><div id="confirmedBox" class="empty">No confirmed orders yet.</div></div></section>
+<section id="confirmed" class="section"><div class="panel"><div class="ptitle"><span class="tag green">CONFIRMED</span><b>Confirmed Orders</b></div>
+<div id="confirmedBox" class="empty">No confirmed orders yet.</div></div></section>
 
-<section id="delivery" class="section"><div class="panel"><div class="ptitle"><span class="tag teal">DELIVERY</span><b>Delivery & Tracking</b></div><div class="scroll"><table><thead><tr><th>Order</th><th>Dealer</th><th>Courier/Transport</th><th>LR/Tracking</th><th>Status</th><th>Action</th></tr></thead><tbody id="deliveryRows"></tbody></table></div></div></section>
+<section id="delivery" class="section"><div class="panel"><div class="ptitle"><span class="tag teal">DELIVERY</span><b>Delivery & Tracking</b></div>
+<div class="scroll"><table><thead><tr><th>Order</th><th>Dealer</th><th>Courier/Transport</th><th>LR/Tracking</th><th>Status</th><th>Action</th></tr></thead><tbody id="deliveryRows"></tbody></table></div></div></section>
 
+<section id="dealers" class="section"><div class="panel"><div class="ptitle"><span class="tag teal">DEALERS</span><b>Dealer Inquiries</b></div>
+<div class="scroll"><table><thead><tr><th>Date</th><th>Dealer Code</th><th>Shop</th><th>Person</th><th>Mobile</th><th>Status</th><th>Action</th></tr></thead><tbody id="dealerRows"></tbody></table></div></div></section>
+
+<section id="requests" class="section"><div class="panel"><div class="ptitle"><span class="tag red">SPARE PART REQUESTS</span><b>Part Not Found</b></div>
+<div class="notice">Dealer machine photo + spare part photo + name/details भेज सकेगा.</div>
+<div class="scroll"><table><thead><tr><th>Date</th><th>Dealer</th><th>Machine</th><th>Part</th><th>Status</th></tr></thead><tbody id="requestRows"></tbody></table></div></div></section>
+
+<section id="reports" class="section"><div class="panel"><div class="ptitle"><span class="tag indigo">REPORTS CENTER</span><b>All Reports</b></div>
+<div class="reportgrid">
+<button class="reportbtn" onclick="report('all')">All Stock</button>
+<button class="reportbtn" onclick="report('in')">In Stock</button>
+<button class="reportbtn" onclick="report('out')">Out of Stock</button>
+<button class="reportbtn" onclick="report('reorder')">Reorder</button>
+<button class="reportbtn" onclick="report('top')">Top Selling</button>
+<button class="reportbtn" onclick="report('low')">Least Selling</button>
+<button class="reportbtn" onclick="report('rates')">Rate A/B/C</button>
+<button class="reportbtn" onclick="report('purchase')">Purchase Rate</button>
+<button class="reportbtn" onclick="report('mapping')">Machine Mapping</button>
+</div>
+<div id="reportOut" class="empty">Select Report.</div></div></section>
+
+<section id="employees" class="section"><div class="panel"><div class="ptitle"><span class="tag dark">ACCESS</span><b>Employees & Roles</b></div>
+<div class="box bblue"><b>OWNER / ADMIN</b><div class="meta">Full access including cost, reports, settings.</div></div>
+<div class="box bgreen" style="margin-top:8px"><b>EMPLOYEE</b><div class="meta">Limited access. Purchase cost can be hidden.</div></div>
+</div></section>
+
+<section id="backup" class="section"><div class="panel"><div class="ptitle"><span class="tag dark">BACKUP</span><b>Data Safety</b></div>
+<div class="notice">Cloud database connection के बाद automatic backup, export और restore यहाँ रहेगा.</div></div></section>
+
+<section id="settings" class="section"><div class="panel"><div class="ptitle"><span class="tag dark">SETTINGS</span><b>Portal Settings</b></div>
+<div class="grid">
+<div class="field"><label>Company</label><input value="TORVO TOOLS PRIVATE LIMITED"></div>
+<div class="field"><label>Website</label><input></div>
+<div class="field"><label>Email</label><input></div>
+<div class="field"><label>Mobile / WhatsApp</label><input></div>
+<div class="field full"><label>Address</label><textarea></textarea></div>
+</div></div></section>
 </main>
 
 <aside class="right">
@@ -164,126 +170,953 @@ table{width:100%;border-collapse:collapse;min-width:760px;font-size:10px}th,td{p
 <button class="rnav" onclick="openSec('backup',this)">Backup</button>
 <button class="rnav" onclick="openSec('settings',this)">Settings</button>
 </aside>
-
 </div>
-
-<section id="dealers" class="section" style="display:none"></section>
-
-<div id="dealerPanel" style="display:none"></div>
 
 <div id="notif" class="notif"></div>
 <div id="toast" class="toast"></div>
 
 <script>
-const K="torvo_admin_v4";
-let D=JSON.parse(localStorage.getItem(K)||"null")||{items:[],machines:[],orders:[],estimates:[],deliveries:[],dealers:[],requests:[],brands:["Bosch","Makita","DeWalt"],cats:["Armature","Field / Stator","Gear","Switch","Carbon Brush","Bearing"]};
-let filter="all",editItem=-1,maps=[],slabs=[],audio=null;
+var K='torvo_admin_v5';
+var D=JSON.parse(localStorage.getItem(K)||'null')||{items:[],machines:[],orders:[],estimates:[],confirmed:[],deliveries:[],dealers:[],requests:[],brands:['Bosch','Makita','DeWalt'],cats:['Armature','Field / Stator','Gear','Switch','Carbon Brush','Bearing']};
+var filter='all',editItem=-1,maps=[],slabs=[],audio=null;
 
-function el(x){return document.getElementById(x)}
-function esc(s){return String(s??"").replace(/[&<>"']/g,m=>({"&":"&amp;","<":"&lt;",">":"&gt;",'"':"&quot;","'":"&#39;"}[m]))}
-function tone(f=520,d=.05){try{audio=audio||new(window.AudioContext||window.webkitAudioContext)();let o=audio.createOscillator(),g=audio.createGain();o.frequency.value=f;g.gain.value=.025;o.connect(g);g.connect(audio.destination);o.start();g.gain.exponentialRampToValueAtTime(.0001,audio.currentTime+d);o.stop(audio.currentTime+d)}catch(e){}}
-function ok(){tone(660,.07);setTimeout(()=>tone(880,.08),60)}function bad(){tone(220,.13)}
-function msg(t,type="info"){type==="error"?bad():ok();let x=el("toast");x.textContent=t;x.style.background=type==="error"?"#b91c1c":"#28394e";x.style.display="block";setTimeout(()=>x.style.display="none",2500)}
-function save(){localStorage.setItem(K,JSON.stringify(D));refresh()}
-function today(){return new Date().toISOString().slice(0,10)}
-function nz(id){let x=el(id);if(x&&+x.value<0){x.value=0;msg("Negative value allowed नहीं है.","error")}}
-["spBox","spCost","spA","spB","spC","spQty","spMin","bulkQty","bulkRate"].forEach(id=>document.addEventListener("input",e=>{if(e.target.id===id)nz(id)}));
+function el(id){return document.getElementById(id)}
+function esc(v){return String(v==null?'':v).replace(/[&<>"']/g,function(m){return {'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[m]})}
 
-const names={dashboard:"TORVO Dashboard",items:"ITEM",spares:"Spare Parts",machines:"Machines",suitable:"Suitable Mapping",orders:"Sales Orders",estimates:"Estimates",confirmed:"Confirmed Orders",delivery:"Delivery & Tracking",dealers:"Dealer Inquiries",requests:"Spare Part Requests",reports:"Reports Center",employees:"Employees & Roles",backup:"Backup",settings:"Settings"};
+function tone(f,d){
+try{
+audio=audio||new(window.AudioContext||window.webkitAudioContext)();
+var o=audio.createOscillator(),g=audio.createGain();
+o.frequency.value=f||520;
+g.gain.value=.025;
+o.connect(g);
+g.connect(audio.destination);
+o.start();
+g.gain.exponentialRampToValueAtTime(.0001,audio.currentTime+(d||.05));
+o.stop(audio.currentTime+(d||.05));
+}catch(e){}
+}
+
+function msg(t,type){
+tone(type==='error'?220:660,type==='error'?.13:.07);
+var x=el('toast');
+x.textContent=t;
+x.style.background=type==='error'?'#b91c1c':'#334155';
+x.style.display='block';
+setTimeout(function(){x.style.display='none'},2500);
+}
+
+function save(){
+localStorage.setItem(K,JSON.stringify(D));
+refresh();
+}
+
+function today(){
+return new Date().toISOString().slice(0,10);
+}
+
+function nz(id){
+var x=el(id);
+if(x&&Number(x.value)<0){
+x.value=0;
+msg('Negative value allowed नहीं है.','error');
+}
+}
+
+['spBox','spCost','spA','spB','spC','spQty','spMin','bulkQty','bulkRate'].forEach(function(id){
+document.addEventListener('input',function(e){
+if(e.target.id===id)nz(id);
+});
+});
+
+var names={
+dashboard:'TORVO Dashboard',
+items:'ITEM',
+spares:'Spare Parts',
+machines:'Machines',
+suitable:'Suitable Mapping',
+orders:'Sales Orders',
+estimates:'Estimates',
+confirmed:'Confirmed Orders',
+delivery:'Delivery & Tracking',
+dealers:'Dealer Inquiries',
+requests:'Spare Part Requests',
+reports:'Reports Center',
+employees:'Employees & Roles',
+backup:'Backup',
+settings:'Settings'
+};
 
 function openSec(id,b){
-tone();document.querySelectorAll(".section").forEach(x=>x.classList.remove("active"));
-let s=el(id);if(!s){special(id);return}s.classList.add("active");
-document.querySelectorAll(".nav,.rnav").forEach(x=>x.classList.remove("active"));if(b)b.classList.add("active");
-el("pageTitle").textContent=names[id]||"TORVO";window.scrollTo(0,0);
-if(id==="items")renderItems();if(id==="suitable")showSuitable();
+tone(520,.04);
+document.querySelectorAll('.section').forEach(function(x){x.classList.remove('active')});
+var s=el(id);
+if(!s)return;
+s.classList.add('active');
+document.querySelectorAll('.nav,.rnav').forEach(function(x){x.classList.remove('active')});
+if(b)b.classList.add('active');
+el('pageTitle').textContent=names[id]||'TORVO';
+window.scrollTo(0,0);
+if(id==='items')renderItems();
+if(id==='suitable')showSuitable();
+if(id==='dealers')markRead('dealer');
+if(id==='requests')markRead('req');
+if(id==='orders')markRead('orders');
+if(id==='estimates')markRead('est');
 }
 
-function special(id){
-let old=el("special");if(old)old.remove();
-let sec=document.createElement("section");sec.id="special";sec.className="section active";document.querySelector(".main").appendChild(sec);
-if(id==="dealers")sec.innerHTML=dealerHTML();
-if(id==="requests")sec.innerHTML=requestHTML();
-if(id==="reports")sec.innerHTML=reportHTML();
-if(id==="employees")sec.innerHTML='<div class="panel"><div class="ptitle"><span class="tag dark">ACCESS</span><b>Employees & Roles</b></div><div class="box bblue"><b>OWNER / ADMIN</b><div class="meta">Full access including cost, reports, settings.</div></div><div class="box bgreen" style="margin-top:8px"><b>EMPLOYEE</b><div class="meta">Limited allowed sections. Purchase cost can be hidden.</div></div></div>';
-if(id==="backup")sec.innerHTML='<div class="panel"><div class="ptitle"><span class="tag dark">BACKUP</span><b>Data Safety</b></div><div class="notice">Cloud database connection के बाद automatic backup, export और restore यहाँ रहेगा.</div></div>';
-if(id==="settings")sec.innerHTML='<div class="panel"><div class="ptitle"><span class="tag dark">SETTINGS</span><b>Portal Settings</b></div><div class="grid"><div class="field"><label>Company</label><input value="TORVO TOOLS PRIVATE LIMITED"></div><div class="field"><label>Website</label><input></div><div class="field"><label>Email</label><input></div><div class="field"><label>Mobile / WhatsApp</label><input></div><div class="field full"><label>Address</label><textarea></textarea></div></div></div>';
-el("pageTitle").textContent=names[id]||"TORVO";window.scrollTo(0,0)
+function home(){
+if(confirm('Home खोलने पर temporary unfinished entry clear हो जाएगी. Continue?')){
+clearSpare();
+openSec('dashboard',document.querySelector('.nav'));
+msg('Home opened. Temporary entry cleared.');
+}
 }
 
-function home(){clearSpare();openSec("dashboard",document.querySelector(".nav"));msg("Home opened. Temporary entry cleared.")}
+function masterAdd(t){
+var v=prompt('New '+t+':');
+if(!v)return;
+v=v.trim();
+if(t==='brand'&&!D.brands.some(function(x){return x.toLowerCase()===v.toLowerCase()}))D.brands.push(v);
+if(t==='cat'&&!D.cats.some(function(x){return x.toLowerCase()===v.toLowerCase()}))D.cats.push(v);
+if(t==='item')el('spNo').value=v;
+if(t==='name')el('spName').value=v;
+save();
+}
 
-function masterAdd(t){let v=prompt("New "+t+":");if(!v)return;v=v.trim();if(t==="brand"&&!D.brands.some(x=>x.toLowerCase()===v.toLowerCase()))D.brands.push(v);if(t==="cat"&&!D.cats.some(x=>x.toLowerCase()===v.toLowerCase()))D.cats.push(v);if(t==="item")el("spNo").value=v;if(t==="name")el("spName").value=v;save()}
 function lists(){
-el("brandList").innerHTML=[...new Set([...D.brands,...D.items.map(x=>x.brand),...D.machines.map(x=>x.brand)])].map(x=><option value="${esc(x)}">).join("");
-el("catList").innerHTML=[...new Set([...D.cats,...D.items.map(x=>x.cat)])].map(x=><option value="${esc(x)}">).join("");
-el("itemNoList").innerHTML=D.items.map(x=><option value="${esc(x.no)}">).join("");
-el("spareNameList").innerHTML=[...new Set(D.items.map(x=>x.name))].map(x=><option value="${esc(x)}">).join("");
-let opt='<option value="">Select Machine</option>'+D.machines.map((m,i)=><option value="${i}">${esc(m.brand)} | ${esc(m.type)} | ${esc(m.model)}</option>).join("");
-el("machineSelect").innerHTML=opt;el("suitableMachine").innerHTML=opt;
+var brands=[].concat(D.brands,D.items.map(function(x){return x.brand}),D.machines.map(function(x){return x.brand})).filter(Boolean);
+brands=[...new Set(brands)];
+el('brandList').innerHTML=brands.map(function(x){return '<option value="'+esc(x)+'">'}).join('');
+
+var cats=[].concat(D.cats,D.items.map(function(x){return x.cat})).filter(Boolean);
+cats=[...new Set(cats)];
+el('catList').innerHTML=cats.map(function(x){return '<option value="'+esc(x)+'">'}).join('');
+
+el('itemNoList').innerHTML=D.items.map(function(x){return '<option value="'+esc(x.no)+'">'}).join('');
+
+var names=[...new Set(D.items.map(function(x){return x.name}).filter(Boolean))];
+el('spareNameList').innerHTML=names.map(function(x){return '<option value="'+esc(x)+'">'}).join('');
+
+var opt='<option value="">Select Machine</option>';
+D.machines.forEach(function(m,i){
+opt+='<option value="'+i+'">'+esc(m.brand)+' | '+esc(m.type)+' | '+esc(m.model)+'</option>';
+});
+el('machineSelect').innerHTML=opt;
+el('suitableMachine').innerHTML=opt;
 }
 
 function saveMachine(){
-let brand=el("mBrand").value.trim(),type=el("mType").value.trim(),model=el("mModel").value.trim();
-if(!brand||!type||!model)return msg("Brand, Machine Type और Model जरूरी हैं.","error");
-if(D.machines.some(x=>x.model.toLowerCase()===model.toLowerCase()))return msg("यह Model Number पहले से मौजूद है.","error");
-D.machines.push({id:"MCH-"+String(Date.now()).slice(-6),brand,type,model,desc:el("mDesc").value.trim(),status:el("mStatus").value});if(!D.brands.includes(brand))D.brands.push(brand);
-el("mBrand").value=el("mType").value=el("mModel").value=el("mDesc").value="";save();msg("Machine saved.")
+var brand=el('mBrand').value.trim();
+var type=el('mType').value.trim();
+var model=el('mModel').value.trim();
+
+if(!brand||!type||!model)return msg('Brand, Machine Type और Model जरूरी हैं.','error');
+
+if(D.machines.some(function(x){return x.model.toLowerCase()===model.toLowerCase()})){
+return msg('यह Model Number पहले से मौजूद है.','error');
 }
-function deleteMachine(i){let m=D.machines[i],used=D.items.filter(x=>(x.machines||[]).includes(m.model));if(used.length)return msg("Machine mapping में use हो रही है. पहले mapping हटाएँ.","error");if(confirm("Delete Machine?")){D.machines.splice(i,1);save()}}
-function renderMachines(){el("machineRows").innerHTML=D.machines.length?D.machines.map((m,i)=><tr><td>${m.id}</td><td>${esc(m.brand)}</td><td>${esc(m.type)}</td><td>${esc(m.model)}</td><td>${m.status}</td><td><button class="btn red" onclick="deleteMachine(${i})">Delete</button></td></tr>).join(""):'<tr><td colspan="6" class="empty">No Machines yet.</td></tr>'}
 
-function addMachineMap(){let i=el("machineSelect").value;if(i==="")return msg("Machine select करें.","error");let model=D.machines[i].model;if(!maps.includes(model))maps.push(model);renderMapChips()}
-function renderMapChips(){el("machineChips").innerHTML=maps.map((x,i)=><span class="chip">${esc(x)} <b onclick="maps.splice(${i},1);renderMapChips()">×</b></span>).join("")}
-function addSlab(){let q=+el("bulkQty").value,r=+el("bulkRate").value;if(q<=0||r<=0)return msg("Quantity और rate सही डालें.","error");if(slabs.some(x=>x.q===q))return msg("यह slab पहले से मौजूद है.","error");slabs.push({q,r});slabs.sort((a,b)=>a.q-b.q);renderSlabs()}
-function renderSlabs(){el("slabChips").innerHTML=slabs.map((x,i)=><span class="chip">${x.q} pcs → ₹${x.r} <b onclick="slabs.splice(${i},1);renderSlabs()">×</b></span>).join("")}
+D.machines.push({
+id:'MCH-'+String(Date.now()).slice(-6),
+brand:brand,
+type:type,
+model:model,
+desc:el('mDesc').value.trim(),
+status:el('mStatus').value
+});
 
-function file64(f,cb){if(!f)return cb("");let r=new FileReader();r.onload=()=>cb(r.result);r.readAsDataURL(f)}
+if(!D.brands.includes(brand))D.brands.push(brand);
+
+el('mBrand').value='';
+el('mType').value='';
+el('mModel').value='';
+el('mDesc').value='';
+
+save();
+msg('Machine saved.');
+}
+
+function deleteMachine(i){
+var m=D.machines[i];
+var used=D.items.some(function(x){return (x.machines||[]).includes(m.model)});
+
+if(used){
+return msg('Machine mapping में use हो रही है. पहले mapping हटाएँ.','error');
+}
+
+if(confirm('Delete Machine?')){
+D.machines.splice(i,1);
+save();
+}
+}
+
+function renderMachines(){
+var b=el('machineRows');
+
+if(!D.machines.length){
+b.innerHTML='<tr><td colspan="6" class="empty">No Machines yet.</td></tr>';
+return;
+}
+
+b.innerHTML=D.machines.map(function(m,i){
+return '<tr><td>'+esc(m.id)+'</td><td>'+esc(m.brand)+'</td><td>'+esc(m.type)+'</td><td>'+esc(m.model)+'</td><td>'+esc(m.status)+'</td><td><button class="btn red" onclick="deleteMachine('+i+')">Delete</button></td></tr>';
+}).join('');
+}
+
+function addMachineMap(){
+var i=el('machineSelect').value;
+
+if(i==='')return msg('Machine select करें.','error');
+
+var model=D.machines[i].model;
+
+if(maps.includes(model)){
+return msg('यह Machine पहले से selected है.','error');
+}
+
+maps.push(model);
+renderMapChips();
+}
+
+function renderMapChips(){
+el('machineChips').innerHTML=maps.map(function(x,i){
+return '<span class="chip">'+esc(x)+' <b onclick="removeMap('+i+')">×</b></span>';
+}).join('');
+}
+
+function removeMap(i){
+maps.splice(i,1);
+renderMapChips();
+}
+
+function addSlab(){
+var q=Number(el('bulkQty').value||0);
+var r=Number(el('bulkRate').value||0);
+
+if(q<=0||r<=0)return msg('Quantity और rate सही डालें.','error');
+
+if(slabs.some(function(x){return x.q===q})){
+return msg('यह slab पहले से मौजूद है.','error');
+}
+
+slabs.push({q:q,r:r});
+slabs.sort(function(a,b){return a.q-b.q});
+renderSlabs();
+}
+
+function renderSlabs(){
+el('slabChips').innerHTML=slabs.map(function(x,i){
+return '<span class="chip">'+x.q+' pcs → ₹'+x.r+' <b onclick="removeSlab('+i+')">×</b></span>';
+}).join('');
+}
+
+function removeSlab(i){
+slabs.splice(i,1);
+renderSlabs();
+}
+
+function file64(f,cb){
+if(!f)return cb('');
+var r=new FileReader();
+r.onload=function(){cb(r.result)};
+r.readAsDataURL(f);
+}
+
 function saveSpare(){
-["spBox","spCost","spA","spB","spC","spQty","spMin","bulkQty","bulkRate"].forEach(nz);
-let no=el("spNo").value.trim(),name=el("spName").value.trim(),brand=el("spBrand").value.trim(),cat=el("spCat").value.trim();
-if(!no||!name||!brand||!cat)return msg("Item No., Name, Brand और Category जरूरी हैं.","error");
-if(D.items.some((x,i)=>i!==editItem&&x.no.toLowerCase()===no.toLowerCase()))return msg("यह Item Number पहले से बना हुआ है.","error");
-let old=editItem>=0?D.items[editItem]:{};
-let obj={no,name,brand,cat,box:+el("spBox").value||0,cost:+el("spCost").value||0,date:el("spDate").value||today(),a:+el("spA").value||0,b:+el("spB").value||0,c:+el("spC").value||0,qty:+el("spQty").value||0,min:+el("spMin").value||0,status:el("spStatus").value,visible:el("spVisible").value,machines:[...maps],slabs:[...slabs],sold:old.sold||0,photo:old.photo||""};
-file64(el("spPhoto").files[0],p=>{if(p)obj.photo=p;if(editItem<0)D.items.push(obj);else D.items[editItem]=obj;if(!D.brands.includes(brand))D.brands.push(brand);if(!D.cats.includes(cat))D.cats.push(cat);clearSpare();save();msg("Spare Part saved.")})
-}
-function clearSpare(){editItem=-1;["spNo","spName","spBrand","spCat"].forEach(x=>el(x).value="");el("spBox").value=1;["spCost","spA","spB","spC","spQty","spMin","bulkQty","bulkRate"].forEach(x=>el(x).value=0);el("spDate").value=today();el("spPhoto").value="";maps=[];slabs=[];renderMapChips();renderSlabs()}
-function editSpare(i){let x=D.items[i];editItem=i;el("spNo").value=x.no;el("spName").value=x.name;el("spBrand").value=x.brand;el("spCat").value=x.cat;el("spBox").value=x.box;el("spCost").value=x.cost;el("spDate").value=x.date;el("spA").value=x.a;el("spB").value=x.b;el("spC").value=x.c;el("spQty").value=x.qty;el("spMin").value=x.min;el("spStatus").value=x.status;el("spVisible").value=x.visible;maps=[...(x.machines||[])];slabs=[...(x.slabs||[])];renderMapChips();renderSlabs();openSec("spares");msg("Item opened for editing.")}
-function deleteSpare(i){let x=D.items[i],used=D.orders.some(o=>(o.items||[]).some(z=>z.no===x.no));if(used)return msg("यह Item Sales Order में use हो चुका है. Delete नहीं कर सकते.","error");if(confirm("Delete "+x.no+"?")){D.items.splice(i,1);save()}}
+['spBox','spCost','spA','spB','spC','spQty','spMin','bulkQty','bulkRate'].forEach(nz);
 
-function setFilter(f){filter=f;renderItems()}
-function itemList(){let a=[...D.items],q=(el("itemSearch")?.value||"").toLowerCase();if(filter==="in")a=a.filter(x=>x.qty>0);if(filter==="out")a=a.filter(x=>x.qty<=0);if(filter==="reorder")a=a.filter(x=>x.qty<=x.min);if(filter==="top")a.sort((a,b)=>(b.sold||0)-(a.sold||0));if(filter==="low")a.sort((a,b)=>(a.sold||0)-(b.sold||0));if(q)a=a.filter(x=>[x.no,x.name,x.brand,x.cat,...(x.machines||[])].join(" ").toLowerCase().includes(q));return a}
+var no=el('spNo').value.trim();
+var name=el('spName').value.trim();
+var brand=el('spBrand').value.trim();
+var cat=el('spCat').value.trim();
+
+if(!no||!name||!brand||!cat){
+return msg('Item No., Name, Brand और Category जरूरी हैं.','error');
+}
+
+if(D.items.some(function(x,i){
+return i!==editItem&&x.no.toLowerCase()===no.toLowerCase();
+})){
+return msg('यह Item Number पहले से बना हुआ है.','error');
+}
+
+var old=editItem>=0?D.items[editItem]:{};
+
+var obj={
+no:no,
+name:name,
+brand:brand,
+cat:cat,
+box:Number(el('spBox').value||0),
+cost:Number(el('spCost').value||0),
+date:el('spDate').value||today(),
+a:Number(el('spA').value||0),
+b:Number(el('spB').value||0),
+c:Number(el('spC').value||0),
+qty:Number(el('spQty').value||0),
+min:Number(el('spMin').value||0),
+status:el('spStatus').value,
+visible:el('spVisible').value,
+machines:maps.slice(),
+slabs:slabs.slice(),
+sold:old.sold||0,
+photo:old.photo||''
+};
+
+file64(el('spPhoto').files[0],function(p){
+if(p)obj.photo=p;
+
+if(editItem<0){
+D.items.push(obj);
+}else{
+D.items[editItem]=obj;
+}
+
+if(!D.brands.includes(brand))D.brands.push(brand);
+if(!D.cats.includes(cat))D.cats.push(cat);
+
+clearSpare();
+save();
+msg('Spare Part saved.');
+});
+}
+
+function clearSpare(){
+editItem=-1;
+
+['spNo','spName','spBrand','spCat'].forEach(function(x){
+el(x).value='';
+});
+
+el('spBox').value=1;
+
+['spCost','spA','spB','spC','spQty','spMin','bulkQty','bulkRate'].forEach(function(x){
+el(x).value=0;
+});
+
+el('spDate').value=today();
+el('spPhoto').value='';
+
+maps=[];
+slabs=[];
+
+renderMapChips();
+renderSlabs();
+}
+
+function editSpare(i){
+var x=D.items[i];
+
+editItem=i;
+
+el('spNo').value=x.no;
+el('spName').value=x.name;
+el('spBrand').value=x.brand;
+el('spCat').value=x.cat;
+el('spBox').value=x.box;
+el('spCost').value=x.cost;
+el('spDate').value=x.date;
+el('spA').value=x.a;
+el('spB').value=x.b;
+el('spC').value=x.c;
+el('spQty').value=x.qty;
+el('spMin').value=x.min;
+el('spStatus').value=x.status;
+el('spVisible').value=x.visible;
+
+maps=(x.machines||[]).slice();
+slabs=(x.slabs||[]).slice();
+
+renderMapChips();
+renderSlabs();
+
+openSec('spares');
+msg('Item opened for editing.');
+}
+
+function deleteSpare(i){
+var x=D.items[i];
+
+var used=D.orders.some(function(o){
+return (o.items||[]).some(function(z){
+return z.no===x.no;
+});
+});
+
+if(used){
+return msg('यह Item Sales Order में use हो चुका है. Delete नहीं कर सकते.','error');
+}
+
+if(confirm('Delete '+x.no+'?')){
+D.items.splice(i,1);
+save();
+}
+}
+
+function setFilter(f){
+filter=f;
+renderItems();
+}
+
+function itemList(){
+var a=D.items.slice();
+var q=(el('itemSearch')?el('itemSearch').value:'').toLowerCase();
+
+if(filter==='in'){
+a=a.filter(function(x){return x.qty>0});
+}
+
+if(filter==='out'){
+a=a.filter(function(x){return x.qty<=0});
+}
+
+if(filter==='reorder'){
+a=a.filter(function(x){return x.qty<=x.min});
+}
+
+if(filter==='top'){
+a.sort(function(a,b){return (b.sold||0)-(a.sold||0)});
+}
+
+if(filter==='low'){
+a.sort(function(a,b){return (a.sold||0)-(b.sold||0)});
+}
+
+if(q){
+a=a.filter(function(x){
+return [x.no,x.name,x.brand,x.cat].concat(x.machines||[]).join(' ').toLowerCase().includes(q);
+});
+}
+
+return a;
+}
+
 function renderItems(){
-let a=itemList();el("itemGrid").innerHTML=a.length?a.map(x=>{let i=D.items.indexOf(x),bulk=(x.slabs||[]).length?<div class="bulk"><b>Bulk Rate</b><br>${x.slabs.map(s=>${s.q} pcs → ₹${s.r}).join("<br>")}</div>:"";return <div class="icard"><div class="ipic">${x.photo?<img src="${x.photo}">:"ITEM PHOTO"}</div><div class="iname">${esc(x.name)}</div><div class="meta">Item: ${esc(x.no)}</div><div class="meta">Brand: ${esc(x.brand)}</div><div class="meta">Machine: ${esc((x.machines||[]).join(", ")||"—")}</div><div class="rates"><div class="rate cost">Cost<br><b>₹${x.cost}</b></div><div class="rate ra">A<br><b>₹${x.a}</b></div><div class="rate rb">B<br><b>₹${x.b}</b></div><div class="rate rc">C<br><b>₹${x.c}</b></div></div><div class="stock"><span>Stock <b>${x.qty}</b></span><span>Sold <b>${x.sold||0}</b></span></div>${bulk}<div class="toolbar" style="margin-top:6px"><button class="btn blue" onclick="editSpare(${i})">Edit</button><button class="btn red" onclick="deleteSpare(${i})">Delete</button></div></div>}).join(""):'<div class="empty">No matching Items.</div>';
+var a=itemList();
+var g=el('itemGrid');
+
+if(!a.length){
+g.innerHTML='<div class="empty">No matching Items.</div>';
+return;
 }
 
-function showSuitable(){let i=el("suitableMachine").value;if(i===""){el("suitableResult").innerHTML="Select Machine.";return}let m=D.machines[i],a=D.items.filter(x=>(x.machines||[]).includes(m.model));el("suitableResult").innerHTML=<b>${esc(m.brand)} | ${esc(m.type)} | ${esc(m.model)}</b><br><br>+(a.length?a.map(x=>${esc(x.no)} — ${esc(x.name)}).join("<br>"):"No mapped spare parts.")}
+g.innerHTML=a.map(function(x){
+var i=D.items.indexOf(x);
 
-function renderOrders(){el("orderRows").innerHTML=D.orders.length?D.orders.map((o,i)=><tr><td>${esc(o.no)}</td><td>${esc(o.code||"")}</td><td>${esc(o.dealer||"")}</td><td>₹${o.amount||0}</td><td>${esc(o.status||"New")}</td><td><button class="btn blue" onclick="makeEstimate(${i})">Sales Modify → Estimate</button></td></tr>).join(""):'<tr><td colspan="6" class="empty">Website connection के बाद Sales Orders यहाँ आएँगे.</td></tr>'}
-function makeEstimate(i){let o=D.orders[i];if(D.estimates.some(e=>e.order===o.no))return msg("इस order का Estimate बन चुका है.","error");let dis=Math.max(0,+prompt("Discount ₹","0")||0),del=Math.max(0,+prompt("Delivery / Transport charge ₹","0")||0);D.estimates.push({no:"EST-"+String(D.estimates.length+1).padStart(5,"0"),order:o.no,dealer:o.dealer,amount:Math.max(0,(o.amount||0)-dis+del),reply:"Waiting",status:"Sent"});o.status="Estimate Sent";save();msg("Estimate sent to dealer.")}
-function renderEst(){el("estimateRows").innerHTML=D.estimates.length?D.estimates.map((e,i)=><tr><td>${e.no}</td><td>${e.order}</td><td>${esc(e.dealer)}</td><td>₹${e.amount}</td><td>${e.reply}</td><td><button class="btn green" onclick="approveEst(${i})">Approve / Finalize</button></td></tr>).join(""):'<tr><td colspan="6" class="empty">No Estimates yet.</td></tr>'}
-function approveEst(i){let e=D.estimates[i];e.reply="Approved";if(!D.deliveries.some(d=>d.order===e.order))D.deliveries.push({order:e.order,dealer:e.dealer,courier:"",track:"",status:"Ready"});save();msg("Order moved to Delivery.")}
-function renderDelivery(){el("deliveryRows").innerHTML=D.deliveries.length?D.deliveries.map((d,i)=><tr><td>${d.order}</td><td>${esc(d.dealer)}</td><td><input value="${esc(d.courier)}" onchange="D.deliveries[${i}].courier=this.value;save()"></td><td><input value="${esc(d.track)}" onchange="D.deliveries[${i}].track=this.value;save()"></td><td><select onchange="D.deliveries[${i}].status=this.value;save()"><option>${d.status}</option><option>Ready</option><option>Dispatched</option><option>In Transit</option><option>Delivered</option></select></td><td><button class="btn green" onclick="msg('Delivery updated')">Update</button></td></tr>).join(""):'<tr><td colspan="6" class="empty">No Delivery records.</td></tr>'}
+var bulk=(x.slabs||[]).length
+?'<div class="bulk"><b>Bulk Rate</b><br>'+x.slabs.map(function(s){
+return s.q+' pcs → ₹'+s.r;
+}).join('<br>')+'</div>'
+:'';
 
-function dealerHTML(){return <div class="panel"><div class="ptitle"><span class="tag teal">DEALER INQUIRIES</span><b>Dealer Approval Requests</b></div><div class="scroll"><table><thead><tr><th>Date</th><th>Dealer Code</th><th>Shop</th><th>Person</th><th>Mobile</th><th>Status</th><th>Action</th></tr></thead><tbody>${D.dealers.length?D.dealers.map((d,i)=><tr><td>${d.date||""}</td><td>${d.code||""}</td><td>${esc(d.shop||"")}</td><td>${esc(d.person||"")}</td><td>${esc(d.mobile||"")}</td><td>${d.status||"New"}</td><td><button class="btn green" onclick="D.dealers[${i}].status='Approved';save();msg('Dealer approved')">Approve</button></td></tr>).join(""):'<tr><td colspan="7" class="empty">No Dealer Inquiries.</td></tr>'}</tbody></table></div></div>}
-function requestHTML(){return <div class="panel"><div class="ptitle"><span class="tag red">SPARE PART REQUESTS</span><b>Part Not Found</b></div><div class="notice">Dealer machine photo + spare part photo + name/details भेज सकेगा.</div><div class="scroll"><table><thead><tr><th>Date</th><th>Dealer</th><th>Machine</th><th>Part</th><th>Status</th></tr></thead><tbody>${D.requests.length?D.requests.map(r=><tr><td>${r.date||""}</td><td>${esc(r.dealer||"")}</td><td>${esc(r.machine||"")}</td><td>${esc(r.part||"")}</td><td>${r.status||"New"}</td></tr>).join(""):'<tr><td colspan="5" class="empty">No Requests.</td></tr>'}</tbody></table></div></div>}
-function reportHTML(){return <div class="panel"><div class="ptitle"><span class="tag indigo">REPORTS CENTER</span><b>All Reports</b></div><div class="toolbar"><button class="btn green" onclick="report('all')">All Stock</button><button class="btn green" onclick="report('in')">In Stock</button><button class="btn red" onclick="report('out')">Out of Stock</button><button class="btn orange" onclick="report('reorder')">Reorder</button><button class="btn purple" onclick="report('top')">Top Selling</button><button class="btn dark" onclick="report('low')">Least Selling</button><button class="btn blue" onclick="report('rates')">Rate A/B/C</button><button class="btn orange" onclick="report('purchase')">Purchase Rate</button><button class="btn teal" onclick="report('mapping')">Machine Mapping</button></div><div id="reportOut" class="empty">Select Report.</div></div>}
-function report(t){let a=[...D.items],title=t;if(t==="in")a=a.filter(x=>x.qty>0);if(t==="out")a=a.filter(x=>x.qty<=0);if(t==="reorder")a=a.filter(x=>x.qty<=x.min);if(t==="top")a.sort((a,b)=>(b.sold||0)-(a.sold||0));if(t==="low")a.sort((a,b)=>(a.sold||0)-(b.sold||0));el("reportOut").innerHTML=<div class="toolbar"><button class="btn green" onclick="exportCSV()">Excel</button><button class="btn red" onclick="window.print()">PDF / Print</button></div><div class="scroll"><table><thead><tr><th>Brand</th><th>Item</th><th>Name</th><th>Machine</th><th>Cost</th><th>A</th><th>B</th><th>C</th><th>Qty</th><th>Sold</th></tr></thead><tbody>${a.map(x=><tr><td>${esc(x.brand)}</td><td>${esc(x.no)}</td><td>${esc(x.name)}</td><td>${esc((x.machines||[]).join(", "))}</td><td>₹${x.cost}</td><td>₹${x.a}</td><td>₹${x.b}</td><td>₹${x.c}</td><td>${x.qty}</td><td>${x.sold||0}</td></tr>).join("")}</tbody></table></div>}
+return '<div class="icard">'+
+'<div class="ipic">'+(x.photo?'<img src="'+x.photo+'">':'ITEM PHOTO')+'</div>'+
+'<div class="iname">'+esc(x.name)+'</div>'+
+'<div class="meta">Item: '+esc(x.no)+'</div>'+
+'<div class="meta">Brand: '+esc(x.brand)+'</div>'+
+'<div class="meta">Machine: '+esc((x.machines||[]).join(', ')||'—')+'</div>'+
+'<div class="rates">'+
+'<div class="rate cost">Cost<br><b>₹'+x.cost+'</b></div>'+
+'<div class="rate ra">A<br><b>₹'+x.a+'</b></div>'+
+'<div class="rate rb">B<br><b>₹'+x.b+'</b></div>'+
+'<div class="rate rc">C<br><b>₹'+x.c+'</b></div>'+
+'</div>'+
+'<div class="stock"><span>Stock <b>'+x.qty+'</b></span><span>Sold <b>'+(x.sold||0)+'</b></span></div>'+
+bulk+
+'<div class="toolbar" style="margin-top:6px">'+
+'<button class="btn blue" onclick="editSpare('+i+')">Edit</button>'+
+'<button class="btn red" onclick="deleteSpare('+i+')">Delete</button>'+
+'</div>'+
+'</div>';
+}).join('');
+}
 
-function exportCSV(){let rows=[["Item No","Name","Brand","Category","Machine","Cost","A","B","C","Qty","Sold"]];itemList().forEach(x=>rows.push([x.no,x.name,x.brand,x.cat,(x.machines||[]).join("|"),x.cost,x.a,x.b,x.c,x.qty,x.sold||0]));let csv=rows.map(r=>r.map(v=>"${String(v).replace(/"/g,'""')}").join(",")).join("\n"),b=new Blob([csv],{type:"text/csv"}),u=URL.createObjectURL(b),a=document.createElement("a");a.href=u;a.download="TORVO_Items.csv";a.click();URL.revokeObjectURL(u);msg("Excel report created.")}
-function reorderList(){let a=D.items.filter(x=>x.qty<=x.min);if(!a.length)return msg("No Reorder items.","error");let txt="TORVO REORDER LIST\n\n"+a.map(x=>${x.brand} | ${x.no} | ${x.name} | Stock ${x.qty} | Reorder ${x.min}).join("\n"),b=new Blob([txt]),u=URL.createObjectURL(b),z=document.createElement("a");z.href=u;z.download="TORVO_Reorder_List.txt";z.click();URL.revokeObjectURL(u);msg("Order List created.")}
+function showSuitable(){
+var i=el('suitableMachine').value;
 
-function searchAll(){let q=el("globalSearch").value.trim();if(!q)return msg("Search value लिखें या बोलें.","error");openSec("items");el("itemSearch").value=q;filter="all";renderItems()}
-function voice(){let SR=window.SpeechRecognition||window.webkitSpeechRecognition;if(!SR)return msg("Voice search browser में supported नहीं है.","error");let r=new SR();r.lang="en-IN";r.onresult=e=>{el("globalSearch").value=e.results[0][0].transcript;searchAll()};r.onerror=()=>msg("Voice समझ नहीं आया.","error");msg("Listening...");r.start()}
-function logout(){if(confirm("Logout from TORVO Admin?"))location.href="index.html"}
+if(i===''){
+el('suitableResult').innerHTML='Select Machine.';
+return;
+}
 
-function notifications(){let n={orders:D.orders.filter(x=>!x.status||x.status==="New").length,est:D.estimates.filter(x=>x.reply==="Waiting").length,del:D.deliveries.filter(x=>x.status!=="Delivered").length,dealer:D.dealers.filter(x=>!x.status||x.status==="New").length,req:D.requests.filter(x=>!x.status||x.status==="New").length};[["bOrders",n.orders],["bEst",n.est],["bDel",n.del],["bDealer",n.dealer],["bReq",n.req]].forEach(([id,c])=>{let x=el(id);if(x){x.textContent=c;x.style.display=c?"inline-block":"none"}});let total=n.orders+n.est+n.dealer+n.req+n.del;el("bellNum").textContent=total;el("bellNum").style.display=total?"flex":"none";return n}
-function showNotif(){let n=notifications(),a=[];if(n.orders)a.push(n.orders+" New Sales Order");if(n.est)a.push(n.est+" Estimate Waiting");if(n.dealer)a.push(n.dealer+" Dealer Inquiry");if(n.req)a.push(n.req+" Spare Part Request");if(n.del)a.push(n.del+" Delivery Pending");el("notif").innerHTML=a.length?a.map(x=><div>${x}</div>).join(""):"<div>No new notifications.</div>";el("notif").style.display=el("notif").style.display==="block"?"none":"block"}
+var m=D.machines[i];
 
-function dashboard(){el("dItems").textContent=D.items.length;el("dMachines").textContent=D.machines.length;el("dIn").textContent=D.items.filter(x=>x.qty>0).length;el("dOut").textContent=D.items.filter(x=>x.qty<=0).length}
-function refresh(){lists();renderMachines();renderItems();renderOrders();renderEst();renderDelivery();dashboard();notifications()}
-document.addEventListener("DOMContentLoaded",()=>{el("spDate").value=today();refresh();renderMapChips();renderSlabs()});
+var a=D.items.filter(function(x){
+return (x.machines||[]).includes(m.model);
+});
+
+el('suitableResult').innerHTML=
+'<b>'+esc(m.brand)+' | '+esc(m.type)+' | '+esc(m.model)+'</b><br><br>'+
+(a.length
+?a.map(function(x){
+return esc(x.no)+' — '+esc(x.name);
+}).join('<br>')
+:'No mapped spare parts.');
+}
+
+function renderOrders(){
+el('orderRows').innerHTML=D.orders.length
+?D.orders.map(function(o,i){
+return '<tr>'+
+'<td>'+esc(o.no)+'</td>'+
+'<td>'+esc(o.code||'')+'</td>'+
+'<td>'+esc(o.dealer||'')+'</td>'+
+'<td>₹'+(o.amount||0)+'</td>'+
+'<td>'+esc(o.status||'New')+'</td>'+
+'<td><button class="btn blue" onclick="makeEstimate('+i+')">Sales Modify → Estimate</button></td>'+
+'</tr>';
+}).join('')
+:'<tr><td colspan="6" class="empty">Website connection के बाद Sales Orders यहाँ आएँगे.</td></tr>';
+}
+
+function makeEstimate(i){
+var o=D.orders[i];
+
+if(D.estimates.some(function(e){
+return e.order===o.no;
+})){
+return msg('इस order का Estimate बन चुका है.','error');
+}
+
+var dis=Math.max(0,Number(prompt('Discount ₹','0')||0));
+var del=Math.max(0,Number(prompt('Delivery / Transport charge ₹','0')||0));
+
+D.estimates.push({
+no:'EST-'+String(D.estimates.length+1).padStart(5,'0'),
+order:o.no,
+dealer:o.dealer,
+amount:Math.max(0,(o.amount||0)-dis+del),
+reply:'Waiting',
+status:'Sent'
+});
+
+o.status='Estimate Sent';
+
+save();
+msg('Estimate sent to dealer.');
+}
+
+function renderEst(){
+el('estimateRows').innerHTML=D.estimates.length
+?D.estimates.map(function(e,i){
+return '<tr>'+
+'<td>'+esc(e.no)+'</td>'+
+'<td>'+esc(e.order)+'</td>'+
+'<td>'+esc(e.dealer)+'</td>'+
+'<td>₹'+e.amount+'</td>'+
+'<td>'+esc(e.reply)+'</td>'+
+'<td><button class="btn green" onclick="approveEst('+i+')">Approve / Finalize</button></td>'+
+'</tr>';
+}).join('')
+:'<tr><td colspan="6" class="empty">No Estimates yet.</td></tr>';
+}
+
+function approveEst(i){
+var e=D.estimates[i];
+
+e.reply='Approved';
+
+if(!D.confirmed.some(function(c){
+return c.order===e.order;
+})){
+D.confirmed.push({
+order:e.order,
+dealer:e.dealer,
+amount:e.amount,
+status:'Confirmed'
+});
+}
+
+if(!D.deliveries.some(function(d){
+return d.order===e.order;
+})){
+D.deliveries.push({
+order:e.order,
+dealer:e.dealer,
+courier:'',
+track:'',
+status:'Ready'
+});
+}
+
+save();
+msg('Order moved to Delivery.');
+}
+
+function renderConfirmed(){
+el('confirmedBox').innerHTML=D.confirmed.length
+?'<div class="scroll"><table><thead><tr><th>Order</th><th>Dealer</th><th>Amount</th><th>Status</th></tr></thead><tbody>'+
+D.confirmed.map(function(c){
+return '<tr>'+
+'<td>'+esc(c.order)+'</td>'+
+'<td>'+esc(c.dealer)+'</td>'+
+'<td>₹'+c.amount+'</td>'+
+'<td>'+esc(c.status)+'</td>'+
+'</tr>';
+}).join('')+
+'</tbody></table></div>'
+:'No confirmed orders yet.';
+}
+
+function renderDelivery(){
+el('deliveryRows').innerHTML=D.deliveries.length
+?D.deliveries.map(function(d,i){
+return '<tr>'+
+'<td>'+esc(d.order)+'</td>'+
+'<td>'+esc(d.dealer)+'</td>'+
+'<td><input value="'+esc(d.courier)+'" onchange="D.deliveries['+i+'].courier=this.value;save()"></td>'+
+'<td><input value="'+esc(d.track)+'" onchange="D.deliveries['+i+'].track=this.value;save()"></td>'+
+'<td><select onchange="D.deliveries['+i+'].status=this.value;save()">'+
+'<option>'+esc(d.status)+'</option>'+
+'<option>Ready</option>'+
+'<option>Dispatched</option>'+
+'<option>In Transit</option>'+
+'<option>Delivered</option>'+
+'</select></td>'+
+'<td><button class="btn green" onclick="msg(\'Delivery updated\')">Update</button></td>'+
+'</tr>';
+}).join('')
+:'<tr><td colspan="6" class="empty">No Delivery records.</td></tr>';
+}
+
+function renderDealers(){
+el('dealerRows').innerHTML=D.dealers.length
+?D.dealers.map(function(d,i){
+return '<tr>'+
+'<td>'+esc(d.date||'')+'</td>'+
+'<td>'+esc(d.code||'')+'</td>'+
+'<td>'+esc(d.shop||'')+'</td>'+
+'<td>'+esc(d.person||'')+'</td>'+
+'<td>'+esc(d.mobile||'')+'</td>'+
+'<td>'+esc(d.status||'New')+'</td>'+
+'<td><button class="btn green" onclick="approveDealer('+i+')">Approve</button></td>'+
+'</tr>';
+}).join('')
+:'<tr><td colspan="7" class="empty">No Dealer Inquiries.</td></tr>';
+}
+
+function approveDealer(i){
+var d=D.dealers[i];
+d.status='Approved';
+
+if(!d.code){
+d.code='DLR-'+String(i+1).padStart(4,'0');
+}
+
+save();
+msg('Dealer approved.');
+}
+
+function renderRequests(){
+el('requestRows').innerHTML=D.requests.length
+?D.requests.map(function(r){
+return '<tr>'+
+'<td>'+esc(r.date||'')+'</td>'+
+'<td>'+esc(r.dealer||'')+'</td>'+
+'<td>'+esc(r.machine||'')+'</td>'+
+'<td>'+esc(r.part||'')+'</td>'+
+'<td>'+esc(r.status||'New')+'</td>'+
+'</tr>';
+}).join('')
+:'<tr><td colspan="5" class="empty">No Requests.</td></tr>';
+}
+
+function report(t){
+var a=D.items.slice();
+
+if(t==='in'){
+a=a.filter(function(x){return x.qty>0});
+}
+
+if(t==='out'){
+a=a.filter(function(x){return x.qty<=0});
+}
+
+if(t==='reorder'){
+a=a.filter(function(x){return x.qty<=x.min});
+}
+
+if(t==='top'){
+a.sort(function(a,b){return (b.sold||0)-(a.sold||0)});
+}
+
+if(t==='low'){
+a.sort(function(a,b){return (a.sold||0)-(b.sold||0)});
+}
+
+if(t==='purchase'){
+a.sort(function(a,b){
+return String(b.date).localeCompare(String(a.date));
+});
+}
+
+el('reportOut').innerHTML=
+'<div class="toolbar">'+
+'<button class="btn green" onclick="exportCSV()">Excel</button>'+
+'<button class="btn red" onclick="window.print()">PDF / Print</button>'+
+'</div>'+
+'<div class="scroll">'+
+'<table>'+
+'<thead>'+
+'<tr>'+
+'<th>Brand</th>'+
+'<th>Item</th>'+
+'<th>Name</th>'+
+'<th>Machine</th>'+
+'<th>Cost</th>'+
+'<th>A</th>'+
+'<th>B</th>'+
+'<th>C</th>'+
+'<th>Qty</th>'+
+'<th>Sold</th>'+
+'</tr>'+
+'</thead>'+
+'<tbody>'+
+a.map(function(x){
+return '<tr>'+
+'<td>'+esc(x.brand)+'</td>'+
+'<td>'+esc(x.no)+'</td>'+
+'<td>'+esc(x.name)+'</td>'+
+'<td>'+esc((x.machines||[]).join(', '))+'</td>'+
+'<td>₹'+x.cost+'</td>'+
+'<td>₹'+x.a+'</td>'+
+'<td>₹'+x.b+'</td>'+
+'<td>₹'+x.c+'</td>'+
+'<td>'+x.qty+'</td>'+
+'<td>'+(x.sold||0)+'</td>'+
+'</tr>';
+}).join('')+
+'</tbody>'+
+'</table>'+
+'</div>';
+}
+
+function exportCSV(){
+var rows=[
+['Item No','Name','Brand','Category','Machine','Cost','A','B','C','Qty','Sold']
+];
+
+itemList().forEach(function(x){
+rows.push([
+x.no,
+x.name,
+x.brand,
+x.cat,
+(x.machines||[]).join('|'),
+x.cost,
+x.a,
+x.b,
+x.c,
+x.qty,
+x.sold||0
+]);
+});
+
+var csv=rows.map(function(r){
+return r.map(function(v){
+return '"'+String(v).replace(/"/g,'""')+'"';
+}).join(',');
+}).join('\n');
+
+var b=new Blob([csv],{type:'text/csv'});
+var u=URL.createObjectURL(b);
+var a=document.createElement('a');
+
+a.href=u;
+a.download='TORVO_Items.csv';
+a.click();
+
+URL.revokeObjectURL(u);
+
+msg('Excel report created.');
+}
+
+function reorderList(){
+var a=D.items.filter(function(x){
+return x.qty<=x.min;
+});
+
+if(!a.length){
+return msg('No Reorder items.','error');
+}
+
+var txt=
+'TORVO REORDER LIST\n\n'+
+a.map(function(x){
+return x.brand+' | '+x.no+' | '+x.name+' | Stock '+x.qty+' | Reorder '+x.min;
+}).join('\n');
+
+var b=new Blob([txt]);
+var u=URL.createObjectURL(b);
+var z=document.createElement('a');
+
+z.href=u;
+z.download='TORVO_Reorder_List.txt';
+z.click();
+
+URL.revokeObjectURL(u);
+
+msg('Order List created.');
+}
+
+function searchAll(){
+var q=el('globalSearch').value.trim();
+
+if(!q){
+return msg('Search value लिखें या बोलें.','error');
+}
+
+openSec('items');
+el('itemSearch').value=q;
+filter='all';
+renderItems();
+}
+
+function voice(){
+var SR=window.SpeechRecognition||window.webkitSpeechRecognition;
+
+if(!SR){
+return msg('Voice search browser में supported नहीं है.','error');
+}
+
+var r=new SR();
+
+r.lang='en-IN';
+
+r.onresult=function(e){
+el('globalSearch').value=e.results[0][0].transcript;
+searchAll();
+};
+
+r.onerror=function(){
+msg('Voice समझ नहीं आया.','error');
+};
+
+msg('Listening...');
+r.start();
+}
+
+function logout(){
+if(confirm('Logout from TORVO Admin?')){
+location.href='index.html';
+}
+}
+
+function setBadge(id,c){
+var x=el(id);
+if(!x)return;
+x.textContent=c;
+x.style.display=c?'inline-block':'none';
+}
+
+function notifications(){
+var n={
+orders:D.orders.filter(function(x){
+return !x.status||x.status==='New';
+}).length,
+
+est:D.estimates.filter(function(x){
+return x.reply==='Waiting';
+}).length,
+
+conf:D.confirmed.length,
+
+del:D.deliveries.filter(function(x){
+return x.status!=='Delivered';
+}).length,
+
+dealer:D.dealers.filter(function(x){
+return !x.status||x.status==='New';
+}).length,
+
+req:D.requests.filter(function(x){
+return !x.status||x.status==='New';
+}).length
+};
+
+setBadge('bOrders',n.orders);
+setBadge('bEst',n.est);
+setBadge('bConf',n.conf);
+setBadge('bDel',n.del);
+setBadge('bDealer',n.dealer);
+setBadge('bReq',n.req);
+
+var total=n.orders+n.est+n.del+n.dealer+n.req;
+var b=el('bellNum');
+
+b.textContent=total;
+b.style.display=total?'flex':'none';
+
+return n;
+}
+
+function markRead(kind){
+var n=notifications();
+
+if(kind==='dealer')n.dealer=0;
+if(kind==='req')n.req=0;
+if(kind==='orders')n.orders=0;
+if(kind==='est')n.est=0;
+}
+
+function showNotif(){
+var n=notifications();
+var a=[];
+
+if(n.orders)a.push(n.orders+' New Sales Order');
+if(n.est)a.push(n.est+' Estimate Waiting');
+if(n.dealer)a.push(n.dealer+' Dealer Inquiry');
+if(n.req)a.push(n.req+' Spare Part Request');
+if(n.del)a.push(n.del+' Delivery Pending');
+
+el('notif').innerHTML=a.length
+?a.map(function(x){
+return '<div>'+esc(x)+'</div>';
+}).join('')
+:'<div>No new notifications.</div>';
+
+el('notif').style.display=
+el('notif').style.display==='block'
+?'none'
+:'block';
+}
+
+function dashboard(){
+el('dItems').textContent=D.items.length;
+el('dMachines').textContent=D.machines.length;
+
+el('dIn').textContent=
+D.items.filter(function(x){
+return x.qty>0;
+}).length;
+
+el('dOut').textContent=
+D.items.filter(function(x){
+return x.qty<=0;
+}).length;
+}
+
+function refresh(){
+lists();
+renderMachines();
+renderItems();
+renderOrders();
+renderEst();
+renderConfirmed();
+renderDelivery();
+renderDealers();
+renderRequests();
+dashboard();
+notifications();
+}
+
+document.addEventListener('DOMContentLoaded',function(){
+el('spDate').value=today();
+refresh();
+renderMapChips();
+renderSlabs();
+});
 </script>
 </body>
 </html>
