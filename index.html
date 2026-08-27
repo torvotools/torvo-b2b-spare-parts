@@ -1,9 +1,9 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>TORVO TOOLS | Dealer Registration</title>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>TORVO TOOLS | B2B Dealer Portal</title>
 
   <style>
     * {
@@ -14,153 +14,226 @@
     }
 
     body {
-      background: #f4f4f4;
-      color: #222;
+      background: #f3f4f6;
+      color: #1f2937;
+      min-height: 100vh;
     }
 
-    
-    header {
-      background: #111;
+    .header {
+      background: #111827;
       color: white;
-      padding: 18px 20px;
       text-align: center;
-      border-bottom: 5px solid #d71920;
+      padding: 24px 15px;
+      border-bottom: 4px solid #d71920;
     }
 
-    header h1 {
-      font-size: 28px;
-      margin-bottom: 5px;
+    .header h1 {
+      font-size: 30px;
+      letter-spacing: 1px;
     }
 
-    header p {
-      color: #ddd;
+    .header p {
+      margin-top: 7px;
+      color: #d1d5db;
       font-size: 14px;
     }
 
     .container {
-      max-width: 760px;
-      margin: 35px auto;
-      padding: 15px;
+      width: 94%;
+      max-width: 900px;
+      margin: 32px auto;
+    }
+
+    .welcome {
+      background: white;
+      border-radius: 14px;
+      padding: 24px;
+      margin-bottom: 22px;
+      box-shadow: 0 5px 18px rgba(0,0,0,.08);
+      text-align: center;
+    }
+
+    .welcome h2 {
+      color: #d71920;
+      margin-bottom: 8px;
+    }
+
+    .tabs {
+      display: flex;
+      gap: 10px;
+      margin-bottom: 15px;
+    }
+
+    .tab-btn {
+      flex: 1;
+      padding: 14px;
+      border: 0;
+      border-radius: 9px;
+      cursor: pointer;
+      font-weight: bold;
+      font-size: 15px;
+      background: #e5e7eb;
+      color: #111827;
+    }
+
+    .tab-btn.active {
+      background: #d71920;
+      color: white;
     }
 
     .card {
       background: white;
-      border-radius: 12px;
-      padding: 30px;
-      box-shadow: 0 4px 18px rgba(0,0,0,0.12);
+      padding: 28px;
+      border-radius: 14px;
+      box-shadow: 0 5px 18px rgba(0,0,0,.08);
     }
 
-    .card h2 {
-      color: #d71920;
+    .section {
+      display: none;
+    }
+
+    .section.active {
+      display: block;
+    }
+
+    .section h2 {
       text-align: center;
       margin-bottom: 8px;
+      color: #111827;
     }
 
-    .subtitle {
+    .subtext {
       text-align: center;
-      color: #666;
-      margin-bottom: 28px;
+      color: #6b7280;
+      margin-bottom: 22px;
       font-size: 14px;
     }
 
-    .form-row {
-      display: grid;
-      grid-template-columns: 1fr 1fr;
-      gap: 18px;
+    .notice {
+      background: #fff1f2;
+      border-left: 4px solid #d71920;
+      padding: 12px;
+      margin-bottom: 20px;
+      font-size: 14px;
+      line-height: 1.5;
     }
 
-    .form-group {
-      margin-bottom: 18px;
+    .grid {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 16px;
+    }
+
+    .full {
+      grid-column: 1 / -1;
     }
 
     label {
       display: block;
-      margin-bottom: 7px;
+      margin-bottom: 6px;
       font-weight: bold;
       font-size: 14px;
     }
 
-    input, select, textarea {
+    input,
+    select,
+    textarea {
       width: 100%;
       padding: 12px;
-      border: 1px solid #ccc;
-      border-radius: 7px;
+      border: 1px solid #cbd5e1;
+      border-radius: 8px;
       font-size: 15px;
       outline: none;
     }
 
-    input:focus, select:focus, textarea:focus {
+    input:focus,
+    select:focus,
+    textarea:focus {
       border-color: #d71920;
     }
 
     textarea {
-      min-height: 90px;
       resize: vertical;
+      min-height: 85px;
     }
 
-    .upload-box {
-      border: 2px dashed #bbb;
-      padding: 18px;
-      border-radius: 8px;
-      background: #fafafa;
-    }
-
-    button {
+    .main-btn {
       width: 100%;
+      border: 0;
+      border-radius: 9px;
+      padding: 14px;
       background: #d71920;
       color: white;
-      border: none;
-      padding: 14px;
-      border-radius: 7px;
-      font-size: 17px;
       font-weight: bold;
+      font-size: 16px;
+      margin-top: 18px;
       cursor: pointer;
-      margin-top: 8px;
     }
 
-    button:hover {
-      background: #b51218;
+    .main-btn:hover {
+      background: #b9151b;
     }
 
-    .note {
-      background: #fff3f3;
-      border-left: 4px solid #d71920;
+    .secondary-btn {
+      width: 100%;
+      margin-top: 12px;
+      border: 1px solid #111827;
+      background: white;
+      color: #111827;
       padding: 12px;
-      margin-bottom: 22px;
+      border-radius: 9px;
+      cursor: pointer;
+      font-weight: bold;
+    }
+
+    .login-box {
+      max-width: 480px;
+      margin: auto;
+    }
+
+    .pin-row {
+      margin-top: 15px;
+    }
+
+    .small-note {
+      margin-top: 14px;
+      text-align: center;
       font-size: 13px;
+      color: #6b7280;
       line-height: 1.5;
     }
 
-    #successMessage {
+    .status-box {
+      margin-top: 18px;
+      padding: 13px;
+      border-radius: 8px;
+      background: #f9fafb;
       display: none;
-      background: #eaf8ee;
-      border: 1px solid #70b77e;
-      padding: 15px;
-      border-radius: 7px;
-      margin-top: 20px;
-      text-align: center;
-      font-weight: bold;
+      font-size: 14px;
     }
 
-    footer {
+    .footer {
       text-align: center;
-      padding: 25px 10px;
-      color: #777;
+      color: #6b7280;
       font-size: 13px;
+      padding: 25px 10px;
     }
 
-    @media (max-width: 650px) {
-      .form-row {
+    @media (max-width: 700px) {
+      .grid {
         grid-template-columns: 1fr;
-        gap: 0;
+      }
+
+      .full {
+        grid-column: auto;
+      }
+
+      .header h1 {
+        font-size: 25px;
       }
 
       .card {
         padding: 20px;
-      }
-
-      header h1 {
-        font-size: 23px;
       }
     }
   </style>
@@ -168,154 +241,292 @@
 
 <body>
 
-<header>
-  <h1>TORVO TOOLS</h1>
-  <p>Multi-Brand Power Tool Spare Parts Platform</p>
-</header>
+  <header class="header">
+    <h1>TORVO TOOLS</h1>
+    <p>Multi-Brand Power Tool Spare Parts | B2B Dealer Portal</p>
+  </header>
 
-<div class="container">
+  <main class="container">
 
-  <div class="card">
-
-    <h2>Dealer / Retailer Registration</h2>
-
-    <p class="subtitle">
-      Register your business with TORVO TOOLS
-    </p>
-
-    <div class="note">
-      Registration is subject to verification and approval by TORVO TOOLS.
-      Please enter correct business and contact details.
+    <div class="welcome">
+      <h2>Welcome to TORVO B2B</h2>
+      <p>Dealer / Retailer Registration & Secure Login Portal</p>
     </div>
 
-    <form id="registrationForm">
-
-      <div class="form-row">
-
-        <div class="form-group">
-          <label>Shop / Firm Name *</label>
-          <input type="text" required>
-        </div>
-
-        <div class="form-group">
-          <label>Contact Person Name *</label>
-          <input type="text" required>
-        </div>
-
-      </div>
-
-      <div class="form-row">
-
-        <div class="form-group">
-          <label>Mobile Number *</label>
-          <input type="tel" required>
-        </div>
-
-        <div class="form-group">
-          <label>WhatsApp Number *</label>
-          <input type="tel" required>
-        </div>
-
-      </div>
-
-      <div class="form-group">
-        <label>Email Address *</label>
-        <input type="email" required>
-      </div>
-
-      <div class="form-row">
-
-        <div class="form-group">
-          <label>State *</label>
-          <input type="text" required>
-        </div>
-
-        <div class="form-group">
-          <label>City *</label>
-          <input type="text" required>
-        </div>
-
-      </div>
-
-      <div class="form-group">
-        <label>Complete Business Address *</label>
-        <textarea required></textarea>
-      </div>
-
-      <div class="form-row">
-
-        <div class="form-group">
-          <label>GST Number</label>
-          <input type="text">
-        </div>
-
-        <div class="form-group">
-          <label>PIN Code *</label>
-          <input type="text" required>
-        </div>
-
-      </div>
-
-      <div class="form-group">
-        <label>Business Type *</label>
-
-        <select required>
-          <option value="">Select Business Type</option>
-          <option>Retailer</option>
-          <option>Dealer</option>
-          <option>Distributor</option>
-          <option>Repair / Service Center</option>
-        </select>
-
-      </div>
-
-      <div class="form-group">
-
-        <label>Upload Visiting Card / Shop Proof</label>
-
-        <div class="upload-box">
-          <input type="file" accept="image/*,.pdf">
-        </div>
-
-      </div>
-
-      <button type="submit">
-        SUBMIT REGISTRATION
+    <div class="tabs">
+      <button id="loginTab" class="tab-btn active" onclick="showSection('login')">
+        DEALER LOGIN
       </button>
 
-      <div id="successMessage">
-        Registration submitted successfully.<br>
-        TORVO TOOLS will verify your details before account approval.
-      </div>
+      <button id="registerTab" class="tab-btn" onclick="showSection('register')">
+        NEW DEALER INQUIRY
+      </button>
+    </div>
 
-    </form>
+    <div class="card">
 
-  </div>
+      <!-- LOGIN -->
+      <section id="loginSection" class="section active">
+        <div class="login-box">
 
-</div>
+          <h2>Dealer Login</h2>
 
-<footer>
-  © TORVO TOOLS PRIVATE LIMITED
-</footer>
+          <p class="subtext">
+            Login is available only for TORVO approved dealers.
+          </p>
 
-<script>
+          <div class="notice">
+            Enter your registered mobile number. OTP verification and your
+            secure 4-digit PIN login will be connected in the next stage.
+          </div>
 
-document
-.getElementById("registrationForm")
-.addEventListener("submit", function(event) {
+          <label>Registered Mobile Number *</label>
+          <input
+            id="loginMobile"
+            type="tel"
+            maxlength="10"
+            placeholder="Enter 10 digit mobile number"
+          />
 
-  event.preventDefault();
+          <div class="pin-row">
+            <label>4-Digit PIN</label>
+            <input
+              id="loginPin"
+              type="password"
+              inputmode="numeric"
+              maxlength="4"
+              placeholder="Enter 4-digit PIN"
+            />
+          </div>
 
-  document.getElementById("successMessage").style.display = "block";
+          <button class="main-btn" onclick="demoLogin()">
+            LOGIN
+          </button>
 
-  window.scrollTo({
-    top: document.body.scrollHeight,
-    behavior: "smooth"
-  });
+          <button class="secondary-btn" onclick="demoOtp()">
+            FIRST LOGIN / LOGIN WITH OTP
+          </button>
 
-});
+          <button class="secondary-btn" onclick="demoForgotPin()">
+            FORGOT PIN
+          </button>
 
-</script>
+          <div id="loginStatus" class="status-box"></div>
+
+        </div>
+      </section>
+
+
+      <!-- QUICK INQUIRY -->
+      <section id="registerSection" class="section">
+
+        <h2>New Dealer / Retailer Inquiry</h2>
+
+        <p class="subtext">
+          Submit your basic business details. TORVO team will verify your
+          inquiry before sending the full registration link.
+        </p>
+
+        <div class="notice">
+          Registration is subject to verification and approval by TORVO TOOLS.
+          Please provide correct business and contact details.
+        </div>
+
+        <form id="inquiryForm" onsubmit="submitDemoInquiry(event)">
+
+          <div class="grid">
+
+            <div>
+              <label>Shop / Firm Name *</label>
+              <input id="shopName" required />
+            </div>
+
+            <div>
+              <label>Contact Person Name *</label>
+              <input id="contactPerson" required />
+            </div>
+
+            <div>
+              <label>Mobile Number *</label>
+              <input
+                id="mobile"
+                type="tel"
+                maxlength="10"
+                required
+              />
+            </div>
+
+            <div>
+              <label>WhatsApp Number *</label>
+              <input
+                id="whatsapp"
+                type="tel"
+                maxlength="10"
+                required
+              />
+            </div>
+
+            <div class="full">
+              <label>Email Address *</label>
+              <input
+                id="email"
+                type="email"
+                required
+              />
+            </div>
+
+            <div>
+              <label>State *</label>
+              <input id="state" required />
+            </div>
+
+            <div>
+              <label>District *</label>
+              <input id="district" required />
+            </div>
+
+            <div class="full">
+              <label>City *</label>
+              <input id="city" required />
+            </div>
+
+          </div>
+
+          <button class="main-btn" type="submit">
+            SUBMIT INQUIRY
+          </button>
+
+          <div id="inquiryStatus" class="status-box"></div>
+
+        </form>
+
+      </section>
+
+    </div>
+
+  </main>
+
+  <footer class="footer">
+    © TORVO TOOLS PRIVATE LIMITED
+  </footer>
+
+
+  <script>
+    function showSection(type) {
+      const loginSection = document.getElementById("loginSection");
+      const registerSection = document.getElementById("registerSection");
+      const loginTab = document.getElementById("loginTab");
+      const registerTab = document.getElementById("registerTab");
+
+      if (type === "login") {
+        loginSection.classList.add("active");
+        registerSection.classList.remove("active");
+
+        loginTab.classList.add("active");
+        registerTab.classList.remove("active");
+      } else {
+        registerSection.classList.add("active");
+        loginSection.classList.remove("active");
+
+        registerTab.classList.add("active");
+        loginTab.classList.remove("active");
+      }
+    }
+
+    function showMessage(id, message) {
+      const box = document.getElementById(id);
+      box.style.display = "block";
+      box.innerText = message;
+    }
+
+    function demoLogin() {
+      const mobile = document.getElementById("loginMobile").value.trim();
+      const pin = document.getElementById("loginPin").value.trim();
+
+      if (!/^[0-9]{10}$/.test(mobile)) {
+        showMessage(
+          "loginStatus",
+          "Please enter a valid 10 digit registered mobile number."
+        );
+        return;
+      }
+
+      if (!/^[0-9]{4}$/.test(pin)) {
+        showMessage(
+          "loginStatus",
+          "Please enter your valid 4-digit PIN."
+        );
+        return;
+      }
+
+      showMessage(
+        "loginStatus",
+        "Screen is ready. Secure database login will be connected next."
+      );
+    }
+
+    function demoOtp() {
+      const mobile = document.getElementById("loginMobile").value.trim();
+
+      if (!/^[0-9]{10}$/.test(mobile)) {
+        showMessage(
+          "loginStatus",
+          "First enter your 10 digit registered mobile number."
+        );
+        return;
+      }
+
+      showMessage(
+        "loginStatus",
+        "OTP login screen is ready for Supabase Auth connection."
+      );
+    }
+
+    function demoForgotPin() {
+      const mobile = document.getElementById("loginMobile").value.trim();
+
+      if (!/^[0-9]{10}$/.test(mobile)) {
+        showMessage(
+          "loginStatus",
+          "Enter your registered mobile number to reset PIN."
+        );
+        return;
+      }
+
+      showMessage(
+        "loginStatus",
+        "Forgot PIN flow is ready for OTP verification connection."
+      );
+    }
+
+    function submitDemoInquiry(event) {
+      event.preventDefault();
+
+      const mobile = document.getElementById("mobile").value.trim();
+      const whatsapp = document.getElementById("whatsapp").value.trim();
+
+      if (!/^[0-9]{10}$/.test(mobile)) {
+        showMessage(
+          "inquiryStatus",
+          "Please enter a valid 10 digit mobile number."
+        );
+        return;
+      }
+
+      if (!/^[0-9]{10}$/.test(whatsapp)) {
+        showMessage(
+          "inquiryStatus",
+          "Please enter a valid 10 digit WhatsApp number."
+        );
+        return;
+      }
+
+      showMessage(
+        "inquiryStatus",
+        "Form design is working. In the next step this inquiry will be connected to TORVO database."
+      );
+    }
+  </script>
 
 </body>
 </html>
