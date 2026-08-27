@@ -174,6 +174,63 @@ body{zoom:.90}
   .top .title{min-width:120px;max-width:145px}
 }
 
+
+/* ===== TORVO V5 FINAL LAYOUT ===== */
+body{zoom:.90;background:#f3f4f6}
+:root{
+  --torvo-red:#d71920;
+  --torvo-black:#111111;
+  --torvo-grey:#6b7280;
+  --torvo-light:#f3f4f6;
+  --torvo-white:#ffffff;
+}
+.app{grid-template-columns:180px minmax(0,1fr) 180px!important}
+.left,.right{background:#fff!important}
+.main{background:#f8fafc!important}
+.top{gap:5px!important;padding:6px 7px!important;background:#fff!important;border-bottom:2px solid #d1d5db!important}
+.top .title{min-width:120px!important;max-width:145px!important}
+.top .search{flex:1!important;min-width:500px!important}
+.topBtn,.btn,.nav,.rnav,.langBtn{font-size:10px!important}
+.topBtn{height:34px!important;padding:0 10px!important}
+.nav,.rnav{padding:7px 8px!important;margin:2px 0!important}
+.right .logo,.right .sub{display:none!important}
+.menuTitle{margin-top:8px!important}
+.section,.panel{margin-top:5px!important}
+.cards{gap:6px!important}
+.card{padding:8px!important;min-height:62px!important}
+.notice,.sectionIntro{margin:5px 0!important}
+.toolbar{gap:5px!important}
+.compactUtility{
+  height:32px;border:1px solid #d1d5db;background:#fff;border-radius:7px;
+  font-weight:900;padding:0 8px
+}
+.iconOnly{
+  width:34px;height:34px;border:1px solid #d1d5db;background:#fff;border-radius:8px;
+  display:inline-flex;align-items:center;justify-content:center;cursor:pointer
+}
+.iconOnly:hover{background:#f3f4f6}
+.googleMic,.googleCam,.googleSearch{
+  display:block;width:20px;height:20px;object-fit:contain
+}
+.googleSearch{width:18px;height:18px}
+.futureBox{display:none;border:1px solid #d1d5db;background:#fff;border-radius:8px;padding:5px;margin-top:4px}
+.futureBox.show{display:block}
+.futureToggle{background:#111;color:#fff;border:0;border-radius:6px;padding:7px 8px;width:100%;text-align:left;font-weight:900}
+.right .rnav{position:relative}
+.sectionIntro{
+  background:#fff;border:1px solid #d1d5db;border-left:5px solid #d71920!important;
+  color:#111;font-weight:900
+}
+.formStep{margin-bottom:6px!important}
+.formStep:nth-of-type(4n+1){background:#f9fafb!important}
+.formStep:nth-of-type(4n+2){background:#fff7ed!important}
+.formStep:nth-of-type(4n+3){background:#f3f4f6!important}
+.formStep:nth-of-type(4n+4){background:#fff1f2!important}
+@media(max-width:1200px){
+  .app{grid-template-columns:165px minmax(0,1fr) 165px!important}
+  .top .search{min-width:420px!important}
+}
+
 </style>
 </head>
 <body>
@@ -207,19 +264,17 @@ body{zoom:.90}
 <div class="title"><b id="pageTitle">TORVO DASHBOARD</b><small>B2B DEALER PORTAL ADMIN</small></div>
 <div class="search">
 <input id="globalSearch" class="upper" placeholder="SEARCH ITEM, SPARE PART, ACCESSORY, MACHINE, MODEL, DRAWING CODE, DEALER, ORDER..." onkeydown="if(event.key==='Enter')globalFind()">
-<button class="camBtn" title="CAMERA SEARCH" onclick="E('cameraSearchInput').click()">📷</button>
-<button class="micBtn" title="VOICE SEARCH" onclick="voiceSearch()">🎙</button>
+<button class="camBtn" title="CAMERA SEARCH" onclick="E('cameraSearchInput').click()"><img class="googleCam" src="data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24'><path d='M5 7h3l1.5-2h5L16 7h3a2 2 0 0 1 2 2v9a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V9a2 2 0 0 1 2-2z' fill='%234285F4'/><circle cx='12' cy='13' r='4' fill='white'/><circle cx='12' cy='13' r='2.6' fill='%2334A853'/><circle cx='18' cy='10' r='1' fill='%23EA4335'/></svg>"></button>
+<button class="micBtn" title="VOICE SEARCH" onclick="voiceSearch()"><img class="googleMic" src="data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24'><rect x='9' y='3' width='6' height='11' rx='3' fill='%234285F4'/><path d='M5 11a7 7 0 0 0 14 0' fill='none' stroke='%2334A853' stroke-width='2'/><path d='M12 18v3M9 21h6' stroke='%23EA4335' stroke-width='2' stroke-linecap='round'/></svg>"></button>
 <input id="cameraSearchInput" type="file" accept="image/*" capture="environment" style="display:none" onchange="cameraSearch(this.files[0])">
 </div>
-<button class="topBtn searchBtn" onclick="globalFind()">SEARCH</button>
+<button class="iconOnly" title="SEARCH" onclick="globalFind()"><img class="googleSearch" src="data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24'><circle cx='11' cy='11' r='6' fill='none' stroke='%234285F4' stroke-width='2.4'/><path d='M16 16l5 5' stroke='%2334A853' stroke-width='2.8' stroke-linecap='round'/></svg>"></button>
+<button class="compactUtility" onclick="runSystemCheck()">VERIFY</button>
+<button id="langToggle" class="compactUtility" onclick="toggleLanguage()">EN | हि</button>
+<button class="iconOnly" title="REFRESH" onclick="refreshPortal()">↻</button>
 <div class="bell"><button onclick="toggleNotifications()">🔔</button><span id="bellNum" class="bellNum">0</span></div>
 <div class="topBtn owner">ONLINE ADMIN</div>
 <button class="topBtn logout" onclick="logoutAdmin()">LOGOUT</button>
-</div>
-<div class="toolbar" style="justify-content:flex-end;background:#fff;border-bottom:1px solid #e5e7eb;padding:4px 8px">
-<button class="btn orange" onclick="runSystemCheck()">VERIFY SYSTEM</button>
-<button id="langToggle" class="btn light" onclick="toggleLanguage()">ENGLISH | हिंदी</button>
-<button class="btn printBtn" onclick="printCurrentView()">PRINT</button>
 </div>
 
 <section id="dashboard" class="section active">
@@ -306,26 +361,93 @@ body{zoom:.90}
 <section id="homepage" class="section"><div class="panel"><div class="pTitle"><span class="tag blue">HOME PAGE CONTENT</span><b>WHO WE ARE + WHAT WE SELL</b></div><div class="sectionIntro">CONTROL HOME-PAGE CONTENT SO VISITORS UNDERSTAND WHO TORVO IS AND WHAT SPARES / ACCESSORIES ARE SOLD.</div><div class="box bBlue"><div class="grid"><div class="field"><label>SECTION TITLE *</label><input id="homeTitle" class="upper"></div><div class="field"><label>SECTION TYPE</label><select id="homeType"><option>ABOUT TORVO</option><option>SPARE PART RANGE</option><option>ACCESSORIES RANGE</option><option>TORVO OWN BRAND</option><option>FEATURED PRODUCT</option><option>VIDEO</option><option>DEALER BENEFIT</option><option>MESSAGE</option></select></div><div class="field"><label>STATUS</label><select id="homeStatus"><option>SHOW</option><option>HIDE</option></select></div><div class="field"><label>PHOTO FILE</label><input id="homePhoto" type="file" accept="image/*"></div><div class="field"><label>VIDEO LINK</label><input id="homeVideo"></div><div class="field"><label>BUTTON / LINK</label><input id="homeLink"></div><div class="field full"><label>CONTENT / MESSAGE</label><textarea id="homeText" class="upper" rows="4"></textarea></div></div><div class="toolbar"><button class="btn blue" onclick="saveHome()">SAVE HOME CONTENT</button></div></div><div id="homeList"></div></div></section>
 <section id="ai" class="section"><div class="panel"><div class="pTitle"><span class="tag purple">AI & API HUB</span><b>OPTIONAL FUTURE SMART FEATURES</b></div><div class="sectionIntro">OPTIONAL FUTURE AI / API CONNECTIONS. KEEP PAID AI OFF UNTIL THE CORE PORTAL AND DATABASE ARE STABLE.</div><div class="notice">NO PAID AI IS REQUIRED NOW. DO NOT PUT SECRET API KEYS DIRECTLY IN THIS HTML. LATER CONNECT AI THROUGH A SECURE BACKEND / SUPABASE EDGE FUNCTION.</div><div class="grid" style="margin-top:8px"><div class="smartCard"><b>📷 AI PHOTO SEARCH</b><div class="help">PHOTO → LIKELY SPARE PART SUGGESTIONS.</div></div><div class="smartCard"><b>🧩 AI DRAWING READER</b><div class="help">DRAWING / PART CODE → ITEM SUGGESTION.</div></div><div class="smartCard"><b>💬 AI DEALER HELP</b><div class="help">BASIC PRODUCT / SEARCH ASSISTANCE.</div></div><div class="smartCard"><b>📦 SMART REORDER</b><div class="help">STOCK + SALES SPEED → PURCHASE SUGGESTION.</div></div><div class="smartCard"><b>📈 SALES GAP ANALYSIS</b><div class="help">ORDER vs FINAL ESTIMATE SHORTFALL.</div></div><div class="smartCard"><b>🔌 FUTURE API CONNECTOR</b><div class="help">AI / COURIER / ACCOUNTING / OTHER APIs.</div></div></div><div class="box bPurple" style="margin-top:8px"><div class="grid"><div class="field"><label>AI MASTER STATUS</label><select id="aiStatus"><option>OFF</option><option>READY FOR FUTURE CONNECTION</option></select></div><div class="field"><label>PREFERRED PROVIDER</label><select id="aiProvider"><option>OPENAI</option><option>GEMINI</option><option>OTHER API</option></select></div><div class="field"><label>MODEL / PLAN NOTE</label><input id="aiModel" class="upper"></div><div class="field"><label>PHOTO SEARCH</label><select id="aiPhoto"><option>OFF</option><option>READY</option></select></div><div class="field"><label>DRAWING READER</label><select id="aiDrawing"><option>OFF</option><option>READY</option></select></div><div class="field"><label>DEALER HELP</label><select id="aiHelp"><option>OFF</option><option>READY</option></select></div><div class="field"><label>API BASE URL</label><input id="apiBase"></div><div class="field"><label>CONNECTOR NAME</label><input id="apiConnector" class="upper"></div><div class="field"><label>API STATUS</label><select id="apiStatus"><option>OFF</option><option>READY</option></select></div><div class="field full"><label>AI SAFETY RULE</label><textarea id="aiRule" class="upper" rows="3"></textarea></div></div><div class="toolbar"><button class="btn purple" onclick="saveAI()">SAVE AI / API SETTINGS</button></div></div></div></section>
 <section id="updates" class="section"><div class="panel"><div class="pTitle"><span class="tag teal">UPDATE CENTER</span><b>CONTROLLED FUTURE UPDATES</b></div><div class="sectionIntro">REVIEW FUTURE UPDATES FIRST. APPLY ONLY AFTER VERIFICATION AND KEEP A RESTORE POINT.</div><div class="infoNotice">NO AUTOMATIC CHANGE. VIEW BENEFIT FIRST, VERIFY, THEN CHOOSE WHETHER TO UPDATE. CREATE A RESTORE POINT BEFORE ANY FUTURE MAJOR CHANGE.</div><div class="updateCard updateRecommended"><b>UPDATE 01 — CLOUD DATABASE + STORAGE</b><div class="help">LIVE PRODUCTS, DEALERS, STOCK, DRAWINGS, ORDERS AND ESTIMATES.</div><div class="toolbar"><button class="btn green" onclick="previewUpdate('CLOUD DATABASE + STORAGE','LIVE MULTI-DEVICE DATA AND DEALER WEBSITE SYNC.')">VIEW UPDATE</button></div></div><div class="updateCard updateRecommended"><b>UPDATE 02 — DEALER WEBSITE LIVE SYNC</b><div class="help">ADMIN CONTROLS A/B/C RATE, STOCK, ADS, SCHEMES AND VISIBILITY.</div><div class="toolbar"><button class="btn green" onclick="previewUpdate('DEALER WEBSITE LIVE SYNC','DEALER WEBSITE WILL READ LIVE ADMIN DATA.')">VIEW UPDATE</button></div></div><div class="updateCard updateOptional"><b>UPDATE 03 — AI PHOTO SEARCH</b><div class="help">OPTIONAL LATER AFTER BASIC PORTAL IS LIVE.</div><div class="toolbar"><button class="btn orange" onclick="previewUpdate('AI PHOTO SEARCH','PHOTO CAN SUGGEST LIKELY SPARE PARTS. FINAL MATCH MUST BE VERIFIED.')">VIEW UPDATE</button></div></div><div class="updateCard updateOptional"><b>UPDATE 04 — AI DRAWING READER</b><div class="help">OPTIONAL LATER.</div><div class="toolbar"><button class="btn orange" onclick="previewUpdate('AI DRAWING READER','AI CAN HELP READ DRAWING TEXT / PART CODES.')">VIEW UPDATE</button></div></div><div class="box bBlue"><div class="boxTitle">VERSION / RESTORE CONTROL</div><div class="grid"><div class="field"><label>CURRENT VERSION</label><input value="TORVO ADMIN V1" readonly></div><div class="field"><label>LAST LOCAL BACKUP</label><input id="backupVersion" value="NO BACKUP YET" readonly></div><div class="field"><label>ACTION</label><button class="btn dark" onclick="createRestorePoint()">CREATE RESTORE POINT</button></div></div><div class="toolbar"><button class="btn red" onclick="restorePoint()">RESTORE PREVIOUS LOCAL DATA</button></div></div></div></section>
-<section id="reports" class="section"><div class="panel"><div class="pTitle"><span class="tag dark">REPORTS CENTER</span><b>ALL BUSINESS REPORTS — VIEW / EXCEL / PDF</b></div><div class="sectionIntro">ONE PLACE FOR SALES, PROFIT, STOCK, DEALER, DELIVERY AND OTHER BUSINESS REPORTS WITH VIEW / EXCEL / PDF / PRINT.</div><div class="notice">SELECT A REPORT. USE DATE RANGE / SEARCH FILTERS WHERE AVAILABLE. VIEW ON SCREEN OR DOWNLOAD EXCEL / PDF.</div><div class="grid" style="margin-top:8px"><div class="field"><label>FROM DATE</label><input id="reportFrom" type="date"></div><div class="field"><label>TO DATE</label><input id="reportTo" type="date"></div><div class="field"><label>SEARCH / FILTER</label><input id="reportSearch" class="upper"></div></div><div id="reportCards" class="reportGrid" style="margin-top:10px"></div><div id="reportOutput" style="margin-top:10px"></div></div></section><section id="settings" class="section"><div class="panel"><div class="pTitle"><span class="tag dark">SETTINGS</span><b>PORTAL / CUSTOMER CARE / BUSINESS SETTINGS</b></div><div class="grid"><div class="field"><label>COMPANY NAME</label><input id="setCompany" class="upper" value="TORVO TOOLS PRIVATE LIMITED"></div><div class="field"><label>CUSTOMER CARE NUMBER</label><input id="setSupport"></div><div class="field"><label>DELETE CODE</label><input value="1122" readonly></div><div class="field"><label>OWN BRAND NAME</label><input id="setOwnBrand" class="upper" value="TORVO"></div><div class="field"><label>PORTAL MODE</label><select id="setMode"><option>B2B ONLY</option></select></div><div class="field"><label>SOUND</label><select id="setSound"><option>ON</option><option>OFF</option></select></div></div><div class="toolbar"><button class="btn green" onclick="savePortalSettings()">SAVE SETTINGS</button></div></div></section><section id="verify" class="section"><div class="panel"><div class="pTitle"><span class="tag orange">SYSTEM VERIFY</span><b>DATA HEALTH CHECK</b></div><div id="verifySummary" class="notice">CLICK VERIFY SYSTEM TO SCAN.</div><div id="verifyList" class="verifyList" style="margin-top:8px"></div></div></section>
+<section id="reports" class="section"><div class="panel"><div class="pTitle"><span class="tag dark">REPORTS CENTER</span><b>ALL BUSINESS REPORTS — VIEW / EXCEL / PDF</b></div><div class="sectionIntro">ONE PLACE FOR SALES, PROFIT, STOCK, DEALER, DELIVERY AND OTHER BUSINESS REPORTS WITH VIEW / EXCEL / PDF / PRINT.</div><div class="notice">SELECT A REPORT. USE DATE RANGE / SEARCH FILTERS WHERE AVAILABLE. VIEW ON SCREEN OR DOWNLOAD EXCEL / PDF.</div><div class="grid" style="margin-top:8px"><div class="field"><label>FROM DATE</label><input id="reportFrom" type="date"></div><div class="field"><label>TO DATE</label><input id="reportTo" type="date"></div><div class="field"><label>SEARCH / FILTER</label><input id="reportSearch" class="upper"></div></div><div id="reportCards" class="reportGrid" style="margin-top:10px"></div><div id="reportOutput" style="margin-top:10px"></div></div></section>
+<section id="settings" class="section">
+<div class="panel">
+<div class="pTitle"><span class="tag dark">SETTINGS</span><b>PORTAL CONTROL WITHOUT DATABASE EDITING</b></div>
+<div class="sectionIntro">USE THESE SETTINGS FOR COMMON CHANGES SO YOU DO NOT NEED TO OPEN DATABASE / SQL FOR SMALL DAY-TO-DAY ADJUSTMENTS.</div>
+
+<div class="box formStep">
+<div class="boxTitle">1. DISPLAY & LAYOUT</div>
+<div class="grid">
+<div class="field"><label>ADMIN SCALE</label><select id="setScale"><option value="0.85">85%</option><option value="0.90" selected>90%</option><option value="0.95">95%</option><option value="1">100%</option></select></div>
+<div class="field"><label>COMPACT BUTTONS</label><select id="setCompact"><option>YES</option><option>NO</option></select></div>
+<div class="field"><label>BASE THEME</label><select id="setTheme"><option>TORVO RED / BLACK / GREY / WHITE</option></select></div>
+<div class="field"><label>SHOW RIGHT SIDEBAR</label><select id="setRightBar"><option>YES</option><option>NO</option></select></div>
+</div>
+</div>
+
+<div class="box formStep">
+<div class="boxTitle">2. SEARCH & NOTIFICATIONS</div>
+<div class="grid">
+<div class="field"><label>VOICE SEARCH</label><select id="setVoice"><option>ON</option><option>OFF</option></select></div>
+<div class="field"><label>CAMERA SEARCH</label><select id="setCamera"><option>ON</option><option>OFF</option></select></div>
+<div class="field"><label>REFRESH ALERTS</label><select id="setRefreshAlerts"><option>ON</option><option>OFF</option></select></div>
+<div class="field"><label>SOUND ALERTS</label><select id="setSound"><option>ON</option><option>OFF</option></select></div>
+</div>
+</div>
+
+<div class="box formStep">
+<div class="boxTitle">3. BUSINESS RULES</div>
+<div class="grid">
+<div class="field"><label>NEGATIVE STOCK</label><select id="setNegative"><option>BLOCK</option></select></div>
+<div class="field"><label>DUPLICATE ENTRY</label><select id="setDuplicate"><option>BLOCK + POPUP</option></select></div>
+<div class="field"><label>DELETE CODE</label><input id="setDeleteCode" value="1122" readonly></div>
+<div class="field"><label>FINAL ESTIMATE = SALE</label><select id="setEstimateSale"><option>YES</option></select></div>
+</div>
+</div>
+
+<div class="box formStep">
+<div class="boxTitle">4. DEALER / WEBSITE OPTIONS</div>
+<div class="grid">
+<div class="field"><label>DEALER HISTORY DAYS</label><input id="setHistoryDays" type="number" min="1" value="30"></div>
+<div class="field"><label>SHOW SCHEMES</label><select id="setSchemes"><option>YES</option><option>NO</option></select></div>
+<div class="field"><label>SHOW ADS</label><select id="setAds"><option>YES</option><option>NO</option></select></div>
+<div class="field"><label>SHOW DRAWING BUTTON</label><select id="setDrawings"><option>YES</option><option>NO</option></select></div>
+</div>
+</div>
+
+<div class="box formStep">
+<div class="boxTitle">5. SUPPORT / CONTACT / LABELS</div>
+<div class="grid">
+<div class="field"><label>CUSTOMER CARE NUMBER</label><input id="setSupportPhone"></div>
+<div class="field"><label>WHATSAPP NUMBER</label><input id="setWhatsapp"></div>
+<div class="field"><label>ADMIN DISPLAY NAME</label><input id="setAdminName" class="upper" value="ONLINE ADMIN"></div>
+<div class="field"><label>PORTAL MESSAGE</label><input id="setPortalMessage" class="upper"></div>
+</div>
+</div>
+
+<div class="toolbar">
+<button class="btn green" onclick="savePortalSettings()">SAVE SETTINGS</button>
+<button class="btn orange" onclick="applyPortalSettings()">APPLY NOW</button>
+<button class="btn red" onclick="resetPortalSettings()">RESET DEFAULT</button>
+</div>
+</div>
+</section>
+<section id="verify" class="section"><div class="panel"><div class="pTitle"><span class="tag orange">SYSTEM VERIFY</span><b>DATA HEALTH CHECK</b></div><div id="verifySummary" class="notice">CLICK VERIFY SYSTEM TO SCAN.</div><div id="verifyList" class="verifyList" style="margin-top:8px"></div></div></section>
 </main>
 
 <aside class="right">
-<div class="logo" onclick="goHome()">TORVO</div><div class="sub">CONTROL & MANAGEMENT</div>
 <div class="menuTitle">BUSINESS</div>
 <button class="rnav" onclick="openSection('reports',this)">REPORTS CENTER</button>
 <button class="rnav" onclick="openSection('dealers',this)">DEALER CONTROL</button>
 <button class="rnav" onclick="openSection('points',this)">POINTS & SCHEME</button>
+
 <div class="menuTitle">PROMOTION</div>
 <button class="rnav" onclick="openSection('ads',this)">ADS & PROMOTIONS</button>
 <button class="rnav" onclick="openSection('homepage',this)">HOME PAGE CONTENT</button>
-<div class="menuTitle">SMART CONTROL</div>
-<button class="rnav" onclick="openSection('drawings',this)">MACHINE DRAWINGS</button>
+
+<div class="menuTitle">SYSTEM</div>
+<button class="rnav" onclick="openSection('settings',this)">SETTINGS</button>
+<button class="rnav" onclick="runSystemCheck()">VERIFY SYSTEM <span id="badgeSystem" class="actionBadge">0</span></button>
+
+<div class="menuTitle">FUTURE</div>
+<button class="futureToggle" onclick="toggleFutureMenu()">FUTURE OPTIONS ▼</button>
+<div id="futureMenu" class="futureBox">
 <button class="rnav" onclick="openSection('ai',this)">AI & API HUB</button>
 <button class="rnav" onclick="openSection('updates',this)">UPDATE CENTER <span id="badgeUpdate" class="actionBadge">0</span></button>
-<div class="menuTitle">SYSTEM</div>
-<button class="rnav" onclick="runSystemCheck()">VERIFY SYSTEM <span id="badgeSystem" class="actionBadge">0</span></button>
-<button class="rnav" onclick="openSection('settings',this)">SETTINGS</button>
-<button class="rnav" onclick="openSection('dashboard',this)">DASHBOARD</button>
+<button class="rnav" onclick="openSection('points',this)">POINTS / SCHEME SETTINGS</button>
+</div>
 </aside>
 </div>
 
@@ -361,7 +483,7 @@ function saveDB(){localStorage.setItem(KEY,JSON.stringify(DB));refreshAll()}
 function logActivity(t){DB.activity.unshift({time:new Date().toLocaleString(),text:U(t)});DB.activity=DB.activity.slice(0,100)}
 
 var titles={dashboard:"TORVO DASHBOARD",machines:"MACHINES",spares:"ADD SPARE PART",accessories:"ADD ACCESSORY",itemmaster:"ITEM MASTER",suitable:"SUITABLE SEARCH",orders:"SALES ORDERS",estimates:"ESTIMATES",delivery:"DELIVERY & TRACKING",customers:"CUSTOMER HISTORY",dealers:"DEALER MANAGEMENT",inquiries:"INQUIRY CENTER",journey:"30-DAY DEALER JOURNEY",chat:"DEALER CHAT",points:"POINTS & YEARLY SCHEME",salesReport:"SALES REPORT",profit:"PROFIT / INCOME",drawings:"MACHINE DRAWINGS",ads:"ADS & PROMOTIONS",homepage:"HOME PAGE CONTENT",ai:"AI & API HUB",updates:"UPDATE CENTER",reports:"REPORTS CENTER",settings:"SETTINGS",verify:"SYSTEM VERIFY"};
-function openSection(id,btn){sndClick();document.querySelectorAll(".section").forEach(function(x){x.classList.remove("active")});document.querySelectorAll(".nav,.rnav").forEach(function(x){x.classList.remove("active")});var s=E(id);if(!s)return;s.classList.add("active");if(btn)btn.classList.add("active");E("pageTitle").textContent=titles[id]||"TORVO";if(id==="spares")buildItemForm("SPARE PART");if(id==="accessories")buildItemForm("ACCESSORY");if(id==="itemmaster")renderItems();if(id==="suitable")renderSuitableResults();if(id==="customers")renderCustomerHistory();if(id==="dealers")renderDealers();if(id==="inquiries")renderInquiries();if(id==="journey")renderJourney();if(id==="chat")renderChat();if(id==="points")renderPoints();if(id==="salesReport")renderSalesReport();if(id==="profit")renderProfit();if(id==="drawings")renderDrawings();if(id==="ads")renderAds();if(id==="homepage")renderHome();if(id==="ai")loadAI();if(id==="reports")renderReportsCenter();if(id==="delivery"){renderPendingDeliveries();renderDeliveryHistory()}window.scrollTo(0,0)}
+function openSection(id,btn){sndClick();document.querySelectorAll(".section").forEach(function(x){x.classList.remove("active")});document.querySelectorAll(".nav,.rnav").forEach(function(x){x.classList.remove("active")});var s=E(id);if(!s)return;s.classList.add("active");if(btn)btn.classList.add("active");E("pageTitle").textContent=titles[id]||"TORVO";if(id==="spares")buildItemForm("SPARE PART");if(id==="accessories")buildItemForm("ACCESSORY");if(id==="itemmaster")renderItems();if(id==="suitable")renderSuitableResults();if(id==="customers")renderCustomerHistory();if(id==="dealers")renderDealers();if(id==="inquiries")renderInquiries();if(id==="journey")renderJourney();if(id==="chat")renderChat();if(id==="points")renderPoints();if(id==="salesReport")renderSalesReport();if(id==="profit")renderProfit();if(id==="drawings")renderDrawings();if(id==="ads")renderAds();if(id==="homepage")renderHome();if(id==="ai")loadAI();if(id==="reports")renderReportsCenter();if(id==="settings")loadPortalSettings();if(id==="delivery"){renderPendingDeliveries();renderDeliveryHistory()}window.scrollTo(0,0)}
 function goHome(){sndAlert();if(dirty&&!confirm("UNSAVED ENTRY EXISTS. CONTINUE TO HOME?"))return;clearItemForm();clearMachine();openSection("dashboard",document.querySelector(".nav"));toast("HOME OPENED","success")}
 
 function masterArray(type){if(type==="brand")return DB.brands;if(type==="category")return DB.categories;if(type==="machineType")return DB.machineTypes;if(type==="workType")return DB.workTypes;if(type==="model")return DB.machines.map(function(x){return x.model});if(type==="item")return DB.items.map(function(x){return x.no});return[]}
@@ -580,7 +702,7 @@ function refreshActionBadges(){var n=getActionCounts();setActionBadge("badgeOrde
 function showActionPanel(type){var p=E("dashboardActionPanel"),html="",n=getActionCounts();if(type==="orders"){html="<b>NEW SALES ORDERS ("+n.orders+")</b>"+DB.orders.filter(function(x){return !x.readAdmin&&U(x.status||"NEW")==="NEW"}).map(function(x){return"<div class='actionRow'><b>"+H(x.no||"ORDER")+"</b> | "+H(x.dealer||"")+" | "+money(x.amount)+" <button class='btn blue' onclick=\\\"markOrderRead('"+H(x.no||"")+"')\\\">OPEN / MARK READ</button></div>"}).join("")}if(type==="inquiries"){html="<b>NEW INQUIRIES / REQUESTS ("+n.inquiries+")</b>"+DB.inquiries.filter(function(x){return !x.read}).map(function(x){return"<div class='actionRow'><b>"+H(x.type||"INQUIRY")+"</b> | "+H(x.name||"")+" | "+H(x.message||"")+" <button class='btn blue' onclick='markInquiryRead("+DB.inquiries.indexOf(x)+")'>OPEN</button></div>"}).join("")}if(type==="delivery"){html="<b>PENDING DELIVERY ("+n.delivery+")</b>"+DB.deliveries.filter(function(x){return !U(x.status||"PENDING").includes("DELIVER")}).map(function(x){return"<div class='actionRow'>"+H(x.order||"")+" | "+H(x.dealer||"")+" | "+H(x.tracking||"")+" <button class='btn teal' onclick=\\\"openSection('delivery')\\\">TRACK</button></div>"}).join("")}if(type==="chat"){html="<b>UNREAD MESSAGES ("+n.messages+")</b>"+DB.messages.filter(function(x){return !x.read&&U(x.from||"DEALER")!=="ADMIN"}).map(function(x){return"<div class='actionRow'>"+H(x.dealerId||"")+" | "+H(x.message||"")+" <button class='btn blue' onclick=\\\"openSection('chat')\\\">OPEN CHAT</button></div>"}).join("")}if(type==="dealers"){html="<b>DEALER ATTENTION ("+n.dealers+")</b>"+DB.dealers.filter(function(x){var s=U(x.status||"PENDING");return s==="PENDING"||s==="BLOCKED"}).map(function(x){return"<div class='actionRow'>"+H(x.shop||x.id||"DEALER")+" | "+H(x.status||"PENDING")+" <button class='btn blue' onclick=\\\"openSection('dealers')\\\">OPEN</button></div>"}).join("")}p.innerHTML=html||"<b>NO PENDING WORK.</b>";p.classList.add("show")}
 function markOrderRead(no){var o=DB.orders.find(function(x){return N(x.no)===N(no)});if(o)o.readAdmin=true;saveDB();toast("ORDER MARKED READ","success")}
 function toggleLanguage(){
- currentLang=currentLang==="EN"?"HI":"EN";E("langToggle").textContent=currentLang==="EN"?"EN | हिंदी":"हिंदी | EN";
+ currentLang=currentLang==="EN"?"HI":"EN";E("langToggle").textContent=currentLang==="EN"?"EN | हि":"हि | EN";
  var hi={"DASHBOARD":"डैशबोर्ड","MACHINE MASTER":"मशीन मास्टर","ADD SPARE PART":"स्पेयर पार्ट जोड़ें","ADD ACCESSORY":"एक्सेसरी जोड़ें","ITEM MASTER":"आइटम मास्टर","SUITABLE SEARCH":"सूटेबल सर्च","MACHINE DRAWINGS":"मशीन ड्रॉइंग","SALES ORDERS":"सेल्स ऑर्डर","FINAL ESTIMATES / SALES":"फाइनल एस्टिमेट / सेल","DELIVERY & TRACKING":"डिलीवरी / ट्रैकिंग","INQUIRIES":"इंक्वायरी","DEALER MANAGEMENT":"डीलर मैनेजमेंट","CUSTOMER HISTORY":"कस्टमर हिस्ट्री","30-DAY DEALER JOURNEY":"30-दिन डीलर हिस्ट्री","DEALER CHAT":"डीलर चैट","POINTS & YEARLY SCHEME":"पॉइंट्स / सालाना स्कीम","REPORTS CENTER":"रिपोर्ट्स सेंटर","DEALER CONTROL":"डीलर कंट्रोल","POINTS & SCHEME":"पॉइंट्स / स्कीम","ADS & PROMOTIONS":"विज्ञापन / प्रमोशन","HOME PAGE CONTENT":"होम पेज कंटेंट","AI & API HUB":"AI / API हब","UPDATE CENTER":"अपडेट सेंटर","VERIFY SYSTEM":"सिस्टम वेरिफाई","SETTINGS":"सेटिंग्स","HOME & CATALOG":"होम / कैटलॉग","ONLINE PROCESS":"ऑनलाइन प्रक्रिया","DEALERS":"डीलर्स","BUSINESS":"बिजनेस","PROMOTION":"प्रमोशन","SMART CONTROL":"स्मार्ट कंट्रोल","SYSTEM":"सिस्टम"};
  document.querySelectorAll(".nav,.rnav,.menuTitle").forEach(function(el){if(!el.dataset.enLabel)el.dataset.enLabel=el.childNodes[0]?el.childNodes[0].textContent.trim():el.textContent.trim();var en=el.dataset.enLabel;if(currentLang==="HI"&&hi[en]){if(el.childNodes[0])el.childNodes[0].textContent=hi[en]+" ";else el.textContent=hi[en]}else if(currentLang==="EN"){if(el.childNodes[0])el.childNodes[0].textContent=en+" ";else el.textContent=en}});
  var title=E("pageTitle");if(title){if(!title.dataset.en)title.dataset.en=title.textContent;var map={"TORVO DASHBOARD":"टॉरवो डैशबोर्ड","MACHINES":"मशीन मास्टर","ITEM MASTER":"आइटम मास्टर","SUITABLE SEARCH":"सूटेबल सर्च","DELIVERY & TRACKING":"डिलीवरी / ट्रैकिंग","CUSTOMER HISTORY":"कस्टमर हिस्ट्री","REPORTS CENTER":"रिपोर्ट्स सेंटर","SYSTEM VERIFY":"सिस्टम वेरिफाई","DEALER MANAGEMENT":"डीलर मैनेजमेंट"};title.textContent=currentLang==="HI"?(map[title.dataset.en]||title.dataset.en):title.dataset.en}
@@ -652,6 +774,40 @@ function printCurrentView(){
 }
 function printReport(type){viewReport(type);var w=window.open("","_blank");w.document.write("<html><head><title>TORVO "+type+" REPORT</title><style>body{font-family:Arial;padding:20px}table{width:100%;border-collapse:collapse}th,td{border:1px solid #bbb;padding:6px;font-size:10px}th{background:#eee}</style></head><body><h2>TORVO "+type+" REPORT</h2>"+E("reportOutput").innerHTML+"</body></html>");w.document.close();w.focus();w.print()}
 
+
+
+function defaultPortalSettings(){
+ return{scale:"0.90",compact:"YES",rightBar:"YES",voice:"ON",camera:"ON",refreshAlerts:"ON",sound:"ON",historyDays:30,schemes:"YES",ads:"YES",drawings:"YES",supportPhone:"",whatsapp:"",adminName:"ONLINE ADMIN",portalMessage:""}
+}
+function getPortalSettings(){var x=localStorage.getItem("TORVO_PORTAL_SETTINGS");return x?Object.assign(defaultPortalSettings(),JSON.parse(x)):defaultPortalSettings()}
+function loadPortalSettings(){
+ var s=getPortalSettings();
+ [["setScale",s.scale],["setCompact",s.compact],["setRightBar",s.rightBar],["setVoice",s.voice],["setCamera",s.camera],["setRefreshAlerts",s.refreshAlerts],["setSound",s.sound],["setHistoryDays",s.historyDays],["setSchemes",s.schemes],["setAds",s.ads],["setDrawings",s.drawings],["setSupportPhone",s.supportPhone],["setWhatsapp",s.whatsapp],["setAdminName",s.adminName],["setPortalMessage",s.portalMessage]].forEach(function(a){if(E(a[0]))E(a[0]).value=a[1]})
+}
+function savePortalSettings(){
+ var s={scale:E("setScale").value,compact:E("setCompact").value,rightBar:E("setRightBar").value,voice:E("setVoice").value,camera:E("setCamera").value,refreshAlerts:E("setRefreshAlerts").value,sound:E("setSound").value,historyDays:Number(E("setHistoryDays").value||30),schemes:E("setSchemes").value,ads:E("setAds").value,drawings:E("setDrawings").value,supportPhone:E("setSupportPhone").value.trim(),whatsapp:E("setWhatsapp").value.trim(),adminName:U(E("setAdminName").value.trim()),portalMessage:U(E("setPortalMessage").value.trim())};
+ localStorage.setItem("TORVO_PORTAL_SETTINGS",JSON.stringify(s));applyPortalSettings();toast("SETTINGS SAVED","success")
+}
+function applyPortalSettings(){
+ var s=getPortalSettings();
+ document.body.style.zoom=s.scale;
+ document.querySelector(".right").style.display=s.rightBar==="YES"?"block":"none";
+ document.querySelectorAll(".nav,.rnav,.topBtn,.btn").forEach(function(b){b.style.padding=s.compact==="YES"?"6px 8px":""});
+ var cam=document.querySelector(".camBtn"),mic=document.querySelector(".micBtn");if(cam)cam.style.display=s.camera==="ON"?"block":"none";if(mic)mic.style.display=s.voice==="ON"?"block":"none";
+ var owner=document.querySelector(".owner");if(owner)owner.textContent=s.adminName||"ONLINE ADMIN"
+}
+function resetPortalSettings(){localStorage.removeItem("TORVO_PORTAL_SETTINGS");loadPortalSettings();applyPortalSettings();toast("DEFAULT SETTINGS RESTORED","success")}
+
+function refreshPortal(){
+ refreshAll();
+ refreshActionBadges();
+ closeNotifications();
+ toast("TORVO ADMIN REFRESHED","success")
+}
+function toggleFutureMenu(){
+ var e=E("futureMenu");if(!e)return;e.classList.toggle("show")
+}
+
 function dashboard(){
  E("dItems").textContent=DB.items.length;E("dMachines").textContent=DB.machines.length;E("dIn").textContent=DB.items.filter(function(x){return x.qty>0}).length;E("dOut").textContent=DB.items.filter(function(x){return x.qty<=0}).length;E("dReorder").textContent=DB.items.filter(function(x){return x.qty<=x.min}).length;refreshActionBadges();
  var customers=buildCustomerStats();var cut=DAYSAGO(30),recent=0;customers.forEach(function(c){recent+=c.events.filter(function(e){return String(e.date)>=cut}).length});
@@ -672,7 +828,7 @@ if(E("pfDate"))E("pfDate").value=TODAY();
 if(E("srTo"))E("srTo").value=TODAY();
 if(E("srFrom")){var d=new Date();d.setDate(1);E("srFrom").value=d.toISOString().slice(0,10)}
 if(E("adStart"))E("adStart").value=TODAY();if(E("reportTo"))E("reportTo").value=TODAY();if(E("reportFrom")){var rf=new Date();rf.setDate(1);E("reportFrom").value=rf.toISOString().slice(0,10)}
-refreshAll()
+refreshAll();applyPortalSettings()
 });
 </script>
 <div id="deliveryModal" class="modalMask"><div class="modalBox"><div class="modalTitle">CONFIRM DELIVERY</div><div id="deliveryModalText" style="padding:12px 0;font-weight:800"></div><div class="modalActions"><button class="btn light" onclick="closeDeliveryModal()">CANCEL</button><button class="btn green" onclick="confirmDeliveryNow()">CONFIRM DELIVERY SUCCESSFUL</button></div></div></div>
