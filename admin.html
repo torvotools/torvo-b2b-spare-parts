@@ -102,7 +102,7 @@ body{background:#eef1f4}.left,.right{background:#fff}.top{background:#fff;border
 
 /* ===== TORVO FINAL V4 POLISH ===== */
 html{background:#eef1f4}
-body{zoom:.90}
+body{zoom:1.00}
 @supports not (zoom:1){body{transform:scale(.90);transform-origin:top left;width:111.111%}}
 :root{
   --torvo-red:#d71920;
@@ -176,7 +176,7 @@ body{zoom:.90}
 
 
 /* ===== TORVO V5 FINAL LAYOUT ===== */
-body{zoom:.95;background:#f3f4f6}
+body{zoom:.90;background:#f3f4f6}
 :root{
   --torvo-red:#d71920;
   --torvo-black:#111111;
@@ -233,16 +233,60 @@ body{zoom:.95;background:#f3f4f6}
 
 </style>
 
-<style>
-/* REQUESTED REVIEW PATCH ONLY */
+<style id="torvo-v8-clean-fixes">
+body{zoom:1.00!important}
+.app{grid-template-columns:185px minmax(0,1fr) 185px!important}
 .nav.active,.rnav.active{background:#d71920!important;border-color:#d71920!important;color:#fff!important}
-.refreshGreen{background:#15803d!important;border-color:#15803d!important;color:#fff!important;font-size:21px!important;font-weight:900!important}
+.menuTitle{background:#111!important;color:#fff!important}
+.left,.right,.main{background:#fff!important}
+.main{background:#f8fafc!important}
+.top{
+  display:flex!important;align-items:center!important;flex-wrap:nowrap!important;
+  gap:5px!important;padding:6px 7px!important;background:#fff!important
+}
+.top .title{min-width:120px!important;max-width:145px!important}
+.top .search{flex:1!important;min-width:420px!important}
+.top .search input{height:40px!important}
+.top .iconOnly,.top .compactUtility,.top .bell button,.top .owner,.top .logout{
+  height:40px!important
+}
+.top .owner{
+  min-width:112px!important;max-width:112px!important;
+  padding:0 8px!important;display:flex!important;align-items:center!important;
+  justify-content:center!important;overflow:hidden!important;white-space:nowrap!important;
+  text-overflow:ellipsis!important;background:#111!important;color:#fff!important;
+  border-radius:8px!important;font-size:10px!important;font-weight:900!important
+}
+.top .logout{min-width:78px!important;padding:0 10px!important}
+.verifyBtnV8{
+  min-width:64px!important;background:#fff!important;color:#111!important;
+  border:1px solid #9ca3af!important;font-weight:900!important
+}
+.langYellow{
+  min-width:74px!important;background:#facc15!important;color:#111!important;
+  border:1px solid #eab308!important;font-weight:900!important;padding:0 7px!important;
+  white-space:nowrap!important;overflow:hidden!important
+}
+.refreshGreen{
+  width:40px!important;min-width:40px!important;background:#15803d!important;
+  color:#fff!important;border:1px solid #15803d!important;font-size:22px!important;
+  font-weight:900!important
+}
 .refreshGreen:hover{background:#166534!important}
-.langYellow{background:#facc15!important;border-color:#eab308!important;color:#111!important;font-weight:900!important}
-.top .owner{max-width:112px!important;overflow:hidden!important;text-overflow:ellipsis!important;flex:0 1 auto!important}
-.top{flex-wrap:nowrap!important}
-.left .nav,.right .rnav{margin-top:2px!important;margin-bottom:2px!important}
+.settingsMainBtn{
+  background:#d71920!important;color:#fff!important;border-color:#991b1b!important;
+  font-weight:900!important
+}
+.left .nav,.right .rnav{margin-top:2px!important;margin-bottom:2px!important;padding:7px 8px!important}
+.left .menuTitle,.right .menuTitle{margin-top:5px!important;margin-bottom:3px!important}
+.futureBox{margin-top:3px!important}
+@media(max-width:1250px){
+  .app{grid-template-columns:175px minmax(0,1fr) 175px!important}
+  .top .search{min-width:330px!important}
+  .top .owner{min-width:100px!important;max-width:100px!important}
+}
 </style>
+
 </head>
 <body>
 <div class="app">
@@ -274,11 +318,11 @@ body{zoom:.95;background:#f3f4f6}
 <input id="cameraSearchInput" type="file" accept="image/*" capture="environment" style="display:none" onchange="cameraSearch(this.files[0])">
 </div>
 <button class="iconOnly" title="SEARCH" onclick="globalFind()"><img class="googleSearch" src="data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24'><circle cx='11' cy='11' r='6' fill='none' stroke='%234285F4' stroke-width='2.4'/><path d='M16 16l5 5' stroke='%2334A853' stroke-width='2.8' stroke-linecap='round'/></svg>"></button>
-<button class="compactUtility" onclick="runSystemCheck()">VERIFY</button>
-<button id="langToggle" class="compactUtility langYellow" onclick="toggleLanguage()">EN | हि</button>
+<button class="compactUtility verifyBtnV8" onclick="runSystemCheck()">VERIFY</button>
+<button id="langToggle" class="compactUtility langYellow" onclick="toggleLanguage()">EN | HI</button>
 <button class="iconOnly refreshGreen" title="REFRESH" onclick="refreshPortal()">↻</button>
 <div class="bell"><button onclick="toggleNotifications()">🔔</button><span id="bellNum" class="bellNum">0</span></div>
-<div class="topBtn owner">ONLINE ADMIN</div>
+<div class="topBtn owner" title="ADMIN STATUS: YOU ARE LOGGED IN">ONLINE ADMIN</div>
 <button class="topBtn logout" onclick="logoutAdmin()">LOGOUT</button>
 </div>
 
@@ -375,7 +419,7 @@ body{zoom:.95;background:#f3f4f6}
 <div class="box formStep">
 <div class="boxTitle">1. DISPLAY & LAYOUT</div>
 <div class="grid">
-<div class="field"><label>ADMIN SCALE</label><select id="setScale"><option value="0.85">85%</option><option value="0.90">90%</option><option value="0.95" selected>95%</option><option value="1">100%</option></select></div>
+<div class="field"><label>ADMIN SCALE</label><select id="setScale"><option value="0.85">85%</option><option value="0.90" selected>90%</option><option value="0.95">95%</option><option value="1">100%</option></select></div>
 <div class="field"><label>COMPACT BUTTONS</label><select id="setCompact"><option>YES</option><option>NO</option></select></div>
 <div class="field"><label>BASE THEME</label><select id="setTheme"><option>TORVO RED / BLACK / GREY / WHITE</option></select></div>
 <div class="field"><label>SHOW RIGHT SIDEBAR</label><select id="setRightBar"><option>YES</option><option>NO</option></select></div>
@@ -422,6 +466,21 @@ body{zoom:.95;background:#f3f4f6}
 </div>
 </div>
 
+
+<div class="box formStep">
+<div class="boxTitle">6. QUICK ADMIN CONTROLS</div>
+<div class="grid">
+<div class="field"><label>DEFAULT LANGUAGE</label><select id="setDefaultLang"><option>ENGLISH</option><option>HINDI</option></select></div>
+<div class="field"><label>SHOW BELL ALERTS</label><select id="setBell"><option>YES</option><option>NO</option></select></div>
+<div class="field"><label>SHOW LOW STOCK ALERT</label><select id="setLowStock"><option>YES</option><option>NO</option></select></div>
+<div class="field"><label>SHOW DEALER CHAT</label><select id="setDealerChat"><option>YES</option><option>NO</option></select></div>
+<div class="field"><label>SHOW CUSTOMER HISTORY</label><select id="setCustomerHistory"><option>YES</option><option>NO</option></select></div>
+<div class="field"><label>SHOW FUTURE OPTIONS</label><select id="setFuture"><option>YES</option><option>NO</option></select></div>
+<div class="field"><label>DEFAULT RATE GROUP</label><select id="setRateGroup"><option>A</option><option>B</option><option>C</option></select></div>
+<div class="field"><label>DEFAULT ITEM VISIBILITY</label><select id="setItemVisibility"><option>ONLINE</option><option>OFFLINE</option></select></div>
+</div>
+</div>
+
 <div class="toolbar">
 <button class="btn green" onclick="savePortalSettings()">SAVE SETTINGS</button>
 <button class="btn orange" onclick="applyPortalSettings()">APPLY NOW</button>
@@ -435,7 +494,7 @@ body{zoom:.95;background:#f3f4f6}
 <aside class="right">
 <div class="menuTitle">BUSINESS</div>
 <button class="rnav" onclick="openSection('reports',this)">REPORTS CENTER</button>
-<button class="rnav" onclick="openSection('dealers',this)">DEALER CONTROL <span id="badgeDealer" class="actionBadge">0</span></button>
+<button class="rnav" onclick="openSection('dealers',this)">DEALER CONTROL</button>
 <button class="rnav" onclick="openSection('customers',this)">CUSTOMER HISTORY</button>
 
 <div class="menuTitle">PROMOTION</div>
@@ -443,15 +502,15 @@ body{zoom:.95;background:#f3f4f6}
 <button class="rnav" onclick="openSection('homepage',this)">HOME PAGE CONTENT</button>
 
 <div class="menuTitle">SYSTEM</div>
-<button class="rnav" onclick="openSection('settings',this)">SETTINGS</button>
+<button class="rnav settingsMainBtn" onclick="openSection('settings',this)">⚙ SETTINGS</button>
 <button class="rnav" onclick="runSystemCheck()">VERIFY SYSTEM <span id="badgeSystem" class="actionBadge">0</span></button>
 
 <div class="menuTitle">FUTURE</div>
 <button class="futureToggle" onclick="toggleFutureMenu()">FUTURE OPTIONS ▼</button>
 <div id="futureMenu" class="futureBox">
+<button class="rnav" onclick="openSection('points',this)">POINTS & YEARLY SCHEME</button>
 <button class="rnav" onclick="openSection('ai',this)">AI & API HUB</button>
 <button class="rnav" onclick="openSection('updates',this)">UPDATE CENTER <span id="badgeUpdate" class="actionBadge">0</span></button>
-<button class="rnav" onclick="openSection('points',this)">POINTS & YEARLY SCHEME</button>
 </div>
 </aside>
 </div>
@@ -707,7 +766,7 @@ function refreshActionBadges(){var n=getActionCounts();setActionBadge("badgeOrde
 function showActionPanel(type){var p=E("dashboardActionPanel"),html="",n=getActionCounts();if(type==="orders"){html="<b>NEW SALES ORDERS ("+n.orders+")</b>"+DB.orders.filter(function(x){return !x.readAdmin&&U(x.status||"NEW")==="NEW"}).map(function(x){return"<div class='actionRow'><b>"+H(x.no||"ORDER")+"</b> | "+H(x.dealer||"")+" | "+money(x.amount)+" <button class='btn blue' onclick=\\\"markOrderRead('"+H(x.no||"")+"')\\\">OPEN / MARK READ</button></div>"}).join("")}if(type==="inquiries"){html="<b>NEW INQUIRIES / REQUESTS ("+n.inquiries+")</b>"+DB.inquiries.filter(function(x){return !x.read}).map(function(x){return"<div class='actionRow'><b>"+H(x.type||"INQUIRY")+"</b> | "+H(x.name||"")+" | "+H(x.message||"")+" <button class='btn blue' onclick='markInquiryRead("+DB.inquiries.indexOf(x)+")'>OPEN</button></div>"}).join("")}if(type==="delivery"){html="<b>PENDING DELIVERY ("+n.delivery+")</b>"+DB.deliveries.filter(function(x){return !U(x.status||"PENDING").includes("DELIVER")}).map(function(x){return"<div class='actionRow'>"+H(x.order||"")+" | "+H(x.dealer||"")+" | "+H(x.tracking||"")+" <button class='btn teal' onclick=\\\"openSection('delivery')\\\">TRACK</button></div>"}).join("")}if(type==="chat"){html="<b>UNREAD MESSAGES ("+n.messages+")</b>"+DB.messages.filter(function(x){return !x.read&&U(x.from||"DEALER")!=="ADMIN"}).map(function(x){return"<div class='actionRow'>"+H(x.dealerId||"")+" | "+H(x.message||"")+" <button class='btn blue' onclick=\\\"openSection('chat')\\\">OPEN CHAT</button></div>"}).join("")}if(type==="dealers"){html="<b>DEALER ATTENTION ("+n.dealers+")</b>"+DB.dealers.filter(function(x){var s=U(x.status||"PENDING");return s==="PENDING"||s==="BLOCKED"}).map(function(x){return"<div class='actionRow'>"+H(x.shop||x.id||"DEALER")+" | "+H(x.status||"PENDING")+" <button class='btn blue' onclick=\\\"openSection('dealers')\\\">OPEN</button></div>"}).join("")}p.innerHTML=html||"<b>NO PENDING WORK.</b>";p.classList.add("show")}
 function markOrderRead(no){var o=DB.orders.find(function(x){return N(x.no)===N(no)});if(o)o.readAdmin=true;saveDB();toast("ORDER MARKED READ","success")}
 function toggleLanguage(){
- currentLang=currentLang==="EN"?"HI":"EN";E("langToggle").textContent=currentLang==="EN"?"EN | हि":"हि | EN";
+ currentLang=currentLang==="EN"?"HI":"EN";E("langToggle").textContent=currentLang==="EN"?"EN | HI":"HI | EN";
  var hi={"DASHBOARD":"डैशबोर्ड","MACHINE MASTER":"मशीन मास्टर","ADD SPARE PART":"स्पेयर पार्ट जोड़ें","ADD ACCESSORY":"एक्सेसरी जोड़ें","ITEM MASTER":"आइटम मास्टर","SUITABLE SEARCH":"सूटेबल सर्च","MACHINE DRAWINGS":"मशीन ड्रॉइंग","SALES ORDERS":"सेल्स ऑर्डर","FINAL ESTIMATES / SALES":"फाइनल एस्टिमेट / सेल","DELIVERY & TRACKING":"डिलीवरी / ट्रैकिंग","INQUIRIES":"इंक्वायरी","DEALER MANAGEMENT":"डीलर मैनेजमेंट","CUSTOMER HISTORY":"कस्टमर हिस्ट्री","30-DAY DEALER JOURNEY":"30-दिन डीलर हिस्ट्री","DEALER CHAT":"डीलर चैट","POINTS & YEARLY SCHEME":"पॉइंट्स / सालाना स्कीम","REPORTS CENTER":"रिपोर्ट्स सेंटर","DEALER CONTROL":"डीलर कंट्रोल","POINTS & SCHEME":"पॉइंट्स / स्कीम","ADS & PROMOTIONS":"विज्ञापन / प्रमोशन","HOME PAGE CONTENT":"होम पेज कंटेंट","AI & API HUB":"AI / API हब","UPDATE CENTER":"अपडेट सेंटर","VERIFY SYSTEM":"सिस्टम वेरिफाई","SETTINGS":"सेटिंग्स","HOME & CATALOG":"होम / कैटलॉग","ONLINE PROCESS":"ऑनलाइन प्रक्रिया","DEALERS":"डीलर्स","BUSINESS":"बिजनेस","PROMOTION":"प्रमोशन","SMART CONTROL":"स्मार्ट कंट्रोल","SYSTEM":"सिस्टम"};
  document.querySelectorAll(".nav,.rnav,.menuTitle").forEach(function(el){if(!el.dataset.enLabel)el.dataset.enLabel=el.childNodes[0]?el.childNodes[0].textContent.trim():el.textContent.trim();var en=el.dataset.enLabel;if(currentLang==="HI"&&hi[en]){if(el.childNodes[0])el.childNodes[0].textContent=hi[en]+" ";else el.textContent=hi[en]}else if(currentLang==="EN"){if(el.childNodes[0])el.childNodes[0].textContent=en+" ";else el.textContent=en}});
  var title=E("pageTitle");if(title){if(!title.dataset.en)title.dataset.en=title.textContent;var map={"TORVO DASHBOARD":"टॉरवो डैशबोर्ड","MACHINES":"मशीन मास्टर","ITEM MASTER":"आइटम मास्टर","SUITABLE SEARCH":"सूटेबल सर्च","DELIVERY & TRACKING":"डिलीवरी / ट्रैकिंग","CUSTOMER HISTORY":"कस्टमर हिस्ट्री","REPORTS CENTER":"रिपोर्ट्स सेंटर","SYSTEM VERIFY":"सिस्टम वेरिफाई","DEALER MANAGEMENT":"डीलर मैनेजमेंट"};title.textContent=currentLang==="HI"?(map[title.dataset.en]||title.dataset.en):title.dataset.en}
@@ -722,18 +781,7 @@ function reportRows(type){if(type==="ITEMS")return DB.items.map(function(x){retu
 function reportHeaders(type){var h={ITEMS:["DATE","ITEM NO","NAME","TYPE","BRAND","CATEGORY","STOCK","MIN","ONLINE","STATUS","REMARKS"],SPARES:["ITEM NO","NAME","BRAND","CATEGORY","STOCK","REF","SIZE","MACHINES","REMARKS"],ACCESSORIES:["ITEM NO","NAME","BRAND","CATEGORY","STOCK","SIZE","REMARKS"],MACHINES:["DATE","ID","BRAND","TYPE","WORK","MODEL","ALT MODEL","STATUS","REMARKS"],STOCK:["ITEM NO","NAME","BRAND","STOCK","MIN","ONLINE","STATUS"],REORDER:["ITEM NO","NAME","BRAND","STOCK","MIN"],ESTIMATES:["DATE","ESTIMATE","ORDER","DEALER","AMOUNT","STATUS"],DELIVERY:["DATE","ORDER","DEALER","PARTNER","TRACKING","STATUS","DELIVERED AT"],PARTNERS:["TYPE","NAME","PERSON","MOBILE","CITY"],POINTS:["DEALER","POINTS","YEAR","QUARTER","SCHEME","UPDATED"],INQUIRY:["DATE","ID","TYPE","NAME","MOBILE","MESSAGE","STATUS"],CHAT:["DATE","DEALER","FROM","MESSAGE","STATUS"],DEALERS:["ID","SHOP","PERSON","MOBILE","CITY","RATE","STATUS"],PROFIT:["DATE","ESTIMATE","DEALER","SALE","PURCHASE","COURIER","DELIVERY","PACKING","PAYMENT","OTHER","NET"],EXPENSE:["DATE","ESTIMATE","DEALER","SALE","PURCHASE","COURIER","DELIVERY","PACKING","PAYMENT","OTHER","NET"],ACTIVITY:["TIME","ACTIVITY"],SUITABLE:["ITEM","NAME","BRAND","MACHINES","MATCH","GROUP","VERIFIED BY","DATE"]};return h[type]||["DETAIL"]}
 function viewReport(type){if(type==="SALES"||type==="ORDER_ESTIMATE"||type==="PENDING"){renderSalesReport();E("reportOutput").innerHTML=E("salesReportList").innerHTML;return}if(type==="DEALER_PERFORMANCE"){E("reportOutput").innerHTML="<div class='infoNotice'>DEALER PERFORMANCE WILL USE ORDER + FINAL ESTIMATE DATA. LIVE VALUES WILL APPEAR AFTER DATABASE CONNECTION.</div>";return}if(type==="CUSTOMER_HISTORY"){renderCustomerHistory();E("reportOutput").innerHTML=E("customerHistoryBox").innerHTML;return}var rows=reportRows(type),heads=reportHeaders(type);E("reportOutput").innerHTML="<div class='scroll'><table><thead><tr>"+heads.map(function(h){return"<th>"+H(h)+"</th>"}).join("")+"</tr></thead><tbody>"+(rows.length?rows.map(function(r){return"<tr>"+r.map(function(c){return"<td>"+H(c)+"</td>"}).join("")+"</tr>"}).join(""):"<tr><td colspan='"+heads.length+"' class='empty'>NO DATA.</td></tr>")+"</tbody></table></div>"}
 function exportReportCSV(type){var rows=reportRows(type),heads=reportHeaders(type);if(!rows.length&&(type==="SALES"||type==="ORDER_ESTIMATE"||type==="PENDING"))return toast("OPEN VIEW FIRST; LIVE SALES EXPORT WILL BE ENABLED WITH DATABASE","alert");var all=[heads].concat(rows),csv=all.map(function(r){return r.map(function(v){return '"'+String(v==null?"":v).replace(/"/g,'""')+'"'}).join(",")}).join("\\n");var b=new Blob([csv],{type:"text/csv;charset=utf-8"}),a=document.createElement("a");a.href=URL.createObjectURL(b);a.download="TORVO_"+type+"_REPORT.csv";a.click();URL.revokeObjectURL(a.href);toast("EXCEL / CSV DOWNLOADED","success")}
-function printReportPDF(type){viewReport(type);var w=window.open("","_blank");w.document.write("<html><head><title>TORVO "+type+" REPORT</title><style>body{font-family:Arial}table{width:100%;border-collapse:collapse}th,td{border:1px solid #ccc;padding:6px;font-size:10px}th{background:#eee}</style>
-<style>
-/* REQUESTED REVIEW PATCH ONLY */
-.nav.active,.rnav.active{background:#d71920!important;border-color:#d71920!important;color:#fff!important}
-.refreshGreen{background:#15803d!important;border-color:#15803d!important;color:#fff!important;font-size:21px!important;font-weight:900!important}
-.refreshGreen:hover{background:#166534!important}
-.langYellow{background:#facc15!important;border-color:#eab308!important;color:#111!important;font-weight:900!important}
-.top .owner{max-width:112px!important;overflow:hidden!important;text-overflow:ellipsis!important;flex:0 1 auto!important}
-.top{flex-wrap:nowrap!important}
-.left .nav,.right .rnav{margin-top:2px!important;margin-bottom:2px!important}
-</style>
-</head><body><h2>TORVO "+type+" REPORT</h2>"+E("reportOutput").innerHTML+"</body></html>");w.document.close();w.focus();w.print()}
+function printReportPDF(type){viewReport(type);var w=window.open("","_blank");w.document.write("<html><head><title>TORVO "+type+" REPORT</title><style>body{font-family:Arial}table{width:100%;border-collapse:collapse}th,td{border:1px solid #ccc;padding:6px;font-size:10px}th{background:#eee}</style></head><body><h2>TORVO "+type+" REPORT</h2>"+E("reportOutput").innerHTML+"</body></html>");w.document.close();w.focus();w.print()}
 function renderPendingDeliveries(){if(!E("pendingDeliveryList"))return;var a=DB.deliveries.filter(function(x){return !U(x.status||"PENDING").includes("DELIVER")});E("pendingDeliveryList").innerHTML=a.length?a.map(function(x){var i=DB.deliveries.indexOf(x);return"<div class='bizCard'><b>"+H(x.order||"ORDER")+" | "+H(x.dealer||"")+"</b><div class='help'>"+H(x.partner||"")+" | TRACKING: "+H(x.tracking||"")+" | "+H(x.status||"PENDING")+"</div><div class='toolbar'><button class='btn teal' onclick='openDeliveryConfirm("+i+")'>✓ DELIVERY CONFIRM</button></div></div>"}).join(""):"<div class='empty'>NO PENDING DELIVERY.</div>"}
 function renderDeliveryHistory(){if(!E("deliveryHistoryList"))return;var a=DB.deliveries.filter(function(x){return U(x.status||"").includes("DELIVER")});E("deliveryHistoryList").innerHTML=a.length?a.map(function(x){return"<div class='bizCard'><b>"+H(x.order||"ORDER")+" | DELIVERY SUCCESSFUL</b><div class='help'>"+H(x.dealer||"")+" | "+H(x.partner||"")+" | "+H(x.tracking||"")+" | "+H(x.deliveredAt||x.date||"")+"</div></div>"}).join(""):"<div class='empty'>NO DELIVERED HISTORY.</div>"}
 function openDeliveryConfirm(i){selectedDeliveryIndex=i;var x=DB.deliveries[i];E("deliveryModalText").innerHTML="ORDER: <b>"+H(x.order||"")+"</b><br>DEALER: <b>"+H(x.dealer||"")+"</b><br>TRACKING: <b>"+H(x.tracking||"")+"</b><br><br>CONFIRM THAT DELIVERY IS SUCCESSFUL?";E("deliveryModal").classList.add("show")}
@@ -785,37 +833,15 @@ function deleteItemIdentityMaster(kind){
 function printCurrentView(){
  var active=document.querySelector(".section.active");if(!active)return;
  var w=window.open("","_blank");
- w.document.write("<html><head><title>TORVO PRINT</title><style>body{font-family:Arial;color:#111;padding:18px}button,input,select,textarea{display:none!important}.section{display:block!important}.panel,.box,.card{border:1px solid #bbb;padding:8px;margin:6px 0}table{width:100%;border-collapse:collapse}th,td{border:1px solid #bbb;padding:5px;font-size:10px}th{background:#eee}</style>
-<style>
-/* REQUESTED REVIEW PATCH ONLY */
-.nav.active,.rnav.active{background:#d71920!important;border-color:#d71920!important;color:#fff!important}
-.refreshGreen{background:#15803d!important;border-color:#15803d!important;color:#fff!important;font-size:21px!important;font-weight:900!important}
-.refreshGreen:hover{background:#166534!important}
-.langYellow{background:#facc15!important;border-color:#eab308!important;color:#111!important;font-weight:900!important}
-.top .owner{max-width:112px!important;overflow:hidden!important;text-overflow:ellipsis!important;flex:0 1 auto!important}
-.top{flex-wrap:nowrap!important}
-.left .nav,.right .rnav{margin-top:2px!important;margin-bottom:2px!important}
-</style>
-</head><body><h2>TORVO TOOLS PRIVATE LIMITED</h2>"+active.innerHTML+"</body></html>");
+ w.document.write("<html><head><title>TORVO PRINT</title><style>body{font-family:Arial;color:#111;padding:18px}button,input,select,textarea{display:none!important}.section{display:block!important}.panel,.box,.card{border:1px solid #bbb;padding:8px;margin:6px 0}table{width:100%;border-collapse:collapse}th,td{border:1px solid #bbb;padding:5px;font-size:10px}th{background:#eee}</style></head><body><h2>TORVO TOOLS PRIVATE LIMITED</h2>"+active.innerHTML+"</body></html>");
  w.document.close();w.focus();w.print()
 }
-function printReport(type){viewReport(type);var w=window.open("","_blank");w.document.write("<html><head><title>TORVO "+type+" REPORT</title><style>body{font-family:Arial;padding:20px}table{width:100%;border-collapse:collapse}th,td{border:1px solid #bbb;padding:6px;font-size:10px}th{background:#eee}</style>
-<style>
-/* REQUESTED REVIEW PATCH ONLY */
-.nav.active,.rnav.active{background:#d71920!important;border-color:#d71920!important;color:#fff!important}
-.refreshGreen{background:#15803d!important;border-color:#15803d!important;color:#fff!important;font-size:21px!important;font-weight:900!important}
-.refreshGreen:hover{background:#166534!important}
-.langYellow{background:#facc15!important;border-color:#eab308!important;color:#111!important;font-weight:900!important}
-.top .owner{max-width:112px!important;overflow:hidden!important;text-overflow:ellipsis!important;flex:0 1 auto!important}
-.top{flex-wrap:nowrap!important}
-.left .nav,.right .rnav{margin-top:2px!important;margin-bottom:2px!important}
-</style>
-</head><body><h2>TORVO "+type+" REPORT</h2>"+E("reportOutput").innerHTML+"</body></html>");w.document.close();w.focus();w.print()}
+function printReport(type){viewReport(type);var w=window.open("","_blank");w.document.write("<html><head><title>TORVO "+type+" REPORT</title><style>body{font-family:Arial;padding:20px}table{width:100%;border-collapse:collapse}th,td{border:1px solid #bbb;padding:6px;font-size:10px}th{background:#eee}</style></head><body><h2>TORVO "+type+" REPORT</h2>"+E("reportOutput").innerHTML+"</body></html>");w.document.close();w.focus();w.print()}
 
 
 
 function defaultPortalSettings(){
- return{scale:"0.95",compact:"YES",rightBar:"YES",voice:"ON",camera:"ON",refreshAlerts:"ON",sound:"ON",historyDays:30,schemes:"YES",ads:"YES",drawings:"YES",supportPhone:"",whatsapp:"",adminName:"ONLINE ADMIN",portalMessage:""}
+ return{scale:"1.00",compact:"YES",rightBar:"YES",voice:"ON",camera:"ON",refreshAlerts:"ON",sound:"ON",historyDays:30,schemes:"YES",ads:"YES",drawings:"YES",supportPhone:"",whatsapp:"",adminName:"ONLINE ADMIN",portalMessage:""}
 }
 function getPortalSettings(){var x=localStorage.getItem("TORVO_PORTAL_SETTINGS");return x?Object.assign(defaultPortalSettings(),JSON.parse(x)):defaultPortalSettings()}
 function loadPortalSettings(){
@@ -837,10 +863,16 @@ function applyPortalSettings(){
 function resetPortalSettings(){localStorage.removeItem("TORVO_PORTAL_SETTINGS");loadPortalSettings();applyPortalSettings();toast("DEFAULT SETTINGS RESTORED","success")}
 
 function refreshPortal(){
- refreshAll();
- refreshActionBadges();
- closeNotifications();
- toast("TORVO ADMIN REFRESHED","success")
+ try{
+  refreshAll();
+  dashboard();
+  refreshActionBadges();
+  closeNotifications();
+  toast("TORVO ADMIN REFRESHED","success");
+ }catch(err){
+  console.error(err);
+  alert("REFRESH ERROR: "+err.message);
+ }
 }
 function toggleFutureMenu(){
  var e=E("futureMenu");if(!e)return;e.classList.toggle("show")
