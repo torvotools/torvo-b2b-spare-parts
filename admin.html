@@ -2,1120 +2,972 @@
 <html lang="en">
 <head>
 <meta charset="UTF-8">
-<meta name="viewport" content="width=device-width,initial-scale=1.0">
+<meta name="viewport" content="width=device-width,initial-scale=1">
 <title>TORVO B2B Admin</title>
+
 <style>
-:root{--red:#d71920;--green:#15803d;--blue:#2563eb;--purple:#7c3aed;--orange:#ea580c;--teal:#0f766e;--indigo:#4338ca;--dark:#334155;--bg:#eef3f8;--line:#cbd5e1;--text:#172033;--muted:#64748b}
-*{box-sizing:border-box}body{margin:0;font-family:Arial,sans-serif;background:var(--bg);color:var(--text);font-size:12px}button,input,select,textarea{font:inherit}button{cursor:pointer}.app{display:grid;grid-template-columns:185px 1fr 185px;min-height:100vh}.left,.right{height:100vh;position:sticky;top:0;overflow:auto;padding:12px 9px;background:#fff}.left{background:#edf1f5;border-right:1px solid var(--line)}.right{border-left:1px solid var(--line)}.main{min-width:0;padding:9px}.logo{font-size:25px;font-weight:900;padding:4px 7px;cursor:pointer}.sub{font-size:9px;color:var(--muted);padding:0 7px 10px;border-bottom:1px solid var(--line)}.head{font-size:10px;font-weight:900;margin:13px 5px 5px;padding-bottom:4px;border-bottom:2px solid #94a3b8;text-transform:uppercase}.nav,.rnav{width:100%;position:relative;text-align:left;border-radius:6px;font-weight:700}.nav{border:0;background:transparent;padding:7px 8px;margin:2px 0}.nav:hover{background:#e2e8f0}.nav.active{background:var(--red);color:#fff}.rnav{border:1px solid #d1d5db;background:#fff;padding:8px;margin:3px 0}.rnav:hover{border-color:var(--red);color:var(--red)}.badge{position:absolute;right:6px;top:50%;transform:translateY(-50%);background:var(--red);color:#fff;border-radius:12px;padding:2px 6px;font-size:9px;display:none}.top{background:#fff;border-radius:9px;padding:9px;display:flex;gap:7px;align-items:center;position:sticky;top:0;z-index:5;box-shadow:0 1px 5px #0001}.title{min-width:145px}.title b{font-size:17px}.title small{display:block;color:#6b7280}.search{flex:1;position:relative}.search input{width:100%;height:35px;border:1px solid var(--line);border-radius:7px;padding:7px 38px 7px 9px}.mic{position:absolute;right:5px;top:4px;width:28px;height:27px;border:0;background:#eef4f9;border-radius:50%}.topbtn{height:35px;border-radius:7px;border:0;color:#fff;font-weight:900;padding:0 10px}.searchbtn{background:var(--green)}.logout{background:var(--red)}.owner{background:#f8fafc;color:#111;border:1px solid var(--line)}.bell{position:relative}.bell button{width:35px;height:35px;border:1px solid var(--line);background:#fff;border-radius:7px}.bellnum{position:absolute;right:-4px;top:-5px;background:var(--red);color:#fff;border-radius:10px;min-width:17px;height:17px;font-size:8px;font-weight:900;display:none;align-items:center;justify-content:center}.section{display:none}.section.active{display:block}.panel{background:#fff;border-radius:9px;padding:10px;margin-top:9px;box-shadow:0 1px 5px #0001}.ptitle{display:flex;align-items:center;gap:7px;border-bottom:2px solid var(--line);padding-bottom:7px;margin-bottom:9px}.tag{color:#fff;padding:5px 8px;border-radius:5px;font-size:9px;font-weight:900}.blue{background:var(--blue)}.green{background:var(--green)}.red{background:var(--red)}.orange{background:var(--orange)}.purple{background:var(--purple)}.teal{background:var(--teal)}.indigo{background:var(--indigo)}.dark{background:var(--dark)}.cards{display:grid;grid-template-columns:repeat(4,1fr);gap:7px}.card{background:#fff;border-radius:8px;padding:10px;border-top:3px solid var(--blue);box-shadow:0 1px 4px #0001}.card small{color:#6b7280}.card strong{display:block;font-size:21px;margin-top:4px}.btn{border:0;border-radius:6px;color:#fff;padding:7px 10px;font-weight:800;font-size:10px}.btn-light{background:#fff;color:#111;border:1px solid var(--line)}.toolbar{display:flex;gap:5px;flex-wrap:wrap;align-items:center;margin-bottom:8px}.toolbar input,.toolbar select{padding:7px;border:1px solid var(--line);border-radius:6px}.grow{flex:1;min-width:180px}.grid{display:grid;grid-template-columns:repeat(3,1fr);gap:8px}.field label{display:block;font-size:10px;font-weight:800;margin-bottom:4px}.field input,.field select,.field textarea{width:100%;border:1px solid var(--line);border-radius:6px;padding:8px}.full{grid-column:1/-1}.box{grid-column:1/-1;border-radius:9px;padding:10px;border:1px solid}.bblue{background:#eff6ff;border-color:#bfdbfe}.byellow{background:#fffbeb;border-color:#fde68a}.bgreen{background:#f0fdf4;border-color:#bbf7d0}.borange{background:#fff7ed;border-color:#fed7aa}.bpurple{background:#f5f3ff;border-color:#ddd6fe}.bteal{background:#f0fdfa;border-color:#99f6e4}.btitle{font-size:11px;font-weight:900;margin-bottom:8px}.row{display:flex;gap:4px}.row input,.row select{flex:1}.mini{width:31px;border:1px solid var(--line);background:#f8fafc;border-radius:6px;font-weight:900}table{width:100%;border-collapse:collapse;min-width:760px;font-size:10px}th,td{padding:7px 6px;border-bottom:1px solid #e5e7eb;text-align:left;white-space:nowrap}th{background:#f8fafc;font-weight:900}.scroll{overflow:auto}.itemgrid{display:grid;grid-template-columns:repeat(3,1fr);gap:8px}.icard{border:1px solid #e5e7eb;border-radius:9px;padding:9px;background:#fff}.ipic{height:75px;background:#f8fafc;border:1px dashed var(--line);border-radius:6px;display:flex;align-items:center;justify-content:center;color:#94a3b8}.ipic img{max-width:100%;max-height:100%}.iname{font-size:12px;font-weight:900;margin:6px 0}.meta{font-size:9px;color:#64748b;margin:2px 0}.rates{display:grid;grid-template-columns:repeat(4,1fr);gap:4px;margin-top:6px}.rate{font-size:9px;text-align:center;border:1px solid #e5e7eb;border-radius:5px;padding:5px}.cost{background:#fff7ed}.ra{background:#eff6ff}.rb{background:#f0fdf4}.rc{background:#f5f3ff}.stock{display:flex;justify-content:space-between;background:#f8fafc;padding:6px;border-radius:5px;margin-top:6px;font-size:9px}.bulk{background:#fffbeb;border:1px solid #fde68a;padding:6px;border-radius:6px;margin-top:6px;font-size:9px}.chips{display:flex;gap:5px;flex-wrap:wrap;margin-top:7px}.chip{background:#fff;border:1px solid var(--line);border-radius:14px;padding:5px 7px;font-size:9px}.chip b{color:var(--red);cursor:pointer}.flow{display:flex;gap:5px;flex-wrap:wrap}.step{padding:6px 8px;border:1px solid #d1d5db;background:#f8fafc;border-radius:14px;font-size:9px;font-weight:700}.empty{text-align:center;padding:18px;color:#6b7280}.notice{padding:8px;background:#fff7ed;border-left:4px solid var(--orange);border-radius:6px;font-size:9px}.toast{position:fixed;right:200px;bottom:15px;padding:10px 12px;border-radius:8px;color:#fff;background:var(--dark);display:none;z-index:99}.notif{display:none;position:fixed;right:195px;top:55px;width:290px;background:#fff;border:1px solid var(--line);border-radius:8px;box-shadow:0 10px 25px #0002;padding:10px;z-index:50}.notif div{padding:6px;border-bottom:1px solid #eee;font-size:9px}.reportgrid{display:grid;grid-template-columns:repeat(3,1fr);gap:8px}.reportbtn{background:#f8fafc;border:1px solid var(--line);padding:12px;border-radius:7px;font-weight:800;text-align:left}@media(max-width:1100px){.app{grid-template-columns:170px 1fr 170px}.cards{grid-template-columns:repeat(2,1fr)}.itemgrid{grid-template-columns:repeat(2,1fr)}}
+:root{
+--red:#d71920;--green:#16813d;--blue:#2368b0;--purple:#7651b8;
+--orange:#e47b18;--teal:#11776d;--dark:#34465c;--bg:#eef3f7;
+--line:#ced8e3;--text:#162234;--muted:#667487
+}
+*{box-sizing:border-box}
+body{margin:0;background:var(--bg);color:var(--text);font:12px Arial,sans-serif}
+button,input,select,textarea{font:inherit}button{cursor:pointer}
+.app{display:grid;grid-template-columns:190px minmax(0,1fr) 190px;min-height:100vh}
+.left,.right{height:100vh;position:sticky;top:0;overflow:auto;padding:11px 9px}
+.left{background:#eef1f5;border-right:1px solid var(--line)}
+.right{background:#fff;border-left:1px solid var(--line)}
+.main{padding:9px;min-width:0}
+.logo{font-size:25px;font-weight:900;padding:5px 7px;cursor:pointer}
+.logo:hover{color:var(--red)}
+.sub{font-size:9px;color:var(--muted);padding:0 7px 10px;border-bottom:1px solid var(--line)}
+.menuTitle{font-size:10px;font-weight:900;text-transform:uppercase;margin:13px 5px 5px;padding-bottom:4px;border-bottom:2px solid #94a3b8}
+.nav,.rnav{width:100%;position:relative;text-align:left;border-radius:6px;font-weight:700}
+.nav{border:0;background:transparent;padding:7px 8px;margin:2px 0}
+.nav:hover{background:#e2e8f0}.nav.active{background:var(--red);color:#fff}
+.rnav{border:1px solid #d1d5db;background:#fff;padding:8px;margin:3px 0}
+.rnav:hover{border-color:var(--red);color:var(--red)}
+.badge{position:absolute;right:6px;top:50%;transform:translateY(-50%);background:var(--red);color:#fff;border-radius:12px;padding:2px 6px;font-size:9px;display:none}
+.top{background:#fff;border-radius:9px;padding:9px;display:flex;gap:7px;align-items:center;position:sticky;top:0;z-index:10;box-shadow:0 1px 5px #0001}
+.title{min-width:145px}.title b{font-size:17px}.title small{display:block;color:var(--muted)}
+.search{flex:1;position:relative}.search input{width:100%;height:35px;border:1px solid var(--line);border-radius:7px;padding:7px 40px 7px 9px}
+.mic{position:absolute;right:5px;top:4px;width:28px;height:27px;border:0;background:#edf3f8;border-radius:50%}
+.topBtn{height:35px;border:0;border-radius:7px;padding:0 10px;font-weight:900;color:#fff}
+.searchBtn{background:var(--green)}.logout{background:var(--red)}.owner{background:#f8fafc;color:#111;border:1px solid var(--line)}
+.bell{position:relative}.bell button{width:36px;height:36px;border:1px solid #fdba74;background:#fff7ed;border-radius:9px;font-size:18px}
+.bellNum{position:absolute;right:-5px;top:-6px;min-width:18px;height:18px;background:var(--red);color:#fff;border-radius:10px;font-size:8px;font-weight:900;display:none;align-items:center;justify-content:center}
+.section{display:none}.section.active{display:block}
+.panel{background:#fff;border-radius:9px;padding:10px;margin-top:9px;box-shadow:0 1px 5px #0001}
+.pTitle{display:flex;align-items:center;gap:7px;border-bottom:2px solid var(--line);padding-bottom:7px;margin-bottom:9px}
+.tag{color:#fff;padding:5px 8px;border-radius:5px;font-size:9px;font-weight:900}
+.blue{background:var(--blue)}.green{background:var(--green)}.red{background:var(--red)}.purple{background:var(--purple)}.orange{background:var(--orange)}.teal{background:var(--teal)}.dark{background:var(--dark)}
+.cards{display:grid;grid-template-columns:repeat(4,1fr);gap:7px}.card{background:#fff;border-radius:8px;padding:10px;border-top:3px solid var(--blue);box-shadow:0 1px 4px #0001;cursor:pointer}.card small{color:var(--muted)}.card strong{display:block;font-size:21px;margin-top:4px}
+.btn{border:0;border-radius:6px;color:#fff;padding:7px 10px;font-size:10px;font-weight:800}.light{background:#fff;color:#111;border:1px solid var(--line)}
+.toolbar{display:flex;gap:5px;align-items:center;flex-wrap:wrap;margin-bottom:8px}.toolbar input,.toolbar select{border:1px solid var(--line);border-radius:6px;padding:7px}.grow{flex:1;min-width:180px}
+.grid{display:grid;grid-template-columns:repeat(3,1fr);gap:8px}.full{grid-column:1/-1}
+.field label{display:block;font-size:10px;font-weight:800;margin-bottom:4px}.field input,.field select,.field textarea{width:100%;border:1px solid var(--line);border-radius:6px;padding:8px;background:#fff}
+.field input.ok,.field select.ok{border-color:#22c55e;background:#f0fdf4}.field input.bad,.field select.bad{border-color:#ef4444;background:#fff1f2}
+.help{font-size:9px;color:var(--muted);margin-top:3px}.help.ok{color:var(--green);font-weight:700}.help.bad{color:var(--red);font-weight:700}
+.box{grid-column:1/-1;border:1px solid;border-radius:9px;padding:10px}.bBlue{background:#eff6ff;border-color:#bfdbfe}.bYellow{background:#fffbeb;border-color:#fde68a}.bGreen{background:#f0fdf4;border-color:#bbf7d0}.bOrange{background:#fff7ed;border-color:#fed7aa}.bPurple{background:#f5f3ff;border-color:#ddd6fe}.bTeal{background:#f0fdfa;border-color:#99f6e4}.boxTitle{font-size:11px;font-weight:900;margin-bottom:8px}
+.row{display:flex;gap:4px}.row input,.row select{flex:1}.mini{width:31px;min-width:31px;border:1px solid var(--line);background:#f8fafc;border-radius:6px;font-weight:900}.mini.edit{background:#eff6ff}.mini.del{background:#fff1f2;color:var(--red)}
+.scroll{overflow:auto}table{width:100%;border-collapse:collapse;min-width:760px;font-size:10px}th,td{padding:7px 6px;border-bottom:1px solid #e5e7eb;text-align:left;white-space:nowrap}th{background:#f8fafc;font-weight:900}
+.empty{text-align:center;padding:18px;color:var(--muted)}
+.itemGrid{display:grid;grid-template-columns:repeat(3,1fr);gap:8px}.itemCard{background:#fff;border:1px solid #e5e7eb;border-radius:9px;padding:9px}.pic{height:75px;border:1px dashed var(--line);border-radius:6px;background:#f8fafc;display:flex;align-items:center;justify-content:center;color:#94a3b8}.pic img{max-width:100%;max-height:100%}.itemName{font-size:12px;font-weight:900;margin:6px 0}.meta{font-size:9px;color:var(--muted);margin:2px 0}
+.rates{display:grid;grid-template-columns:repeat(4,1fr);gap:4px;margin-top:6px}.rate{border:1px solid #e5e7eb;border-radius:5px;padding:5px;text-align:center;font-size:9px}.cost{background:#fff7ed}.ra{background:#eff6ff}.rb{background:#f0fdf4}.rc{background:#f5f3ff}.stock{display:flex;justify-content:space-between;background:#f8fafc;border-radius:5px;padding:6px;margin-top:6px;font-size:9px}.bulk{background:#fffbeb;border:1px solid #fde68a;border-radius:6px;padding:6px;margin-top:6px;font-size:9px}
+.chips{display:flex;gap:5px;flex-wrap:wrap;margin-top:7px}.chip{border:1px solid var(--line);background:#fff;border-radius:14px;padding:5px 7px;font-size:9px}.chip b{color:var(--red);cursor:pointer}
+.notice{padding:8px;background:#fff7ed;border-left:4px solid var(--orange);border-radius:6px;font-size:9px}.flow{display:flex;gap:5px;flex-wrap:wrap}.step{padding:6px 8px;border:1px solid var(--line);background:#f8fafc;border-radius:14px;font-size:9px;font-weight:700}
+.history{border:1px solid #fde68a;background:#fffef5;border-radius:7px;padding:8px;margin-top:7px}.historyRow{display:grid;grid-template-columns:1fr 1fr;gap:5px;font-size:9px;padding:3px 0;border-bottom:1px dashed #ddd}
+.reportGrid{display:grid;grid-template-columns:repeat(3,1fr);gap:8px}.reportBtn{background:#f8fafc;border:1px solid var(--line);border-radius:7px;padding:12px;font-weight:800;text-align:left}
+.notif{display:none;position:fixed;right:195px;top:56px;width:340px;max-height:430px;overflow:auto;background:#fff;border:1px solid var(--line);border-radius:10px;box-shadow:0 10px 25px #0003;padding:10px;z-index:50}.notifTitle{font-weight:900;margin-bottom:7px}.notifItem{padding:8px;border:1px solid #e5e7eb;border-radius:7px;margin-bottom:5px;cursor:pointer}.nOrder{background:#fff7ed}.nDealer{background:#f0fdfa}.nRequest{background:#fff1f2}.nEstimate{background:#eff6ff}.nDelivery{background:#f5f3ff}
+.toast{position:fixed;right:205px;bottom:17px;display:none;padding:10px 13px;border-radius:8px;color:#fff;background:var(--dark);z-index:99}
+@media(max-width:1100px){.app{grid-template-columns:170px minmax(0,1fr) 170px}.cards{grid-template-columns:repeat(2,1fr)}.itemGrid{grid-template-columns:repeat(2,1fr)}}
 </style>
 </head>
+
 <body>
 <div class="app">
+
 <aside class="left">
-<div class="logo" onclick="home()">TORVO</div><div class="sub">B2B Dealer Business System</div>
-<div class="head">HOME & CATALOG</div>
-<button class="nav active" onclick="openSec('dashboard',this)">Dashboard</button>
-<button class="nav" onclick="openSec('items',this)">ITEM</button>
-<button class="nav" onclick="openSec('spares',this)">Spare Parts</button>
-<button class="nav" onclick="openSec('machines',this)">Machines</button>
-<button class="nav" onclick="openSec('suitable',this)">Suitable Mapping</button>
-<div class="head">ONLINE PROCESS</div>
-<button class="nav" onclick="openSec('orders',this)">Sales Orders <span class="badge" id="bOrders">0</span></button>
-<button class="nav" onclick="openSec('estimates',this)">Estimates <span class="badge" id="bEst">0</span></button>
-<button class="nav" onclick="openSec('confirmed',this)">Confirmed Orders <span class="badge" id="bConf">0</span></button>
-<button class="nav" onclick="openSec('delivery',this)">Delivery & Tracking <span class="badge" id="bDel">0</span></button>
+<div class="logo" onclick="goHome()">TORVO</div>
+<div class="sub">B2B Dealer Business System</div>
+
+<div class="menuTitle">HOME & CATALOG</div>
+<button class="nav active" onclick="openSection('dashboard',this)">Dashboard</button>
+<button class="nav" onclick="openSection('machines',this)">Machines</button>
+<button class="nav" onclick="openSection('spares',this)">Spare Parts</button>
+<button class="nav" onclick="openSection('items',this)">ITEM</button>
+<button class="nav" onclick="openSection('suitable',this)">Suitable Mapping</button>
+
+<div class="menuTitle">ONLINE PROCESS</div>
+<button class="nav" onclick="openSection('orders',this)">Sales Orders <span id="badgeOrders" class="badge">0</span></button>
+<button class="nav" onclick="openSection('estimates',this)">Estimates <span id="badgeEst" class="badge">0</span></button>
+<button class="nav" onclick="openSection('confirmed',this)">Confirmed Orders <span id="badgeConf" class="badge">0</span></button>
+<button class="nav" onclick="openSection('delivery',this)">Delivery & Tracking <span id="badgeDelivery" class="badge">0</span></button>
 </aside>
 
 <main class="main">
+
 <div class="top">
 <div class="title"><b id="pageTitle">TORVO Dashboard</b><small>B2B Online Dealer Portal</small></div>
-<div class="search"><input id="globalSearch" placeholder="Search item, machine, model, dealer, order..." onkeydown="if(event.key==='Enter')searchAll()"><button class="mic" onclick="voice()">🎙️</button></div>
-<button class="topbtn searchbtn" onclick="searchAll()">Search</button>
-<div class="bell"><button onclick="showNotif()">🔔</button><span class="bellnum" id="bellNum">0</span></div>
-<div class="topbtn owner">OWNER / ADMIN</div>
-<button class="topbtn logout" onclick="logout()">Logout</button>
+
+<div class="search">
+<input id="globalSearch" placeholder="Search item, machine, model, dealer, order..." onkeydown="if(event.key==='Enter')globalFind()">
+<button class="mic" onclick="voiceSearch()">🎙️</button>
+</div>
+
+<button class="topBtn searchBtn" onclick="globalFind()">Search</button>
+
+<div class="bell">
+<button onclick="toggleNotifications()">🔔</button>
+<span id="bellNum" class="bellNum">0</span>
+</div>
+
+<div class="topBtn owner">OWNER / ADMIN</div>
+<button class="topBtn logout" onclick="logoutAdmin()">Logout</button>
 </div>
 
 <section id="dashboard" class="section active">
 <div class="cards">
-<div class="card"><small>Total Items</small><strong id="dItems">0</strong></div>
-<div class="card"><small>Machines</small><strong id="dMachines">0</strong></div>
-<div class="card"><small>In Stock</small><strong id="dIn">0</strong></div>
-<div class="card"><small>Out of Stock</small><strong id="dOut">0</strong></div>
+<div class="card" onclick="openSection('items')"><small>Total Items</small><strong id="dItems">0</strong></div>
+<div class="card" onclick="openSection('machines')"><small>Machines</small><strong id="dMachines">0</strong></div>
+<div class="card" onclick="openFiltered('in')"><small>In Stock</small><strong id="dIn">0</strong></div>
+<div class="card" onclick="openFiltered('out')"><small>Out of Stock</small><strong id="dOut">0</strong></div>
+<div class="card" onclick="openFiltered('reorder')"><small>Reorder Required</small><strong id="dReorder">0</strong></div>
+<div class="card" onclick="openSection('orders')"><small>New Sales Orders</small><strong id="dOrders">0</strong></div>
+<div class="card" onclick="openSection('dealers')"><small>Dealer Inquiries</small><strong id="dDealer">0</strong></div>
+<div class="card" onclick="openSection('requests')"><small>Spare Part Requests</small><strong id="dRequests">0</strong></div>
 </div>
-<div class="panel"><div class="ptitle"><span class="tag orange">ONLINE ORDER FLOW</span><b>Dealer Order Process</b></div>
-<div class="flow"><span class="step">Dealer Website Order</span><span>→</span><span class="step">Sales Order</span><span>→</span><span class="step">Admin Modify</span><span>→</span><span class="step">Estimate</span><span>→</span><span class="step">Dealer Modify / OK</span><span>→</span><span class="step">Admin Approval</span><span>→</span><span class="step">Delivery</span></div>
-<div class="notice" style="margin-top:8px">Sales Order और Estimate manually create नहीं होंगे. Website dealer order से process शुरू होगा.</div></div>
+
+<div class="panel">
+<div class="pTitle"><span class="tag orange">ORDER FLOW</span><b>Website Dealer Order Process</b></div>
+<div class="flow">
+<span class="step">Dealer Website Order</span><span>→</span>
+<span class="step">Sales Order</span><span>→</span>
+<span class="step">Admin Modify</span><span>→</span>
+<span class="step">Estimate</span><span>→</span>
+<span class="step">Dealer Modify / OK</span><span>→</span>
+<span class="step">Admin Final Approval</span><span>→</span>
+<span class="step">Delivery / Tracking</span>
+</div>
+<div class="notice" style="margin-top:8px">Sales Order और Estimate manually create नहीं होंगे. Process B2B website dealer order से शुरू होगा.</div>
+</div>
 </section>
 
-<section id="items" class="section"><div class="panel"><div class="ptitle"><span class="tag blue">ITEM</span><b>Master Item View</b></div>
-<div class="toolbar"><input id="itemSearch" class="grow" placeholder="Search item no., name, brand, machine..." oninput="renderItems()"><button class="btn blue" onclick="setFilter('all')">All Items</button><button class="btn green" onclick="setFilter('in')">In Stock</button><button class="btn red" onclick="setFilter('out')">Out of Stock</button><button class="btn orange" onclick="setFilter('reorder')">Reorder Recommended</button><button class="btn purple" onclick="setFilter('top')">Top Selling</button><button class="btn dark" onclick="setFilter('low')">Least Selling</button></div>
-<div class="toolbar"><button class="btn green" onclick="exportCSV()">Excel</button><button class="btn red" onclick="window.print()">PDF / Print</button><button class="btn orange" onclick="reorderList()">Create Order List</button></div><div id="itemGrid" class="itemgrid"></div></div></section>
+<section id="machines" class="section">
+<div class="panel">
+<div class="pTitle"><span class="tag purple">MACHINE</span><b>Machine Master</b></div>
 
-<section id="spares" class="section"><div class="panel"><div class="ptitle"><span class="tag blue">SPARE PART ENTRY</span><b>Add / Edit Spare Part</b></div><div class="grid">
-<div class="box bblue"><div class="btitle">1. BASIC ITEM DETAILS</div><div class="grid">
-<div class="field"><label>Item Number *</label><div class="row"><input id="spNo" list="itemNoList"><button class="mini" type="button" onclick="masterAdd('item')">+</button></div><datalist id="itemNoList"></datalist></div>
-<div class="field"><label>Spare Part Name *</label><div class="row"><input id="spName" list="spareNameList"><button class="mini" type="button" onclick="masterAdd('name')">+</button></div><datalist id="spareNameList"></datalist></div>
+<div class="box bPurple">
+<div class="grid">
+<div class="field"><label>Entry Date *</label><input id="machineDate" type="date"></div>
+
+<div class="field">
+<label>Brand *</label>
+<div class="row">
+<input id="mBrand" list="brandList" oninput="validateMachineBrand()">
+<button class="mini" onclick="addMaster('brand','mBrand')">+</button>
+<button class="mini edit" onclick="editMaster('brand','mBrand')">✎</button>
+<button class="mini del" onclick="deleteMaster('brand','mBrand')">🗑️</button>
+</div>
+<div id="mBrandHelp" class="help"></div>
+</div>
+
+<div class="field"><label>Machine Type *</label><input id="mType" list="machineTypeList" oninput="markFilled(this)"><datalist id="machineTypeList"></datalist></div>
+
+<div class="field"><label>Model Number *</label><input id="mModel" oninput="validateModel()"><div id="mModelHelp" class="help"></div></div>
+
+<div class="field"><label>Description</label><input id="mDesc"></div>
+
+<div class="field"><label>Status</label><select id="mStatus"><option>Active</option><option>Inactive</option></select></div>
+</div>
+
+<div class="toolbar" style="margin-top:8px">
+<button class="btn green" onclick="saveMachine(false)">Save Machine</button>
+<button class="btn blue" onclick="saveMachine(true)">Save & Add Next</button>
+<button class="btn light" onclick="clearMachine()">Clear</button>
+</div>
+</div>
+
+<div class="scroll" style="margin-top:9px">
+<table>
+<thead><tr><th>Date</th><th>ID</th><th>Brand</th><th>Machine</th><th>Model</th><th>Status</th><th>Action</th></tr></thead>
+<tbody id="machineRows"></tbody>
+</table>
+</div>
+</div>
+</section>
+
+<section id="spares" class="section">
+<div class="panel">
+<div class="pTitle"><span class="tag blue">SPARE PART</span><b>Add / Edit Spare Part</b></div>
+
+<div class="grid">
+
+<div class="box bTeal">
+<div class="boxTitle">1. ENTRY DATE</div>
+<div class="grid">
+<div class="field"><label>Date *</label><input id="spDate" type="date"></div>
+</div>
+</div>
+
+<div class="box bBlue">
+<div class="boxTitle">2. BASIC ITEM DETAILS</div>
+<div class="grid">
+
+<div class="field">
+<label>Item Number *</label>
+<div class="row">
+<input id="spNo" list="itemNoList" oninput="validateMasterField('item','spNo','spNoHelp')">
+<button class="mini" onclick="addMaster('item','spNo')">+</button>
+<button class="mini edit" onclick="editMaster('item','spNo')">✎</button>
+<button class="mini del" onclick="deleteMaster('item','spNo')">🗑️</button>
+</div>
+<datalist id="itemNoList"></datalist>
+<div id="spNoHelp" class="help"></div>
+</div>
+
+<div class="field">
+<label>Spare Part Name *</label>
+<div class="row">
+<input id="spName" list="spareNameList" oninput="validateMasterField('name','spName','spNameHelp')">
+<button class="mini" onclick="addMaster('name','spName')">+</button>
+<button class="mini edit" onclick="editMaster('name','spName')">✎</button>
+<button class="mini del" onclick="deleteMaster('name','spName')">🗑️</button>
+</div>
+<datalist id="spareNameList"></datalist>
+<div id="spNameHelp" class="help"></div>
+</div>
+
 <div class="field"><label>Photo</label><input id="spPhoto" type="file" accept="image/*"></div>
-<div class="field"><label>Brand *</label><div class="row"><input id="spBrand" list="brandList"><button class="mini" type="button" onclick="masterAdd('brand')">+</button></div><datalist id="brandList"></datalist></div>
-<div class="field"><label>Category *</label><div class="row"><input id="spCat" list="catList"><button class="mini" type="button" onclick="masterAdd('cat')">+</button></div><datalist id="catList"></datalist></div>
-<div class="field"><label>Pieces Per Box</label><input id="spBox" type="number" min="0" value="1"></div></div></div>
 
-<div class="box byellow"><div class="btitle">2. COST & SELLING RATES</div><div class="grid">
+<div class="field">
+<label>Brand *</label>
+<div class="row">
+<input id="spBrand" list="brandList" oninput="validateMasterField('brand','spBrand','spBrandHelp')">
+<button class="mini" onclick="addMaster('brand','spBrand')">+</button>
+<button class="mini edit" onclick="editMaster('brand','spBrand')">✎</button>
+<button class="mini del" onclick="deleteMaster('brand','spBrand')">🗑️</button>
+</div>
+<div id="spBrandHelp" class="help"></div>
+</div>
+
+<div class="field">
+<label>Category *</label>
+<div class="row">
+<input id="spCategory" list="categoryList" oninput="validateMasterField('category','spCategory','spCategoryHelp')">
+<button class="mini" onclick="addMaster('category','spCategory')">+</button>
+<button class="mini edit" onclick="editMaster('category','spCategory')">✎</button>
+<button class="mini del" onclick="deleteMaster('category','spCategory')">🗑️</button>
+</div>
+<datalist id="categoryList"></datalist>
+<div id="spCategoryHelp" class="help"></div>
+</div>
+
+<div class="field"><label>Pieces Per Box</label><input id="spBox" type="number" min="0" value="1"></div>
+</div>
+</div>
+
+<div class="box bYellow">
+<div class="boxTitle">3. PURCHASE COST & SELLING RATES</div>
+<div class="grid">
 <div class="field"><label>Purchase Cost</label><input id="spCost" type="number" min="0" step="0.01" value="0"></div>
-<div class="field"><label>Purchase Date</label><input id="spDate" type="date"></div>
 <div class="field"><label>Rate A</label><input id="spA" type="number" min="0" step="0.01" value="0"></div>
 <div class="field"><label>Rate B</label><input id="spB" type="number" min="0" step="0.01" value="0"></div>
 <div class="field"><label>Rate C</label><input id="spC" type="number" min="0" step="0.01" value="0"></div>
-</div></div>
+</div>
+<div id="costHistory" class="history"><b>Purchase Cost History</b><div class="meta">Item save होने के बाद date-wise history यहाँ दिखेगी.</div></div>
+</div>
 
-<div class="box bgreen"><div class="btitle">3. STOCK & AVAILABILITY</div><div class="grid">
-<div class="field"><label>Quantity</label><input id="spQty" type="number" min="0" value="0"></div>
+<div class="box bGreen">
+<div class="boxTitle">4. STOCK & AVAILABILITY</div>
+<div class="grid">
+<div class="field"><label>Current Quantity</label><input id="spQty" type="number" min="0" value="0"></div>
 <div class="field"><label>Minimum / Reorder Level</label><input id="spMin" type="number" min="0" value="0"></div>
 <div class="field"><label>Status</label><select id="spStatus"><option>Active</option><option>Inactive</option></select></div>
 <div class="field"><label>Dealer Visibility</label><select id="spVisible"><option>Show</option><option>Hide</option></select></div>
-</div></div>
+</div>
+</div>
 
-<div class="box borange"><div class="btitle">4. QUANTITY SLAB / BULK PRICE</div><div class="grid">
+<div class="box bOrange">
+<div class="boxTitle">5. QUANTITY SLAB / BULK PRICE</div>
+<div class="grid">
 <div class="field"><label>Minimum Quantity</label><input id="bulkQty" type="number" min="0" value="0"></div>
 <div class="field"><label>Special Rate</label><input id="bulkRate" type="number" min="0" step="0.01" value="0"></div>
-<div class="field"><label>Add Slab</label><button class="btn orange" type="button" onclick="addSlab()">+ Add Quantity Slab</button></div>
-</div><div id="slabChips" class="chips"></div></div>
-
-<div class="box bpurple"><div class="btitle">5. SUITABLE MACHINES — MULTIPLE ALLOWED</div><div class="grid">
-<div class="field"><label>Select Machine</label><select id="machineSelect"></select></div>
-<div class="field"><label>Add</label><button class="btn purple" type="button" onclick="addMachineMap()">+ Add Machine</button></div>
-<div class="field"><label>Machine Missing?</label><button class="btn btn-light" type="button" onclick="openSec('machines')">Open Machines</button></div>
-</div><div id="machineChips" class="chips"></div></div>
-
-<div class="full"><button class="btn green" type="button" onclick="saveSpare()">Save Spare Part</button> <button class="btn btn-light" type="button" onclick="clearSpare()">Clear</button></div>
-</div></div></section>
-
-<section id="machines" class="section"><div class="panel"><div class="ptitle"><span class="tag purple">MACHINE ENTRY</span><b>Machines</b></div>
-<div class="box bpurple"><div class="grid">
-<div class="field"><label>Brand *</label><input id="mBrand" list="brandList"></div>
-<div class="field"><label>Machine Type *</label><input id="mType" placeholder="Angle Grinder / Drill..."></div>
-<div class="field"><label>Model Number *</label><input id="mModel"></div>
-<div class="field"><label>Description</label><input id="mDesc"></div>
-<div class="field"><label>Status</label><select id="mStatus"><option>Active</option><option>Inactive</option></select></div>
-<div class="field"><label>Save</label><button class="btn green" type="button" onclick="saveMachine()">Save Machine</button></div>
-</div></div>
-<div class="scroll" style="margin-top:9px"><table><thead><tr><th>ID</th><th>Brand</th><th>Machine</th><th>Model</th><th>Status</th><th>Action</th></tr></thead><tbody id="machineRows"></tbody></table></div></div></section>
-
-<section id="suitable" class="section"><div class="panel"><div class="ptitle"><span class="tag purple">SUITABLE MAPPING</span><b>Machine → Spare Parts</b></div>
-<div class="toolbar"><select id="suitableMachine" class="grow"></select><button class="btn purple" onclick="showSuitable()">Show Spare Parts</button></div>
-<div id="suitableResult" class="empty">Select Machine.</div></div></section>
-
-<section id="orders" class="section"><div class="panel"><div class="ptitle"><span class="tag orange">SALES ORDERS</span><b>Website Orders</b></div>
-<div class="notice">Admin manually नया Sales Order नहीं बनाएगा.</div>
-<div class="scroll"><table><thead><tr><th>Order</th><th>Dealer Code</th><th>Dealer</th><th>Amount</th><th>Status</th><th>Action</th></tr></thead><tbody id="orderRows"></tbody></table></div></div></section>
-
-<section id="estimates" class="section"><div class="panel"><div class="ptitle"><span class="tag orange">ESTIMATES</span><b>Dealer Estimate Approval</b></div>
-<div class="scroll"><table><thead><tr><th>Estimate</th><th>Order</th><th>Dealer</th><th>Amount</th><th>Reply</th><th>Action</th></tr></thead><tbody id="estimateRows"></tbody></table></div></div></section>
-
-<section id="confirmed" class="section"><div class="panel"><div class="ptitle"><span class="tag green">CONFIRMED</span><b>Confirmed Orders</b></div>
-<div id="confirmedBox" class="empty">No confirmed orders yet.</div></div></section>
-
-<section id="delivery" class="section"><div class="panel"><div class="ptitle"><span class="tag teal">DELIVERY</span><b>Delivery & Tracking</b></div>
-<div class="scroll"><table><thead><tr><th>Order</th><th>Dealer</th><th>Courier/Transport</th><th>LR/Tracking</th><th>Status</th><th>Action</th></tr></thead><tbody id="deliveryRows"></tbody></table></div></div></section>
-
-<section id="dealers" class="section"><div class="panel"><div class="ptitle"><span class="tag teal">DEALERS</span><b>Dealer Inquiries</b></div>
-<div class="scroll"><table><thead><tr><th>Date</th><th>Dealer Code</th><th>Shop</th><th>Person</th><th>Mobile</th><th>Status</th><th>Action</th></tr></thead><tbody id="dealerRows"></tbody></table></div></div></section>
-
-<section id="requests" class="section"><div class="panel"><div class="ptitle"><span class="tag red">SPARE PART REQUESTS</span><b>Part Not Found</b></div>
-<div class="notice">Dealer machine photo + spare part photo + name/details भेज सकेगा.</div>
-<div class="scroll"><table><thead><tr><th>Date</th><th>Dealer</th><th>Machine</th><th>Part</th><th>Status</th></tr></thead><tbody id="requestRows"></tbody></table></div></div></section>
-
-<section id="reports" class="section"><div class="panel"><div class="ptitle"><span class="tag indigo">REPORTS CENTER</span><b>All Reports</b></div>
-<div class="reportgrid">
-<button class="reportbtn" onclick="report('all')">All Stock</button>
-<button class="reportbtn" onclick="report('in')">In Stock</button>
-<button class="reportbtn" onclick="report('out')">Out of Stock</button>
-<button class="reportbtn" onclick="report('reorder')">Reorder</button>
-<button class="reportbtn" onclick="report('top')">Top Selling</button>
-<button class="reportbtn" onclick="report('low')">Least Selling</button>
-<button class="reportbtn" onclick="report('rates')">Rate A/B/C</button>
-<button class="reportbtn" onclick="report('purchase')">Purchase Rate</button>
-<button class="reportbtn" onclick="report('mapping')">Machine Mapping</button>
+<div class="field"><label>Add</label><button class="btn orange" onclick="addSlab()">+ Add Quantity Slab</button></div>
 </div>
-<div id="reportOut" class="empty">Select Report.</div></div></section>
+<div id="slabChips" class="chips"></div>
+</div>
 
-<section id="employees" class="section"><div class="panel"><div class="ptitle"><span class="tag dark">ACCESS</span><b>Employees & Roles</b></div>
-<div class="box bblue"><b>OWNER / ADMIN</b><div class="meta">Full access including cost, reports, settings.</div></div>
-<div class="box bgreen" style="margin-top:8px"><b>EMPLOYEE</b><div class="meta">Limited access. Purchase cost can be hidden.</div></div>
-</div></section>
-
-<section id="backup" class="section"><div class="panel"><div class="ptitle"><span class="tag dark">BACKUP</span><b>Data Safety</b></div>
-<div class="notice">Cloud database connection के बाद automatic backup, export और restore यहाँ रहेगा.</div></div></section>
-
-<section id="settings" class="section"><div class="panel"><div class="ptitle"><span class="tag dark">SETTINGS</span><b>Portal Settings</b></div>
+<div class="box bPurple">
+<div class="boxTitle">6. SUITABLE MACHINES — MULTIPLE ALLOWED</div>
 <div class="grid">
-<div class="field"><label>Company</label><input value="TORVO TOOLS PRIVATE LIMITED"></div>
-<div class="field"><label>Website</label><input></div>
-<div class="field"><label>Email</label><input></div>
-<div class="field"><label>Mobile / WhatsApp</label><input></div>
-<div class="field full"><label>Address</label><textarea></textarea></div>
-</div></div></section>
+<div class="field"><label>Select Machine</label><select id="machineSelect"></select></div>
+<div class="field"><label>Add</label><button class="btn purple" onclick="addSuitable()">+ Add Machine</button></div>
+<div class="field"><label>Machine Missing?</label><button class="btn light" onclick="openSection('machines')">Open Machine Master</button></div>
+</div>
+<div id="machineChips" class="chips"></div>
+</div>
+
+<div class="full toolbar">
+<button class="btn green" onclick="saveSpare(false)">Save Spare Part</button>
+<button class="btn blue" onclick="saveSpare(true)">Save & Add Next</button>
+<button class="btn light" onclick="clearSpare()">Clear</button>
+</div>
+
+</div>
+</div>
+</section>
+
+<section id="items" class="section">
+<div class="panel">
+<div class="pTitle"><span class="tag blue">ITEM</span><b>Master Item View</b></div>
+
+<div class="toolbar">
+<button class="btn green" onclick="openSection('spares')">+ Add Item</button>
+<input id="itemSearch" class="grow" placeholder="Search item no., item, brand, machine..." oninput="renderItems()">
+<button class="btn blue" onclick="setFilter('all')">All Items</button>
+<button class="btn green" onclick="setFilter('in')">In Stock</button>
+<button class="btn red" onclick="setFilter('out')">Out of Stock</button>
+<button class="btn orange" onclick="setFilter('reorder')">Reorder</button>
+<button class="btn purple" onclick="setFilter('top')">Top Selling</button>
+<button class="btn dark" onclick="setFilter('low')">Least Selling</button>
+</div>
+
+<div class="toolbar">
+<button class="btn green" onclick="exportItems()">Excel</button>
+<button class="btn red" onclick="window.print()">PDF / Print</button>
+<button class="btn orange" onclick="createReorder()">Create Order List</button>
+</div>
+
+<div id="itemGrid" class="itemGrid"></div>
+</div>
+</section>
+
+<section id="suitable" class="section">
+<div class="panel">
+<div class="pTitle"><span class="tag purple">SUITABLE</span><b>Machine → Spare Parts</b></div>
+<div class="toolbar"><select id="suitableMachine" class="grow"></select><button class="btn purple" onclick="showSuitable()">Show Spare Parts</button></div>
+<div id="suitableResult" class="empty">Select Machine.</div>
+</div>
+</section>
+
+<section id="orders" class="section">
+<div class="panel">
+<div class="pTitle"><span class="tag orange">SALES ORDER</span><b>Website Dealer Orders</b></div>
+<div class="notice">Sales Orders केवल B2B website से आएँगे. Admin manually Sales Order create नहीं करेगा.</div>
+<div class="scroll"><table><thead><tr><th>Order</th><th>Dealer Code</th><th>Dealer</th><th>Date</th><th>Amount</th><th>Status</th><th>Action</th></tr></thead><tbody id="orderRows"></tbody></table></div>
+</div>
+</section>
+
+<section id="estimates" class="section">
+<div class="panel">
+<div class="pTitle"><span class="tag orange">ESTIMATE</span><b>Dealer Estimates</b></div>
+<div class="scroll"><table><thead><tr><th>Estimate</th><th>Order</th><th>Dealer</th><th>Amount</th><th>Dealer Reply</th><th>Action</th></tr></thead><tbody id="estimateRows"></tbody></table></div>
+</div>
+</section>
+
+<section id="confirmed" class="section">
+<div class="panel">
+<div class="pTitle"><span class="tag green">CONFIRMED</span><b>Confirmed Orders</b></div>
+<div id="confirmedBox" class="empty">No confirmed orders.</div>
+</div>
+</section>
+
+<section id="delivery" class="section">
+<div class="panel">
+<div class="pTitle"><span class="tag teal">DELIVERY</span><b>Courier / Transport / Tracking</b></div>
+
+<div class="notice">
+आप 2–3 Courier और 5–7 या उससे अधिक Transport companies बना सकते हैं। Delivery के समय Order के हिसाब से Courier या Transport select करें।
+</div>
+
+<div class="box bTeal" style="margin-top:8px">
+<div class="boxTitle">DELIVERY PARTNER MASTER</div>
+<div class="grid">
+
+<div class="field"><label>Partner Type</label><select id="partnerType"><option>Courier</option><option>Transport</option></select></div>
+
+<div class="field"><label>Partner Name</label><input id="partnerName" placeholder="Courier / Transport name"></div>
+
+<div class="field"><label>Contact Number</label><input id="partnerMobile"></div>
+
+<div class="field"><label>Contact Person</label><input id="partnerPerson"></div>
+
+<div class="field"><label>City / Branch</label><input id="partnerCity"></div>
+
+<div class="field"><label>Action</label><button class="btn teal" onclick="savePartner()">+ Add Partner</button></div>
+
+</div>
+</div>
+
+<div class="scroll" style="margin-top:8px">
+<table>
+<thead><tr><th>Type</th><th>Name</th><th>Contact Person</th><th>Mobile</th><th>City/Branch</th><th>Action</th></tr></thead>
+<tbody id="partnerRows"></tbody>
+</table>
+</div>
+
+<div class="pTitle" style="margin-top:12px"><span class="tag teal">DISPATCH</span><b>Delivery Orders</b></div>
+<div class="scroll">
+<table>
+<thead><tr><th>Order</th><th>Dealer</th><th>Mode</th><th>Partner</th><th>LR / Tracking</th><th>Dispatch Date</th><th>Status</th><th>Action</th></tr></thead>
+<tbody id="deliveryRows"></tbody>
+</table>
+</div>
+</div>
+</section>
+
+<section id="dealers" class="section">
+<div class="panel">
+<div class="pTitle"><span class="tag teal">DEALER INQUIRY</span><b>Dealer Approval Requests</b></div>
+<div class="scroll"><table><thead><tr><th>Date</th><th>Dealer Code</th><th>Shop</th><th>Person</th><th>Mobile</th><th>Rate Group</th><th>Status</th><th>Action</th></tr></thead><tbody id="dealerRows"></tbody></table></div>
+</div>
+</section>
+
+<section id="requests" class="section">
+<div class="panel">
+<div class="pTitle"><span class="tag red">SPARE PART REQUEST</span><b>Part Not Found Requests</b></div>
+<div class="notice">Dealer Machine Photo + Spare Part Photo + Spare Part Name + Quantity + Remark भेज सकेगा.</div>
+<div class="scroll"><table><thead><tr><th>Date</th><th>Dealer</th><th>Machine</th><th>Spare Part</th><th>Qty</th><th>Status</th></tr></thead><tbody id="requestRows"></tbody></table></div>
+</div>
+</section>
+
+<section id="reports" class="section">
+<div class="panel">
+<div class="pTitle"><span class="tag dark">REPORTS</span><b>Reports Center</b></div>
+<div class="reportGrid">
+<button class="reportBtn" onclick="showReport('all')">All Items</button>
+<button class="reportBtn" onclick="showReport('in')">In Stock</button>
+<button class="reportBtn" onclick="showReport('out')">Out of Stock</button>
+<button class="reportBtn" onclick="showReport('reorder')">Reorder</button>
+<button class="reportBtn" onclick="showReport('top')">Top Selling</button>
+<button class="reportBtn" onclick="showReport('low')">Least Selling</button>
+<button class="reportBtn" onclick="showReport('purchase')">Purchase Rate History</button>
+<button class="reportBtn" onclick="showReport('mapping')">Machine-wise Parts</button>
+<button class="reportBtn" onclick="showReport('orders')">Sales Orders</button>
+<button class="reportBtn" onclick="showReport('dealers')">Dealer Report</button>
+<button class="reportBtn" onclick="showReport('delivery')">Delivery Report</button>
+<button class="reportBtn" onclick="showReport('partners')">Courier / Transport Partners</button>
+</div>
+<div id="reportOutput" class="empty">Select Report.</div>
+</div>
+</section>
+
+<section id="activity" class="section">
+<div class="panel">
+<div class="pTitle"><span class="tag dark">ACTIVITY</span><b>Activity History</b></div>
+<div id="activityRows"></div>
+</div>
+</section>
+
+<section id="backup" class="section">
+<div class="panel">
+<div class="pTitle"><span class="tag dark">BACKUP</span><b>Data Safety</b></div>
+<div class="notice">अभी यह browser local data पर है. अगला major step Supabase cloud database और automatic backup रहेगा.</div>
+</div>
+</section>
+
+<section id="settings" class="section">
+<div class="panel">
+<div class="pTitle"><span class="tag dark">SETTINGS</span><b>Portal Settings</b></div>
+<div class="grid">
+<div class="field"><label>Company</label><input id="companyName" value="TORVO TOOLS PRIVATE LIMITED"></div>
+<div class="field"><label>Website</label><input id="companyWebsite"></div>
+<div class="field"><label>Email</label><input id="companyEmail"></div>
+<div class="field"><label>WhatsApp / Mobile</label><input id="companyMobile"></div>
+<div class="field full"><label>Address</label><textarea id="companyAddress" rows="2"></textarea></div>
+</div>
+</div>
+</section>
+
 </main>
 
 <aside class="right">
-<div style="font-size:14px;font-weight:900">TORVO Control</div><div class="sub">Dealer, Reports & System</div>
-<div class="head">DEALERS</div>
-<button class="rnav" onclick="openSec('dealers',this)">Dealer Inquiries <span class="badge" id="bDealer">0</span></button>
-<button class="rnav" onclick="openSec('requests',this)">Spare Part Requests <span class="badge" id="bReq">0</span></button>
-<div class="head">REPORTS</div>
-<button class="rnav" onclick="openSec('reports',this)">REPORTS CENTER</button>
-<div class="head">SYSTEM</div>
-<button class="rnav" onclick="openSec('employees',this)">Employees & Roles</button>
-<button class="rnav" onclick="openSec('backup',this)">Backup</button>
-<button class="rnav" onclick="openSec('settings',this)">Settings</button>
+<div style="font-size:14px;font-weight:900">TORVO Control</div>
+<div class="sub">Dealer, Reports & System</div>
+
+<div class="menuTitle">DEALERS</div>
+<button class="rnav" onclick="openSection('dealers',this)">Dealer Inquiries <span id="badgeDealer" class="badge">0</span></button>
+<button class="rnav" onclick="openSection('requests',this)">Spare Part Requests <span id="badgeRequest" class="badge">0</span></button>
+
+<div class="menuTitle">LOGISTICS</div>
+<button class="rnav" onclick="openSection('delivery',this)">Courier / Transport</button>
+
+<div class="menuTitle">REPORTS</div>
+<button class="rnav" onclick="openSection('reports',this)">REPORTS CENTER</button>
+
+<div class="menuTitle">SYSTEM</div>
+<button class="rnav" onclick="openSection('activity',this)">Activity History</button>
+<button class="rnav" onclick="openSection('backup',this)">Backup</button>
+<button class="rnav" onclick="openSection('settings',this)">Settings</button>
 </aside>
+
 </div>
 
-<div id="notif" class="notif"></div>
+<div id="notificationPanel" class="notif"></div>
 <div id="toast" class="toast"></div>
 
 <script>
-var K='torvo_admin_v5';
-var D=JSON.parse(localStorage.getItem(K)||'null')||{items:[],machines:[],orders:[],estimates:[],confirmed:[],deliveries:[],dealers:[],requests:[],brands:['Bosch','Makita','DeWalt'],cats:['Armature','Field / Stator','Gear','Switch','Carbon Brush','Bearing']};
-var filter='all',editItem=-1,maps=[],slabs=[],audio=null;
+var KEY="TORVO_ADMIN_FINAL_2026";
 
-function el(id){return document.getElementById(id)}
-function esc(v){return String(v==null?'':v).replace(/[&<>"']/g,function(m){return {'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[m]})}
+var DB=JSON.parse(localStorage.getItem(KEY)||"null")||{
+items:[],machines:[],orders:[],estimates:[],confirmed:[],deliveries:[],
+dealers:[],requests:[],partners:[],purchaseHistory:[],activity:[],
+brands:["Bosch","Makita","DeWalt"],
+categories:["Armature","Field / Stator","Gear","Switch","Carbon Brush","Bearing"],
+spareNames:["Armature","Field / Stator","Gear","Switch","Carbon Brush","Bearing"],
+machineTypes:["Angle Grinder","Marble Cutter","Drill Machine","Rotary Hammer","Demolition Hammer","Cut Off Machine"]
+};
 
-function tone(f,d){
+var selectedMachines=[];
+var slabs=[];
+var itemFilter="all";
+var editingItem=-1;
+var editingMachine=-1;
+var audio=null;
+var dirty=false;
+var toastTimer=null;
+
+function E(id){return document.getElementById(id)}
+function N(v){return String(v||"").trim().replace(/\s+/g," ").toLowerCase()}
+function H(v){return String(v==null?"":v).replace(/[&<>"']/g,function(c){return{"&":"&amp;","<":"&lt;",">":"&gt;",'"':"&quot;","'":"&#39;"}[c]})}
+function TODAY(){return new Date().toISOString().slice(0,10)}
+
+function sound(freq,duration,volume){
 try{
 audio=audio||new(window.AudioContext||window.webkitAudioContext)();
 var o=audio.createOscillator(),g=audio.createGain();
-o.frequency.value=f||520;
-g.gain.value=.025;
-o.connect(g);
-g.connect(audio.destination);
-o.start();
-g.gain.exponentialRampToValueAtTime(.0001,audio.currentTime+(d||.05));
-o.stop(audio.currentTime+(d||.05));
+o.type="sine";o.frequency.value=freq;g.gain.value=volume||.025;
+o.connect(g);g.connect(audio.destination);o.start();
+g.gain.exponentialRampToValueAtTime(.0001,audio.currentTime+(duration||.06));
+o.stop(audio.currentTime+(duration||.06));
 }catch(e){}
 }
+function sndClick(){sound(520,.04,.018)}
+function sndOK(){sound(660,.07,.03);setTimeout(function(){sound(880,.07,.025)},65)}
+function sndError(){sound(220,.14,.04)}
+function sndAlert(){sound(330,.06,.03);setTimeout(function(){sound(260,.1,.03)},70)}
+function sndDelete(){sound(240,.07,.035);setTimeout(function(){sound(180,.12,.035)},65)}
+function sndOpen(){sound(460,.04,.015)}
+function sndSave(){sound(620,.06,.025);setTimeout(function(){sound(780,.06,.025)},55);setTimeout(function(){sound(930,.07,.02)},110)}
 
-function msg(t,type){
-tone(type==='error'?220:660,type==='error'?.13:.07);
-var x=el('toast');
-x.textContent=t;
-x.style.background=type==='error'?'#b91c1c':'#334155';
-x.style.display='block';
-setTimeout(function(){x.style.display='none'},2500);
+function toast(text,type){
+var t=E("toast");clearTimeout(toastTimer);t.textContent=text;
+if(type==="error"){t.style.background="#b91c1c";sndError()}
+else if(type==="success"){t.style.background="#15803d";sndOK()}
+else if(type==="alert"){t.style.background="#ea580c";sndAlert()}
+else{t.style.background="#34465c";sndClick()}
+t.style.display="block";toastTimer=setTimeout(function(){t.style.display="none"},2500)
 }
 
-function save(){
-localStorage.setItem(K,JSON.stringify(D));
-refresh();
-}
+function saveDB(){localStorage.setItem(KEY,JSON.stringify(DB));refreshAll()}
+function logActivity(text){DB.activity.unshift({time:new Date().toLocaleString(),text:text});DB.activity=DB.activity.slice(0,100)}
 
-function today(){
-return new Date().toISOString().slice(0,10);
-}
-
-function nz(id){
-var x=el(id);
-if(x&&Number(x.value)<0){
-x.value=0;
-msg('Negative value allowed नहीं है.','error');
-}
-}
-
-['spBox','spCost','spA','spB','spC','spQty','spMin','bulkQty','bulkRate'].forEach(function(id){
-document.addEventListener('input',function(e){
-if(e.target.id===id)nz(id);
-});
-});
-
-var names={
-dashboard:'TORVO Dashboard',
-items:'ITEM',
-spares:'Spare Parts',
-machines:'Machines',
-suitable:'Suitable Mapping',
-orders:'Sales Orders',
-estimates:'Estimates',
-confirmed:'Confirmed Orders',
-delivery:'Delivery & Tracking',
-dealers:'Dealer Inquiries',
-requests:'Spare Part Requests',
-reports:'Reports Center',
-employees:'Employees & Roles',
-backup:'Backup',
-settings:'Settings'
+var titles={
+dashboard:"TORVO Dashboard",machines:"Machines",spares:"Spare Parts",items:"ITEM",
+suitable:"Suitable Mapping",orders:"Sales Orders",estimates:"Estimates",
+confirmed:"Confirmed Orders",delivery:"Delivery & Tracking",dealers:"Dealer Inquiries",
+requests:"Spare Part Requests",reports:"Reports Center",activity:"Activity History",
+backup:"Backup",settings:"Settings"
 };
 
-function openSec(id,b){
-tone(520,.04);
-document.querySelectorAll('.section').forEach(function(x){x.classList.remove('active')});
-var s=el(id);
-if(!s)return;
-s.classList.add('active');
-document.querySelectorAll('.nav,.rnav').forEach(function(x){x.classList.remove('active')});
-if(b)b.classList.add('active');
-el('pageTitle').textContent=names[id]||'TORVO';
-window.scrollTo(0,0);
-if(id==='items')renderItems();
-if(id==='suitable')showSuitable();
-if(id==='dealers')markRead('dealer');
-if(id==='requests')markRead('req');
-if(id==='orders')markRead('orders');
-if(id==='estimates')markRead('est');
+function openSection(id,btn){
+sndOpen();
+document.querySelectorAll(".section").forEach(function(x){x.classList.remove("active")});
+document.querySelectorAll(".nav,.rnav").forEach(function(x){x.classList.remove("active")});
+var s=E(id);if(!s)return;s.classList.add("active");if(btn)btn.classList.add("active");
+E("pageTitle").textContent=titles[id]||"TORVO";
+if(id==="items")renderItems();
+if(id==="suitable")refreshMachineSelects();
+if(id==="activity")renderActivity();
+window.scrollTo(0,0)
 }
 
-function home(){
-if(confirm('Home खोलने पर temporary unfinished entry clear हो जाएगी. Continue?')){
-clearSpare();
-openSec('dashboard',document.querySelector('.nav'));
-msg('Home opened. Temporary entry cleared.');
-}
-}
-
-function masterAdd(t){
-var v=prompt('New '+t+':');
-if(!v)return;
-v=v.trim();
-if(t==='brand'&&!D.brands.some(function(x){return x.toLowerCase()===v.toLowerCase()}))D.brands.push(v);
-if(t==='cat'&&!D.cats.some(function(x){return x.toLowerCase()===v.toLowerCase()}))D.cats.push(v);
-if(t==='item')el('spNo').value=v;
-if(t==='name')el('spName').value=v;
-save();
+function goHome(){
+sndAlert();
+if(dirty&&!confirm("Unsaved entry है. Home जाने पर temporary entry clear होगी. Continue?"))return;
+clearSpare();clearMachine();openSection("dashboard",document.querySelector(".nav"));
+toast("Home opened.","success")
 }
 
-function lists(){
-var brands=[].concat(D.brands,D.items.map(function(x){return x.brand}),D.machines.map(function(x){return x.brand})).filter(Boolean);
+function markFilled(input){
+dirty=true;
+if(input.value.trim()){input.classList.add("ok");input.classList.remove("bad")}
+else input.classList.remove("ok","bad")
+}
+
+function masterArray(type){
+if(type==="brand")return DB.brands;
+if(type==="category")return DB.categories;
+if(type==="name")return DB.spareNames;
+if(type==="item")return DB.items.map(function(x){return x.no});
+return[]
+}
+
+function masterUsage(type,value){
+if(type==="item")return DB.items.filter(function(x){return N(x.no)===N(value)}).length;
+if(type==="name")return DB.items.filter(function(x){return N(x.name)===N(value)}).length;
+if(type==="brand")return DB.items.filter(function(x){return N(x.brand)===N(value)}).length+DB.machines.filter(function(x){return N(x.brand)===N(value)}).length;
+if(type==="category")return DB.items.filter(function(x){return N(x.category)===N(value)}).length;
+return 0
+}
+
+function addMaster(type,inputId){
+sndClick();var input=E(inputId),v=input.value.trim();
+if(!v)v=(prompt("New "+type+":")||"").trim();if(!v)return;
+if(masterArray(type).some(function(x){return N(x)===N(v)})){toast("Database Match: यह value पहले से मौजूद है.","error");return}
+if(type==="brand")DB.brands.push(v);
+if(type==="category")DB.categories.push(v);
+if(type==="name")DB.spareNames.push(v);
+input.value=v;logActivity("Master added: "+v);saveDB();toast("Value added.","success")
+}
+
+function editMaster(type,inputId){
+sndClick();var input=E(inputId),old=input.value.trim();if(!old)return toast("पहले value select करें.","error");
+var use=masterUsage(type,old);if(use>0)return toast("यह value "+use+" record(s) में use हो रही है. पहले linked record बदलें.","error");
+var v=(prompt("Edit value:",old)||"").trim();if(!v)return;
+if(masterArray(type).some(function(x){return N(x)===N(v)&&N(x)!==N(old)}))return toast("यह नया नाम पहले से मौजूद है.","error");
+if(type==="brand")DB.brands=DB.brands.map(function(x){return N(x)===N(old)?v:x});
+if(type==="category")DB.categories=DB.categories.map(function(x){return N(x)===N(old)?v:x});
+if(type==="name")DB.spareNames=DB.spareNames.map(function(x){return N(x)===N(old)?v:x});
+input.value=v;logActivity("Master edited: "+old+" → "+v);saveDB();toast("Value updated.","success")
+}
+
+function deleteMaster(type,inputId){
+sndAlert();var input=E(inputId),v=input.value.trim();if(!v)return toast("पहले value select करें.","error");
+var use=masterUsage(type,v);if(use>0)return toast("Delete नहीं हो सकता. यह "+use+" record(s) में use हो रही है.","error");
+if(!confirm("Delete "+v+" ?"))return;
+if(type==="brand")DB.brands=DB.brands.filter(function(x){return N(x)!==N(v)});
+if(type==="category")DB.categories=DB.categories.filter(function(x){return N(x)!==N(v)});
+if(type==="name")DB.spareNames=DB.spareNames.filter(function(x){return N(x)!==N(v)});
+input.value="";logActivity("Master deleted: "+v);saveDB();sndDelete();toast("Value deleted.","success")
+}
+
+function setValidation(input,help,state,text){
+input.classList.remove("ok","bad");help.className="help";
+if(state==="ok"){input.classList.add("ok");help.classList.add("ok")}
+if(state==="bad"){input.classList.add("bad");help.classList.add("bad")}
+help.textContent=text
+}
+
+function validateMasterField(type,inputId,helpId){
+dirty=true;var input=E(inputId),help=E(helpId),v=input.value.trim();
+if(!v){setValidation(input,help,"","");return}
+if(type==="item"){
+var ix=DB.items.findIndex(function(x){return N(x.no)===N(v)});
+if(ix>=0&&ix!==editingItem){setValidation(input,help,"bad","Database Match: Item Number पहले से मौजूद है.");sndError();return}
+}
+var match=masterArray(type).find(function(x){return N(x)===N(v)});
+setValidation(input,help,"ok",match?"✓ Database Match: "+match:"✓ New / Available")
+}
+
+function validateMachineBrand(){
+dirty=true;var input=E("mBrand"),v=input.value.trim(),help=E("mBrandHelp");
+if(!v){setValidation(input,help,"","");return}
+var match=DB.brands.find(function(x){return N(x)===N(v)});
+setValidation(input,help,"ok",match?"✓ Existing Brand":"✓ New Brand")
+}
+
+function validateModel(){
+dirty=true;var input=E("mModel"),v=input.value.trim(),help=E("mModelHelp");
+if(!v){setValidation(input,help,"","");return}
+var ix=DB.machines.findIndex(function(x){return N(x.model)===N(v)});
+if(ix>=0&&ix!==editingMachine){setValidation(input,help,"bad","Database Match: Model पहले से मौजूद है.");sndError()}
+else setValidation(input,help,"ok","✓ Model Available")
+}
+
+function refreshLists(){
+var brands=[].concat(DB.brands,DB.items.map(function(x){return x.brand}),DB.machines.map(function(x){return x.brand})).filter(Boolean);
 brands=[...new Set(brands)];
-el('brandList').innerHTML=brands.map(function(x){return '<option value="'+esc(x)+'">'}).join('');
-
-var cats=[].concat(D.cats,D.items.map(function(x){return x.cat})).filter(Boolean);
-cats=[...new Set(cats)];
-el('catList').innerHTML=cats.map(function(x){return '<option value="'+esc(x)+'">'}).join('');
-
-el('itemNoList').innerHTML=D.items.map(function(x){return '<option value="'+esc(x.no)+'">'}).join('');
-
-var names=[...new Set(D.items.map(function(x){return x.name}).filter(Boolean))];
-el('spareNameList').innerHTML=names.map(function(x){return '<option value="'+esc(x)+'">'}).join('');
-
-var opt='<option value="">Select Machine</option>';
-D.machines.forEach(function(m,i){
-opt+='<option value="'+i+'">'+esc(m.brand)+' | '+esc(m.type)+' | '+esc(m.model)+'</option>';
-});
-el('machineSelect').innerHTML=opt;
-el('suitableMachine').innerHTML=opt;
+E("brandList").innerHTML=brands.map(function(x){return'<option value="'+H(x)+'">'}).join("");
+E("categoryList").innerHTML=[...new Set([].concat(DB.categories,DB.items.map(function(x){return x.category})).filter(Boolean))].map(function(x){return'<option value="'+H(x)+'">'}).join("");
+E("spareNameList").innerHTML=[...new Set([].concat(DB.spareNames,DB.items.map(function(x){return x.name})).filter(Boolean))].map(function(x){return'<option value="'+H(x)+'">'}).join("");
+E("itemNoList").innerHTML=DB.items.map(function(x){return'<option value="'+H(x.no)+'">'}).join("");
+E("machineTypeList").innerHTML=DB.machineTypes.map(function(x){return'<option value="'+H(x)+'">'}).join("");
+refreshMachineSelects()
 }
 
-function saveMachine(){
-var brand=el('mBrand').value.trim();
-var type=el('mType').value.trim();
-var model=el('mModel').value.trim();
-
-if(!brand||!type||!model)return msg('Brand, Machine Type और Model जरूरी हैं.','error');
-
-if(D.machines.some(function(x){return x.model.toLowerCase()===model.toLowerCase()})){
-return msg('यह Model Number पहले से मौजूद है.','error');
+function refreshMachineSelects(){
+var html='<option value="">Select Machine</option>';
+DB.machines.forEach(function(m,i){html+='<option value="'+i+'">'+H(m.brand)+' | '+H(m.type)+' | '+H(m.model)+'</option>'});
+E("machineSelect").innerHTML=html;E("suitableMachine").innerHTML=html
 }
 
-D.machines.push({
-id:'MCH-'+String(Date.now()).slice(-6),
-brand:brand,
-type:type,
-model:model,
-desc:el('mDesc').value.trim(),
-status:el('mStatus').value
-});
+function saveMachine(addNext){
+var brand=E("mBrand").value.trim(),type=E("mType").value.trim(),model=E("mModel").value.trim();
+if(!brand||!type||!model)return toast("Brand, Machine Type और Model जरूरी हैं.","error");
+var dup=DB.machines.findIndex(function(x,i){return N(x.model)===N(model)&&i!==editingMachine});
+if(dup>=0)return toast("यह Model Number पहले से मौजूद है.","error");
+var obj={date:E("machineDate").value||TODAY(),id:editingMachine>=0?DB.machines[editingMachine].id:"MCH-"+String(Date.now()).slice(-6),brand:brand,type:type,model:model,desc:E("mDesc").value.trim(),status:E("mStatus").value};
+if(editingMachine>=0){DB.machines[editingMachine]=obj;logActivity("Machine updated: "+model)}
+else{DB.machines.push(obj);logActivity("Machine added: "+model)}
+if(!DB.brands.some(function(x){return N(x)===N(brand)}))DB.brands.push(brand);
+saveDB();sndSave();toast("Machine saved.","success");clearMachine();
+if(addNext)setTimeout(function(){E("mBrand").focus()},100)
+}
 
-if(!D.brands.includes(brand))D.brands.push(brand);
-
-el('mBrand').value='';
-el('mType').value='';
-el('mModel').value='';
-el('mDesc').value='';
-
-save();
-msg('Machine saved.');
+function editMachine(i){
+var x=DB.machines[i];editingMachine=i;E("machineDate").value=x.date||TODAY();E("mBrand").value=x.brand;E("mType").value=x.type;E("mModel").value=x.model;E("mDesc").value=x.desc||"";E("mStatus").value=x.status||"Active";openSection("machines");toast("Machine edit mode opened.","success")
 }
 
 function deleteMachine(i){
-var m=D.machines[i];
-var used=D.items.some(function(x){return (x.machines||[]).includes(m.model)});
-
-if(used){
-return msg('Machine mapping में use हो रही है. पहले mapping हटाएँ.','error');
+var x=DB.machines[i],used=DB.items.some(function(p){return(p.machines||[]).includes(x.model)});
+if(used)return toast("Delete नहीं हो सकता. Machine Spare Part mapping में use हो रही है.","error");
+if(!confirm("Delete "+x.model+" ?"))return;
+DB.machines.splice(i,1);logActivity("Machine deleted: "+x.model);saveDB();sndDelete();toast("Machine deleted.","success")
 }
 
-if(confirm('Delete Machine?')){
-D.machines.splice(i,1);
-save();
-}
+function clearMachine(){
+editingMachine=-1;E("machineDate").value=TODAY();E("mBrand").value="";E("mType").value="";E("mModel").value="";E("mDesc").value="";E("mStatus").value="Active";["mBrand","mType","mModel"].forEach(function(id){E(id).classList.remove("ok","bad")});E("mBrandHelp").textContent="";E("mModelHelp").textContent="";dirty=false
 }
 
 function renderMachines(){
-var b=el('machineRows');
-
-if(!D.machines.length){
-b.innerHTML='<tr><td colspan="6" class="empty">No Machines yet.</td></tr>';
-return;
+E("machineRows").innerHTML=DB.machines.length?DB.machines.map(function(x,i){
+return"<tr><td>"+H(x.date)+"</td><td>"+H(x.id)+"</td><td>"+H(x.brand)+"</td><td>"+H(x.type)+"</td><td>"+H(x.model)+"</td><td>"+H(x.status)+"</td><td><button class='btn blue' onclick='editMachine("+i+")'>Edit</button> <button class='btn red' onclick='deleteMachine("+i+")'>Delete</button></td></tr>"
+}).join(""):'<tr><td colspan="7" class="empty">No Machines yet.</td></tr>'
 }
 
-b.innerHTML=D.machines.map(function(m,i){
-return '<tr><td>'+esc(m.id)+'</td><td>'+esc(m.brand)+'</td><td>'+esc(m.type)+'</td><td>'+esc(m.model)+'</td><td>'+esc(m.status)+'</td><td><button class="btn red" onclick="deleteMachine('+i+')">Delete</button></td></tr>';
-}).join('');
+function addSuitable(){
+var i=E("machineSelect").value;if(i==="")return toast("Machine select करें.","error");
+var model=DB.machines[i].model;if(selectedMachines.includes(model))return toast("Machine पहले से selected है.","error");
+selectedMachines.push(model);renderMachineChips();sndOK();dirty=true
 }
 
-function addMachineMap(){
-var i=el('machineSelect').value;
-
-if(i==='')return msg('Machine select करें.','error');
-
-var model=D.machines[i].model;
-
-if(maps.includes(model)){
-return msg('यह Machine पहले से selected है.','error');
+function renderMachineChips(){
+E("machineChips").innerHTML=selectedMachines.map(function(x,i){return'<span class="chip">'+H(x)+' <b onclick="removeSuitable('+i+')">×</b></span>'}).join("")
 }
-
-maps.push(model);
-renderMapChips();
-}
-
-function renderMapChips(){
-el('machineChips').innerHTML=maps.map(function(x,i){
-return '<span class="chip">'+esc(x)+' <b onclick="removeMap('+i+')">×</b></span>';
-}).join('');
-}
-
-function removeMap(i){
-maps.splice(i,1);
-renderMapChips();
-}
+function removeSuitable(i){selectedMachines.splice(i,1);renderMachineChips();sndClick()}
 
 function addSlab(){
-var q=Number(el('bulkQty').value||0);
-var r=Number(el('bulkRate').value||0);
-
-if(q<=0||r<=0)return msg('Quantity और rate सही डालें.','error');
-
-if(slabs.some(function(x){return x.q===q})){
-return msg('यह slab पहले से मौजूद है.','error');
+var q=Number(E("bulkQty").value||0),r=Number(E("bulkRate").value||0);
+if(q<=0||r<=0)return toast("Quantity और Special Rate सही डालें.","error");
+if(slabs.some(function(x){return x.qty===q}))return toast("यह Quantity Slab पहले से मौजूद है.","error");
+slabs.push({qty:q,rate:r});slabs.sort(function(a,b){return a.qty-b.qty});renderSlabs();E("bulkQty").value=0;E("bulkRate").value=0;sndOK();dirty=true
 }
+function renderSlabs(){E("slabChips").innerHTML=slabs.map(function(x,i){return'<span class="chip">'+x.qty+' pcs → ₹'+x.rate+' <b onclick="removeSlab('+i+')">×</b></span>'}).join("")}
+function removeSlab(i){slabs.splice(i,1);renderSlabs();sndClick()}
 
-slabs.push({q:q,r:r});
-slabs.sort(function(a,b){return a.q-b.q});
-renderSlabs();
-}
+function readPhoto(file,cb){if(!file)return cb("");var r=new FileReader();r.onload=function(){cb(r.result)};r.readAsDataURL(file)}
 
-function renderSlabs(){
-el('slabChips').innerHTML=slabs.map(function(x,i){
-return '<span class="chip">'+x.q+' pcs → ₹'+x.r+' <b onclick="removeSlab('+i+')">×</b></span>';
-}).join('');
-}
-
-function removeSlab(i){
-slabs.splice(i,1);
-renderSlabs();
-}
-
-function file64(f,cb){
-if(!f)return cb('');
-var r=new FileReader();
-r.onload=function(){cb(r.result)};
-r.readAsDataURL(f);
-}
-
-function saveSpare(){
-['spBox','spCost','spA','spB','spC','spQty','spMin','bulkQty','bulkRate'].forEach(nz);
-
-var no=el('spNo').value.trim();
-var name=el('spName').value.trim();
-var brand=el('spBrand').value.trim();
-var cat=el('spCat').value.trim();
-
-if(!no||!name||!brand||!cat){
-return msg('Item No., Name, Brand और Category जरूरी हैं.','error');
-}
-
-if(D.items.some(function(x,i){
-return i!==editItem&&x.no.toLowerCase()===no.toLowerCase();
-})){
-return msg('यह Item Number पहले से बना हुआ है.','error');
-}
-
-var old=editItem>=0?D.items[editItem]:{};
-
-var obj={
-no:no,
-name:name,
-brand:brand,
-cat:cat,
-box:Number(el('spBox').value||0),
-cost:Number(el('spCost').value||0),
-date:el('spDate').value||today(),
-a:Number(el('spA').value||0),
-b:Number(el('spB').value||0),
-c:Number(el('spC').value||0),
-qty:Number(el('spQty').value||0),
-min:Number(el('spMin').value||0),
-status:el('spStatus').value,
-visible:el('spVisible').value,
-machines:maps.slice(),
-slabs:slabs.slice(),
-sold:old.sold||0,
-photo:old.photo||''
-};
-
-file64(el('spPhoto').files[0],function(p){
-if(p)obj.photo=p;
-
-if(editItem<0){
-D.items.push(obj);
-}else{
-D.items[editItem]=obj;
-}
-
-if(!D.brands.includes(brand))D.brands.push(brand);
-if(!D.cats.includes(cat))D.cats.push(cat);
-
-clearSpare();
-save();
-msg('Spare Part saved.');
-});
+function saveSpare(addNext){
+var ids=["spBox","spCost","spA","spB","spC","spQty","spMin"];
+ids.forEach(function(id){if(Number(E(id).value)<0)E(id).value=0});
+var no=E("spNo").value.trim(),name=E("spName").value.trim(),brand=E("spBrand").value.trim(),cat=E("spCategory").value.trim();
+if(!no||!name||!brand||!cat)return toast("Item No., Spare Part Name, Brand और Category जरूरी हैं.","error");
+var dup=DB.items.findIndex(function(x,i){return N(x.no)===N(no)&&i!==editingItem});
+if(dup>=0)return toast("Database Match: यह Item Number पहले से मौजूद है.","error");
+var old=editingItem>=0?DB.items[editingItem]:{},oldCost=Number(old.cost||0),cost=Number(E("spCost").value||0);
+var obj={date:E("spDate").value||TODAY(),no:no,name:name,brand:brand,category:cat,box:Number(E("spBox").value||0),cost:cost,a:Number(E("spA").value||0),b:Number(E("spB").value||0),c:Number(E("spC").value||0),qty:Number(E("spQty").value||0),min:Number(E("spMin").value||0),status:E("spStatus").value,visible:E("spVisible").value,machines:selectedMachines.slice(),slabs:slabs.slice(),sold:Number(old.sold||0),photo:old.photo||""};
+readPhoto(E("spPhoto").files[0],function(photo){
+if(photo)obj.photo=photo;
+if(editingItem>=0){DB.items[editingItem]=obj;logActivity("Item updated: "+no)}else{DB.items.push(obj);logActivity("Item added: "+no)}
+if(cost>0&&(editingItem<0||oldCost!==cost))DB.purchaseHistory.push({item:no,date:obj.date,cost:cost});
+if(!DB.brands.some(function(x){return N(x)===N(brand)}))DB.brands.push(brand);
+if(!DB.categories.some(function(x){return N(x)===N(cat)}))DB.categories.push(cat);
+if(!DB.spareNames.some(function(x){return N(x)===N(name)}))DB.spareNames.push(name);
+saveDB();sndSave();toast("Spare Part saved.","success");clearSpare();if(addNext){openSection("spares");setTimeout(function(){E("spNo").focus()},100)}
+})
 }
 
 function clearSpare(){
-editItem=-1;
-
-['spNo','spName','spBrand','spCat'].forEach(function(x){
-el(x).value='';
-});
-
-el('spBox').value=1;
-
-['spCost','spA','spB','spC','spQty','spMin','bulkQty','bulkRate'].forEach(function(x){
-el(x).value=0;
-});
-
-el('spDate').value=today();
-el('spPhoto').value='';
-
-maps=[];
-slabs=[];
-
-renderMapChips();
-renderSlabs();
+editingItem=-1;E("spDate").value=TODAY();["spNo","spName","spBrand","spCategory"].forEach(function(id){E(id).value="";E(id).classList.remove("ok","bad")});
+E("spBox").value=1;["spCost","spA","spB","spC","spQty","spMin","bulkQty","bulkRate"].forEach(function(id){E(id).value=0});
+E("spStatus").value="Active";E("spVisible").value="Show";E("spPhoto").value="";
+["spNoHelp","spNameHelp","spBrandHelp","spCategoryHelp"].forEach(function(id){E(id).textContent=""});
+selectedMachines=[];slabs=[];renderMachineChips();renderSlabs();E("costHistory").innerHTML="<b>Purchase Cost History</b><div class='meta'>Item save होने के बाद date-wise history यहाँ दिखेगी.</div>";dirty=false
 }
 
-function editSpare(i){
-var x=D.items[i];
-
-editItem=i;
-
-el('spNo').value=x.no;
-el('spName').value=x.name;
-el('spBrand').value=x.brand;
-el('spCat').value=x.cat;
-el('spBox').value=x.box;
-el('spCost').value=x.cost;
-el('spDate').value=x.date;
-el('spA').value=x.a;
-el('spB').value=x.b;
-el('spC').value=x.c;
-el('spQty').value=x.qty;
-el('spMin').value=x.min;
-el('spStatus').value=x.status;
-el('spVisible').value=x.visible;
-
-maps=(x.machines||[]).slice();
-slabs=(x.slabs||[]).slice();
-
-renderMapChips();
-renderSlabs();
-
-openSec('spares');
-msg('Item opened for editing.');
+function editItem(i){
+var x=DB.items[i];editingItem=i;E("spDate").value=x.date||TODAY();E("spNo").value=x.no;E("spName").value=x.name;E("spBrand").value=x.brand;E("spCategory").value=x.category;E("spBox").value=x.box||0;E("spCost").value=x.cost||0;E("spA").value=x.a||0;E("spB").value=x.b||0;E("spC").value=x.c||0;E("spQty").value=x.qty||0;E("spMin").value=x.min||0;E("spStatus").value=x.status||"Active";E("spVisible").value=x.visible||"Show";selectedMachines=(x.machines||[]).slice();slabs=(x.slabs||[]).slice();renderMachineChips();renderSlabs();renderCostHistory(x.no);openSection("spares");dirty=false;toast("Item edit mode opened.","success")
 }
 
-function deleteSpare(i){
-var x=D.items[i];
-
-var used=D.orders.some(function(o){
-return (o.items||[]).some(function(z){
-return z.no===x.no;
-});
-});
-
-if(used){
-return msg('यह Item Sales Order में use हो चुका है. Delete नहीं कर सकते.','error');
+function deleteItem(i){
+var x=DB.items[i],used=DB.orders.some(function(o){return(o.items||[]).some(function(a){return N(a.no)===N(x.no)})});
+if(used)return toast("Item Sales Order में use हो चुका है. Delete नहीं होगा.","error");
+if(!confirm("Delete Item "+x.no+" ?"))return;
+DB.items.splice(i,1);logActivity("Item deleted: "+x.no);saveDB();sndDelete();toast("Item deleted.","success")
 }
 
-if(confirm('Delete '+x.no+'?')){
-D.items.splice(i,1);
-save();
-}
-}
-
-function setFilter(f){
-filter=f;
-renderItems();
+function renderCostHistory(no){
+var a=DB.purchaseHistory.filter(function(x){return N(x.item)===N(no)}).slice(-5).reverse();
+E("costHistory").innerHTML="<b>Purchase Cost History</b>"+(a.length?a.map(function(x,i){return"<div class='historyRow'><span>"+(i===0?"Latest":"Previous "+i)+"</span><span>"+H(x.date)+" — ₹"+x.cost+"</span></div>"}).join(""):"<div class='meta'>No history yet.</div>")
 }
 
-function itemList(){
-var a=D.items.slice();
-var q=(el('itemSearch')?el('itemSearch').value:'').toLowerCase();
-
-if(filter==='in'){
-a=a.filter(function(x){return x.qty>0});
-}
-
-if(filter==='out'){
-a=a.filter(function(x){return x.qty<=0});
-}
-
-if(filter==='reorder'){
-a=a.filter(function(x){return x.qty<=x.min});
-}
-
-if(filter==='top'){
-a.sort(function(a,b){return (b.sold||0)-(a.sold||0)});
-}
-
-if(filter==='low'){
-a.sort(function(a,b){return (a.sold||0)-(b.sold||0)});
-}
-
-if(q){
-a=a.filter(function(x){
-return [x.no,x.name,x.brand,x.cat].concat(x.machines||[]).join(' ').toLowerCase().includes(q);
-});
-}
-
-return a;
+function setFilter(f){itemFilter=f;renderItems();sndClick()}
+function openFiltered(f){itemFilter=f;openSection("items");renderItems()}
+function filteredItems(){
+var a=DB.items.slice(),q=N(E("itemSearch")?E("itemSearch").value:"");
+if(q)a=a.filter(function(x){return N([x.no,x.name,x.brand,x.category].concat(x.machines||[]).join(" ")).includes(q)});
+if(itemFilter==="in")a=a.filter(function(x){return Number(x.qty)>0});
+if(itemFilter==="out")a=a.filter(function(x){return Number(x.qty)<=0});
+if(itemFilter==="reorder")a=a.filter(function(x){return Number(x.qty)<=Number(x.min||0)});
+if(itemFilter==="top")a.sort(function(a,b){return Number(b.sold||0)-Number(a.sold||0)});
+if(itemFilter==="low")a.sort(function(a,b){return Number(a.sold||0)-Number(b.sold||0)});
+return a
 }
 
 function renderItems(){
-var a=itemList();
-var g=el('itemGrid');
-
-if(!a.length){
-g.innerHTML='<div class="empty">No matching Items.</div>';
-return;
-}
-
-g.innerHTML=a.map(function(x){
-var i=D.items.indexOf(x);
-
-var bulk=(x.slabs||[]).length
-?'<div class="bulk"><b>Bulk Rate</b><br>'+x.slabs.map(function(s){
-return s.q+' pcs → ₹'+s.r;
-}).join('<br>')+'</div>'
-:'';
-
-return '<div class="icard">'+
-'<div class="ipic">'+(x.photo?'<img src="'+x.photo+'">':'ITEM PHOTO')+'</div>'+
-'<div class="iname">'+esc(x.name)+'</div>'+
-'<div class="meta">Item: '+esc(x.no)+'</div>'+
-'<div class="meta">Brand: '+esc(x.brand)+'</div>'+
-'<div class="meta">Machine: '+esc((x.machines||[]).join(', ')||'—')+'</div>'+
-'<div class="rates">'+
-'<div class="rate cost">Cost<br><b>₹'+x.cost+'</b></div>'+
-'<div class="rate ra">A<br><b>₹'+x.a+'</b></div>'+
-'<div class="rate rb">B<br><b>₹'+x.b+'</b></div>'+
-'<div class="rate rc">C<br><b>₹'+x.c+'</b></div>'+
-'</div>'+
-'<div class="stock"><span>Stock <b>'+x.qty+'</b></span><span>Sold <b>'+(x.sold||0)+'</b></span></div>'+
-bulk+
-'<div class="toolbar" style="margin-top:6px">'+
-'<button class="btn blue" onclick="editSpare('+i+')">Edit</button>'+
-'<button class="btn red" onclick="deleteSpare('+i+')">Delete</button>'+
-'</div>'+
-'</div>';
-}).join('');
+var a=filteredItems();E("itemGrid").innerHTML=a.length?a.map(function(x){
+var i=DB.items.indexOf(x),bulk=(x.slabs||[]).length?"<div class='bulk'><b>Bulk Price</b><br>"+x.slabs.map(function(s){return s.qty+"+ pcs → ₹"+s.rate}).join("<br>")+"</div>":"";
+return"<div class='itemCard'><div class='pic'>"+(x.photo?"<img src='"+x.photo+"'>":"ITEM PHOTO")+"</div><div class='itemName'>"+H(x.name)+"</div><div class='meta'>Date: "+H(x.date)+"</div><div class='meta'>Item No: "+H(x.no)+"</div><div class='meta'>Brand: "+H(x.brand)+"</div><div class='meta'>Machine(s): "+H((x.machines||[]).join(", ")||"—")+"</div><div class='rates'><div class='rate cost'>Cost<br><b>₹"+x.cost+"</b></div><div class='rate ra'>A<br><b>₹"+x.a+"</b></div><div class='rate rb'>B<br><b>₹"+x.b+"</b></div><div class='rate rc'>C<br><b>₹"+x.c+"</b></div></div><div class='stock'><span>Stock <b>"+x.qty+"</b></span><span>Sold <b>"+(x.sold||0)+"</b></span></div>"+bulk+"<div class='toolbar' style='margin-top:6px'><button class='btn blue' onclick='editItem("+i+")'>Edit</button><button class='btn red' onclick='deleteItem("+i+")'>Delete</button></div></div>"
+}).join(""):"<div class='empty'>No matching Items.</div>"
 }
 
 function showSuitable(){
-var i=el('suitableMachine').value;
-
-if(i===''){
-el('suitableResult').innerHTML='Select Machine.';
-return;
-}
-
-var m=D.machines[i];
-
-var a=D.items.filter(function(x){
-return (x.machines||[]).includes(m.model);
-});
-
-el('suitableResult').innerHTML=
-'<b>'+esc(m.brand)+' | '+esc(m.type)+' | '+esc(m.model)+'</b><br><br>'+
-(a.length
-?a.map(function(x){
-return esc(x.no)+' — '+esc(x.name);
-}).join('<br>')
-:'No mapped spare parts.');
+var i=E("suitableMachine").value;if(i===""){E("suitableResult").innerHTML="Select Machine.";return}
+var m=DB.machines[i],a=DB.items.filter(function(x){return(x.machines||[]).includes(m.model)});
+E("suitableResult").innerHTML="<b>"+H(m.brand)+" | "+H(m.type)+" | "+H(m.model)+"</b><br><br>"+(a.length?a.map(function(x){return H(x.no)+" — "+H(x.name)}).join("<br>"):"No mapped Spare Parts.");sndOK()
 }
 
 function renderOrders(){
-el('orderRows').innerHTML=D.orders.length
-?D.orders.map(function(o,i){
-return '<tr>'+
-'<td>'+esc(o.no)+'</td>'+
-'<td>'+esc(o.code||'')+'</td>'+
-'<td>'+esc(o.dealer||'')+'</td>'+
-'<td>₹'+(o.amount||0)+'</td>'+
-'<td>'+esc(o.status||'New')+'</td>'+
-'<td><button class="btn blue" onclick="makeEstimate('+i+')">Sales Modify → Estimate</button></td>'+
-'</tr>';
-}).join('')
-:'<tr><td colspan="6" class="empty">Website connection के बाद Sales Orders यहाँ आएँगे.</td></tr>';
+E("orderRows").innerHTML=DB.orders.length?DB.orders.map(function(o,i){return"<tr><td>"+H(o.no)+"</td><td>"+H(o.code||"")+"</td><td>"+H(o.dealer||"")+"</td><td>"+H(o.date||"")+"</td><td>₹"+Number(o.amount||0)+"</td><td>"+H(o.status||"New")+"</td><td><button class='btn orange' onclick='createEstimate("+i+")'>Sales Modify → Estimate</button></td></tr>"}).join(""):"<tr><td colspan='7' class='empty'>Website connection के बाद Sales Orders यहाँ आएँगे.</td></tr>"
 }
 
-function makeEstimate(i){
-var o=D.orders[i];
-
-if(D.estimates.some(function(e){
-return e.order===o.no;
-})){
-return msg('इस order का Estimate बन चुका है.','error');
+function createEstimate(i){
+var o=DB.orders[i];if(DB.estimates.some(function(x){return x.order===o.no}))return toast("Estimate पहले से बना हुआ है.","error");
+var discount=Math.max(0,Number(prompt("Discount ₹","0")||0)),delivery=Math.max(0,Number(prompt("Delivery / Transport Charge ₹","0")||0));
+DB.estimates.push({no:"EST-"+String(DB.estimates.length+1).padStart(5,"0"),order:o.no,dealer:o.dealer,amount:Math.max(0,Number(o.amount||0)-discount+delivery),reply:"Waiting",status:"Sent"});
+o.status="Estimate Sent";logActivity("Estimate created: "+o.no);saveDB();sndSave();toast("Estimate prepared for Dealer.","success")
 }
 
-var dis=Math.max(0,Number(prompt('Discount ₹','0')||0));
-var del=Math.max(0,Number(prompt('Delivery / Transport charge ₹','0')||0));
-
-D.estimates.push({
-no:'EST-'+String(D.estimates.length+1).padStart(5,'0'),
-order:o.no,
-dealer:o.dealer,
-amount:Math.max(0,(o.amount||0)-dis+del),
-reply:'Waiting',
-status:'Sent'
-});
-
-o.status='Estimate Sent';
-
-save();
-msg('Estimate sent to dealer.');
+function renderEstimates(){
+E("estimateRows").innerHTML=DB.estimates.length?DB.estimates.map(function(x,i){return"<tr><td>"+H(x.no)+"</td><td>"+H(x.order)+"</td><td>"+H(x.dealer)+"</td><td>₹"+x.amount+"</td><td>"+H(x.reply)+"</td><td><button class='btn green' onclick='approveEstimate("+i+")'>Approve / Finalize</button></td></tr>"}).join(""):"<tr><td colspan='6' class='empty'>No Estimates yet.</td></tr>"
 }
 
-function renderEst(){
-el('estimateRows').innerHTML=D.estimates.length
-?D.estimates.map(function(e,i){
-return '<tr>'+
-'<td>'+esc(e.no)+'</td>'+
-'<td>'+esc(e.order)+'</td>'+
-'<td>'+esc(e.dealer)+'</td>'+
-'<td>₹'+e.amount+'</td>'+
-'<td>'+esc(e.reply)+'</td>'+
-'<td><button class="btn green" onclick="approveEst('+i+')">Approve / Finalize</button></td>'+
-'</tr>';
-}).join('')
-:'<tr><td colspan="6" class="empty">No Estimates yet.</td></tr>';
-}
-
-function approveEst(i){
-var e=D.estimates[i];
-
-e.reply='Approved';
-
-if(!D.confirmed.some(function(c){
-return c.order===e.order;
-})){
-D.confirmed.push({
-order:e.order,
-dealer:e.dealer,
-amount:e.amount,
-status:'Confirmed'
-});
-}
-
-if(!D.deliveries.some(function(d){
-return d.order===e.order;
-})){
-D.deliveries.push({
-order:e.order,
-dealer:e.dealer,
-courier:'',
-track:'',
-status:'Ready'
-});
-}
-
-save();
-msg('Order moved to Delivery.');
+function approveEstimate(i){
+var e=DB.estimates[i];e.reply="Approved";
+if(!DB.confirmed.some(function(x){return x.order===e.order}))DB.confirmed.push({order:e.order,dealer:e.dealer,amount:e.amount,status:"Confirmed"});
+if(!DB.deliveries.some(function(x){return x.order===e.order}))DB.deliveries.push({order:e.order,dealer:e.dealer,mode:"Transport",partner:"",track:"",date:TODAY(),status:"Ready"});
+logActivity("Order confirmed: "+e.order);saveDB();sndSave();toast("Order moved to Delivery.","success")
 }
 
 function renderConfirmed(){
-el('confirmedBox').innerHTML=D.confirmed.length
-?'<div class="scroll"><table><thead><tr><th>Order</th><th>Dealer</th><th>Amount</th><th>Status</th></tr></thead><tbody>'+
-D.confirmed.map(function(c){
-return '<tr>'+
-'<td>'+esc(c.order)+'</td>'+
-'<td>'+esc(c.dealer)+'</td>'+
-'<td>₹'+c.amount+'</td>'+
-'<td>'+esc(c.status)+'</td>'+
-'</tr>';
-}).join('')+
-'</tbody></table></div>'
-:'No confirmed orders yet.';
+E("confirmedBox").innerHTML=DB.confirmed.length?"<div class='scroll'><table><thead><tr><th>Order</th><th>Dealer</th><th>Amount</th><th>Status</th></tr></thead><tbody>"+DB.confirmed.map(function(x){return"<tr><td>"+H(x.order)+"</td><td>"+H(x.dealer)+"</td><td>₹"+x.amount+"</td><td>"+H(x.status)+"</td></tr>"}).join("")+"</tbody></table></div>":"No confirmed orders."
 }
 
-function renderDelivery(){
-el('deliveryRows').innerHTML=D.deliveries.length
-?D.deliveries.map(function(d,i){
-return '<tr>'+
-'<td>'+esc(d.order)+'</td>'+
-'<td>'+esc(d.dealer)+'</td>'+
-'<td><input value="'+esc(d.courier)+'" onchange="D.deliveries['+i+'].courier=this.value;save()"></td>'+
-'<td><input value="'+esc(d.track)+'" onchange="D.deliveries['+i+'].track=this.value;save()"></td>'+
-'<td><select onchange="D.deliveries['+i+'].status=this.value;save()">'+
-'<option>'+esc(d.status)+'</option>'+
-'<option>Ready</option>'+
-'<option>Dispatched</option>'+
-'<option>In Transit</option>'+
-'<option>Delivered</option>'+
-'</select></td>'+
-'<td><button class="btn green" onclick="msg(\'Delivery updated\')">Update</button></td>'+
-'</tr>';
-}).join('')
-:'<tr><td colspan="6" class="empty">No Delivery records.</td></tr>';
+function savePartner(){
+var type=E("partnerType").value,name=E("partnerName").value.trim();if(!name)return toast("Partner Name डालें.","error");
+if(DB.partners.some(function(x){return N(x.type)===N(type)&&N(x.name)===N(name)}))return toast("यह Courier / Transport पहले से मौजूद है.","error");
+DB.partners.push({type:type,name:name,mobile:E("partnerMobile").value.trim(),person:E("partnerPerson").value.trim(),city:E("partnerCity").value.trim()});
+E("partnerName").value="";E("partnerMobile").value="";E("partnerPerson").value="";E("partnerCity").value="";
+logActivity(type+" Partner added: "+name);saveDB();sndSave();toast(type+" Partner saved.","success")
+}
+
+function deletePartner(i){
+var x=DB.partners[i],used=DB.deliveries.some(function(d){return N(d.partner)===N(x.name)});
+if(used)return toast("Partner Delivery record में use हो रहा है. Delete नहीं होगा.","error");
+if(!confirm("Delete "+x.name+" ?"))return;DB.partners.splice(i,1);logActivity("Partner deleted: "+x.name);saveDB();sndDelete();toast("Partner deleted.","success")
+}
+
+function renderPartners(){
+E("partnerRows").innerHTML=DB.partners.length?DB.partners.map(function(x,i){return"<tr><td>"+H(x.type)+"</td><td>"+H(x.name)+"</td><td>"+H(x.person)+"</td><td>"+H(x.mobile)+"</td><td>"+H(x.city)+"</td><td><button class='btn red' onclick='deletePartner("+i+")'>Delete</button></td></tr>"}).join(""):"<tr><td colspan='6' class='empty'>No Courier / Transport Partners yet.</td></tr>"
+}
+
+function partnerOptions(mode,current){
+var a=DB.partners.filter(function(x){return x.type===mode}),html="<option value=''>Select Partner</option>";
+a.forEach(function(x){html+="<option "+(x.name===current?"selected":"")+" value='"+H(x.name)+"'>"+H(x.name)+"</option>"});return html
+}
+
+function deliveryMode(i,value){DB.deliveries[i].mode=value;DB.deliveries[i].partner="";saveDB();sndClick()}
+function updateDelivery(i,field,value){DB.deliveries[i][field]=value;saveDB();sndClick()}
+
+function renderDeliveries(){
+E("deliveryRows").innerHTML=DB.deliveries.length?DB.deliveries.map(function(d,i){
+return"<tr><td>"+H(d.order)+"</td><td>"+H(d.dealer)+"</td><td><select onchange=\"deliveryMode("+i+",this.value)\"><option "+(d.mode==="Courier"?"selected":"")+">Courier</option><option "+(d.mode==="Transport"?"selected":"")+">Transport</option></select></td><td><select onchange=\"updateDelivery("+i+",'partner',this.value)\">"+partnerOptions(d.mode,d.partner)+"</select></td><td><input value='"+H(d.track)+"' onchange=\"updateDelivery("+i+",'track',this.value)\"></td><td><input type='date' value='"+H(d.date||TODAY())+"' onchange=\"updateDelivery("+i+",'date',this.value)\"></td><td><select onchange=\"updateDelivery("+i+",'status',this.value)\"><option selected>"+H(d.status)+"</option><option>Ready</option><option>Dispatched</option><option>In Transit</option><option>Delivered</option></select></td><td><button class='btn green' onclick=\"toast('Delivery updated.','success')\">Update</button></td></tr>"
+}).join(""):"<tr><td colspan='8' class='empty'>No Delivery records.</td></tr>"
 }
 
 function renderDealers(){
-el('dealerRows').innerHTML=D.dealers.length
-?D.dealers.map(function(d,i){
-return '<tr>'+
-'<td>'+esc(d.date||'')+'</td>'+
-'<td>'+esc(d.code||'')+'</td>'+
-'<td>'+esc(d.shop||'')+'</td>'+
-'<td>'+esc(d.person||'')+'</td>'+
-'<td>'+esc(d.mobile||'')+'</td>'+
-'<td>'+esc(d.status||'New')+'</td>'+
-'<td><button class="btn green" onclick="approveDealer('+i+')">Approve</button></td>'+
-'</tr>';
-}).join('')
-:'<tr><td colspan="7" class="empty">No Dealer Inquiries.</td></tr>';
+E("dealerRows").innerHTML=DB.dealers.length?DB.dealers.map(function(x,i){return"<tr><td>"+H(x.date||"")+"</td><td>"+H(x.code||"")+"</td><td>"+H(x.shop||"")+"</td><td>"+H(x.person||"")+"</td><td>"+H(x.mobile||"")+"</td><td>"+H(x.rateGroup||"")+"</td><td>"+H(x.status||"New")+"</td><td><button class='btn green' onclick='approveDealer("+i+")'>Approve</button></td></tr>"}).join(""):"<tr><td colspan='8' class='empty'>No Dealer Inquiries.</td></tr>"
 }
 
 function approveDealer(i){
-var d=D.dealers[i];
-d.status='Approved';
-
-if(!d.code){
-d.code='DLR-'+String(i+1).padStart(4,'0');
-}
-
-save();
-msg('Dealer approved.');
+var x=DB.dealers[i],g=(prompt("Rate Group A / B / C:","A")||"").toUpperCase();if(!["A","B","C"].includes(g))return toast("Rate Group केवल A, B या C.","error");
+x.rateGroup=g;x.status="Approved";if(!x.code)x.code="DLR-"+String(i+1).padStart(4,"0");logActivity("Dealer approved: "+(x.shop||x.code));saveDB();sndSave();toast("Dealer approved.","success")
 }
 
 function renderRequests(){
-el('requestRows').innerHTML=D.requests.length
-?D.requests.map(function(r){
-return '<tr>'+
-'<td>'+esc(r.date||'')+'</td>'+
-'<td>'+esc(r.dealer||'')+'</td>'+
-'<td>'+esc(r.machine||'')+'</td>'+
-'<td>'+esc(r.part||'')+'</td>'+
-'<td>'+esc(r.status||'New')+'</td>'+
-'</tr>';
-}).join('')
-:'<tr><td colspan="5" class="empty">No Requests.</td></tr>';
+E("requestRows").innerHTML=DB.requests.length?DB.requests.map(function(x){return"<tr><td>"+H(x.date||"")+"</td><td>"+H(x.dealer||"")+"</td><td>"+H(x.machine||"")+"</td><td>"+H(x.part||"")+"</td><td>"+H(x.qty||"")+"</td><td>"+H(x.status||"New")+"</td></tr>"}).join(""):"<tr><td colspan='6' class='empty'>No Spare Part Requests.</td></tr>"
 }
 
-function report(t){
-var a=D.items.slice();
-
-if(t==='in'){
-a=a.filter(function(x){return x.qty>0});
+function showReport(type){
+if(type==="partners"){
+E("reportOutput").innerHTML="<div class='scroll'><table><thead><tr><th>Type</th><th>Name</th><th>Person</th><th>Mobile</th><th>City</th></tr></thead><tbody>"+(DB.partners.length?DB.partners.map(function(x){return"<tr><td>"+H(x.type)+"</td><td>"+H(x.name)+"</td><td>"+H(x.person)+"</td><td>"+H(x.mobile)+"</td><td>"+H(x.city)+"</td></tr>"}).join(""):"<tr><td colspan='5' class='empty'>No Partners.</td></tr>")+"</tbody></table></div>";sndOK();return
+}
+if(type==="orders"){E("reportOutput").innerHTML="<div class='scroll'><table><thead><tr><th>Order</th><th>Dealer</th><th>Amount</th><th>Status</th></tr></thead><tbody>"+(DB.orders.length?DB.orders.map(function(x){return"<tr><td>"+H(x.no)+"</td><td>"+H(x.dealer||"")+"</td><td>₹"+Number(x.amount||0)+"</td><td>"+H(x.status||"New")+"</td></tr>"}).join(""):"<tr><td colspan='4' class='empty'>No Orders.</td></tr>")+"</tbody></table></div>";return}
+if(type==="dealers"){E("reportOutput").innerHTML="<div class='scroll'><table><thead><tr><th>Code</th><th>Shop</th><th>Mobile</th><th>Rate</th><th>Status</th></tr></thead><tbody>"+(DB.dealers.length?DB.dealers.map(function(x){return"<tr><td>"+H(x.code||"")+"</td><td>"+H(x.shop||"")+"</td><td>"+H(x.mobile||"")+"</td><td>"+H(x.rateGroup||"")+"</td><td>"+H(x.status||"New")+"</td></tr>"}).join(""):"<tr><td colspan='5' class='empty'>No Dealers.</td></tr>")+"</tbody></table></div>";return}
+if(type==="delivery"){E("reportOutput").innerHTML="<div class='scroll'><table><thead><tr><th>Order</th><th>Dealer</th><th>Mode</th><th>Partner</th><th>Tracking</th><th>Status</th></tr></thead><tbody>"+(DB.deliveries.length?DB.deliveries.map(function(x){return"<tr><td>"+H(x.order)+"</td><td>"+H(x.dealer)+"</td><td>"+H(x.mode)+"</td><td>"+H(x.partner)+"</td><td>"+H(x.track)+"</td><td>"+H(x.status)+"</td></tr>"}).join(""):"<tr><td colspan='6' class='empty'>No Deliveries.</td></tr>")+"</tbody></table></div>";return}
+var a=DB.items.slice();
+if(type==="in")a=a.filter(function(x){return x.qty>0});
+if(type==="out")a=a.filter(function(x){return x.qty<=0});
+if(type==="reorder")a=a.filter(function(x){return x.qty<=x.min});
+if(type==="top")a.sort(function(a,b){return(b.sold||0)-(a.sold||0)});
+if(type==="low")a.sort(function(a,b){return(a.sold||0)-(b.sold||0)});
+if(type==="purchase")a.sort(function(a,b){return String(b.date).localeCompare(String(a.date))});
+E("reportOutput").innerHTML="<div class='toolbar'><button class='btn green' onclick='exportItems()'>Excel</button><button class='btn red' onclick='window.print()'>PDF / Print</button></div><div class='scroll'><table><thead><tr><th>Date</th><th>Brand</th><th>Item</th><th>Name</th><th>Machines</th><th>Cost</th><th>A</th><th>B</th><th>C</th><th>Qty</th><th>Sold</th></tr></thead><tbody>"+a.map(function(x){return"<tr><td>"+H(x.date)+"</td><td>"+H(x.brand)+"</td><td>"+H(x.no)+"</td><td>"+H(x.name)+"</td><td>"+H((x.machines||[]).join(", "))+"</td><td>₹"+x.cost+"</td><td>₹"+x.a+"</td><td>₹"+x.b+"</td><td>₹"+x.c+"</td><td>"+x.qty+"</td><td>"+(x.sold||0)+"</td></tr>"}).join("")+"</tbody></table></div>";sndOK()
 }
 
-if(t==='out'){
-a=a.filter(function(x){return x.qty<=0});
+function exportItems(){
+var rows=[["Date","Item No","Name","Brand","Category","Machines","Cost","A","B","C","Qty","Sold"]];
+filteredItems().forEach(function(x){rows.push([x.date,x.no,x.name,x.brand,x.category,(x.machines||[]).join("|"),x.cost,x.a,x.b,x.c,x.qty,x.sold||0])});
+var csv=rows.map(function(r){return r.map(function(v){return'"'+String(v).replace(/"/g,'""')+'"'}).join(",")}).join("\n");
+var b=new Blob([csv],{type:"text/csv"}),u=URL.createObjectURL(b),a=document.createElement("a");a.href=u;a.download="TORVO_Item_Report.csv";a.click();URL.revokeObjectURL(u);sndSave();toast("Excel report created.","success")
 }
 
-if(t==='reorder'){
-a=a.filter(function(x){return x.qty<=x.min});
+function createReorder(){
+var a=DB.items.filter(function(x){return x.qty<=x.min});if(!a.length)return toast("No Reorder Items.","error");
+var txt="TORVO REORDER LIST\n\n"+a.map(function(x,i){return(i+1)+". "+x.brand+" | "+x.no+" | "+x.name+" | Stock "+x.qty+" | Minimum "+x.min}).join("\n");
+var b=new Blob([txt],{type:"text/plain"}),u=URL.createObjectURL(b),z=document.createElement("a");z.href=u;z.download="TORVO_Reorder_List.txt";z.click();URL.revokeObjectURL(u);sndSave();toast("Order List created.","success")
 }
 
-if(t==='top'){
-a.sort(function(a,b){return (b.sold||0)-(a.sold||0)});
+function globalFind(){
+var q=E("globalSearch").value.trim();if(!q)return toast("Search value लिखें या बोलें.","error");
+openSection("items");E("itemSearch").value=q;itemFilter="all";renderItems();sndOK()
 }
 
-if(t==='low'){
-a.sort(function(a,b){return (a.sold||0)-(b.sold||0)});
+function voiceSearch(){
+var SR=window.SpeechRecognition||window.webkitSpeechRecognition;if(!SR)return toast("Voice search इस browser में supported नहीं है.","error");
+var r=new SR();r.lang="en-IN";toast("Listening...","alert");
+r.onresult=function(e){E("globalSearch").value=e.results[0][0].transcript;globalFind()};
+r.onerror=function(){toast("Voice समझ नहीं आया.","error")};r.start()
 }
 
-if(t==='purchase'){
-a.sort(function(a,b){
-return String(b.date).localeCompare(String(a.date));
-});
-}
+function setBadge(id,n){var x=E(id);if(!x)return;x.textContent=n;x.style.display=n>0?"inline-block":"none"}
 
-el('reportOut').innerHTML=
-'<div class="toolbar">'+
-'<button class="btn green" onclick="exportCSV()">Excel</button>'+
-'<button class="btn red" onclick="window.print()">PDF / Print</button>'+
-'</div>'+
-'<div class="scroll">'+
-'<table>'+
-'<thead>'+
-'<tr>'+
-'<th>Brand</th>'+
-'<th>Item</th>'+
-'<th>Name</th>'+
-'<th>Machine</th>'+
-'<th>Cost</th>'+
-'<th>A</th>'+
-'<th>B</th>'+
-'<th>C</th>'+
-'<th>Qty</th>'+
-'<th>Sold</th>'+
-'</tr>'+
-'</thead>'+
-'<tbody>'+
-a.map(function(x){
-return '<tr>'+
-'<td>'+esc(x.brand)+'</td>'+
-'<td>'+esc(x.no)+'</td>'+
-'<td>'+esc(x.name)+'</td>'+
-'<td>'+esc((x.machines||[]).join(', '))+'</td>'+
-'<td>₹'+x.cost+'</td>'+
-'<td>₹'+x.a+'</td>'+
-'<td>₹'+x.b+'</td>'+
-'<td>₹'+x.c+'</td>'+
-'<td>'+x.qty+'</td>'+
-'<td>'+(x.sold||0)+'</td>'+
-'</tr>';
-}).join('')+
-'</tbody>'+
-'</table>'+
-'</div>';
-}
-
-function exportCSV(){
-var rows=[
-['Item No','Name','Brand','Category','Machine','Cost','A','B','C','Qty','Sold']
-];
-
-itemList().forEach(function(x){
-rows.push([
-x.no,
-x.name,
-x.brand,
-x.cat,
-(x.machines||[]).join('|'),
-x.cost,
-x.a,
-x.b,
-x.c,
-x.qty,
-x.sold||0
-]);
-});
-
-var csv=rows.map(function(r){
-return r.map(function(v){
-return '"'+String(v).replace(/"/g,'""')+'"';
-}).join(',');
-}).join('\n');
-
-var b=new Blob([csv],{type:'text/csv'});
-var u=URL.createObjectURL(b);
-var a=document.createElement('a');
-
-a.href=u;
-a.download='TORVO_Items.csv';
-a.click();
-
-URL.revokeObjectURL(u);
-
-msg('Excel report created.');
-}
-
-function reorderList(){
-var a=D.items.filter(function(x){
-return x.qty<=x.min;
-});
-
-if(!a.length){
-return msg('No Reorder items.','error');
-}
-
-var txt=
-'TORVO REORDER LIST\n\n'+
-a.map(function(x){
-return x.brand+' | '+x.no+' | '+x.name+' | Stock '+x.qty+' | Reorder '+x.min;
-}).join('\n');
-
-var b=new Blob([txt]);
-var u=URL.createObjectURL(b);
-var z=document.createElement('a');
-
-z.href=u;
-z.download='TORVO_Reorder_List.txt';
-z.click();
-
-URL.revokeObjectURL(u);
-
-msg('Order List created.');
-}
-
-function searchAll(){
-var q=el('globalSearch').value.trim();
-
-if(!q){
-return msg('Search value लिखें या बोलें.','error');
-}
-
-openSec('items');
-el('itemSearch').value=q;
-filter='all';
-renderItems();
-}
-
-function voice(){
-var SR=window.SpeechRecognition||window.webkitSpeechRecognition;
-
-if(!SR){
-return msg('Voice search browser में supported नहीं है.','error');
-}
-
-var r=new SR();
-
-r.lang='en-IN';
-
-r.onresult=function(e){
-el('globalSearch').value=e.results[0][0].transcript;
-searchAll();
-};
-
-r.onerror=function(){
-msg('Voice समझ नहीं आया.','error');
-};
-
-msg('Listening...');
-r.start();
-}
-
-function logout(){
-if(confirm('Logout from TORVO Admin?')){
-location.href='index.html';
+function notificationData(){
+return{
+orders:DB.orders.filter(function(x){return!x.status||x.status==="New"}).length,
+est:DB.estimates.filter(function(x){return x.reply==="Waiting"}).length,
+conf:DB.confirmed.length,
+delivery:DB.deliveries.filter(function(x){return x.status!=="Delivered"}).length,
+dealer:DB.dealers.filter(function(x){return!x.status||x.status==="New"}).length,
+request:DB.requests.filter(function(x){return!x.status||x.status==="New"}).length
 }
 }
 
-function setBadge(id,c){
-var x=el(id);
-if(!x)return;
-x.textContent=c;
-x.style.display=c?'inline-block':'none';
+function updateNotifications(){
+var n=notificationData();setBadge("badgeOrders",n.orders);setBadge("badgeEst",n.est);setBadge("badgeConf",n.conf);setBadge("badgeDelivery",n.delivery);setBadge("badgeDealer",n.dealer);setBadge("badgeRequest",n.request);
+var total=n.orders+n.est+n.delivery+n.dealer+n.request;E("bellNum").textContent=total;E("bellNum").style.display=total?"flex":"none";
+E("dOrders").textContent=n.orders;E("dDealer").textContent=n.dealer;E("dRequests").textContent=n.request
 }
 
-function notifications(){
-var n={
-orders:D.orders.filter(function(x){
-return !x.status||x.status==='New';
-}).length,
-
-est:D.estimates.filter(function(x){
-return x.reply==='Waiting';
-}).length,
-
-conf:D.confirmed.length,
-
-del:D.deliveries.filter(function(x){
-return x.status!=='Delivered';
-}).length,
-
-dealer:D.dealers.filter(function(x){
-return !x.status||x.status==='New';
-}).length,
-
-req:D.requests.filter(function(x){
-return !x.status||x.status==='New';
-}).length
-};
-
-setBadge('bOrders',n.orders);
-setBadge('bEst',n.est);
-setBadge('bConf',n.conf);
-setBadge('bDel',n.del);
-setBadge('bDealer',n.dealer);
-setBadge('bReq',n.req);
-
-var total=n.orders+n.est+n.del+n.dealer+n.req;
-var b=el('bellNum');
-
-b.textContent=total;
-b.style.display=total?'flex':'none';
-
-return n;
+function toggleNotifications(){
+sndAlert();var p=E("notificationPanel");if(p.style.display==="block"){p.style.display="none";return}
+var n=notificationData(),html="<div class='notifTitle'>🔔 TORVO Notifications</div>";
+if(n.orders)html+="<div class='notifItem nOrder' onclick=\"openSection('orders');hideNotifications()\"><b>"+n.orders+" New Sales Order</b><br>Open full Sales Order list</div>";
+if(n.est)html+="<div class='notifItem nEstimate' onclick=\"openSection('estimates');hideNotifications()\"><b>"+n.est+" Estimate Waiting</b><br>Dealer reply / approval pending</div>";
+if(n.dealer)html+="<div class='notifItem nDealer' onclick=\"openSection('dealers');hideNotifications()\"><b>"+n.dealer+" Dealer Inquiry</b><br>Open complete Dealer Inquiry list</div>";
+if(n.request)html+="<div class='notifItem nRequest' onclick=\"openSection('requests');hideNotifications()\"><b>"+n.request+" Spare Part Request</b><br>Open complete request list</div>";
+if(n.delivery)html+="<div class='notifItem nDelivery' onclick=\"openSection('delivery');hideNotifications()\"><b>"+n.delivery+" Delivery Pending</b><br>Open Courier / Transport tracking</div>";
+if(!n.orders&&!n.est&&!n.dealer&&!n.request&&!n.delivery)html+="<div class='notifItem'>No new notifications.</div>";
+p.innerHTML=html;p.style.display="block"
 }
+function hideNotifications(){E("notificationPanel").style.display="none"}
 
-function markRead(kind){
-var n=notifications();
-
-if(kind==='dealer')n.dealer=0;
-if(kind==='req')n.req=0;
-if(kind==='orders')n.orders=0;
-if(kind==='est')n.est=0;
-}
-
-function showNotif(){
-var n=notifications();
-var a=[];
-
-if(n.orders)a.push(n.orders+' New Sales Order');
-if(n.est)a.push(n.est+' Estimate Waiting');
-if(n.dealer)a.push(n.dealer+' Dealer Inquiry');
-if(n.req)a.push(n.req+' Spare Part Request');
-if(n.del)a.push(n.del+' Delivery Pending');
-
-el('notif').innerHTML=a.length
-?a.map(function(x){
-return '<div>'+esc(x)+'</div>';
-}).join('')
-:'<div>No new notifications.</div>';
-
-el('notif').style.display=
-el('notif').style.display==='block'
-?'none'
-:'block';
+function renderActivity(){
+E("activityRows").innerHTML=DB.activity.length?DB.activity.map(function(x){return"<div style='padding:7px;border-bottom:1px solid #e5e7eb'><b>"+H(x.text)+"</b><br><span class='meta'>"+H(x.time)+"</span></div>"}).join(""):"<div class='empty'>No activity yet.</div>"
 }
 
 function dashboard(){
-el('dItems').textContent=D.items.length;
-el('dMachines').textContent=D.machines.length;
-
-el('dIn').textContent=
-D.items.filter(function(x){
-return x.qty>0;
-}).length;
-
-el('dOut').textContent=
-D.items.filter(function(x){
-return x.qty<=0;
-}).length;
+E("dItems").textContent=DB.items.length;E("dMachines").textContent=DB.machines.length;E("dIn").textContent=DB.items.filter(function(x){return x.qty>0}).length;E("dOut").textContent=DB.items.filter(function(x){return x.qty<=0}).length;E("dReorder").textContent=DB.items.filter(function(x){return x.qty<=x.min}).length
 }
 
-function refresh(){
-lists();
-renderMachines();
-renderItems();
-renderOrders();
-renderEst();
-renderConfirmed();
-renderDelivery();
-renderDealers();
-renderRequests();
-dashboard();
-notifications();
+function logoutAdmin(){
+sndAlert();if(dirty&&!confirm("Unsaved entry है. फिर भी Logout करना है?"))return;
+if(confirm("Logout from TORVO Admin?"))location.href="index.html"
 }
 
-document.addEventListener('DOMContentLoaded',function(){
-el('spDate').value=today();
-refresh();
-renderMapChips();
-renderSlabs();
+document.addEventListener("input",function(e){
+if(e.target.closest("#spares")||e.target.closest("#machines"))dirty=true
+});
+
+function refreshAll(){
+refreshLists();renderMachines();renderItems();renderOrders();renderEstimates();renderConfirmed();renderPartners();renderDeliveries();renderDealers();renderRequests();dashboard();updateNotifications();renderActivity()
+}
+
+document.addEventListener("DOMContentLoaded",function(){
+E("spDate").value=TODAY();E("machineDate").value=TODAY();refreshAll();renderMachineChips();renderSlabs()
 });
 </script>
 </body>
