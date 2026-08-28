@@ -385,6 +385,108 @@ body{zoom:1.00!important}
 }
 </style>
 
+
+<style id="torvo-v11-polish">
+/* Strong, consistent nav typography */
+.nav,.rnav{
+  font-weight:900!important;
+  font-size:10px!important;
+  letter-spacing:.15px!important;
+  color:#111!important;
+  min-height:34px!important;
+}
+.nav:hover,.rnav:hover{
+  border-color:#b91c1c!important;
+  background:#fff7f7!important;
+}
+.nav.active,.rnav.active{
+  background:#d71920!important;
+  border-color:#d71920!important;
+  color:#fff!important;
+}
+
+/* Right header area mirrors left logo area, nav begins lower */
+.right{padding-top:8px!important}
+.rightTopZone{
+  min-height:61px;
+  border-bottom:1px solid #e5e7eb;
+  margin:0 0 7px;
+  padding:2px 3px 7px;
+  display:flex;
+  flex-direction:column;
+  justify-content:center;
+  gap:5px;
+}
+.rightOnlineStatus{
+  font-size:10px;
+  font-weight:900;
+  text-align:center;
+  color:#111;
+  white-space:nowrap;
+}
+.rightOnlineStatus::first-letter{color:#15803d}
+.rightTopControls{display:flex;gap:5px;justify-content:center}
+.rightMiniBtn{
+  height:26px;
+  border-radius:6px;
+  border:1px solid #d1d5db;
+  padding:0 8px;
+  font-size:9px;
+  font-weight:900;
+}
+.langYellow{background:#facc15!important;color:#111!important;border-color:#eab308!important}
+.logoutMini{background:#d71920!important;color:#fff!important;border-color:#d71920!important}
+.rightNavStart{margin-top:0}
+
+/* Main top now gives maximum space to search */
+.top{gap:5px!important}
+.top .title{min-width:150px!important}
+.top .search{flex:1 1 auto!important;min-width:0!important}
+.top .search input{height:40px!important}
+.top .iconOnly{flex:0 0 40px!important}
+.top .bell{flex:0 0 38px!important}
+
+/* Refresh only green on hover / press */
+.refreshMenuBtn{background:#fff!important;color:#111!important;border:1px solid #d1d5db!important}
+.refreshMenuBtn:hover,.refreshMenuBtn:active{
+  background:#15803d!important;color:#fff!important;border-color:#15803d!important
+}
+
+/* Sound button default normal; active while panel open */
+.soundMenuBtn.soundOpen{background:#d71920!important;color:#fff!important;border-color:#d71920!important}
+
+/* Working sound popover */
+.soundPanel{
+  display:none;
+  position:fixed;
+  right:218px;
+  top:76px;
+  width:min(390px,calc(100vw - 32px));
+  max-height:78vh;
+  overflow:auto;
+  z-index:10050;
+  background:#fff;
+  border:1px solid #d1d5db;
+  border-radius:12px;
+  box-shadow:0 18px 46px rgba(0,0,0,.22);
+  padding:12px;
+}
+.soundPanel.show{display:block!important}
+.soundHead{display:flex;align-items:center;justify-content:space-between;gap:10px;margin-bottom:6px}
+.soundRow{display:flex;align-items:center;justify-content:space-between;gap:12px;padding:8px 2px;border-top:1px solid #ececec}
+.soundRow small{display:block;color:#6b7280;font-size:9px;margin-top:2px}
+.soundSwitch{display:flex;align-items:center;gap:4px;font-size:9px;font-weight:900;white-space:nowrap}
+.soundSwitch input{width:17px;height:17px}
+
+/* Settings easier to scan */
+#settings .boxTitle{font-weight:900!important;color:#111!important}
+#settings .box{border:1px solid #e5e7eb!important}
+#settings .field label{font-weight:900!important}
+
+/* Machine remains reference only */
+#machines .infoNotice{border-left:4px solid #d71920!important}
+</style>
+
 </head>
 <body>
 <div class="app">
@@ -417,11 +519,7 @@ body{zoom:1.00!important}
 </div>
 <button class="iconOnly" title="SEARCH" onclick="globalFind()"><img class="googleSearch" src="data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24'><circle cx='11' cy='11' r='6' fill='none' stroke='%234285F4' stroke-width='2.4'/><path d='M16 16l5 5' stroke='%2334A853' stroke-width='2.8' stroke-linecap='round'/></svg>"></button>
 
-<button id="langToggle" class="compactUtility langYellow" onclick="toggleLanguage()">EN | HI</button>
-
 <div class="bell"><button onclick="toggleNotifications()">🔔</button><span id="bellNum" class="bellNum">0</span></div>
-<div class="topBtn owner" title="ADMIN STATUS: YOU ARE LOGGED IN">ONLINE ADMIN</div>
-<button class="topBtn logout" onclick="logoutAdmin()">LOGOUT</button>
 </div>
 
 <section id="dashboard" class="section active">
@@ -516,71 +614,153 @@ Machines are not sold on this portal. Dealer website sales are only for Spare Pa
 <section id="reports" class="section"><div class="panel"><div class="pTitle"><span class="tag dark">REPORTS CENTER</span><b>ALL BUSINESS REPORTS — VIEW / EXCEL / PDF</b></div><div class="sectionIntro">ONE PLACE FOR SALES, PROFIT, STOCK, DEALER, DELIVERY AND OTHER BUSINESS REPORTS WITH VIEW / EXCEL / PDF / PRINT.</div><div class="notice">SELECT A REPORT. USE DATE RANGE / SEARCH FILTERS WHERE AVAILABLE. VIEW ON SCREEN OR DOWNLOAD EXCEL / PDF.</div><div class="grid" style="margin-top:8px"><div class="field"><label>FROM DATE</label><input id="reportFrom" type="date"></div><div class="field"><label>TO DATE</label><input id="reportTo" type="date"></div><div class="field"><label>SEARCH / FILTER</label><input id="reportSearch" class="upper"></div></div><div id="reportCards" class="reportGrid" style="margin-top:10px"></div><div id="reportOutput" style="margin-top:10px"></div></div></section>
 <section id="settings" class="section">
 <div class="panel">
-<div class="pTitle"><span class="tag dark">SETTINGS</span><b>PORTAL CONTROL WITHOUT DATABASE EDITING</b></div>
-<div class="sectionIntro">USE THESE SETTINGS FOR COMMON CHANGES SO YOU DO NOT NEED TO OPEN DATABASE / SQL FOR SMALL DAY-TO-DAY ADJUSTMENTS.</div>
+<div class="pTitle"><span class="tag dark">SETTINGS</span><b>COMPLETE PORTAL & WEBSITE CONTROL</b></div>
+<div class="sectionIntro">COMMON DAY-TO-DAY CONTROLS ARE KEPT HERE SO MOST VISUAL, DEALER, STOCK, ORDER, NOTIFICATION AND WEBSITE CHANGES CAN BE MANAGED WITHOUT EDITING CODE.</div>
 
 <div class="box formStep">
-<div class="boxTitle">1. DISPLAY & LAYOUT</div>
+<div class="boxTitle">1. ADMIN DISPLAY & LAYOUT</div>
 <div class="grid">
-<div class="field"><label>ADMIN SCALE</label><select id="setScale"><option value="0.85">85%</option><option value="0.90" selected>90%</option><option value="0.95">95%</option><option value="1">100%</option></select></div>
+<div class="field"><label>ADMIN SCALE</label><select id="setScale"><option value="0.85">85%</option><option value="0.90">90%</option><option value="0.95">95%</option><option value="1">100%</option><option value="1.05">105%</option><option value="1.10">110%</option></select></div>
 <div class="field"><label>COMPACT BUTTONS</label><select id="setCompact"><option>YES</option><option>NO</option></select></div>
+<div class="field"><label>LEFT SIDEBAR</label><select id="setLeftBar"><option>SHOW</option><option>HIDE</option></select></div>
+<div class="field"><label>RIGHT SIDEBAR</label><select id="setRightBar"><option>SHOW</option><option>HIDE</option></select></div>
+<div class="field"><label>STICKY TOP SEARCH</label><select id="setStickyTop"><option>YES</option><option>NO</option></select></div>
+<div class="field"><label>TABLE ROW SIZE</label><select id="setRowSize"><option>COMPACT</option><option>NORMAL</option><option>LARGE</option></select></div>
+<div class="field"><label>DEFAULT LANGUAGE</label><select id="setDefaultLang"><option>ENGLISH</option><option>HINDI</option></select></div>
 <div class="field"><label>BASE THEME</label><select id="setTheme"><option>TORVO RED / BLACK / GREY / WHITE</option></select></div>
-<div class="field"><label>SHOW RIGHT SIDEBAR</label><select id="setRightBar"><option>YES</option><option>NO</option></select></div>
 </div>
 </div>
 
 <div class="box formStep">
-<div class="boxTitle">2. SEARCH & NOTIFICATIONS</div>
+<div class="boxTitle">2. SEARCH, CAMERA & VOICE</div>
 <div class="grid">
+<div class="field"><label>GLOBAL SEARCH</label><select id="setGlobalSearch"><option>ON</option><option>OFF</option></select></div>
 <div class="field"><label>VOICE SEARCH</label><select id="setVoice"><option>ON</option><option>OFF</option></select></div>
 <div class="field"><label>CAMERA SEARCH</label><select id="setCamera"><option>ON</option><option>OFF</option></select></div>
+<div class="field"><label>SEARCH MACHINES</label><select id="setSearchMachine"><option>YES</option><option>NO</option></select></div>
+<div class="field"><label>SEARCH DRAWING CODE</label><select id="setSearchDrawing"><option>YES</option><option>NO</option></select></div>
+<div class="field"><label>AUTO UPPERCASE</label><select id="setUppercase"><option>ON</option><option>OFF</option></select></div>
+</div>
+</div>
+
+<div class="box formStep">
+<div class="boxTitle">3. SOUND & ALERTS</div>
+<div class="grid">
+<div class="field"><label>MASTER SOUND</label><select id="setSound"><option>ON</option><option>OFF</option></select></div>
+<div class="field"><label>BELL ALERTS</label><select id="setBell"><option>YES</option><option>NO</option></select></div>
 <div class="field"><label>REFRESH ALERTS</label><select id="setRefreshAlerts"><option>ON</option><option>OFF</option></select></div>
-<div class="field"><label>SOUND ALERTS</label><select id="setSound"><option>ON</option><option>OFF</option></select></div>
+<div class="field"><label>LOW STOCK ALERT</label><select id="setLowStock"><option>YES</option><option>NO</option></select></div>
+<div class="field"><label>NEW ORDER ALERT</label><select id="setOrderAlert"><option>YES</option><option>NO</option></select></div>
+<div class="field"><label>NEW INQUIRY ALERT</label><select id="setInquiryAlert"><option>YES</option><option>NO</option></select></div>
+<div class="field"><label>CHAT ALERT</label><select id="setChatAlert"><option>YES</option><option>NO</option></select></div>
+<div class="field"><label>DELIVERY ALERT</label><select id="setDeliveryAlert"><option>YES</option><option>NO</option></select></div>
+</div>
+<div class="help">INDIVIDUAL SOUND TYPES CAN ALSO BE CONTROLLED FROM THE RIGHT-SIDE SOUND BUTTON.</div>
+</div>
+
+<div class="box formStep">
+<div class="boxTitle">4. ITEM / STOCK CONTROL</div>
+<div class="grid">
+<div class="field"><label>NEGATIVE STOCK</label><select id="setNegative"><option>BLOCK</option><option>ALLOW WITH WARNING</option></select></div>
+<div class="field"><label>DUPLICATE ITEM NUMBER</label><select id="setDuplicate"><option>BLOCK + POPUP</option><option>WARNING ONLY</option></select></div>
+<div class="field"><label>DEFAULT ITEM VISIBILITY</label><select id="setItemVisibility"><option>ONLINE</option><option>OFFLINE</option></select></div>
+<div class="field"><label>DEFAULT ITEM STATUS</label><select id="setItemStatus"><option>ACTIVE</option><option>INACTIVE</option></select></div>
+<div class="field"><label>SHOW PURCHASE COST TO ADMIN</label><select id="setPurchaseCost"><option>YES</option><option>NO</option></select></div>
+<div class="field"><label>SHOW REORDER BADGE</label><select id="setReorderBadge"><option>YES</option><option>NO</option></select></div>
+<div class="field"><label>LOW STOCK DEFAULT LEVEL</label><input id="setDefaultMinStock" type="number" min="0" value="5"></div>
+<div class="field"><label>DEFAULT PIECES / BOX</label><input id="setDefaultPiecesBox" type="number" min="1" value="1"></div>
 </div>
 </div>
 
 <div class="box formStep">
-<div class="boxTitle">3. BUSINESS RULES</div>
+<div class="boxTitle">5. MACHINE REFERENCE & SUITABLE PARTS</div>
 <div class="grid">
-<div class="field"><label>NEGATIVE STOCK</label><select id="setNegative"><option>BLOCK</option></select></div>
-<div class="field"><label>DUPLICATE ENTRY</label><select id="setDuplicate"><option>BLOCK + POPUP</option></select></div>
-<div class="field"><label>DELETE CODE</label><input id="setDeleteCode" value="1122" readonly></div>
-<div class="field"><label>FINAL ESTIMATE = SALE</label><select id="setEstimateSale"><option>YES</option></select></div>
-</div>
-</div>
-
-<div class="box formStep">
-<div class="boxTitle">4. DEALER / WEBSITE OPTIONS</div>
-<div class="grid">
-<div class="field"><label>DEALER HISTORY DAYS</label><input id="setHistoryDays" type="number" min="1" value="30"></div>
-<div class="field"><label>SHOW SCHEMES</label><select id="setSchemes"><option>YES</option><option>NO</option></select></div>
-<div class="field"><label>SHOW ADS</label><select id="setAds"><option>YES</option><option>NO</option></select></div>
+<div class="field"><label>SHOW MACHINE REFERENCE</label><select id="setMachineRef"><option>YES</option><option>NO</option></select></div>
+<div class="field"><label>SHOW MACHINE PHOTO TO DEALER</label><select id="setMachinePhoto"><option>YES</option><option>NO</option></select></div>
+<div class="field"><label>SHOW SUITABLE PARTS TO DEALER</label><select id="setSuitableDealer"><option>YES</option><option>NO</option></select></div>
 <div class="field"><label>SHOW DRAWING BUTTON</label><select id="setDrawings"><option>YES</option><option>NO</option></select></div>
+<div class="field"><label>MACHINE SALES</label><select id="setMachineSales"><option>DISABLED - REFERENCE ONLY</option></select></div>
+<div class="field"><label>ONLY SELL</label><select id="setSellOnly"><option>SPARE PARTS + ACCESSORIES</option></select></div>
 </div>
 </div>
 
 <div class="box formStep">
-<div class="boxTitle">5. SUPPORT / CONTACT / LABELS</div>
+<div class="boxTitle">6. DEALER CONTROL</div>
+<div class="grid">
+<div class="field"><label>DEFAULT RATE GROUP</label><select id="setRateGroup"><option>A</option><option>B</option><option>C</option></select></div>
+<div class="field"><label>DEALER APPROVAL REQUIRED</label><select id="setDealerApproval"><option>YES</option><option>NO</option></select></div>
+<div class="field"><label>SHOW DEALER CHAT</label><select id="setDealerChat"><option>YES</option><option>NO</option></select></div>
+<div class="field"><label>SHOW CUSTOMER HISTORY</label><select id="setCustomerHistory"><option>YES</option><option>NO</option></select></div>
+<div class="field"><label>DEALER HISTORY DAYS</label><input id="setHistoryDays" type="number" min="1" value="30"></div>
+<div class="field"><label>SHOW POINTS / SCHEMES</label><select id="setSchemes"><option>YES</option><option>NO</option></select></div>
+<div class="field"><label>INACTIVE DEALER ALERT DAYS</label><input id="setInactiveDays" type="number" min="1" value="30"></div>
+<div class="field"><label>ALLOW SPECIAL DEALER RATE</label><select id="setSpecialRate"><option>YES</option><option>NO</option></select></div>
+</div>
+</div>
+
+<div class="box formStep">
+<div class="boxTitle">7. ORDER / ESTIMATE / DELIVERY</div>
+<div class="grid">
+<div class="field"><label>SALES ORDER = DEMAND ONLY</label><select id="setOrderDemand"><option>YES</option></select></div>
+<div class="field"><label>FINAL ESTIMATE = ACTUAL SALE</label><select id="setEstimateSale"><option>YES</option></select></div>
+<div class="field"><label>DEALER CAN MODIFY ESTIMATE</label><select id="setDealerModify"><option>YES</option><option>NO</option></select></div>
+<div class="field"><label>FINAL ADMIN APPROVAL</label><select id="setFinalApproval"><option>REQUIRED</option><option>NOT REQUIRED</option></select></div>
+<div class="field"><label>SHOW DELIVERY TRACKING</label><select id="setDeliveryTracking"><option>YES</option><option>NO</option></select></div>
+<div class="field"><label>DELIVERY CONFIRMATION</label><select id="setDeliveryConfirm"><option>YES</option><option>NO</option></select></div>
+<div class="field"><label>PAYMENT GATEWAY</label><select id="setGateway"><option>OFF</option><option>ALLOWED DEALERS ONLY</option></select></div>
+<div class="field"><label>COD OPTION</label><select id="setCOD"><option>OFF</option><option>ON</option></select></div>
+</div>
+</div>
+
+<div class="box formStep">
+<div class="boxTitle">8. WEBSITE DISPLAY</div>
+<div class="grid">
+<div class="field"><label>SHOW ADS</label><select id="setAds"><option>YES</option><option>NO</option></select></div>
+<div class="field"><label>SHOW FEATURED ITEMS</label><select id="setFeatured"><option>YES</option><option>NO</option></select></div>
+<div class="field"><label>SHOW STOCK TO DEALER</label><select id="setDealerStock"><option>YES</option><option>NO</option></select></div>
+<div class="field"><label>SHOW ITEM REMARKS</label><select id="setItemRemarks"><option>YES</option><option>NO</option></select></div>
+<div class="field"><label>SHOW OUT OF STOCK ITEMS</label><select id="setOutOfStock"><option>YES</option><option>NO</option></select></div>
+<div class="field"><label>ALLOW NON-AVAILABLE REQUEST</label><select id="setMissingRequest"><option>YES</option><option>NO</option></select></div>
+<div class="field"><label>SHOW SUPPORT BUTTON</label><select id="setSupportButton"><option>YES</option><option>NO</option></select></div>
+<div class="field"><label>SHOW WHATSAPP BUTTON</label><select id="setWhatsappButton"><option>YES</option><option>NO</option></select></div>
+</div>
+</div>
+
+<div class="box formStep">
+<div class="boxTitle">9. SUPPORT / CONTACT / TEXT</div>
 <div class="grid">
 <div class="field"><label>CUSTOMER CARE NUMBER</label><input id="setSupportPhone"></div>
 <div class="field"><label>WHATSAPP NUMBER</label><input id="setWhatsapp"></div>
 <div class="field"><label>ADMIN DISPLAY NAME</label><input id="setAdminName" class="upper" value="ONLINE ADMIN"></div>
 <div class="field"><label>PORTAL MESSAGE</label><input id="setPortalMessage" class="upper"></div>
+<div class="field"><label>WEBSITE NOTICE</label><input id="setWebsiteNotice" class="upper"></div>
+<div class="field"><label>ORDER CONFIRM MESSAGE</label><input id="setOrderMessage" class="upper"></div>
+<div class="field"><label>DELIVERY SUCCESS MESSAGE</label><input id="setDeliveryMessage" class="upper"></div>
+<div class="field"><label>BLOCKED DEALER MESSAGE</label><input id="setBlockedMessage" class="upper"></div>
 </div>
 </div>
-
 
 <div class="box formStep">
-<div class="boxTitle">6. QUICK ADMIN CONTROLS</div>
+<div class="boxTitle">10. SECURITY / BACKUP / HISTORY</div>
 <div class="grid">
-<div class="field"><label>DEFAULT LANGUAGE</label><select id="setDefaultLang"><option>ENGLISH</option><option>HINDI</option></select></div>
-<div class="field"><label>SHOW BELL ALERTS</label><select id="setBell"><option>YES</option><option>NO</option></select></div>
-<div class="field"><label>SHOW LOW STOCK ALERT</label><select id="setLowStock"><option>YES</option><option>NO</option></select></div>
-<div class="field"><label>SHOW DEALER CHAT</label><select id="setDealerChat"><option>YES</option><option>NO</option></select></div>
-<div class="field"><label>SHOW CUSTOMER HISTORY</label><select id="setCustomerHistory"><option>YES</option><option>NO</option></select></div>
-<div class="field"><label>SHOW FUTURE OPTIONS</label><select id="setFuture"><option>YES</option><option>NO</option></select></div>
-<div class="field"><label>DEFAULT RATE GROUP</label><select id="setRateGroup"><option>A</option><option>B</option><option>C</option></select></div>
-<div class="field"><label>DEFAULT ITEM VISIBILITY</label><select id="setItemVisibility"><option>ONLINE</option><option>OFFLINE</option></select></div>
+<div class="field"><label>DELETE CODE</label><input id="setDeleteCode" value="1122" readonly></div>
+<div class="field"><label>DELETE REQUIRES CONFIRM</label><select id="setDeleteConfirm"><option>YES</option></select></div>
+<div class="field"><label>KEEP DELETE BACKUP</label><select id="setDeleteBackup"><option>YES</option><option>NO</option></select></div>
+<div class="field"><label>UNDO / RESTORE</label><select id="setUndo"><option>ON</option><option>OFF</option></select></div>
+<div class="field"><label>DAILY BACKUP REMINDER</label><select id="setBackupReminder"><option>ON</option><option>OFF</option></select></div>
+<div class="field"><label>LOGOUT BACKUP PROMPT</label><select id="setLogoutBackup"><option>ON</option><option>OFF</option></select></div>
+<div class="field"><label>ACTIVITY HISTORY</label><select id="setActivityHistory"><option>ON</option><option>OFF</option></select></div>
+<div class="field"><label>SETTINGS LOCK</label><select id="setSettingsLock"><option>OFF</option><option>ON</option></select></div>
+</div>
+</div>
+
+<div class="box formStep">
+<div class="boxTitle">11. FUTURE / ADVANCED FEATURES</div>
+<div class="grid">
+<div class="field"><label>AI / API HUB</label><select id="setAI"><option>OFF</option><option>READY - NOT CONNECTED</option></select></div>
+<div class="field"><label>UPDATE CENTER</label><select id="setUpdates"><option>ON</option><option>OFF</option></select></div>
+<div class="field"><label>POINTS / YEARLY SCHEME</label><select id="setPoints"><option>ON</option><option>OFF</option></select></div>
+<div class="field"><label>B2C MODE</label><select id="setB2C"><option>OFF - B2B ONLY</option></select></div>
 </div>
 </div>
 
@@ -588,6 +768,7 @@ Machines are not sold on this portal. Dealer website sales are only for Spare Pa
 <button class="btn green" onclick="savePortalSettings()">SAVE SETTINGS</button>
 <button class="btn orange" onclick="applyPortalSettings()">APPLY NOW</button>
 <button class="btn red" onclick="resetPortalSettings()">RESET DEFAULT</button>
+<button class="btn dark" onclick="exportPortalSettings()">EXPORT SETTINGS</button>
 </div>
 </div>
 </section>
@@ -595,21 +776,28 @@ Machines are not sold on this portal. Dealer website sales are only for Spare Pa
 </main>
 
 <aside class="right">
+<div class="rightTopZone">
+  <div id="adminOnlineStatus" class="rightOnlineStatus">● ONLINE ADMIN</div>
+  <div class="rightTopControls">
+    <button id="langToggle" class="rightMiniBtn langYellow" onclick="toggleLanguage()">EN|HI</button>
+    <button class="rightMiniBtn logoutMini" onclick="logoutAdmin()">LOGOUT</button>
+  </div>
+</div>
+
+<div class="rightNavStart">
 <button class="rnav" onclick="openSection('ads',this)">ADS & PROMOTIONS</button>
 <button class="rnav" onclick="openSection('homepage',this)">HOME PAGE CONTENT</button>
-
 <button class="rnav settingsMainBtn" onclick="openSection('settings',this)">⚙ SETTINGS</button>
 <button class="rnav" onclick="runSystemCheck()">VERIFY SYSTEM <span id="badgeSystem" class="actionBadge">0</span></button>
 <button class="rnav refreshMenuBtn" onclick="refreshPortal()">↻ REFRESH</button>
-<button class="rnav" onclick="toggleSoundPanel()">🔊 SOUND</button>
-
+<button class="rnav soundMenuBtn" onclick="toggleSoundPanel(event)">🔊 SOUND</button>
 <button class="rnav" onclick="openSection('points',this)">POINTS & YEARLY SCHEME</button>
 <button class="rnav" onclick="openSection('ai',this)">AI & API HUB</button>
 <button class="rnav" onclick="openSection('updates',this)">UPDATE CENTER <span id="badgeUpdate" class="actionBadge">0</span></button>
-
 <button class="rnav" onclick="openSection('reports',this)">REPORTS CENTER</button>
 <button class="rnav" onclick="openSection('dealers',this)">DEALER CONTROL</button>
 <button class="rnav" onclick="openSection('customers',this)">CUSTOMER HISTORY</button>
+</div>
 </aside>
 </div>
 
@@ -865,13 +1053,13 @@ function showActionPanel(type){var p=E("dashboardActionPanel"),html="",n=getActi
 function markOrderRead(no){var o=DB.orders.find(function(x){return N(x.no)===N(no)});if(o)o.readAdmin=true;saveDB();toast("ORDER MARKED READ","success")}
 function toggleLanguage(){
  currentLang=currentLang==="EN"?"HI":"EN";E("langToggle").textContent=currentLang==="EN"?"EN|HI":"HI|EN";
- var hi={"DASHBOARD":"डैशबोर्ड","MACHINE MASTER":"मशीन मास्टर","ADD SPARE PART":"स्पेयर पार्ट जोड़ें","ADD ACCESSORY":"एक्सेसरी जोड़ें","ITEM MASTER":"आइटम मास्टर","SUITABLE SEARCH":"सूटेबल सर्च","MACHINE DRAWINGS":"मशीन ड्रॉइंग","SALES ORDERS":"सेल्स ऑर्डर","FINAL ESTIMATES / SALES":"फाइनल एस्टिमेट / सेल","DELIVERY & TRACKING":"डिलीवरी / ट्रैकिंग","INQUIRIES":"इंक्वायरी","DEALER MANAGEMENT":"डीलर मैनेजमेंट","CUSTOMER HISTORY":"कस्टमर हिस्ट्री","30-DAY DEALER JOURNEY":"30-दिन डीलर हिस्ट्री","DEALER CHAT":"डीलर चैट","POINTS & YEARLY SCHEME":"पॉइंट्स / सालाना स्कीम","REPORTS CENTER":"रिपोर्ट्स सेंटर","DEALER CONTROL":"डीलर कंट्रोल","POINTS & SCHEME":"पॉइंट्स / स्कीम","ADS & PROMOTIONS":"विज्ञापन / प्रमोशन","HOME PAGE CONTENT":"होम पेज कंटेंट","AI & API HUB":"AI / API हब","UPDATE CENTER":"अपडेट सेंटर","VERIFY SYSTEM":"सिस्टम वेरिफाई","SETTINGS":"सेटिंग्स","HOME & CATALOG":"होम / कैटलॉग","ONLINE PROCESS":"ऑनलाइन प्रक्रिया","DEALERS":"डीलर्स","BUSINESS":"बिजनेस","PROMOTION":"प्रमोशन","SMART CONTROL":"स्मार्ट कंट्रोल","SYSTEM":"सिस्टम"};
+ var hi={"DASHBOARD":"डैशबोर्ड","ADD MACHINE":"मशीन जोड़ें","ADD SPARE PART":"स्पेयर पार्ट जोड़ें","ADD ACCESSORY":"एक्सेसरी जोड़ें","ITEM MASTER":"आइटम मास्टर","SUITABLE SEARCH":"सूटेबल सर्च","MACHINE DRAWINGS":"मशीन ड्रॉइंग","SALES ORDERS":"सेल्स ऑर्डर","FINAL ESTIMATES / SALES":"फाइनल एस्टिमेट / सेल","DELIVERY & TRACKING":"डिलीवरी / ट्रैकिंग","INQUIRIES":"इंक्वायरी","DEALER MANAGEMENT":"डीलर मैनेजमेंट","CUSTOMER HISTORY":"कस्टमर हिस्ट्री","30-DAY DEALER JOURNEY":"30-दिन डीलर हिस्ट्री","DEALER CHAT":"डीलर चैट","POINTS & YEARLY SCHEME":"पॉइंट्स / सालाना स्कीम","REPORTS CENTER":"रिपोर्ट्स सेंटर","DEALER CONTROL":"डीलर कंट्रोल","POINTS & SCHEME":"पॉइंट्स / स्कीम","ADS & PROMOTIONS":"विज्ञापन / प्रमोशन","HOME PAGE CONTENT":"होम पेज कंटेंट","AI & API HUB":"AI / API हब","UPDATE CENTER":"अपडेट सेंटर","VERIFY SYSTEM":"सिस्टम वेरिफाई","SETTINGS":"सेटिंग्स","HOME & CATALOG":"होम / कैटलॉग","ONLINE PROCESS":"ऑनलाइन प्रक्रिया","DEALERS":"डीलर्स","BUSINESS":"बिजनेस","PROMOTION":"प्रमोशन","SMART CONTROL":"स्मार्ट कंट्रोल","SYSTEM":"सिस्टम"};
  document.querySelectorAll(".nav,.rnav,.menuTitle").forEach(function(el){if(!el.dataset.enLabel)el.dataset.enLabel=el.childNodes[0]?el.childNodes[0].textContent.trim():el.textContent.trim();var en=el.dataset.enLabel;if(currentLang==="HI"&&hi[en]){if(el.childNodes[0])el.childNodes[0].textContent=hi[en]+" ";else el.textContent=hi[en]}else if(currentLang==="EN"){if(el.childNodes[0])el.childNodes[0].textContent=en+" ";else el.textContent=en}});
  var title=E("pageTitle");if(title){if(!title.dataset.en)title.dataset.en=title.textContent;var map={"TORVO DASHBOARD":"टॉरवो डैशबोर्ड","MACHINES":"मशीन मास्टर","ITEM MASTER":"आइटम मास्टर","SUITABLE SEARCH":"सूटेबल सर्च","DELIVERY & TRACKING":"डिलीवरी / ट्रैकिंग","CUSTOMER HISTORY":"कस्टमर हिस्ट्री","REPORTS CENTER":"रिपोर्ट्स सेंटर","SYSTEM VERIFY":"सिस्टम वेरिफाई","DEALER MANAGEMENT":"डीलर मैनेजमेंट"};title.textContent=currentLang==="HI"?(map[title.dataset.en]||title.dataset.en):title.dataset.en}
  toast(currentLang==="HI"?"HINDI MODE ON":"ENGLISH MODE ON","success")
 }
 function quickSet(id,val){if(E(id)){E(id).value=val;E(id).dispatchEvent(new Event("input"))}}
-function savePortalSettings(){DB.settings=DB.settings||{};DB.settings.company=U(E("setCompany").value.trim());DB.settings.support=E("setSupport").value.trim();DB.settings.ownBrand=U(E("setOwnBrand").value.trim());DB.settings.mode=E("setMode").value;DB.settings.sound=E("setSound").value;saveDB();toast("SETTINGS SAVED","success")}
+function saveLegacyPortalSettings(){/* legacy settings function retained but disabled */}
 function secureDeleteArray(arr,index,label){var code=prompt("ENTER DELETE CODE");if(code!=="1122")return toast("WRONG DELETE CODE","error");if(!confirm("DELETE "+U(label||"RECORD")+" ?"))return;arr.splice(index,1);saveDB();sndDelete();toast("DELETED","success")}
 function reportDefs(){return[["SALES REPORT","ORDER RECEIVED VS FINAL ESTIMATE SALE","SALES"],["ACTUAL SALES","FINAL ESTIMATE = ACTUAL SALE","ESTIMATES"],["ORDER VS ESTIMATE","FULFILLED / PENDING BUSINESS","ORDER_ESTIMATE"],["PENDING / UNFULFILLED","ORDERS NOT FULLY CONVERTED","PENDING"],["PROFIT / INCOME","FINAL SALE LESS ALL COSTS","PROFIT"],["EXPENSE REPORT","COURIER / TRANSPORT / PACKING / PAYMENT / OTHER","EXPENSE"],["STOCK / INVENTORY","CURRENT STOCK BY ITEM","STOCK"],["LOW STOCK / REORDER","ITEMS AT OR BELOW MINIMUM","REORDER"],["ITEM / PRODUCT","ALL ITEMS","ITEMS"],["SPARE PART","SPARE PART MASTER","SPARES"],["ACCESSORIES","ACCESSORY MASTER","ACCESSORIES"],["MACHINE","MACHINE MASTER","MACHINES"],["SUITABLE MAPPING","ITEM TO MACHINE COMPATIBILITY","SUITABLE"],["DEALER / CUSTOMER","DEALER MASTER / STATUS / RATE","DEALERS"],["DEALER PERFORMANCE","ORDER / SALE BY DEALER","DEALER_PERFORMANCE"],["CUSTOMER HISTORY","PERMANENT ADMIN HISTORY","CUSTOMER_HISTORY"],["DELIVERY / TRACKING","PENDING AND DELIVERED","DELIVERY"],["COURIER / TRANSPORT","LOGISTICS PARTNERS","PARTNERS"],["POINTS / SCHEME","DEALER POINTS + SCHEMES","POINTS"],["INQUIRY","WEBSITE / DEALER / SPARE REQUESTS","INQUIRY"],["CHAT / MESSAGE","DEALER PORTAL MESSAGES","CHAT"],["ACTIVITY / SYSTEM","ADMIN ACTIVITY + VERIFY","ACTIVITY"]]}
 function renderReportsCenter(){if(!E("reportCards"))return;E("reportCards").innerHTML=reportDefs().map(function(r){return"<div class='reportCard'><b>"+r[0]+"</b><div class='help'>"+r[1]+"</div><div class='reportActions'><button class='btn blue' onclick=\\\"viewReport('"+r[2]+"')\\\">VIEW</button><button class='btn green' onclick=\\\"exportReportCSV('"+r[2]+"')\\\">EXCEL</button><button class='btn red' onclick=\\\"printReportPDF('"+r[2]+"')\\\">PDF</button></div></div>"}).join("")}
@@ -931,27 +1119,105 @@ function printReport(type){viewReport(type);var w=window.open("","_blank");w.doc
 
 
 
+
 function defaultPortalSettings(){
- return{scale:"1.00",compact:"YES",rightBar:"YES",voice:"ON",camera:"ON",refreshAlerts:"ON",sound:"ON",historyDays:30,schemes:"YES",ads:"YES",drawings:"YES",supportPhone:"",whatsapp:"",adminName:"ONLINE ADMIN",portalMessage:""}
+ return{
+  scale:"1",compact:"YES",leftBar:"SHOW",rightBar:"SHOW",stickyTop:"YES",rowSize:"COMPACT",
+  defaultLang:"ENGLISH",theme:"TORVO RED / BLACK / GREY / WHITE",
+  globalSearch:"ON",voice:"ON",camera:"ON",searchMachine:"YES",searchDrawing:"YES",uppercase:"ON",
+  sound:"ON",bell:"YES",refreshAlerts:"ON",lowStock:"YES",orderAlert:"YES",inquiryAlert:"YES",chatAlert:"YES",deliveryAlert:"YES",
+  negative:"BLOCK",duplicate:"BLOCK + POPUP",itemVisibility:"ONLINE",itemStatus:"ACTIVE",purchaseCost:"YES",reorderBadge:"YES",defaultMinStock:5,defaultPiecesBox:1,
+  machineRef:"YES",machinePhoto:"YES",suitableDealer:"YES",drawings:"YES",machineSales:"DISABLED - REFERENCE ONLY",sellOnly:"SPARE PARTS + ACCESSORIES",
+  rateGroup:"A",dealerApproval:"YES",dealerChat:"YES",customerHistory:"YES",historyDays:30,schemes:"YES",inactiveDays:30,specialRate:"YES",
+  orderDemand:"YES",estimateSale:"YES",dealerModify:"YES",finalApproval:"REQUIRED",deliveryTracking:"YES",deliveryConfirm:"YES",gateway:"OFF",cod:"OFF",
+  ads:"YES",featured:"YES",dealerStock:"YES",itemRemarks:"YES",outOfStock:"YES",missingRequest:"YES",supportButton:"YES",whatsappButton:"YES",
+  supportPhone:"",whatsapp:"",adminName:"ONLINE ADMIN",portalMessage:"",websiteNotice:"",orderMessage:"ORDER RECEIVED",deliveryMessage:"DELIVERY SUCCESSFUL",blockedMessage:"PLEASE CONTACT TORVO ADMIN",
+  deleteConfirm:"YES",deleteBackup:"YES",undo:"ON",backupReminder:"ON",logoutBackup:"ON",activityHistory:"ON",settingsLock:"OFF",
+  ai:"OFF",updates:"ON",points:"ON",b2c:"OFF - B2B ONLY"
+ }
 }
-function getPortalSettings(){var x=localStorage.getItem("TORVO_PORTAL_SETTINGS");return x?Object.assign(defaultPortalSettings(),JSON.parse(x)):defaultPortalSettings()}
+function getPortalSettings(){
+ try{
+  var x=localStorage.getItem("TORVO_PORTAL_SETTINGS");
+  return x?Object.assign(defaultPortalSettings(),JSON.parse(x)):defaultPortalSettings()
+ }catch(e){return defaultPortalSettings()}
+}
+function settingsFieldMap(){
+ return{
+  setScale:"scale",setCompact:"compact",setLeftBar:"leftBar",setRightBar:"rightBar",setStickyTop:"stickyTop",setRowSize:"rowSize",setDefaultLang:"defaultLang",
+  setGlobalSearch:"globalSearch",setVoice:"voice",setCamera:"camera",setSearchMachine:"searchMachine",setSearchDrawing:"searchDrawing",setUppercase:"uppercase",
+  setSound:"sound",setBell:"bell",setRefreshAlerts:"refreshAlerts",setLowStock:"lowStock",setOrderAlert:"orderAlert",setInquiryAlert:"inquiryAlert",setChatAlert:"chatAlert",setDeliveryAlert:"deliveryAlert",
+  setNegative:"negative",setDuplicate:"duplicate",setItemVisibility:"itemVisibility",setItemStatus:"itemStatus",setPurchaseCost:"purchaseCost",setReorderBadge:"reorderBadge",
+  setDefaultMinStock:"defaultMinStock",setDefaultPiecesBox:"defaultPiecesBox",
+  setMachineRef:"machineRef",setMachinePhoto:"machinePhoto",setSuitableDealer:"suitableDealer",setDrawings:"drawings",setMachineSales:"machineSales",setSellOnly:"sellOnly",
+  setRateGroup:"rateGroup",setDealerApproval:"dealerApproval",setDealerChat:"dealerChat",setCustomerHistory:"customerHistory",setHistoryDays:"historyDays",setSchemes:"schemes",setInactiveDays:"inactiveDays",setSpecialRate:"specialRate",
+  setOrderDemand:"orderDemand",setEstimateSale:"estimateSale",setDealerModify:"dealerModify",setFinalApproval:"finalApproval",setDeliveryTracking:"deliveryTracking",setDeliveryConfirm:"deliveryConfirm",setGateway:"gateway",setCOD:"cod",
+  setAds:"ads",setFeatured:"featured",setDealerStock:"dealerStock",setItemRemarks:"itemRemarks",setOutOfStock:"outOfStock",setMissingRequest:"missingRequest",setSupportButton:"supportButton",setWhatsappButton:"whatsappButton",
+  setSupportPhone:"supportPhone",setWhatsapp:"whatsapp",setAdminName:"adminName",setPortalMessage:"portalMessage",setWebsiteNotice:"websiteNotice",setOrderMessage:"orderMessage",setDeliveryMessage:"deliveryMessage",setBlockedMessage:"blockedMessage",
+  setDeleteConfirm:"deleteConfirm",setDeleteBackup:"deleteBackup",setUndo:"undo",setBackupReminder:"backupReminder",setLogoutBackup:"logoutBackup",setActivityHistory:"activityHistory",setSettingsLock:"settingsLock",
+  setAI:"ai",setUpdates:"updates",setPoints:"points",setB2C:"b2c"
+ }
+}
 function loadPortalSettings(){
- var s=getPortalSettings();
- [["setScale",s.scale],["setCompact",s.compact],["setRightBar",s.rightBar],["setVoice",s.voice],["setCamera",s.camera],["setRefreshAlerts",s.refreshAlerts],["setSound",s.sound],["setHistoryDays",s.historyDays],["setSchemes",s.schemes],["setAds",s.ads],["setDrawings",s.drawings],["setSupportPhone",s.supportPhone],["setWhatsapp",s.whatsapp],["setAdminName",s.adminName],["setPortalMessage",s.portalMessage]].forEach(function(a){if(E(a[0]))E(a[0]).value=a[1]})
+ var s=getPortalSettings(),m=settingsFieldMap();
+ Object.keys(m).forEach(function(id){if(E(id)&&s[m[id]]!==undefined)E(id).value=s[m[id]]});
 }
 function savePortalSettings(){
- var s={scale:E("setScale").value,compact:E("setCompact").value,rightBar:E("setRightBar").value,voice:E("setVoice").value,camera:E("setCamera").value,refreshAlerts:E("setRefreshAlerts").value,sound:E("setSound").value,historyDays:Number(E("setHistoryDays").value||30),schemes:E("setSchemes").value,ads:E("setAds").value,drawings:E("setDrawings").value,supportPhone:E("setSupportPhone").value.trim(),whatsapp:E("setWhatsapp").value.trim(),adminName:U(E("setAdminName").value.trim()),portalMessage:U(E("setPortalMessage").value.trim())};
- localStorage.setItem("TORVO_PORTAL_SETTINGS",JSON.stringify(s));applyPortalSettings();toast("SETTINGS SAVED","success")
+ var s=getPortalSettings(),m=settingsFieldMap();
+ Object.keys(m).forEach(function(id){
+  if(!E(id))return;
+  var v=E(id).value;
+  if(["setHistoryDays","setInactiveDays","setDefaultMinStock","setDefaultPiecesBox"].includes(id))v=Number(v||0);
+  s[m[id]]=v
+ });
+ localStorage.setItem("TORVO_PORTAL_SETTINGS",JSON.stringify(s));
+ if(E("sndMaster")){
+  E("sndMaster").checked=s.sound==="ON";
+  saveSoundPrefs()
+ }
+ applyPortalSettings();
+ toast("SETTINGS SAVED & APPLIED","success");
+ torvoBeep("success")
 }
 function applyPortalSettings(){
  var s=getPortalSettings();
- document.body.style.zoom=s.scale;
- document.querySelector(".right").style.display=s.rightBar==="YES"?"block":"none";
+ document.body.style.zoom=s.scale||"1";
+ var left=document.querySelector(".left"),right=document.querySelector(".right"),top=document.querySelector(".top");
+ if(left)left.style.display=s.leftBar==="HIDE"?"none":"block";
+ if(right)right.style.display=s.rightBar==="HIDE"?"none":"block";
+ if(top)top.style.position=s.stickyTop==="YES"?"sticky":"relative";
  document.querySelectorAll(".nav,.rnav,.topBtn,.btn").forEach(function(b){b.style.padding=s.compact==="YES"?"6px 8px":""});
- var cam=document.querySelector(".camBtn"),mic=document.querySelector(".micBtn");if(cam)cam.style.display=s.camera==="ON"?"block":"none";if(mic)mic.style.display=s.voice==="ON"?"block":"none";
- var owner=document.querySelector(".owner");if(owner)owner.textContent=s.adminName||"ONLINE ADMIN"
+ document.querySelectorAll("table td,table th").forEach(function(c){c.style.padding=s.rowSize==="LARGE"?"10px":s.rowSize==="NORMAL"?"8px":"6px"});
+ var cam=document.querySelector(".camBtn"),mic=document.querySelector(".micBtn"),search=document.querySelector(".search");
+ if(cam)cam.style.display=s.camera==="ON"?"block":"none";
+ if(mic)mic.style.display=s.voice==="ON"?"block":"none";
+ if(search)search.style.display=s.globalSearch==="ON"?"block":"none";
+ var bell=document.querySelector(".bell");if(bell)bell.style.display=s.bell==="YES"?"block":"none";
+ var owner=E("adminOnlineStatus");if(owner)owner.textContent="● "+(s.adminName||"ONLINE ADMIN");
+ var chatBtn=[...document.querySelectorAll(".nav,.rnav")].find(function(b){return b.textContent.includes("DEALER CHAT")});
+ if(chatBtn)chatBtn.style.display=s.dealerChat==="YES"?"block":"none";
+ var custBtn=[...document.querySelectorAll(".nav,.rnav")].find(function(b){return b.textContent.includes("CUSTOMER HISTORY")});
+ if(custBtn)custBtn.style.display=s.customerHistory==="YES"?"block":"none";
+ var pointsBtn=[...document.querySelectorAll(".rnav")].find(function(b){return b.textContent.includes("POINTS & YEARLY")});
+ if(pointsBtn)pointsBtn.style.display=s.points==="ON"?"block":"none";
+ var aiBtn=[...document.querySelectorAll(".rnav")].find(function(b){return b.textContent.includes("AI & API")});
+ if(aiBtn)aiBtn.style.display=s.ai==="OFF"?"block":"block";
+ var upBtn=[...document.querySelectorAll(".rnav")].find(function(b){return b.textContent.includes("UPDATE CENTER")});
+ if(upBtn)upBtn.style.display=s.updates==="ON"?"block":"none";
+ var soundPrefs=getSoundPrefs();soundPrefs.master=s.sound==="ON";localStorage.setItem(TORVO_SOUND_KEY,JSON.stringify(soundPrefs));
 }
-function resetPortalSettings(){localStorage.removeItem("TORVO_PORTAL_SETTINGS");loadPortalSettings();applyPortalSettings();toast("DEFAULT SETTINGS RESTORED","success")}
+function resetPortalSettings(){
+ localStorage.removeItem("TORVO_PORTAL_SETTINGS");
+ loadPortalSettings();applyPortalSettings();
+ toast("DEFAULT SETTINGS RESTORED","success");torvoBeep("success")
+}
+function exportPortalSettings(){
+ var data=JSON.stringify(getPortalSettings(),null,2);
+ var blob=new Blob([data],{type:"application/json"});
+ var a=document.createElement("a");a.href=URL.createObjectURL(blob);a.download="TORVO_PORTAL_SETTINGS.json";a.click();URL.revokeObjectURL(a.href);
+ toast("SETTINGS EXPORTED","success")
+}
+
 
 function refreshPortal(){
  try{
@@ -1002,62 +1268,70 @@ function openMachineDetail(i){
 }
 
 
-const TORVO_SOUND_KEY="torvoSoundPrefsV1";
-const TORVO_SOUND_DEFAULTS={
- master:true,click:true,success:true,error:true,delete:true,
- order:true,inquiry:true,chat:true,delivery:true,alert:true
-};
+
+var TORVO_SOUND_KEY="torvoSoundPrefsV2";
+var TORVO_SOUND_DEFAULTS={master:true,click:true,success:true,error:true,delete:true,order:true,inquiry:true,chat:true,delivery:true,alert:true};
 function getSoundPrefs(){
  try{return Object.assign({},TORVO_SOUND_DEFAULTS,JSON.parse(localStorage.getItem(TORVO_SOUND_KEY)||"{}"))}
  catch(e){return Object.assign({},TORVO_SOUND_DEFAULTS)}
 }
+function loadSoundPrefs(){
+ var p=getSoundPrefs();
+ var map={sndMaster:"master",sndClick:"click",sndSuccess:"success",sndError:"error",sndDelete:"delete",sndOrder:"order",sndInquiry:"inquiry",sndChat:"chat",sndDelivery:"delivery",sndAlert:"alert"};
+ Object.keys(map).forEach(function(id){if(E(id))E(id).checked=!!p[map[id]]})
+}
 function saveSoundPrefs(){
- const p={
-  master:!!E("sndMaster")?.checked,
-  click:!!E("sndClick")?.checked,
-  success:!!E("sndSuccess")?.checked,
-  error:!!E("sndError")?.checked,
-  delete:!!E("sndDelete")?.checked,
-  order:!!E("sndOrder")?.checked,
-  inquiry:!!E("sndInquiry")?.checked,
-  chat:!!E("sndChat")?.checked,
-  delivery:!!E("sndDelivery")?.checked,
-  alert:!!E("sndAlert")?.checked
+ var old=getSoundPrefs(),p={
+  master:E("sndMaster")?E("sndMaster").checked:old.master,
+  click:E("sndClick")?E("sndClick").checked:old.click,
+  success:E("sndSuccess")?E("sndSuccess").checked:old.success,
+  error:E("sndError")?E("sndError").checked:old.error,
+  delete:E("sndDelete")?E("sndDelete").checked:old.delete,
+  order:E("sndOrder")?E("sndOrder").checked:old.order,
+  inquiry:E("sndInquiry")?E("sndInquiry").checked:old.inquiry,
+  chat:E("sndChat")?E("sndChat").checked:old.chat,
+  delivery:E("sndDelivery")?E("sndDelivery").checked:old.delivery,
+  alert:E("sndAlert")?E("sndAlert").checked:old.alert
  };
  localStorage.setItem(TORVO_SOUND_KEY,JSON.stringify(p));
+ var ps=getPortalSettings();ps.sound=p.master?"ON":"OFF";localStorage.setItem("TORVO_PORTAL_SETTINGS",JSON.stringify(ps));
+ if(E("setSound"))E("setSound").value=p.master?"ON":"OFF"
 }
-function loadSoundPrefs(){
- const p=getSoundPrefs();
- const map={sndMaster:"master",sndClick:"click",sndSuccess:"success",sndError:"error",sndDelete:"delete",sndOrder:"order",sndInquiry:"inquiry",sndChat:"chat",sndDelivery:"delivery",sndAlert:"alert"};
- Object.keys(map).forEach(id=>{if(E(id))E(id).checked=!!p[map[id]]});
-}
-function torvoBeep(type="click"){
- const p=getSoundPrefs();
- if(!p.master||!p[type])return;
+function torvoBeep(type){
+ type=type||"click";
+ var p=getSoundPrefs();if(!p.master||!p[type])return;
  try{
-  const AC=window.AudioContext||window.webkitAudioContext;
-  const ctx=new AC(),o=ctx.createOscillator(),g=ctx.createGain();
-  const tone={click:520,success:760,error:190,delete:240,order:880,inquiry:690,chat:620,delivery:720,alert:320}[type]||520;
-  const dur={click:.035,success:.09,error:.14,delete:.12,order:.13,inquiry:.11,chat:.08,delivery:.10,alert:.16}[type]||.05;
+  var AC=window.AudioContext||window.webkitAudioContext;if(!AC)return;
+  var ctx=new AC(),o=ctx.createOscillator(),g=ctx.createGain();
+  var tone={click:500,success:760,error:190,delete:240,order:880,inquiry:690,chat:620,delivery:720,alert:320}[type]||500;
+  var dur={click:.035,success:.09,error:.14,delete:.12,order:.13,inquiry:.11,chat:.08,delivery:.10,alert:.16}[type]||.05;
   o.type="sine";o.frequency.value=tone;
-  g.gain.setValueAtTime(type==="click"?.018:.035,ctx.currentTime);
+  g.gain.setValueAtTime(type==="click"?.015:.035,ctx.currentTime);
   g.gain.exponentialRampToValueAtTime(.001,ctx.currentTime+dur);
   o.connect(g);g.connect(ctx.destination);o.start();o.stop(ctx.currentTime+dur);
-  o.onended=()=>ctx.close();
+  o.onended=function(){try{ctx.close()}catch(e){}}
  }catch(e){}
 }
-function toggleSoundPanel(force){
- const p=E("soundPanel");if(!p)return;
- const show=typeof force==="boolean"?force:!p.classList.contains("show");
+function testPortalSound(){torvoBeep("success")}
+function toggleSoundPanel(ev){
+ if(ev&&ev.stopPropagation)ev.stopPropagation();
+ var p=E("soundPanel");if(!p)return alert("SOUND PANEL NOT FOUND");
+ var show=!p.classList.contains("show");
  p.classList.toggle("show",show);
- if(show)loadSoundPrefs();
+ var btn=document.querySelector(".soundMenuBtn");if(btn)btn.classList.toggle("soundOpen",show);
+ if(show){loadSoundPrefs();torvoBeep("click")}
+}
+function closeSoundPanel(){
+ var p=E("soundPanel");if(p)p.classList.remove("show");
+ var btn=document.querySelector(".soundMenuBtn");if(btn)btn.classList.remove("soundOpen")
 }
 document.addEventListener("click",function(ev){
- const panel=E("soundPanel");
- if(panel&&panel.classList.contains("show")&&!ev.target.closest("#soundPanel")&&!ev.target.closest("[onclick*='toggleSoundPanel']"))panel.classList.remove("show");
- const b=ev.target.closest("button,.rnav,.nav");
- if(b&&!b.closest("#soundPanel"))torvoBeep("click");
+ var panel=E("soundPanel");
+ if(panel&&panel.classList.contains("show")&&!ev.target.closest("#soundPanel")&&!ev.target.closest(".soundMenuBtn"))closeSoundPanel();
+ var b=ev.target.closest("button,.rnav,.nav");
+ if(b&&!b.closest("#soundPanel")&&!b.classList.contains("soundMenuBtn"))torvoBeep("click")
 });
+
 
 function dashboard(){
  E("dItems").textContent=DB.items.length;E("dMachines").textContent=DB.machines.length;E("dIn").textContent=DB.items.filter(function(x){return x.qty>0}).length;E("dOut").textContent=DB.items.filter(function(x){return x.qty<=0}).length;E("dReorder").textContent=DB.items.filter(function(x){return x.qty<=x.min}).length;refreshActionBadges();
@@ -1079,9 +1353,30 @@ if(E("pfDate"))E("pfDate").value=TODAY();
 if(E("srTo"))E("srTo").value=TODAY();
 if(E("srFrom")){var d=new Date();d.setDate(1);E("srFrom").value=d.toISOString().slice(0,10)}
 if(E("adStart"))E("adStart").value=TODAY();if(E("reportTo"))E("reportTo").value=TODAY();if(E("reportFrom")){var rf=new Date();rf.setDate(1);E("reportFrom").value=rf.toISOString().slice(0,10)}
-refreshAll();applyPortalSettings()
+refreshAll();loadPortalSettings();applyPortalSettings();loadSoundPrefs()
 });
 </script>
+
+<div id="soundPanel" class="soundPanel" onclick="event.stopPropagation()">
+  <div class="soundHead">
+    <div><b>🔊 SOUND SETTINGS</b><div class="help">SHORT & SOFT PORTAL SOUNDS</div></div>
+    <button class="btn light" onclick="closeSoundPanel()">CLOSE</button>
+  </div>
+  <div class="soundRow"><div><b>MASTER SOUND</b><small>ALL SOUNDS ON / OFF</small></div><label class="soundSwitch"><input id="sndMaster" type="checkbox" onchange="saveSoundPrefs()"> ON</label></div>
+  <div class="soundRow"><div><b>BUTTON / MENU CLICK</b><small>VERY LIGHT CLICK</small></div><label class="soundSwitch"><input id="sndClick" type="checkbox" onchange="saveSoundPrefs()"> ON</label></div>
+  <div class="soundRow"><div><b>SAVE / SUCCESS</b><small>SUCCESSFUL ACTION</small></div><label class="soundSwitch"><input id="sndSuccess" type="checkbox" onchange="saveSoundPrefs()"> ON</label></div>
+  <div class="soundRow"><div><b>ERROR / FAILED</b><small>ERROR OR VALIDATION</small></div><label class="soundSwitch"><input id="sndError" type="checkbox" onchange="saveSoundPrefs()"> ON</label></div>
+  <div class="soundRow"><div><b>DELETE / WARNING</b><small>DELETE OR IMPORTANT WARNING</small></div><label class="soundSwitch"><input id="sndDelete" type="checkbox" onchange="saveSoundPrefs()"> ON</label></div>
+  <div class="soundRow"><div><b>NEW ORDER</b><small>NEW DEALER ORDER</small></div><label class="soundSwitch"><input id="sndOrder" type="checkbox" onchange="saveSoundPrefs()"> ON</label></div>
+  <div class="soundRow"><div><b>INQUIRY / REGISTRATION</b><small>NEW DEALER INQUIRY</small></div><label class="soundSwitch"><input id="sndInquiry" type="checkbox" onchange="saveSoundPrefs()"> ON</label></div>
+  <div class="soundRow"><div><b>CHAT / MESSAGE</b><small>NEW MESSAGE</small></div><label class="soundSwitch"><input id="sndChat" type="checkbox" onchange="saveSoundPrefs()"> ON</label></div>
+  <div class="soundRow"><div><b>DELIVERY / UPDATE</b><small>DELIVERY OR UPDATE</small></div><label class="soundSwitch"><input id="sndDelivery" type="checkbox" onchange="saveSoundPrefs()"> ON</label></div>
+  <div class="soundRow"><div><b>LOW STOCK / SYSTEM</b><small>IMPORTANT SYSTEM ALERT</small></div><label class="soundSwitch"><input id="sndAlert" type="checkbox" onchange="saveSoundPrefs()"> ON</label></div>
+  <div class="toolbar" style="margin-top:10px">
+    <button class="btn green" onclick="testPortalSound()">TEST SOUND</button>
+  </div>
+</div>
+
 <div id="deliveryModal" class="modalMask"><div class="modalBox"><div class="modalTitle">CONFIRM DELIVERY</div><div id="deliveryModalText" style="padding:12px 0;font-weight:800"></div><div class="modalActions"><button class="btn light" onclick="closeDeliveryModal()">CANCEL</button><button class="btn green" onclick="confirmDeliveryNow()">CONFIRM DELIVERY SUCCESSFUL</button></div></div></div>
 </body>
 </html>
