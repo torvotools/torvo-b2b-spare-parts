@@ -627,6 +627,29 @@ body{zoom:1.00!important}
 }
 </style>
 
+
+<style id="torvo-v13">
+/* Every multi-form screen: whole blocks are visually separated */
+.section .formStep,.section .box.formBlock,.section .formBlock{
+ border-radius:10px!important;border:1px solid #d6d9de!important;padding:12px!important;margin-bottom:9px!important;
+ box-shadow:0 2px 7px rgba(0,0,0,.035)!important
+}
+.section .formStep:nth-of-type(6n+1),.section .formBlock:nth-of-type(6n+1){background:#edf8f7!important;border-color:#badfd9!important}
+.section .formStep:nth-of-type(6n+2),.section .formBlock:nth-of-type(6n+2){background:#eef4fb!important;border-color:#cadcf0!important}
+.section .formStep:nth-of-type(6n+3),.section .formBlock:nth-of-type(6n+3){background:#f5f0fa!important;border-color:#decfea!important}
+.section .formStep:nth-of-type(6n+4),.section .formBlock:nth-of-type(6n+4){background:#fff8e8!important;border-color:#efdfae!important}
+.section .formStep:nth-of-type(6n+5),.section .formBlock:nth-of-type(6n+5){background:#eef8f0!important;border-color:#c7e3ce!important}
+.section .formStep:nth-of-type(6n+6),.section .formBlock:nth-of-type(6n+6){background:#fff2e8!important;border-color:#edcfb6!important}
+.masterInline{display:grid;grid-template-columns:1fr auto auto auto;gap:4px;align-items:center}
+.masterInline button{height:31px;min-width:34px;padding:0 7px;font-weight:900}
+.inventoryCards{display:grid;grid-template-columns:repeat(5,1fr);gap:7px;margin-bottom:9px}
+.inventoryCards .card{min-height:64px}
+.inventoryToolbar{display:flex;gap:5px;flex-wrap:wrap;margin:8px 0}
+.inventoryTable input{min-width:90px}
+.usageBox{background:#fff7ed;border:1px solid #fed7aa;border-radius:8px;padding:8px;margin:6px 0}
+@media(max-width:900px){.inventoryCards{grid-template-columns:repeat(2,1fr)}.masterInline{grid-template-columns:1fr auto auto auto}}
+</style>
+
 </head>
 <body>
 <div class="app">
@@ -640,8 +663,8 @@ body{zoom:1.00!important}
 <button class="nav" onclick="openSection('itemmaster',this)">ITEM MASTER <span id="badgeReorderLeft" class="actionBadge">0</span></button>
 <button class="nav" onclick="openSection('suitable',this)">SUITABLE SEARCH</button>
 <button class="nav" onclick="openSection('drawings',this)">MACHINE DRAWINGS</button>
-<button class="nav" onclick="openSection('orders',this)">SALES ORDERS <span id="badgeOrders" class="actionBadge">0</span></button>
-<button class="nav" onclick="openSection('estimates',this)">FINAL ESTIMATES / SALES <span id="badgeEst" class="actionBadge">0</span></button>
+
+
 <button class="nav" onclick="openSection('delivery',this)">DELIVERY & TRACKING <span id="badgeDelivery" class="actionBadge">0</span></button>
 <button class="nav" onclick="openSection('inquiries',this)">INQUIRIES <span id="badgeInquiry" class="actionBadge">0</span></button>
 <button class="nav" onclick="openSection('journey',this)">30-DAY DEALER JOURNEY</button>
@@ -694,7 +717,7 @@ Machines are not sold on this portal. Dealer website sales are only for Spare Pa
 <div class="field"><label>BRAND *</label><div class="row"><input id="mBrand" class="upper" list="brandList" oninput="validateMachineBrand()"><button class="mini" onclick="addMaster('brand','mBrand')">+</button><button class="mini edit" onclick="editMaster('brand','mBrand')">✎</button><button class="mini del" onclick="deleteMaster('brand','mBrand')">🗑</button></div><div id="mBrandHelp" class="help"></div></div>
 <div class="field"><label>MACHINE TYPE *</label><div class="row"><input id="mType" class="upper" list="machineTypeList" oninput="validateMachineType()"><button class="mini" onclick="addMaster('machineType','mType')">+</button><button class="mini edit" onclick="editMaster('machineType','mType')">✎</button><button class="mini del" onclick="deleteMaster('machineType','mType')">🗑</button></div><datalist id="machineTypeList"></datalist><div id="mTypeHelp" class="help"></div></div>
 <div class="field"><label>MACHINE / WORK TYPE *</label><div class="row"><input id="mWork" class="upper" list="workTypeList"><button class="mini" onclick="addMaster('workType','mWork')">+</button><button class="mini edit" onclick="editMaster('workType','mWork')">✎</button><button class="mini del" onclick="deleteMaster('workType','mWork')">🗑</button></div><datalist id="workTypeList"></datalist></div>
-<div class="field"><label>MODEL NUMBER *</label><div class="row"><input id="mModel" class="upper" list="modelList" oninput="validateModel()"><button class="mini" onclick="addMaster('model','mModel')">+</button><button class="mini edit" onclick="editMaster('model','mModel')">✎</button><button class="mini del" onclick="deleteMaster('model','mModel')">🗑</button></div><datalist id="modelList"></datalist><div id="mModelHelp" class="help"></div></div>
+<div class="field"><label>MODEL NUMBER *</label><div class="row"><input id="mModel" class="upper" list="modelNumberMasterList" list="modelList" oninput="validateModel()"><button class="mini" onclick="addMaster('model','mModel')">+</button><button class="mini edit" onclick="editMaster('model','mModel')">✎</button><button class="mini del" onclick="deleteMaster('model','mModel')">🗑</button></div><datalist id="modelList"></datalist><div id="mModelHelp" class="help"></div></div>
 <div class="field"><label>ALTERNATE MODEL</label><input id="mAlt" class="upper"></div>
 <div class="field"><label>DESCRIPTION</label><input id="mDesc" class="upper"></div><div class="field full"><label>REMARKS / NOTES</label><textarea id="mRemarks" class="upper" rows="2"></textarea></div><div class="field"><label>MACHINE PHOTO</label><input id="mPhoto" type="file" accept="image/*" onchange="previewMachinePhoto(this.files[0])"></div><div class="field"><label>PHOTO PREVIEW</label><div id="mPhotoPreview" class="preview"></div></div>
 <div class="field"><label>STATUS</label><select id="mStatus"><option>ACTIVE</option><option>INACTIVE</option></select></div>
@@ -751,6 +774,34 @@ Machines are not sold on this portal. Dealer website sales are only for Spare Pa
 <section id="homepage" class="section"><div class="panel"><div class="pTitle"><span class="tag blue">HOME PAGE CONTENT</span><b>WHO WE ARE + WHAT WE SELL</b></div><div class="sectionIntro">CONTROL HOME-PAGE CONTENT SO VISITORS UNDERSTAND WHO TORVO IS AND WHAT SPARES / ACCESSORIES ARE SOLD.</div><div class="box bBlue"><div class="grid"><div class="field"><label>SECTION TITLE *</label><input id="homeTitle" class="upper"></div><div class="field"><label>SECTION TYPE</label><select id="homeType"><option>ABOUT TORVO</option><option>SPARE PART RANGE</option><option>ACCESSORIES RANGE</option><option>TORVO OWN BRAND</option><option>FEATURED PRODUCT</option><option>VIDEO</option><option>DEALER BENEFIT</option><option>MESSAGE</option></select></div><div class="field"><label>STATUS</label><select id="homeStatus"><option>SHOW</option><option>HIDE</option></select></div><div class="field"><label>PHOTO FILE</label><input id="homePhoto" type="file" accept="image/*"></div><div class="field"><label>VIDEO LINK</label><input id="homeVideo"></div><div class="field"><label>BUTTON / LINK</label><input id="homeLink"></div><div class="field full"><label>CONTENT / MESSAGE</label><textarea id="homeText" class="upper" rows="4"></textarea></div></div><div class="toolbar"><button class="btn blue" onclick="saveHome()">SAVE HOME CONTENT</button></div></div><div id="homeList"></div></div></section>
 <section id="ai" class="section"><div class="panel"><div class="pTitle"><span class="tag purple">AI & API HUB</span><b>OPTIONAL FUTURE SMART FEATURES</b></div><div class="sectionIntro">OPTIONAL FUTURE AI / API CONNECTIONS. KEEP PAID AI OFF UNTIL THE CORE PORTAL AND DATABASE ARE STABLE.</div><div class="notice">NO PAID AI IS REQUIRED NOW. DO NOT PUT SECRET API KEYS DIRECTLY IN THIS HTML. LATER CONNECT AI THROUGH A SECURE BACKEND / SUPABASE EDGE FUNCTION.</div><div class="grid" style="margin-top:8px"><div class="smartCard"><b>📷 AI PHOTO SEARCH</b><div class="help">PHOTO → LIKELY SPARE PART SUGGESTIONS.</div></div><div class="smartCard"><b>🧩 AI DRAWING READER</b><div class="help">DRAWING / PART CODE → ITEM SUGGESTION.</div></div><div class="smartCard"><b>💬 AI DEALER HELP</b><div class="help">BASIC PRODUCT / SEARCH ASSISTANCE.</div></div><div class="smartCard"><b>📦 SMART REORDER</b><div class="help">STOCK + SALES SPEED → PURCHASE SUGGESTION.</div></div><div class="smartCard"><b>📈 SALES GAP ANALYSIS</b><div class="help">ORDER vs FINAL ESTIMATE SHORTFALL.</div></div><div class="smartCard"><b>🔌 FUTURE API CONNECTOR</b><div class="help">AI / COURIER / ACCOUNTING / OTHER APIs.</div></div></div><div class="box bPurple" style="margin-top:8px"><div class="grid"><div class="field"><label>AI MASTER STATUS</label><select id="aiStatus"><option>OFF</option><option>READY FOR FUTURE CONNECTION</option></select></div><div class="field"><label>PREFERRED PROVIDER</label><select id="aiProvider"><option>OPENAI</option><option>GEMINI</option><option>OTHER API</option></select></div><div class="field"><label>MODEL / PLAN NOTE</label><input id="aiModel" class="upper"></div><div class="field"><label>PHOTO SEARCH</label><select id="aiPhoto"><option>OFF</option><option>READY</option></select></div><div class="field"><label>DRAWING READER</label><select id="aiDrawing"><option>OFF</option><option>READY</option></select></div><div class="field"><label>DEALER HELP</label><select id="aiHelp"><option>OFF</option><option>READY</option></select></div><div class="field"><label>API BASE URL</label><input id="apiBase"></div><div class="field"><label>CONNECTOR NAME</label><input id="apiConnector" class="upper"></div><div class="field"><label>API STATUS</label><select id="apiStatus"><option>OFF</option><option>READY</option></select></div><div class="field full"><label>AI SAFETY RULE</label><textarea id="aiRule" class="upper" rows="3"></textarea></div></div><div class="toolbar"><button class="btn purple" onclick="saveAI()">SAVE AI / API SETTINGS</button></div></div></div></section>
 <section id="updates" class="section"><div class="panel"><div class="pTitle"><span class="tag teal">UPDATE CENTER</span><b>CONTROLLED FUTURE UPDATES</b></div><div class="sectionIntro">REVIEW FUTURE UPDATES FIRST. APPLY ONLY AFTER VERIFICATION AND KEEP A RESTORE POINT.</div><div class="infoNotice">NO AUTOMATIC CHANGE. VIEW BENEFIT FIRST, VERIFY, THEN CHOOSE WHETHER TO UPDATE. CREATE A RESTORE POINT BEFORE ANY FUTURE MAJOR CHANGE.</div><div class="updateCard updateRecommended"><b>UPDATE 01 — CLOUD DATABASE + STORAGE</b><div class="help">LIVE PRODUCTS, DEALERS, STOCK, DRAWINGS, ORDERS AND ESTIMATES.</div><div class="toolbar"><button class="btn green" onclick="previewUpdate('CLOUD DATABASE + STORAGE','LIVE MULTI-DEVICE DATA AND DEALER WEBSITE SYNC.')">VIEW UPDATE</button></div></div><div class="updateCard updateRecommended"><b>UPDATE 02 — DEALER WEBSITE LIVE SYNC</b><div class="help">ADMIN CONTROLS A/B/C RATE, STOCK, ADS, SCHEMES AND VISIBILITY.</div><div class="toolbar"><button class="btn green" onclick="previewUpdate('DEALER WEBSITE LIVE SYNC','DEALER WEBSITE WILL READ LIVE ADMIN DATA.')">VIEW UPDATE</button></div></div><div class="updateCard updateOptional"><b>UPDATE 03 — AI PHOTO SEARCH</b><div class="help">OPTIONAL LATER AFTER BASIC PORTAL IS LIVE.</div><div class="toolbar"><button class="btn orange" onclick="previewUpdate('AI PHOTO SEARCH','PHOTO CAN SUGGEST LIKELY SPARE PARTS. FINAL MATCH MUST BE VERIFIED.')">VIEW UPDATE</button></div></div><div class="updateCard updateOptional"><b>UPDATE 04 — AI DRAWING READER</b><div class="help">OPTIONAL LATER.</div><div class="toolbar"><button class="btn orange" onclick="previewUpdate('AI DRAWING READER','AI CAN HELP READ DRAWING TEXT / PART CODES.')">VIEW UPDATE</button></div></div><div class="box bBlue"><div class="boxTitle">VERSION / RESTORE CONTROL</div><div class="grid"><div class="field"><label>CURRENT VERSION</label><input value="TORVO ADMIN V1" readonly></div><div class="field"><label>LAST LOCAL BACKUP</label><input id="backupVersion" value="NO BACKUP YET" readonly></div><div class="field"><label>ACTION</label><button class="btn dark" onclick="createRestorePoint()">CREATE RESTORE POINT</button></div></div><div class="toolbar"><button class="btn red" onclick="restorePoint()">RESTORE PREVIOUS LOCAL DATA</button></div></div></div></section>
+
+<section id="inventory" class="section">
+ <div class="pageHead"><div><h2>INVENTORY</h2><p>COMPLETE STOCK CONTROL — ADD / MODIFY / DELETE / HISTORY</p></div></div>
+ <div class="inventoryCards">
+  <div class="card"><small>TOTAL ITEMS</small><strong id="invTotalItems">0</strong></div>
+  <div class="card"><small>TOTAL STOCK PCS</small><strong id="invTotalQty">0</strong></div>
+  <div class="card"><small>LOW STOCK</small><strong id="invLow">0</strong></div>
+  <div class="card"><small>OUT OF STOCK</small><strong id="invOut">0</strong></div>
+  <div class="card"><small>STOCK VALUE</small><strong id="invValue">₹0</strong></div>
+ </div>
+ <div class="box formBlock">
+  <div class="boxTitle">1. INVENTORY SEARCH & FILTER</div>
+  <div class="grid">
+   <div class="field"><label>SEARCH ITEM NO. / PRODUCT / MODEL</label><input id="invSearch" class="upper" oninput="renderInventory()"></div>
+   <div class="field"><label>STOCK STATUS</label><select id="invStatus" onchange="renderInventory()"><option>ALL</option><option>LOW STOCK</option><option>OUT OF STOCK</option><option>IN STOCK</option></select></div>
+  </div>
+ </div>
+ <div class="box formBlock">
+  <div class="boxTitle">2. INVENTORY ITEMS</div>
+  <div class="inventoryToolbar"><button class="btn green" onclick="openSection('addSpare',null);setTimeout(ensureAutoItemNo,50)">+ ADD SPARE PART</button><button class="btn blue" onclick="openSection('addAccessory',null);setTimeout(ensureAutoItemNo,50)">+ ADD ACCESSORY</button><button class="btn dark" onclick="renderInventory()">↻ REFRESH INVENTORY</button></div>
+  <div class="scroll"><table class="inventoryTable"><thead><tr><th>ITEM NO.</th><th>PRODUCT</th><th>MODEL</th><th>STOCK</th><th>MIN</th><th>PURCHASE RATE</th><th>STOCK ADD *</th><th>CURRENT RATE *</th><th>ACTIONS</th></tr></thead><tbody id="inventoryRows"></tbody></table></div>
+ </div>
+ <div class="box formBlock">
+  <div class="boxTitle">3. STOCK CONTROL RULE</div>
+  <div class="help">STOCK ADD REQUIRES BOTH QUANTITY AND CURRENT PURCHASE RATE. NEGATIVE STOCK IS NOT ALLOWED. DELETE REQUIRES CODE 1122. USED RECORDS ARE BLOCKED AND THE SYSTEM DIRECTS YOU TO THE LINKED USAGE FIRST.</div>
+ </div>
+</section>
+
 <section id="reports" class="section"><div class="panel"><div class="pTitle"><span class="tag dark">REPORTS CENTER</span><b>ALL BUSINESS REPORTS — VIEW / EXCEL / PDF</b></div><div class="sectionIntro">ONE PLACE FOR SALES, PROFIT, STOCK, DEALER, DELIVERY AND OTHER BUSINESS REPORTS WITH VIEW / EXCEL / PDF / PRINT.</div><div class="notice">SELECT A REPORT. USE DATE RANGE / SEARCH FILTERS WHERE AVAILABLE. VIEW ON SCREEN OR DOWNLOAD EXCEL / PDF.</div><div class="grid" style="margin-top:8px"><div class="field"><label>FROM DATE</label><input id="reportFrom" type="date"></div><div class="field"><label>TO DATE</label><input id="reportTo" type="date"></div><div class="field"><label>SEARCH / FILTER</label><input id="reportSearch" class="upper"></div></div><div id="reportCards" class="reportGrid" style="margin-top:10px"></div><div id="reportOutput" style="margin-top:10px"></div></div></section>
 <section id="settings" class="section">
 <div class="panel">
@@ -911,6 +962,34 @@ Machines are not sold on this portal. Dealer website sales are only for Spare Pa
 <button class="btn dark" onclick="exportPortalSettings()">EXPORT SETTINGS</button>
 </div>
 </div>
+
+<div class="box formBlock">
+ <div class="boxTitle">HOME PAGE CONTROL</div>
+ <div class="grid">
+  <div class="field"><label>HERO / BANNER TITLE</label><input id="setHomeHero" class="upper"></div>
+  <div class="field"><label>HOME NOTICE / MESSAGE</label><input id="setHomeNotice" class="upper"></div>
+  <div class="field"><label>FEATURED PRODUCTS</label><select id="setHomeFeatured"><option>ON</option><option>OFF</option></select></div>
+  <div class="field"><label>SHOW STOCK ON WEBSITE</label><select id="setHomeStock"><option>ON</option><option>OFF</option></select></div>
+  <div class="field"><label>ADS / PROMOTIONS AREA</label><select id="setHomeAds"><option>ON</option><option>OFF</option></select></div>
+  <div class="field"><label>DEALER SUPPORT MESSAGE</label><input id="setHomeSupport" class="upper"></div>
+ </div>
+</div>
+<div class="box formBlock">
+ <div class="boxTitle">SOUND CONTROL</div>
+ <div class="grid">
+  <div class="field"><label>MASTER SOUND</label><select id="setSoundMaster"><option>ON</option><option>OFF</option></select></div>
+  <div class="field"><label>BUTTON / MENU CLICK</label><select id="setSoundClick"><option>ON</option><option>OFF</option></select></div>
+  <div class="field"><label>SAVE / SUCCESS</label><select id="setSoundSuccess"><option>ON</option><option>OFF</option></select></div>
+  <div class="field"><label>ERROR / FAILED</label><select id="setSoundError"><option>ON</option><option>OFF</option></select></div>
+  <div class="field"><label>DELETE / WARNING</label><select id="setSoundDelete"><option>ON</option><option>OFF</option></select></div>
+  <div class="field"><label>NEW ORDER</label><select id="setSoundOrder"><option>ON</option><option>OFF</option></select></div>
+  <div class="field"><label>INQUIRY / REGISTRATION</label><select id="setSoundInquiry"><option>ON</option><option>OFF</option></select></div>
+  <div class="field"><label>CHAT / MESSAGE</label><select id="setSoundChat"><option>ON</option><option>OFF</option></select></div>
+  <div class="field"><label>DELIVERY / UPDATE</label><select id="setSoundDelivery"><option>ON</option><option>OFF</option></select></div>
+  <div class="field"><label>LOW STOCK / SYSTEM ALERT</label><select id="setSoundAlert"><option>ON</option><option>OFF</option></select></div>
+ </div>
+ <div class="toolbar"><button class="btn dark" onclick="testV13Sound()">TEST SOUND</button></div>
+</div>
 </section>
 <section id="verify" class="section"><div class="panel"><div class="pTitle"><span class="tag orange">SYSTEM VERIFY</span><b>DATA HEALTH CHECK</b></div><div id="verifySummary" class="notice">CLICK VERIFY SYSTEM TO SCAN.</div><div id="verifyList" class="verifyList" style="margin-top:8px"></div></div></section>
 </main>
@@ -926,10 +1005,10 @@ Machines are not sold on this portal. Dealer website sales are only for Spare Pa
 
 <div class="rightNavStart">
 <button class="rnav refreshMenuBtn" onclick="refreshPortal()"><span class="navIcon bigIcon">↻</span> REFRESH</button>
+<button class="rnav" onclick="openSection('orders',this)"><span class="navIcon">▤</span> SALES ORDER</button>
+<button class="rnav" onclick="openSection('estimates',this)"><span class="navIcon">▧</span> ESTIMATE</button>
 <button class="rnav" onclick="openSection('ads',this)"><span class="navIcon">★</span> ADS & PROMOTIONS</button>
-<button class="rnav" onclick="openSection('homepage',this)"><span class="navIcon">⌂</span> HOME PAGE CONTENT</button>
 <button class="rnav" onclick="runSystemCheck()"><span class="navIcon">✓</span> VERIFY SYSTEM <span id="badgeSystem" class="actionBadge">0</span></button>
-<button class="rnav soundMenuBtn" onclick="toggleSoundPanel(event)"><span class="navIcon bigIcon">🔊</span> SOUND</button>
 <button class="rnav" onclick="openSection('points',this)"><span class="navIcon">◆</span> POINTS & YEARLY SCHEME</button>
 <button class="rnav" onclick="openSection('ai',this)"><span class="navIcon">✦</span> AI & API HUB</button>
 <button class="rnav" onclick="openSection('updates',this)"><span class="navIcon">⇧</span> UPDATE CENTER <span id="badgeUpdate" class="actionBadge">0</span></button>
@@ -948,7 +1027,7 @@ Machines are not sold on this portal. Dealer website sales are only for Spare Pa
 var KEY="TORVO_ADMIN_CUSTOMER_HISTORY_2026";
 var DB=JSON.parse(localStorage.getItem(KEY)||"null")||{
  items:[],machines:[],orders:[],estimates:[],deliveries:[],partners:[],dealers:[],inquiries:[],messages:[],points:[],drawings:[],profitEntries:[],ads:[],homeContent:[],customerEvents:[],
- purchaseHistory:[],stockHistory:[],itemTransactions:[],lostSales:[],activity:[],customerEvents:[],adminProfile:{displayName:"ADMIN",username:"ADMIN",email:"",mobile:""},
+ purchaseHistory:[],stockHistory:[],itemTransactions:[],lostSales:[],productNames:[],modelNumbers:[],itemNumberHistory:[],activity:[],customerEvents:[],adminProfile:{displayName:"ADMIN",username:"ADMIN",email:"",mobile:""},
  brands:["BOSCH","MAKITA","DEWALT","TORVO"],
  categories:["ARMATURE","FIELD / STATOR","GEAR","SWITCH","CARBON BRUSH","BEARING"],
  accessoryCategories:["CUTTING WHEEL","GRINDING WHEEL","DIAMOND BLADE","CORING BIT","DRILL BIT","HOLE SAW","CHISEL","SAW BLADE"],
@@ -973,7 +1052,9 @@ function saveDB(){localStorage.setItem(KEY,JSON.stringify(DB));refreshAll()}
 function logActivity(t){DB.activity.unshift({time:new Date().toLocaleString(),text:U(t)});DB.activity=DB.activity.slice(0,100)}
 
 var titles={dashboard:"TORVO DASHBOARD",machines:"MACHINES",spares:"ADD SPARE PART",accessories:"ADD ACCESSORY",itemmaster:"ITEM MASTER",suitable:"SUITABLE SEARCH",orders:"SALES ORDERS",estimates:"ESTIMATES",delivery:"DELIVERY & TRACKING",customers:"CUSTOMER HISTORY",dealers:"DEALER MANAGEMENT",inquiries:"INQUIRY CENTER",journey:"30-DAY DEALER JOURNEY",chat:"DEALER CHAT",points:"POINTS & YEARLY SCHEME",salesReport:"SALES REPORT",profit:"PROFIT / INCOME",drawings:"MACHINE DRAWINGS",ads:"ADS & PROMOTIONS",homepage:"HOME PAGE CONTENT",ai:"AI & API HUB",updates:"UPDATE CENTER",reports:"REPORTS CENTER",settings:"SETTINGS",verify:"SYSTEM VERIFY"};
-function openSection(id,btn){sndClick();document.querySelectorAll(".section").forEach(function(x){x.classList.remove("active")});document.querySelectorAll(".nav,.rnav").forEach(function(x){x.classList.remove("active")});var s=E(id);if(!s)return;s.classList.add("active");if(btn)btn.classList.add("active");E("pageTitle").textContent=titles[id]||"TORVO";if(id==="spares")buildItemForm("SPARE PART");if(id==="accessories")buildItemForm("ACCESSORY");if(id==="itemmaster")renderItems();if(id==="suitable")renderSuitableResults();if(id==="customers")renderCustomerHistory();if(id==="dealers")renderDealers();if(id==="inquiries")renderInquiries();if(id==="journey")renderJourney();if(id==="chat")renderChat();if(id==="points")renderPoints();if(id==="salesReport")renderSalesReport();if(id==="profit")renderProfit();if(id==="drawings")renderDrawings();if(id==="ads")renderAds();if(id==="homepage")renderHome();if(id==="ai")loadAI();if(id==="reports")renderReportsCenter();if(id==="settings")loadPortalSettings();if(id==="delivery"){renderPendingDeliveries();renderDeliveryHistory()}window.scrollTo(0,0)}
+function openSection(id,btn){
+ if(id==="inventory")setTimeout(renderInventory,0);
+ if(id==="addSpare"||id==="addAccessory"||id==="machines"){setTimeout(function(){syncMasterDropdowns();ensureAutoItemNo()},0)}sndClick();document.querySelectorAll(".section").forEach(function(x){x.classList.remove("active")});document.querySelectorAll(".nav,.rnav").forEach(function(x){x.classList.remove("active")});var s=E(id);if(!s)return;s.classList.add("active");if(btn)btn.classList.add("active");E("pageTitle").textContent=titles[id]||"TORVO";if(id==="spares")buildItemForm("SPARE PART");if(id==="accessories")buildItemForm("ACCESSORY");if(id==="itemmaster")renderItems();if(id==="suitable")renderSuitableResults();if(id==="customers")renderCustomerHistory();if(id==="dealers")renderDealers();if(id==="inquiries")renderInquiries();if(id==="journey")renderJourney();if(id==="chat")renderChat();if(id==="points")renderPoints();if(id==="salesReport")renderSalesReport();if(id==="profit")renderProfit();if(id==="drawings")renderDrawings();if(id==="ads")renderAds();if(id==="homepage")renderHome();if(id==="ai")loadAI();if(id==="reports")renderReportsCenter();if(id==="settings")loadPortalSettings();if(id==="delivery"){renderPendingDeliveries();renderDeliveryHistory()}window.scrollTo(0,0)}
 function goHome(){sndAlert();if(dirty&&!confirm("UNSAVED ENTRY EXISTS. CONTINUE TO HOME?"))return;clearItemForm();clearMachine();openSection("dashboard",document.querySelector(".nav"));toast("HOME OPENED","success")}
 
 function masterArray(type){if(type==="brand")return DB.brands;if(type==="category")return DB.categories;if(type==="machineType")return DB.machineTypes;if(type==="workType")return DB.workTypes;if(type==="model")return DB.machines.map(function(x){return x.model});if(type==="item")return DB.items.map(function(x){return x.no});return[]}
@@ -1034,7 +1115,7 @@ function buildItemForm(type){
  '<div class="box bTeal formStep"><div class="boxTitle">1. ENTRY DATE & PRODUCT TYPE</div><div class="grid"><div class="field"><label>DATE *</label><input id="pDate" type="date" value="'+TODAY()+'"></div><div class="field"><label>PRODUCT TYPE</label><input id="pType" value="'+type+'" readonly></div><div class="field"><label>OWN BRAND HIGHLIGHT</label><select id="pOwn"><option>NO</option><option>YES - TORVO</option></select></div></div></div>'+
  '<div class="box bBlue formStep"><div class="boxTitle">2. BASIC PRODUCT DETAILS</div><div class="grid">'+
 '<div class="field"><label>ITEM NUMBER *</label><div class="masterRow"><input id="pNo" class="upper" list="itemNoMasterList"><button class="mini" onclick="addItemIdentityMaster(&quot;number&quot;)">+</button><button class="mini edit" onclick="editItemIdentityMaster(&quot;number&quot;)">✎</button><button class="mini del" onclick="deleteItemIdentityMaster(&quot;number&quot;)">🗑</button></div><datalist id="itemNoMasterList"></datalist></div>'+
-'<div class="field"><label>PRODUCT NAME *</label><div class="masterRow"><input id="pName" class="upper" list="productNameMasterList"><button class="mini" onclick="addItemIdentityMaster(&quot;name&quot;)">+</button><button class="mini edit" onclick="editItemIdentityMaster(&quot;name&quot;)">✎</button><button class="mini del" onclick="deleteItemIdentityMaster(&quot;name&quot;)">🗑</button></div><datalist id="productNameMasterList"></datalist></div>'+
+'<div class="field"><label>PRODUCT NAME *</label><div class="masterRow"><input id="pName" class="upper" list="productNameMasterList" list="productNameMasterList"><button class="mini" onclick="addItemIdentityMaster(&quot;name&quot;)">+</button><button class="mini edit" onclick="editItemIdentityMaster(&quot;name&quot;)">✎</button><button class="mini del" onclick="deleteItemIdentityMaster(&quot;name&quot;)">🗑</button></div><datalist id="productNameMasterList"></datalist></div>'+
 '<div class="field"><label>BRAND *</label><div class="masterRow"><input id="pBrand" class="upper" list="brandList"><button class="mini" onclick="addMaster(&quot;brand&quot;,&quot;pBrand&quot;)">+</button><button class="mini edit" onclick="editMaster(&quot;brand&quot;,&quot;pBrand&quot;)">✎</button><button class="mini del" onclick="deleteMaster(&quot;brand&quot;,&quot;pBrand&quot;)">🗑</button></div></div>'+
 '<div class="field"><label>CATEGORY *</label><div class="masterRow"><input id="pCategory" class="upper" list="catX"><button class="mini" onclick="addMaster(&quot;category&quot;,&quot;pCategory&quot;)">+</button><button class="mini edit" onclick="editMaster(&quot;category&quot;,&quot;pCategory&quot;)">✎</button><button class="mini del" onclick="deleteMaster(&quot;category&quot;,&quot;pCategory&quot;)">🗑</button></div><datalist id="catX">'+cats.map(function(x){return'<option value="'+H(U(x))+'">'}).join("")+'</datalist></div>'+
 '<div class="field"><label>PIECES PER BOX</label><input id="pBox" type="number" min="0" value="1"></div><div class="field"><label>OEM / REFERENCE PART NO.</label><input id="pRef" class="upper"></div><div class="field"><label>SIZE / DIMENSION</label><input id="pSize" class="upper"></div><div class="field"><label>SPECIFICATION / KEY SPECS</label><input id="pSpec" class="upper"></div><div class="field"><label>POSITION / LOCATION</label><input id="pPosition" class="upper"></div><div class="field full"><label>REMARKS / NOTES</label><textarea id="pRemarks" class="upper" rows="2"></textarea></div></div></div>'+
@@ -1080,6 +1161,51 @@ function setFilter(f){itemFilter=f;renderItems();sndClick()}
 function openFiltered(f){itemFilter=f;openSection("itemmaster");renderItems()}
 function filteredItems(){var a=DB.items.slice(),q=N(E("itemSearch")?E("itemSearch").value:"");if(q)a=a.filter(function(x){return N([x.no,x.name,x.brand,x.category,x.ref,x.size,x.spec,x.remarks].concat(x.machines||[]).join(" ")).includes(q)});if(itemFilter==="in")a=a.filter(function(x){return x.qty>0});if(itemFilter==="out")a=a.filter(function(x){return x.qty<=0});if(itemFilter==="reorder")a=a.filter(function(x){return x.qty<=x.min});if(itemFilter==="online")a=a.filter(function(x){return x.online==="ONLINE"});if(itemFilter==="offline")a=a.filter(function(x){return x.online==="OFFLINE"});if(itemFilter==="top")a.sort(function(a,b){return(b.sold||0)-(a.sold||0)});if(itemFilter==="low")a.sort(function(a,b){return(a.sold||0)-(b.sold||0)});return a}
 
+
+function renderInventory(){
+ var q=N(E("invSearch")?E("invSearch").value:""),st=E("invStatus")?E("invStatus").value:"ALL";
+ var arr=DB.items.filter(function(x){
+  var low=Number(x.qty||0)<=Number(x.min||0),out=Number(x.qty||0)<=0;
+  if(st==="LOW STOCK"&&!low)return false;if(st==="OUT OF STOCK"&&!out)return false;if(st==="IN STOCK"&&out)return false;
+  return !q||N([x.no,x.name,x.model,(x.models||[]).join(" "),x.brand,x.category].join(" ")).includes(q)
+ });
+ if(E("invTotalItems")){
+  E("invTotalItems").textContent=DB.items.length;
+  E("invTotalQty").textContent=DB.items.reduce(function(s,x){return s+Number(x.qty||0)},0);
+  E("invLow").textContent=DB.items.filter(function(x){return Number(x.qty||0)<=Number(x.min||0)}).length;
+  E("invOut").textContent=DB.items.filter(function(x){return Number(x.qty||0)<=0}).length;
+  E("invValue").textContent="₹"+DB.items.reduce(function(s,x){return s+Number(x.qty||0)*Number(x.cost||0)},0).toFixed(2)
+ }
+ E("inventoryRows").innerHTML=arr.length?arr.map(function(x){
+  var i=DB.items.indexOf(x);
+  return "<tr><td><b>"+H(x.no||"—")+"</b></td><td>"+H(x.name)+"</td><td>"+H(x.model||(x.models||[]).join(", ")||"—")+"</td><td>"+Number(x.qty||0)+"</td><td>"+Number(x.min||0)+"</td><td>₹"+Number(x.cost||0).toFixed(2)+"</td>"+
+  "<td><input id='invQty_"+i+"' type='number' min='1' step='1' placeholder='QTY'></td><td><input id='invRate_"+i+"' type='number' min='0.01' step='0.01' placeholder='₹ RATE'></td>"+
+  "<td><div class='toolbar'><button class='btn green' onclick='inventoryStockAdd("+i+")'>ADD</button><button class='btn blue' onclick='editItem("+i+")'>MODIFY</button><button class='btn dark' onclick='openItemHistory("+i+")'>HISTORY</button><button class='btn red' onclick='inventoryDelete("+i+")'>DELETE</button></div></td></tr>"
+ }).join(""):"<tr><td colspan='9' class='empty'>NO INVENTORY ITEMS FOUND.</td></tr>"
+}
+function inventoryStockAdd(i){
+ var q=Number(E("invQty_"+i).value),r=Number(E("invRate_"+i).value);
+ if(!Number.isFinite(q)||q<=0||Math.floor(q)!==q)return toast("STOCK ADD QTY REQUIRED","error");
+ if(!Number.isFinite(r)||r<=0)return toast("CURRENT PURCHASE RATE REQUIRED","error");
+ /* reuse Item Master validated stock logic through temporary compatible inputs */
+ var a=document.createElement("input"),b=document.createElement("input");a.id="stockAdd_"+i;b.id="stockRate_"+i;a.value=q;b.value=r;
+ document.body.appendChild(a);document.body.appendChild(b);quickStockAdd(i);a.remove();b.remove();setTimeout(renderInventory,450)
+}
+function inventoryDelete(i){
+ var x=DB.items[i];if(!x)return;
+ var usage=[];
+ (DB.itemTransactions||[]).forEach(function(r){if(N(r.item)===N(x.no))usage.push("ITEM HISTORY / TRANSACTION")});
+ (DB.stockHistory||[]).forEach(function(r){if(N(r.item)===N(x.no))usage.push("STOCK HISTORY")});
+ (DB.purchaseHistory||[]).forEach(function(r){if(N(r.item)===N(x.no))usage.push("PURCHASE HISTORY")});
+ (DB.suitable||[]).forEach(function(r){if(N(r.item)===N(x.no)||N(r.itemNo)===N(x.no))usage.push("SUITABLE MAPPING")});
+ if(usage.length){
+  alert("DELETE BLOCKED.\n\nTHIS ITEM IS USED IN:\n• "+Array.from(new Set(usage)).join("\n• ")+"\n\nSYSTEM WILL OPEN ITEM HISTORY / ITEM MASTER SO YOU CAN REVIEW THE LINK FIRST.");
+  openItemHistory(i);return
+ }
+ var code=prompt("ENTER DELETE CODE");if(code!=="1122")return toast("WRONG DELETE CODE","error");
+ DB.items.splice(i,1);saveDB();renderInventory();renderItems();toast("ITEM DELETED","success");torvoBeep("delete")
+}
+
 function renderItems(){
  var a=filteredItems();
  E("itemGrid").innerHTML=a.length?a.map(function(x){
@@ -1099,7 +1225,7 @@ function renderItems(){
     "<button id='stockOk_"+i+"' class='btn green' onclick='quickStockAdd("+i+")'>ADD / OK</button>"+
    "</div></div>"+
    "<div class='toolbar' style='margin-top:6px'>"+
-    "<button class='btn blue' onclick='editItem("+i+")'>EDIT</button>"+
+    "<button class='btn blue' onclick='editItem("+i+")'>MODIFY</button>"+"<button class='btn light' onclick='changeSystemItemNo("+i+")'>EDIT ITEM NO.</button>"+"<button class='btn red' onclick='deleteSystemItemNo("+i+")'>DEL ITEM NO.</button>"+
     "<button class='btn historyBtn' onclick='openItemHistory("+i+")'>ITEM HISTORY</button>"+
     "<button class='btn teal' onclick='toggleOnline("+i+")'>"+H(x.online)+"</button>"+
     "<button class='btn dark' onclick='toggleActive("+i+")'>"+H(x.status)+"</button>"+
@@ -1359,46 +1485,6 @@ function printReportPDF(type){
  viewReport(type);
  var w=window.open("","_blank");
  var html="<html><head><title>TORVO "+type+" REPORT</title><style>body{font-family:Arial}table{width:100%;border-collapse:collapse}th,td{border:1px solid #ccc;padding:6px;font-size:10px}th{background:#eee}</style></head><body><h2>TORVO "+type+" REPORT</h2>"+E("reportOutput").innerHTML+"</body></html>";
- w.document.write(html);
- w.document.close();
- w.focus();
- setTimeout(function(){w.print()},300);
-}
-function refreshItemIdentityMasters(){
- if(E("itemNoMasterList"))E("itemNoMasterList").innerHTML=[...new Set(DB.items.map(function(x){return U(x.no||"")}).filter(Boolean))].sort().map(function(v){return"<option value='"+H(v)+"'>"}).join("");
- if(E("productNameMasterList"))E("productNameMasterList").innerHTML=[...new Set(DB.items.map(function(x){return U(x.name||"")}).filter(Boolean))].sort().map(function(v){return"<option value='"+H(v)+"'>"}).join("")
-}
-function addItemIdentityMaster(kind){
- var id=kind==="number"?"pNo":"pName",label=kind==="number"?"ITEM NUMBER":"PRODUCT NAME",v=U(E(id).value.trim());
- if(!v)return toast(label+" REQUIRED","error");
- var used=itemIdentityUsage(kind,v);
- if(used>0){alert(label+" ALREADY EXISTS.\n\nDUPLICATE ENTRY IS NOT ALLOWED.\nPLEASE SELECT THE EXISTING VALUE OR CORRECT THE NEW ENTRY.");return toast(label+" ALREADY EXISTS","error")}
- toast(label+" READY. IT WILL BE SAVED WITH THE ITEM.","success")
-}
-function editItemIdentityMaster(kind){
- var id=kind==="number"?"pNo":"pName",label=kind==="number"?"ITEM NUMBER":"PRODUCT NAME",old=U(E(id).value.trim());
- if(!old)return toast("SELECT "+label+" FIRST","error");
- var matches=DB.items.filter(function(x){return kind==="number"?N(x.no)===N(old):N(x.name)===N(old)});
- if(matches.length>1)return toast("EDIT BLOCKED: VALUE IS USED IN MULTIPLE RECORDS. CORRECT LINKED RECORDS FIRST.","error");
- var nv=U(prompt("NEW "+label,old)||"");if(!nv||N(nv)===N(old))return;
- if(itemIdentityUsage(kind,nv)>0){alert("THIS "+label+" ALREADY EXISTS.\nPLEASE USE ANOTHER VALUE.");return}
- if(matches.length===1){
-  var code=prompt("THIS VALUE IS USED IN AN ITEM. ENTER 1122 TO CONFIRM EDIT.");
-  if(code!=="1122")return toast("EDIT CANCELLED / WRONG CODE","error");
-  if(kind==="number")matches[0].no=nv;else matches[0].name=nv;
-  E(id).value=nv;logActivity(label+" EDITED: "+old+" -> "+nv);saveDB();toast(label+" UPDATED","success")
- }else{E(id).value=nv;toast(label+" UPDATED IN FORM","success")}
-}
-function deleteItemIdentityMaster(kind){
- var id=kind==="number"?"pNo":"pName",label=kind==="number"?"ITEM NUMBER":"PRODUCT NAME",v=U(E(id).value.trim());
- if(!v)return toast("SELECT "+label+" FIRST","error");
- var used=itemIdentityUsage(kind,v);
- if(used>0)return toast("DELETE BLOCKED: "+label+" IS USED IN "+used+" ITEM RECORD(S). DELETE/CORRECT LINKED ITEM FIRST.","error");
- var code=prompt("ENTER DELETE CODE");if(code!=="1122")return toast("WRONG DELETE CODE","error");
- E(id).value="";toast(label+" CLEARED","success")
-}
-function printCurrentView(){
- var active=document.querySelector(".section.active");if(!active)return;
  var w=window.open("","_blank");
  w.document.write("<html><head><title>TORVO PRINT</title><style>body{font-family:Arial;color:#111;padding:18px}button,input,select,textarea{display:none!important}.section{display:block!important}.panel,.box,.card{border:1px solid #bbb;padding:8px;margin:6px 0}table{width:100%;border-collapse:collapse}th,td{border:1px solid #bbb;padding:5px;font-size:10px}th{background:#eee}</style></head><body><h2>TORVO TOOLS PRIVATE LIMITED</h2>"+active.innerHTML+"</body></html>");
  w.document.close();w.focus();w.print()
@@ -1408,6 +1494,105 @@ function printReport(type){viewReport(type);var w=window.open("","_blank");w.doc
 
 
 
+
+
+function masterArray(kind){
+ if(kind==="PRODUCT")return DB.productNames;
+ if(kind==="MODEL")return DB.modelNumbers;
+ return []
+}
+function masterUsage(kind,val){
+ val=N(val);var hits=[];
+ DB.items.forEach(function(x,i){
+  if(kind==="PRODUCT"&&N(x.name)===val)hits.push({section:"items",index:i,label:"ITEM "+x.no+" — "+x.name});
+  if(kind==="MODEL"&&((x.models||[]).some(function(m){return N(m)===val})||N(x.model)===val))hits.push({section:"items",index:i,label:"ITEM "+x.no+" — "+x.name})
+ });
+ DB.machines.forEach(function(x,i){
+  if(kind==="MODEL"&&(N(x.model)===val||N(x.altModel)===val))hits.push({section:"machines",index:i,label:"MACHINE "+x.brand+" "+x.model})
+ });
+ return hits
+}
+function jumpToUsage(hit){
+ if(!hit)return;
+ var btn=[].slice.call(document.querySelectorAll(".nav,.rnav")).find(function(b){
+  return (hit.section==="machines"&&/ADD MACHINE|MACHINE/i.test(b.textContent))||(hit.section==="items"&&/ITEM MASTER/i.test(b.textContent))
+ });
+ openSection(hit.section,btn||null);
+ setTimeout(function(){window.scrollTo({top:0,behavior:"smooth"});toast("USED RECORD OPENED — MODIFY HERE FIRST","alert")},100)
+}
+function addMaster(kind,inputId){
+ var v=U(E(inputId).value.trim());if(!v)return toast("ENTER VALUE FIRST","error");
+ var a=masterArray(kind);if(a.some(function(x){return N(x)===N(v)}))return toast("ALREADY EXISTS","error");
+ a.push(v);saveDB();syncMasterDropdowns();E(inputId).value=v;toast(v+" ADDED","success");torvoBeep("success")
+}
+function editMaster(kind,inputId){
+ var old=U(E(inputId).value.trim());if(!old)return toast("SELECT VALUE FIRST","error");
+ var a=masterArray(kind),idx=a.findIndex(function(x){return N(x)===N(old)});
+ if(idx<0)return toast("SELECT A SAVED MASTER VALUE","error");
+ var hits=masterUsage(kind,old);
+ if(hits.length){
+  if(confirm("THIS VALUE IS USED IN "+hits.length+" RECORD(S).\n\nSYSTEM WILL OPEN THE FIRST USED RECORD. MODIFY THE USAGE FIRST."))jumpToUsage(hits[0]);
+  return
+ }
+ var nv=prompt("NEW VALUE",old);if(nv===null)return;nv=U(nv.trim());if(!nv)return;
+ if(a.some(function(x,j){return j!==idx&&N(x)===N(nv)}))return toast("DUPLICATE VALUE NOT ALLOWED","error");
+ a[idx]=nv;saveDB();syncMasterDropdowns();E(inputId).value=nv;toast("MASTER MODIFIED","success")
+}
+function deleteMaster(kind,inputId){
+ var v=U(E(inputId).value.trim());if(!v)return toast("SELECT VALUE FIRST","error");
+ var a=masterArray(kind),idx=a.findIndex(function(x){return N(x)===N(v)});
+ if(idx<0)return toast("SELECT A SAVED MASTER VALUE","error");
+ var hits=masterUsage(kind,v);
+ if(hits.length){
+  alert("DELETE BLOCKED.\n\nTHIS VALUE IS USED IN "+hits.length+" RECORD(S).\nSYSTEM WILL TAKE YOU TO THE FIRST USAGE.");
+  jumpToUsage(hits[0]);return
+ }
+ var code=prompt("ENTER DELETE CODE");if(code!=="1122")return toast("WRONG DELETE CODE","error");
+ a.splice(idx,1);saveDB();syncMasterDropdowns();E(inputId).value="";toast("MASTER DELETED","success");torvoBeep("delete")
+}
+function syncMasterDropdowns(){
+ var pd=E("productNameMasterList"),md=E("modelNumberMasterList");
+ if(pd)pd.innerHTML=(DB.productNames||[]).map(function(x){return"<option value='"+H(x)+"'></option>"}).join("");
+ if(md)md.innerHTML=(DB.modelNumbers||[]).map(function(x){return"<option value='"+H(x)+"'></option>"}).join("")
+}
+
+function ensureAutoItemNo(){
+ var no=E("pNo"),typ=E("pType");if(no&&!no.value)no.value=nextSystemItemNo(typ?typ.value:"SPARE PART")
+}
+
+function nextSystemItemNo(type){
+ var prefix=N(type)==="ACCESSORY"?"TAC":"TSP",max=0;
+ DB.items.forEach(function(x){var m=String(x.no||"").match(new RegExp("^"+prefix+"-(\\\\d+)$","i"));if(m)max=Math.max(max,Number(m[1]))});
+ return prefix+"-"+String(max+1).padStart(6,"0")
+}
+function validateSystemItemNo(no,ignoreIndex){
+ no=U(no||"");return !DB.items.some(function(x,i){return i!==ignoreIndex&&N(x.no)===N(no)})
+}
+function changeSystemItemNo(i){
+ var x=DB.items[i];if(!x)return;
+ var old=x.no,nv=U(prompt("SYSTEM ITEM NUMBER\n\nOLD: "+old+"\nENTER NEW UNIQUE NUMBER:",old)||"");
+ if(!nv||nv===old)return;
+ if(!validateSystemItemNo(nv,i))return toast("ITEM NUMBER ALREADY EXISTS","error");
+ var uses=(DB.itemTransactions||[]).filter(function(r){return N(r.item)===N(old)}).length+
+          (DB.stockHistory||[]).filter(function(r){return N(r.item)===N(old)}).length;
+ if(uses){
+  if(!confirm("THIS ITEM NUMBER HAS "+uses+" HISTORY/TRANSACTION LINK(S).\n\nTHE SYSTEM WILL KEEP OLD → NEW CODE HISTORY AND UPDATE LINKED HISTORY.\nCONTINUE?"))return
+ }
+ DB.itemNumberHistory.push({date:TODAY(),time:txNow(),oldNo:old,newNo:nv,itemName:x.name,admin:(DB.adminProfile.displayName||"ADMIN")});
+ (DB.itemTransactions||[]).forEach(function(r){if(N(r.item)===N(old))r.item=nv});
+ (DB.stockHistory||[]).forEach(function(r){if(N(r.item)===N(old))r.item=nv});
+ (DB.purchaseHistory||[]).forEach(function(r){if(N(r.item)===N(old))r.item=nv});
+ x.no=nv;saveDB();renderItems();toast("SYSTEM ITEM NUMBER UPDATED","success")
+}
+function deleteSystemItemNo(i){
+ var x=DB.items[i];if(!x)return;
+ var used=(DB.itemTransactions||[]).some(function(r){return N(r.item)===N(x.no)})||
+          (DB.stockHistory||[]).some(function(r){return N(r.item)===N(x.no)})||
+          (DB.purchaseHistory||[]).some(function(r){return N(r.item)===N(x.no)});
+ if(used)return alert("ITEM NUMBER DELETE BLOCKED.\n\nTHIS NUMBER IS USED IN ITEM HISTORY / STOCK / PURCHASE / SALES RECORDS.\nOPEN ITEM HISTORY AND CORRECT LINKED USAGE FIRST.");
+ var code=prompt("ENTER DELETE CODE");if(code!=="1122")return toast("WRONG DELETE CODE","error");
+ x.no="";saveDB();renderItems();toast("ITEM NUMBER REMOVED","success")
+}
 
 function openAdminProfile(){
  var p=DB.adminProfile||{};
@@ -1701,6 +1886,32 @@ if(E("srFrom")){var d=new Date();d.setDate(1);E("srFrom").value=d.toISOString().
 if(E("adStart"))E("adStart").value=TODAY();if(E("reportTo"))E("reportTo").value=TODAY();if(E("reportFrom")){var rf=new Date();rf.setDate(1);E("reportFrom").value=rf.toISOString().slice(0,10)}
 refreshAll();loadPortalSettings();applyPortalSettings();loadSoundPrefs()
 });
+
+function v13SoundPrefs(){
+ return JSON.parse(localStorage.getItem("TORVO_V13_SOUND")||'{"master":"ON","click":"ON","success":"ON","error":"ON","delete":"ON","order":"ON","inquiry":"ON","chat":"ON","delivery":"ON","alert":"ON"}')
+}
+function saveV13Sound(){
+ var p={master:E("setSoundMaster")?.value||"ON",click:E("setSoundClick")?.value||"ON",success:E("setSoundSuccess")?.value||"ON",error:E("setSoundError")?.value||"ON",delete:E("setSoundDelete")?.value||"ON",order:E("setSoundOrder")?.value||"ON",inquiry:E("setSoundInquiry")?.value||"ON",chat:E("setSoundChat")?.value||"ON",delivery:E("setSoundDelivery")?.value||"ON",alert:E("setSoundAlert")?.value||"ON"};
+ localStorage.setItem("TORVO_V13_SOUND",JSON.stringify(p));return p
+}
+function playTone(kind){
+ var p=v13SoundPrefs();if(p.master==="OFF"||p[kind]==="OFF")return;
+ try{
+  var C=window.AudioContext||window.webkitAudioContext,ctx=window.__torvoAudioCtx||(window.__torvoAudioCtx=new C());
+  if(ctx.state==="suspended")ctx.resume();
+  var o=ctx.createOscillator(),g=ctx.createGain(),freq={click:540,success:760,error:220,delete:300,order:880,inquiry:700,chat:620,delivery:820,alert:420}[kind]||540;
+  o.frequency.value=freq;o.type="sine";g.gain.setValueAtTime(.035,ctx.currentTime);g.gain.exponentialRampToValueAtTime(.001,ctx.currentTime+.075);
+  o.connect(g);g.connect(ctx.destination);o.start();o.stop(ctx.currentTime+.08)
+ }catch(e){}
+}
+function testV13Sound(){saveV13Sound();playTone("success");setTimeout(function(){playTone("click")},120)}
+document.addEventListener("click",function(ev){
+ if(ev.target.closest("button,.nav,.rnav"))playTone("click")
+},true);
+document.addEventListener("change",function(ev){
+ if(ev.target&&/^setSound/.test(ev.target.id||""))saveV13Sound()
+},true);
+
 </script>
 
 
@@ -1768,5 +1979,6 @@ refreshAll();loadPortalSettings();applyPortalSettings();loadSoundPrefs()
 </div>
 
 <div id="deliveryModal" class="modalMask"><div class="modalBox"><div class="modalTitle">CONFIRM DELIVERY</div><div id="deliveryModalText" style="padding:12px 0;font-weight:800"></div><div class="modalActions"><button class="btn light" onclick="closeDeliveryModal()">CANCEL</button><button class="btn green" onclick="confirmDeliveryNow()">CONFIRM DELIVERY SUCCESSFUL</button></div></div></div>
+<datalist id="productNameMasterList"></datalist><datalist id="modelNumberMasterList"></datalist>
 </body>
 </html>
