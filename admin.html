@@ -691,6 +691,17 @@ body{zoom:1.00!important}
 .v21SoftA{background:#fff8f8}.v21SoftB{background:#f8fafc}.v21SoftC{background:#f7fff9}.v21Status{display:inline-block;border-radius:999px;padding:3px 7px;font-size:7px;font-weight:900;background:#f3f4f6}.v21Status.pending{background:#fff7ed;color:#9a3412}.v21Status.ok{background:#ecfdf5;color:#166534}
 @media(max-width:900px){.v21AppGrid{grid-template-columns:repeat(3,1fr)}}@media(max-width:650px){.v21AppGrid{grid-template-columns:repeat(2,1fr)}.v21ActionRow{grid-template-columns:1fr}}
 </style>
+
+<style id="torvo-v22-css">
+.v22AutoSync{display:inline-flex;align-items:center;justify-content:center;height:28px;padding:0 9px;border:1px solid #d1d5db;border-radius:7px;background:#fff;color:#166534;font-size:7px;font-weight:900;letter-spacing:.3px;white-space:nowrap}
+.v22AutoSync.syncing{color:#9a3412}.v22AutoSync.ok{color:#166534}
+.v22AppGrid{display:grid;grid-template-columns:repeat(4,minmax(0,1fr));gap:10px;margin:8px 0}
+.v22AppCard{min-height:112px;border:1px solid #dfe3e8;border-radius:16px;background:#fff;padding:10px;display:flex;flex-direction:column;align-items:center;justify-content:center;gap:5px;cursor:pointer;box-shadow:0 4px 12px #0000000a}
+.v22AppCard:hover{border-color:#d71920;transform:translateY(-2px)}.v22AppCard span{font-size:34px}.v22AppCard b{font-size:9px;text-align:center}.v22AppCard small{font-size:7px;color:#6b7280;text-align:center}
+.v22SoftA{background:#fffaf7}
+@media(max-width:900px){.v22AppGrid{grid-template-columns:repeat(3,1fr)}}@media(max-width:650px){.v22AppGrid{grid-template-columns:repeat(2,1fr)}}
+</style>
+
 </head>
 <body>
 <div class="app">
@@ -705,10 +716,9 @@ body{zoom:1.00!important}
 <button class="nav" onclick="openSection('suitable',this)">SUITABLE SEARCH</button>
 <button class="nav" onclick="openSection('drawings',this)">MACHINE DRAWINGS</button>
 <button class="nav" onclick="openSection('inquiries',this)">INQUIRIES <span id="badgeInquiry" class="actionBadge">0</span></button>
-<button class="nav" onclick="openSection('chat',this)">DEALER CHAT <span id="badgeChat" class="actionBadge">0</span></button>
-<!-- DAY_WISE_LEFT_V17 --><button class="nav" onclick="openSection('dayWiseSale',this)"><span class="navIcon">📊</span> DAY WISE SALE</button>
-<!-- REPORTS_LEFT_V16 --><button class="nav" onclick="openSection('reports',this)"><span class="navIcon">▦</span> REPORTS</button>
-<!-- SETTINGS_LEFT_V16 --><button class="nav" onclick="openSection('settings',this)"><span class="navIcon">⚙</span> SETTINGS</button>
+<!-- DAY_WISE_LEFT_V17 --><button class="nav" onclick="openSection('dayWiseSale',this)">DAY WISE SALE <span class="navIcon">📊</span></button>
+<!-- REPORTS_LEFT_V16 --><button class="nav" onclick="openSection('reports',this)">REPORTS <span class="navIcon">▦</span></button>
+<!-- SETTINGS_LEFT_V16 --><button class="nav" onclick="openSection('settings',this)">SETTINGS <span class="navIcon">⚙</span></button>
 </aside>
 
 <main class="main">
@@ -857,6 +867,33 @@ Machines are not sold on this portal. Dealer website sales are only for Spare Pa
 </div></section>
 
 
+
+
+<section id="dealerRequests" class="section"><div class="panel">
+<div class="pTitle"><span class="tag orange">DEALER REQUEST</span><b>NEW DEALER VERIFICATION & APPROVAL</b></div>
+<div class="sectionIntro">NEW DEALER REGISTRATION REQUESTS APPEAR HERE. VERIFY THE SHOP BEFORE APPROVAL. DUPLICATE MOBILE / GST / SHOP NAME IS CHECKED BEFORE CREATING A DEALER ACCOUNT.</div>
+
+<div class="v22AppGrid">
+<button class="v22AppCard" onclick="filterV22DealerRequest('PENDING')"><span>🆕</span><b>NEW REQUEST</b><small id="v22DealerPendingCount">0 PENDING</small></button>
+<button class="v22AppCard" onclick="filterV22DealerRequest('HOLD')"><span>☎</span><b>HOLD / CALL BACK</b><small id="v22DealerHoldCount">0 HOLD</small></button>
+<button class="v22AppCard" onclick="filterV22DealerRequest('APPROVED')"><span>✓</span><b>APPROVED</b><small id="v22DealerApprovedCount">0 APPROVED</small></button>
+<button class="v22AppCard" onclick="filterV22DealerRequest('REJECTED')"><span>✕</span><b>REJECTED</b><small id="v22DealerRejectedCount">0 REJECTED</small></button>
+</div>
+
+<div class="toolbar"><input id="v22DealerRequestSearch" class="grow upper" placeholder="SEARCH SHOP / PERSON / MOBILE / GST..." oninput="renderV22DealerRequests()"><select id="v22DealerRequestFilter" onchange="renderV22DealerRequests()"><option value="ALL">ALL REQUESTS</option><option>PENDING</option><option>HOLD</option><option>APPROVED</option><option>REJECTED</option></select></div>
+
+<div class="box formBlock v22SoftA"><div class="grid">
+<div class="field"><label>SHOP NAME *</label><input id="v22ReqShop" class="upper"></div>
+<div class="field"><label>CONTACT PERSON *</label><input id="v22ReqPerson" class="upper"></div>
+<div class="field"><label>MOBILE *</label><input id="v22ReqMobile"></div>
+<div class="field"><label>WHATSAPP</label><input id="v22ReqWhatsapp"></div>
+<div class="field"><label>EMAIL</label><input id="v22ReqEmail"></div>
+<div class="field"><label>GST</label><input id="v22ReqGst" class="upper"></div>
+<div class="field full"><label>ADDRESS</label><textarea id="v22ReqAddress" class="upper" rows="2"></textarea></div>
+</div><div class="toolbar"><button class="btn" onclick="addV22DealerRequest()">+ ADD / TEST REQUEST</button><button class="btn light" onclick="clearV22DealerRequestForm()">CLEAR</button></div></div>
+
+<div class="scroll"><table><thead><tr><th>REQUEST</th><th>SHOP</th><th>PERSON</th><th>MOBILE</th><th>GST</th><th>DUPLICATE CHECK</th><th>STATUS</th><th>ACTION</th></tr></thead><tbody id="v22DealerRequestRows"></tbody></table></div>
+</div></section>
 
 <section id="delivery" class="section"><div class="panel">
 <div class="pTitle"><span class="tag teal">DELIVERY</span><b>AUTO-LINKED FROM ESTIMATE</b></div>
@@ -1048,7 +1085,7 @@ Machines are not sold on this portal. Dealer website sales are only for Spare Pa
 
 <aside class="right">
 <div class="rightTopZone">
-  <button id="adminOnlineStatus" class="adminProfileLink" onclick="openAdminProfile()" title="OPEN ADMIN PROFILE">● ADMIN</button>
+  <button id="adminOnlineStatus" class="adminProfileLink" onclick="openAdminProfile()" title="OPEN ADMIN PROFILE">● ADMIN</button><span id="v22AutoSync" class="v22AutoSync" title="AUTO DATA SYNC EVERY 5 SECONDS">● AUTO SYNC</span>
   <div class="rightTopControls">
     <button id="langToggle" class="rightMiniBtn langYellow" onclick="toggleLanguage()">EN|HI</button>
     <button class="rightMiniBtn logoutMini" onclick="logoutAdmin()">LOGOUT</button>
@@ -1056,13 +1093,15 @@ Machines are not sold on this portal. Dealer website sales are only for Spare Pa
 </div>
 
 <div class="rightNavStart">
-<button class="rnav refreshMenuBtn" onclick="refreshPortal()"><span class="navIcon bigIcon">↻</span> REFRESH</button>
+
+<button class="rnav v21BadgeBtn" onclick="openSection('dealerRequests',this)"><span class="navIcon">🆕</span> DEALER REQUEST <em id="v22NavDealerBadge" class="v21Badge">0</em></button>
+<button class="rnav v21BadgeBtn" onclick="openSection('chat',this)"><span class="navIcon">💬</span> DEALER CHAT <em id="v22NavChatBadge" class="v21Badge">0</em></button>
 <button class="rnav v21BadgeBtn" onclick="openSection('orders',this)"><span class="navIcon">▤</span> SALES ORDER <em id="v21NavOrderBadge" class="v21Badge">0</em></button>
 <button class="rnav v21BadgeBtn" onclick="openSection('estimates',this)"><span class="navIcon">▧</span> ESTIMATE <em id="v21NavEstimateBadge" class="v21Badge">0</em></button>
 <button class="rnav v21BadgeBtn" onclick="openSection('delivery',this)"><span class="navIcon">🚚</span> DELIVERY <em id="v21NavDeliveryBadge" class="v21Badge">0</em></button>
 
 
-<button class="rnav" onclick="openSection('points',this)"><span class="navIcon">◆</span> POINTS & YEARLY SCHEME</button>
+<button class="rnav" onclick="openSection('points',this)"><span class="navIcon">◆</span> DEALER POINT</button>
 
 
 
@@ -1102,7 +1141,7 @@ function toast(t,type){var x=E("toast");clearTimeout(toastTimer);x.textContent=U
 function saveDB(){localStorage.setItem(KEY,JSON.stringify(DB));refreshAll()}
 function logActivity(t){DB.activity.unshift({time:new Date().toLocaleString(),text:U(t)});DB.activity=DB.activity.slice(0,100)}
 
-var titles={dashboard:"TORVO DASHBOARD",machines:"MACHINES",spares:"ADD SPARE PART",accessories:"ADD ACCESSORY",itemmaster:"ITEM MASTER",suitable:"SUITABLE SEARCH",orders:"SALES ORDERS",estimates:"ESTIMATES",delivery:"DELIVERY & TRACKING",customers:"CUSTOMER HISTORY",dealers:"DEALER MANAGEMENT",inquiries:"INQUIRY CENTER",journey:"30-DAY DEALER JOURNEY",chat:"DEALER CHAT",points:"POINTS & YEARLY SCHEME",salesReport:"SALES REPORT",profit:"PROFIT / INCOME",drawings:"MACHINE DRAWINGS",ads:"ADS & PROMOTIONS",homepage:"HOME PAGE CONTENT",ai:"AI & API HUB",updates:"UPDATE CENTER",reports:"REPORTS CENTER",settings:"SETTINGS",verify:"SYSTEM VERIFY",paymentReceived:"PAYMENT RECEIVED",finalSale:"FINAL SALE & PACKING",dayWiseSale:"DAY WISE SALE"};
+var titles={dashboard:"TORVO DASHBOARD",machines:"MACHINES",spares:"ADD SPARE PART",accessories:"ADD ACCESSORY",itemmaster:"ITEM MASTER",suitable:"SUITABLE SEARCH",orders:"SALES ORDERS",estimates:"ESTIMATES",delivery:"DELIVERY & TRACKING",customers:"CUSTOMER HISTORY",dealers:"DEALER MANAGEMENT",inquiries:"INQUIRY CENTER",journey:"30-DAY DEALER JOURNEY",chat:"DEALER CHAT",points:"DEALER POINT",salesReport:"SALES REPORT",profit:"PROFIT / INCOME",drawings:"MACHINE DRAWINGS",ads:"ADS & PROMOTIONS",homepage:"HOME PAGE CONTENT",ai:"AI & API HUB",updates:"UPDATE CENTER",reports:"REPORTS CENTER",settings:"SETTINGS",verify:"SYSTEM VERIFY",paymentReceived:"PAYMENT RECEIVED",finalSale:"FINAL SALE & PACKING",dayWiseSale:"DAY WISE SALE"};
 function openSection(id,btn){
  if(id==="settings")setTimeout(function(){settingsHome();loadV14()},0);
  if(id==="inventory")setTimeout(renderInventory,0);
@@ -1519,7 +1558,7 @@ function showActionPanel(type){var p=E("dashboardActionPanel"),html="",n=getActi
 function markOrderRead(no){var o=DB.orders.find(function(x){return N(x.no)===N(no)});if(o)o.readAdmin=true;saveDB();toast("ORDER MARKED READ","success")}
 function toggleLanguage(){
  currentLang=currentLang==="EN"?"HI":"EN";E("langToggle").textContent=currentLang==="EN"?"EN|HI":"HI|EN";
- var hi={"DASHBOARD":"डैशबोर्ड","ADD MACHINE":"मशीन जोड़ें","ADD SPARE PART":"स्पेयर पार्ट जोड़ें","ADD ACCESSORY":"एक्सेसरी जोड़ें","ITEM MASTER":"आइटम मास्टर","SUITABLE SEARCH":"सूटेबल सर्च","MACHINE DRAWINGS":"मशीन ड्रॉइंग","SALES ORDERS":"सेल्स ऑर्डर","FINAL ESTIMATES / SALES":"फाइनल एस्टिमेट / सेल","DELIVERY & TRACKING":"डिलीवरी / ट्रैकिंग","INQUIRIES":"इंक्वायरी","DEALER MANAGEMENT":"डीलर मैनेजमेंट","CUSTOMER HISTORY":"कस्टमर हिस्ट्री","30-DAY DEALER JOURNEY":"30-दिन डीलर हिस्ट्री","DEALER CHAT":"डीलर चैट","POINTS & YEARLY SCHEME":"पॉइंट्स / सालाना स्कीम","REPORTS CENTER":"रिपोर्ट्स सेंटर","DEALER CONTROL":"डीलर कंट्रोल","POINTS & SCHEME":"पॉइंट्स / स्कीम","ADS & PROMOTIONS":"विज्ञापन / प्रमोशन","HOME PAGE CONTENT":"होम पेज कंटेंट","AI & API HUB":"AI / API हब","UPDATE CENTER":"अपडेट सेंटर","VERIFY SYSTEM":"सिस्टम वेरिफाई","SETTINGS":"सेटिंग्स","HOME & CATALOG":"होम / कैटलॉग","ONLINE PROCESS":"ऑनलाइन प्रक्रिया","DEALERS":"डीलर्स","BUSINESS":"बिजनेस","PROMOTION":"प्रमोशन","SMART CONTROL":"स्मार्ट कंट्रोल","SYSTEM":"सिस्टम"};
+ var hi={"DASHBOARD":"डैशबोर्ड","ADD MACHINE":"मशीन जोड़ें","ADD SPARE PART":"स्पेयर पार्ट जोड़ें","ADD ACCESSORY":"एक्सेसरी जोड़ें","ITEM MASTER":"आइटम मास्टर","SUITABLE SEARCH":"सूटेबल सर्च","MACHINE DRAWINGS":"मशीन ड्रॉइंग","SALES ORDERS":"सेल्स ऑर्डर","FINAL ESTIMATES / SALES":"फाइनल एस्टिमेट / सेल","DELIVERY & TRACKING":"डिलीवरी / ट्रैकिंग","INQUIRIES":"इंक्वायरी","DEALER MANAGEMENT":"डीलर मैनेजमेंट","CUSTOMER HISTORY":"कस्टमर हिस्ट्री","30-DAY DEALER JOURNEY":"30-दिन डीलर हिस्ट्री","DEALER CHAT":"डीलर चैट","DEALER POINT":"पॉइंट्स / सालाना स्कीम","REPORTS CENTER":"रिपोर्ट्स सेंटर","DEALER CONTROL":"डीलर कंट्रोल","POINTS & SCHEME":"पॉइंट्स / स्कीम","ADS & PROMOTIONS":"विज्ञापन / प्रमोशन","HOME PAGE CONTENT":"होम पेज कंटेंट","AI & API HUB":"AI / API हब","UPDATE CENTER":"अपडेट सेंटर","VERIFY SYSTEM":"सिस्टम वेरिफाई","SETTINGS":"सेटिंग्स","HOME & CATALOG":"होम / कैटलॉग","ONLINE PROCESS":"ऑनलाइन प्रक्रिया","DEALERS":"डीलर्स","BUSINESS":"बिजनेस","PROMOTION":"प्रमोशन","SMART CONTROL":"स्मार्ट कंट्रोल","SYSTEM":"सिस्टम"};
  document.querySelectorAll(".nav,.rnav,.menuTitle").forEach(function(el){if(!el.dataset.enLabel)el.dataset.enLabel=el.childNodes[0]?el.childNodes[0].textContent.trim():el.textContent.trim();var en=el.dataset.enLabel;if(currentLang==="HI"&&hi[en]){if(el.childNodes[0])el.childNodes[0].textContent=hi[en]+" ";else el.textContent=hi[en]}else if(currentLang==="EN"){if(el.childNodes[0])el.childNodes[0].textContent=en+" ";else el.textContent=en}});
  var title=E("pageTitle");if(title){if(!title.dataset.en)title.dataset.en=title.textContent;var map={"TORVO DASHBOARD":"टॉरवो डैशबोर्ड","MACHINES":"मशीन मास्टर","ITEM MASTER":"आइटम मास्टर","SUITABLE SEARCH":"सूटेबल सर्च","DELIVERY & TRACKING":"डिलीवरी / ट्रैकिंग","CUSTOMER HISTORY":"कस्टमर हिस्ट्री","REPORTS CENTER":"रिपोर्ट्स सेंटर","SYSTEM VERIFY":"सिस्टम वेरिफाई","DEALER MANAGEMENT":"डीलर मैनेजमेंट"};title.textContent=currentLang==="HI"?(map[title.dataset.en]||title.dataset.en):title.dataset.en}
  toast(currentLang==="HI"?"HINDI MODE ON":"ENGLISH MODE ON","success")
@@ -1781,7 +1820,7 @@ function applyPortalSettings(){
  if(chatBtn)chatBtn.style.display=s.dealerChat==="YES"?"block":"none";
  var custBtn=[...document.querySelectorAll(".nav,.rnav")].find(function(b){return b.textContent.includes("CUSTOMER HISTORY")});
  if(custBtn)custBtn.style.display=s.customerHistory==="YES"?"block":"none";
- var pointsBtn=[...document.querySelectorAll(".rnav")].find(function(b){return b.textContent.includes("POINTS & YEARLY")});
+ var pointsBtn=[...document.querySelectorAll(".rnav")].find(function(b){return b.textContent.includes("DEALER POINT")});
  if(pointsBtn)pointsBtn.style.display=s.points==="ON"?"block":"none";
  var aiBtn=[...document.querySelectorAll(".rnav")].find(function(b){return b.textContent.includes("AI & API")});
  if(aiBtn)aiBtn.style.display=s.ai==="OFF"?"block":"block";
@@ -2342,5 +2381,63 @@ function init21(){ensure21();refreshV21FinalOrders();refreshV21Estimates();rende
 setTimeout(init21,420);
 })();
 </script>
+
+<script id="torvo-v22-js">
+(function(){
+function Q(id){return document.getElementById(id)}
+function N22(x){return String(x==null?"":x).trim().toUpperCase()}
+function ensure22(){if(!DB.dealerRequests)DB.dealerRequests=[]}
+function save22(){saveDB();updateV22Counts()}
+function dealerDuplicate22(r){
+ var ds=DB.dealers||[],m=N22(r.mobile),g=N22(r.gst),s=N22(r.shop);
+ var hit=ds.find(function(d){return (m&&N22(d.mobile)===m)||(g&&N22(d.gst)===g)||(s&&N22(d.shop)===s)});
+ return hit?("MATCH: "+(hit.shop||hit.person||hit.mobile||"EXISTING DEALER")):"CLEAR";
+}
+window.addV22DealerRequest=function(){
+ ensure22();var shop=N22(Q("v22ReqShop").value),person=N22(Q("v22ReqPerson").value),mobile=String(Q("v22ReqMobile").value||"").replace(/\D/g,"");
+ if(!shop||!person||mobile.length<10)return toast("SHOP, PERSON AND VALID MOBILE REQUIRED","error");
+ var r={id:"DR-"+Date.now(),shop:shop,person:person,mobile:mobile,whatsapp:String(Q("v22ReqWhatsapp").value||"").replace(/\D/g,""),email:String(Q("v22ReqEmail").value||"").trim(),gst:N22(Q("v22ReqGst").value),address:N22(Q("v22ReqAddress").value),status:"PENDING",createdAt:new Date().toISOString()};
+ DB.dealerRequests.push(r);save22();renderV22DealerRequests();clearV22DealerRequestForm();toast("DEALER REQUEST ADDED","success")
+}
+window.clearV22DealerRequestForm=function(){["v22ReqShop","v22ReqPerson","v22ReqMobile","v22ReqWhatsapp","v22ReqEmail","v22ReqGst","v22ReqAddress"].forEach(function(id){if(Q(id))Q(id).value=""})}
+window.renderV22DealerRequests=function(){
+ ensure22();if(!Q("v22DealerRequestRows"))return;var q=N22(Q("v22DealerRequestSearch")&&Q("v22DealerRequestSearch").value),f=Q("v22DealerRequestFilter")?Q("v22DealerRequestFilter").value:"ALL";
+ var a=DB.dealerRequests.filter(function(r){return(!q||N22([r.id,r.shop,r.person,r.mobile,r.gst].join(" ")).includes(q))&&(f==="ALL"||r.status===f)});
+ Q("v22DealerRequestRows").innerHTML=a.length?a.slice().reverse().map(function(r){var dup=dealerDuplicate22(r),warn=dup!=="CLEAR";return'<tr><td>'+H(r.id)+'</td><td>'+H(r.shop)+'</td><td>'+H(r.person)+'</td><td>'+H(r.mobile)+'</td><td>'+H(r.gst||"")+'</td><td><span class="v21Status '+(warn?'pending':'ok')+'">'+H(dup)+'</span></td><td>'+H(r.status)+'</td><td><button class="mini green" onclick="approveV22Dealer(\''+H(r.id)+'\')">✓ APPROVE</button> <button class="mini" onclick="holdV22Dealer(\''+H(r.id)+'\')">HOLD</button> <button class="mini red" onclick="rejectV22Dealer(\''+H(r.id)+'\')">REJECT</button></td></tr>'}).join(""):'<tr><td colspan="8" class="empty">NO DEALER REQUESTS.</td></tr>';updateV22Counts()
+}
+window.filterV22DealerRequest=function(x){Q("v22DealerRequestFilter").value=x;renderV22DealerRequests()}
+window.approveV22Dealer=function(id){
+ ensure22();var r=DB.dealerRequests.find(function(x){return x.id===id});if(!r)return;var dup=dealerDuplicate22(r);if(dup!=="CLEAR"&&!confirm("DUPLICATE WARNING: "+dup+"\nAPPROVE ANYWAY?"))return;
+ var rate=prompt("RATE GROUP: A / B / C","A");if(rate===null)return;rate=N22(rate);if(!["A","B","C"].includes(rate))return toast("RATE GROUP MUST BE A, B OR C","error");
+ var next="D-"+String((DB.dealers||[]).length+1).padStart(4,"0");if(!DB.dealers)DB.dealers=[];
+ DB.dealers.push({id:"DLR-"+Date.now(),dealerCode:next,code:next,shop:r.shop,person:r.person,mobile:r.mobile,whatsapp:r.whatsapp,email:r.email,gst:r.gst,address:r.address,rate:rate,active:true,verified:true,createdAt:new Date().toISOString()});
+ r.status="APPROVED";r.dealerCode=next;r.approvedAt=new Date().toISOString();save22();if(typeof renderDealers==="function")renderDealers();renderV22DealerRequests();toast("DEALER APPROVED: "+next,"success")
+}
+window.holdV22Dealer=function(id){var r=(DB.dealerRequests||[]).find(function(x){return x.id===id});if(!r)return;r.status="HOLD";r.holdAt=new Date().toISOString();save22();renderV22DealerRequests();toast("DEALER REQUEST ON HOLD","warning")}
+window.rejectV22Dealer=function(id){var r=(DB.dealerRequests||[]).find(function(x){return x.id===id});if(!r)return;var reason=prompt("REJECTION REASON:","");if(reason===null)return;r.status="REJECTED";r.reason=N22(reason);r.rejectedAt=new Date().toISOString();save22();renderV22DealerRequests();toast("DEALER REQUEST REJECTED","warning")}
+window.updateV22Counts=function(){
+ ensure22();var c=function(s){return DB.dealerRequests.filter(function(r){return r.status===s}).length};
+ if(Q("v22DealerPendingCount"))Q("v22DealerPendingCount").textContent=c("PENDING")+" PENDING";if(Q("v22DealerHoldCount"))Q("v22DealerHoldCount").textContent=c("HOLD")+" HOLD";if(Q("v22DealerApprovedCount"))Q("v22DealerApprovedCount").textContent=c("APPROVED")+" APPROVED";if(Q("v22DealerRejectedCount"))Q("v22DealerRejectedCount").textContent=c("REJECTED")+" REJECTED";if(Q("v22NavDealerBadge"))Q("v22NavDealerBadge").textContent=c("PENDING");
+ var eq=0;if(DB.enquiries)eq=DB.enquiries.filter(function(x){return !N22(x.status).includes("DONE")&&!N22(x.status).includes("CLOSED")}).length;if(Q("v22NavEnquiryBadge"))Q("v22NavEnquiryBadge").textContent=eq;
+ var ch=0;if(DB.chats)ch=DB.chats.filter(function(x){return !x.read&&N22(x.from)!=="ADMIN"}).length;if(Q("v22NavChatBadge"))Q("v22NavChatBadge").textContent=ch;
+}
+window.v22AutoSync=function(){
+ ensure22();var el=Q("v22AutoSync");if(el){el.textContent="● SYNCING";el.className="v22AutoSync syncing"}
+ try{
+   // Prototype-safe silent refresh: no page reload, no form reset.
+   // When Supabase realtime/backend sync is connected, fetch/merge can be added here.
+   if(typeof updateV21Badges==="function")updateV21Badges();
+   updateV22Counts();
+   if(Q("v22DealerRequestRows"))renderV22DealerRequests();
+   if(typeof refreshV21FinalOrders==="function")refreshV21FinalOrders();
+   if(typeof refreshV21Estimates==="function")refreshV21Estimates();
+   if(typeof refreshV21Deliveries==="function")refreshV21Deliveries();
+ }finally{if(el){el.textContent="● AUTO SYNC";el.className="v22AutoSync ok"}}
+}
+setInterval(v22AutoSync,5000);
+setTimeout(function(){ensure22();renderV22DealerRequests();updateV22Counts();v22AutoSync()},500);
+})();
+</script>
+
 </body>
 </html>
