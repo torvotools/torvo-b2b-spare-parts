@@ -487,6 +487,146 @@ body{zoom:1.00!important}
 #machines .infoNotice{border-left:4px solid #d71920!important}
 </style>
 
+
+<style id="torvo-v12-polish">
+/* B2B subtitle: slightly darker, still soft */
+.sub,.subTitle,.subtitle,.topSub,.brandSub{
+  color:#4b5563!important;
+  font-weight:700!important;
+}
+
+/* Equal top-right controls */
+.rightTopControls{display:grid!important;grid-template-columns:1fr 1fr!important;gap:5px!important}
+.rightMiniBtn{
+  width:100%!important;
+  min-width:0!important;
+  height:27px!important;
+  padding:0 6px!important;
+  box-sizing:border-box!important;
+}
+.adminProfileLink{
+  width:100%;
+  height:28px;
+  border:1px solid #d1d5db;
+  border-radius:7px;
+  background:#fff;
+  color:#111;
+  font-size:10px;
+  font-weight:900;
+  cursor:pointer;
+  transition:.15s ease;
+}
+.adminProfileLink:hover{
+  border-color:#d71920;
+  background:#fff7f7;
+  box-shadow:0 0 0 2px rgba(215,25,32,.06);
+}
+.adminProfileLink::first-letter{color:#15803d}
+
+/* Consistent nav button look */
+.nav,.rnav{
+  font-weight:900!important;
+  font-size:10px!important;
+  letter-spacing:.1px!important;
+}
+.navIcon{
+  display:inline-block;
+  width:17px;
+  text-align:center;
+  font-size:11px;
+  line-height:1;
+  vertical-align:middle;
+  margin-right:4px;
+}
+.navIcon.bigIcon{font-size:15px!important}
+
+/* Refresh: green only hover/press */
+.refreshMenuBtn{background:#fff!important;color:#111!important;border:1px solid #d1d5db!important}
+.refreshMenuBtn:hover,.refreshMenuBtn:active{
+  background:#15803d!important;color:#fff!important;border-color:#15803d!important
+}
+
+/* FULL FORM BLOCK backgrounds - not only heading */
+#spareFormHost .formStep,
+#accessoryFormHost .formStep{
+  border-width:1px!important;
+  border-style:solid!important;
+  border-radius:10px!important;
+  padding:12px!important;
+  margin-bottom:8px!important;
+  box-shadow:0 2px 6px rgba(0,0,0,.035)!important;
+}
+#spareFormHost .formStep:nth-of-type(1),
+#accessoryFormHost .formStep:nth-of-type(1){background:#edf8f7!important;border-color:#b8dfda!important}
+#spareFormHost .formStep:nth-of-type(2),
+#accessoryFormHost .formStep:nth-of-type(2){background:#eef4fb!important;border-color:#cbdcf1!important}
+#spareFormHost .formStep:nth-of-type(3),
+#accessoryFormHost .formStep:nth-of-type(3){background:#f5f0fa!important;border-color:#ded0ea!important}
+#spareFormHost .formStep:nth-of-type(4),
+#accessoryFormHost .formStep:nth-of-type(4){background:#fff8e8!important;border-color:#f0dfad!important}
+#spareFormHost .formStep:nth-of-type(5),
+#accessoryFormHost .formStep:nth-of-type(5){background:#eef8f0!important;border-color:#c8e4ce!important}
+#spareFormHost .formStep:nth-of-type(6),
+#accessoryFormHost .formStep:nth-of-type(6){background:#fff2e8!important;border-color:#edd0b7!important}
+#spareFormHost .formStep:nth-of-type(7){background:#f4eff9!important;border-color:#dacbea!important}
+#spareFormHost .formStep .boxTitle,
+#accessoryFormHost .formStep .boxTitle{color:#111!important;font-weight:900!important}
+
+/* Quick stock add panel */
+.quickStockBox{
+  margin-top:7px;
+  border:1px solid #d1d5db;
+  border-radius:8px;
+  background:#f9fafb;
+  padding:7px;
+}
+.quickStockGrid{display:grid;grid-template-columns:1fr 1fr auto;gap:5px;align-items:end}
+.quickStockGrid label{display:block;font-size:8px;font-weight:900;margin-bottom:3px;color:#374151}
+.quickStockGrid input{height:30px!important;padding:5px!important}
+.quickStockGrid button{height:30px!important;white-space:nowrap}
+.historyBtn{background:#111!important;color:#fff!important}
+.historyBtn:hover{background:#d71920!important}
+
+/* Item history modal */
+.itemHistoryModal,.adminProfileModal{
+  display:none;
+  position:fixed;
+  inset:0;
+  z-index:10100;
+  background:rgba(0,0,0,.42);
+  padding:24px;
+  overflow:auto;
+}
+.itemHistoryModal.show,.adminProfileModal.show{display:block!important}
+.historyDialog,.adminProfileDialog{
+  width:min(980px,96vw);
+  margin:20px auto;
+  background:#fff;
+  border-radius:13px;
+  box-shadow:0 20px 60px rgba(0,0,0,.25);
+  padding:14px;
+}
+.adminProfileDialog{width:min(650px,95vw)}
+.historySummary{display:grid;grid-template-columns:repeat(3,1fr);gap:7px;margin:8px 0}
+.historySummary .card{min-height:auto!important}
+.historyFilters{display:flex;gap:6px;flex-wrap:wrap;margin:8px 0}
+.historyFilters input,.historyFilters select{height:32px}
+.dealerLink{color:#b91c1c;text-decoration:underline;font-weight:900;cursor:pointer}
+
+/* Admin profile */
+.profileGrid{display:grid;grid-template-columns:1fr 1fr;gap:8px}
+.profileGrid .field.full{grid-column:1/-1}
+.securityNote{
+  background:#fff7ed;border:1px solid #fed7aa;border-left:4px solid #ea580c;
+  border-radius:8px;padding:8px;font-size:10px;margin-top:8px;
+}
+@media(max-width:850px){
+  .quickStockGrid{grid-template-columns:1fr}
+  .profileGrid{grid-template-columns:1fr}
+  .historySummary{grid-template-columns:1fr}
+}
+</style>
+
 </head>
 <body>
 <div class="app">
@@ -548,7 +688,7 @@ Machines are not sold on this portal. Dealer website sales are only for Spare Pa
 </div>
 
 <div class="panel">
-<div class="pTitle"><span class="tag purple">MACHINE MASTER</span><b>MACHINE ADD / EDIT / DELETE</b></div>
+<div class="pTitle"><span class="tag purple">ADD MACHINE</span><b>MACHINE REFERENCE / IDENTIFICATION ONLY</b></div>
 <div class="box bPurple"><div class="grid">
 <div class="field"><label>ENTRY DATE *</label><input id="machineDate" type="date"></div>
 <div class="field"><label>BRAND *</label><div class="row"><input id="mBrand" class="upper" list="brandList" oninput="validateMachineBrand()"><button class="mini" onclick="addMaster('brand','mBrand')">+</button><button class="mini edit" onclick="editMaster('brand','mBrand')">✎</button><button class="mini del" onclick="deleteMaster('brand','mBrand')">🗑</button></div><div id="mBrandHelp" class="help"></div></div>
@@ -559,7 +699,7 @@ Machines are not sold on this portal. Dealer website sales are only for Spare Pa
 <div class="field"><label>DESCRIPTION</label><input id="mDesc" class="upper"></div><div class="field full"><label>REMARKS / NOTES</label><textarea id="mRemarks" class="upper" rows="2"></textarea></div><div class="field"><label>MACHINE PHOTO</label><input id="mPhoto" type="file" accept="image/*" onchange="previewMachinePhoto(this.files[0])"></div><div class="field"><label>PHOTO PREVIEW</label><div id="mPhotoPreview" class="preview"></div></div>
 <div class="field"><label>STATUS</label><select id="mStatus"><option>ACTIVE</option><option>INACTIVE</option></select></div>
 </div>
-<div class="quickStrip" id="machineQuickStrip"><span class="quickChip" onclick="quickSet('mType','ANGLE GRINDER')">ANGLE GRINDER</span><span class="quickChip" onclick="quickSet('mType','MARBLE CUTTER')">MARBLE CUTTER</span><span class="quickChip" onclick="quickSet('mType','DRILL MACHINE')">DRILL MACHINE</span><span class="quickChip" onclick="quickSet('mType','ROTARY HAMMER')">ROTARY HAMMER</span><span class="quickChip" onclick="quickSet('mType','DEMOLITION HAMMER')">DEMOLITION HAMMER</span></div><div class="toolbar" style="margin-top:8px"><button class="btn green" onclick="saveMachine(false)">SAVE MACHINE</button><button class="btn blue" onclick="saveMachine(true)">SAVE & ADD NEXT</button><button class="btn light" onclick="clearMachine()">CLEAR</button></div></div>
+<div class="quickStrip" id="machineQuickStrip"><span class="quickChip" onclick="quickSet('mType','ANGLE GRINDER')">ANGLE GRINDER</span><span class="quickChip" onclick="quickSet('mType','MARBLE CUTTER')">MARBLE CUTTER</span><span class="quickChip" onclick="quickSet('mType','DRILL MACHINE')">DRILL MACHINE</span><span class="quickChip" onclick="quickSet('mType','ROTARY HAMMER')">ROTARY HAMMER</span><span class="quickChip" onclick="quickSet('mType','DEMOLITION HAMMER')">DEMOLITION HAMMER</span></div><div class="toolbar" style="margin-top:8px"><button class="btn green" onclick="saveMachine(false)">SAVE MACHINE REFERENCE</button><button class="btn blue" onclick="saveMachine(true)">SAVE & ADD NEXT</button><button class="btn light" onclick="clearMachine()">CLEAR</button></div></div>
 <div class="scroll" style="margin-top:9px"><table><thead><tr><th>DATE</th><th>ID</th><th>BRAND</th><th>TYPE</th><th>WORK TYPE</th><th>MODEL</th><th>ALT MODEL</th><th>REMARKS</th><th>STATUS</th><th>ACTION</th></tr></thead><tbody id="machineRows"></tbody></table></div>
 </div>
 </section>
@@ -666,7 +806,7 @@ Machines are not sold on this portal. Dealer website sales are only for Spare Pa
 <div class="field"><label>DEFAULT ITEM VISIBILITY</label><select id="setItemVisibility"><option>ONLINE</option><option>OFFLINE</option></select></div>
 <div class="field"><label>DEFAULT ITEM STATUS</label><select id="setItemStatus"><option>ACTIVE</option><option>INACTIVE</option></select></div>
 <div class="field"><label>SHOW PURCHASE COST TO ADMIN</label><select id="setPurchaseCost"><option>YES</option><option>NO</option></select></div>
-<div class="field"><label>SHOW REORDER BADGE</label><select id="setReorderBadge"><option>YES</option><option>NO</option></select></div>
+<div class="field"><label>SHOW REORDER BADGE</label><select id="setReorderBadge"><option>YES</option><option>NO</option></select></div><div class="field"><label>ITEM HISTORY</label><select id="setItemHistory"><option>ON</option><option>OFF</option></select></div><div class="field"><label>LOST SALE ANALYSIS</label><select id="setLostSale"><option>ON</option><option>OFF</option></select></div>
 <div class="field"><label>LOW STOCK DEFAULT LEVEL</label><input id="setDefaultMinStock" type="number" min="0" value="5"></div>
 <div class="field"><label>DEFAULT PIECES / BOX</label><input id="setDefaultPiecesBox" type="number" min="1" value="1"></div>
 </div>
@@ -731,7 +871,7 @@ Machines are not sold on this portal. Dealer website sales are only for Spare Pa
 <div class="grid">
 <div class="field"><label>CUSTOMER CARE NUMBER</label><input id="setSupportPhone"></div>
 <div class="field"><label>WHATSAPP NUMBER</label><input id="setWhatsapp"></div>
-<div class="field"><label>ADMIN DISPLAY NAME</label><input id="setAdminName" class="upper" value="ONLINE ADMIN"></div>
+<div class="field"><label>ADMIN DISPLAY NAME</label><input id="setAdminName" class="upper" value="ADMIN"></div>
 <div class="field"><label>PORTAL MESSAGE</label><input id="setPortalMessage" class="upper"></div>
 <div class="field"><label>WEBSITE NOTICE</label><input id="setWebsiteNotice" class="upper"></div>
 <div class="field"><label>ORDER CONFIRM MESSAGE</label><input id="setOrderMessage" class="upper"></div>
@@ -777,7 +917,7 @@ Machines are not sold on this portal. Dealer website sales are only for Spare Pa
 
 <aside class="right">
 <div class="rightTopZone">
-  <div id="adminOnlineStatus" class="rightOnlineStatus">● ONLINE ADMIN</div>
+  <button id="adminOnlineStatus" class="adminProfileLink" onclick="openAdminProfile()" title="OPEN ADMIN PROFILE">● ADMIN</button>
   <div class="rightTopControls">
     <button id="langToggle" class="rightMiniBtn langYellow" onclick="toggleLanguage()">EN|HI</button>
     <button class="rightMiniBtn logoutMini" onclick="logoutAdmin()">LOGOUT</button>
@@ -785,18 +925,18 @@ Machines are not sold on this portal. Dealer website sales are only for Spare Pa
 </div>
 
 <div class="rightNavStart">
-<button class="rnav" onclick="openSection('ads',this)">ADS & PROMOTIONS</button>
-<button class="rnav" onclick="openSection('homepage',this)">HOME PAGE CONTENT</button>
-<button class="rnav settingsMainBtn" onclick="openSection('settings',this)">⚙ SETTINGS</button>
-<button class="rnav" onclick="runSystemCheck()">VERIFY SYSTEM <span id="badgeSystem" class="actionBadge">0</span></button>
-<button class="rnav refreshMenuBtn" onclick="refreshPortal()">↻ REFRESH</button>
-<button class="rnav soundMenuBtn" onclick="toggleSoundPanel(event)">🔊 SOUND</button>
-<button class="rnav" onclick="openSection('points',this)">POINTS & YEARLY SCHEME</button>
-<button class="rnav" onclick="openSection('ai',this)">AI & API HUB</button>
-<button class="rnav" onclick="openSection('updates',this)">UPDATE CENTER <span id="badgeUpdate" class="actionBadge">0</span></button>
-<button class="rnav" onclick="openSection('reports',this)">REPORTS CENTER</button>
-<button class="rnav" onclick="openSection('dealers',this)">DEALER CONTROL</button>
-<button class="rnav" onclick="openSection('customers',this)">CUSTOMER HISTORY</button>
+<button class="rnav refreshMenuBtn" onclick="refreshPortal()"><span class="navIcon bigIcon">↻</span> REFRESH</button>
+<button class="rnav" onclick="openSection('ads',this)"><span class="navIcon">★</span> ADS & PROMOTIONS</button>
+<button class="rnav" onclick="openSection('homepage',this)"><span class="navIcon">⌂</span> HOME PAGE CONTENT</button>
+<button class="rnav" onclick="runSystemCheck()"><span class="navIcon">✓</span> VERIFY SYSTEM <span id="badgeSystem" class="actionBadge">0</span></button>
+<button class="rnav soundMenuBtn" onclick="toggleSoundPanel(event)"><span class="navIcon bigIcon">🔊</span> SOUND</button>
+<button class="rnav" onclick="openSection('points',this)"><span class="navIcon">◆</span> POINTS & YEARLY SCHEME</button>
+<button class="rnav" onclick="openSection('ai',this)"><span class="navIcon">✦</span> AI & API HUB</button>
+<button class="rnav" onclick="openSection('updates',this)"><span class="navIcon">⇧</span> UPDATE CENTER <span id="badgeUpdate" class="actionBadge">0</span></button>
+<button class="rnav" onclick="openSection('reports',this)"><span class="navIcon">▦</span> REPORTS CENTER</button>
+<button class="rnav" onclick="openSection('dealers',this)"><span class="navIcon">♟</span> DEALER CONTROL</button>
+<button class="rnav settingsMainBtn" onclick="openSection('settings',this)"><span class="navIcon bigIcon">⚙</span> SETTINGS</button>
+<button class="rnav" onclick="openSection('customers',this)"><span class="navIcon">◉</span> CUSTOMER HISTORY</button>
 </div>
 </aside>
 </div>
@@ -808,7 +948,7 @@ Machines are not sold on this portal. Dealer website sales are only for Spare Pa
 var KEY="TORVO_ADMIN_CUSTOMER_HISTORY_2026";
 var DB=JSON.parse(localStorage.getItem(KEY)||"null")||{
  items:[],machines:[],orders:[],estimates:[],deliveries:[],partners:[],dealers:[],inquiries:[],messages:[],points:[],drawings:[],profitEntries:[],ads:[],homeContent:[],customerEvents:[],
- purchaseHistory:[],stockHistory:[],activity:[],customerEvents:[],
+ purchaseHistory:[],stockHistory:[],itemTransactions:[],lostSales:[],activity:[],customerEvents:[],adminProfile:{displayName:"ADMIN",username:"ADMIN",email:"",mobile:""},
  brands:["BOSCH","MAKITA","DEWALT","TORVO"],
  categories:["ARMATURE","FIELD / STATOR","GEAR","SWITCH","CARBON BRUSH","BEARING"],
  accessoryCategories:["CUTTING WHEEL","GRINDING WHEEL","DIAMOND BLADE","CORING BIT","DRILL BIT","HOLE SAW","CHISEL","SAW BLADE"],
@@ -939,7 +1079,155 @@ function toggleActive(i){DB.items[i].status=DB.items[i].status==="ACTIVE"?"INACT
 function setFilter(f){itemFilter=f;renderItems();sndClick()}
 function openFiltered(f){itemFilter=f;openSection("itemmaster");renderItems()}
 function filteredItems(){var a=DB.items.slice(),q=N(E("itemSearch")?E("itemSearch").value:"");if(q)a=a.filter(function(x){return N([x.no,x.name,x.brand,x.category,x.ref,x.size,x.spec,x.remarks].concat(x.machines||[]).join(" ")).includes(q)});if(itemFilter==="in")a=a.filter(function(x){return x.qty>0});if(itemFilter==="out")a=a.filter(function(x){return x.qty<=0});if(itemFilter==="reorder")a=a.filter(function(x){return x.qty<=x.min});if(itemFilter==="online")a=a.filter(function(x){return x.online==="ONLINE"});if(itemFilter==="offline")a=a.filter(function(x){return x.online==="OFFLINE"});if(itemFilter==="top")a.sort(function(a,b){return(b.sold||0)-(a.sold||0)});if(itemFilter==="low")a.sort(function(a,b){return(a.sold||0)-(b.sold||0)});return a}
-function renderItems(){var a=filteredItems();E("itemGrid").innerHTML=a.length?a.map(function(x){var i=DB.items.indexOf(x);return"<div class='itemCard'><div class='pic'>"+((x.photos||[]).length?x.photos.map(function(p){return"<img src='"+p+"'>"}).join(""):"NO PHOTO")+"</div><div class='itemName'>"+H(x.name)+"</div><div class='meta'>"+H(x.type)+" | "+H(x.no)+" | "+H(x.brand)+"</div><div class='meta'>"+H(x.category)+" | "+H(x.size||"")+" | "+H(x.ref||"")+"</div><div class='meta'>MACHINES: "+H((x.machines||[]).join(", ")||"—")+"</div><div class='meta'>REMARKS: "+H(x.remarks||"—")+"</div><div class='rates'><div class='rate cost'>COST<br><b>₹"+x.cost+"</b></div><div class='rate ra'>A<br><b>₹"+x.a+"</b></div><div class='rate rb'>B<br><b>₹"+x.b+"</b></div><div class='rate rc'>C<br><b>₹"+x.c+"</b></div></div><div class='stock'><span>STOCK <b>"+x.qty+"</b></span><span>SOLD <b>"+(x.sold||0)+"</b></span></div><div class='toolbar' style='margin-top:6px'><button class='btn blue' onclick='editItem("+i+")'>EDIT</button><button class='btn green' onclick='stockChange("+i+",1)'>STOCK +1</button><button class='btn orange' onclick='stockChange("+i+",-1)'>STOCK -1</button><button class='btn teal' onclick='toggleOnline("+i+")'>"+H(x.online)+"</button><button class='btn dark' onclick='toggleActive("+i+")'>"+H(x.status)+"</button><button class='btn red' onclick='deleteItem("+i+")'>DELETE</button></div></div>"}).join(""):"<div class='empty'>NO MATCHING ITEMS.</div>"}
+
+function renderItems(){
+ var a=filteredItems();
+ E("itemGrid").innerHTML=a.length?a.map(function(x){
+  var i=DB.items.indexOf(x);
+  return "<div class='itemCard'>"+
+   "<div class='pic'>"+((x.photos||[]).length?x.photos.map(function(p){return"<img src='"+p+"'>"}).join(""):"NO PHOTO")+"</div>"+
+   "<div class='itemName'>"+H(x.name)+"</div>"+
+   "<div class='meta'>"+H(x.type)+" | "+H(x.no)+" | "+H(x.brand)+"</div>"+
+   "<div class='meta'>"+H(x.category)+" | "+H(x.size||"")+" | "+H(x.ref||"")+"</div>"+
+   "<div class='meta'>MACHINES: "+H((x.machines||[]).join(", ")||"—")+"</div>"+
+   "<div class='meta'>REMARKS: "+H(x.remarks||"—")+"</div>"+
+   "<div class='rates'><div class='rate cost'>CURRENT PURCHASE<br><b>₹"+Number(x.cost||0).toFixed(2)+"</b></div><div class='rate ra'>A<br><b>₹"+x.a+"</b></div><div class='rate rb'>B<br><b>₹"+x.b+"</b></div><div class='rate rc'>C<br><b>₹"+x.c+"</b></div></div>"+
+   "<div class='stock'><span>STOCK <b>"+x.qty+"</b></span><span>SOLD <b>"+(x.sold||0)+"</b></span></div>"+
+   "<div class='quickStockBox'><div class='quickStockGrid'>"+
+    "<div><label>STOCK ADD QTY *</label><input id='stockAdd_"+i+"' type='number' min='1' step='1' placeholder='QTY'></div>"+
+    "<div><label>CURRENT PURCHASE RATE *</label><input id='stockRate_"+i+"' type='number' min='0.01' step='0.01' placeholder='₹ RATE'></div>"+
+    "<button id='stockOk_"+i+"' class='btn green' onclick='quickStockAdd("+i+")'>ADD / OK</button>"+
+   "</div></div>"+
+   "<div class='toolbar' style='margin-top:6px'>"+
+    "<button class='btn blue' onclick='editItem("+i+")'>EDIT</button>"+
+    "<button class='btn historyBtn' onclick='openItemHistory("+i+")'>ITEM HISTORY</button>"+
+    "<button class='btn teal' onclick='toggleOnline("+i+")'>"+H(x.online)+"</button>"+
+    "<button class='btn dark' onclick='toggleActive("+i+")'>"+H(x.status)+"</button>"+
+    "<button class='btn red' onclick='deleteItem("+i+")'>DELETE</button>"+
+   "</div>"+
+  "</div>"
+ }).join(""):"<div class='empty'>NO MATCHING ITEMS.</div>"
+}
+
+
+var stockSubmitLock={};
+
+function txNow(){
+ var d=new Date();
+ return d.toLocaleString("en-IN",{year:"numeric",month:"2-digit",day:"2-digit",hour:"2-digit",minute:"2-digit",second:"2-digit"});
+}
+function quickStockAdd(i){
+ if(stockSubmitLock[i])return toast("PLEASE WAIT - STOCK UPDATE IN PROGRESS","alert");
+ var x=DB.items[i];if(!x)return;
+ var q=Number(E("stockAdd_"+i)?E("stockAdd_"+i).value:0);
+ var rate=Number(E("stockRate_"+i)?E("stockRate_"+i).value:0);
+ if(!Number.isFinite(q)||q<=0||Math.floor(q)!==q)return toast("VALID STOCK ADD QUANTITY IS REQUIRED","error");
+ if(!Number.isFinite(rate)||rate<=0)return toast("CURRENT PURCHASE RATE IS REQUIRED","error");
+
+ stockSubmitLock[i]=true;
+ var btn=E("stockOk_"+i);if(btn){btn.disabled=true;btn.textContent="ADDING..."}
+ var oldStock=Number(x.qty||0),newStock=oldStock+q,oldRate=Number(x.cost||0);
+ x.qty=newStock;x.cost=rate;
+
+ var rec={
+  id:"STK-"+Date.now(),type:"STOCK IN",item:x.no,itemName:x.name,
+  date:TODAY(),time:txNow(),oldStock:oldStock,qty:q,newStock:newStock,
+  oldPurchaseRate:oldRate,newPurchaseRate:rate,admin:(DB.adminProfile.displayName||"ADMIN"),
+  source:"ITEM MASTER QUICK STOCK"
+ };
+ DB.stockHistory.push({item:x.no,date:TODAY(),time:rec.time,before:oldStock,change:q,after:newStock,reason:"STOCK IN",purchaseRate:rate,previousPurchaseRate:oldRate});
+ DB.purchaseHistory.push({item:x.no,itemName:x.name,date:TODAY(),time:rec.time,previousRate:oldRate,currentRate:rate,qty:q,source:"STOCK IN"});
+ DB.itemTransactions.push(rec);
+ logActivity("STOCK IN "+x.no+" | +"+q+" | "+oldStock+" → "+newStock+" | PURCHASE ₹"+rate);
+ saveDB();torvoBeep("success");toast("STOCK + PURCHASE RATE UPDATED","success");
+ setTimeout(function(){stockSubmitLock[i]=false;renderItems()},350)
+}
+
+function registerItemSale(itemNo,qty,saleRate,dealerName,dealerCode,estimateNo,orderNo,date){
+ var x=DB.items.find(function(z){return N(z.no)===N(itemNo)});if(!x)return false;
+ qty=Number(qty||0);saleRate=Number(saleRate||0);if(qty<=0)return false;
+ var oldStock=Number(x.qty||0),newStock=Math.max(0,oldStock-qty);
+ x.qty=newStock;x.sold=Number(x.sold||0)+qty;
+ DB.itemTransactions.push({
+  id:"SAL-"+Date.now()+"-"+Math.random().toString(36).slice(2,6),type:"SALE",
+  item:x.no,itemName:x.name,date:date||TODAY(),time:txNow(),
+  oldStock:oldStock,qty:qty,newStock:newStock,saleRate:saleRate,
+  dealerName:dealerName||"",dealerCode:dealerCode||"",estimateNo:estimateNo||"",orderNo:orderNo||"",
+  source:"FINAL ESTIMATE"
+ });
+ DB.stockHistory.push({item:x.no,date:date||TODAY(),time:txNow(),before:oldStock,change:-qty,after:newStock,reason:"FINAL ESTIMATE SALE",saleRate:saleRate,dealer:dealerName||"",dealerCode:dealerCode||"",estimate:estimateNo||""});
+ saveDB();return true
+}
+
+
+function askRemovedItemReason(){
+ var choices=["","RATE HIGH","NOT REQUIRED","WRONG ITEM / MODEL","PRODUCT / QUALITY CONCERN","BOUGHT ELSEWHERE","AVAILABILITY / DELIVERY ISSUE","OTHER"];
+ var msg="OPTIONAL REMOVAL REASON\n\n0 = SKIP / REMOVE DIRECTLY\n1 = RATE HIGH\n2 = NOT REQUIRED\n3 = WRONG ITEM / MODEL\n4 = PRODUCT / QUALITY CONCERN\n5 = BOUGHT ELSEWHERE\n6 = AVAILABILITY / DELIVERY ISSUE\n7 = OTHER\n\nENTER NUMBER (OPTIONAL):";
+ var v=prompt(msg,"0");if(v===null||v===""||v==="0")return "";
+ var n=Number(v);return choices[n]||"OTHER"
+}
+
+function registerRemovedItem(data){
+ data=data||{};
+ var rec={
+  id:"REM-"+Date.now()+"-"+Math.random().toString(36).slice(2,5),
+  date:data.date||TODAY(),time:txNow(),
+  dealerName:data.dealerName||"",dealerCode:data.dealerCode||"",
+  item:data.item||"",itemName:data.itemName||"",
+  originalQty:Number(data.originalQty||0),removedQty:Number(data.removedQty||0),
+  saleRate:Number(data.saleRate||0),estimateNo:data.estimateNo||"",orderNo:data.orderNo||"",
+  reason:data.reason||"",status:"REMOVED FROM ESTIMATE"
+ };
+ DB.lostSales.push(rec);saveDB();return rec
+}
+
+function openItemHistory(i){
+ var x=DB.items[i];if(!x)return;
+ window._historyItemIndex=i;
+ E("historyItemTitle").textContent=(x.no||"")+" — "+(x.name||"");
+ E("historyFrom").value="";E("historyTo").value="";E("historyType").value="ALL";
+ renderItemHistory();
+ E("itemHistoryModal").classList.add("show")
+}
+function closeItemHistory(){E("itemHistoryModal").classList.remove("show")}
+function itemHistoryRows(x){
+ var rows=(DB.itemTransactions||[]).filter(function(r){return N(r.item)===N(x.no)}).slice();
+ /* include older stock history created before this feature */
+ (DB.stockHistory||[]).filter(function(r){return N(r.item)===N(x.no)}).forEach(function(r){
+  var exists=rows.some(function(z){return z.time===r.time&&Number(z.qty)===Math.abs(Number(r.change||0))});
+  if(!exists)rows.push({
+   type:Number(r.change||0)>=0?"STOCK IN":"SALE",item:x.no,itemName:x.name,date:r.date||"",time:r.time||r.date||"",
+   oldStock:Number(r.before||0),qty:Math.abs(Number(r.change||0)),newStock:Number(r.after||0),
+   newPurchaseRate:Number(r.purchaseRate||0),oldPurchaseRate:Number(r.previousPurchaseRate||0),
+   saleRate:Number(r.saleRate||0),dealerName:r.dealer||"",dealerCode:r.dealerCode||"",estimateNo:r.estimate||"",source:r.reason||"HISTORY"
+  })
+ });
+ return rows
+}
+function renderItemHistory(){
+ var i=window._historyItemIndex,x=DB.items[i];if(!x)return;
+ var from=E("historyFrom").value,to=E("historyTo").value,type=E("historyType").value;
+ var rows=itemHistoryRows(x).filter(function(r){
+  if(type!=="ALL"&&r.type!==type)return false;
+  if(from&&String(r.date)<from)return false;
+  if(to&&String(r.date)>to)return false;
+  return true
+ }).sort(function(a,b){return String(b.time||b.date).localeCompare(String(a.time||a.date))});
+ var received=rows.filter(function(r){return r.type==="STOCK IN"}).reduce(function(s,r){return s+Number(r.qty||0)},0);
+ var sold=rows.filter(function(r){return r.type==="SALE"}).reduce(function(s,r){return s+Number(r.qty||0)},0);
+ E("histReceived").textContent=received;E("histSold").textContent=sold;E("histCurrent").textContent=Number(x.qty||0);
+ E("itemHistoryRows").innerHTML=rows.length?rows.map(function(r){
+  var rate=r.type==="STOCK IN"?
+   ("OLD ₹"+Number(r.oldPurchaseRate||0).toFixed(2)+" → NEW ₹"+Number(r.newPurchaseRate||0).toFixed(2)):
+   ("SALE ₹"+Number(r.saleRate||0).toFixed(2));
+  var dealer=r.dealerName?("<span class='dealerLink' onclick=\"showDealerPurchase('"+encodeURIComponent(r.dealerName||"")+"','"+encodeURIComponent(r.dealerCode||"")+"','"+encodeURIComponent(r.estimateNo||"")+"','"+encodeURIComponent(r.orderNo||"")+"')\">"+H(r.dealerName)+"</span>"):"—";
+  return "<tr><td>"+H(r.time||r.date||"")+"</td><td>"+H(r.type)+"</td><td>"+Number(r.qty||0)+"</td><td>"+Number(r.oldStock||0)+" → "+Number(r.newStock||0)+"</td><td>"+H(rate)+"</td><td>"+dealer+"</td><td>"+H(r.estimateNo||"")+"</td><td>"+H(r.orderNo||"")+"</td><td>"+H(r.source||"")+"</td></tr>"
+ }).join(""):"<tr><td colspan='9' class='empty'>NO HISTORY FOUND.</td></tr>"
+}
+function showDealerPurchase(name,code,estimate,order){
+ name=decodeURIComponent(name||"");code=decodeURIComponent(code||"");estimate=decodeURIComponent(estimate||"");order=decodeURIComponent(order||"");
+ alert("PURCHASED BY\n\nDEALER: "+name+"\nDEALER CODE: "+(code||"—")+"\nFINAL ESTIMATE: "+(estimate||"—")+"\nORDER: "+(order||"—"))
+}
 
 function renderSuitableResults(){if(!E("suitableResults"))return;var b=E("sBrand").value,t=E("sType").value,m=N(E("sModel").value),p=N(E("sPart").value),s=N(E("sSpec").value),match=E("sMatch").value;var machines=DB.machines.filter(function(x){return(!b||x.brand===b)&&(!t||x.type===t)&&(!m||N([x.model,x.alt].join(" ")).includes(m))});var models=machines.map(function(x){return x.model});var a=DB.items.filter(function(x){if(x.type!=="SPARE PART")return false;if(models.length&&!(x.machines||[]).some(function(mm){return models.includes(mm)}))return false;if(p&&!N([x.no,x.name,x.ref].join(" ")).includes(p))return false;if(s&&!N([x.size,x.spec,x.group].join(" ")).includes(s))return false;if(match&&x.match!==match)return false;return true});E("suitableResults").innerHTML=a.length?"<div class='scroll'><table><thead><tr><th>ITEM</th><th>NAME</th><th>BRAND</th><th>MACHINES</th><th>SIZE</th><th>REF</th><th>MATCH</th><th>STOCK</th></tr></thead><tbody>"+a.map(function(x){return"<tr><td>"+H(x.no)+"</td><td>"+H(x.name)+"</td><td>"+H(x.brand)+"</td><td>"+H((x.machines||[]).join(", "))+"</td><td>"+H(x.size||"")+"</td><td>"+H(x.ref||"")+"</td><td>"+H(x.match||"")+"</td><td>"+x.qty+"</td></tr>"}).join("")+"</tbody></table></div>":"<div class='empty'>NO SUITABLE MATCH FOUND.</div>"}
 
@@ -1061,10 +1349,10 @@ function toggleLanguage(){
 function quickSet(id,val){if(E(id)){E(id).value=val;E(id).dispatchEvent(new Event("input"))}}
 function saveLegacyPortalSettings(){/* legacy settings function retained but disabled */}
 function secureDeleteArray(arr,index,label){var code=prompt("ENTER DELETE CODE");if(code!=="1122")return toast("WRONG DELETE CODE","error");if(!confirm("DELETE "+U(label||"RECORD")+" ?"))return;arr.splice(index,1);saveDB();sndDelete();toast("DELETED","success")}
-function reportDefs(){return[["SALES REPORT","ORDER RECEIVED VS FINAL ESTIMATE SALE","SALES"],["ACTUAL SALES","FINAL ESTIMATE = ACTUAL SALE","ESTIMATES"],["ORDER VS ESTIMATE","FULFILLED / PENDING BUSINESS","ORDER_ESTIMATE"],["PENDING / UNFULFILLED","ORDERS NOT FULLY CONVERTED","PENDING"],["PROFIT / INCOME","FINAL SALE LESS ALL COSTS","PROFIT"],["EXPENSE REPORT","COURIER / TRANSPORT / PACKING / PAYMENT / OTHER","EXPENSE"],["STOCK / INVENTORY","CURRENT STOCK BY ITEM","STOCK"],["LOW STOCK / REORDER","ITEMS AT OR BELOW MINIMUM","REORDER"],["ITEM / PRODUCT","ALL ITEMS","ITEMS"],["SPARE PART","SPARE PART MASTER","SPARES"],["ACCESSORIES","ACCESSORY MASTER","ACCESSORIES"],["MACHINE","MACHINE MASTER","MACHINES"],["SUITABLE MAPPING","ITEM TO MACHINE COMPATIBILITY","SUITABLE"],["DEALER / CUSTOMER","DEALER MASTER / STATUS / RATE","DEALERS"],["DEALER PERFORMANCE","ORDER / SALE BY DEALER","DEALER_PERFORMANCE"],["CUSTOMER HISTORY","PERMANENT ADMIN HISTORY","CUSTOMER_HISTORY"],["DELIVERY / TRACKING","PENDING AND DELIVERED","DELIVERY"],["COURIER / TRANSPORT","LOGISTICS PARTNERS","PARTNERS"],["POINTS / SCHEME","DEALER POINTS + SCHEMES","POINTS"],["INQUIRY","WEBSITE / DEALER / SPARE REQUESTS","INQUIRY"],["CHAT / MESSAGE","DEALER PORTAL MESSAGES","CHAT"],["ACTIVITY / SYSTEM","ADMIN ACTIVITY + VERIFY","ACTIVITY"]]}
+function reportDefs(){return[["SALES REPORT","ORDER RECEIVED VS FINAL ESTIMATE SALE","SALES"],["ACTUAL SALES","FINAL ESTIMATE = ACTUAL SALE","ESTIMATES"],["ORDER VS ESTIMATE","FULFILLED / PENDING BUSINESS","ORDER_ESTIMATE"],["PENDING / UNFULFILLED","ORDERS NOT FULLY CONVERTED","PENDING"],["PROFIT / INCOME","FINAL SALE LESS ALL COSTS","PROFIT"],["EXPENSE REPORT","COURIER / TRANSPORT / PACKING / PAYMENT / OTHER","EXPENSE"],["STOCK / INVENTORY","CURRENT STOCK BY ITEM","STOCK"],["LOW STOCK / REORDER","ITEMS AT OR BELOW MINIMUM","REORDER"],["ITEM / PRODUCT","ALL ITEMS","ITEMS"],["SPARE PART","SPARE PART MASTER","SPARES"],["ACCESSORIES","ACCESSORY MASTER","ACCESSORIES"],["MACHINE","MACHINE MASTER","MACHINES"],["SUITABLE MAPPING","ITEM TO MACHINE COMPATIBILITY","SUITABLE"],["DEALER / CUSTOMER","DEALER MASTER / STATUS / RATE","DEALERS"],["DEALER PERFORMANCE","ORDER / SALE BY DEALER","DEALER_PERFORMANCE"],["CUSTOMER HISTORY","PERMANENT ADMIN HISTORY","CUSTOMER_HISTORY"],["DELIVERY / TRACKING","PENDING AND DELIVERED","DELIVERY"],["COURIER / TRANSPORT","LOGISTICS PARTNERS","PARTNERS"],["POINTS / SCHEME","DEALER POINTS + SCHEMES","POINTS"],["INQUIRY","WEBSITE / DEALER / SPARE REQUESTS","INQUIRY"],["CHAT / MESSAGE","DEALER PORTAL MESSAGES","CHAT"],["REMOVED ITEM / LOST SALE","ITEMS REMOVED FROM ESTIMATE + OPTIONAL REASON","LOST_SALES"],["ACTIVITY / SYSTEM","ADMIN ACTIVITY + VERIFY","ACTIVITY"]]}
 function renderReportsCenter(){if(!E("reportCards"))return;E("reportCards").innerHTML=reportDefs().map(function(r){return"<div class='reportCard'><b>"+r[0]+"</b><div class='help'>"+r[1]+"</div><div class='reportActions'><button class='btn blue' onclick=\\\"viewReport('"+r[2]+"')\\\">VIEW</button><button class='btn green' onclick=\\\"exportReportCSV('"+r[2]+"')\\\">EXCEL</button><button class='btn red' onclick=\\\"printReportPDF('"+r[2]+"')\\\">PDF</button></div></div>"}).join("")}
-function reportRows(type){if(type==="ITEMS")return DB.items.map(function(x){return[x.date,x.no,x.name,x.type,x.brand,x.category,x.qty,x.min,x.online,x.status,x.remarks||""]});if(type==="SPARES")return DB.items.filter(function(x){return x.type==="SPARE PART"}).map(function(x){return[x.no,x.name,x.brand,x.category,x.qty,x.ref,x.size,(x.machines||[]).join("; "),x.remarks||""]});if(type==="ACCESSORIES")return DB.items.filter(function(x){return x.type==="ACCESSORY"}).map(function(x){return[x.no,x.name,x.brand,x.category,x.qty,x.size,x.remarks||""]});if(type==="MACHINES")return DB.machines.map(function(x){return[x.date,x.id,x.brand,x.type,x.work,x.model,x.alt,x.status,x.remarks||""]});if(type==="STOCK")return DB.items.map(function(x){return[x.no,x.name,x.brand,x.qty,x.min,x.online,x.status]});if(type==="REORDER")return DB.items.filter(function(x){return Number(x.qty)<=Number(x.min)}).map(function(x){return[x.no,x.name,x.brand,x.qty,x.min]});if(type==="ESTIMATES")return finalEstimates().map(function(x){return[x.date||"",x.no,x.order,x.dealer,x.amount,x.status||x.reply||"FINAL"]});if(type==="DELIVERY")return DB.deliveries.map(function(x){return[x.date||"",x.order||"",x.dealer||"",x.partner||"",x.tracking||"",x.status||"PENDING",x.deliveredAt||""]});if(type==="PARTNERS")return DB.partners.map(function(x){return[x.type,x.name,x.person,x.mobile,x.city]});if(type==="POINTS")return DB.points.map(function(x){return[x.dealer,x.points,x.year,x.quarter,x.scheme,x.updated]});if(type==="INQUIRY")return DB.inquiries.map(function(x){return[x.date,x.id,x.type,x.name,x.mobile,x.message,x.read?"READ":"NEW"]});if(type==="CHAT")return DB.messages.map(function(x){return[x.date,x.dealerId,x.from,x.message,x.read?"READ":"UNREAD"]});if(type==="DEALERS")return DB.dealers.map(function(x){return[x.id,x.shop,x.person,x.mobile,x.city,x.rateGroup,x.status]});if(type==="PROFIT"||type==="EXPENSE")return DB.profitEntries.map(function(x){return[x.date,x.estimate,x.dealer,x.sale,x.purchase,x.courier,x.delivery,x.packing,x.gateway,x.other,profitNet(x)]});if(type==="ACTIVITY")return DB.activity.map(function(x){return[x.time,x.text]});if(type==="SUITABLE")return DB.items.filter(function(x){return x.type==="SPARE PART"}).map(function(x){return[x.no,x.name,x.brand,(x.machines||[]).join("; "),x.match,x.group,x.verifiedBy,x.verifiedDate]});return[]}
-function reportHeaders(type){var h={ITEMS:["DATE","ITEM NO","NAME","TYPE","BRAND","CATEGORY","STOCK","MIN","ONLINE","STATUS","REMARKS"],SPARES:["ITEM NO","NAME","BRAND","CATEGORY","STOCK","REF","SIZE","MACHINES","REMARKS"],ACCESSORIES:["ITEM NO","NAME","BRAND","CATEGORY","STOCK","SIZE","REMARKS"],MACHINES:["DATE","ID","BRAND","TYPE","WORK","MODEL","ALT MODEL","STATUS","REMARKS"],STOCK:["ITEM NO","NAME","BRAND","STOCK","MIN","ONLINE","STATUS"],REORDER:["ITEM NO","NAME","BRAND","STOCK","MIN"],ESTIMATES:["DATE","ESTIMATE","ORDER","DEALER","AMOUNT","STATUS"],DELIVERY:["DATE","ORDER","DEALER","PARTNER","TRACKING","STATUS","DELIVERED AT"],PARTNERS:["TYPE","NAME","PERSON","MOBILE","CITY"],POINTS:["DEALER","POINTS","YEAR","QUARTER","SCHEME","UPDATED"],INQUIRY:["DATE","ID","TYPE","NAME","MOBILE","MESSAGE","STATUS"],CHAT:["DATE","DEALER","FROM","MESSAGE","STATUS"],DEALERS:["ID","SHOP","PERSON","MOBILE","CITY","RATE","STATUS"],PROFIT:["DATE","ESTIMATE","DEALER","SALE","PURCHASE","COURIER","DELIVERY","PACKING","PAYMENT","OTHER","NET"],EXPENSE:["DATE","ESTIMATE","DEALER","SALE","PURCHASE","COURIER","DELIVERY","PACKING","PAYMENT","OTHER","NET"],ACTIVITY:["TIME","ACTIVITY"],SUITABLE:["ITEM","NAME","BRAND","MACHINES","MATCH","GROUP","VERIFIED BY","DATE"]};return h[type]||["DETAIL"]}
+function reportRows(type){if(type==="ITEMS")return DB.items.map(function(x){return[x.date,x.no,x.name,x.type,x.brand,x.category,x.qty,x.min,x.online,x.status,x.remarks||""]});if(type==="SPARES")return DB.items.filter(function(x){return x.type==="SPARE PART"}).map(function(x){return[x.no,x.name,x.brand,x.category,x.qty,x.ref,x.size,(x.machines||[]).join("; "),x.remarks||""]});if(type==="ACCESSORIES")return DB.items.filter(function(x){return x.type==="ACCESSORY"}).map(function(x){return[x.no,x.name,x.brand,x.category,x.qty,x.size,x.remarks||""]});if(type==="MACHINES")return DB.machines.map(function(x){return[x.date,x.id,x.brand,x.type,x.work,x.model,x.alt,x.status,x.remarks||""]});if(type==="STOCK")return DB.items.map(function(x){return[x.no,x.name,x.brand,x.qty,x.min,x.online,x.status]});if(type==="REORDER")return DB.items.filter(function(x){return Number(x.qty)<=Number(x.min)}).map(function(x){return[x.no,x.name,x.brand,x.qty,x.min]});if(type==="ESTIMATES")return finalEstimates().map(function(x){return[x.date||"",x.no,x.order,x.dealer,x.amount,x.status||x.reply||"FINAL"]});if(type==="DELIVERY")return DB.deliveries.map(function(x){return[x.date||"",x.order||"",x.dealer||"",x.partner||"",x.tracking||"",x.status||"PENDING",x.deliveredAt||""]});if(type==="PARTNERS")return DB.partners.map(function(x){return[x.type,x.name,x.person,x.mobile,x.city]});if(type==="POINTS")return DB.points.map(function(x){return[x.dealer,x.points,x.year,x.quarter,x.scheme,x.updated]});if(type==="INQUIRY")return DB.inquiries.map(function(x){return[x.date,x.id,x.type,x.name,x.mobile,x.message,x.read?"READ":"NEW"]});if(type==="CHAT")return DB.messages.map(function(x){return[x.date,x.dealerId,x.from,x.message,x.read?"READ":"UNREAD"]});if(type==="DEALERS")return DB.dealers.map(function(x){return[x.id,x.shop,x.person,x.mobile,x.city,x.rateGroup,x.status]});if(type==="PROFIT"||type==="EXPENSE")return DB.profitEntries.map(function(x){return[x.date,x.estimate,x.dealer,x.sale,x.purchase,x.courier,x.delivery,x.packing,x.gateway,x.other,profitNet(x)]});if(type==="LOST_SALES")return (DB.lostSales||[]).map(function(x){return[x.date,x.time,x.dealerName,x.dealerCode,x.item,x.itemName,x.originalQty,x.removedQty,x.saleRate,Number(x.removedQty||0)*Number(x.saleRate||0),x.reason||"",x.estimateNo,x.orderNo]});if(type==="ACTIVITY")return DB.activity.map(function(x){return[x.time,x.text]});if(type==="SUITABLE")return DB.items.filter(function(x){return x.type==="SPARE PART"}).map(function(x){return[x.no,x.name,x.brand,(x.machines||[]).join("; "),x.match,x.group,x.verifiedBy,x.verifiedDate]});return[]}
+function reportHeaders(type){var h={ITEMS:["DATE","ITEM NO","NAME","TYPE","BRAND","CATEGORY","STOCK","MIN","ONLINE","STATUS","REMARKS"],SPARES:["ITEM NO","NAME","BRAND","CATEGORY","STOCK","REF","SIZE","MACHINES","REMARKS"],ACCESSORIES:["ITEM NO","NAME","BRAND","CATEGORY","STOCK","SIZE","REMARKS"],MACHINES:["DATE","ID","BRAND","TYPE","WORK","MODEL","ALT MODEL","STATUS","REMARKS"],STOCK:["ITEM NO","NAME","BRAND","STOCK","MIN","ONLINE","STATUS"],REORDER:["ITEM NO","NAME","BRAND","STOCK","MIN"],ESTIMATES:["DATE","ESTIMATE","ORDER","DEALER","AMOUNT","STATUS"],DELIVERY:["DATE","ORDER","DEALER","PARTNER","TRACKING","STATUS","DELIVERED AT"],PARTNERS:["TYPE","NAME","PERSON","MOBILE","CITY"],POINTS:["DEALER","POINTS","YEAR","QUARTER","SCHEME","UPDATED"],INQUIRY:["DATE","ID","TYPE","NAME","MOBILE","MESSAGE","STATUS"],CHAT:["DATE","DEALER","FROM","MESSAGE","STATUS"],DEALERS:["ID","SHOP","PERSON","MOBILE","CITY","RATE","STATUS"],PROFIT:["DATE","ESTIMATE","DEALER","SALE","PURCHASE","COURIER","DELIVERY","PACKING","PAYMENT","OTHER","NET"],EXPENSE:["DATE","ESTIMATE","DEALER","SALE","PURCHASE","COURIER","DELIVERY","PACKING","PAYMENT","OTHER","NET"],LOST_SALES:["DATE","TIME","DEALER","DEALER CODE","ITEM","NAME","ORIGINAL QTY","REMOVED QTY","RATE","LOST VALUE","REASON","ESTIMATE","ORDER"],ACTIVITY:["TIME","ACTIVITY"],SUITABLE:["ITEM","NAME","BRAND","MACHINES","MATCH","GROUP","VERIFIED BY","DATE"]};return h[type]||["DETAIL"]}
 function viewReport(type){if(type==="SALES"||type==="ORDER_ESTIMATE"||type==="PENDING"){renderSalesReport();E("reportOutput").innerHTML=E("salesReportList").innerHTML;return}if(type==="DEALER_PERFORMANCE"){E("reportOutput").innerHTML="<div class='infoNotice'>DEALER PERFORMANCE WILL USE ORDER + FINAL ESTIMATE DATA. LIVE VALUES WILL APPEAR AFTER DATABASE CONNECTION.</div>";return}if(type==="CUSTOMER_HISTORY"){renderCustomerHistory();E("reportOutput").innerHTML=E("customerHistoryBox").innerHTML;return}var rows=reportRows(type),heads=reportHeaders(type);E("reportOutput").innerHTML="<div class='scroll'><table><thead><tr>"+heads.map(function(h){return"<th>"+H(h)+"</th>"}).join("")+"</tr></thead><tbody>"+(rows.length?rows.map(function(r){return"<tr>"+r.map(function(c){return"<td>"+H(c)+"</td>"}).join("")+"</tr>"}).join(""):"<tr><td colspan='"+heads.length+"' class='empty'>NO DATA.</td></tr>")+"</tbody></table></div>"}
 function exportReportCSV(type){var rows=reportRows(type),heads=reportHeaders(type);if(!rows.length&&(type==="SALES"||type==="ORDER_ESTIMATE"||type==="PENDING"))return toast("OPEN VIEW FIRST; LIVE SALES EXPORT WILL BE ENABLED WITH DATABASE","alert");var all=[heads].concat(rows),csv=all.map(function(r){return r.map(function(v){return '"'+String(v==null?"":v).replace(/"/g,'""')+'"'}).join(",")}).join("\\n");var b=new Blob([csv],{type:"text/csv;charset=utf-8"}),a=document.createElement("a");a.href=URL.createObjectURL(b);a.download="TORVO_"+type+"_REPORT.csv";a.click();URL.revokeObjectURL(a.href);toast("EXCEL / CSV DOWNLOADED","success")}
 function printReportPDF(type){
@@ -1120,18 +1408,76 @@ function printReport(type){viewReport(type);var w=window.open("","_blank");w.doc
 
 
 
+
+function openAdminProfile(){
+ var p=DB.adminProfile||{};
+ E("adminDisplayName").value=p.displayName||"ADMIN";
+ E("adminUsername").value=p.username||"ADMIN";
+ E("adminEmail").value=p.email||"";
+ E("adminMobile").value=p.mobile||"";
+ E("passwordArea").style.display="none";
+ E("adminProfileModal").classList.add("show");
+ torvoBeep("click")
+}
+function closeAdminProfile(){E("adminProfileModal").classList.remove("show")}
+function saveAdminProfile(){
+ var p=DB.adminProfile||{};
+ p.displayName=U(E("adminDisplayName").value.trim()||"ADMIN");
+ p.username=U(E("adminUsername").value.trim()||"ADMIN");
+ p.email=E("adminEmail").value.trim();
+ p.mobile=E("adminMobile").value.trim();
+ DB.adminProfile=p;
+ var s=getPortalSettings();s.adminName=p.displayName;localStorage.setItem("TORVO_PORTAL_SETTINGS",JSON.stringify(s));
+ saveDB();applyPortalSettings();
+ var b=E("adminOnlineStatus");if(b)b.textContent="● "+(p.displayName||"ADMIN");
+ toast("ADMIN PROFILE UPDATED","success");torvoBeep("success")
+}
+function openChangePassword(){E("passwordArea").style.display=E("passwordArea").style.display==="none"?"block":"none"}
+function authClientAvailable(){
+ return !!(window.supabaseClient&&window.supabaseClient.auth)
+}
+async function secureChangeAdminPassword(){
+ var a=E("adminNewPassword").value,b=E("adminConfirmPassword").value;
+ if(!a||a.length<8)return toast("PASSWORD MUST BE AT LEAST 8 CHARACTERS","error");
+ if(a!==b)return toast("PASSWORDS DO NOT MATCH","error");
+ if(!authClientAvailable()){
+  alert("SECURE AUTH BACKEND IS NOT CONNECTED IN THIS ADMIN FILE YET.\n\nPASSWORD HAS NOT BEEN SAVED LOCALLY.\nWHEN SUPABASE AUTH IS CONNECTED, THIS BUTTON WILL UPDATE THE PASSWORD SECURELY.");
+  return
+ }
+ try{
+  var res=await window.supabaseClient.auth.updateUser({password:a});
+  if(res.error)throw res.error;
+  E("adminNewPassword").value="";E("adminConfirmPassword").value="";
+  toast("PASSWORD UPDATED SECURELY","success");torvoBeep("success")
+ }catch(e){toast("PASSWORD UPDATE FAILED: "+(e.message||e),"error")}
+}
+async function requestAdminOtpReset(){
+ var mobile=(DB.adminProfile&&DB.adminProfile.mobile)||E("adminMobile").value.trim();
+ if(!mobile)return toast("ADD ADMIN MOBILE NUMBER FIRST","error");
+ if(!authClientAvailable()){
+  alert("MOBILE OTP RESET REQUIRES SECURE SUPABASE AUTH / OTP BACKEND.\n\nNO OTP WAS GENERATED IN THE BROWSER.\nTHIS IS INTENTIONAL FOR SECURITY.");
+  return
+ }
+ try{
+  /* Compatible concept: secure provider must be configured in Supabase Auth. */
+  var res=await window.supabaseClient.auth.signInWithOtp({phone:mobile,options:{shouldCreateUser:false}});
+  if(res.error)throw res.error;
+  toast("SECURE OTP SENT TO ADMIN MOBILE","success");torvoBeep("success")
+ }catch(e){toast("OTP REQUEST FAILED: "+(e.message||e),"error")}
+}
+
 function defaultPortalSettings(){
  return{
   scale:"1",compact:"YES",leftBar:"SHOW",rightBar:"SHOW",stickyTop:"YES",rowSize:"COMPACT",
   defaultLang:"ENGLISH",theme:"TORVO RED / BLACK / GREY / WHITE",
   globalSearch:"ON",voice:"ON",camera:"ON",searchMachine:"YES",searchDrawing:"YES",uppercase:"ON",
   sound:"ON",bell:"YES",refreshAlerts:"ON",lowStock:"YES",orderAlert:"YES",inquiryAlert:"YES",chatAlert:"YES",deliveryAlert:"YES",
-  negative:"BLOCK",duplicate:"BLOCK + POPUP",itemVisibility:"ONLINE",itemStatus:"ACTIVE",purchaseCost:"YES",reorderBadge:"YES",defaultMinStock:5,defaultPiecesBox:1,
+  negative:"BLOCK",duplicate:"BLOCK + POPUP",itemVisibility:"ONLINE",itemStatus:"ACTIVE",purchaseCost:"YES",reorderBadge:"YES",defaultMinStock:5,defaultPiecesBox:1,itemHistory:"ON",lostSale:"ON",
   machineRef:"YES",machinePhoto:"YES",suitableDealer:"YES",drawings:"YES",machineSales:"DISABLED - REFERENCE ONLY",sellOnly:"SPARE PARTS + ACCESSORIES",
   rateGroup:"A",dealerApproval:"YES",dealerChat:"YES",customerHistory:"YES",historyDays:30,schemes:"YES",inactiveDays:30,specialRate:"YES",
   orderDemand:"YES",estimateSale:"YES",dealerModify:"YES",finalApproval:"REQUIRED",deliveryTracking:"YES",deliveryConfirm:"YES",gateway:"OFF",cod:"OFF",
   ads:"YES",featured:"YES",dealerStock:"YES",itemRemarks:"YES",outOfStock:"YES",missingRequest:"YES",supportButton:"YES",whatsappButton:"YES",
-  supportPhone:"",whatsapp:"",adminName:"ONLINE ADMIN",portalMessage:"",websiteNotice:"",orderMessage:"ORDER RECEIVED",deliveryMessage:"DELIVERY SUCCESSFUL",blockedMessage:"PLEASE CONTACT TORVO ADMIN",
+  supportPhone:"",whatsapp:"",adminName:"ADMIN",portalMessage:"",websiteNotice:"",orderMessage:"ORDER RECEIVED",deliveryMessage:"DELIVERY SUCCESSFUL",blockedMessage:"PLEASE CONTACT TORVO ADMIN",
   deleteConfirm:"YES",deleteBackup:"YES",undo:"ON",backupReminder:"ON",logoutBackup:"ON",activityHistory:"ON",settingsLock:"OFF",
   ai:"OFF",updates:"ON",points:"ON",b2c:"OFF - B2B ONLY"
  }
@@ -1148,7 +1494,7 @@ function settingsFieldMap(){
   setGlobalSearch:"globalSearch",setVoice:"voice",setCamera:"camera",setSearchMachine:"searchMachine",setSearchDrawing:"searchDrawing",setUppercase:"uppercase",
   setSound:"sound",setBell:"bell",setRefreshAlerts:"refreshAlerts",setLowStock:"lowStock",setOrderAlert:"orderAlert",setInquiryAlert:"inquiryAlert",setChatAlert:"chatAlert",setDeliveryAlert:"deliveryAlert",
   setNegative:"negative",setDuplicate:"duplicate",setItemVisibility:"itemVisibility",setItemStatus:"itemStatus",setPurchaseCost:"purchaseCost",setReorderBadge:"reorderBadge",
-  setDefaultMinStock:"defaultMinStock",setDefaultPiecesBox:"defaultPiecesBox",
+  setDefaultMinStock:"defaultMinStock",setDefaultPiecesBox:"defaultPiecesBox",setItemHistory:"itemHistory",setLostSale:"lostSale",
   setMachineRef:"machineRef",setMachinePhoto:"machinePhoto",setSuitableDealer:"suitableDealer",setDrawings:"drawings",setMachineSales:"machineSales",setSellOnly:"sellOnly",
   setRateGroup:"rateGroup",setDealerApproval:"dealerApproval",setDealerChat:"dealerChat",setCustomerHistory:"customerHistory",setHistoryDays:"historyDays",setSchemes:"schemes",setInactiveDays:"inactiveDays",setSpecialRate:"specialRate",
   setOrderDemand:"orderDemand",setEstimateSale:"estimateSale",setDealerModify:"dealerModify",setFinalApproval:"finalApproval",setDeliveryTracking:"deliveryTracking",setDeliveryConfirm:"deliveryConfirm",setGateway:"gateway",setCOD:"cod",
@@ -1193,7 +1539,7 @@ function applyPortalSettings(){
  if(mic)mic.style.display=s.voice==="ON"?"block":"none";
  if(search)search.style.display=s.globalSearch==="ON"?"block":"none";
  var bell=document.querySelector(".bell");if(bell)bell.style.display=s.bell==="YES"?"block":"none";
- var owner=E("adminOnlineStatus");if(owner)owner.textContent="● "+(s.adminName||"ONLINE ADMIN");
+ var owner=E("adminOnlineStatus");if(owner)owner.textContent="● "+((DB.adminProfile&&DB.adminProfile.displayName)||s.adminName||"ADMIN");
  var chatBtn=[...document.querySelectorAll(".nav,.rnav")].find(function(b){return b.textContent.includes("DEALER CHAT")});
  if(chatBtn)chatBtn.style.display=s.dealerChat==="YES"?"block":"none";
  var custBtn=[...document.querySelectorAll(".nav,.rnav")].find(function(b){return b.textContent.includes("CUSTOMER HISTORY")});
@@ -1356,6 +1702,50 @@ if(E("adStart"))E("adStart").value=TODAY();if(E("reportTo"))E("reportTo").value=
 refreshAll();loadPortalSettings();applyPortalSettings();loadSoundPrefs()
 });
 </script>
+
+
+<div id="itemHistoryModal" class="itemHistoryModal" onclick="if(event.target===this)closeItemHistory()">
+ <div class="historyDialog">
+  <div class="soundHead"><div><b>ITEM HISTORY — <span id="historyItemTitle"></span></b><div class="help">STOCK IN, PURCHASE RATE, SALES, SALE RATE & DEALER TRACE</div></div><button class="btn light" onclick="closeItemHistory()">CLOSE</button></div>
+  <div class="historySummary">
+   <div class="card"><small>TOTAL STOCK IN</small><strong id="histReceived">0</strong></div>
+   <div class="card"><small>TOTAL SOLD</small><strong id="histSold">0</strong></div>
+   <div class="card"><small>CURRENT STOCK</small><strong id="histCurrent">0</strong></div>
+  </div>
+  <div class="historyFilters">
+   <input id="historyFrom" type="date" onchange="renderItemHistory()">
+   <input id="historyTo" type="date" onchange="renderItemHistory()">
+   <select id="historyType" onchange="renderItemHistory()"><option>ALL</option><option>STOCK IN</option><option>SALE</option></select>
+  </div>
+  <div class="scroll"><table><thead><tr><th>DATE / TIME</th><th>TYPE</th><th>QTY</th><th>STOCK</th><th>RATE</th><th>PURCHASED BY</th><th>FINAL ESTIMATE</th><th>ORDER</th><th>SOURCE</th></tr></thead><tbody id="itemHistoryRows"></tbody></table></div>
+ </div>
+</div>
+
+<div id="adminProfileModal" class="adminProfileModal" onclick="if(event.target===this)closeAdminProfile()">
+ <div class="adminProfileDialog">
+  <div class="soundHead"><div><b>ADMIN PROFILE / ACCOUNT</b><div class="help">PROFILE, EMAIL, MOBILE & SECURE PASSWORD OPTIONS</div></div><button class="btn light" onclick="closeAdminProfile()">CLOSE</button></div>
+  <div class="profileGrid">
+   <div class="field"><label>DISPLAY NAME</label><input id="adminDisplayName" class="upper"></div>
+   <div class="field"><label>USERNAME</label><input id="adminUsername" class="upper"></div>
+   <div class="field"><label>EMAIL ID</label><input id="adminEmail" type="email"></div>
+   <div class="field"><label>MOBILE NUMBER</label><input id="adminMobile" inputmode="numeric"></div>
+  </div>
+  <div class="toolbar" style="margin-top:9px">
+   <button class="btn green" onclick="saveAdminProfile()">UPDATE PROFILE</button>
+   <button class="btn dark" onclick="openChangePassword()">CHANGE PASSWORD</button>
+   <button class="btn orange" onclick="requestAdminOtpReset()">FORGOT PASSWORD — MOBILE OTP</button>
+  </div>
+  <div id="passwordArea" class="box bBlue" style="display:none;margin-top:8px">
+   <div class="boxTitle">CHANGE PASSWORD</div>
+   <div class="grid">
+    <div class="field"><label>NEW PASSWORD</label><input id="adminNewPassword" type="password" autocomplete="new-password"></div>
+    <div class="field"><label>CONFIRM PASSWORD</label><input id="adminConfirmPassword" type="password" autocomplete="new-password"></div>
+   </div>
+   <div class="toolbar"><button class="btn green" onclick="secureChangeAdminPassword()">UPDATE PASSWORD</button></div>
+  </div>
+  <div class="securityNote"><b>SECURITY:</b> PASSWORD OR OTP IS NEVER STORED IN THIS HTML OR LOCAL STORAGE. MOBILE OTP / PASSWORD RESET MUST RUN THROUGH SUPABASE AUTH OR ANOTHER SECURE AUTH BACKEND. IF THE SECURE AUTH CONNECTION IS NOT ACTIVE YET, THE PANEL WILL NOT CREATE A FAKE FRONTEND OTP.</div>
+ </div>
+</div>
 
 <div id="soundPanel" class="soundPanel" onclick="event.stopPropagation()">
   <div class="soundHead">
