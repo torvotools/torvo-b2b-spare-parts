@@ -287,6 +287,25 @@ body{zoom:1.00!important}
 }
 </style>
 
+
+<style id="torvo-v9-latest">
+.top{display:flex!important;align-items:center!important;gap:5px!important;flex-wrap:nowrap!important}
+.top .search{flex:1!important;min-width:430px!important}
+.top .search input{height:40px!important}
+.top .langYellow{min-width:54px!important;max-width:54px!important;width:54px!important;padding:0 4px!important;font-size:9px!important;height:40px!important}
+.top .bell button{height:40px!important;width:40px!important}
+.top .owner{min-width:100px!important;max-width:100px!important;height:40px!important;padding:0 6px!important;font-size:9px!important}
+.top .logout{min-width:70px!important;height:40px!important;padding:0 8px!important;font-size:9px!important}
+.right .menuTitle{display:none!important}
+.right .rnav,.right .futureToggle{background:#fff!important;color:#111!important;border:1px solid #d1d5db!important;box-shadow:none!important;font-weight:800!important}
+.right .rnav.active{background:#d71920!important;color:#fff!important;border-color:#d71920!important}
+.right .settingsMainBtn{background:#fff!important;color:#111!important;border:1px solid #d1d5db!important}
+.right .settingsMainBtn.active{background:#d71920!important;color:#fff!important;border-color:#d71920!important}
+.right .refreshMenuBtn{background:#15803d!important;color:#fff!important;border:1px solid #15803d!important;font-weight:900!important}
+.right .refreshMenuBtn:hover{background:#166534!important}
+.right .rnav,.right .futureToggle{margin:2px 0!important;padding:7px 8px!important}
+</style>
+
 </head>
 <body>
 <div class="app">
@@ -294,7 +313,7 @@ body{zoom:1.00!important}
 <aside class="left">
 <div class="logo" onclick="goHome()">TORVO</div><div class="sub">B2B DEALER BUSINESS SYSTEM</div>
 <button class="nav active" onclick="openSection('dashboard',this)">DASHBOARD</button>
-<button class="nav" onclick="openSection('machines',this)">MACHINE MASTER</button>
+<button class="nav" onclick="openSection('machines',this)">ADD MACHINE</button>
 <button class="nav" onclick="openSection('spares',this)">ADD SPARE PART</button>
 <button class="nav" onclick="openSection('accessories',this)">ADD ACCESSORY</button>
 <button class="nav" onclick="openSection('itemmaster',this)">ITEM MASTER <span id="badgeReorderLeft" class="actionBadge">0</span></button>
@@ -318,9 +337,9 @@ body{zoom:1.00!important}
 <input id="cameraSearchInput" type="file" accept="image/*" capture="environment" style="display:none" onchange="cameraSearch(this.files[0])">
 </div>
 <button class="iconOnly" title="SEARCH" onclick="globalFind()"><img class="googleSearch" src="data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24'><circle cx='11' cy='11' r='6' fill='none' stroke='%234285F4' stroke-width='2.4'/><path d='M16 16l5 5' stroke='%2334A853' stroke-width='2.8' stroke-linecap='round'/></svg>"></button>
-<button class="compactUtility verifyBtnV8" onclick="runSystemCheck()">VERIFY</button>
+
 <button id="langToggle" class="compactUtility langYellow" onclick="toggleLanguage()">EN | HI</button>
-<button class="iconOnly refreshGreen" title="REFRESH" onclick="refreshPortal()">↻</button>
+
 <div class="bell"><button onclick="toggleNotifications()">🔔</button><span id="bellNum" class="bellNum">0</span></div>
 <div class="topBtn owner" title="ADMIN STATUS: YOU ARE LOGGED IN">ONLINE ADMIN</div>
 <button class="topBtn logout" onclick="logoutAdmin()">LOGOUT</button>
@@ -355,7 +374,7 @@ body{zoom:1.00!important}
 <div class="field"><label>MACHINE / WORK TYPE *</label><div class="row"><input id="mWork" class="upper" list="workTypeList"><button class="mini" onclick="addMaster('workType','mWork')">+</button><button class="mini edit" onclick="editMaster('workType','mWork')">✎</button><button class="mini del" onclick="deleteMaster('workType','mWork')">🗑</button></div><datalist id="workTypeList"></datalist></div>
 <div class="field"><label>MODEL NUMBER *</label><div class="row"><input id="mModel" class="upper" list="modelList" oninput="validateModel()"><button class="mini" onclick="addMaster('model','mModel')">+</button><button class="mini edit" onclick="editMaster('model','mModel')">✎</button><button class="mini del" onclick="deleteMaster('model','mModel')">🗑</button></div><datalist id="modelList"></datalist><div id="mModelHelp" class="help"></div></div>
 <div class="field"><label>ALTERNATE MODEL</label><input id="mAlt" class="upper"></div>
-<div class="field"><label>DESCRIPTION</label><input id="mDesc" class="upper"></div><div class="field full"><label>REMARKS / NOTES</label><textarea id="mRemarks" class="upper" rows="2"></textarea></div>
+<div class="field"><label>DESCRIPTION</label><input id="mDesc" class="upper"></div><div class="field full"><label>REMARKS / NOTES</label><textarea id="mRemarks" class="upper" rows="2"></textarea></div><div class="field"><label>MACHINE PHOTO</label><input id="mPhoto" type="file" accept="image/*" onchange="previewMachinePhoto(this.files[0])"></div><div class="field"><label>PHOTO PREVIEW</label><div id="mPhotoPreview" class="preview"></div></div>
 <div class="field"><label>STATUS</label><select id="mStatus"><option>ACTIVE</option><option>INACTIVE</option></select></div>
 </div>
 <div class="quickStrip" id="machineQuickStrip"><span class="quickChip" onclick="quickSet('mType','ANGLE GRINDER')">ANGLE GRINDER</span><span class="quickChip" onclick="quickSet('mType','MARBLE CUTTER')">MARBLE CUTTER</span><span class="quickChip" onclick="quickSet('mType','DRILL MACHINE')">DRILL MACHINE</span><span class="quickChip" onclick="quickSet('mType','ROTARY HAMMER')">ROTARY HAMMER</span><span class="quickChip" onclick="quickSet('mType','DEMOLITION HAMMER')">DEMOLITION HAMMER</span></div><div class="toolbar" style="margin-top:8px"><button class="btn green" onclick="saveMachine(false)">SAVE MACHINE</button><button class="btn blue" onclick="saveMachine(true)">SAVE & ADD NEXT</button><button class="btn light" onclick="clearMachine()">CLEAR</button></div></div>
@@ -492,20 +511,14 @@ body{zoom:1.00!important}
 </main>
 
 <aside class="right">
-<div class="menuTitle">BUSINESS</div>
 <button class="rnav" onclick="openSection('reports',this)">REPORTS CENTER</button>
 <button class="rnav" onclick="openSection('dealers',this)">DEALER CONTROL</button>
 <button class="rnav" onclick="openSection('customers',this)">CUSTOMER HISTORY</button>
-
-<div class="menuTitle">PROMOTION</div>
 <button class="rnav" onclick="openSection('ads',this)">ADS & PROMOTIONS</button>
 <button class="rnav" onclick="openSection('homepage',this)">HOME PAGE CONTENT</button>
-
-<div class="menuTitle">SYSTEM</div>
 <button class="rnav settingsMainBtn" onclick="openSection('settings',this)">⚙ SETTINGS</button>
 <button class="rnav" onclick="runSystemCheck()">VERIFY SYSTEM <span id="badgeSystem" class="actionBadge">0</span></button>
-
-<div class="menuTitle">FUTURE</div>
+<button class="rnav refreshMenuBtn" onclick="refreshPortal()">↻ REFRESH</button>
 <button class="futureToggle" onclick="toggleFutureMenu()">FUTURE OPTIONS ▼</button>
 <div id="futureMenu" class="futureBox">
 <button class="rnav" onclick="openSection('points',this)">POINTS & YEARLY SCHEME</button>
@@ -585,12 +598,12 @@ function saveMachine(addNext){
  var brand=U(E("mBrand").value.trim()),type=U(E("mType").value.trim()),work=U(E("mWork").value.trim()),model=U(E("mModel").value.trim());
  if(!brand||!type||!work||!model)return toast("BRAND, MACHINE TYPE, WORK TYPE AND MODEL REQUIRED","error");
  var dup=DB.machines.findIndex(function(x,i){return N(x.model)===N(model)&&i!==editingMachine});if(dup>=0)return toast("MODEL NUMBER ALREADY EXISTS","error");
- var obj={date:E("machineDate").value||TODAY(),id:editingMachine>=0?DB.machines[editingMachine].id:"MCH-"+String(Date.now()).slice(-6),brand:brand,type:type,work:work,model:model,alt:U(E("mAlt").value.trim()),desc:U(E("mDesc").value.trim()),remarks:U(E("mRemarks").value.trim()),status:U(E("mStatus").value)};
+ var obj={date:E("machineDate").value||TODAY(),id:editingMachine>=0?DB.machines[editingMachine].id:"MCH-"+String(Date.now()).slice(-6),brand:brand,type:type,work:work,model:model,alt:U(E("mAlt").value.trim()),desc:U(E("mDesc").value.trim()),remarks:U(E("mRemarks").value.trim()),photo:(window._machinePhotoData||""),status:U(E("mStatus").value)};
  if(editingMachine>=0){DB.machines[editingMachine]=obj;logActivity("MACHINE UPDATED: "+model)}else{DB.machines.push(obj);logActivity("MACHINE ADDED: "+model)}
  if(!DB.brands.some(function(x){return N(x)===N(brand)}))DB.brands.push(brand);if(!DB.machineTypes.some(function(x){return N(x)===N(type)}))DB.machineTypes.push(type);if(!DB.workTypes.some(function(x){return N(x)===N(work)}))DB.workTypes.push(work);
  saveDB();sndSave();toast("MACHINE SAVED","success");clearMachine();if(addNext)setTimeout(function(){E("mBrand").focus()},100)
 }
-function editMachine(i){var x=DB.machines[i];editingMachine=i;E("machineDate").value=x.date||TODAY();E("mBrand").value=x.brand;E("mType").value=x.type;E("mWork").value=x.work||"";E("mModel").value=x.model;E("mAlt").value=x.alt||"";E("mDesc").value=x.desc||"";E("mRemarks").value=x.remarks||"";E("mStatus").value=x.status||"ACTIVE";openSection("machines");toast("MACHINE EDIT MODE OPENED","success")}
+function editMachine(i){var x=DB.machines[i];editingMachine=i;E("machineDate").value=x.date||TODAY();E("mBrand").value=x.brand;E("mType").value=x.type;E("mWork").value=x.work||"";E("mModel").value=x.model;E("mAlt").value=x.alt||"";E("mDesc").value=x.desc||"";E("mRemarks").value=x.remarks||"";window._machinePhotoData=x.photo||"";if(E("mPhotoPreview"))E("mPhotoPreview").innerHTML=x.photo?"<img src=\'"+x.photo+"\' style=\'max-width:120px;max-height:90px;border-radius:8px;border:1px solid #ccc\'>":"";E("mStatus").value=x.status||"ACTIVE";openSection("machines");toast("MACHINE EDIT MODE OPENED","success")}
 function deleteMachine(i){
  var x=DB.machines[i],used=DB.items.filter(function(it){return(it.machines||[]).includes(x.model)}).length;
  if(used>0)return toast("DELETE BLOCKED: MACHINE USED IN "+used+" ITEM(S). CORRECT LINKED RECORDS FIRST.","error");
@@ -766,7 +779,7 @@ function refreshActionBadges(){var n=getActionCounts();setActionBadge("badgeOrde
 function showActionPanel(type){var p=E("dashboardActionPanel"),html="",n=getActionCounts();if(type==="orders"){html="<b>NEW SALES ORDERS ("+n.orders+")</b>"+DB.orders.filter(function(x){return !x.readAdmin&&U(x.status||"NEW")==="NEW"}).map(function(x){return"<div class='actionRow'><b>"+H(x.no||"ORDER")+"</b> | "+H(x.dealer||"")+" | "+money(x.amount)+" <button class='btn blue' onclick=\\\"markOrderRead('"+H(x.no||"")+"')\\\">OPEN / MARK READ</button></div>"}).join("")}if(type==="inquiries"){html="<b>NEW INQUIRIES / REQUESTS ("+n.inquiries+")</b>"+DB.inquiries.filter(function(x){return !x.read}).map(function(x){return"<div class='actionRow'><b>"+H(x.type||"INQUIRY")+"</b> | "+H(x.name||"")+" | "+H(x.message||"")+" <button class='btn blue' onclick='markInquiryRead("+DB.inquiries.indexOf(x)+")'>OPEN</button></div>"}).join("")}if(type==="delivery"){html="<b>PENDING DELIVERY ("+n.delivery+")</b>"+DB.deliveries.filter(function(x){return !U(x.status||"PENDING").includes("DELIVER")}).map(function(x){return"<div class='actionRow'>"+H(x.order||"")+" | "+H(x.dealer||"")+" | "+H(x.tracking||"")+" <button class='btn teal' onclick=\\\"openSection('delivery')\\\">TRACK</button></div>"}).join("")}if(type==="chat"){html="<b>UNREAD MESSAGES ("+n.messages+")</b>"+DB.messages.filter(function(x){return !x.read&&U(x.from||"DEALER")!=="ADMIN"}).map(function(x){return"<div class='actionRow'>"+H(x.dealerId||"")+" | "+H(x.message||"")+" <button class='btn blue' onclick=\\\"openSection('chat')\\\">OPEN CHAT</button></div>"}).join("")}if(type==="dealers"){html="<b>DEALER ATTENTION ("+n.dealers+")</b>"+DB.dealers.filter(function(x){var s=U(x.status||"PENDING");return s==="PENDING"||s==="BLOCKED"}).map(function(x){return"<div class='actionRow'>"+H(x.shop||x.id||"DEALER")+" | "+H(x.status||"PENDING")+" <button class='btn blue' onclick=\\\"openSection('dealers')\\\">OPEN</button></div>"}).join("")}p.innerHTML=html||"<b>NO PENDING WORK.</b>";p.classList.add("show")}
 function markOrderRead(no){var o=DB.orders.find(function(x){return N(x.no)===N(no)});if(o)o.readAdmin=true;saveDB();toast("ORDER MARKED READ","success")}
 function toggleLanguage(){
- currentLang=currentLang==="EN"?"HI":"EN";E("langToggle").textContent=currentLang==="EN"?"EN | HI":"HI | EN";
+ currentLang=currentLang==="EN"?"HI":"EN";E("langToggle").textContent=currentLang==="EN"?"EN|HI":"HI|EN";
  var hi={"DASHBOARD":"डैशबोर्ड","MACHINE MASTER":"मशीन मास्टर","ADD SPARE PART":"स्पेयर पार्ट जोड़ें","ADD ACCESSORY":"एक्सेसरी जोड़ें","ITEM MASTER":"आइटम मास्टर","SUITABLE SEARCH":"सूटेबल सर्च","MACHINE DRAWINGS":"मशीन ड्रॉइंग","SALES ORDERS":"सेल्स ऑर्डर","FINAL ESTIMATES / SALES":"फाइनल एस्टिमेट / सेल","DELIVERY & TRACKING":"डिलीवरी / ट्रैकिंग","INQUIRIES":"इंक्वायरी","DEALER MANAGEMENT":"डीलर मैनेजमेंट","CUSTOMER HISTORY":"कस्टमर हिस्ट्री","30-DAY DEALER JOURNEY":"30-दिन डीलर हिस्ट्री","DEALER CHAT":"डीलर चैट","POINTS & YEARLY SCHEME":"पॉइंट्स / सालाना स्कीम","REPORTS CENTER":"रिपोर्ट्स सेंटर","DEALER CONTROL":"डीलर कंट्रोल","POINTS & SCHEME":"पॉइंट्स / स्कीम","ADS & PROMOTIONS":"विज्ञापन / प्रमोशन","HOME PAGE CONTENT":"होम पेज कंटेंट","AI & API HUB":"AI / API हब","UPDATE CENTER":"अपडेट सेंटर","VERIFY SYSTEM":"सिस्टम वेरिफाई","SETTINGS":"सेटिंग्स","HOME & CATALOG":"होम / कैटलॉग","ONLINE PROCESS":"ऑनलाइन प्रक्रिया","DEALERS":"डीलर्स","BUSINESS":"बिजनेस","PROMOTION":"प्रमोशन","SMART CONTROL":"स्मार्ट कंट्रोल","SYSTEM":"सिस्टम"};
  document.querySelectorAll(".nav,.rnav,.menuTitle").forEach(function(el){if(!el.dataset.enLabel)el.dataset.enLabel=el.childNodes[0]?el.childNodes[0].textContent.trim():el.textContent.trim();var en=el.dataset.enLabel;if(currentLang==="HI"&&hi[en]){if(el.childNodes[0])el.childNodes[0].textContent=hi[en]+" ";else el.textContent=hi[en]}else if(currentLang==="EN"){if(el.childNodes[0])el.childNodes[0].textContent=en+" ";else el.textContent=en}});
  var title=E("pageTitle");if(title){if(!title.dataset.en)title.dataset.en=title.textContent;var map={"TORVO DASHBOARD":"टॉरवो डैशबोर्ड","MACHINES":"मशीन मास्टर","ITEM MASTER":"आइटम मास्टर","SUITABLE SEARCH":"सूटेबल सर्च","DELIVERY & TRACKING":"डिलीवरी / ट्रैकिंग","CUSTOMER HISTORY":"कस्टमर हिस्ट्री","REPORTS CENTER":"रिपोर्ट्स सेंटर","SYSTEM VERIFY":"सिस्टम वेरिफाई","DEALER MANAGEMENT":"डीलर मैनेजमेंट"};title.textContent=currentLang==="HI"?(map[title.dataset.en]||title.dataset.en):title.dataset.en}
@@ -876,6 +889,38 @@ function refreshPortal(){
 }
 function toggleFutureMenu(){
  var e=E("futureMenu");if(!e)return;e.classList.toggle("show")
+}
+
+
+window._machinePhotoData = window._machinePhotoData || "";
+
+function previewMachinePhoto(file){
+ if(!file){window._machinePhotoData="";if(E("mPhotoPreview"))E("mPhotoPreview").innerHTML="";return}
+ var reader=new FileReader();
+ reader.onload=function(ev){
+  window._machinePhotoData=ev.target.result;
+  if(E("mPhotoPreview"))E("mPhotoPreview").innerHTML="<img src='"+ev.target.result+"' style='max-width:120px;max-height:90px;border-radius:8px;border:1px solid #ccc'>";
+ };
+ reader.readAsDataURL(file)
+}
+
+function openMachineDetail(i){
+ var x=DB.machines[i];if(!x)return;
+ var linked=DB.items.filter(function(it){
+  return (it.machines||[]).some(function(m){return N(m)===N(x.model)})
+ });
+ var html="<div class='panel'><div class='pTitle'><span class='tag red'>MACHINE DETAIL</span><b>"+H(x.brand||"")+" "+H(x.model||"")+"</b></div>";
+ if(x.photo)html+="<div style='margin:8px 0'><img src='"+x.photo+"' style='max-width:220px;max-height:170px;border-radius:10px;border:1px solid #ccc'></div>";
+ html+="<div class='infoNotice'>TYPE: "+H(x.type||"")+" | WORK: "+H(x.work||"")+" | ALT MODEL: "+H(x.alt||"—")+" | STATUS: "+H(x.status||"")+"</div>";
+ html+="<div class='pTitle' style='margin-top:10px'><b>LINKED / SUITABLE SPARE PARTS</b></div>";
+ html+=linked.length?linked.map(function(it){
+  return "<div class='bizCard'><b>"+H(it.no||"")+" — "+H(it.name||"")+"</b><div class='help'>"+H(it.brand||"")+" | "+H(it.category||"")+" | STOCK: "+H(it.qty||0)+"</div></div>";
+ }).join(""):"<div class='empty'>NO LINKED SPARE PARTS YET.</div>";
+ html+="</div>";
+ var wrap=document.createElement("div");
+ wrap.className="modalMask show";
+ wrap.innerHTML="<div class='modalBox' style='max-width:700px'><div class='modalTitle'>MACHINE & SPARE PARTS</div><div style='max-height:70vh;overflow:auto'>"+html+"</div><div class='modalActions'><button class='btn light' onclick='this.closest(&quot;.modalMask&quot;).remove()'>CLOSE</button></div></div>";
+ document.body.appendChild(wrap)
 }
 
 function dashboard(){
