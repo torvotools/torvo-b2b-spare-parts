@@ -650,6 +650,12 @@ body{zoom:1.00!important}
 @media(max-width:900px){.inventoryCards{grid-template-columns:repeat(2,1fr)}.masterInline{grid-template-columns:1fr auto auto auto}}
 </style>
 
+<style id="v14css">
+.settingsApp{background:#f5f6f8!important;padding:10px!important}.settingsTop{display:flex;justify-content:space-between;align-items:center;background:#fff;border:1px solid #ddd;border-radius:14px;padding:12px;margin-bottom:10px}.settingsTop h2{margin:0;font-size:17px}.settingsTop p{font-size:9px;color:#666;margin:3px 0}
+.settingsApps{display:grid;grid-template-columns:repeat(4,1fr);gap:10px}.settingsApps button{min-height:130px;border:1px solid #dfe3e8;border-radius:16px;background:#fff;display:flex;flex-direction:column;align-items:center;justify-content:center;gap:6px;cursor:pointer;box-shadow:0 3px 10px #0000000a}.settingsApps button:hover{border-color:#d71920;transform:translateY(-2px)}.settingsApps span{font-size:37px}.settingsApps b{font-size:11px}.settingsApps small{font-size:8px;color:#6b7280;max-width:170px}
+.setModule{display:none}.setModule.show{display:block}.setHead{background:#fff;border:1px solid #ddd;border-radius:12px;padding:12px;font-size:15px;font-weight:900;margin-bottom:9px}.setBlock{border:1px solid #ddd;border-radius:12px;padding:12px;margin-bottom:9px;background:#fff}.setBlock:nth-child(6n+2){background:#f2faf9}.setBlock:nth-child(6n+3){background:#f2f6fb}.setBlock:nth-child(6n+4){background:#f8f3fb}.setBlock:nth-child(6n+5){background:#fff9ea}.setBlock:nth-child(6n+6){background:#f1f9f3}.setBlock h4{font-size:10px;margin:0 0 8px;border-bottom:1px solid #ddd;padding-bottom:6px}.setGrid{display:grid;grid-template-columns:repeat(2,1fr);gap:8px}.setGrid label{display:flex;flex-direction:column;gap:4px;font-size:8px;font-weight:900}.setGrid input,.setGrid select,.setGrid textarea{border:1px solid #ccc;border-radius:7px;padding:7px;background:#fff}.setGrid .wide{grid-column:1/-1}.setBlock>button{margin-top:10px;border:0;border-radius:8px;background:#111;color:#fff;padding:8px 12px;font-size:9px;font-weight:900;cursor:pointer}.setBlock>button:hover{background:#d71920}.setBlock .testBtn{background:#e5e7eb;color:#111;margin-left:5px}.setBlock .dangerBtn{background:#b91c1c}.backupLine{background:#eee;border-radius:8px;padding:8px;margin:8px 0;font-size:9px}
+@media(max-width:900px){.settingsApps{grid-template-columns:repeat(3,1fr)}}@media(max-width:650px){.settingsApps{grid-template-columns:repeat(2,1fr)}.setGrid{grid-template-columns:1fr}}
+</style>
 </head>
 <body>
 <div class="app">
@@ -663,9 +669,6 @@ body{zoom:1.00!important}
 <button class="nav" onclick="openSection('itemmaster',this)">ITEM MASTER <span id="badgeReorderLeft" class="actionBadge">0</span></button>
 <button class="nav" onclick="openSection('suitable',this)">SUITABLE SEARCH</button>
 <button class="nav" onclick="openSection('drawings',this)">MACHINE DRAWINGS</button>
-
-
-<button class="nav" onclick="openSection('delivery',this)">DELIVERY & TRACKING <span id="badgeDelivery" class="actionBadge">0</span></button>
 <button class="nav" onclick="openSection('inquiries',this)">INQUIRIES <span id="badgeInquiry" class="actionBadge">0</span></button>
 <button class="nav" onclick="openSection('journey',this)">30-DAY DEALER JOURNEY</button>
 <button class="nav" onclick="openSection('chat',this)">DEALER CHAT <span id="badgeChat" class="actionBadge">0</span></button>
@@ -802,194 +805,45 @@ Machines are not sold on this portal. Dealer website sales are only for Spare Pa
  </div>
 </section>
 
-<section id="reports" class="section"><div class="panel"><div class="pTitle"><span class="tag dark">REPORTS CENTER</span><b>ALL BUSINESS REPORTS — VIEW / EXCEL / PDF</b></div><div class="sectionIntro">ONE PLACE FOR SALES, PROFIT, STOCK, DEALER, DELIVERY AND OTHER BUSINESS REPORTS WITH VIEW / EXCEL / PDF / PRINT.</div><div class="notice">SELECT A REPORT. USE DATE RANGE / SEARCH FILTERS WHERE AVAILABLE. VIEW ON SCREEN OR DOWNLOAD EXCEL / PDF.</div><div class="grid" style="margin-top:8px"><div class="field"><label>FROM DATE</label><input id="reportFrom" type="date"></div><div class="field"><label>TO DATE</label><input id="reportTo" type="date"></div><div class="field"><label>SEARCH / FILTER</label><input id="reportSearch" class="upper"></div></div><div id="reportCards" class="reportGrid" style="margin-top:10px"></div><div id="reportOutput" style="margin-top:10px"></div></div></section>
-<section id="settings" class="section">
-<div class="panel">
-<div class="pTitle"><span class="tag dark">SETTINGS</span><b>COMPLETE PORTAL & WEBSITE CONTROL</b></div>
-<div class="sectionIntro">COMMON DAY-TO-DAY CONTROLS ARE KEPT HERE SO MOST VISUAL, DEALER, STOCK, ORDER, NOTIFICATION AND WEBSITE CHANGES CAN BE MANAGED WITHOUT EDITING CODE.</div>
-
-<div class="box formStep">
-<div class="boxTitle">1. ADMIN DISPLAY & LAYOUT</div>
-<div class="grid">
-<div class="field"><label>ADMIN SCALE</label><select id="setScale"><option value="0.85">85%</option><option value="0.90">90%</option><option value="0.95">95%</option><option value="1">100%</option><option value="1.05">105%</option><option value="1.10">110%</option></select></div>
-<div class="field"><label>COMPACT BUTTONS</label><select id="setCompact"><option>YES</option><option>NO</option></select></div>
-<div class="field"><label>LEFT SIDEBAR</label><select id="setLeftBar"><option>SHOW</option><option>HIDE</option></select></div>
-<div class="field"><label>RIGHT SIDEBAR</label><select id="setRightBar"><option>SHOW</option><option>HIDE</option></select></div>
-<div class="field"><label>STICKY TOP SEARCH</label><select id="setStickyTop"><option>YES</option><option>NO</option></select></div>
-<div class="field"><label>TABLE ROW SIZE</label><select id="setRowSize"><option>COMPACT</option><option>NORMAL</option><option>LARGE</option></select></div>
-<div class="field"><label>DEFAULT LANGUAGE</label><select id="setDefaultLang"><option>ENGLISH</option><option>HINDI</option></select></div>
-<div class="field"><label>BASE THEME</label><select id="setTheme"><option>TORVO RED / BLACK / GREY / WHITE</option></select></div>
-</div>
+<section id="reports" class="section"><div class="box formBlock"><div class="boxTitle">🔎 REPORT SEARCH / FILTER</div><div class="grid"><div class="field"><label>SELECT REPORT</label><select id="reportQuickV14" onchange="quickReportV14()"><option value="">ALL REPORTS</option><option>SALES / FINAL ESTIMATE</option><option>ORDER VS ESTIMATE</option><option>PENDING / UNFULFILLED</option><option>PROFIT / INCOME</option><option>EXPENSES</option><option>INVENTORY / STOCK</option><option>REORDER / LOW STOCK</option><option>ITEMS</option><option>SPARE PARTS</option><option>ACCESSORIES</option><option>MACHINE</option><option>SUITABLE MAPPING</option><option>DEALER / CUSTOMER</option><option>DEALER PERFORMANCE</option><option>CUSTOMER HISTORY</option><option>DELIVERY / TRACKING</option><option>COURIER / TRANSPORT</option><option>POINTS / SCHEMES</option><option>INQUIRIES</option><option>CHAT / MESSAGES</option><option>REMOVED ITEM / LOST SALE</option><option>ACTIVITY / SYSTEM</option></select></div><div class="field"><label>SEARCH REPORT</label><input id="reportSearchV14" list="reportListV14" oninput="filterReportsV14()"><datalist id="reportListV14"></datalist></div></div><div class="help">EXISTING REPORT LIST REMAINS VISIBLE BELOW.</div></div><div class="panel"><div class="pTitle"><span class="tag dark">REPORTS CENTER</span><b>ALL BUSINESS REPORTS — VIEW / EXCEL / PDF</b></div><div class="sectionIntro">ONE PLACE FOR SALES, PROFIT, STOCK, DEALER, DELIVERY AND OTHER BUSINESS REPORTS WITH VIEW / EXCEL / PDF / PRINT.</div><div class="notice">SELECT A REPORT. USE DATE RANGE / SEARCH FILTERS WHERE AVAILABLE. VIEW ON SCREEN OR DOWNLOAD EXCEL / PDF.</div><div class="grid" style="margin-top:8px"><div class="field"><label>FROM DATE</label><input id="reportFrom" type="date"></div><div class="field"><label>TO DATE</label><input id="reportTo" type="date"></div><div class="field"><label>SEARCH / FILTER</label><input id="reportSearch" class="upper"></div></div><div id="reportCards" class="reportGrid" style="margin-top:10px"></div><div id="reportOutput" style="margin-top:10px"></div></div></section>
+<section id="settings" class="section settingsApp">
+<div class="settingsTop"><div><h2>⚙ SETTINGS CONTROL CENTER</h2><p>OPEN AN APP, CHANGE OPTIONS, THEN SAVE & APPLY.</p></div><button class="btn dark" onclick="settingsHome()">⌂ SETTINGS HOME</button></div>
+<div id="settingsApps" class="settingsApps">
+<button onclick="settingsOpen('setHome')"><span>🏠</span><b>HOME PAGE</b><small>Logo, photos, banners, contact & content</small></button>
+<button onclick="settingsOpen('setSound')"><span>🔊</span><b>SOUND & ALERTS</b><small>Click, success, warning & business sounds</small></button>
+<button onclick="settingsOpen('setDisplay')"><span>🖥</span><b>DISPLAY & LAYOUT</b><small>Scale, sidebars & interface</small></button>
+<button onclick="settingsOpen('setStock')"><span>📦</span><b>INVENTORY & STOCK</b><small>Stock rules, history & reorder</small></button>
+<button onclick="settingsOpen('setDealer')"><span>👥</span><b>DEALER CONTROL</b><small>Approval, rates, chat & history</small></button>
+<button onclick="settingsOpen('setOrder')"><span>🧾</span><b>ORDER & ESTIMATE</b><small>Order and final estimate workflow</small></button>
+<button onclick="settingsOpen('setDelivery')"><span>🚚</span><b>DELIVERY</b><small>Courier, transport, LR & tracking</small></button>
+<button onclick="settingsOpen('setSearch')"><span>🔎</span><b>SEARCH & DROPDOWNS</b><small>Smart dropdowns, voice & camera</small></button>
+<button onclick="settingsOpen('setSecurity')"><span>🔐</span><b>SECURITY</b><small>Delete protection & activity</small></button>
+<button onclick="settingsOpen('setBackup')"><span>💾</span><b>BACKUP & RESTORE</b><small>Full system backup and recovery</small></button>
+<button onclick="settingsOpen('setMachine')"><span>🛠</span><b>MACHINE REFERENCE</b><small>Photos, suitable parts & drawings</small></button>
+<button onclick="openAdminProfile()"><span>👤</span><b>ADMIN ACCOUNT</b><small>Profile and secure account controls</small></button>
 </div>
 
-<div class="box formStep">
-<div class="boxTitle">2. SEARCH, CAMERA & VOICE</div>
-<div class="grid">
-<div class="field"><label>GLOBAL SEARCH</label><select id="setGlobalSearch"><option>ON</option><option>OFF</option></select></div>
-<div class="field"><label>VOICE SEARCH</label><select id="setVoice"><option>ON</option><option>OFF</option></select></div>
-<div class="field"><label>CAMERA SEARCH</label><select id="setCamera"><option>ON</option><option>OFF</option></select></div>
-<div class="field"><label>SEARCH MACHINES</label><select id="setSearchMachine"><option>YES</option><option>NO</option></select></div>
-<div class="field"><label>SEARCH DRAWING CODE</label><select id="setSearchDrawing"><option>YES</option><option>NO</option></select></div>
-<div class="field"><label>AUTO UPPERCASE</label><select id="setUppercase"><option>ON</option><option>OFF</option></select></div>
-</div>
-</div>
+<div id="setHome" class="setModule"><div class="setHead">🏠 HOME PAGE CONTROL</div>
+<div class="setBlock"><h4>1. LOGO & BRAND</h4><div class="setGrid"><label>PORTAL NAME<input id="hpName"></label><label>TAGLINE<input id="hpTag"></label><label>LOGO PHOTO<input id="hpLogo" type="file" accept="image/*"></label></div><button onclick="saveSetBlock('home1')">✓ SAVE & APPLY</button></div>
+<div class="setBlock"><h4>2. HERO / BANNER</h4><div class="setGrid"><label>HEADING<input id="hpHero"></label><label>SUB HEADING<input id="hpHeroSub"></label><label>BANNER PHOTO<input id="hpBanner" type="file" accept="image/*"></label><label>BUTTON TEXT<input id="hpBtn"></label></div><button onclick="saveSetBlock('home2')">✓ SAVE & APPLY</button></div>
+<div class="setBlock"><h4>3. PRODUCT / PROMOTION</h4><div class="setGrid"><label>FEATURED PRODUCTS<select id="hpFeatured"><option>ON</option><option>OFF</option></select></label><label>ADS / PROMOTION<select id="hpAds"><option>ON</option><option>OFF</option></select></label><label>PRODUCT PHOTO<input id="hpProductPhoto" type="file" accept="image/*"></label><label>SHOW STOCK<select id="hpShowStock"><option>ON</option><option>OFF</option></select></label></div><button onclick="saveSetBlock('home3')">✓ SAVE & APPLY</button></div>
+<div class="setBlock"><h4>4. CONTACT & SUPPORT</h4><div class="setGrid"><label>MOBILE<input id="hpMobile"></label><label>WHATSAPP<input id="hpWhats"></label><label>EMAIL<input id="hpEmail"></label><label>ADDRESS<input id="hpAddress"></label><label class="wide">SUPPORT / DEALER MESSAGE<textarea id="hpMessage"></textarea></label></div><button onclick="saveSetBlock('home4')">✓ SAVE & APPLY</button></div>
+<div class="setBlock"><h4>5. NOTICE / CUSTOM CONTENT</h4><div class="setGrid"><label>NOTICE<input id="hpNotice"></label><label>CUSTOM HEADING<input id="hpCustomHead"></label><label class="wide">CUSTOM TEXT<textarea id="hpCustomText"></textarea></label><label>CUSTOM PHOTO<input id="hpCustomPhoto" type="file" accept="image/*"></label></div><button onclick="saveSetBlock('home5')">✓ SAVE & APPLY</button></div></div>
 
-<div class="box formStep">
-<div class="boxTitle">3. SOUND & ALERTS</div>
-<div class="grid">
-<div class="field"><label>MASTER SOUND</label><select id="setSound"><option>ON</option><option>OFF</option></select></div>
-<div class="field"><label>BELL ALERTS</label><select id="setBell"><option>YES</option><option>NO</option></select></div>
-<div class="field"><label>REFRESH ALERTS</label><select id="setRefreshAlerts"><option>ON</option><option>OFF</option></select></div>
-<div class="field"><label>LOW STOCK ALERT</label><select id="setLowStock"><option>YES</option><option>NO</option></select></div>
-<div class="field"><label>NEW ORDER ALERT</label><select id="setOrderAlert"><option>YES</option><option>NO</option></select></div>
-<div class="field"><label>NEW INQUIRY ALERT</label><select id="setInquiryAlert"><option>YES</option><option>NO</option></select></div>
-<div class="field"><label>CHAT ALERT</label><select id="setChatAlert"><option>YES</option><option>NO</option></select></div>
-<div class="field"><label>DELIVERY ALERT</label><select id="setDeliveryAlert"><option>YES</option><option>NO</option></select></div>
-</div>
-<div class="help">INDIVIDUAL SOUND TYPES CAN ALSO BE CONTROLLED FROM THE RIGHT-SIDE SOUND BUTTON.</div>
-</div>
+<div id="setSound" class="setModule"><div class="setHead">🔊 SOUND & ALERTS</div>
+<div class="setBlock"><h4>1. MASTER & CLICK</h4><div class="setGrid"><label>MASTER SOUND<select id="sndMaster"><option>ON</option><option>OFF</option></select></label><label>BUTTON CLICK<select id="sndClick"><option>ON</option><option>OFF</option></select></label></div><button onclick="saveSoundV14('basic')">✓ SAVE & APPLY</button><button class="testBtn" onclick="toneV14('click',true)">▶ TEST SOUND</button></div>
+<div class="setBlock"><h4>2. ACTION SOUNDS</h4><div class="setGrid"><label>SUCCESS<select id="sndSuccess"><option>ON</option><option>OFF</option></select></label><label>ERROR<select id="sndError"><option>ON</option><option>OFF</option></select></label><label>DELETE / WARNING<select id="sndDelete"><option>ON</option><option>OFF</option></select></label><label>LOW STOCK ALERT<select id="sndAlert"><option>ON</option><option>OFF</option></select></label></div><button onclick="saveSoundV14('action')">✓ SAVE & APPLY</button></div>
+<div class="setBlock"><h4>3. BUSINESS SOUNDS</h4><div class="setGrid"><label>NEW ORDER<select id="sndOrder"><option>ON</option><option>OFF</option></select></label><label>INQUIRY<select id="sndInquiry"><option>ON</option><option>OFF</option></select></label><label>CHAT<select id="sndChat"><option>ON</option><option>OFF</option></select></label><label>DELIVERY<select id="sndDelivery"><option>ON</option><option>OFF</option></select></label></div><button onclick="saveSoundV14('business')">✓ SAVE & APPLY</button></div></div>
 
-<div class="box formStep">
-<div class="boxTitle">4. ITEM / STOCK CONTROL</div>
-<div class="grid">
-<div class="field"><label>NEGATIVE STOCK</label><select id="setNegative"><option>BLOCK</option><option>ALLOW WITH WARNING</option></select></div>
-<div class="field"><label>DUPLICATE ITEM NUMBER</label><select id="setDuplicate"><option>BLOCK + POPUP</option><option>WARNING ONLY</option></select></div>
-<div class="field"><label>DEFAULT ITEM VISIBILITY</label><select id="setItemVisibility"><option>ONLINE</option><option>OFFLINE</option></select></div>
-<div class="field"><label>DEFAULT ITEM STATUS</label><select id="setItemStatus"><option>ACTIVE</option><option>INACTIVE</option></select></div>
-<div class="field"><label>SHOW PURCHASE COST TO ADMIN</label><select id="setPurchaseCost"><option>YES</option><option>NO</option></select></div>
-<div class="field"><label>SHOW REORDER BADGE</label><select id="setReorderBadge"><option>YES</option><option>NO</option></select></div><div class="field"><label>ITEM HISTORY</label><select id="setItemHistory"><option>ON</option><option>OFF</option></select></div><div class="field"><label>LOST SALE ANALYSIS</label><select id="setLostSale"><option>ON</option><option>OFF</option></select></div>
-<div class="field"><label>LOW STOCK DEFAULT LEVEL</label><input id="setDefaultMinStock" type="number" min="0" value="5"></div>
-<div class="field"><label>DEFAULT PIECES / BOX</label><input id="setDefaultPiecesBox" type="number" min="1" value="1"></div>
-</div>
-</div>
-
-<div class="box formStep">
-<div class="boxTitle">5. MACHINE REFERENCE & SUITABLE PARTS</div>
-<div class="grid">
-<div class="field"><label>SHOW MACHINE REFERENCE</label><select id="setMachineRef"><option>YES</option><option>NO</option></select></div>
-<div class="field"><label>SHOW MACHINE PHOTO TO DEALER</label><select id="setMachinePhoto"><option>YES</option><option>NO</option></select></div>
-<div class="field"><label>SHOW SUITABLE PARTS TO DEALER</label><select id="setSuitableDealer"><option>YES</option><option>NO</option></select></div>
-<div class="field"><label>SHOW DRAWING BUTTON</label><select id="setDrawings"><option>YES</option><option>NO</option></select></div>
-<div class="field"><label>MACHINE SALES</label><select id="setMachineSales"><option>DISABLED - REFERENCE ONLY</option></select></div>
-<div class="field"><label>ONLY SELL</label><select id="setSellOnly"><option>SPARE PARTS + ACCESSORIES</option></select></div>
-</div>
-</div>
-
-<div class="box formStep">
-<div class="boxTitle">6. DEALER CONTROL</div>
-<div class="grid">
-<div class="field"><label>DEFAULT RATE GROUP</label><select id="setRateGroup"><option>A</option><option>B</option><option>C</option></select></div>
-<div class="field"><label>DEALER APPROVAL REQUIRED</label><select id="setDealerApproval"><option>YES</option><option>NO</option></select></div>
-<div class="field"><label>SHOW DEALER CHAT</label><select id="setDealerChat"><option>YES</option><option>NO</option></select></div>
-<div class="field"><label>SHOW CUSTOMER HISTORY</label><select id="setCustomerHistory"><option>YES</option><option>NO</option></select></div>
-<div class="field"><label>DEALER HISTORY DAYS</label><input id="setHistoryDays" type="number" min="1" value="30"></div>
-<div class="field"><label>SHOW POINTS / SCHEMES</label><select id="setSchemes"><option>YES</option><option>NO</option></select></div>
-<div class="field"><label>INACTIVE DEALER ALERT DAYS</label><input id="setInactiveDays" type="number" min="1" value="30"></div>
-<div class="field"><label>ALLOW SPECIAL DEALER RATE</label><select id="setSpecialRate"><option>YES</option><option>NO</option></select></div>
-</div>
-</div>
-
-<div class="box formStep">
-<div class="boxTitle">7. ORDER / ESTIMATE / DELIVERY</div>
-<div class="grid">
-<div class="field"><label>SALES ORDER = DEMAND ONLY</label><select id="setOrderDemand"><option>YES</option></select></div>
-<div class="field"><label>FINAL ESTIMATE = ACTUAL SALE</label><select id="setEstimateSale"><option>YES</option></select></div>
-<div class="field"><label>DEALER CAN MODIFY ESTIMATE</label><select id="setDealerModify"><option>YES</option><option>NO</option></select></div>
-<div class="field"><label>FINAL ADMIN APPROVAL</label><select id="setFinalApproval"><option>REQUIRED</option><option>NOT REQUIRED</option></select></div>
-<div class="field"><label>SHOW DELIVERY TRACKING</label><select id="setDeliveryTracking"><option>YES</option><option>NO</option></select></div>
-<div class="field"><label>DELIVERY CONFIRMATION</label><select id="setDeliveryConfirm"><option>YES</option><option>NO</option></select></div>
-<div class="field"><label>PAYMENT GATEWAY</label><select id="setGateway"><option>OFF</option><option>ALLOWED DEALERS ONLY</option></select></div>
-<div class="field"><label>COD OPTION</label><select id="setCOD"><option>OFF</option><option>ON</option></select></div>
-</div>
-</div>
-
-<div class="box formStep">
-<div class="boxTitle">8. WEBSITE DISPLAY</div>
-<div class="grid">
-<div class="field"><label>SHOW ADS</label><select id="setAds"><option>YES</option><option>NO</option></select></div>
-<div class="field"><label>SHOW FEATURED ITEMS</label><select id="setFeatured"><option>YES</option><option>NO</option></select></div>
-<div class="field"><label>SHOW STOCK TO DEALER</label><select id="setDealerStock"><option>YES</option><option>NO</option></select></div>
-<div class="field"><label>SHOW ITEM REMARKS</label><select id="setItemRemarks"><option>YES</option><option>NO</option></select></div>
-<div class="field"><label>SHOW OUT OF STOCK ITEMS</label><select id="setOutOfStock"><option>YES</option><option>NO</option></select></div>
-<div class="field"><label>ALLOW NON-AVAILABLE REQUEST</label><select id="setMissingRequest"><option>YES</option><option>NO</option></select></div>
-<div class="field"><label>SHOW SUPPORT BUTTON</label><select id="setSupportButton"><option>YES</option><option>NO</option></select></div>
-<div class="field"><label>SHOW WHATSAPP BUTTON</label><select id="setWhatsappButton"><option>YES</option><option>NO</option></select></div>
-</div>
-</div>
-
-<div class="box formStep">
-<div class="boxTitle">9. SUPPORT / CONTACT / TEXT</div>
-<div class="grid">
-<div class="field"><label>CUSTOMER CARE NUMBER</label><input id="setSupportPhone"></div>
-<div class="field"><label>WHATSAPP NUMBER</label><input id="setWhatsapp"></div>
-<div class="field"><label>ADMIN DISPLAY NAME</label><input id="setAdminName" class="upper" value="ADMIN"></div>
-<div class="field"><label>PORTAL MESSAGE</label><input id="setPortalMessage" class="upper"></div>
-<div class="field"><label>WEBSITE NOTICE</label><input id="setWebsiteNotice" class="upper"></div>
-<div class="field"><label>ORDER CONFIRM MESSAGE</label><input id="setOrderMessage" class="upper"></div>
-<div class="field"><label>DELIVERY SUCCESS MESSAGE</label><input id="setDeliveryMessage" class="upper"></div>
-<div class="field"><label>BLOCKED DEALER MESSAGE</label><input id="setBlockedMessage" class="upper"></div>
-</div>
-</div>
-
-<div class="box formStep">
-<div class="boxTitle">10. SECURITY / BACKUP / HISTORY</div>
-<div class="grid">
-<div class="field"><label>DELETE CODE</label><input id="setDeleteCode" value="1122" readonly></div>
-<div class="field"><label>DELETE REQUIRES CONFIRM</label><select id="setDeleteConfirm"><option>YES</option></select></div>
-<div class="field"><label>KEEP DELETE BACKUP</label><select id="setDeleteBackup"><option>YES</option><option>NO</option></select></div>
-<div class="field"><label>UNDO / RESTORE</label><select id="setUndo"><option>ON</option><option>OFF</option></select></div>
-<div class="field"><label>DAILY BACKUP REMINDER</label><select id="setBackupReminder"><option>ON</option><option>OFF</option></select></div>
-<div class="field"><label>LOGOUT BACKUP PROMPT</label><select id="setLogoutBackup"><option>ON</option><option>OFF</option></select></div>
-<div class="field"><label>ACTIVITY HISTORY</label><select id="setActivityHistory"><option>ON</option><option>OFF</option></select></div>
-<div class="field"><label>SETTINGS LOCK</label><select id="setSettingsLock"><option>OFF</option><option>ON</option></select></div>
-</div>
-</div>
-
-<div class="box formStep">
-<div class="boxTitle">11. FUTURE / ADVANCED FEATURES</div>
-<div class="grid">
-<div class="field"><label>AI / API HUB</label><select id="setAI"><option>OFF</option><option>READY - NOT CONNECTED</option></select></div>
-<div class="field"><label>UPDATE CENTER</label><select id="setUpdates"><option>ON</option><option>OFF</option></select></div>
-<div class="field"><label>POINTS / YEARLY SCHEME</label><select id="setPoints"><option>ON</option><option>OFF</option></select></div>
-<div class="field"><label>B2C MODE</label><select id="setB2C"><option>OFF - B2B ONLY</option></select></div>
-</div>
-</div>
-
-<div class="toolbar">
-<button class="btn green" onclick="savePortalSettings()">SAVE SETTINGS</button>
-<button class="btn orange" onclick="applyPortalSettings()">APPLY NOW</button>
-<button class="btn red" onclick="resetPortalSettings()">RESET DEFAULT</button>
-<button class="btn dark" onclick="exportPortalSettings()">EXPORT SETTINGS</button>
-</div>
-</div>
-
-<div class="box formBlock">
- <div class="boxTitle">HOME PAGE CONTROL</div>
- <div class="grid">
-  <div class="field"><label>HERO / BANNER TITLE</label><input id="setHomeHero" class="upper"></div>
-  <div class="field"><label>HOME NOTICE / MESSAGE</label><input id="setHomeNotice" class="upper"></div>
-  <div class="field"><label>FEATURED PRODUCTS</label><select id="setHomeFeatured"><option>ON</option><option>OFF</option></select></div>
-  <div class="field"><label>SHOW STOCK ON WEBSITE</label><select id="setHomeStock"><option>ON</option><option>OFF</option></select></div>
-  <div class="field"><label>ADS / PROMOTIONS AREA</label><select id="setHomeAds"><option>ON</option><option>OFF</option></select></div>
-  <div class="field"><label>DEALER SUPPORT MESSAGE</label><input id="setHomeSupport" class="upper"></div>
- </div>
-</div>
-<div class="box formBlock">
- <div class="boxTitle">SOUND CONTROL</div>
- <div class="grid">
-  <div class="field"><label>MASTER SOUND</label><select id="setSoundMaster"><option>ON</option><option>OFF</option></select></div>
-  <div class="field"><label>BUTTON / MENU CLICK</label><select id="setSoundClick"><option>ON</option><option>OFF</option></select></div>
-  <div class="field"><label>SAVE / SUCCESS</label><select id="setSoundSuccess"><option>ON</option><option>OFF</option></select></div>
-  <div class="field"><label>ERROR / FAILED</label><select id="setSoundError"><option>ON</option><option>OFF</option></select></div>
-  <div class="field"><label>DELETE / WARNING</label><select id="setSoundDelete"><option>ON</option><option>OFF</option></select></div>
-  <div class="field"><label>NEW ORDER</label><select id="setSoundOrder"><option>ON</option><option>OFF</option></select></div>
-  <div class="field"><label>INQUIRY / REGISTRATION</label><select id="setSoundInquiry"><option>ON</option><option>OFF</option></select></div>
-  <div class="field"><label>CHAT / MESSAGE</label><select id="setSoundChat"><option>ON</option><option>OFF</option></select></div>
-  <div class="field"><label>DELIVERY / UPDATE</label><select id="setSoundDelivery"><option>ON</option><option>OFF</option></select></div>
-  <div class="field"><label>LOW STOCK / SYSTEM ALERT</label><select id="setSoundAlert"><option>ON</option><option>OFF</option></select></div>
- </div>
- <div class="toolbar"><button class="btn dark" onclick="testV13Sound()">TEST SOUND</button></div>
-</div>
+<div id="setDisplay" class="setModule"><div class="setHead">🖥 DISPLAY & LAYOUT</div><div class="setBlock"><h4>1. INTERFACE</h4><div class="setGrid"><label>DISPLAY SCALE<select id="vScale"><option>90%</option><option>100%</option><option>110%</option></select></label><label>COMPACT VIEW<select id="vCompact"><option>ON</option><option>OFF</option></select></label><label>STICKY TOP<select id="vSticky"><option>ON</option><option>OFF</option></select></label><label>ROW SIZE<select id="vRows"><option>COMPACT</option><option>NORMAL</option><option>LARGE</option></select></label></div><button onclick="saveSetBlock('display')">✓ SAVE & APPLY</button></div></div>
+<div id="setStock" class="setModule"><div class="setHead">📦 INVENTORY & STOCK</div><div class="setBlock"><h4>1. STOCK RULES</h4><div class="setGrid"><label>NEGATIVE STOCK<select id="vNegative"><option>BLOCK</option></select></label><label>LOW STOCK ALERT<select id="vLow"><option>ON</option><option>OFF</option></select></label><label>ITEM HISTORY<select id="vHistory"><option>ON</option><option>OFF</option></select></label><label>REORDER LIST<select id="vReorder"><option>ON</option><option>OFF</option></select></label></div><button onclick="saveSetBlock('stock')">✓ SAVE & APPLY</button></div></div>
+<div id="setDealer" class="setModule"><div class="setHead">👥 DEALER CONTROL</div><div class="setBlock"><h4>1. DEALER DEFAULTS</h4><div class="setGrid"><label>APPROVAL<select id="vApproval"><option>ADMIN APPROVAL</option><option>AUTO</option></select></label><label>DEFAULT RATE<select id="vRate"><option>A</option><option>B</option><option>C</option></select></label><label>CHAT<select id="vChat"><option>ON</option><option>OFF</option></select></label><label>CUSTOMER HISTORY<select id="vCustomerHistory"><option>ON</option><option>OFF</option></select></label></div><button onclick="saveSetBlock('dealer')">✓ SAVE & APPLY</button></div></div>
+<div id="setOrder" class="setModule"><div class="setHead">🧾 ORDER & ESTIMATE</div><div class="setBlock"><h4>1. WORKFLOW</h4><div class="setGrid"><label>DEALER ORDER → SALES ORDER<select id="vOrderFlow"><option>ON</option><option>OFF</option></select></label><label>ESTIMATE MODIFY<select id="vEstimateModify"><option>ON</option><option>OFF</option></select></label><label>FINAL ESTIMATE = SALE<select id="vFinalSale"><option>ON</option></select></label><label>REMOVED ITEM REASON<select id="vRemoveReason"><option>OPTIONAL</option><option>REQUIRED</option></select></label></div><button onclick="saveSetBlock('order')">✓ SAVE & APPLY</button></div></div>
+<div id="setDelivery" class="setModule"><div class="setHead">🚚 DELIVERY</div><div class="setBlock"><h4>1. DELIVERY CONTROL</h4><div class="setGrid"><label>LR / TRACKING<select id="vTracking"><option>REQUIRED</option><option>OPTIONAL</option></select></label><label>DELIVERY CONFIRMATION<select id="vDeliveryConfirm"><option>ON</option><option>OFF</option></select></label><label>DEALER NOTIFICATION<select id="vDeliveryNotify"><option>ON</option><option>OFF</option></select></label><label>TRANSPORT MASTER<select id="vTransport"><option>ON</option><option>OFF</option></select></label></div><button onclick="saveSetBlock('delivery')">✓ SAVE & APPLY</button></div></div>
+<div id="setSearch" class="setModule"><div class="setHead">🔎 SEARCH & DROPDOWNS</div><div class="setBlock"><h4>1. SMART INPUT</h4><div class="setGrid"><label>SEARCHABLE DROPDOWNS<select id="vDropdown"><option>ON</option></select></label><label>GLOBAL SEARCH<select id="vGlobal"><option>ON</option><option>OFF</option></select></label><label>VOICE SEARCH<select id="vVoice"><option>ON</option><option>OFF</option></select></label><label>CAMERA SEARCH<select id="vCamera"><option>ON</option><option>OFF</option></select></label></div><button onclick="saveSetBlock('search')">✓ SAVE & APPLY</button></div></div>
+<div id="setSecurity" class="setModule"><div class="setHead">🔐 SECURITY</div><div class="setBlock"><h4>1. DELETE & ACTIVITY</h4><div class="setGrid"><label>DELETE CODE<select><option>1122 REQUIRED</option></select></label><label>USED RECORD<select><option>BLOCK & OPEN USAGE</option></select></label><label>UNDO / RESTORE<select id="vUndo"><option>ON</option><option>OFF</option></select></label><label>ACTIVITY HISTORY<select id="vActivity"><option>ON</option><option>OFF</option></select></label></div><button onclick="saveSetBlock('security')">✓ SAVE & APPLY</button></div></div>
+<div id="setBackup" class="setModule"><div class="setHead">💾 BACKUP & RESTORE</div><div class="setBlock"><h4>1. FULL SYSTEM BACKUP</h4><p>Items, masters, inventory, history, machines, suitable mapping, dealers, orders, estimates, delivery, settings and Home Page configuration.</p><div class="backupLine">LAST BACKUP: <b id="lastBackupV14">NOT TAKEN</b></div><button onclick="backupV14()">⬇ DOWNLOAD FULL BACKUP</button></div><div class="setBlock"><h4>2. RESTORE</h4><input id="restoreV14" type="file" accept=".json"><button class="dangerBtn" onclick="restoreV14()">↺ VERIFY & RESTORE</button></div><div class="setBlock"><h4>3. BACKUP REMINDER</h4><div class="setGrid"><label>LOGOUT REMINDER<select id="vBackupReminder"><option>ON</option><option>OFF</option></select></label><label>REMINDER DAYS<select id="vBackupDays"><option>1</option><option>3</option><option>7</option><option>15</option></select></label></div><button onclick="saveSetBlock('backup')">✓ SAVE & APPLY</button></div></div>
+<div id="setMachine" class="setModule"><div class="setHead">🛠 MACHINE REFERENCE</div><div class="setBlock"><h4>1. REFERENCE DISPLAY</h4><div class="setGrid"><label>MACHINE PHOTO<select id="vMachinePhoto"><option>ON</option><option>OFF</option></select></label><label>SUITABLE PARTS<select id="vSuitable"><option>ON</option><option>OFF</option></select></label><label>DRAWING LIBRARY<select id="vDrawing"><option>ON</option><option>OFF</option></select></label><label>DEALER VIEW<select id="vDealerSuitable"><option>ADMIN CONTROL</option><option>ON</option><option>OFF</option></select></label></div><button onclick="saveSetBlock('machine')">✓ SAVE & APPLY</button></div></div>
 </section>
 <section id="verify" class="section"><div class="panel"><div class="pTitle"><span class="tag orange">SYSTEM VERIFY</span><b>DATA HEALTH CHECK</b></div><div id="verifySummary" class="notice">CLICK VERIFY SYSTEM TO SCAN.</div><div id="verifyList" class="verifyList" style="margin-top:8px"></div></div></section>
 </main>
@@ -1007,6 +861,7 @@ Machines are not sold on this portal. Dealer website sales are only for Spare Pa
 <button class="rnav refreshMenuBtn" onclick="refreshPortal()"><span class="navIcon bigIcon">↻</span> REFRESH</button>
 <button class="rnav" onclick="openSection('orders',this)"><span class="navIcon">▤</span> SALES ORDER</button>
 <button class="rnav" onclick="openSection('estimates',this)"><span class="navIcon">▧</span> ESTIMATE</button>
+<button class="rnav" onclick="openSection('delivery',this)"><span class="navIcon">🚚</span> DELIVERY & TRACKING</button>
 <button class="rnav" onclick="openSection('ads',this)"><span class="navIcon">★</span> ADS & PROMOTIONS</button>
 <button class="rnav" onclick="runSystemCheck()"><span class="navIcon">✓</span> VERIFY SYSTEM <span id="badgeSystem" class="actionBadge">0</span></button>
 <button class="rnav" onclick="openSection('points',this)"><span class="navIcon">◆</span> POINTS & YEARLY SCHEME</button>
@@ -1053,6 +908,7 @@ function logActivity(t){DB.activity.unshift({time:new Date().toLocaleString(),te
 
 var titles={dashboard:"TORVO DASHBOARD",machines:"MACHINES",spares:"ADD SPARE PART",accessories:"ADD ACCESSORY",itemmaster:"ITEM MASTER",suitable:"SUITABLE SEARCH",orders:"SALES ORDERS",estimates:"ESTIMATES",delivery:"DELIVERY & TRACKING",customers:"CUSTOMER HISTORY",dealers:"DEALER MANAGEMENT",inquiries:"INQUIRY CENTER",journey:"30-DAY DEALER JOURNEY",chat:"DEALER CHAT",points:"POINTS & YEARLY SCHEME",salesReport:"SALES REPORT",profit:"PROFIT / INCOME",drawings:"MACHINE DRAWINGS",ads:"ADS & PROMOTIONS",homepage:"HOME PAGE CONTENT",ai:"AI & API HUB",updates:"UPDATE CENTER",reports:"REPORTS CENTER",settings:"SETTINGS",verify:"SYSTEM VERIFY"};
 function openSection(id,btn){
+ if(id==="settings")setTimeout(function(){settingsHome();loadV14()},0);
  if(id==="inventory")setTimeout(renderInventory,0);
  if(id==="addSpare"||id==="addAccessory"||id==="machines"){setTimeout(function(){syncMasterDropdowns();ensureAutoItemNo()},0)}sndClick();document.querySelectorAll(".section").forEach(function(x){x.classList.remove("active")});document.querySelectorAll(".nav,.rnav").forEach(function(x){x.classList.remove("active")});var s=E(id);if(!s)return;s.classList.add("active");if(btn)btn.classList.add("active");E("pageTitle").textContent=titles[id]||"TORVO";if(id==="spares")buildItemForm("SPARE PART");if(id==="accessories")buildItemForm("ACCESSORY");if(id==="itemmaster")renderItems();if(id==="suitable")renderSuitableResults();if(id==="customers")renderCustomerHistory();if(id==="dealers")renderDealers();if(id==="inquiries")renderInquiries();if(id==="journey")renderJourney();if(id==="chat")renderChat();if(id==="points")renderPoints();if(id==="salesReport")renderSalesReport();if(id==="profit")renderProfit();if(id==="drawings")renderDrawings();if(id==="ads")renderAds();if(id==="homepage")renderHome();if(id==="ai")loadAI();if(id==="reports")renderReportsCenter();if(id==="settings")loadPortalSettings();if(id==="delivery"){renderPendingDeliveries();renderDeliveryHistory()}window.scrollTo(0,0)}
 function goHome(){sndAlert();if(dirty&&!confirm("UNSAVED ENTRY EXISTS. CONTINUE TO HOME?"))return;clearItemForm();clearMachine();openSection("dashboard",document.querySelector(".nav"));toast("HOME OPENED","success")}
@@ -1911,6 +1767,31 @@ document.addEventListener("click",function(ev){
 document.addEventListener("change",function(ev){
  if(ev.target&&/^setSound/.test(ev.target.id||""))saveV13Sound()
 },true);
+
+
+var V14S="TORVO_V14_SETTINGS",V14H="TORVO_V14_HOME",V14A="TORVO_V14_SOUND";
+function settingsHome(){E("settingsApps").style.display="grid";document.querySelectorAll(".setModule").forEach(function(x){x.classList.remove("show")})}
+function settingsOpen(id){E("settingsApps").style.display="none";document.querySelectorAll(".setModule").forEach(function(x){x.classList.remove("show")});E(id).classList.add("show");loadV14()}
+function saveSetBlock(group){
+ var s={};try{s=JSON.parse(localStorage.getItem(V14S)||"{}")}catch(e){}
+ s[group]={};var mod=document.querySelector(".setModule.show");if(mod)mod.querySelectorAll("input:not([type=file]),select,textarea").forEach(function(x){if(x.id)s[group][x.id]=x.value});
+ localStorage.setItem(V14S,JSON.stringify(s));toneV14("success");toast("BLOCK SAVED & APPLIED","success")
+}
+function loadV14(){
+ var s={};try{s=JSON.parse(localStorage.getItem(V14S)||"{}")}catch(e){};Object.values(s).forEach(function(g){Object.keys(g||{}).forEach(function(id){if(E(id))E(id).value=g[id]})});
+ var p=soundPrefsV14(),map={sndMaster:"master",sndClick:"click",sndSuccess:"success",sndError:"error",sndDelete:"delete",sndAlert:"alert",sndOrder:"order",sndInquiry:"inquiry",sndChat:"chat",sndDelivery:"delivery"};Object.keys(map).forEach(function(id){if(E(id))E(id).value=p[map[id]]});
+ if(E("lastBackupV14"))E("lastBackupV14").textContent=localStorage.getItem("TORVO_LAST_BACKUP")||"NOT TAKEN"
+}
+function soundPrefsV14(){try{return Object.assign({master:"ON",click:"ON",success:"ON",error:"ON",delete:"ON",alert:"ON",order:"ON",inquiry:"ON",chat:"ON",delivery:"ON"},JSON.parse(localStorage.getItem(V14A)||"{}"))}catch(e){return{master:"ON",click:"ON",success:"ON",error:"ON",delete:"ON",alert:"ON",order:"ON",inquiry:"ON",chat:"ON",delivery:"ON"}}}
+function saveSoundV14(g){var p=soundPrefsV14(),m={basic:{master:"sndMaster",click:"sndClick"},action:{success:"sndSuccess",error:"sndError",delete:"sndDelete",alert:"sndAlert"},business:{order:"sndOrder",inquiry:"sndInquiry",chat:"sndChat",delivery:"sndDelivery"}};Object.keys(m[g]).forEach(function(k){p[k]=E(m[g][k]).value});localStorage.setItem(V14A,JSON.stringify(p));toneV14("success",true);toast("SOUND SAVED & APPLIED","success")}
+function toneV14(kind,force){var p=soundPrefsV14();if(!force&&(p.master==="OFF"||p[kind]==="OFF"))return;try{var C=window.AudioContext||window.webkitAudioContext,c=window.__torvoV14||(window.__torvoV14=new C());if(c.state==="suspended")c.resume();var o=c.createOscillator(),g=c.createGain(),f={click:620,success:840,error:220,delete:300,alert:430,order:900,inquiry:720,chat:660,delivery:800}[kind]||620;o.frequency.value=f;o.type="sine";g.gain.setValueAtTime(.06,c.currentTime);g.gain.exponentialRampToValueAtTime(.001,c.currentTime+.09);o.connect(g);g.connect(c.destination);o.start();o.stop(c.currentTime+.1)}catch(e){}}
+document.addEventListener("pointerdown",function(){try{var C=window.AudioContext||window.webkitAudioContext;window.__torvoV14=window.__torvoV14||new C();window.__torvoV14.resume()}catch(e){}},{once:true,capture:true});
+document.addEventListener("click",function(e){if(e.target.closest("button,.nav,.rnav,.settingsApps button"))toneV14("click")},true);
+function backupV14(){var p={version:"TORVO-V14",createdAt:new Date().toISOString(),db:DB,settings:localStorage.getItem(V14S),home:localStorage.getItem(V14H),sound:localStorage.getItem(V14A)},b=new Blob([JSON.stringify(p,null,2)],{type:"application/json"}),a=document.createElement("a"),u=URL.createObjectURL(b);a.href=u;a.download="TORVO_FULL_BACKUP_"+new Date().toISOString().slice(0,10)+".json";a.click();URL.revokeObjectURL(u);var d=new Date().toLocaleString("en-IN");localStorage.setItem("TORVO_LAST_BACKUP",d);if(E("lastBackupV14"))E("lastBackupV14").textContent=d;toneV14("success");toast("FULL BACKUP DOWNLOADED","success")}
+function restoreV14(){var f=E("restoreV14").files[0];if(!f)return toast("SELECT BACKUP FILE","error");var r=new FileReader();r.onload=function(){try{var p=JSON.parse(r.result);if(!p.db||!p.version)throw 0;if(!confirm("VALID TORVO BACKUP FOUND. RESTORE CURRENT DATA?"))return;if(prompt("ENTER SECURITY CODE")!=="1122")return toast("WRONG CODE","error");DB=p.db;saveDB();if(p.settings)localStorage.setItem(V14S,p.settings);if(p.home)localStorage.setItem(V14H,p.home);if(p.sound)localStorage.setItem(V14A,p.sound);alert("RESTORE COMPLETE");location.reload()}catch(e){toast("INVALID BACKUP FILE","error")}};r.readAsText(f)}
+function quickReportV14(){var q=E("reportQuickV14").value;if(!q)return;E("reportSearchV14").value=q;filterReportsV14();var cards=[].slice.call(E("reports").querySelectorAll(".reportCard,.reportTile,.repCard,button"));var c=cards.find(function(x){return N(x.textContent).includes(N(q))});if(c&&typeof c.click==="function")c.click()}
+function filterReportsV14(){var q=N(E("reportSearchV14").value),sec=E("reports");if(!sec)return;sec.querySelectorAll(".reportCard,.reportTile,.repCard").forEach(function(x){x.style.display=!q||N(x.textContent).includes(q)?"":"none"})}
+(function(){var d=E("reportListV14"),s=E("reportQuickV14");if(d&&s)d.innerHTML=[].slice.call(s.options).slice(1).map(function(o){return"<option value='"+o.text+"'></option>"}).join("")})();
 
 </script>
 
