@@ -306,6 +306,85 @@ body{zoom:1.00!important}
 .right .rnav,.right .futureToggle{margin:2px 0!important;padding:7px 8px!important}
 </style>
 
+
+<style id="torvo-v10-latest">
+/* Refresh: normal by default, green only on hover/active */
+.right .refreshMenuBtn{
+  background:#fff!important;
+  color:#111!important;
+  border:1px solid #d1d5db!important;
+  font-weight:900!important;
+}
+.right .refreshMenuBtn:hover,
+.right .refreshMenuBtn:active{
+  background:#15803d!important;
+  color:#fff!important;
+  border-color:#15803d!important;
+}
+
+/* Online admin becomes compact status text, not a button */
+.top .owner{
+  min-width:auto!important;
+  max-width:none!important;
+  width:auto!important;
+  height:auto!important;
+  padding:0 2px!important;
+  background:transparent!important;
+  color:#111!important;
+  border:0!important;
+  box-shadow:none!important;
+  font-size:10px!important;
+  font-weight:900!important;
+  white-space:nowrap!important;
+  cursor:default!important;
+}
+.top .owner::before{
+  content:"● ";
+  color:#15803d;
+}
+
+/* Give search more room and keep top controls compact */
+.top{gap:4px!important}
+.top .search{flex:1 1 auto!important;min-width:520px!important}
+.top .logout{min-width:62px!important;max-width:62px!important;width:62px!important;padding:0 5px!important}
+.top .langYellow{min-width:50px!important;max-width:50px!important;width:50px!important}
+.top .bell button{width:38px!important}
+
+/* Sound panel */
+.soundPanel{
+  display:none;
+  position:fixed;
+  right:18px;
+  top:70px;
+  width:min(360px,calc(100vw - 36px));
+  max-height:75vh;
+  overflow:auto;
+  z-index:9999;
+  background:#fff;
+  border:1px solid #d1d5db;
+  border-radius:14px;
+  box-shadow:0 14px 38px rgba(0,0,0,.18);
+  padding:12px;
+}
+.soundPanel.show{display:block}
+.soundHead{display:flex;align-items:center;justify-content:space-between;gap:10px;margin-bottom:8px}
+.soundRow{display:flex;align-items:center;justify-content:space-between;gap:12px;padding:9px 2px;border-top:1px solid #eee}
+.soundRow:first-of-type{border-top:0}
+.soundRow small{display:block;color:#666;margin-top:2px}
+.soundSwitch{display:inline-flex;align-items:center;gap:5px;font-weight:800}
+.soundSwitch input{width:18px;height:18px}
+
+/* Right side normal visible buttons, no future dropdown */
+.right .futureToggle{display:none!important}
+.right #futureMenu{
+  display:block!important;
+  border:0!important;
+  padding:0!important;
+  margin:0!important;
+  background:transparent!important;
+}
+</style>
+
 </head>
 <body>
 <div class="app">
@@ -365,6 +444,11 @@ body{zoom:1.00!important}
 </section>
 
 <section id="machines" class="section">
+<div class="infoNotice" style="margin-bottom:10px">
+<b>MACHINE REFERENCE ONLY:</b> Machines are added only for identification and suitable spare-part mapping.
+Machines are not sold on this portal. Dealer website sales are only for Spare Parts and Accessories.
+</div>
+
 <div class="panel">
 <div class="pTitle"><span class="tag purple">MACHINE MASTER</span><b>MACHINE ADD / EDIT / DELETE</b></div>
 <div class="box bPurple"><div class="grid">
@@ -511,20 +595,21 @@ body{zoom:1.00!important}
 </main>
 
 <aside class="right">
-<button class="rnav" onclick="openSection('reports',this)">REPORTS CENTER</button>
-<button class="rnav" onclick="openSection('dealers',this)">DEALER CONTROL</button>
-<button class="rnav" onclick="openSection('customers',this)">CUSTOMER HISTORY</button>
 <button class="rnav" onclick="openSection('ads',this)">ADS & PROMOTIONS</button>
 <button class="rnav" onclick="openSection('homepage',this)">HOME PAGE CONTENT</button>
+
 <button class="rnav settingsMainBtn" onclick="openSection('settings',this)">⚙ SETTINGS</button>
 <button class="rnav" onclick="runSystemCheck()">VERIFY SYSTEM <span id="badgeSystem" class="actionBadge">0</span></button>
 <button class="rnav refreshMenuBtn" onclick="refreshPortal()">↻ REFRESH</button>
-<button class="futureToggle" onclick="toggleFutureMenu()">FUTURE OPTIONS ▼</button>
-<div id="futureMenu" class="futureBox">
+<button class="rnav" onclick="toggleSoundPanel()">🔊 SOUND</button>
+
 <button class="rnav" onclick="openSection('points',this)">POINTS & YEARLY SCHEME</button>
 <button class="rnav" onclick="openSection('ai',this)">AI & API HUB</button>
 <button class="rnav" onclick="openSection('updates',this)">UPDATE CENTER <span id="badgeUpdate" class="actionBadge">0</span></button>
-</div>
+
+<button class="rnav" onclick="openSection('reports',this)">REPORTS CENTER</button>
+<button class="rnav" onclick="openSection('dealers',this)">DEALER CONTROL</button>
+<button class="rnav" onclick="openSection('customers',this)">CUSTOMER HISTORY</button>
 </aside>
 </div>
 
@@ -794,21 +879,14 @@ function reportRows(type){if(type==="ITEMS")return DB.items.map(function(x){retu
 function reportHeaders(type){var h={ITEMS:["DATE","ITEM NO","NAME","TYPE","BRAND","CATEGORY","STOCK","MIN","ONLINE","STATUS","REMARKS"],SPARES:["ITEM NO","NAME","BRAND","CATEGORY","STOCK","REF","SIZE","MACHINES","REMARKS"],ACCESSORIES:["ITEM NO","NAME","BRAND","CATEGORY","STOCK","SIZE","REMARKS"],MACHINES:["DATE","ID","BRAND","TYPE","WORK","MODEL","ALT MODEL","STATUS","REMARKS"],STOCK:["ITEM NO","NAME","BRAND","STOCK","MIN","ONLINE","STATUS"],REORDER:["ITEM NO","NAME","BRAND","STOCK","MIN"],ESTIMATES:["DATE","ESTIMATE","ORDER","DEALER","AMOUNT","STATUS"],DELIVERY:["DATE","ORDER","DEALER","PARTNER","TRACKING","STATUS","DELIVERED AT"],PARTNERS:["TYPE","NAME","PERSON","MOBILE","CITY"],POINTS:["DEALER","POINTS","YEAR","QUARTER","SCHEME","UPDATED"],INQUIRY:["DATE","ID","TYPE","NAME","MOBILE","MESSAGE","STATUS"],CHAT:["DATE","DEALER","FROM","MESSAGE","STATUS"],DEALERS:["ID","SHOP","PERSON","MOBILE","CITY","RATE","STATUS"],PROFIT:["DATE","ESTIMATE","DEALER","SALE","PURCHASE","COURIER","DELIVERY","PACKING","PAYMENT","OTHER","NET"],EXPENSE:["DATE","ESTIMATE","DEALER","SALE","PURCHASE","COURIER","DELIVERY","PACKING","PAYMENT","OTHER","NET"],ACTIVITY:["TIME","ACTIVITY"],SUITABLE:["ITEM","NAME","BRAND","MACHINES","MATCH","GROUP","VERIFIED BY","DATE"]};return h[type]||["DETAIL"]}
 function viewReport(type){if(type==="SALES"||type==="ORDER_ESTIMATE"||type==="PENDING"){renderSalesReport();E("reportOutput").innerHTML=E("salesReportList").innerHTML;return}if(type==="DEALER_PERFORMANCE"){E("reportOutput").innerHTML="<div class='infoNotice'>DEALER PERFORMANCE WILL USE ORDER + FINAL ESTIMATE DATA. LIVE VALUES WILL APPEAR AFTER DATABASE CONNECTION.</div>";return}if(type==="CUSTOMER_HISTORY"){renderCustomerHistory();E("reportOutput").innerHTML=E("customerHistoryBox").innerHTML;return}var rows=reportRows(type),heads=reportHeaders(type);E("reportOutput").innerHTML="<div class='scroll'><table><thead><tr>"+heads.map(function(h){return"<th>"+H(h)+"</th>"}).join("")+"</tr></thead><tbody>"+(rows.length?rows.map(function(r){return"<tr>"+r.map(function(c){return"<td>"+H(c)+"</td>"}).join("")+"</tr>"}).join(""):"<tr><td colspan='"+heads.length+"' class='empty'>NO DATA.</td></tr>")+"</tbody></table></div>"}
 function exportReportCSV(type){var rows=reportRows(type),heads=reportHeaders(type);if(!rows.length&&(type==="SALES"||type==="ORDER_ESTIMATE"||type==="PENDING"))return toast("OPEN VIEW FIRST; LIVE SALES EXPORT WILL BE ENABLED WITH DATABASE","alert");var all=[heads].concat(rows),csv=all.map(function(r){return r.map(function(v){return '"'+String(v==null?"":v).replace(/"/g,'""')+'"'}).join(",")}).join("\\n");var b=new Blob([csv],{type:"text/csv;charset=utf-8"}),a=document.createElement("a");a.href=URL.createObjectURL(b);a.download="TORVO_"+type+"_REPORT.csv";a.click();URL.revokeObjectURL(a.href);toast("EXCEL / CSV DOWNLOADED","success")}
-function printReportPDF(type){viewReport(type);var w=window.open("","_blank");w.document.write("<html><head><title>TORVO "+type+" REPORT</title><style>body{font-family:Arial}table{width:100%;border-collapse:collapse}th,td{border:1px solid #ccc;padding:6px;font-size:10px}th{background:#eee}</style></head><body><h2>TORVO "+type+" REPORT</h2>"+E("reportOutput").innerHTML+"</body></html>");w.document.close();w.focus();w.print()}
-function renderPendingDeliveries(){if(!E("pendingDeliveryList"))return;var a=DB.deliveries.filter(function(x){return !U(x.status||"PENDING").includes("DELIVER")});E("pendingDeliveryList").innerHTML=a.length?a.map(function(x){var i=DB.deliveries.indexOf(x);return"<div class='bizCard'><b>"+H(x.order||"ORDER")+" | "+H(x.dealer||"")+"</b><div class='help'>"+H(x.partner||"")+" | TRACKING: "+H(x.tracking||"")+" | "+H(x.status||"PENDING")+"</div><div class='toolbar'><button class='btn teal' onclick='openDeliveryConfirm("+i+")'>✓ DELIVERY CONFIRM</button></div></div>"}).join(""):"<div class='empty'>NO PENDING DELIVERY.</div>"}
-function renderDeliveryHistory(){if(!E("deliveryHistoryList"))return;var a=DB.deliveries.filter(function(x){return U(x.status||"").includes("DELIVER")});E("deliveryHistoryList").innerHTML=a.length?a.map(function(x){return"<div class='bizCard'><b>"+H(x.order||"ORDER")+" | DELIVERY SUCCESSFUL</b><div class='help'>"+H(x.dealer||"")+" | "+H(x.partner||"")+" | "+H(x.tracking||"")+" | "+H(x.deliveredAt||x.date||"")+"</div></div>"}).join(""):"<div class='empty'>NO DELIVERED HISTORY.</div>"}
-function openDeliveryConfirm(i){selectedDeliveryIndex=i;var x=DB.deliveries[i];E("deliveryModalText").innerHTML="ORDER: <b>"+H(x.order||"")+"</b><br>DEALER: <b>"+H(x.dealer||"")+"</b><br>TRACKING: <b>"+H(x.tracking||"")+"</b><br><br>CONFIRM THAT DELIVERY IS SUCCESSFUL?";E("deliveryModal").classList.add("show")}
-function closeDeliveryModal(){selectedDeliveryIndex=-1;E("deliveryModal").classList.remove("show")}
-function confirmDeliveryNow(){if(selectedDeliveryIndex<0)return;var x=DB.deliveries[selectedDeliveryIndex];x.status="DELIVERED / SUCCESSFUL";x.deliveredAt=new Date().toLocaleString();DB.messages.push({dealerId:x.dealerId||x.dealer||"",from:"ADMIN",message:"DELIVERY SUCCESSFUL. ORDER "+U(x.order||"")+" HAS BEEN DELIVERED.",date:new Date().toLocaleString(),read:false});logActivity("DELIVERY SUCCESSFUL: "+U(x.order||""));closeDeliveryModal();saveDB();toast("DELIVERY SUCCESSFUL","success")}
-
-
-function itemIdentityUsage(kind,value){
- var v=N(value),count=0;
- DB.items.forEach(function(x){
-  if(kind==="number"&&N(x.no)===v)count++;
-  if(kind==="name"&&N(x.name)===v)count++
- });
- return count
+function printReportPDF(type){
+ viewReport(type);
+ var w=window.open("","_blank");
+ var html="<html><head><title>TORVO "+type+" REPORT</title><style>body{font-family:Arial}table{width:100%;border-collapse:collapse}th,td{border:1px solid #ccc;padding:6px;font-size:10px}th{background:#eee}</style></head><body><h2>TORVO "+type+" REPORT</h2>"+E("reportOutput").innerHTML+"</body></html>";
+ w.document.write(html);
+ w.document.close();
+ w.focus();
+ setTimeout(function(){w.print()},300);
 }
 function refreshItemIdentityMasters(){
  if(E("itemNoMasterList"))E("itemNoMasterList").innerHTML=[...new Set(DB.items.map(function(x){return U(x.no||"")}).filter(Boolean))].sort().map(function(v){return"<option value='"+H(v)+"'>"}).join("");
@@ -919,9 +997,67 @@ function openMachineDetail(i){
  html+="</div>";
  var wrap=document.createElement("div");
  wrap.className="modalMask show";
- wrap.innerHTML="<div class='modalBox' style='max-width:700px'><div class='modalTitle'>MACHINE & SPARE PARTS</div><div style='max-height:70vh;overflow:auto'>"+html+"</div><div class='modalActions'><button class='btn light' onclick='this.closest(&quot;.modalMask&quot;).remove()'>CLOSE</button></div></div>";
+ wrap.innerHTML="<div class='modalBox' style='max-width:700px'><div class='modalTitle'>MACHINE REFERENCE & SUITABLE SPARE PARTS</div><div style='max-height:70vh;overflow:auto'>"+html+"</div><div class='modalActions'><button class='btn light' onclick='this.closest(&quot;.modalMask&quot;).remove()'>CLOSE</button></div></div>";
  document.body.appendChild(wrap)
 }
+
+
+const TORVO_SOUND_KEY="torvoSoundPrefsV1";
+const TORVO_SOUND_DEFAULTS={
+ master:true,click:true,success:true,error:true,delete:true,
+ order:true,inquiry:true,chat:true,delivery:true,alert:true
+};
+function getSoundPrefs(){
+ try{return Object.assign({},TORVO_SOUND_DEFAULTS,JSON.parse(localStorage.getItem(TORVO_SOUND_KEY)||"{}"))}
+ catch(e){return Object.assign({},TORVO_SOUND_DEFAULTS)}
+}
+function saveSoundPrefs(){
+ const p={
+  master:!!E("sndMaster")?.checked,
+  click:!!E("sndClick")?.checked,
+  success:!!E("sndSuccess")?.checked,
+  error:!!E("sndError")?.checked,
+  delete:!!E("sndDelete")?.checked,
+  order:!!E("sndOrder")?.checked,
+  inquiry:!!E("sndInquiry")?.checked,
+  chat:!!E("sndChat")?.checked,
+  delivery:!!E("sndDelivery")?.checked,
+  alert:!!E("sndAlert")?.checked
+ };
+ localStorage.setItem(TORVO_SOUND_KEY,JSON.stringify(p));
+}
+function loadSoundPrefs(){
+ const p=getSoundPrefs();
+ const map={sndMaster:"master",sndClick:"click",sndSuccess:"success",sndError:"error",sndDelete:"delete",sndOrder:"order",sndInquiry:"inquiry",sndChat:"chat",sndDelivery:"delivery",sndAlert:"alert"};
+ Object.keys(map).forEach(id=>{if(E(id))E(id).checked=!!p[map[id]]});
+}
+function torvoBeep(type="click"){
+ const p=getSoundPrefs();
+ if(!p.master||!p[type])return;
+ try{
+  const AC=window.AudioContext||window.webkitAudioContext;
+  const ctx=new AC(),o=ctx.createOscillator(),g=ctx.createGain();
+  const tone={click:520,success:760,error:190,delete:240,order:880,inquiry:690,chat:620,delivery:720,alert:320}[type]||520;
+  const dur={click:.035,success:.09,error:.14,delete:.12,order:.13,inquiry:.11,chat:.08,delivery:.10,alert:.16}[type]||.05;
+  o.type="sine";o.frequency.value=tone;
+  g.gain.setValueAtTime(type==="click"?.018:.035,ctx.currentTime);
+  g.gain.exponentialRampToValueAtTime(.001,ctx.currentTime+dur);
+  o.connect(g);g.connect(ctx.destination);o.start();o.stop(ctx.currentTime+dur);
+  o.onended=()=>ctx.close();
+ }catch(e){}
+}
+function toggleSoundPanel(force){
+ const p=E("soundPanel");if(!p)return;
+ const show=typeof force==="boolean"?force:!p.classList.contains("show");
+ p.classList.toggle("show",show);
+ if(show)loadSoundPrefs();
+}
+document.addEventListener("click",function(ev){
+ const panel=E("soundPanel");
+ if(panel&&panel.classList.contains("show")&&!ev.target.closest("#soundPanel")&&!ev.target.closest("[onclick*='toggleSoundPanel']"))panel.classList.remove("show");
+ const b=ev.target.closest("button,.rnav,.nav");
+ if(b&&!b.closest("#soundPanel"))torvoBeep("click");
+});
 
 function dashboard(){
  E("dItems").textContent=DB.items.length;E("dMachines").textContent=DB.machines.length;E("dIn").textContent=DB.items.filter(function(x){return x.qty>0}).length;E("dOut").textContent=DB.items.filter(function(x){return x.qty<=0}).length;E("dReorder").textContent=DB.items.filter(function(x){return x.qty<=x.min}).length;refreshActionBadges();
