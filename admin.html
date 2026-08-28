@@ -708,6 +708,53 @@ body{zoom:1.00!important}
 #dashboard .stat,#dashboard .kpi,#dashboard .dashCard,#dashboard .summaryCard,#dashboard .metric{min-height:120px!important;padding:18px!important;border-radius:18px!important;box-shadow:0 7px 18px rgba(0,0,0,.08)!important}
 #dashboard .stat:nth-child(12n+1),#dashboard .kpi:nth-child(12n+1){background:#fff1f2!important}#dashboard .stat:nth-child(12n+2),#dashboard .kpi:nth-child(12n+2){background:#eff6ff!important}#dashboard .stat:nth-child(12n+3),#dashboard .kpi:nth-child(12n+3){background:#f0fdf4!important}#dashboard .stat:nth-child(12n+4),#dashboard .kpi:nth-child(12n+4){background:#fffbeb!important}#dashboard .stat:nth-child(12n+5),#dashboard .kpi:nth-child(12n+5){background:#faf5ff!important}#dashboard .stat:nth-child(12n+6),#dashboard .kpi:nth-child(12n+6){background:#ecfeff!important}#dashboard .stat:nth-child(12n+7),#dashboard .kpi:nth-child(12n+7){background:#fff7ed!important}#dashboard .stat:nth-child(12n+8),#dashboard .kpi:nth-child(12n+8){background:#f5f3ff!important}#dashboard .stat:nth-child(12n+9),#dashboard .kpi:nth-child(12n+9){background:#f0fdfa!important}#dashboard .stat:nth-child(12n+10),#dashboard .kpi:nth-child(12n+10){background:#fdf2f8!important}#dashboard .stat:nth-child(12n+11),#dashboard .kpi:nth-child(12n+11){background:#f7fee7!important}#dashboard .stat:nth-child(12n+12),#dashboard .kpi:nth-child(12n+12){background:#f8fafc!important}
 .rnav .navIcon,.nav .navIcon{font-size:17px!important;min-width:20px;display:inline-block;text-align:center}.v24AdminStatusBox{margin:8px 6px 12px;padding:10px;border-radius:14px;background:linear-gradient(145deg,#171717,#303030);color:#fff;border:1px solid #d71920;text-align:center;box-shadow:0 6px 18px #0002}.v24AdminHead{display:flex;justify-content:space-between;font-size:8px}.v24AdminHead span{color:#67e8a5;font-weight:900}.v24AdminTime{font-size:21px;font-weight:1000;margin-top:6px}.v24AdminDate,.v24AdminMeta{font-size:8px;color:#ddd}.v24HistoryBtn{margin-top:6px;border:0;border-radius:8px;background:#d71920;color:#fff;font-weight:900;font-size:8px;padding:6px 12px}.v22AutoSync{font-weight:1000!important;background:linear-gradient(135deg,#ecfdf5,#eff6ff)!important;border:1px solid #34d399!important;color:#047857!important}.v24ContactBar{display:flex;gap:8px;align-items:center;flex-wrap:wrap;background:#f0fdf4;border:1px solid #bbf7d0;border-radius:14px;padding:10px;margin:10px}.v24ContactBar input{min-width:220px;flex:1}.v24ToolIcon{font-size:48px!important;font-weight:1000;color:#202020}</style>
+
+<style id="torvo-v25-css">
+/* Dashboard = 12 app-style business cards */
+#dashboard .cards{display:grid!important;grid-template-columns:repeat(4,minmax(0,1fr))!important;gap:12px!important}
+#dashboard .dashboardCard{min-height:142px!important;border:1px solid #e2e8f0!important;border-radius:22px!important;padding:15px!important;display:flex!important;flex-direction:column!important;align-items:center!important;justify-content:center!important;text-align:center!important;gap:7px!important;box-shadow:0 8px 20px rgba(15,23,42,.08)!important;transition:.18s ease}
+#dashboard .dashboardCard:hover{transform:translateY(-3px);border-color:#d71920!important}
+#dashboard .dashboardCard .v25DashIcon{font-size:35px;line-height:1}
+#dashboard .dashboardCard small{font-size:8px!important;font-weight:1000!important;color:#334155!important}
+#dashboard .dashboardCard strong{font-size:27px!important;color:#111827!important}
+#dashboard .dashboardCard:nth-child(1){background:#fff1f2!important}#dashboard .dashboardCard:nth-child(2){background:#eff6ff!important}
+#dashboard .dashboardCard:nth-child(3){background:#ecfdf5!important}#dashboard .dashboardCard:nth-child(4){background:#fef2f2!important}
+#dashboard .dashboardCard:nth-child(5){background:#fff7ed!important}#dashboard .dashboardCard:nth-child(6){background:#f5f3ff!important}
+#dashboard .dashboardCard:nth-child(7){background:#ecfeff!important}#dashboard .dashboardCard:nth-child(8){background:#f0fdf4!important}
+#dashboard .dashboardCard:nth-child(9){background:#fdf2f8!important}#dashboard .dashboardCard:nth-child(10){background:#f7fee7!important}
+#dashboard .dashboardCard:nth-child(11){background:#fffbeb!important}#dashboard .dashboardCard:nth-child(12){background:#f1f5f9!important}
+@media(max-width:1050px){#dashboard .cards{grid-template-columns:repeat(3,minmax(0,1fr))!important}}
+@media(max-width:720px){#dashboard .cards{grid-template-columns:repeat(2,minmax(0,1fr))!important}}
+
+/* Drawing upload exists only inside Machine Drawing */
+.v25DrawingUploadBox{margin-top:10px;padding:12px;border-radius:16px;background:#faf5ff;border:1px solid #e9d5ff}
+.v25DrawingSlots{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:10px;margin-top:10px}
+.v25DrawSlot{background:#fff;border:1px solid #ddd;border-radius:14px;padding:10px;min-height:150px}
+.v25DrawSlot b{font-size:9px}.v25DrawSlot img{width:100%;height:100px;object-fit:contain;background:#f8fafc;border-radius:8px;margin:7px 0}
+@media(max-width:750px){.v25DrawingSlots{grid-template-columns:1fr}}
+
+/* Market Add app hub */
+.v25MarketGrid{display:grid;grid-template-columns:repeat(5,minmax(0,1fr));gap:12px;margin-top:14px}
+.v25MarketGrid button{min-height:145px;border:1px solid #e2e8f0;border-radius:20px;background:#fff;padding:14px;display:flex;flex-direction:column;align-items:center;justify-content:center;gap:7px;cursor:pointer;box-shadow:0 7px 18px #0000000c}
+.v25MarketGrid button:hover{border-color:#d71920;transform:translateY(-2px)}.v25MarketGrid span{font-size:38px}.v25MarketGrid b{font-size:9px}.v25MarketGrid small{font-size:7px;color:#64748b;text-align:center}
+.v25MarketGrid button:nth-child(1){background:#fff1f2}.v25MarketGrid button:nth-child(2){background:#f5f3ff}.v25MarketGrid button:nth-child(3){background:#eff6ff}.v25MarketGrid button:nth-child(4){background:#eef2ff}.v25MarketGrid button:nth-child(5){background:#fdf2f8}.v25MarketGrid button:nth-child(6){background:#fef2f2}.v25MarketGrid button:nth-child(7){background:#ecfeff}.v25MarketGrid button:nth-child(8){background:#ecfdf5}.v25MarketGrid button:nth-child(9){background:#fff7ed}.v25MarketGrid button:nth-child(10){background:#f1f5f9}
+.v25MarketModule{margin-top:14px}.v25MarketPanel{padding:14px;border:1px solid #e2e8f0;border-radius:16px;background:#fff}.v25MarketPanel h3{margin:0 0 10px}
+@media(max-width:1050px){.v25MarketGrid{grid-template-columns:repeat(3,minmax(0,1fr))}}@media(max-width:700px){.v25MarketGrid{grid-template-columns:repeat(2,minmax(0,1fr))}}
+
+/* Admin status is a small strip at the very bottom */
+.v24AdminStatusBox.v25CompactAdmin{margin:10px 6px 4px!important;padding:6px 7px!important;min-height:0!important;border-radius:10px!important;display:flex!important;align-items:center!important;justify-content:center!important;gap:6px!important;flex-wrap:wrap!important;background:#1f2937!important}
+.v25CompactAdmin span{font-size:7px!important;font-weight:900}.v25CompactAdmin #v24LiveDot{color:#67e8a5}.v25CompactAdmin .v24HistoryBtn{margin:0!important;padding:4px 7px!important;font-size:7px!important}
+
+/* Auto sync: visibly changes complete color after every successful cycle */
+.v22AutoSync{transition:background .2s,color .2s,border-color .2s,transform .2s!important}
+.v22AutoSync.v25Syncing{background:#0f766e!important;color:#fff!important;border-color:#115e59!important}
+.v22AutoSync.v25Updated{background:#7c3aed!important;color:#fff!important;border-color:#6d28d9!important;transform:scale(1.04)}
+.v22AutoSync.v25Normal{background:#ecfdf5!important;color:#047857!important;border-color:#34d399!important}
+
+/* Stronger sound setting label */
+.v25SoundNote{font-size:8px;color:#475569}
+</style>
+
 </head>
 <body>
 <div class="app">
@@ -719,9 +766,9 @@ body{zoom:1.00!important}
 <button class="nav" onclick="openSection('itemmaster',this)">ITEM MASTER <span id="badgeReorderLeft" class="actionBadge">0</span></button>
 <button class="nav" onclick="openSection('suitable',this)">SUITABLE SEARCH</button>
 <button class="nav" onclick="openSection('drawings',this)">MACHINE DRAWINGS</button>
-<button class="nav" onclick="openSection('inquiries',this)">INQUIRIES <span id="badgeInquiry" class="actionBadge">0</span></button>
 <!-- DAY_WISE_LEFT_V17 -->
 <!-- REPORTS_LEFT_V16 --><button class="nav" onclick="openSection('reports',this)">REPORTS <span class="navIcon">▦</span></button>
+<!-- MARKET_ADD_V25 --><button class="nav" onclick="openSection('marketAdd',this)"><span class="navIcon">📣</span> MARKET ADD</button>
 <!-- SETTINGS_LEFT_V16 --><button class="nav" onclick="openSection('settings',this)">SETTINGS <span class="navIcon">⚙</span></button>
 </aside>
 
@@ -741,21 +788,21 @@ body{zoom:1.00!important}
 
 <section id="dashboard" class="section active">
 <div class="cards">
-<div class="card dashboardCard" onclick="openSection('itemmaster')"><small>TOTAL PRODUCTS</small><strong id="dItems">0</strong></div>
-<div class="card dashboardCard" onclick="openSection('machines')"><small>MACHINES</small><strong id="dMachines">0</strong></div>
-<div class="card dashboardCard" onclick="openFiltered('in')"><small>IN STOCK</small><strong id="dIn">0</strong></div>
-<div class="card dashboardCard" onclick="openFiltered('out')"><small>OUT OF STOCK</small><strong id="dOut">0</strong></div>
-<div class="card dashboardCard" onclick="openFiltered('reorder')"><small>REORDER REQUIRED</small><strong id="dReorder">0</strong><span id="dBadgeReorder" class="actionBadge">0</span></div>
-<div class="card dashboardCard" onclick="showActionPanel('orders')"><small>NEW SALES ORDERS</small><strong id="dOrders">0</strong><span id="dBadgeOrders" class="actionBadge">0</span></div>
-<div class="card dashboardCard" onclick="showActionPanel('inquiries')"><small>NEW INQUIRIES / REQUESTS</small><strong id="dInquiries">0</strong><span id="dBadgeInquiries" class="actionBadge">0</span></div>
-<div class="card dashboardCard" onclick="showActionPanel('delivery')"><small>PENDING DELIVERY</small><strong id="dDelivery">0</strong><span id="dBadgeDelivery" class="actionBadge">0</span></div>
-<div class="card dashboardCard" onclick="showActionPanel('chat')"><small>UNREAD MESSAGES</small><strong id="dMessages">0</strong><span id="dBadgeMessages" class="actionBadge">0</span></div>
-<div class="card dashboardCard" onclick="showActionPanel('dealers')"><small>DEALER APPROVAL / ATTENTION</small><strong id="dDealerAttention">0</strong><span id="dBadgeDealer" class="actionBadge">0</span></div>
-<div class="card dashboardCard" onclick="runSystemCheck()"><small>SYSTEM ISSUES</small><strong id="dIssues">0</strong><span id="dBadgeIssues" class="actionBadge">0</span></div>
-<div class="card dashboardCard" onclick="openSection('reports')"><small>REPORTS CENTER</small><strong>VIEW</strong></div>
+<div class="card dashboardCard" onclick="openSection('itemmaster')"><span class="v25DashIcon">📦</span><small>TOTAL PRODUCTS</small><strong id="dItems">0</strong></div>
+<div class="card dashboardCard" onclick="openSection('machines')"><span class="v25DashIcon">🛠️</span><small>MACHINES</small><strong id="dMachines">0</strong></div>
+<div class="card dashboardCard" onclick="openFiltered('in')"><span class="v25DashIcon">✅</span><small>IN STOCK</small><strong id="dIn">0</strong></div>
+<div class="card dashboardCard" onclick="openFiltered('out')"><span class="v25DashIcon">⛔</span><small>OUT OF STOCK</small><strong id="dOut">0</strong></div>
+<div class="card dashboardCard" onclick="openFiltered('reorder')"><span class="v25DashIcon">🔄</span><small>REORDER REQUIRED</small><strong id="dReorder">0</strong><span id="dBadgeReorder" class="actionBadge">0</span></div>
+<div class="card dashboardCard" onclick="showActionPanel('orders')"><span class="v25DashIcon">🧾</span><small>NEW SALES ORDERS</small><strong id="dOrders">0</strong><span id="dBadgeOrders" class="actionBadge">0</span></div>
+<div class="card dashboardCard" onclick="showActionPanel('inquiries')"><span class="v25DashIcon">📨</span><small>NEW INQUIRIES / REQUESTS</small><strong id="dInquiries">0</strong><span id="dBadgeInquiries" class="actionBadge">0</span></div>
+<div class="card dashboardCard" onclick="showActionPanel('delivery')"><span class="v25DashIcon">🚚</span><small>PENDING DELIVERY</small><strong id="dDelivery">0</strong><span id="dBadgeDelivery" class="actionBadge">0</span></div>
+<div class="card dashboardCard" onclick="showActionPanel('chat')"><span class="v25DashIcon">💬</span><small>UNREAD MESSAGES</small><strong id="dMessages">0</strong><span id="dBadgeMessages" class="actionBadge">0</span></div>
+<div class="card dashboardCard" onclick="showActionPanel('dealers')"><span class="v25DashIcon">👤</span><small>DEALER APPROVAL / ATTENTION</small><strong id="dDealerAttention">0</strong><span id="dBadgeDealer" class="actionBadge">0</span></div>
+<div class="card dashboardCard" onclick="runSystemCheck()"><span class="v25DashIcon">⚠️</span><small>SYSTEM ISSUES</small><strong id="dIssues">0</strong><span id="dBadgeIssues" class="actionBadge">0</span></div>
+<div class="card dashboardCard" onclick="openSection('reports')"><span class="v25DashIcon">📊</span><small>REPORTS CENTER</small><strong>VIEW</strong></div>
 </div>
 <div id="dashboardActionPanel" class="actionPanel"></div>
-<div class="panel"><div class="pTitle"><span class="tag orange">SYSTEM RULES</span><b>DATA SAFETY & ORDER FLOW</b></div><div class="notice">NEGATIVE STOCK NEVER ALLOWED. DUPLICATE MASTER VALUES BLOCKED. USED MASTER VALUES CANNOT BE EDITED OR DELETED. DELETE REQUIRES CODE 1122. FINAL ESTIMATE DOES NOT REDUCE STOCK. ACTUAL SALE IS CREATED ONLY IN FINAL SALE & PACKING AFTER PAYMENT CLEAR.</div></div>
+<div class="panel"><div class="pTitle"><span class="tag orange">SYSTEM RULES</span><b>DATA SAFETY & ORDER FLOW</b></div><div class="notice">NEGATIVE STOCK NEVER ALLOWED. DUPLICATE MASTER VALUES BLOCKED. USED MASTER VALUES CANNOT BE EDITED OR DELETED. DELETE REQUIRES CODE 1122. ESTIMATE APPROVAL DOES NOT REDUCE STOCK. AFTER PAYMENT RECEIVED, CLICK DELIVERY INSIDE ESTIMATE TO DEDUCT STOCK EXACTLY ONCE AND CREATE DELIVERY.</div></div>
 </section>
 
 
@@ -763,9 +810,9 @@ body{zoom:1.00!important}
 <div class="pTitle"><span class="tag red">ADD ITEM</span><b>SELECT ITEM TYPE</b></div>
 <div class="sectionIntro">ONE CLEAN ENTRY POINT FOR MACHINE, SPARE PART AND ACCESSORY.</div>
 <div class="v23ThreeApps">
-<button class="v23BigApp" onclick="v23OpenChild('machines')"><span class="v24ToolIcon">▰⚙</span><b>ADD MACHINE</b><small>MACHINE MASTER • MODEL • UP TO 6 PHOTOS</small></button>
-<button class="v23BigApp" onclick="v23OpenChild('spares')"><span class="v24ToolIcon">⚙</span><b>ADD SPARE PART</b><small>ITEM • STOCK • RATE • SUITABLE MACHINE</small></button>
-<button class="v23BigApp" onclick="v23OpenChild('accessories')"><span class="v24ToolIcon">◉ ⦿ ✦</span><b>ADD ACCESSORY</b><small>ACCESSORY ITEM ENTRY</small></button>
+<button class="v23BigApp" onclick="openSection('machines',this)"><span class="v24ToolIcon">▰⚙</span><b>ADD MACHINE</b><small>MACHINE REFERENCE • BRAND • MODEL</small></button>
+<button class="v23BigApp" onclick="openSection('spares',this)"><span class="v24ToolIcon">⚙</span><b>ADD SPARE PART</b><small>ITEM • STOCK • RATE • SUITABLE MACHINE</small></button>
+<button class="v23BigApp" onclick="openSection('accessories',this)"><span class="v24ToolIcon">◉ ⦿ ✦</span><b>ADD ACCESSORY</b><small>ACCESSORY ITEM ENTRY</small></button>
 </div></div></section>
 
 <section id="machines" class="section">
@@ -966,8 +1013,11 @@ Machines are not sold on this portal. Dealer website sales are only for Spare Pa
 <div id="pointsWalletV17"></div><div id="pointsList"></div></div></section>
 <section id="salesReport" class="section"><div class="panel"><div class="pTitle"><span class="tag blue">SALES REPORT</span><b>ORDER RECEIVED vs FINAL ESTIMATE SALE</b></div><div class="notice">ORDER VALUE = DEALER DEMAND. FINAL ESTIMATE VALUE = ACTUAL SALE. PENDING VALUE SHOWS BUSINESS YOU COULD NOT FULFIL YET.</div><div class="grid"><div class="field"><label>FROM DATE</label><input id="srFrom" type="date" onchange="renderSalesReport()"></div><div class="field"><label>TO DATE</label><input id="srTo" type="date" onchange="renderSalesReport()"></div><div class="field"><label>SEARCH</label><input id="srSearch" class="upper" oninput="renderSalesReport()"></div></div><div class="cards" style="margin-top:8px"><div class="card"><small>ORDER VALUE RECEIVED</small><strong id="srOrders">₹0</strong></div><div class="card"><small>ACTUAL SALE</small><strong id="srSales">₹0</strong></div><div class="card"><small>PENDING / UNFULFILLED</small><strong id="srPending">₹0</strong></div><div class="card"><small>FULFILMENT</small><strong id="srPercent">0%</strong></div></div><div id="salesReportList" style="margin-top:8px"></div></div></section>
 <section id="profit" class="section"><div class="panel"><div class="pTitle"><span class="tag green">PROFIT / INCOME</span><b>FINAL SALE BASED PROFIT</b></div><div class="notice">NET PROFIT = FINAL SALE − PURCHASE COST − COURIER − DELIVERY / TRANSPORT − PACKING − PAYMENT FEE − OTHER EXPENSE.</div><div class="box bGreen"><div class="grid"><div class="field"><label>FINAL ESTIMATE NO. *</label><input id="pfEstimate" class="upper"></div><div class="field"><label>DATE</label><input id="pfDate" type="date"></div><div class="field"><label>DEALER</label><input id="pfDealer" class="upper"></div><div class="field"><label>FINAL SALE VALUE</label><input id="pfSale" type="number" min="0" value="0"></div><div class="field"><label>PURCHASE COST</label><input id="pfPurchase" type="number" min="0" value="0"></div><div class="field"><label>COURIER</label><input id="pfCourier" type="number" min="0" value="0"></div><div class="field"><label>DELIVERY / TRANSPORT</label><input id="pfDelivery" type="number" min="0" value="0"></div><div class="field"><label>PACKING</label><input id="pfPacking" type="number" min="0" value="0"></div><div class="field"><label>PAYMENT FEE</label><input id="pfGateway" type="number" min="0" value="0"></div><div class="field"><label>OTHER</label><input id="pfOther" type="number" min="0" value="0"></div><div class="field"><label>NOTE</label><input id="pfNote" class="upper"></div><div class="field"><label>ACTION</label><button class="btn green" onclick="saveProfit()">SAVE PROFIT ENTRY</button></div></div></div><div class="cards" style="margin-top:8px"><div class="card"><small>ACTUAL SALES</small><strong id="pfSalesTotal">₹0</strong></div><div class="card"><small>TOTAL COST / EXPENSE</small><strong id="pfCostTotal">₹0</strong></div><div class="card"><small>NET PROFIT</small><strong id="pfProfitTotal">₹0</strong></div><div class="card"><small>PROFIT %</small><strong id="pfPercent">0%</strong></div></div><div class="scroll"><table><thead><tr><th>DATE</th><th>ESTIMATE</th><th>DEALER</th><th>SALE</th><th>PURCHASE</th><th>COURIER</th><th>DELIVERY</th><th>PACKING</th><th>PAYMENT</th><th>OTHER</th><th>NET</th><th>ACTION</th></tr></thead><tbody id="profitRows"></tbody></table></div></div></section>
-<section id="drawings" class="section"><div class="panel"><div class="pTitle"><span class="tag purple">MACHINE DRAWINGS</span><b>EXPLODED VIEW / PART CODE LIBRARY</b></div><div class="sectionIntro">STORE MACHINE DRAWINGS BY BRAND + MODEL AND MAP DRAWING PART CODES TO TORVO ITEM NUMBERS.</div><div class="notice">STORE DRAWING AGAINST EXACT BRAND + MODEL. MAP DRAWING PART CODE TO TORVO ITEM NUMBER. IF DRAWING IS NOT AVAILABLE, DEALER SIDE CAN SHOW DRAWING NOT AVAILABLE.</div><div class="box bPurple"><div class="grid"><div class="field"><label>BRAND *</label><input id="drBrand" class="upper" list="brandList"></div><div class="field"><label>MODEL *</label><input id="drModel" class="upper" list="modelList"></div><div class="field"><label>DRAWING TITLE</label><input id="drTitle" class="upper"></div><div class="field"><label>DRAWING IMAGE</label><input id="drImage" type="file" accept="image/*" onchange="readDrawingImage(this.files[0])"></div><div class="field"><label>PDF NAME / URL</label><input id="drPdf"></div><div class="field"><label>VERSION</label><input id="drVersion" class="upper"></div></div><div id="drawingPreview" class="photoPreview"></div><div class="box bBlue" style="margin-top:8px"><div class="grid"><div class="field"><label>DRAWING PART CODE</label><input id="drCode" class="upper"></div><div class="field"><label>PART NAME</label><input id="drPartName" class="upper"></div><div class="field"><label>LINK TORVO ITEM NO.</label><input id="drItemNo" class="upper"></div></div><div class="toolbar"><button class="btn blue" onclick="addDrawingPart()">+ ADD PART CODE</button></div><div id="drawingPartChips" class="chips"></div></div><div class="toolbar"><button class="btn green" onclick="saveDrawing()">SAVE DRAWING</button></div></div><div class="toolbar"><input id="drawingSearch" class="grow upper" placeholder="SEARCH BRAND / MODEL / PART CODE..." oninput="renderDrawings()"></div><div id="drawingList"></div></div></section>
-<div class="box formBlock v23PhotoBlock"><div class="boxTitle">📷 MACHINE MODEL PHOTOS — UP TO 6</div><div class="sectionIntro">ONE MACHINE / MODEL RECORD CAN KEEP UP TO SIX PHOTOS. ADD CAPTION, PREVIEW, DELETE AND REORDER.</div><div class="v23PhotoGrid" id="v23MachinePhotoGrid"></div><div class="toolbar"><button class="btn" onclick="v23AddMachinePhoto()">+ ADD PHOTO</button><button class="btn light" onclick="v23RenderMachinePhotos()">REFRESH PREVIEW</button></div></div>
+<section id="drawings" class="section"><div class="panel"><div class="pTitle"><span class="tag purple">MACHINE DRAWINGS</span><b>EXPLODED VIEW / PART CODE LIBRARY</b></div><div class="sectionIntro">STORE MACHINE DRAWINGS BY BRAND + MODEL AND MAP DRAWING PART CODES TO TORVO ITEM NUMBERS.</div><div class="notice">STORE DRAWING AGAINST EXACT BRAND + MODEL. MAP DRAWING PART CODE TO TORVO ITEM NUMBER. IF DRAWING IS NOT AVAILABLE, DEALER SIDE CAN SHOW DRAWING NOT AVAILABLE.</div><div class="box bPurple"><div class="grid"><div class="field"><label>BRAND *</label><input id="drBrand" class="upper" list="brandList"></div><div class="field"><label>MODEL *</label><input id="drModel" class="upper" list="modelList"></div><div class="field"><label>DRAWING TITLE</label><input id="drTitle" class="upper"></div><div class="field"><label>PDF NAME / URL</label><input id="drPdf"></div><div class="field"><label>VERSION</label><input id="drVersion" class="upper"></div></div><div class="v25DrawingUploadBox">
+<div class="boxTitle">📷 DRAWING PHOTOS — UP TO 6</div>
+<div class="sectionIntro">UPLOAD 1 TO 6 DIFFERENT DRAWING / REFERENCE PHOTOS FOR THIS MACHINE MODEL.</div>
+<div id="v25DrawingSlots" class="v25DrawingSlots"></div>
+</div><div class="box bBlue" style="margin-top:8px"><div class="grid"><div class="field"><label>DRAWING PART CODE</label><input id="drCode" class="upper"></div><div class="field"><label>PART NAME</label><input id="drPartName" class="upper"></div><div class="field"><label>LINK TORVO ITEM NO.</label><input id="drItemNo" class="upper"></div></div><div class="toolbar"><button class="btn blue" onclick="addDrawingPart()">+ ADD PART CODE</button></div><div id="drawingPartChips" class="chips"></div></div><div class="toolbar"><button class="btn green" onclick="saveDrawing()">SAVE DRAWING</button></div></div><div class="toolbar"><input id="drawingSearch" class="grow upper" placeholder="SEARCH BRAND / MODEL / PART CODE..." oninput="renderDrawings()"></div><div id="drawingList"></div></div></section>
 <section id="ads" class="section"><div class="panel"><div class="pTitle"><span class="tag orange">ADS & PROMOTIONS</span><b>TORVO OWN BRAND + PRIORITY PRODUCTS</b></div><div class="sectionIntro">CONTROL WEBSITE ADS, TORVO OWN-BRAND PROMOTION, FEATURED PRODUCTS, PHOTOS, VIDEO, MESSAGE AND LINKS.</div><div class="notice">USE THIS TO HIGHLIGHT TORVO OWN BRAND, BEST SELLERS, SPARE PARTS, ACCESSORIES, NEW PRODUCTS AND OFFERS ON PUBLIC HOME PAGE OR DEALER DASHBOARD.</div><div class="box bOrange"><div class="grid"><div class="field"><label>AD TITLE *</label><input id="adTitle" class="upper"></div><div class="field"><label>TYPE</label><select id="adType"><option>TORVO OWN BRAND</option><option>BEST SELLER</option><option>SPARE PART RANGE</option><option>ACCESSORY</option><option>NEW PRODUCT</option><option>OFFER</option></select></div><div class="field"><label>PLACEMENT</label><select id="adPlace"><option>PUBLIC HOME PAGE</option><option>DEALER DASHBOARD</option><option>SPARE PART PAGE</option><option>ACCESSORIES PAGE</option><option>ALL PAGES</option></select></div><div class="field"><label>START DATE</label><input id="adStart" type="date"></div><div class="field"><label>END DATE</label><input id="adEnd" type="date"></div><div class="field"><label>STATUS</label><select id="adStatus"><option>ACTIVE</option><option>PAUSED</option><option>OFFLINE</option></select></div><div class="field"><label>IMAGE FILE</label><input id="adImage" type="file" accept="image/*"></div><div class="field"><label>VIDEO LINK</label><input id="adVideo"></div><div class="field"><label>PRODUCT / BUTTON LINK</label><input id="adLink"></div><div class="field full"><label>MESSAGE</label><textarea id="adMessage" class="upper" rows="3"></textarea></div></div><div class="toolbar"><button class="btn orange" onclick="saveAd()">SAVE AD</button></div></div><div id="adList"></div></div></section>
 <section id="homepage" class="section"><div class="panel"><div class="pTitle"><span class="tag blue">HOME PAGE CONTENT</span><b>WHO WE ARE + WHAT WE SELL</b></div><div class="sectionIntro">CONTROL HOME-PAGE CONTENT SO VISITORS UNDERSTAND WHO TORVO IS AND WHAT SPARES / ACCESSORIES ARE SOLD.</div><div class="box bBlue"><div class="grid"><div class="field"><label>SECTION TITLE *</label><input id="homeTitle" class="upper"></div><div class="field"><label>SECTION TYPE</label><select id="homeType"><option>ABOUT TORVO</option><option>SPARE PART RANGE</option><option>ACCESSORIES RANGE</option><option>TORVO OWN BRAND</option><option>FEATURED PRODUCT</option><option>VIDEO</option><option>DEALER BENEFIT</option><option>MESSAGE</option></select></div><div class="field"><label>STATUS</label><select id="homeStatus"><option>SHOW</option><option>HIDE</option></select></div><div class="field"><label>PHOTO FILE</label><input id="homePhoto" type="file" accept="image/*"></div><div class="field"><label>VIDEO LINK</label><input id="homeVideo"></div><div class="field"><label>BUTTON / LINK</label><input id="homeLink"></div><div class="field full"><label>CONTENT / MESSAGE</label><textarea id="homeText" class="upper" rows="4"></textarea></div></div><div class="toolbar"><button class="btn blue" onclick="saveHome()">SAVE HOME CONTENT</button></div></div><div id="homeList"></div></div></section>
 <section id="ai" class="section"><div class="panel"><div class="pTitle"><span class="tag purple">AI & API HUB</span><b>OPTIONAL FUTURE SMART FEATURES</b></div><div class="sectionIntro">OPTIONAL FUTURE AI / API CONNECTIONS. KEEP PAID AI OFF UNTIL THE CORE PORTAL AND DATABASE ARE STABLE.</div><div class="notice">NO PAID AI IS REQUIRED NOW. DO NOT PUT SECRET API KEYS DIRECTLY IN THIS HTML. LATER CONNECT AI THROUGH A SECURE BACKEND / SUPABASE EDGE FUNCTION.</div><div class="grid" style="margin-top:8px"><div class="smartCard"><b>📷 AI PHOTO SEARCH</b><div class="help">PHOTO → LIKELY SPARE PART SUGGESTIONS.</div></div><div class="smartCard"><b>🧩 AI DRAWING READER</b><div class="help">DRAWING / PART CODE → ITEM SUGGESTION.</div></div><div class="smartCard"><b>💬 AI DEALER HELP</b><div class="help">BASIC PRODUCT / SEARCH ASSISTANCE.</div></div><div class="smartCard"><b>📦 SMART REORDER</b><div class="help">STOCK + SALES SPEED → PURCHASE SUGGESTION.</div></div><div class="smartCard"><b>📈 SALES GAP ANALYSIS</b><div class="help">ORDER vs FINAL ESTIMATE SHORTFALL.</div></div><div class="smartCard"><b>🔌 FUTURE API CONNECTOR</b><div class="help">AI / COURIER / ACCOUNTING / OTHER APIs.</div></div></div><div class="box bPurple" style="margin-top:8px"><div class="grid"><div class="field"><label>AI MASTER STATUS</label><select id="aiStatus"><option>OFF</option><option>READY FOR FUTURE CONNECTION</option></select></div><div class="field"><label>PREFERRED PROVIDER</label><select id="aiProvider"><option>OPENAI</option><option>GEMINI</option><option>OTHER API</option></select></div><div class="field"><label>MODEL / PLAN NOTE</label><input id="aiModel" class="upper"></div><div class="field"><label>PHOTO SEARCH</label><select id="aiPhoto"><option>OFF</option><option>READY</option></select></div><div class="field"><label>DRAWING READER</label><select id="aiDrawing"><option>OFF</option><option>READY</option></select></div><div class="field"><label>DEALER HELP</label><select id="aiHelp"><option>OFF</option><option>READY</option></select></div><div class="field"><label>API BASE URL</label><input id="apiBase"></div><div class="field"><label>CONNECTOR NAME</label><input id="apiConnector" class="upper"></div><div class="field"><label>API STATUS</label><select id="apiStatus"><option>OFF</option><option>READY</option></select></div><div class="field full"><label>AI SAFETY RULE</label><textarea id="aiRule" class="upper" rows="3"></textarea></div></div><div class="toolbar"><button class="btn purple" onclick="saveAI()">SAVE AI / API SETTINGS</button></div></div></div></section>
@@ -1002,10 +1052,29 @@ Machines are not sold on this portal. Dealer website sales are only for Spare Pa
 
 
 <section id="dayWiseSale" class="section">
- <div class="panel"><div class="pTitle"><span class="tag blue">SALE HISTORY</span><b>ACTUAL FINAL SALE / PACKING SUMMARY</b></div>
+ <div class="panel"><div class="pTitle"><span class="tag blue">SALE HISTORY</span><b>ACTUAL BUSINESS / DELIVERY SUMMARY</b></div>
  <div class="toolbar"><label style="font-size:9px;font-weight:900">DATE (DD/MM/YYYY)&nbsp;<input id="daySaleDateV17" inputmode="numeric" maxlength="10" placeholder="25/10/2026"></label><button class="btn blue" type="button" onclick="renderDayWiseSaleV17()">VIEW DAY</button><button class="btn dark" type="button" onclick="openSection('reports');setTimeout(function(){openReportV16('DAY_WISE_SALE')},50)">OPEN IN REPORTS</button></div>
  <div id="daySaleResultV17"></div></div>
 </section>
+
+<section id="marketAdd" class="section"><div class="panel">
+<div class="pTitle"><span class="tag red">MARKET ADD</span><b>MARKETING & AD CONTROL CENTER</b></div>
+<div class="sectionIntro">MANAGE PROMOTION, AD PLATFORMS, VOICE CAMPAIGNS AND FUTURE SECURE API CONNECTIONS FROM ONE PLACE.</div>
+<div class="v25MarketGrid">
+<button onclick="v25MarketOpen('marketPromotion')"><span>📣</span><b>ADD PROMOTION</b><small>Offers • banners • product promotion</small></button>
+<button onclick="v25MarketOpen('marketAI')"><span>🤖</span><b>AI & API HUB</b><small>Secure future integrations</small></button>
+<button onclick="v25MarketOpen('marketMeta')"><span>Ⓜ️</span><b>META ADS</b><small>Meta campaign control</small></button>
+<button onclick="v25MarketOpen('marketFacebook')"><span>📘</span><b>FACEBOOK ADS</b><small>Facebook campaign setup</small></button>
+<button onclick="v25MarketOpen('marketInstagram')"><span>📸</span><b>INSTAGRAM ADS</b><small>Instagram campaign setup</small></button>
+<button onclick="v25MarketOpen('marketYoutube')"><span>▶️</span><b>YOUTUBE ADS</b><small>Video campaign control</small></button>
+<button onclick="v25MarketOpen('marketGoogle')"><span>🔎</span><b>GOOGLE ADS</b><small>Search / display campaign</small></button>
+<button onclick="v25MarketOpen('marketWhatsapp')"><span>💬</span><b>WHATSAPP MARKETING</b><small>Dealer campaign preparation</small></button>
+<button onclick="v25MarketOpen('marketVoice')"><span>🎙️</span><b>VOICE AD</b><small>Upload / record campaign voice</small></button>
+<button onclick="v25MarketOpen('marketCampaign')"><span>📊</span><b>CAMPAIGN MANAGER</b><small>Campaign status & history</small></button>
+</div>
+<div id="v25MarketModule" class="v25MarketModule"></div>
+</div></section>
+
 <section id="reports" class="section reportsV16">
 <div class="reportsTopV16"><div><h2>▦ REPORTS CONTROL CENTER</h2><p>SEARCH, OPEN AND MANAGE ALL BUSINESS REPORTS.</p></div></div>
 <div id="reportsHomeV16">
@@ -1039,8 +1108,8 @@ Machines are not sold on this portal. Dealer website sales are only for Spare Pa
 <option value="setHome">🏠 HOME PAGE</option><option value="setSound">🔊 SOUND & ALERTS</option><option value="setDisplay">🖥 DISPLAY & LAYOUT</option>
 <option value="setStock">📦 INVENTORY & STOCK</option><option value="setDealer">👥 DEALER CONTROL</option><option value="setOrder">🧾 ORDER & ESTIMATE</option>
 <option value="setDelivery">🚚 DELIVERY</option><option value="setSearch">🔎 SEARCH & DROPDOWNS</option><option value="setSecurity">🔐 SECURITY</option>
-<option value="setBackup">💾 BACKUP & RESTORE</option><option value="setMachine">🛠 MACHINE REFERENCE</option><option value="setPromotionV15">📣 ADD PROMOTION</option>
-<option value="setAIV15">🤖 AI & API HUB</option><option value="setUpdateV15">⬆ UPDATE CENTER</option><option value="setVerifyV15">🩺 VERIFY SYSTEM</option>
+<option value="setBackup">💾 BACKUP & RESTORE</option><option value="setMachine">🛠 MACHINE REFERENCE</option>
+<option value="setUpdateV15">⬆ UPDATE CENTER</option><option value="setVerifyV15">🩺 VERIFY SYSTEM</option>
 <option value="adminProfile">👤 ADMIN ACCOUNT</option></select></div>
 <div id="settingsApps" class="settingsApps">
 <button onclick="settingsOpen('setHome')"><span>🏠</span><b>HOME PAGE</b><small>Logo, photos, banners, contact & content</small></button>
@@ -1054,8 +1123,8 @@ Machines are not sold on this portal. Dealer website sales are only for Spare Pa
 <button onclick="settingsOpen('setSecurity')"><span>🔐</span><b>SECURITY</b><small>Delete protection & activity</small></button>
 <button id="backupTileV16" onclick="settingsOpen('setBackup')"><span>💾</span><b>BACKUP & RESTORE</b><small id="backupTileTextV16">Full system backup and recovery</small><i id="backupBadgeV16" class="v16DueBadge">BACKUP DUE</i></button>
 <button onclick="settingsOpen('setMachine')"><span>🛠</span><b>MACHINE REFERENCE</b><small>Photos, suitable parts & drawings</small></button>
-<button onclick="settingsOpen('setPromotionV15')"><span>📣</span><b>ADD PROMOTION</b><small>Offers, banners, photos, dates & visibility</small></button>
-<button onclick="settingsOpen('setAIV15')"><span>🤖</span><b>AI & API HUB</b><small>AI tools, camera search & integrations</small></button>
+
+
 <button onclick="settingsOpen('setUpdateV15')"><span>⬆</span><b>UPDATE CENTER</b><small>Version, update notes & history</small></button>
 <button id="verifyTileV15" onclick="settingsOpen('setVerifyV15')"><span>🩺</span><b>VERIFY SYSTEM</b><small id="verifyTextV15">System health check</small><i id="verifyBadgeV15" class="v15Badge">CHECK DUE</i></button>
 <button onclick="openAdminProfile()"><span>👤</span><b>ADMIN ACCOUNT</b><small>Profile and secure account controls</small></button>
@@ -1118,7 +1187,6 @@ Machines are not sold on this portal. Dealer website sales are only for Spare Pa
 
 <div class="rightNavStart">
 
-<div id="v24AdminStatusBox" class="v24AdminStatusBox"><div class="v24AdminHead"><b>ADMIN ACTIVE</b><span id="v24LiveDot">● ONLINE</span></div><div class="v24AdminTime" id="v24AdminClock">--:--:--</div><div class="v24AdminDate" id="v24AdminDate">--/--/----</div><div class="v24AdminMeta">LOGIN <span id="v24AdminLogin">--:--</span> • SESSION <span id="v24SessionAge">0m</span></div><button class="v24HistoryBtn" onclick="openSection('adminSessionHistory',this)">HISTORY</button></div>
 <button class="rnav v21BadgeBtn" onclick="openSection('dealerRequests',this)"><span class="navIcon">🆕</span> DEALER REQUEST <em id="v22NavDealerBadge" class="v21Badge">0</em></button>
 <button class="rnav v21BadgeBtn" onclick="openSection('chat',this)"><span class="navIcon">💬</span> DEALER CHAT <em id="v22NavChatBadge" class="v21Badge">0</em></button>
 <button class="rnav v21BadgeBtn" onclick="openSection('orders',this)"><span class="navIcon">▤</span> SALES ORDER <em id="v21NavOrderBadge" class="v21Badge">0</em></button>
@@ -1126,11 +1194,18 @@ Machines are not sold on this portal. Dealer website sales are only for Spare Pa
 <button class="rnav v21BadgeBtn" onclick="openSection('delivery',this)"><span class="navIcon">🚚</span> DELIVERY <em id="v21NavDeliveryBadge" class="v21Badge">0</em></button>
 
 
+<button class="rnav v21BadgeBtn" onclick="openSection('inquiries',this)"><span class="navIcon">📨</span> ENQUIRY <em id="v25NavInquiryBadge" class="v21Badge">0</em></button>
+<button class="rnav" onclick="openSection('dayWiseSale',this)"><span class="navIcon">📊</span> SALE HISTORY</button>
 <button class="rnav" onclick="openSection('points',this)"><span class="navIcon">◆</span> DEALER POINT</button>
 
 
 
 <button class="rnav" onclick="openSection('dealers',this)"><span class="navIcon">♟</span> DEALER CONTROL</button>
+<div id="v24AdminStatusBox" class="v24AdminStatusBox v25CompactAdmin">
+<span id="v24LiveDot">● ONLINE</span><span id="v24AdminClock">--:--:--</span><span id="v24SessionAge">0m</span>
+<button class="v24HistoryBtn" onclick="openSection('adminSessionHistory',this)">HISTORY</button>
+<span id="v24AdminDate" style="display:none"></span><span id="v24AdminLogin" style="display:none"></span>
+</div>
 </div>
 </aside>
 </div>
@@ -1166,7 +1241,7 @@ function toast(t,type){var x=E("toast");clearTimeout(toastTimer);x.textContent=U
 function saveDB(){localStorage.setItem(KEY,JSON.stringify(DB));refreshAll()}
 function logActivity(t){DB.activity.unshift({time:new Date().toLocaleString(),text:U(t)});DB.activity=DB.activity.slice(0,100)}
 
-var titles={dashboard:"TORVO DASHBOARD",machines:"MACHINES",spares:"ADD SPARE PART",accessories:"ADD ACCESSORY",itemmaster:"ITEM MASTER",suitable:"SUITABLE SEARCH",orders:"SALES ORDERS",estimates:"ESTIMATES",delivery:"DELIVERY & TRACKING",customers:"CUSTOMER HISTORY",dealers:"DEALER MANAGEMENT",inquiries:"INQUIRY CENTER",journey:"30-DAY DEALER JOURNEY",chat:"DEALER CHAT",points:"DEALER POINT",salesReport:"SALES REPORT",profit:"PROFIT / INCOME",drawings:"MACHINE DRAWINGS",ads:"ADS & PROMOTIONS",homepage:"HOME PAGE CONTENT",ai:"AI & API HUB",updates:"UPDATE CENTER",reports:"REPORTS CENTER",settings:"SETTINGS",verify:"SYSTEM VERIFY",paymentReceived:"PAYMENT RECEIVED",finalSale:"FINAL SALE & PACKING",dayWiseSale:"SALE HISTORY"};
+var titles={dashboard:"TORVO DASHBOARD",machines:"MACHINES",spares:"ADD SPARE PART",accessories:"ADD ACCESSORY",itemmaster:"ITEM MASTER",suitable:"SUITABLE SEARCH",orders:"SALES ORDERS",estimates:"ESTIMATES",delivery:"DELIVERY & TRACKING",customers:"CUSTOMER HISTORY",dealers:"DEALER MANAGEMENT",inquiries:"INQUIRY CENTER",journey:"30-DAY DEALER JOURNEY",chat:"DEALER CHAT",points:"DEALER POINT",salesReport:"SALES REPORT",profit:"PROFIT / INCOME",drawings:"MACHINE DRAWINGS",ads:"ADS & PROMOTIONS",homepage:"HOME PAGE CONTENT",ai:"AI & API HUB",updates:"UPDATE CENTER",reports:"REPORTS CENTER",settings:"SETTINGS",marketAdd:"MARKET ADD",verify:"SYSTEM VERIFY",paymentReceived:"PAYMENT RECEIVED",finalSale:"FINAL SALE & PACKING",dayWiseSale:"SALE HISTORY"};
 function openSection(id,btn){
  if(id==="settings")setTimeout(function(){settingsHome();loadV14()},0);
  if(id==="inventory")setTimeout(renderInventory,0);
@@ -2134,8 +2209,8 @@ function searchDealerHistoryV17(){var q=N(E("dealerHistorySearchV17").value);if(
 
 // Replace reports with clean app-style choices. Dealer Journey and Customer History merge into Dealer History.
 REPORTS_V16=[
-["📊","SALE HISTORY","DAY_WISE_SALE","Date-wise actual final sale, bills and dispatch"],
-["💰","FINAL SALE","SALES","Actual sale from Final Sale & Packing only"],["🧾","ORDER VS ESTIMATE","ORDER_ESTIMATE","Order demand compared with estimate"],["⏳","PENDING / UNFULFILLED","PENDING","Pending business before final sale"],
+["📊","SALE HISTORY","DAY_WISE_SALE","Date-wise actual business, delivery activation and dispatch"],
+["🧾","ORDER VS ESTIMATE","ORDER_ESTIMATE","Order demand compared with estimate"],["⏳","PENDING / UNFULFILLED","PENDING","Pending business before final sale"],
 ["📈","PROFIT / INCOME","PROFIT","Final sale less purchase and business costs"],["💸","EXPENSES","EXPENSE","Courier, delivery, packing, gateway and other costs"],["📦","INVENTORY / STOCK","STOCK","Current inventory and stock position"],["⚠️","REORDER / LOW STOCK","REORDER","Items at or below minimum stock"],
 ["🏷️","ITEMS","ITEMS","Complete item / product master"],["⚙️","SPARE PARTS","SPARES","Spare parts master and stock"],["🧰","ACCESSORIES","ACCESSORIES","Accessories master and stock"],["🛠️","MACHINE","MACHINES","Machine reference / identification master"],["🔗","SUITABLE MAPPING","SUITABLE","Spare part to machine compatibility"],
 ["👥","DEALER / CUSTOMER","DEALERS","Dealer master, status and rate group"],["🏆","DEALER PERFORMANCE","DEALER_PERFORMANCE","Dealer order, final sale and performance"],["👤","DEALER HISTORY","DEALER_HISTORY","One dealer or all dealers — lifetime admin history"],["🎁","DEALER POINTS & REWARDS","POINTS_REWARDS","Reward points balance, earn, redeem and history"],
@@ -2498,5 +2573,114 @@ window.v24WhatsAppDealer=function(){var n=phone24();if(n.length<11)return toast(
 window.v24CallDealer=function(){var n=phone24();if(n.length<11)return toast("VALID MOBILE REQUIRED","error");location.href="tel:+"+n}
 var ac24=null;window.v24LoudClick=function(){try{ac24=ac24||new(window.AudioContext||window.webkitAudioContext)();if(ac24.state==="suspended")ac24.resume();var o=ac24.createOscillator(),g=ac24.createGain();o.frequency.value=650;g.gain.setValueAtTime(.14,ac24.currentTime);g.gain.exponentialRampToValueAtTime(.001,ac24.currentTime+.12);o.connect(g);g.connect(ac24.destination);o.start();o.stop(ac24.currentTime+.13)}catch(e){}};document.addEventListener("click",function(e){if(e.target.closest&&e.target.closest("button"))v24LoudClick()},true);setTimeout(v24RenderTrash,500);
 })();</script>
+
+<script id="torvo-v25-js">
+(function(){
+function V25(id){return document.getElementById(id)}
+function esc25(x){return String(x==null?"":x).replace(/[&<>"']/g,function(c){return{"&":"&amp;","<":"&lt;",">":"&gt;",'"':"&quot;","'":"&#39;"}[c]})}
+
+/* ADD ITEM cards use the real existing sections. This overrides the old double-push helper. */
+window.v23OpenChild=function(id){ if(["machines","spares","accessories"].indexOf(id)<0)return; openSection(id); };
+
+/* Internal browser history: one entry per section, never push again during popstate. */
+var v25BaseOpen=window.openSection, v25Popping=false;
+if(typeof v25BaseOpen==="function"){
+ window.openSection=function(id,btn){
+   var target=V25(id); if(!target)return;
+   var r=v25BaseOpen.call(this,id,btn);
+   if(!v25Popping && (!history.state || history.state.torvoSection!==id)){
+     history.pushState({torvoSection:id},"","#"+id);
+   }
+   return r;
+ };
+ window.addEventListener("popstate",function(e){
+   var id=e.state&&e.state.torvoSection;
+   if(id&&V25(id)){v25Popping=true;try{v25BaseOpen(id)}finally{v25Popping=false}}
+ });
+ var active=document.querySelector(".section.active");
+ history.replaceState({torvoSection:active?active.id:"dashboard"},"","#"+(active?active.id:"dashboard"));
+}
+
+/* Exactly six separate drawing photo slots, only in Machine Drawing. */
+if(!DB.drawingPhotoDraft)DB.drawingPhotoDraft=[];
+function render25DrawSlots(){
+ var host=V25("v25DrawingSlots");if(!host)return;
+ var a=DB.drawingPhotoDraft||[];
+ host.innerHTML=Array.from({length:6},function(_,i){
+   var p=a[i];
+   return '<div class="v25DrawSlot"><b>PHOTO '+(i+1)+'</b>'+
+   (p?'<img src="'+esc25(p.data)+'"><input class="upper" value="'+esc25(p.caption||("PHOTO "+(i+1)))+'" onchange="v25DrawCaption('+i+',this.value)"><div class="toolbar"><button class="mini" onclick="v25ChooseDrawPhoto('+i+')">REPLACE</button><button class="mini red" onclick="v25DeleteDrawPhoto('+i+')">DELETE</button></div>':
+   '<div class="empty" style="margin:8px 0">NO PHOTO</div><button class="btn light" onclick="v25ChooseDrawPhoto('+i+')">+ UPLOAD PHOTO '+(i+1)+'</button>')+'</div>'
+ }).join("");
+}
+window.v25ChooseDrawPhoto=function(i){var f=document.createElement("input");f.type="file";f.accept="image/*";f.onchange=function(){var file=f.files&&f.files[0];if(!file)return;var r=new FileReader();r.onload=function(){DB.drawingPhotoDraft=DB.drawingPhotoDraft||[];DB.drawingPhotoDraft[i]={data:r.result,caption:"PHOTO "+(i+1)};saveDB();render25DrawSlots()};r.readAsDataURL(file)};f.click()}
+window.v25DeleteDrawPhoto=function(i){if(!confirm("DELETE PHOTO "+(i+1)+" ?"))return;DB.drawingPhotoDraft=DB.drawingPhotoDraft||[];delete DB.drawingPhotoDraft[i];saveDB();render25DrawSlots()}
+window.v25DrawCaption=function(i,v){if(DB.drawingPhotoDraft&&DB.drawingPhotoDraft[i]){DB.drawingPhotoDraft[i].caption=String(v||"").toUpperCase();saveDB()}}
+
+/* Save the six drawing photos into the drawing record without changing the old drawing save workflow. */
+var oldSaveDrawing25=window.saveDrawing;
+if(typeof oldSaveDrawing25==="function"){
+ window.saveDrawing=function(){
+   var b=(V25("drBrand")&&V25("drBrand").value||"").trim().toUpperCase(),m=(V25("drModel")&&V25("drModel").value||"").trim().toUpperCase();
+   oldSaveDrawing25();
+   if(b&&m){
+     var rec=(DB.drawings||[]).find(function(x){return String(x.brand||"").toUpperCase()===b&&String(x.model||"").toUpperCase()===m});
+     if(rec){rec.photos=(DB.drawingPhotoDraft||[]).filter(Boolean);saveDB()}
+   }
+ };
+}
+
+/* MARKET ADD */
+var market25={
+ marketPromotion:["📣 ADD PROMOTION","CREATE PROMOTION / OFFER CONTENT. BANNER AND PRODUCT MEDIA CAN BE CONNECTED TO SUPABASE STORAGE IN PRODUCTION."],
+ marketAI:["🤖 AI & API HUB","KEEP API KEYS / SECRETS OUT OF HTML. PRODUCTION CONNECTIONS WILL USE SECURE BACKEND / SUPABASE EDGE FUNCTIONS."],
+ marketMeta:["Ⓜ️ META ADS","META CAMPAIGN PREPARATION AND STATUS CONTROL."],
+ marketFacebook:["📘 FACEBOOK ADS","FACEBOOK AD CAMPAIGN PREPARATION."],
+ marketInstagram:["📸 INSTAGRAM ADS","INSTAGRAM AD CAMPAIGN PREPARATION."],
+ marketYoutube:["▶️ YOUTUBE ADS","YOUTUBE VIDEO CAMPAIGN PREPARATION."],
+ marketGoogle:["🔎 GOOGLE ADS","GOOGLE SEARCH / DISPLAY CAMPAIGN PREPARATION."],
+ marketWhatsapp:["💬 WHATSAPP MARKETING","PREPARE DEALER WHATSAPP CAMPAIGN. ACTUAL BULK/API SENDING REQUIRES APPROVED SECURE INTEGRATION."],
+ marketVoice:["🎙️ VOICE AD","UPLOAD OR RECORD A VOICE CREATIVE, NAME THE CAMPAIGN AND SAVE IT FOR MARKETING USE."],
+ marketCampaign:["📊 CAMPAIGN MANAGER","VIEW AND MANAGE SAVED MARKETING CAMPAIGN NOTES / STATUS."]
+};
+window.v25MarketOpen=function(k){
+ var h=V25("v25MarketModule"),x=market25[k];if(!h||!x)return;
+ var extra=k==="marketVoice"?'<div class="grid"><div class="field"><label>CAMPAIGN NAME</label><input id="v25VoiceName" class="upper"></div><div class="field"><label>VOICE FILE</label><input id="v25VoiceFile" type="file" accept="audio/*"></div><div class="field"><label>STATUS</label><select id="v25VoiceStatus"><option>DRAFT</option><option>READY</option></select></div><div class="field full"><label>NOTE / SCRIPT</label><textarea id="v25VoiceNote" class="upper"></textarea></div></div><div class="toolbar"><button class="btn green" onclick="v25SaveMarketNote(\'VOICE AD\')">SAVE VOICE CAMPAIGN</button></div>':
+ '<div class="grid"><div class="field"><label>CAMPAIGN / CONTROL NAME</label><input id="v25MarketName" class="upper"></div><div class="field"><label>STATUS</label><select id="v25MarketStatus"><option>OFF</option><option>DRAFT</option><option>READY</option></select></div><div class="field full"><label>NOTE</label><textarea id="v25MarketNote" class="upper"></textarea></div></div><div class="toolbar"><button class="btn green" onclick="v25SaveMarketNote(\''+x[0].replace(/^[^ ]+ /,"")+'\')">SAVE & APPLY</button></div>';
+ h.innerHTML='<div class="v25MarketPanel"><div class="toolbar"><button class="btn light" onclick="v25MarketHome()">← MARKET ADD</button></div><h3>'+x[0]+'</h3><div class="notice">'+x[1]+'</div>'+extra+'</div>';
+}
+window.v25MarketHome=function(){if(V25("v25MarketModule"))V25("v25MarketModule").innerHTML=""}
+window.v25SaveMarketNote=function(type){DB.marketCampaigns=DB.marketCampaigns||[];DB.marketCampaigns.unshift({id:"MKT-"+Date.now(),type:type,date:new Date().toLocaleString("en-IN")});saveDB();if(typeof toast==="function")toast(type+" SAVED","success")}
+
+/* Sound substantially louder than V24. Settings can still master-disable sounds. */
+var ac25=null;
+window.v25StrongSound=function(kind){
+ try{
+  ac25=ac25||new(window.AudioContext||window.webkitAudioContext)();if(ac25.state==="suspended")ac25.resume();
+  var o=ac25.createOscillator(),g=ac25.createGain(),f={click:680,success:900,error:240,alert:420}[kind]||680;
+  o.type="sine";o.frequency.value=f;g.gain.setValueAtTime(.28,ac25.currentTime);g.gain.exponentialRampToValueAtTime(.001,ac25.currentTime+.13);o.connect(g);g.connect(ac25.destination);o.start();o.stop(ac25.currentTime+.14);
+ }catch(e){}
+}
+document.addEventListener("click",function(e){if(e.target.closest&&e.target.closest("button"))v25StrongSound("click")},true);
+
+/* Auto-sync complete color: normal green -> syncing teal -> complete purple -> green. */
+function paint25Sync(){
+ var el=V25("v22AutoSync");if(!el)return;
+ var text=el.textContent||"";
+ el.classList.remove("v25Normal","v25Syncing","v25Updated");
+ if(text.indexOf("UPDATED")>=0){el.classList.add("v25Updated")}
+ else if(text.indexOf("SYNCING")>=0){el.classList.add("v25Syncing")}
+ else{el.classList.add("v25Normal")}
+}
+var obsEl=V25("v22AutoSync");
+if(obsEl){new MutationObserver(function(){paint25Sync()}).observe(obsEl,{childList:true,characterData:true,subtree:true});paint25Sync()}
+
+/* Update inquiry badge on right. */
+function badge25(){var n=(DB.inquiries||[]).filter(function(x){return !/DONE|CLOSED|REJECT/i.test(x.status||"")}).length;if(V25("v25NavInquiryBadge"))V25("v25NavInquiryBadge").textContent=n}
+setInterval(badge25,5000);badge25();
+setTimeout(render25DrawSlots,400);
+})();
+</script>
+
 </body>
 </html>
