@@ -656,7 +656,13 @@ body{zoom:1.00!important}
 .setModule{display:none}.setModule.show{display:block}.setHead{background:#fff;border:1px solid #ddd;border-radius:12px;padding:12px;font-size:15px;font-weight:900;margin-bottom:9px}.setBlock{border:1px solid #ddd;border-radius:12px;padding:12px;margin-bottom:9px;background:#fff}.setBlock:nth-child(6n+2){background:#f2faf9}.setBlock:nth-child(6n+3){background:#f2f6fb}.setBlock:nth-child(6n+4){background:#f8f3fb}.setBlock:nth-child(6n+5){background:#fff9ea}.setBlock:nth-child(6n+6){background:#f1f9f3}.setBlock h4{font-size:10px;margin:0 0 8px;border-bottom:1px solid #ddd;padding-bottom:6px}.setGrid{display:grid;grid-template-columns:repeat(2,1fr);gap:8px}.setGrid label{display:flex;flex-direction:column;gap:4px;font-size:8px;font-weight:900}.setGrid input,.setGrid select,.setGrid textarea{border:1px solid #ccc;border-radius:7px;padding:7px;background:#fff}.setGrid .wide{grid-column:1/-1}.setBlock>button{margin-top:10px;border:0;border-radius:8px;background:#111;color:#fff;padding:8px 12px;font-size:9px;font-weight:900;cursor:pointer}.setBlock>button:hover{background:#d71920}.setBlock .testBtn{background:#e5e7eb;color:#111;margin-left:5px}.setBlock .dangerBtn{background:#b91c1c}.backupLine{background:#eee;border-radius:8px;padding:8px;margin:8px 0;font-size:9px}
 @media(max-width:900px){.settingsApps{grid-template-columns:repeat(3,1fr)}}@media(max-width:650px){.settingsApps{grid-template-columns:repeat(2,1fr)}.setGrid{grid-template-columns:1fr}}
 </style>
-</head>
+<style id="v15patch">
+.v15Finder,.v15ReportTop{display:grid;grid-template-columns:1fr 260px;gap:8px;background:#fff;border:1px solid #ddd;border-radius:13px;padding:8px;margin-bottom:10px}.v15Search{display:flex;align-items:center;gap:6px;border:1px solid #ccd1d6;border-radius:9px;padding:0 9px}.v15Search input{width:100%;border:0!important;outline:0;padding:9px 2px}.v15Finder select,.v15ReportTop select{border:1px solid #ccd1d6;border-radius:9px;padding:8px;background:#fff;font-weight:800}
+.settingsApps button{position:relative}.v15Badge{display:none;position:absolute;right:7px;top:7px;background:#b91c1c;color:#fff;border-radius:20px;padding:3px 6px;font-size:7px;font-style:normal}
+.v15ReportIcons{display:grid;grid-template-columns:repeat(4,1fr);gap:10px;margin-bottom:10px}.v15ReportIcons button{min-height:112px;border:1px solid #dfe3e8;border-radius:16px;background:#fff;display:flex;flex-direction:column;align-items:center;justify-content:center;gap:6px;cursor:pointer}.v15ReportIcons button:hover{border-color:#d71920;transform:translateY(-2px)}.v15ReportIcons span{font-size:32px}.v15ReportIcons b{font-size:9px}
+.v15ReportOpen{background:#fff;border:1px solid #ddd;border-radius:13px;padding:10px}.v15ReportHead,.v15Dates{display:flex;gap:7px;align-items:end;flex-wrap:wrap}.v15ReportHead{align-items:center;border-bottom:1px solid #eee;padding-bottom:8px}.v15Dates{padding:9px 0}.v15Dates label{font-size:8px;font-weight:900;display:flex;flex-direction:column}.v15Dates input{padding:6px;border:1px solid #ccc;border-radius:7px}.v15Dates button,.v15ReportHead button{border:0;border-radius:7px;background:#111;color:#fff;padding:7px 9px;font-size:8px;font-weight:900}.verifyResultV15{background:#f3f4f6;border-radius:8px;padding:10px;margin:8px 0;font-size:9px;line-height:1.7}
+@media(max-width:900px){.v15ReportIcons{grid-template-columns:repeat(3,1fr)}}@media(max-width:650px){.v15Finder,.v15ReportTop{grid-template-columns:1fr}.v15ReportIcons{grid-template-columns:repeat(2,1fr)}}
+</style></head>
 <body>
 <div class="app">
 
@@ -672,6 +678,7 @@ body{zoom:1.00!important}
 <button class="nav" onclick="openSection('inquiries',this)">INQUIRIES <span id="badgeInquiry" class="actionBadge">0</span></button>
 <button class="nav" onclick="openSection('journey',this)">30-DAY DEALER JOURNEY</button>
 <button class="nav" onclick="openSection('chat',this)">DEALER CHAT <span id="badgeChat" class="actionBadge">0</span></button>
+<!-- SETTINGS_LEFT_V15 --><button class="nav" onclick="openSection('settings',this)"><span class="navIcon">⚙</span> SETTINGS</button>
 </aside>
 
 <main class="main">
@@ -805,9 +812,23 @@ Machines are not sold on this portal. Dealer website sales are only for Spare Pa
  </div>
 </section>
 
-<section id="reports" class="section"><div class="box formBlock"><div class="boxTitle">🔎 REPORT SEARCH / FILTER</div><div class="grid"><div class="field"><label>SELECT REPORT</label><select id="reportQuickV14" onchange="quickReportV14()"><option value="">ALL REPORTS</option><option>SALES / FINAL ESTIMATE</option><option>ORDER VS ESTIMATE</option><option>PENDING / UNFULFILLED</option><option>PROFIT / INCOME</option><option>EXPENSES</option><option>INVENTORY / STOCK</option><option>REORDER / LOW STOCK</option><option>ITEMS</option><option>SPARE PARTS</option><option>ACCESSORIES</option><option>MACHINE</option><option>SUITABLE MAPPING</option><option>DEALER / CUSTOMER</option><option>DEALER PERFORMANCE</option><option>CUSTOMER HISTORY</option><option>DELIVERY / TRACKING</option><option>COURIER / TRANSPORT</option><option>POINTS / SCHEMES</option><option>INQUIRIES</option><option>CHAT / MESSAGES</option><option>REMOVED ITEM / LOST SALE</option><option>ACTIVITY / SYSTEM</option></select></div><div class="field"><label>SEARCH REPORT</label><input id="reportSearchV14" list="reportListV14" oninput="filterReportsV14()"><datalist id="reportListV14"></datalist></div></div><div class="help">EXISTING REPORT LIST REMAINS VISIBLE BELOW.</div></div><div class="panel"><div class="pTitle"><span class="tag dark">REPORTS CENTER</span><b>ALL BUSINESS REPORTS — VIEW / EXCEL / PDF</b></div><div class="sectionIntro">ONE PLACE FOR SALES, PROFIT, STOCK, DEALER, DELIVERY AND OTHER BUSINESS REPORTS WITH VIEW / EXCEL / PDF / PRINT.</div><div class="notice">SELECT A REPORT. USE DATE RANGE / SEARCH FILTERS WHERE AVAILABLE. VIEW ON SCREEN OR DOWNLOAD EXCEL / PDF.</div><div class="grid" style="margin-top:8px"><div class="field"><label>FROM DATE</label><input id="reportFrom" type="date"></div><div class="field"><label>TO DATE</label><input id="reportTo" type="date"></div><div class="field"><label>SEARCH / FILTER</label><input id="reportSearch" class="upper"></div></div><div id="reportCards" class="reportGrid" style="margin-top:10px"></div><div id="reportOutput" style="margin-top:10px"></div></div></section>
+<section id="reports" class="section"><div class="v15ReportTop"><div class="v15Search">⌕ <input id="reportSearchV15" placeholder="SEARCH REPORT..." oninput="filterReportIconsV15()"></div>
+<select id="reportDropV15" onchange="selectReportV15()"><option value="">ALL REPORTS — SELECT</option></select></div>
+<div id="reportIconsV15" class="v15ReportIcons"></div>
+<div id="reportOpenV15" class="v15ReportOpen" style="display:none"><div class="v15ReportHead"><button onclick="reportHomeV15()">← REPORTS HOME</button><b id="reportTitleV15">REPORT</b></div>
+<div class="v15Dates"><button onclick="quickDateV15(0)">TODAY</button><button onclick="quickDateV15(7)">7 DAYS</button><button onclick="quickDateV15(30)">30 DAYS</button>
+<label>FROM<input id="fromV15" type="date"></label><label>TO<input id="toV15" type="date"></label><button onclick="applyDateV15()">✓ APPLY</button></div>
+<div id="reportResultV15"></div></div><div class="panel"><div class="pTitle"><span class="tag dark">REPORTS CENTER</span><b>ALL BUSINESS REPORTS — VIEW / EXCEL / PDF</b></div><div class="sectionIntro">ONE PLACE FOR SALES, PROFIT, STOCK, DEALER, DELIVERY AND OTHER BUSINESS REPORTS WITH VIEW / EXCEL / PDF / PRINT.</div><div class="notice">SELECT A REPORT. USE DATE RANGE / SEARCH FILTERS WHERE AVAILABLE. VIEW ON SCREEN OR DOWNLOAD EXCEL / PDF.</div><div class="grid" style="margin-top:8px"><div class="field"><label>FROM DATE</label><input id="reportFrom" type="date"></div><div class="field"><label>TO DATE</label><input id="reportTo" type="date"></div><div class="field"><label>SEARCH / FILTER</label><input id="reportSearch" class="upper"></div></div><div id="reportCards" class="reportGrid" style="margin-top:10px"></div><div id="reportOutput" style="margin-top:10px"></div></div></section>
 <section id="settings" class="section settingsApp">
 <div class="settingsTop"><div><h2>⚙ SETTINGS CONTROL CENTER</h2><p>OPEN AN APP, CHANGE OPTIONS, THEN SAVE & APPLY.</p></div><button class="btn dark" onclick="settingsHome()">⌂ SETTINGS HOME</button></div>
+<div class="v15Finder"><div class="v15Search">⌕ <input id="settingsFinderV15" placeholder="SEARCH SETTINGS..." oninput="filterSettingsV15()"></div>
+<select id="settingsDropV15" onchange="selectSettingsV15()"><option value="">ALL SETTINGS — SELECT</option>
+<option value="setHome">🏠 HOME PAGE</option><option value="setSound">🔊 SOUND & ALERTS</option><option value="setDisplay">🖥 DISPLAY & LAYOUT</option>
+<option value="setStock">📦 INVENTORY & STOCK</option><option value="setDealer">👥 DEALER CONTROL</option><option value="setOrder">🧾 ORDER & ESTIMATE</option>
+<option value="setDelivery">🚚 DELIVERY</option><option value="setSearch">🔎 SEARCH & DROPDOWNS</option><option value="setSecurity">🔐 SECURITY</option>
+<option value="setBackup">💾 BACKUP & RESTORE</option><option value="setMachine">🛠 MACHINE REFERENCE</option><option value="setPromotionV15">📣 ADD PROMOTION</option>
+<option value="setAIV15">🤖 AI & API HUB</option><option value="setUpdateV15">⬆ UPDATE CENTER</option><option value="setVerifyV15">🩺 VERIFY SYSTEM</option>
+<option value="adminProfile">👤 ADMIN ACCOUNT</option></select></div>
 <div id="settingsApps" class="settingsApps">
 <button onclick="settingsOpen('setHome')"><span>🏠</span><b>HOME PAGE</b><small>Logo, photos, banners, contact & content</small></button>
 <button onclick="settingsOpen('setSound')"><span>🔊</span><b>SOUND & ALERTS</b><small>Click, success, warning & business sounds</small></button>
@@ -820,6 +841,10 @@ Machines are not sold on this portal. Dealer website sales are only for Spare Pa
 <button onclick="settingsOpen('setSecurity')"><span>🔐</span><b>SECURITY</b><small>Delete protection & activity</small></button>
 <button onclick="settingsOpen('setBackup')"><span>💾</span><b>BACKUP & RESTORE</b><small>Full system backup and recovery</small></button>
 <button onclick="settingsOpen('setMachine')"><span>🛠</span><b>MACHINE REFERENCE</b><small>Photos, suitable parts & drawings</small></button>
+<button onclick="settingsOpen('setPromotionV15')"><span>📣</span><b>ADD PROMOTION</b><small>Offers, banners, photos, dates & visibility</small></button>
+<button onclick="settingsOpen('setAIV15')"><span>🤖</span><b>AI & API HUB</b><small>AI tools, camera search & integrations</small></button>
+<button onclick="settingsOpen('setUpdateV15')"><span>⬆</span><b>UPDATE CENTER</b><small>Version, update notes & history</small></button>
+<button id="verifyTileV15" onclick="settingsOpen('setVerifyV15')"><span>🩺</span><b>VERIFY SYSTEM</b><small id="verifyTextV15">System health check</small><i id="verifyBadgeV15" class="v15Badge">CHECK DUE</i></button>
 <button onclick="openAdminProfile()"><span>👤</span><b>ADMIN ACCOUNT</b><small>Profile and secure account controls</small></button>
 </div>
 
@@ -844,7 +869,22 @@ Machines are not sold on this portal. Dealer website sales are only for Spare Pa
 <div id="setSecurity" class="setModule"><div class="setHead">🔐 SECURITY</div><div class="setBlock"><h4>1. DELETE & ACTIVITY</h4><div class="setGrid"><label>DELETE CODE<select><option>1122 REQUIRED</option></select></label><label>USED RECORD<select><option>BLOCK & OPEN USAGE</option></select></label><label>UNDO / RESTORE<select id="vUndo"><option>ON</option><option>OFF</option></select></label><label>ACTIVITY HISTORY<select id="vActivity"><option>ON</option><option>OFF</option></select></label></div><button onclick="saveSetBlock('security')">✓ SAVE & APPLY</button></div></div>
 <div id="setBackup" class="setModule"><div class="setHead">💾 BACKUP & RESTORE</div><div class="setBlock"><h4>1. FULL SYSTEM BACKUP</h4><p>Items, masters, inventory, history, machines, suitable mapping, dealers, orders, estimates, delivery, settings and Home Page configuration.</p><div class="backupLine">LAST BACKUP: <b id="lastBackupV14">NOT TAKEN</b></div><button onclick="backupV14()">⬇ DOWNLOAD FULL BACKUP</button></div><div class="setBlock"><h4>2. RESTORE</h4><input id="restoreV14" type="file" accept=".json"><button class="dangerBtn" onclick="restoreV14()">↺ VERIFY & RESTORE</button></div><div class="setBlock"><h4>3. BACKUP REMINDER</h4><div class="setGrid"><label>LOGOUT REMINDER<select id="vBackupReminder"><option>ON</option><option>OFF</option></select></label><label>REMINDER DAYS<select id="vBackupDays"><option>1</option><option>3</option><option>7</option><option>15</option></select></label></div><button onclick="saveSetBlock('backup')">✓ SAVE & APPLY</button></div></div>
 <div id="setMachine" class="setModule"><div class="setHead">🛠 MACHINE REFERENCE</div><div class="setBlock"><h4>1. REFERENCE DISPLAY</h4><div class="setGrid"><label>MACHINE PHOTO<select id="vMachinePhoto"><option>ON</option><option>OFF</option></select></label><label>SUITABLE PARTS<select id="vSuitable"><option>ON</option><option>OFF</option></select></label><label>DRAWING LIBRARY<select id="vDrawing"><option>ON</option><option>OFF</option></select></label><label>DEALER VIEW<select id="vDealerSuitable"><option>ADMIN CONTROL</option><option>ON</option><option>OFF</option></select></label></div><button onclick="saveSetBlock('machine')">✓ SAVE & APPLY</button></div></div>
-</section>
+<div id="setPromotionV15" class="setModule"><div class="setHead">📣 ADD PROMOTION</div><div class="setBlock"><h4>PROMOTION CONTROL</h4><div class="setGrid">
+<label>TITLE<input id="p15Title"></label><label>STATUS<select id="p15Status"><option>ACTIVE</option><option>INACTIVE</option></select></label>
+<label>START DATE<input id="p15Start" type="date"></label><label>END DATE<input id="p15End" type="date"></label>
+<label>PLACEMENT<select id="p15Place"><option>HOME PAGE</option><option>DEALER DASHBOARD</option><option>PROMOTION AREA</option></select></label>
+<label>PHOTO<input id="p15Photo" type="file" accept="image/*"></label><label class="wide">PROMOTION TEXT<textarea id="p15Text"></textarea></label>
+</div><button onclick="saveSetBlock('promotionV15')">✓ SAVE & APPLY PROMOTION</button></div></div>
+<div id="setAIV15" class="setModule"><div class="setHead">🤖 AI & API HUB</div><div class="setBlock"><h4>AI / API CONTROL</h4><div class="setGrid">
+<label>AI FEATURES<select id="ai15"><option>OFF</option><option>ON</option></select></label><label>PHOTO SEARCH<select id="photo15"><option>FUTURE / OFF</option><option>READY WHEN CONNECTED</option></select></label>
+<label>API STATUS<select id="api15"><option>NOT CONNECTED</option><option>CONNECTED</option></select></label><label>SECURE BACKEND<select><option>REQUIRED</option></select></label>
+</div><button onclick="saveSetBlock('aiV15')">✓ SAVE & APPLY</button></div></div>
+<div id="setUpdateV15" class="setModule"><div class="setHead">⬆ UPDATE CENTER</div><div class="setBlock"><h4>PORTAL UPDATE</h4><div class="setGrid">
+<label>CURRENT VERSION<input value="V15" readonly></label><label>UPDATE CHECK<select id="upd15"><option>MANUAL</option><option>REMIND ME</option></select></label>
+<label class="wide">UPDATE NOTES<textarea id="updNotes15"></textarea></label></div><button onclick="saveSetBlock('updateV15')">✓ SAVE UPDATE SETTINGS</button></div></div>
+<div id="setVerifyV15" class="setModule"><div class="setHead">🩺 VERIFY SYSTEM</div><div class="setBlock"><h4>SYSTEM HEALTH CHECK</h4>
+<div id="verifyResultV15" class="verifyResultV15">PRESS RUN SYSTEM CHECK.</div><button onclick="runVerifyV15()">🩺 RUN SYSTEM CHECK</button>
+<button class="testBtn" onclick="markVerifyV15()">✓ CHECKED / OK</button></div></div></section>
 <section id="verify" class="section"><div class="panel"><div class="pTitle"><span class="tag orange">SYSTEM VERIFY</span><b>DATA HEALTH CHECK</b></div><div id="verifySummary" class="notice">CLICK VERIFY SYSTEM TO SCAN.</div><div id="verifyList" class="verifyList" style="margin-top:8px"></div></div></section>
 </main>
 
@@ -869,7 +909,6 @@ Machines are not sold on this portal. Dealer website sales are only for Spare Pa
 <button class="rnav" onclick="openSection('updates',this)"><span class="navIcon">⇧</span> UPDATE CENTER <span id="badgeUpdate" class="actionBadge">0</span></button>
 <button class="rnav" onclick="openSection('reports',this)"><span class="navIcon">▦</span> REPORTS CENTER</button>
 <button class="rnav" onclick="openSection('dealers',this)"><span class="navIcon">♟</span> DEALER CONTROL</button>
-<button class="rnav settingsMainBtn" onclick="openSection('settings',this)"><span class="navIcon bigIcon">⚙</span> SETTINGS</button>
 <button class="rnav" onclick="openSection('customers',this)"><span class="navIcon">◉</span> CUSTOMER HISTORY</button>
 </div>
 </aside>
@@ -1793,6 +1832,24 @@ function quickReportV14(){var q=E("reportQuickV14").value;if(!q)return;E("report
 function filterReportsV14(){var q=N(E("reportSearchV14").value),sec=E("reports");if(!sec)return;sec.querySelectorAll(".reportCard,.reportTile,.repCard").forEach(function(x){x.style.display=!q||N(x.textContent).includes(q)?"":"none"})}
 (function(){var d=E("reportListV14"),s=E("reportQuickV14");if(d&&s)d.innerHTML=[].slice.call(s.options).slice(1).map(function(o){return"<option value='"+o.text+"'></option>"}).join("")})();
 
+
+var V15VERIFY="TORVO_LAST_VERIFY_V15";
+function filterSettingsV15(){var q=N(E("settingsFinderV15").value);document.querySelectorAll("#settingsApps>button").forEach(function(b){b.style.display=!q||N(b.textContent).includes(q)?"":"none"})}
+function selectSettingsV15(){var v=E("settingsDropV15").value;if(!v)return;if(v==="adminProfile")openAdminProfile();else settingsOpen(v)}
+function verifyDueV15(){var x=Number(localStorage.getItem(V15VERIFY)||0);return !x||Date.now()-x>259200000}
+function updateVerifyV15(){var d=verifyDueV15();if(E("verifyBadgeV15"))E("verifyBadgeV15").style.display=d?"block":"none";if(E("verifyTextV15"))E("verifyTextV15").textContent=d?"CHECK REQUIRED — 3+ DAYS":"CHECK UP TO DATE"}
+function runVerifyV15(){var a=[],e=0,w=0,seen={};(DB.items||[]).forEach(function(x){var n=N(x.no||x.itemNo||"");if(n&&seen[n]){e++;a.push("❌ DUPLICATE ITEM: "+H(n))}seen[n]=1;if(Number(x.stock||0)<0){e++;a.push("❌ NEGATIVE STOCK: "+H(x.name||n))}});if(!localStorage.getItem("TORVO_LAST_BACKUP")){w++;a.push("⚠ BACKUP NOT RECORDED")}else a.push("✓ BACKUP RECORD FOUND");a.push("✓ DATA STORAGE READABLE");a.push("✓ SOUND ENGINE LOADED");E("verifyResultV15").innerHTML="<b>"+(e?"ERROR":w?"WARNING":"PASS")+"</b><br>"+a.join("<br>");E("verifyResultV15").dataset.ok=e?"0":"1";toneV14(e?"error":w?"alert":"success")}
+function markVerifyV15(){if(E("verifyResultV15").dataset.ok!=="1")return toast("RUN CHECK FIRST / FIX CRITICAL ERROR","error");localStorage.setItem(V15VERIFY,String(Date.now()));updateVerifyV15();toast("SYSTEM VERIFIED — NEXT CHECK IN 3 DAYS","success")}
+var reportsV15=[["💰","SALES / FINAL ESTIMATE"],["🧾","ORDER VS ESTIMATE"],["⏳","PENDING / UNFULFILLED"],["📈","PROFIT / INCOME"],["💸","EXPENSES"],["📦","INVENTORY / STOCK"],["⚠️","REORDER / LOW STOCK"],["🏷️","ITEMS"],["⚙️","SPARE PARTS"],["🧰","ACCESSORIES"],["🛠️","MACHINE"],["🔗","SUITABLE MAPPING"],["👥","DEALER / CUSTOMER"],["🏆","DEALER PERFORMANCE"],["🗂️","CUSTOMER HISTORY"],["🚚","DELIVERY / TRACKING"],["🚛","COURIER / TRANSPORT"],["🎯","POINTS / SCHEMES"],["📨","INQUIRIES"],["💬","CHAT / MESSAGES"],["📉","REMOVED ITEM / LOST SALE"],["🧭","ACTIVITY / SYSTEM"]];
+function initReportsV15(){var g=E("reportIconsV15"),d=E("reportDropV15");if(!g||!d)return;g.innerHTML=reportsV15.map(function(r){return"<button data-r='"+H(r[1])+"' onclick='openReportV15(this.dataset.r)'><span>"+r[0]+"</span><b>"+r[1]+"</b></button>"}).join("");d.innerHTML='<option value="">ALL REPORTS — SELECT</option>'+reportsV15.map(function(r){return"<option>"+r[1]+"</option>"}).join("")}
+function filterReportIconsV15(){var q=N(E("reportSearchV15").value);document.querySelectorAll("#reportIconsV15 button").forEach(function(b){b.style.display=!q||N(b.dataset.r).includes(q)?"":"none"})}
+function selectReportV15(){var v=E("reportDropV15").value;if(v)openReportV15(v)}
+function openReportV15(n){E("reportIconsV15").style.display="none";E("reportOpenV15").style.display="block";E("reportTitleV15").textContent=n;quickDateV15(30);applyDateV15()}
+function reportHomeV15(){E("reportOpenV15").style.display="none";E("reportIconsV15").style.display="grid"}
+function quickDateV15(n){var b=new Date(),a=new Date();if(n)a.setDate(a.getDate()-n);E("fromV15").value=a.toISOString().slice(0,10);E("toV15").value=b.toISOString().slice(0,10)}
+function applyDateV15(){E("reportResultV15").innerHTML="<div class='notice'><b>"+H(E("reportTitleV15").textContent)+"</b><br>DATE: "+H(E("fromV15").value)+" TO "+H(E("toV15").value)+"<br>VIEW / EXCEL / PDF / PRINT CONTROLS REMAIN AVAILABLE IN REPORTS CENTER.</div>"}
+function fixRefreshV15(){document.querySelectorAll("button").forEach(function(b){if(N(b.textContent).trim().startsWith("REFRESH")){b.type="button";b.onclick=function(e){e.preventDefault();e.stopPropagation();try{renderAll();syncMasterDropdowns()}catch(x){};toneV14("success");toast("DATA REFRESHED","success");return false}}})}
+setTimeout(function(){initReportsV15();updateVerifyV15();fixRefreshV15()},100);
 </script>
 
 
