@@ -196,9 +196,6 @@
       box-shadow:0 2px 5px rgba(31,102,179,.15)!important;
     }
     .dealer-cart-btn.added{background:#16823b!important}
-    @media(max-width:1200px){
-      .status-six-grid{grid-template-columns:repeat(3,1fr)!important}
-    }
     @media(max-width:760px){
       .status-six-grid{grid-template-columns:repeat(2,1fr)!important}
       .cart-controls{grid-template-columns:minmax(0,1fr) 66px!important}
@@ -974,6 +971,30 @@
  .detail-photo-gallery .product-detail-photo{height:125px!important;font-size:48px!important}
 }
 
+
+/* ===== V15 COMPACT QUICK STATUS + HISTORY APPS + DEALER REQUEST/TARGET ===== */
+.status-six-grid{grid-template-columns:repeat(6,minmax(0,1fr))!important;gap:6px!important}
+.status-six-grid .status-app-card{min-width:0!important;min-height:84px!important;padding:6px 3px!important;border-radius:12px!important}
+.status-six-grid .status-app-icon{width:32px!important;height:32px!important;border-radius:9px!important;font-size:14px!important;margin:0 auto 3px!important}
+.status-six-grid .status-app-card strong{font-size:15px!important;margin-bottom:2px!important}
+.status-six-grid .status-app-card span{font-size:7.4px!important;line-height:1.08!important;white-space:normal!important}
+.status-six-grid .availability-status em{font-size:5.8px!important;margin-top:2px!important;padding:1px 4px!important}
+.quick-status-panel .section-head{margin-bottom:7px!important}
+.history-app-grid{display:grid!important;grid-template-columns:repeat(6,minmax(0,1fr))!important;gap:9px!important;margin:14px 0!important}
+.history-app-card{border:1px solid #e4e7ec!important;background:#fff!important;border-radius:15px!important;padding:10px 5px!important;min-height:105px!important;text-align:center!important;cursor:pointer!important}
+.history-app-card i{width:42px!important;height:42px!important;border-radius:13px!important;display:grid!important;place-items:center!important;margin:0 auto 7px!important;font-size:18px!important}
+.history-app-card b{display:block!important;font-size:9.5px!important;color:#17213b!important}.history-app-card span{display:block!important;font-size:8px!important;color:#667085!important;margin-top:3px!important}
+.history-app-card.blue i{background:#eaf2ff!important;color:#2674d9!important}.history-app-card.green i{background:#eaf8ef!important;color:#16823b!important}.history-app-card.orange i{background:#fff3e4!important;color:#e17c0e!important}.history-app-card.purple i{background:#f2ebff!important;color:#7b48c8!important}.history-app-card.cyan i{background:#e7f8fb!important;color:#1686a6!important}.history-app-card.red i{background:#ffecef!important;color:#d71920!important}
+.feedback-grid,.target-grid{display:grid!important;grid-template-columns:repeat(2,minmax(0,1fr))!important;gap:12px!important;margin-top:14px!important}
+.feedback-card,.target-card{border:1px solid #e4e7ec!important;border-radius:17px!important;background:#fff!important;padding:14px!important}
+.feedback-card h3,.target-card h3{margin:0 0 5px!important;font-size:14px!important}.feedback-card p,.target-card p{font-size:9.5px!important;color:#667085!important;line-height:1.5!important}
+.target-private{background:#f8fafc!important;border:1px solid #e4e7ec!important;border-radius:12px!important;padding:10px!important;margin-top:10px!important;font-size:9px!important;color:#475467!important;line-height:1.5!important}
+@media(max-width:760px){
+ .status-six-grid{grid-template-columns:repeat(2,1fr)!important}
+ .history-app-grid{grid-template-columns:repeat(2,1fr)!important}
+ .feedback-grid,.target-grid{grid-template-columns:1fr!important}
+}
+
 </style>
 <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.7.2/css/all.min.css">
 </head>
@@ -1179,7 +1200,7 @@
 </div>
     </div>
 <div class="dealer-layout"><aside class="dealer-sidebar">
-<button class="dealer-menu active" onclick="openDealerSection('home',this)"><span class="menu-icon">🏠</span> HOME</button><button class="dealer-menu" onclick="openDealerSection('products',this)"><span class="menu-icon">⚙️</span> PRODUCTS</button><button class="dealer-menu" onclick="openDealerSection('orders',this)"><span class="menu-icon">📦</span> MY ORDERS</button><button class="dealer-menu" onclick="openDealerSection('delivery',this)"><span class="menu-icon">🚚</span> DELIVERY</button><button class="dealer-menu" onclick="openDealerSection('points',this)"><span class="menu-icon">⭐</span><span>REWARD</span></button><button class="dealer-menu" onclick="openDealerSection('enquiry',this)"><span class="menu-icon">📷</span> PART ENQUIRY</button><button class="dealer-menu" onclick="openDealerSection('history',this)"><span class="menu-icon"><i class="fa-solid fa-clock-rotate-left"></i></span> HISTORY / REPORTS</button><button class="dealer-menu" onclick="openDealerSection('profile',this)"><span class="menu-icon">👤</span> PROFILE</button><button class="dealer-menu" onclick="openDealerSection('settings',this)"><span class="menu-icon"><i class="fa-solid fa-gear"></i></span> SETTINGS</button>
+<button class="dealer-menu active" onclick="openDealerSection('home',this)"><span class="menu-icon">🏠</span> HOME</button><button class="dealer-menu" onclick="openDealerSection('products',this)"><span class="menu-icon">⚙️</span> PRODUCTS</button><button class="dealer-menu" onclick="openDealerSection('orders',this)"><span class="menu-icon">📦</span> MY ORDERS</button><button class="dealer-menu" onclick="openDealerSection('delivery',this)"><span class="menu-icon">🚚</span> DELIVERY</button><button class="dealer-menu" onclick="openDealerSection('points',this)"><span class="menu-icon">⭐</span><span>REWARD</span></button><button class="dealer-menu" onclick="openDealerSection('enquiry',this)"><span class="menu-icon">📷</span> PART ENQUIRY</button><button class="dealer-menu" onclick="openDealerSection('feedback',this)"><span class="menu-icon"><i class="fa-solid fa-comment-dots"></i></span> FEEDBACK</button><button class="dealer-menu" onclick="openDealerSection('target',this)"><span class="menu-icon"><i class="fa-solid fa-bullseye"></i></span> MY TARGET</button><button class="dealer-menu" onclick="openDealerSection('history',this)"><span class="menu-icon"><i class="fa-solid fa-clock-rotate-left"></i></span> HISTORY</button><button class="dealer-menu" onclick="openDealerSection('profile',this)"><span class="menu-icon">👤</span> PROFILE</button><button class="dealer-menu" onclick="openDealerSection('settings',this)"><span class="menu-icon"><i class="fa-solid fa-gear"></i></span> SETTINGS</button>
 </aside><main class="dealer-main">
 <section id="dealer-home" class="dealer-section active">
 <div class="dealer-welcome compact-welcome"><div><h2>Welcome to TORVO B2B</h2><p>Dealer portal preview • Search, order and track in one place.</p></div><div class="rate-chip">PREVIEW • RATE GROUP A</div></div>
@@ -1263,21 +1284,59 @@
 <div class="form-field"><label>NOTE</label><textarea placeholder="Describe required part"></textarea></div>
 <button class="primary-btn enquiry-send-btn" onclick="demoEnquiry()"><i class="fa-solid fa-paper-plane"></i> SEND ENQUIRY</button>
 </div></div></section>
+<section id="dealer-feedback" class="dealer-section"><div class="dealer-panel">
+<h2><i class="fa-solid fa-comment-dots"></i> Dealer Feedback</h2>
+<p class="section-sub">Tell TORVO where we can improve our range, rate, stock or service.</p>
+<div class="feedback-grid">
+<div class="feedback-card"><h3>Send Feedback / Suggestion</h3><p>Select the closest category and write your requirement clearly.</p>
+<div class="form-field"><label>CATEGORY</label><select id="feedbackCategory"><option>Rate Issue</option><option>Stock / Quantity Issue</option><option>Product / Part Not Available</option><option>Brand / Company Request</option><option>Quality Issue</option><option>Service Suggestion</option><option>Other</option></select></div>
+<div class="form-field"><label>ITEM / PRODUCT (OPTIONAL)</label><input id="feedbackItem" placeholder="Item no. / product / model"></div>
+<div class="form-field"><label>YOUR FEEDBACK</label><textarea id="feedbackText" placeholder="Write your feedback or requirement"></textarea></div>
+<button class="primary-btn" onclick="submitDealerFeedback()">SEND TO TORVO</button></div>
+<div class="feedback-card"><h3>My Requests</h3><p>Your submitted feedback and product requests will appear here with status after backend connection.</p>
+<div class="history-row"><b>STATUS</b><div><strong>No submitted request yet</strong><small>Received → Reviewing → Arranged / Resolved</small></div><span class="history-tag">PREVIEW</span></div>
+</div></div></div></section>
+
+<section id="dealer-target" class="dealer-section"><div class="dealer-panel">
+<h2><i class="fa-solid fa-bullseye"></i> My Target</h2>
+<p class="section-sub">Submit your preferred purchase target. TORVO will privately review and approve dealer-specific benefits.</p>
+<div class="target-grid">
+<div class="target-card"><h3>Request a Target Plan</h3>
+<div class="form-field"><label>TARGET PERIOD</label><select id="targetPeriod"><option>Monthly</option><option>Quarterly</option><option>Yearly</option></select></div>
+<div class="form-field"><label>YOUR TARGET VOLUME (₹)</label><input id="targetVolume" type="number" min="1" inputmode="numeric" placeholder="Enter target amount"></div>
+<div class="form-field"><label>NOTE (OPTIONAL)</label><textarea id="targetNote" placeholder="Any request or business plan note"></textarea></div>
+<div class="target-private"><i class="fa-solid fa-lock"></i> Discount, extra points and benefits are private. They will be visible only after TORVO Admin reviews and approves your target request.</div>
+<button class="primary-btn" style="margin-top:10px" onclick="submitTargetRequest()">SUBMIT TARGET REQUEST</button></div>
+<div class="target-card"><h3>Approved Target</h3><p>Your approved target, progress and private benefits will appear here after Admin approval.</p>
+<div class="history-row"><b>STATUS</b><div><strong>No approved target yet</strong><small>Benefits are earned/applied only after the approved target is completed.</small></div><span class="history-tag">PRIVATE</span></div>
+<div class="target-private"><b>Privacy:</b> Other dealers cannot see your target, discount, points or benefit terms.</div>
+</div></div></div></section>
+
 <section id="dealer-history" class="dealer-section"><div class="dealer-panel">
-<h2><i class="fa-solid fa-clock-rotate-left"></i> History / Reports</h2>
-<p class="section-sub">Current month activity and Admin-enabled monthly PDF reports.</p>
-<div class="history-notice"><i class="fa-solid fa-circle-info"></i> Current History shows the current calendar month. At the start of a new month, the previous month's individual entries are removed from this dealer view. Older information can be requested from TORVO Tools.</div>
+<h2><i class="fa-solid fa-clock-rotate-left"></i> History</h2>
+<p class="section-sub">Open a category to review dealer-facing history and available monthly reports.</p>
+<div class="history-app-grid">
+<button class="history-app-card blue" onclick="scrollHistoryTo('historyCurrent')"><i class="fa-solid fa-calendar-days"></i><b>Current Month</b><span>Live activity</span></button>
+<button class="history-app-card green" onclick="futureFeature('Order History')"><i class="fa-solid fa-box"></i><b>Orders</b><span>Order history</span></button>
+<button class="history-app-card orange" onclick="futureFeature('Estimate History')"><i class="fa-solid fa-file-invoice"></i><b>Estimates</b><span>Estimate history</span></button>
+<button class="history-app-card purple" onclick="futureFeature('Payment History')"><i class="fa-solid fa-indian-rupee-sign"></i><b>Payments</b><span>Payment status</span></button>
+<button class="history-app-card cyan" onclick="futureFeature('Delivery History')"><i class="fa-solid fa-truck-fast"></i><b>Delivery</b><span>Dispatch history</span></button>
+<button class="history-app-card red" onclick="scrollHistoryTo('historyReports')"><i class="fa-solid fa-file-pdf"></i><b>Monthly Reports</b><span>Last 3 PDFs</span></button>
+</div>
+<div class="history-notice"><i class="fa-solid fa-circle-info"></i> Current History shows the current calendar month. At the start of a new month, the previous month's individual entries are removed from this dealer view. Older company records remain with TORVO Tools.</div>
+<div id="historyCurrent">
 <h3 style="margin:16px 0 4px">Current Month History</h3>
 <div class="history-list">
 <div class="history-row"><b>Current Month</b><div><strong>Dealer activity will appear here</strong><small>Orders, estimates, payment/delivery status and relevant dealer-facing activity.</small></div><span class="history-tag">LIVE</span></div>
-</div>
+</div></div>
+<div id="historyReports">
 <h3 style="margin:20px 0 4px">Last 3 Monthly Reports</h3>
 <p class="section-sub">PDF only. Visibility is controlled by TORVO Admin.</p>
 <div class="report-grid" id="monthlyReportGrid">
 <div class="report-card"><i class="fa-solid fa-file-pdf"></i><b>Previous Month</b><span>Monthly consolidated report</span><button onclick="futureFeature('Admin-enabled Monthly PDF Report')">VIEW PDF</button></div>
 <div class="report-card"><i class="fa-solid fa-file-pdf"></i><b>2 Months Ago</b><span>Monthly consolidated report</span><button onclick="futureFeature('Admin-enabled Monthly PDF Report')">VIEW PDF</button></div>
 <div class="report-card"><i class="fa-solid fa-file-pdf"></i><b>3 Months Ago</b><span>Monthly consolidated report</span><button onclick="futureFeature('Admin-enabled Monthly PDF Report')">VIEW PDF</button></div>
-</div>
+</div></div>
 </div></section>
 
 <section id="dealer-settings" class="dealer-section"><div class="dealer-panel">
@@ -1752,6 +1811,26 @@ function removeCartItem(item){
  if(btn){btn.disabled=false;btn.classList.remove("added");btn.innerHTML='<i class="fa-solid fa-cart-plus"></i>'}
  if(box)box.classList.remove("locked"); if(input)input.disabled=false;
  ["minus-","plus-"].forEach(x=>{const b=document.getElementById(x+item);if(b)b.disabled=false});
+}
+
+
+function scrollHistoryTo(id){
+  const el=document.getElementById(id);
+  if(el)el.scrollIntoView({behavior:"smooth",block:"start"});
+  playTorvoSound("click");
+}
+function submitDealerFeedback(){
+  const cat=document.getElementById("feedbackCategory");
+  const text=document.getElementById("feedbackText");
+  if(!text || !text.value.trim()){playTorvoSound("error");alert("Please write your feedback or requirement.");return}
+  playTorvoSound("success");
+  alert("Feedback preview saved for UI testing. Secure Admin submission will be connected with the backend.");
+}
+function submitTargetRequest(){
+  const volume=document.getElementById("targetVolume");
+  if(!volume || Number(volume.value)<=0){playTorvoSound("error");alert("Please enter your target volume.");return}
+  playTorvoSound("success");
+  alert("Target request preview submitted. TORVO Admin approval and private benefits will be connected securely with the backend.");
 }
 </script>
 </body>
