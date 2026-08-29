@@ -4,7 +4,7 @@
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <meta name="theme-color" content="#d71920" />
-  <title>TORVO Tools | B2B Power Tool Spare Parts - V2</title>
+  <title>TORVO Tools | B2B Power Tool Spare Parts - V3</title>
 
   <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
 
@@ -18,6 +18,7 @@
     *{box-sizing:border-box}
     html{scroll-behavior:smooth}
     body{margin:0;font-family:Arial,Helvetica,sans-serif;background:#f6f7f9;color:var(--black)}
+    @media(min-width:761px){body{zoom:.90}}
     button,input,select,textarea{font:inherit}
     button{cursor:pointer}
     .container{width:min(1400px,94%);margin:auto}
@@ -39,7 +40,9 @@
     .search-submit{border:0;background:var(--red);color:#fff;font-size:22px;font-weight:900}
     .header-actions{display:flex;align-items:center;gap:9px}
     .small-btn{border:1px solid var(--line);background:#fff;height:46px;border-radius:13px;padding:0 13px;font-weight:800}
-    .login-btn{border:0;background:var(--red);color:#fff;height:46px;border-radius:13px;padding:0 17px;font-weight:900}
+    .login-btn{border:0;background:linear-gradient(145deg,#e52c33,#c9151b);color:#fff;min-height:48px;border-radius:14px;padding:7px 15px;font-weight:900;display:flex;flex-direction:column;align-items:center;justify-content:center;line-height:1.05;box-shadow:0 7px 16px rgba(215,25,32,.20)}
+    .login-btn .login-main{font-size:12px;letter-spacing:.35px}
+    .login-btn .login-sub{font-size:8px;opacity:.9;margin-top:4px;font-weight:700;letter-spacing:.2px}
     .hero{padding:25px 0 14px}
     .hero-box{min-height:315px;border-radius:24px;background:radial-gradient(circle at 88% 30%,rgba(215,25,32,.25),transparent 28%),linear-gradient(120deg,#111318 0%,#202329 55%,#111318 100%);color:#fff;display:grid;grid-template-columns:1.15fr .85fr;overflow:hidden;box-shadow:var(--shadow)}
     .hero-content{padding:42px;display:flex;flex-direction:column;justify-content:center}
@@ -94,6 +97,9 @@
     .modal-head{padding:18px 20px;border-bottom:1px solid var(--line);display:flex;justify-content:space-between;align-items:center}.modal-head strong{font-size:19px}.close-btn{border:0;background:#f0f1f3;width:38px;height:38px;border-radius:11px;font-size:20px}.modal-body{padding:20px}
     .auth-tabs{display:grid;grid-template-columns:1fr 1fr;gap:8px;margin-bottom:17px}.auth-tab{height:45px;border:1px solid var(--line);background:#f5f6f7;border-radius:11px;font-weight:900}.auth-tab.active{background:var(--red);color:#fff;border-color:var(--red)}
     .form-panel{display:none}.form-panel.active{display:block}.form-field{margin-bottom:12px}.form-field input,.form-field select,.form-field textarea{width:100%;border:1px solid #d8dbe0;border-radius:11px;padding:12px;outline:0;background:#fff}.form-field textarea{min-height:80px;resize:vertical}
+    .req{color:var(--red);font-weight:1000}
+    .required-note{font-size:10px;color:var(--grey);margin:-3px 0 12px}
+    .city-other{display:none;margin-top:8px}
     .two-fields{display:grid;grid-template-columns:1fr 1fr;gap:10px}.full-red-btn{width:100%;height:48px;border:0;background:var(--red);color:#fff;border-radius:12px;font-weight:900}.preview-btn{width:100%;height:45px;margin-top:9px;border:1px solid var(--black);background:#fff;color:var(--black);border-radius:12px;font-weight:900}
     .security-note{margin-top:12px;background:#fff8e8;border:1px solid #f2ddb0;border-radius:10px;padding:10px;font-size:10px;color:#765616;line-height:1.5}.message{display:none;margin:10px 0;border-radius:10px;padding:10px;font-size:12px;font-weight:800}.message.success{display:block;background:#eaf8ef;color:#146a38}.message.error{display:block;background:#fff0f0;color:#a51217}
     #dealerApp{display:none;min-height:100vh;background:#f4f5f7}.dealer-header{height:72px;background:#fff;border-bottom:1px solid var(--line);display:grid;grid-template-columns:230px 1fr auto;align-items:center;gap:15px;padding:0 3%;position:sticky;top:0;z-index:70}
@@ -105,7 +111,7 @@
     .dealer-section{display:none}.dealer-section.active{display:block}.dealer-panel{background:#fff;border:1px solid var(--line);border-radius:18px;padding:18px;margin-bottom:15px}.status-grid{display:grid;grid-template-columns:repeat(4,1fr);gap:10px}.status-card{border:1px solid var(--line);border-radius:14px;padding:14px;background:#fafafa}.status-card strong{font-size:22px;display:block;margin-bottom:5px}.status-card span{color:var(--grey);font-size:11px;font-weight:700}.back-public{border:1px solid var(--line);background:#fff;border-radius:11px;height:42px;padding:0 12px;font-weight:900}
     .mobile-nav{display:none;position:fixed;left:0;right:0;bottom:0;background:#fff;border-top:1px solid var(--line);z-index:80;padding:6px 5px;grid-template-columns:repeat(5,1fr)}.mobile-nav button{border:0;background:#fff;font-size:10px;font-weight:800;padding:5px 2px}.mobile-nav span{display:block;font-size:20px;margin-bottom:2px}
     @media(max-width:1100px){.header-inner{grid-template-columns:190px 1fr}.header-actions{grid-column:1/-1;padding-bottom:10px;justify-content:flex-end}.app-grid{grid-template-columns:repeat(3,1fr)}.product-grid{grid-template-columns:repeat(3,1fr)}.finder-grid{grid-template-columns:1fr 1fr}.find-btn{width:100%}.contact-grid{grid-template-columns:repeat(3,1fr)}.dealer-icon-grid{grid-template-columns:repeat(3,1fr)}}
-    @media(max-width:760px){.topbar{display:none}.header{position:relative}.header-inner{display:flex;flex-wrap:wrap;padding:10px 0;gap:10px}.brand{flex:1}.brand-logo{width:45px;height:45px;border-radius:12px;font-size:25px}.brand-name{font-size:23px}.brand-sub{display:none}.header-actions{padding:0;order:2}.small-btn{display:none}.login-btn{height:43px;padding:0 12px;font-size:12px}.main-search{order:3;width:100%;grid-template-columns:1fr 42px 42px 48px;height:48px}.main-search select{display:none}.hero{padding-top:12px}.hero-box{grid-template-columns:1fr;min-height:0}.hero-content{padding:26px 20px}.hero h1{font-size:31px}.hero p{font-size:14px}.hero-visual{padding:0 20px 25px}.hero-machine{max-width:310px}.app-grid{grid-template-columns:repeat(2,1fr);gap:10px}.app-card{min-height:158px;padding:12px 6px;border-radius:19px}.app-icon{width:88px;height:88px;font-size:42px;border-radius:25px}.app-name{font-size:12px}.app-help{display:none}.finder-grid{grid-template-columns:1fr}.product-grid{grid-template-columns:repeat(2,1fr);gap:9px}.product-photo{height:145px}.product-body{padding:10px}.business-strip{grid-template-columns:1fr 1fr}.business-card{display:block;padding:13px}.business-icon{margin-bottom:8px}.process-grid{grid-template-columns:repeat(2,1fr)}.about-box{grid-template-columns:1fr}.contact-grid{grid-template-columns:1fr 1fr}.footer-grid{grid-template-columns:1fr 1fr}.dealer-header{grid-template-columns:1fr auto;height:auto;padding:10px 3%}.dealer-search{grid-column:1/-1;width:100%}.dealer-layout{display:block;margin-bottom:80px}.dealer-sidebar{display:none}.dealer-icon-grid{grid-template-columns:repeat(3,1fr);gap:8px}.dealer-icon-card{min-height:125px}.dealer-icon-card .app-icon{width:64px;height:64px;font-size:31px}.status-grid{grid-template-columns:1fr 1fr}.mobile-nav{display:grid}.two-fields{grid-template-columns:1fr}}
+    @media(max-width:760px){.topbar{display:none}.header{position:relative}.header-inner{display:flex;flex-wrap:wrap;padding:10px 0;gap:10px}.brand{flex:1}.brand-logo{width:45px;height:45px;border-radius:12px;font-size:25px}.brand-name{font-size:23px}.brand-sub{display:none}.header-actions{padding:0;order:2}.small-btn{display:none}.login-btn{min-height:43px;padding:6px 10px}.login-btn .login-main{font-size:10px}.login-btn .login-sub{font-size:7px}.main-search{order:3;width:100%;grid-template-columns:1fr 42px 42px 48px;height:48px}.main-search select{display:none}.hero{padding-top:12px}.hero-box{grid-template-columns:1fr;min-height:0}.hero-content{padding:26px 20px}.hero h1{font-size:31px}.hero p{font-size:14px}.hero-visual{padding:0 20px 25px}.hero-machine{max-width:310px}.app-grid{grid-template-columns:repeat(2,1fr);gap:10px}.app-card{min-height:158px;padding:12px 6px;border-radius:19px}.app-icon{width:88px;height:88px;font-size:42px;border-radius:25px}.app-name{font-size:12px}.app-help{display:none}.finder-grid{grid-template-columns:1fr}.product-grid{grid-template-columns:repeat(2,1fr);gap:9px}.product-photo{height:145px}.product-body{padding:10px}.business-strip{grid-template-columns:1fr 1fr}.business-card{display:block;padding:13px}.business-icon{margin-bottom:8px}.process-grid{grid-template-columns:repeat(2,1fr)}.about-box{grid-template-columns:1fr}.contact-grid{grid-template-columns:1fr 1fr}.footer-grid{grid-template-columns:1fr 1fr}.dealer-header{grid-template-columns:1fr auto;height:auto;padding:10px 3%}.dealer-search{grid-column:1/-1;width:100%}.dealer-layout{display:block;margin-bottom:80px}.dealer-sidebar{display:none}.dealer-icon-grid{grid-template-columns:repeat(3,1fr);gap:8px}.dealer-icon-card{min-height:125px}.dealer-icon-card .app-icon{width:64px;height:64px;font-size:31px}.status-grid{grid-template-columns:1fr 1fr}.mobile-nav{display:grid}.two-fields{grid-template-columns:1fr}}
     @media(max-width:420px){.app-grid{grid-template-columns:repeat(2,1fr)}.app-icon{width:82px;height:82px;font-size:39px}.product-name{font-size:13px}.contact-grid{grid-template-columns:1fr}.footer-grid{grid-template-columns:1fr}}
   </style>
 </head>
@@ -119,7 +125,7 @@
       <input id="publicSearch" type="search" placeholder="Search Item No., Product, Brand, Model..." oninput="filterPublicProducts()" />
       <button class="search-icon-btn" title="Photo Search - Future Ready" onclick="futureFeature('Photo Search')">📷</button><button class="search-icon-btn" title="Voice Search - Future Ready" onclick="futureFeature('Voice Search')">🎙️</button><button class="search-submit" onclick="filterPublicProducts()">⌕</button>
     </div>
-    <div class="header-actions"><button class="small-btn" onclick="toggleLanguage()">EN / HI</button><button class="login-btn" onclick="openAuth('login')">DEALER LOGIN</button></div>
+    <div class="header-actions"><button class="small-btn" onclick="toggleLanguage()">EN / HI</button><button class="login-btn" onclick="openAuth('login')"><span class="login-main">DEALER ACCESS</span><span class="login-sub">LOGIN • NEW REGISTER</span></button></div>
   </div></header>
 
   <main>
@@ -186,7 +192,71 @@
 <div class="modal" id="authModal"><div class="modal-box"><div class="modal-head"><strong>TORVO B2B Dealer</strong><button class="close-btn" onclick="closeAuth()">×</button></div><div class="modal-body">
   <div class="auth-tabs"><button id="loginTab" class="auth-tab active" onclick="switchAuth('login')">DEALER LOGIN</button><button id="registerTab" class="auth-tab" onclick="switchAuth('register')">NEW DEALER</button></div><div id="authMessage" class="message"></div>
   <div id="loginPanel" class="form-panel active"><div class="form-field"><label>MOBILE NUMBER</label><input id="loginMobile" inputmode="numeric" placeholder="Enter registered mobile number"></div><div class="form-field"><label>4-DIGIT PIN</label><input id="loginPin" inputmode="numeric" maxlength="4" type="password" placeholder="••••"></div><button class="full-red-btn" onclick="demoLogin()">LOGIN</button><button class="preview-btn" onclick="previewDealer()">PREVIEW DEALER AREA</button><div style="display:flex;justify-content:space-between;gap:10px;margin-top:12px;font-size:11px;font-weight:800"><span style="cursor:pointer;color:var(--red)" onclick="demoOtp()">FIRST LOGIN / OTP</span><span style="cursor:pointer;color:var(--red)" onclick="demoForgotPin()">FORGOT PIN?</span></div><div class="security-note">Secure dealer authentication is not enabled in this UI preview. Production login will use secure backend authentication and database permissions.</div></div>
-  <div id="registerPanel" class="form-panel"><div class="two-fields"><div class="form-field"><label>SHOP / BUSINESS NAME</label><input id="regShop" placeholder="Business name"></div><div class="form-field"><label>CONTACT PERSON</label><input id="regPerson" placeholder="Contact person"></div></div><div class="two-fields"><div class="form-field"><label>MOBILE NUMBER</label><input id="regMobile" inputmode="numeric" placeholder="Mobile number"></div><div class="form-field"><label>WHATSAPP NUMBER</label><input id="regWhatsapp" inputmode="numeric" placeholder="WhatsApp number"></div></div><div class="form-field"><label>EMAIL</label><input id="regEmail" type="email" placeholder="Email address"></div><div class="two-fields"><div class="form-field"><label>STATE</label><select id="regState"><option value="">Select State</option><option>Haryana</option><option>Rajasthan</option><option>Delhi</option><option>Uttar Pradesh</option><option>Punjab</option><option>Gujarat</option><option>Madhya Pradesh</option><option>Maharashtra</option><option>Other</option></select></div><div class="form-field"><label>CITY</label><input id="regCity" placeholder="City"></div></div><div class="form-field"><label>BUSINESS TYPE</label><select id="regBusinessType"><option value="">Select Business Type</option><option>Power Tool Dealer</option><option>Spare Part Dealer</option><option>Hardware Dealer</option><option>Repair Centre</option><option>Distributor / Wholesaler</option><option>Other</option></select></div><div class="form-field"><label>MESSAGE / NOTE</label><textarea id="regNote" placeholder="Optional note"></textarea></div><button class="full-red-btn" id="registerSubmitBtn" onclick="submitInquiry()">SUBMIT DEALER REQUEST</button><div class="security-note">Dealer access will be provided only after TORVO admin verification and approval.</div></div>
+  <div id="registerPanel" class="form-panel">
+        <div class="required-note"><span class="req">*</span> Required information</div>
+
+        <div class="two-fields">
+          <div class="form-field">
+            <label>SHOP / BUSINESS NAME <span class="req">*</span></label>
+            <input id="regShop" required placeholder="Business name">
+          </div>
+          <div class="form-field">
+            <label>CONTACT PERSON <span class="req">*</span></label>
+            <input id="regPerson" required placeholder="Contact person">
+          </div>
+        </div>
+
+        <div class="two-fields">
+          <div class="form-field">
+            <label>MOBILE NUMBER <span class="req">*</span></label>
+            <input id="regMobile" required inputmode="numeric" maxlength="10" placeholder="10-digit mobile number">
+          </div>
+          <div class="form-field">
+            <label>WHATSAPP NUMBER <span class="req">*</span></label>
+            <input id="regWhatsapp" required inputmode="numeric" maxlength="10" placeholder="10-digit WhatsApp number">
+          </div>
+        </div>
+
+        <div class="form-field">
+          <label>EMAIL</label>
+          <input id="regEmail" type="email" placeholder="Email address (optional)">
+        </div>
+
+        <div class="two-fields">
+          <div class="form-field">
+            <label>STATE / UNION TERRITORY <span class="req">*</span></label>
+            <select id="regState" required onchange="loadCities()">
+              <option value="">Select State / UT</option>
+              <option>Andhra Pradesh</option><option>Arunachal Pradesh</option><option>Assam</option><option>Bihar</option>
+              <option>Chhattisgarh</option><option>Goa</option><option>Gujarat</option><option>Haryana</option>
+              <option>Himachal Pradesh</option><option>Jharkhand</option><option>Karnataka</option><option>Kerala</option>
+              <option>Madhya Pradesh</option><option>Maharashtra</option><option>Manipur</option><option>Meghalaya</option>
+              <option>Mizoram</option><option>Nagaland</option><option>Odisha</option><option>Punjab</option>
+              <option>Rajasthan</option><option>Sikkim</option><option>Tamil Nadu</option><option>Telangana</option>
+              <option>Tripura</option><option>Uttar Pradesh</option><option>Uttarakhand</option><option>West Bengal</option>
+              <option>Andaman and Nicobar Islands</option><option>Chandigarh</option>
+              <option>Dadra and Nagar Haveli and Daman and Diu</option><option>Delhi</option>
+              <option>Jammu and Kashmir</option><option>Ladakh</option><option>Lakshadweep</option><option>Puducherry</option>
+            </select>
+          </div>
+
+          <div class="form-field">
+            <label>CITY <span class="req">*</span></label>
+            <select id="regCity" required onchange="toggleOtherCity()">
+              <option value="">Select State first</option>
+            </select>
+            <input id="regOtherCity" class="city-other" placeholder="Enter city / town name">
+          </div>
+        </div>
+
+        <div class="form-field">
+          <label>PIN CODE <span class="req">*</span></label>
+          <input id="regPincode" required inputmode="numeric" maxlength="6" placeholder="6-digit PIN code">
+        </div>
+
+        <button class="full-red-btn" id="registerSubmitBtn" onclick="submitInquiry()">SUBMIT DEALER REQUEST</button>
+        <div class="security-note">Dealer access will be provided only after TORVO admin verification and approval.</div>
+      </div>
 </div></div></div>
 
 <div class="modal" id="enquiryModal"><div class="modal-box"><div class="modal-head"><strong>Part Not Found?</strong><button class="close-btn" onclick="closePartEnquiry()">×</button></div><div class="modal-body"><div class="form-field"><label>SELECT BRAND</label><select id="enquiryBrand"><option value="">Select Brand</option><option>Bosch</option><option>Makita</option><option>DeWalt</option><option>Stanley</option><option>Other</option></select></div><div class="form-field"><label>SELECT MACHINE</label><select id="enquiryMachine"><option value="">Select Machine</option><option>Angle Grinder</option><option>Marble Cutter</option><option>Drill Machine</option><option>Rotary Hammer</option><option>Demolition Hammer</option><option>Other</option></select></div><div class="form-field"><label>MODEL</label><input placeholder="Enter model if known"></div><div class="form-field"><label>PART NAME</label><input placeholder="Enter part name if known"></div><div class="form-field"><label>PHOTO</label><input type="file" accept="image/*"></div><div class="form-field"><label>NOTE</label><textarea placeholder="Describe the spare part"></textarea></div><button class="full-red-btn" onclick="demoEnquiry()">SEND ENQUIRY</button></div></div></div>
@@ -213,6 +283,61 @@
 const TORVO_CONTACT={customerCare:"",whatsapp:"",email:"",address:"",hours:""};
 const SUPABASE_URL="https://gckafjiitjocodlrwanm.supabase.co";
 const SUPABASE_KEY="sb_publishable_9Jbo6ZcyihmVqMTaGdslMg_Wbtg0bLl";
+
+const cityMap={
+"Andhra Pradesh":["Visakhapatnam","Vijayawada","Guntur","Nellore","Tirupati","Kurnool","Rajahmundry","Kakinada","Other City / Town"],
+"Arunachal Pradesh":["Itanagar","Naharlagun","Pasighat","Tawang","Ziro","Other City / Town"],
+"Assam":["Guwahati","Dibrugarh","Silchar","Jorhat","Tezpur","Tinsukia","Nagaon","Other City / Town"],
+"Bihar":["Patna","Gaya","Muzaffarpur","Bhagalpur","Darbhanga","Purnia","Bihar Sharif","Other City / Town"],
+"Chhattisgarh":["Raipur","Bhilai","Durg","Bilaspur","Korba","Rajnandgaon","Raigarh","Other City / Town"],
+"Goa":["Panaji","Margao","Vasco da Gama","Mapusa","Ponda","Other City / Town"],
+"Gujarat":["Ahmedabad","Surat","Vadodara","Rajkot","Bhavnagar","Jamnagar","Gandhinagar","Anand","Morbi","Other City / Town"],
+"Haryana":["Narnaul","Gurugram","Faridabad","Rewari","Rohtak","Hisar","Panipat","Karnal","Ambala","Sonipat","Bhiwani","Sirsa","Other City / Town"],
+"Himachal Pradesh":["Shimla","Dharamshala","Solan","Mandi","Baddi","Una","Hamirpur","Other City / Town"],
+"Jharkhand":["Ranchi","Jamshedpur","Dhanbad","Bokaro","Deoghar","Hazaribagh","Other City / Town"],
+"Karnataka":["Bengaluru","Mysuru","Hubballi","Mangaluru","Belagavi","Davanagere","Ballari","Shivamogga","Other City / Town"],
+"Kerala":["Thiruvananthapuram","Kochi","Kozhikode","Thrissur","Kollam","Kannur","Kottayam","Palakkad","Other City / Town"],
+"Madhya Pradesh":["Indore","Bhopal","Gwalior","Jabalpur","Ujjain","Sagar","Dewas","Satna","Other City / Town"],
+"Maharashtra":["Mumbai","Pune","Nagpur","Nashik","Thane","Aurangabad","Solapur","Kolhapur","Navi Mumbai","Other City / Town"],
+"Manipur":["Imphal","Thoubal","Bishnupur","Churachandpur","Other City / Town"],
+"Meghalaya":["Shillong","Tura","Jowai","Nongpoh","Other City / Town"],
+"Mizoram":["Aizawl","Lunglei","Champhai","Serchhip","Other City / Town"],
+"Nagaland":["Dimapur","Kohima","Mokokchung","Wokha","Other City / Town"],
+"Odisha":["Bhubaneswar","Cuttack","Rourkela","Sambalpur","Berhampur","Balasore","Puri","Other City / Town"],
+"Punjab":["Ludhiana","Amritsar","Jalandhar","Patiala","Bathinda","Mohali","Pathankot","Hoshiarpur","Other City / Town"],
+"Rajasthan":["Jaipur","Jodhpur","Kota","Udaipur","Ajmer","Alwar","Bikaner","Bharatpur","Sikar","Behror","Bhiwadi","Other City / Town"],
+"Sikkim":["Gangtok","Namchi","Gyalshing","Mangan","Other City / Town"],
+"Tamil Nadu":["Chennai","Coimbatore","Madurai","Tiruchirappalli","Salem","Tiruppur","Erode","Vellore","Other City / Town"],
+"Telangana":["Hyderabad","Warangal","Nizamabad","Karimnagar","Khammam","Ramagundam","Other City / Town"],
+"Tripura":["Agartala","Udaipur","Dharmanagar","Kailasahar","Other City / Town"],
+"Uttar Pradesh":["Lucknow","Kanpur","Noida","Ghaziabad","Agra","Varanasi","Prayagraj","Meerut","Bareilly","Gorakhpur","Aligarh","Moradabad","Other City / Town"],
+"Uttarakhand":["Dehradun","Haridwar","Haldwani","Roorkee","Rudrapur","Kashipur","Rishikesh","Other City / Town"],
+"West Bengal":["Kolkata","Howrah","Durgapur","Asansol","Siliguri","Kharagpur","Bardhaman","Other City / Town"],
+"Andaman and Nicobar Islands":["Port Blair","Other City / Town"],
+"Chandigarh":["Chandigarh"],
+"Dadra and Nagar Haveli and Daman and Diu":["Daman","Diu","Silvassa","Other City / Town"],
+"Delhi":["New Delhi","Delhi","Other City / Town"],
+"Jammu and Kashmir":["Srinagar","Jammu","Anantnag","Baramulla","Udhampur","Other City / Town"],
+"Ladakh":["Leh","Kargil","Other City / Town"],
+"Lakshadweep":["Kavaratti","Agatti","Other City / Town"],
+"Puducherry":["Puducherry","Karaikal","Mahe","Yanam","Other City / Town"]
+};
+
+function loadCities(){
+ const state=document.getElementById("regState").value;
+ const city=document.getElementById("regCity");
+ const other=document.getElementById("regOtherCity");
+ const values=cityMap[state]||[];
+ city.innerHTML='<option value="">Select City</option>'+values.map(v=>`<option value="${v}">${v}</option>`).join("");
+ other.style.display="none";other.value="";
+}
+function toggleOtherCity(){
+ const value=document.getElementById("regCity").value;
+ const other=document.getElementById("regOtherCity");
+ if(value==="Other City / Town"){other.style.display="block";other.focus()}
+ else{other.style.display="none";other.value=""}
+}
+
 let supabaseClient=null;
 try{if(window.supabase){supabaseClient=window.supabase.createClient(SUPABASE_URL,SUPABASE_KEY)}}catch(error){console.error("Supabase initialization error:",error)}
 
@@ -293,7 +418,57 @@ function switchAuth(mode){document.getElementById("loginTab").classList.toggle("
 function showAuthMessage(text,type="success"){const b=document.getElementById("authMessage");b.className=`message ${type}`;b.textContent=text}
 function clearAuthMessage(){const b=document.getElementById("authMessage");b.className="message";b.textContent=""}
 
-async function submitInquiry(){const shop=document.getElementById("regShop").value.trim(),person=document.getElementById("regPerson").value.trim(),mobile=document.getElementById("regMobile").value.trim(),whatsapp=document.getElementById("regWhatsapp").value.trim(),email=document.getElementById("regEmail").value.trim();if(!shop||!person||!mobile){showAuthMessage("Please enter Business Name, Contact Person and Mobile Number.","error");return}if(!supabaseClient){showAuthMessage("Connection is not available right now. Please try again.","error");return}const btn=document.getElementById("registerSubmitBtn");btn.disabled=true;btn.textContent="SUBMITTING...";try{const {error}=await supabaseClient.from("dealer_inquiries").insert([{shop_name:shop,contact_person:person,mobile,whatsapp:whatsapp||null,email:email||null}]);if(error)throw error;showAuthMessage("Dealer request submitted successfully. TORVO admin will verify your request.","success");["regShop","regPerson","regMobile","regWhatsapp","regEmail","regCity","regNote"].forEach(id=>document.getElementById(id).value="");document.getElementById("regState").value="";document.getElementById("regBusinessType").value=""}catch(e){console.error(e);showAuthMessage("Dealer request could not be submitted. Please check connection or database permissions.","error")}finally{btn.disabled=false;btn.textContent="SUBMIT DEALER REQUEST"}}
+async function submitInquiry(){
+ const shop=document.getElementById("regShop").value.trim();
+ const person=document.getElementById("regPerson").value.trim();
+ const mobile=document.getElementById("regMobile").value.trim();
+ const whatsapp=document.getElementById("regWhatsapp").value.trim();
+ const email=document.getElementById("regEmail").value.trim();
+ const state=document.getElementById("regState").value;
+ const selectedCity=document.getElementById("regCity").value;
+ const otherCity=document.getElementById("regOtherCity").value.trim();
+ const city=selectedCity==="Other City / Town"?otherCity:selectedCity;
+ const pincode=document.getElementById("regPincode").value.trim();
+
+ if(!shop||!person||!mobile||!whatsapp||!state||!city||!pincode){
+   showAuthMessage("Please fill all fields marked with *.","error");return;
+ }
+ if(!/^[6-9]\d{9}$/.test(mobile)){
+   showAuthMessage("Please enter a valid 10-digit mobile number.","error");return;
+ }
+ if(!/^[6-9]\d{9}$/.test(whatsapp)){
+   showAuthMessage("Please enter a valid 10-digit WhatsApp number.","error");return;
+ }
+ if(!/^\d{6}$/.test(pincode)){
+   showAuthMessage("Please enter a valid 6-digit PIN code.","error");return;
+ }
+ if(!supabaseClient){
+   showAuthMessage("Connection is not available right now. Please try again.","error");return;
+ }
+
+ const btn=document.getElementById("registerSubmitBtn");
+ btn.disabled=true;btn.textContent="SUBMITTING...";
+
+ try{
+   const {error}=await supabaseClient.from("dealer_inquiries").insert([{
+     shop_name:shop,contact_person:person,mobile,whatsapp,email:email||null
+   }]);
+   if(error)throw error;
+
+   showAuthMessage("Dealer request submitted successfully. TORVO admin will verify your request.","success");
+   ["regShop","regPerson","regMobile","regWhatsapp","regEmail","regPincode","regOtherCity"].forEach(id=>{
+     const el=document.getElementById(id);if(el)el.value="";
+   });
+   document.getElementById("regState").value="";
+   document.getElementById("regCity").innerHTML='<option value="">Select State first</option>';
+   document.getElementById("regOtherCity").style.display="none";
+ }catch(e){
+   console.error(e);
+   showAuthMessage("Dealer request could not be submitted. Please check connection or database permissions.","error");
+ }finally{
+   btn.disabled=false;btn.textContent="SUBMIT DEALER REQUEST";
+ }
+}
 function demoLogin(){showAuthMessage("Secure dealer login will be connected in the authentication stage. Use Preview Dealer Area for UI testing.","error")}
 function demoOtp(){showAuthMessage("OTP and secure PIN setup will be connected with backend authentication.","success")}
 function demoForgotPin(){showAuthMessage("Secure PIN recovery will be connected with OTP authentication.","success")}
