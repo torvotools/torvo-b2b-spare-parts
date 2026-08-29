@@ -4,7 +4,7 @@
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <meta name="theme-color" content="#d71920" />
-  <title>TORVO Tools | B2B Power Tool Spare Parts - V8</title>
+  <title>TORVO Tools | B2B Power Tool Spare Parts - V9</title>
 
   <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
 
@@ -652,6 +652,62 @@
 .number-hint{margin-top:4px;font-size:9px;color:#667085;line-height:1.4}.verify-placeholder{display:inline-flex;align-items:center;gap:5px;margin-top:6px;padding:5px 8px;border-radius:7px;background:#f3f8ff;color:#173f7a;font-size:9px;font-weight:850}
 @media(max-width:760px){.reward-app-grid{grid-template-columns:1fr 1fr}.qty-control{grid-template-columns:28px 1fr 28px}}
 
+
+/* ===== V9 FINAL CORRECTIONS ===== */
+.admin-search-svg{width:21px!important;height:21px!important;display:block!important}
+.search-icon-btn,.dealer-search-icon,
+.search-submit,.dealer-search-submit{
+  background:#fff!important;
+  color:inherit!important;
+}
+.search-submit,.dealer-search-submit{
+  border-left:1px solid #d9dee7!important;
+  border-radius:0 11px 11px 0!important;
+}
+.search-icon-btn:hover,.dealer-search-icon:hover,
+.search-submit:hover,.dealer-search-submit:hover{background:#f3f4f6!important}
+
+/* Public card top badge row */
+.top-rate-badge{
+  position:absolute!important;
+  top:8px!important;
+  right:8px!important;
+  z-index:3!important;
+  border:1px solid #d7dee8!important;
+  background:#fff!important;
+  color:#173f7a!important;
+  border-radius:6px!important;
+  padding:4px 6px!important;
+  font-size:7.5px!important;
+  line-height:1!important;
+  font-weight:950!important;
+  letter-spacing:.1px!important;
+  cursor:pointer!important;
+  box-shadow:0 2px 6px rgba(15,23,42,.05)!important;
+}
+.top-rate-badge i{font-size:7px!important}
+.public-detail-row{margin-top:auto!important;padding-top:10px!important}
+.public-full-detail{
+  width:100%!important;
+  min-height:35px!important;
+  display:flex!important;
+  align-items:center!important;
+  justify-content:center!important;
+  gap:6px!important;
+}
+.public-full-detail i{font-size:13px!important}
+
+/* YouTube app icon */
+.youtube-icon{
+  background:#fff1f2!important;
+  color:#ff0000!important;
+}
+.youtube-icon i{font-size:.9em!important}
+.youtube-card:hover .youtube-icon{transform:translateY(-1px)!important}
+
+/* EN/HI removed; keep Dealer Access aligned neatly */
+.header-actions{justify-content:flex-end!important}
+
 </style>
 <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.7.2/css/all.min.css">
 </head>
@@ -663,9 +719,9 @@
     <div class="main-search">
       <select class="search-select" id="searchType"><option value="all">All</option><option value="item">Item No.</option><option value="product">Product</option><option value="brand">Brand</option><option value="model">Model</option><option value="category">Category</option></select>
       <input id="publicSearch" type="search" placeholder="Search Item No., Product, Brand, Model..." oninput="filterPublicProducts()" />
-      <button class="search-icon-btn camera" title="Photo Search - Future Ready" onclick="futureFeature('Photo Search')"><i class="fa-solid fa-camera"></i></button><button class="search-icon-btn mic" title="Voice Search - Future Ready" onclick="futureFeature('Voice Search')"><i class="fa-solid fa-microphone"></i></button><button class="search-submit" onclick="filterPublicProducts()"><i class="fa-solid fa-magnifying-glass"></i></button>
+      <button class="search-icon-btn camera" title="Photo Search - Future Ready" onclick="futureFeature('Photo Search')"><img class="admin-search-svg" alt="" src="data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24'><path d='M5 7h3l1.5-2h5L16 7h3a2 2 0 0 1 2 2v9a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V9a2 2 0 0 1 2-2z' fill='%234285F4'/><circle cx='12' cy='13' r='4' fill='white'/><circle cx='12' cy='13' r='2.6' fill='%2334A853'/><circle cx='18' cy='10' r='1' fill='%23EA4335'/></svg>"></button><button class="search-icon-btn mic" title="Voice Search - Future Ready" onclick="futureFeature('Voice Search')"><img class="admin-search-svg" alt="" src="data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24'><rect x='9' y='3' width='6' height='11' rx='3' fill='%234285F4'/><path d='M5 11a7 7 0 0 0 14 0' fill='none' stroke='%2334A853' stroke-width='2'/><path d='M12 18v3M9 21h6' stroke='%23EA4335' stroke-width='2' stroke-linecap='round'/></svg>"></button><button class="search-submit" onclick="filterPublicProducts()"><img class="admin-search-svg" alt="" src="data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24'><circle cx='11' cy='11' r='6' fill='none' stroke='%234285F4' stroke-width='2.4'/><path d='M16 16l5 5' stroke='%2334A853' stroke-width='2.8' stroke-linecap='round'/></svg>"></button>
     </div>
-    <div class="header-actions"><button class="small-btn" onclick="toggleLanguage()">EN / HI</button><button class="login-btn" onclick="openAuth('login')"><span class="login-main">DEALER ACCESS</span><span class="login-sub">LOGIN • NEW REGISTER</span></button></div>
+    <div class="header-actions"><button class="login-btn" onclick="openAuth('login')"><span class="login-main">DEALER ACCESS</span><span class="login-sub">LOGIN • NEW REGISTER</span></button></div>
   </div></header>
 
   <main>
@@ -682,6 +738,7 @@
         <button class="app-card" onclick="setQuickFilter('New')"><div class="app-icon">🆕</div><div class="app-name">New Items</div><div class="app-help">Latest additions</div></button>
         <button class="app-card" onclick="setQuickFilter('Popular')"><div class="app-icon">🔥</div><div class="app-name">Popular Parts</div><div class="app-help">Frequently searched</div></button>
         <button class="app-card" onclick="openPartEnquiry()"><div class="app-icon">📷</div><div class="app-name">Part Enquiry</div><div class="app-help">Can't find a part?</div></button>
+        <button class="app-card youtube-card" onclick="futureFeature('TORVO YouTube link')" title="TORVO YouTube"><div class="app-icon youtube-icon"><i class="fa-brands fa-youtube"></i></div><div class="app-name">YouTube</div><div class="app-help">Watch TORVO videos</div></button>
       </div>
     </div></section>
 
@@ -822,9 +879,9 @@
           <option value="all">All</option><option value="item">Item No.</option><option value="product">Product</option><option value="brand">Brand</option><option value="model">Model</option><option value="category">Category</option>
         </select>
         <input id="dealerSearchInput" placeholder="Search Item No., Product, Brand, Model..." oninput="filterDealerProducts()">
-        <button class="dealer-search-icon camera" onclick="futureFeature('Dealer Photo Search')" title="Photo Search"><i class="fa-solid fa-camera"></i></button>
-        <button class="dealer-search-icon mic" onclick="futureFeature('Dealer Voice Search')" title="Voice Search"><i class="fa-solid fa-microphone"></i></button>
-        <button class="dealer-search-submit" onclick="filterDealerProducts()" title="Search"><i class="fa-solid fa-magnifying-glass"></i></button>
+        <button class="dealer-search-icon camera" onclick="futureFeature('Dealer Photo Search')" title="Photo Search"><img class="admin-search-svg" alt="" src="data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24'><path d='M5 7h3l1.5-2h5L16 7h3a2 2 0 0 1 2 2v9a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V9a2 2 0 0 1 2-2z' fill='%234285F4'/><circle cx='12' cy='13' r='4' fill='white'/><circle cx='12' cy='13' r='2.6' fill='%2334A853'/><circle cx='18' cy='10' r='1' fill='%23EA4335'/></svg>"></button>
+        <button class="dealer-search-icon mic" onclick="futureFeature('Dealer Voice Search')" title="Voice Search"><img class="admin-search-svg" alt="" src="data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24'><rect x='9' y='3' width='6' height='11' rx='3' fill='%234285F4'/><path d='M5 11a7 7 0 0 0 14 0' fill='none' stroke='%2334A853' stroke-width='2'/><path d='M12 18v3M9 21h6' stroke='%23EA4335' stroke-width='2' stroke-linecap='round'/></svg>"></button>
+        <button class="dealer-search-submit" onclick="filterDealerProducts()" title="Search"><img class="admin-search-svg" alt="" src="data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24'><circle cx='11' cy='11' r='6' fill='none' stroke='%234285F4' stroke-width='2.4'/><path d='M16 16l5 5' stroke='%2334A853' stroke-width='2.8' stroke-linecap='round'/></svg>"></button>
       </div>
       <button class="back-public" onclick="exitDealerPreview()">LOGOUT</button>
     </div>
@@ -833,7 +890,7 @@
 </aside><main class="dealer-main">
 <section id="dealer-home" class="dealer-section active"><div class="dealer-welcome"><div><h2>Welcome to TORVO B2B</h2><p>Dealer portal preview • Search, order and track in one place.</p></div><div class="rate-chip">PREVIEW • RATE GROUP A</div></div>
 <div class="dealer-icon-grid">
-<button class="dealer-icon-card" onclick="openDealerSection('products')"><div class="app-icon">⚙️</div><div class="app-name">Spare Parts</div></button><button class="dealer-icon-card" onclick="openDealerSection('products')"><div class="app-icon">🧰</div><div class="app-name">Accessories</div></button><button class="dealer-icon-card" onclick="openDealerSection('orders')"><div class="app-icon">📦</div><div class="app-name">My Orders</div></button><button class="dealer-icon-card" onclick="openDealerSection('delivery')"><div class="app-icon">🚚</div><div class="app-name">Delivery</div></button><button class="dealer-icon-card" onclick="openDealerSection('points')"><div class="app-icon">⭐</div><div class="app-name">Reward Points</div></button><button class="dealer-icon-card" onclick="openDealerSection('enquiry')"><div class="app-icon">📷</div><div class="app-name">Part Enquiry</div></button><button class="dealer-icon-card" onclick="futureFeature('Barcode / QR Search')"><div class="app-icon">▦</div><div class="app-name">Scan QR</div></button><button class="dealer-icon-card" onclick="futureFeature('Smart Suitable Part Search')"><div class="app-icon">🎯</div><div class="app-name">Suitable Part</div></button><button class="dealer-icon-card" onclick="futureFeature('WhatsApp Support')"><div class="app-icon">💬</div><div class="app-name">WhatsApp</div></button><button class="dealer-icon-card" onclick="openDealerSection('profile')"><div class="app-icon">👤</div><div class="app-name">My Profile</div></button>
+<button class="dealer-icon-card" onclick="openDealerSection('products')"><div class="app-icon">⚙️</div><div class="app-name">Spare Parts</div></button><button class="dealer-icon-card" onclick="openDealerSection('products')"><div class="app-icon">🧰</div><div class="app-name">Accessories</div></button><button class="dealer-icon-card" onclick="openDealerSection('orders')"><div class="app-icon">📦</div><div class="app-name">My Orders</div></button><button class="dealer-icon-card" onclick="openDealerSection('delivery')"><div class="app-icon">🚚</div><div class="app-name">Delivery</div></button><button class="dealer-icon-card" onclick="openDealerSection('points')"><div class="app-icon">⭐</div><div class="app-name">Reward Points</div></button><button class="dealer-icon-card" onclick="openDealerSection('enquiry')"><div class="app-icon">📷</div><div class="app-name">Part Enquiry</div></button><button class="dealer-icon-card" onclick="futureFeature('Barcode / QR Search')"><div class="app-icon">▦</div><div class="app-name">Scan QR</div></button><button class="dealer-icon-card" onclick="futureFeature('Smart Suitable Part Search')"><div class="app-icon">🎯</div><div class="app-name">Suitable Part</div></button><button class="dealer-icon-card" onclick="futureFeature('WhatsApp Support')"><div class="app-icon">💬</div><div class="app-name">WhatsApp</div></button><button class="dealer-icon-card youtube-card" onclick="futureFeature('TORVO YouTube link')"><div class="app-icon youtube-icon"><i class="fa-brands fa-youtube"></i></div><div class="app-name">YouTube</div></button><button class="dealer-icon-card" onclick="openDealerSection('profile')"><div class="app-icon">👤</div><div class="app-name">My Profile</div></button>
 </div><div class="dealer-panel"><div class="section-head"><div><h3 style="margin:0">Quick Status</h3><p class="section-sub">Dealer-facing status only.</p></div></div><div class="status-grid"><div class="status-card"><strong>0</strong><span>Order Pending</span></div><div class="status-card"><strong>0</strong><span>Order Approved</span></div><div class="status-card"><strong>0</strong><span>Ready for Delivery</span></div><div class="status-card"><strong>0</strong><span>Dispatched</span></div></div></div></section>
 <section id="dealer-products" class="dealer-section">
       <div class="dealer-panel">
@@ -954,9 +1011,9 @@ function showContact(id,value){const el=document.getElementById(id);if(el)el.tex
 showContact("contactPhone",TORVO_CONTACT.customerCare);showContact("contactWhatsapp",TORVO_CONTACT.whatsapp);showContact("contactEmail",TORVO_CONTACT.email);showContact("contactAddress",TORVO_CONTACT.address);showContact("contactHours",TORVO_CONTACT.hours);
 
 function publicProductCard(p){return `<div class="product-card">
-<div class="product-photo">
+<div class="product-photo click-photo" onclick="publicProductDetails('${p.item}')" title="View product details">
   <span class="product-badge">${p.tag}</span>
-  <button class="wish-btn" type="button" onclick="event.stopPropagation();toggleWish('${p.item}',this)">♡</button>
+  <button class="top-rate-badge" type="button" onclick="event.stopPropagation();openAuth('login')"><i class="fa-solid fa-lock"></i> LOGIN FOR RATE</button>
   <div class="placeholder-icon">${p.icon}</div>
 </div>
 <div class="product-body">
@@ -968,9 +1025,8 @@ function publicProductCard(p){return `<div class="product-card">
     <div class="meta-cell"><b>Model</b><span>${p.model}</span></div>
     <div class="meta-cell"><b>System</b><span>${p.system}</span></div>
   </div>
-  <div class="product-actions">
-    <button class="rate-btn" onclick="openAuth('login')">🔒 LOGIN FOR RATE</button>
-    <button class="details-btn" onclick="publicProductDetails('${p.item}')">VIEW DETAILS</button>
+  <div class="public-detail-row">
+    <button class="details-btn public-full-detail" onclick="publicProductDetails('${p.item}')"><i class="fa-regular fa-eye"></i> VIEW DETAILS</button>
   </div>
 </div></div>`}
 function dealerProductCard(p){return `<div class="product-card"><div class="product-photo click-photo" onclick="dealerProductDetails('${p.item}')"><span class="product-badge">${p.tag}</span><button class="eye-btn" type="button" title="View Product" onclick="event.stopPropagation();dealerProductDetails('${p.item}')"><i class="fa-regular fa-eye"></i></button><div class="placeholder-icon">${p.icon}</div></div><div class="product-body"><div class="item-no">ITEM: ${p.item}</div><div class="product-name">${p.name}</div><div class="product-meta"><div class="meta-cell"><b>Machine Brand</b><span>${p.brand}</span></div><div class="meta-cell"><b>Part Brand</b><span>${p.spareBrand}</span></div><div class="meta-cell"><b>Model</b><span>${p.model}</span></div><div class="meta-cell"><b>System</b><span>${p.system}</span></div></div><div class="dealer-rate">${p.dealerRate}</div><div class="cart-controls"><div class="qty-control"><button onclick="changeQty('${p.item}',-1)">−</button><span id="qty-${p.item}">1</span><button onclick="changeQty('${p.item}',1)">+</button></div><button class="add-cart-btn" id="cart-${p.item}" onclick="addDemoCart('${p.item}',this)">ADD TO CART</button></div></div></div>`}
@@ -1118,7 +1174,6 @@ function publicProductDetails(item){alert(`Item ${item}\n\nPublic Product Detail
 function dealerProductDetails(item){alert(`Item ${item}\n\nDealer product detail + quantity + Sales Order function will be connected in the ordering stage.`)}
 function shareProduct(item){const p=demoProducts.find(x=>x.item===item);if(!p)return;const text=`TORVO - ${p.name} | Item ${p.item} | Machine Brand: ${p.brand} | Part Brand: ${p.spareBrand} | ${p.model}`;if(navigator.share)navigator.share({title:"TORVO Product",text}).catch(()=>{});else alert(text)}
 function futureFeature(name){alert(`${name}\n\nThis feature is reserved in the TORVO future-ready structure. It will be activated only after the correct secure technology/API is selected and approved.`)}
-function toggleLanguage(){alert("EN / HI full translation will be connected after the main portal UI is finalized.")}
 window.addEventListener("click",e=>{const a=document.getElementById("authModal"),q=document.getElementById("enquiryModal");if(e.target===a)closeAuth();if(e.target===q)closePartEnquiry()});
 
 
