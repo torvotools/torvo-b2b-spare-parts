@@ -123,7 +123,7 @@
     .registration-success{display:none;text-align:center;padding:20px 10px}.registration-success.show{display:block}.registration-success .success-icon{width:70px;height:70px;border-radius:50%;margin:0 auto 14px;background:#eaf8ef;color:#16834a;display:grid;place-items:center;font-size:30px}.registration-success h2{margin:0 0 7px}.registration-success h3{margin:0 0 12px;color:#16834a;font-size:14px}.registration-success p{margin:5px 0;color:var(--grey);font-size:11px;font-weight:650}.registration-success button{margin-top:15px;height:42px;border:0;border-radius:10px;background:#111318;color:#fff;font-weight:900;padding:0 18px}
     .dealer-product-card .dealer-cart-btn,.dealer-cart-btn{min-width:44px!important;width:44px!important;padding:0!important;font-size:17px!important}.dealer-cart-btn .cart-text{display:none!important}
     .dealer-qty-control input{min-width:62px!important;width:72px!important}.dealer-qty-control button{display:inline-grid!important;place-items:center!important}
-    @media(max-width:760px){.report-grid,.settings-grid,.smart-alert-grid{grid-template-columns:1fr}.history-row{grid-template-columns:85px 1fr}.history-row .history-tag{grid-column:2}.smart-alert-card{grid-template-columns:42px 1fr}.smart-alert-card button{grid-column:2;width:max-content}.dealer-icon-grid{grid-template-columns:repeat(2,1fr)}}
+    @media(max-width:760px){.delivery-app-grid{grid-template-columns:repeat(2,1fr)!important}.report-grid,.settings-grid,.smart-alert-grid{grid-template-columns:1fr}.history-row{grid-template-columns:85px 1fr}.history-row .history-tag{grid-column:2}.smart-alert-card{grid-template-columns:42px 1fr}.smart-alert-card button{grid-column:2;width:max-content}.dealer-icon-grid{grid-template-columns:repeat(2,1fr)}}
 
 
     /* ===== V14 QUICK STATUS + BALANCED CART CONTROLS ===== */
@@ -1095,6 +1095,50 @@
 #contactPhone a,#contactWhatsapp a{color:#173f7a!important;text-decoration:none!important;font-weight:900!important}
 #contactWhatsapp a{color:#16823b!important}
 
+
+/* ===== V19 FINAL APPROVED CHANGES ===== */
+
+/* Dealer sidebar: normal vertical scrolling only */
+.dealer-sidebar{
+  max-height:calc(100vh - 92px)!important;
+  overflow-y:auto!important;
+  overflow-x:hidden!important;
+  scrollbar-width:thin!important;
+  scrollbar-color:#98a2b3 #eef1f4!important;
+}
+.dealer-sidebar::-webkit-scrollbar{width:8px!important}
+.dealer-sidebar::-webkit-scrollbar-track{background:#eef1f4!important;border-radius:8px!important}
+.dealer-sidebar::-webkit-scrollbar-thumb{background:#98a2b3!important;border-radius:8px!important}
+.dealer-sidebar::-webkit-scrollbar-thumb:hover{background:#7b8491!important}
+
+/* App-style card labels: clearer, darker, consistent across dealer portal */
+.order-summary-card span,
+.status-app-card span,
+.history-app-card span,
+.profile-app-card span,
+.reward-app-card span,
+.form-app-card span{
+  color:#344054!important;
+  font-weight:850!important;
+}
+
+/* Keep counts and main labels highly readable */
+.order-summary-card strong,
+.status-app-card strong{
+  color:#17213b!important;
+  font-weight:1000!important;
+}
+
+/* Compact ADD/ADDED text on cart action */
+.add-cart-btn,
+.add-cart-btn.added,
+.dealer-cart-btn,
+.dealer-cart-btn.added{
+  font-size:7.5px!important;
+  font-weight:900!important;
+  letter-spacing:0!important;
+}
+
 </style>
 <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.7.2/css/all.min.css">
 </head>
@@ -1448,7 +1492,6 @@
 <h2><i class="fa-solid fa-gear"></i> Settings</h2><p class="section-sub">Dealer can control only allowed personal portal preferences. Admin-controlled rates, approval and account controls remain protected.</p>
 <div class="settings-grid" style="margin-top:14px">
 <div class="setting-card"><div><b>Portal Sounds</b><small>Button, popup, error, success and order-action sounds.</small></div><label class="switch"><input id="settingSound" type="checkbox" checked onchange="saveDealerSetting('sound',this.checked)"><span class="slider"></span></label></div>
-<div class="setting-card"><div><b>Notifications</b><small>Show dealer portal notifications.</small></div><label class="switch"><input id="settingNotifications" type="checkbox" checked onchange="saveDealerSetting('notifications',this.checked)"><span class="slider"></span></label></div>
 <div class="setting-card"><div><b>Personalized Recommendations</b><small>Use your searches and product views for relevant TORVO recommendations.</small></div><label class="switch"><input id="settingPersonalized" type="checkbox" checked onchange="saveDealerSetting('personalized',this.checked)"><span class="slider"></span></label></div>
 <div class="setting-card"><div><b>WhatsApp Updates</b><small>Preference for eligible TORVO updates; official opt-in rules apply at launch.</small></div><label class="switch"><input id="settingWhatsapp" type="checkbox" checked onchange="saveDealerSetting('whatsapp',this.checked)"><span class="slider"></span></label></div>
 </div>
@@ -1888,7 +1931,7 @@ function saveDealerSetting(key,value){
  playTorvoSound("success");
 }
 function syncDealerSettingsUI(){
- const map={settingSound:"sound",settingNotifications:"notifications",settingPersonalized:"personalized",settingWhatsapp:"whatsapp"};
+ const map={settingSound:"sound",settingPersonalized:"personalized",settingWhatsapp:"whatsapp"};
  Object.entries(map).forEach(([id,k])=>{const e=document.getElementById(id);if(e)e.checked=!!torvoSettings[k]});
 }
 function showRegistrationSuccess(){
