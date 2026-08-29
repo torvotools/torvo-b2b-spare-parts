@@ -4,7 +4,7 @@
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <meta name="theme-color" content="#d71920" />
-  <title>TORVO Tools | B2B Power Tool Spare Parts - V5</title>
+  <title>TORVO Tools | B2B Power Tool Spare Parts - V6</title>
 
   <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
 
@@ -155,6 +155,186 @@
 @media(max-width:1180px) and (min-width:761px){.v5-finder-grid{gap:6px}.v5-finder-grid .field label{font-size:8.5px}.v5-finder-grid .field select{font-size:11px;padding-left:9px!important}.v5-finder-grid .find-btn{padding:0 10px;font-size:11px}}
 @media(max-width:760px){.v5-finder-grid{grid-template-columns:1fr 1fr;gap:9px}.v5-finder-grid .find-btn{grid-column:1/-1}.product-photo{height:125px!important}.product-meta{grid-template-columns:1fr!important}.product-meta .meta-cell{padding:4px 5px}}
 
+
+/* ===== V6 FINAL HOME PAGE POLISH ===== */
+.brand-subtitle{
+  font-weight:850!important;
+  color:#4b5563!important;
+  letter-spacing:.55px!important;
+  opacity:1!important;
+}
+
+/* Top search category dropdown now matches Quick Part Finder dropdown */
+.search-select{
+  appearance:none!important;
+  -webkit-appearance:none!important;
+  background-image:
+    linear-gradient(45deg,transparent 50%,#4d535c 50%),
+    linear-gradient(135deg,#4d535c 50%,transparent 50%)!important;
+  background-position:
+    calc(100% - 17px) 50%,
+    calc(100% - 12px) 50%!important;
+  background-size:6px 6px,6px 6px!important;
+  background-repeat:no-repeat!important;
+  padding-right:34px!important;
+  font-weight:750!important;
+}
+
+/* V6 Product Card - Option 1 Clean Modern */
+.product-card{
+  background:#fff!important;
+  border:1px solid #e5e7eb!important;
+  border-radius:16px!important;
+  overflow:hidden!important;
+  box-shadow:0 6px 18px rgba(17,24,39,.06)!important;
+  transition:.18s ease!important;
+}
+.product-card:hover{
+  transform:translateY(-2px)!important;
+  box-shadow:0 10px 24px rgba(17,24,39,.10)!important;
+}
+.product-photo{
+  height:185px!important;
+  background:#fff!important;
+  border-bottom:1px solid #eef0f3!important;
+  position:relative!important;
+  display:grid!important;
+  place-items:center!important;
+}
+.product-photo .placeholder-icon{
+  font-size:78px!important;
+  filter:none!important;
+}
+.product-badge{
+  position:absolute!important;
+  left:12px!important;
+  top:12px!important;
+  z-index:2!important;
+}
+.wish-btn{
+  position:absolute!important;
+  right:12px!important;
+  top:10px!important;
+  width:34px!important;
+  height:34px!important;
+  border:1px solid #e5e7eb!important;
+  border-radius:50%!important;
+  background:#fff!important;
+  font-size:18px!important;
+  cursor:pointer!important;
+}
+.product-body{
+  padding:13px 14px 14px!important;
+}
+.product-name{
+  font-size:15px!important;
+  line-height:1.25!important;
+  margin:4px 0 10px!important;
+  min-height:38px!important;
+}
+.product-meta{
+  display:grid!important;
+  grid-template-columns:1fr!important;
+  gap:6px!important;
+  font-size:10.5px!important;
+}
+.product-meta .meta-cell{
+  background:transparent!important;
+  border-radius:0!important;
+  padding:0!important;
+  display:grid!important;
+  grid-template-columns:115px 1fr!important;
+  gap:8px!important;
+  white-space:normal!important;
+  overflow:visible!important;
+}
+.product-meta .meta-cell b{
+  color:#6b7280!important;
+  font-weight:800!important;
+}
+.product-meta .meta-cell span{
+  color:#111827!important;
+  font-weight:800!important;
+}
+.dealer-rate{
+  margin-top:11px!important;
+  background:#f8fbff!important;
+  border:1px solid #dfe8f5!important;
+  color:#123b7a!important;
+  border-radius:9px!important;
+  text-align:center!important;
+  font-weight:900!important;
+}
+.product-actions{
+  display:grid!important;
+  grid-template-columns:1fr 1fr!important;
+  gap:8px!important;
+  margin-top:8px!important;
+}
+.rate-btn{
+  height:38px!important;
+  border:1px solid #dbe3ef!important;
+  background:#fff!important;
+  color:#123b7a!important;
+  border-radius:9px!important;
+  font-weight:900!important;
+}
+.details-btn{
+  height:38px!important;
+  border-radius:9px!important;
+  background:#13a53a!important;
+  border:0!important;
+  color:#fff!important;
+  font-weight:900!important;
+}
+.details-btn:hover{background:#0d8e31!important}
+.share-btn{
+  display:none!important;
+}
+
+/* Registration popup compact, no long vertical scroll on desktop */
+#registerPane .form-grid{
+  display:grid!important;
+  grid-template-columns:1fr 1fr!important;
+  gap:10px 12px!important;
+}
+#registerPane .field{
+  margin:0!important;
+}
+#registerPane .full-span{
+  grid-column:1/-1!important;
+}
+#registerPane .modal-note{
+  margin-top:8px!important;
+}
+#registerPane .primary-btn{
+  margin-top:10px!important;
+}
+#authModal .modal-box{
+  max-height:92vh!important;
+}
+#authModal .modal-body{
+  overflow:visible!important;
+}
+
+/* Buttons harmonized */
+.view-all,.find-btn,.dealer-btn,.primary-btn{
+  border-radius:10px!important;
+}
+
+/* Mobile final polish */
+@media(max-width:760px){
+  .product-photo{height:145px!important}
+  .product-photo .placeholder-icon{font-size:62px!important}
+  .product-name{min-height:auto!important}
+  .product-meta .meta-cell{grid-template-columns:98px 1fr!important}
+  .product-actions{grid-template-columns:1fr!important}
+  .rate-btn,.details-btn{width:100%!important}
+  #registerPane .form-grid{grid-template-columns:1fr!important}
+  #registerPane .full-span{grid-column:auto!important}
+  #authModal .modal-body{max-height:72vh!important;overflow:auto!important}
+}
+
 </style>
 </head>
 <body>
@@ -163,7 +343,7 @@
   <header class="header"><div class="container header-inner">
     <div class="brand" onclick="window.scrollTo({top:0,behavior:'smooth'})"><div class="brand-logo">T</div><div><div class="brand-name"><span>TORVO</span></div><div class="brand-sub">TOOLS PRIVATE LIMITED</div></div></div>
     <div class="main-search">
-      <select id="searchType"><option value="all">All</option><option value="item">Item No.</option><option value="product">Product</option><option value="brand">Brand</option><option value="model">Model</option><option value="category">Category</option></select>
+      <select class="search-select" id="searchType"><option value="all">All</option><option value="item">Item No.</option><option value="product">Product</option><option value="brand">Brand</option><option value="model">Model</option><option value="category">Category</option></select>
       <input id="publicSearch" type="search" placeholder="Search Item No., Product, Brand, Model..." oninput="filterPublicProducts()" />
       <button class="search-icon-btn" title="Photo Search - Future Ready" onclick="futureFeature('Photo Search')">📷</button><button class="search-icon-btn" title="Voice Search - Future Ready" onclick="futureFeature('Voice Search')">🎙️</button><button class="search-submit" onclick="filterPublicProducts()">⌕</button>
     </div>
@@ -401,8 +581,47 @@ const demoProducts=[
 function showContact(id,value){const el=document.getElementById(id);if(el)el.textContent=value&&value.trim()?value:"Contact details will be updated shortly."}
 showContact("contactPhone",TORVO_CONTACT.customerCare);showContact("contactWhatsapp",TORVO_CONTACT.whatsapp);showContact("contactEmail",TORVO_CONTACT.email);showContact("contactAddress",TORVO_CONTACT.address);showContact("contactHours",TORVO_CONTACT.hours);
 
-function publicProductCard(p){return `<div class="product-card"><div class="product-photo"><span class="product-badge">${p.tag}</span><div class="placeholder-icon">${p.icon}</div></div><div class="product-body"><div class="item-no">ITEM: ${p.item}</div><div class="product-name">${p.name}</div><div class="product-meta"><div class="meta-cell"><b>Machine Brand:</b> ${p.brand}</div><div class="meta-cell"><b>Part Brand:</b> ${p.spareBrand}</div><div class="meta-cell"><b>Machine:</b> ${p.machine}</div><div class="meta-cell"><b>Model:</b> ${p.model}</div><div class="meta-cell"><b>Part:</b> ${p.part||'-'}</div><div class="meta-cell"><b>System:</b> ${p.system}</div></div><div class="dealer-rate">🔐 LOGIN FOR DEALER RATE</div><div class="product-actions"><button class="details-btn" onclick="publicProductDetails('${p.item}')">VIEW DETAILS</button><button class="share-btn" onclick="shareProduct('${p.item}')">↗</button></div></div></div>`}
-function dealerProductCard(p){return `<div class="product-card"><div class="product-photo"><span class="product-badge">${p.tag}</span><div class="placeholder-icon">${p.icon}</div></div><div class="product-body"><div class="item-no">ITEM: ${p.item}</div><div class="product-name">${p.name}</div><div class="product-meta"><div class="meta-cell"><b>Machine Brand:</b> ${p.brand}</div><div class="meta-cell"><b>Part Brand:</b> ${p.spareBrand}</div><div class="meta-cell"><b>Machine:</b> ${p.machine}</div><div class="meta-cell"><b>Model:</b> ${p.model}</div><div class="meta-cell"><b>Part:</b> ${p.part||'-'}</div><div class="meta-cell"><b>System:</b> ${p.system}</div></div><div class="dealer-rate">${p.dealerRate}</div><div class="product-actions"><button class="details-btn" onclick="dealerProductDetails('${p.item}')">ADD / DETAILS</button><button class="share-btn" onclick="shareProduct('${p.item}')">↗</button></div></div></div>`}
+function publicProductCard(p){return `<div class="product-card">
+<div class="product-photo">
+  <span class="product-badge">${p.tag}</span>
+  <button class="wish-btn" type="button" onclick="event.stopPropagation();toggleWish('${p.item}',this)">♡</button>
+  <div class="placeholder-icon">${p.icon}</div>
+</div>
+<div class="product-body">
+  <div class="item-no">ITEM: ${p.item}</div>
+  <div class="product-name">${p.name}</div>
+  <div class="product-meta">
+    <div class="meta-cell"><b>Machine Brand</b><span>${p.brand}</span></div>
+    <div class="meta-cell"><b>Part Brand</b><span>${p.spareBrand}</span></div>
+    <div class="meta-cell"><b>Model</b><span>${p.model}</span></div>
+    <div class="meta-cell"><b>System</b><span>${p.system}</span></div>
+  </div>
+  <div class="product-actions">
+    <button class="rate-btn" onclick="openAuth('login')">🔒 LOGIN FOR RATE</button>
+    <button class="details-btn" onclick="publicProductDetails('${p.item}')">VIEW DETAILS</button>
+  </div>
+</div></div>`}
+function dealerProductCard(p){return `<div class="product-card">
+<div class="product-photo">
+  <span class="product-badge">${p.tag}</span>
+  <button class="wish-btn" type="button" onclick="event.stopPropagation();toggleWish('${p.item}',this)">♡</button>
+  <div class="placeholder-icon">${p.icon}</div>
+</div>
+<div class="product-body">
+  <div class="item-no">ITEM: ${p.item}</div>
+  <div class="product-name">${p.name}</div>
+  <div class="product-meta">
+    <div class="meta-cell"><b>Machine Brand</b><span>${p.brand}</span></div>
+    <div class="meta-cell"><b>Part Brand</b><span>${p.spareBrand}</span></div>
+    <div class="meta-cell"><b>Model</b><span>${p.model}</span></div>
+    <div class="meta-cell"><b>System</b><span>${p.system}</span></div>
+  </div>
+  <div class="dealer-rate">${p.dealerRate}</div>
+  <div class="product-actions">
+    <button class="rate-btn" onclick="futureFeature('Add to Order')">ADD TO ORDER</button>
+    <button class="details-btn" onclick="dealerProductDetails('${p.item}')">VIEW DETAILS</button>
+  </div>
+</div></div>`}
 function renderPublicProducts(products=demoProducts){const g=document.getElementById("publicProductGrid");if(!g)return;g.innerHTML=products.length?products.map(publicProductCard).join(""):`<div style="grid-column:1/-1;background:#fff;border:1px solid #e2e4e8;border-radius:16px;padding:25px;text-align:center">No matching product found. You can send a Part Enquiry.</div>`}
 function renderDealerProducts(products=demoProducts){const g=document.getElementById("dealerProductGrid");if(g)g.innerHTML=products.map(dealerProductCard).join("")}
 initializeFinder();renderPublicProducts();renderDealerProducts();
@@ -537,6 +756,14 @@ function futureFeature(name){alert(`${name}\n\nThis feature is reserved in the T
 function toggleLanguage(){alert("EN / HI full translation will be connected after the main portal UI is finalized.")}
 window.addEventListener("click",e=>{const a=document.getElementById("authModal"),q=document.getElementById("enquiryModal");if(e.target===a)closeAuth();if(e.target===q)closePartEnquiry()});
 
+
+function toggleWish(item,btn){
+  if(!btn)return;
+  const active=btn.dataset.active==="1";
+  btn.dataset.active=active?"0":"1";
+  btn.textContent=active?"♡":"♥";
+  btn.style.color=active?"#111827":"#d71920";
+}
 </script>
 </body>
 </html>
