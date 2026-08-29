@@ -4,7 +4,7 @@
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <meta name="theme-color" content="#d71920" />
-  <title>TORVO Tools | B2B Power Tool Spare Parts - V11</title>
+  <title>TORVO Tools | B2B Power Tool Spare Parts - V12</title>
 
   <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
 
@@ -794,60 +794,89 @@
 }
 
 
-/* ===== V11 CORRECTIONS ===== */
-/* Preserve current NEW / POPULAR badges */
+/* ===== V12 SAFE FIXES ===== */
 .product-photo{border-bottom:1px solid #d7dce3!important}
 
-/* Support icons */
-.support-icon i{font-size:24px!important}.whatsapp-support{color:#1fa855!important}.mail-support{color:#2674d9!important}.address-support{color:#d71920!important}.hours-support{color:#7b48c8!important}
+/* Dealer Support professional icons */
+.c-icon i{font-size:24px!important}
+.c-icon.whatsapp-support{color:#1fa855!important}
+.c-icon.mail-support{color:#2674d9!important}
+.c-icon.address-support{color:#d71920!important}
+.c-icon.hours-support{color:#7b48c8!important}
 
-/* Login for Rate: readable non-clickable status badge */
-.top-rate-badge.rate-info{font-size:9.5px!important;padding:6px 9px!important;border:1px solid #9fb9df!important;background:#eef5ff!important;color:#173f7a!important;cursor:default!important;pointer-events:none!important;font-weight:950!important}
+/* LOGIN FOR RATE: readable status only, not clickable */
+.top-rate-badge.rate-info{
+ font-size:9.5px!important;padding:6px 9px!important;border:1px solid #9fb9df!important;
+ background:#eef5ff!important;color:#173f7a!important;cursor:default!important;pointer-events:none!important;
+ font-weight:950!important;border-radius:7px!important;
+}
 
-/* Quantity gets more width; cart button smaller */
+/* Dealer cart area */
 .cart-controls{grid-template-columns:1.45fr .85fr!important;gap:7px!important}
-.qty-control{grid-template-columns:25px minmax(52px,1fr) 25px!important}
+.qty-control{grid-template-columns:25px minmax(58px,1fr) 25px!important}
 .qty-control button{font-size:12px!important;padding:0!important}
 .qty-control input.qty-input{font-size:12px!important;min-width:0!important}
 .add-cart-btn{font-size:8.5px!important;padding:0 5px!important;white-space:nowrap!important}
 .add-cart-btn i{font-size:10px!important;margin-right:3px!important}
 
-/* Quick status shorter */
+/* Quick Status compact */
 .quick-status-panel{padding:9px 11px!important;margin-bottom:9px!important}
 .quick-status-panel .section-head{margin-bottom:5px!important}
-.quick-status-panel .section-sub{margin-top:2px!important}
 .status-app-card{min-height:91px!important;padding:7px 6px!important}
 .status-app-icon{width:38px!important;height:38px!important;margin-bottom:4px!important;font-size:17px!important}
 .status-app-card strong{font-size:17px!important;margin-bottom:3px!important}
 .status-app-card span{font-size:9px!important}
 
-/* Sidebar slightly bolder than V10, still compact */
+/* Sidebar slightly bolder than V10 */
 .dealer-menu{font-weight:850!important}
 
-/* Welcome title */
+/* Welcome title stronger without increasing strip height */
 .compact-welcome h2{text-transform:uppercase!important;font-size:19px!important;font-weight:1000!important;letter-spacing:.25px!important}
 
-/* Dealer top tools */
+/* Header tools */
+.dealer-header-tools{display:flex!important;align-items:center!important;gap:8px!important}
 .header-tool-btn{position:relative!important;width:38px!important;height:38px!important;border:1px solid #d9dee7!important;border-radius:10px!important;background:#fff!important;color:#173f7a!important;display:grid!important;place-items:center!important;cursor:pointer!important}
-.header-tool-btn i{font-size:16px!important}.header-count{position:absolute!important;right:-5px!important;top:-6px!important;min-width:17px!important;height:17px!important;padding:0 4px!important;border-radius:10px!important;background:#d71920!important;color:#fff!important;font-size:8px!important;font-weight:1000!important;display:grid!important;place-items:center!important;border:2px solid #fff!important}
+.header-tool-btn i{font-size:16px!important}
+.header-count{position:absolute!important;right:-5px!important;top:-6px!important;min-width:17px!important;height:17px!important;padding:0 4px!important;border-radius:10px!important;background:#d71920!important;color:#fff!important;font-size:8px!important;font-weight:1000!important;display:grid!important;place-items:center!important;border:2px solid #fff!important}
 
-/* Two-photo card gallery */
+/* Product 2-photo gallery */
 .product-gallery{position:relative!important}
-.gallery-arrow{position:absolute!important;top:50%!important;transform:translateY(-50%)!important;width:25px!important;height:31px!important;border:1px solid #d9dee7!important;background:rgba(255,255,255,.94)!important;color:#344054!important;border-radius:8px!important;display:grid!important;place-items:center!important;z-index:4!important;cursor:pointer!important;box-shadow:0 2px 7px rgba(15,23,42,.08)!important}
+.gallery-arrow{position:absolute!important;top:50%!important;transform:translateY(-50%)!important;width:25px!important;height:31px!important;border:1px solid #d9dee7!important;background:rgba(255,255,255,.95)!important;color:#344054!important;border-radius:8px!important;display:grid!important;place-items:center!important;z-index:4!important;cursor:pointer!important}
 .gallery-arrow.left{left:7px!important}.gallery-arrow.right{right:7px!important}.gallery-arrow i{font-size:10px!important}
 .photo-counter{position:absolute!important;bottom:6px!important;right:8px!important;background:rgba(23,33,59,.78)!important;color:#fff!important;border-radius:8px!important;padding:3px 6px!important;font-size:7.5px!important;font-weight:900!important;z-index:3!important}
+.gallery-visual{transition:transform .18s ease,filter .18s ease!important}
 .gallery-visual.alt-view{transform:rotate(-7deg) scale(.92)!important;filter:contrast(1.04)!important}
 
-/* Cart and notification */
+/* Utility modals */
 .utility-modal{width:min(650px,94vw)!important}
 .notification-item{display:grid!important;grid-template-columns:42px 1fr auto!important;gap:10px!important;align-items:center!important;padding:11px!important;border:1px solid #e4e7ec!important;border-radius:13px!important;margin-bottom:8px!important;background:#fff!important;cursor:pointer!important}
-.notification-item.unread{background:#f7faff!important;border-color:#dbe8fb!important}.notification-item>span{font-size:7.5px!important;font-weight:1000!important;color:#d71920!important}.notification-item p{margin:3px 0 0!important;font-size:9px!important;color:#667085!important}.notification-item b{font-size:10px!important}
-.notice-icon{width:38px!important;height:38px!important;border-radius:11px!important;display:grid!important;place-items:center!important}.notice-icon.blue{background:#eaf2ff;color:#2674d9}.notice-icon.orange{background:#fff3e4;color:#e17c0e}.notice-icon.green{background:#eaf8ef;color:#16823b}
-.cart-line{display:grid!important;grid-template-columns:44px 1fr 80px auto!important;gap:9px!important;align-items:center!important;padding:10px 0!important;border-bottom:1px solid #e4e7ec!important}.cart-thumb{width:42px!important;height:42px!important;border-radius:10px!important;background:#f5f6f8!important;display:grid!important;place-items:center!important;font-size:21px!important}.cart-line b{font-size:10px!important}.cart-line small{display:block!important;color:#667085!important;font-size:8px!important}.cart-edit-qty{width:70px!important;padding:7px!important;border:1px solid #d9dee7!important;border-radius:8px!important;text-align:center!important}.cart-remove{border:0!important;background:#fff1f2!important;color:#d71920!important;border-radius:8px!important;width:31px!important;height:31px!important;cursor:pointer!important}.cart-summary{display:grid!important;grid-template-columns:repeat(3,1fr)!important;gap:8px!important;margin-top:13px!important}.cart-summary div{border:1px solid #e4e7ec!important;border-radius:12px!important;padding:10px!important}.cart-summary b{display:block!important;font-size:9px!important;color:#667085!important}.cart-summary strong{font-size:15px!important}.review-order-btn{width:100%!important;margin-top:12px!important}
+.notification-item.unread{background:#f7faff!important;border-color:#dbe8fb!important}
+.notification-item>span{font-size:7.5px!important;font-weight:1000!important;color:#d71920!important}
+.notification-item p{margin:3px 0 0!important;font-size:9px!important;color:#667085!important}
+.notification-item b{font-size:10px!important}
+.notice-icon{width:38px!important;height:38px!important;border-radius:11px!important;display:grid!important;place-items:center!important}
+.notice-icon.blue{background:#eaf2ff;color:#2674d9}.notice-icon.orange{background:#fff3e4;color:#e17c0e}.notice-icon.green{background:#eaf8ef;color:#16823b}
+.cart-line{display:grid!important;grid-template-columns:44px 1fr 80px auto!important;gap:9px!important;align-items:center!important;padding:10px 0!important;border-bottom:1px solid #e4e7ec!important}
+.cart-thumb{width:42px!important;height:42px!important;border-radius:10px!important;background:#f5f6f8!important;display:grid!important;place-items:center!important;font-size:21px!important}
+.cart-line b{font-size:10px!important}.cart-line small{display:block!important;color:#667085!important;font-size:8px!important}
+.cart-edit-qty{width:70px!important;padding:7px!important;border:1px solid #d9dee7!important;border-radius:8px!important;text-align:center!important}
+.cart-remove{border:0!important;background:#fff1f2!important;color:#d71920!important;border-radius:8px!important;width:31px!important;height:31px!important;cursor:pointer!important}
+.cart-summary{display:grid!important;grid-template-columns:repeat(3,1fr)!important;gap:8px!important;margin-top:13px!important}
+.cart-summary div{border:1px solid #e4e7ec!important;border-radius:12px!important;padding:10px!important}
+.cart-summary b{display:block!important;font-size:9px!important;color:#667085!important}.cart-summary strong{font-size:15px!important}
+.review-order-btn{width:100%!important;margin-top:12px!important}
+.empty-cart{padding:25px!important;text-align:center!important;color:#667085!important;display:grid!important;gap:8px!important;place-items:center!important}.empty-cart i{font-size:30px!important}
 
-/* Detail shows both product images */
-.detail-photo-gallery{display:grid!important;grid-template-columns:1fr 1fr!important;gap:8px!important}.detail-photo-gallery .product-detail-photo{height:190px!important;font-size:64px!important}.detail-photo-gallery .product-detail-photo.alt{transform:none!important}.detail-photo-label{text-align:center!important;font-size:8px!important;font-weight:850!important;color:#667085!important;margin-top:4px!important}
-@media(max-width:760px){.cart-controls{grid-template-columns:1.3fr .9fr!important}.detail-photo-gallery{grid-template-columns:1fr 1fr!important}.detail-photo-gallery .product-detail-photo{height:125px!important;font-size:48px!important}}
+/* Product Detail shows both images */
+.detail-photo-gallery{display:grid!important;grid-template-columns:1fr 1fr!important;gap:8px!important}
+.detail-photo-gallery .product-detail-photo{height:190px!important;font-size:64px!important}
+.detail-alt-visual{display:inline-block!important;transform:rotate(-7deg) scale(.92)!important}
+.detail-photo-label{text-align:center!important;font-size:8px!important;font-weight:850!important;color:#667085!important;margin-top:4px!important}
+@media(max-width:760px){
+ .cart-controls{grid-template-columns:1.3fr .9fr!important}
+ .detail-photo-gallery{grid-template-columns:1fr 1fr!important}
+ .detail-photo-gallery .product-detail-photo{height:125px!important;font-size:48px!important}
+}
 
 </style>
 <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.7.2/css/all.min.css">
@@ -920,10 +949,10 @@
 
     <section class="section"><div class="container"><div class="contact-box"><div class="contact-head"><div><h2>TORVO Dealer Support</h2><p>Contact details can be updated from the system configuration.</p></div><button class="primary-btn" onclick="openAuth('register')">BECOME A DEALER</button></div><div class="contact-grid">
       <div class="contact-card"><div class="c-icon">📞</div><strong>Customer Care</strong><span id="contactPhone">Contact details will be updated shortly.</span></div>
-      <div class="contact-card"><div class="c-icon">💬</div><strong>WhatsApp</strong><span id="contactWhatsapp">Contact details will be updated shortly.</span></div>
-      <div class="contact-card"><div class="c-icon">✉️</div><strong>Email</strong><span id="contactEmail">Contact details will be updated shortly.</span></div>
-      <div class="contact-card"><div class="c-icon">📍</div><strong>Address</strong><span id="contactAddress">Contact details will be updated shortly.</span></div>
-      <div class="contact-card"><div class="c-icon">🕘</div><strong>Working Hours</strong><span id="contactHours">Contact details will be updated shortly.</span></div>
+      <div class="contact-card"><div class="c-icon whatsapp-support"><i class="fa-brands fa-whatsapp"></i></div><strong>WhatsApp</strong><span id="contactWhatsapp">Contact details will be updated shortly.</span></div>
+      <div class="contact-card"><div class="c-icon mail-support"><i class="fa-solid fa-envelope"></i></div><strong>Email</strong><span id="contactEmail">Contact details will be updated shortly.</span></div>
+      <div class="contact-card"><div class="c-icon address-support"><i class="fa-solid fa-location-dot"></i></div><strong>Address</strong><span id="contactAddress">Contact details will be updated shortly.</span></div>
+      <div class="contact-card"><div class="c-icon hours-support"><i class="fa-regular fa-clock"></i></div><strong>Working Hours</strong><span id="contactHours">Contact details will be updated shortly.</span></div>
     </div></div></div></section>
   </main>
 
@@ -1018,12 +1047,9 @@
 <div class="notification-item unread" onclick="markNoticeRead(this)"><div class="notice-icon orange"><i class="fa-solid fa-truck-fast"></i></div><div><b>Delivery Update</b><p>Delivery and dispatch notifications will be stored here.</p></div><span>NEW</span></div>
 <div class="notification-item unread" onclick="markNoticeRead(this)"><div class="notice-icon green"><i class="fa-solid fa-bullhorn"></i></div><div><b>TORVO Update</b><p>Offers, new items and Admin notices will appear here.</p></div><span>NEW</span></div>
 </div></div></div>
-
 <div class="modal" id="cartModal"><div class="modal-box utility-modal">
 <div class="modal-head"><strong><i class="fa-solid fa-cart-shopping"></i> MY CART</strong><button class="close-btn" onclick="closeUtility('cartModal')">×</button></div>
-<div class="modal-body"><div id="cartBody"></div></div>
-</div></div>
-
+<div class="modal-body"><div id="cartBody"></div></div></div></div>
 <div class="modal" id="productDetailModal"><div class="modal-box product-detail-box">
 <div class="modal-head"><strong><i class="fa-regular fa-eye"></i> PRODUCT DETAILS</strong><button class="close-btn" onclick="closeProductDetail()">×</button></div>
 <div class="modal-body" id="productDetailBody"></div>
@@ -1040,7 +1066,11 @@
         <button class="dealer-search-icon mic" onclick="futureFeature('Dealer Voice Search')" title="Voice Search"><img class="admin-search-svg" alt="" src="data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24'><rect x='9' y='3' width='6' height='11' rx='3' fill='%234285F4'/><path d='M5 11a7 7 0 0 0 14 0' fill='none' stroke='%2334A853' stroke-width='2'/><path d='M12 18v3M9 21h6' stroke='%23EA4335' stroke-width='2' stroke-linecap='round'/></svg>"></button>
         <button class="dealer-search-submit" onclick="filterDealerProducts()" title="Search"><img class="admin-search-svg" alt="" src="data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24'><circle cx='11' cy='11' r='6' fill='none' stroke='%234285F4' stroke-width='2.4'/><path d='M16 16l5 5' stroke='%2334A853' stroke-width='2.8' stroke-linecap='round'/></svg>"></button>
       </div>
-      <button class="back-public" onclick="exitDealerPreview()">LOGOUT</button>
+      <div class="dealer-header-tools">
+<button class="header-tool-btn" onclick="openNotifications()" title="Notifications"><i class="fa-regular fa-bell"></i><span class="header-count" id="notificationCount">3</span></button>
+<button class="header-tool-btn" onclick="openCart()" title="Cart"><i class="fa-solid fa-cart-shopping"></i><span class="header-count" id="cartCount">0</span></button>
+<button class="back-public" onclick="exitDealerPreview()">LOGOUT</button>
+</div>
     </div>
 <div class="dealer-layout"><aside class="dealer-sidebar">
 <button class="dealer-menu active" onclick="openDealerSection('home',this)"><span class="menu-icon">🏠</span> HOME</button><button class="dealer-menu" onclick="openDealerSection('products',this)"><span class="menu-icon">⚙️</span> PRODUCTS</button><button class="dealer-menu" onclick="openDealerSection('orders',this)"><span class="menu-icon">📦</span> MY ORDERS</button><button class="dealer-menu" onclick="openDealerSection('delivery',this)"><span class="menu-icon">🚚</span> DELIVERY</button><button class="dealer-menu" onclick="openDealerSection('points',this)"><span class="menu-icon">⭐</span><span>REWARD</span></button><button class="dealer-menu" onclick="openDealerSection('enquiry',this)"><span class="menu-icon">📷</span> PART ENQUIRY</button><button class="dealer-menu" onclick="openDealerSection('profile',this)"><span class="menu-icon">👤</span> PROFILE</button>
@@ -1217,7 +1247,7 @@ function showContact(id,value){const el=document.getElementById(id);if(el)el.tex
 showContact("contactPhone",TORVO_CONTACT.customerCare);showContact("contactWhatsapp",TORVO_CONTACT.whatsapp);showContact("contactEmail",TORVO_CONTACT.email);showContact("contactAddress",TORVO_CONTACT.address);showContact("contactHours",TORVO_CONTACT.hours);
 
 function publicProductCard(p){const badge=badgeClass(p.tag);return `<div class="product-card">
-<div class="product-photo click-photo product-gallery" id="gallery-public-${p.item}" onclick="publicProductDetails('${p.item}')" title="View product details">
+<div class="product-photo click-photo product-gallery" onclick="publicProductDetails('${p.item}')" title="View product details">
   <span class="product-badge ${badge}">${p.tag}</span>
   <span class="top-rate-badge rate-info"><i class="fa-solid fa-lock"></i> LOGIN FOR RATE</span>
   <button class="gallery-arrow left" type="button" onclick="event.stopPropagation();slideCardPhoto('public','${p.item}',-1)" aria-label="Previous photo"><i class="fa-solid fa-chevron-left"></i></button>
@@ -1235,37 +1265,23 @@ function publicProductCard(p){const badge=badgeClass(p.tag);return `<div class="
     <div class="meta-cell"><b>System</b><span>${p.system}</span></div>
   </div>
   <div class="public-detail-row"><button class="details-btn public-full-detail" onclick="publicProductDetails('${p.item}')"><i class="fa-regular fa-eye"></i> VIEW DETAILS</button></div>
-</div></div>`}')" title="View product details">
+</div></div>`}
+function dealerProductCard(p){const badge=badgeClass(p.tag);return `<div class="product-card">
+<div class="product-photo click-photo product-gallery" onclick="dealerProductDetails('${p.item}')">
   <span class="product-badge ${badge}">${p.tag}</span>
-  <button class="top-rate-badge" type="button" onclick="event.stopPropagation();openAuth('login')"><i class="fa-solid fa-lock"></i> LOGIN FOR RATE</button>
-  <div class="placeholder-icon">${p.icon}</div>
+  <button class="eye-btn" type="button" title="View Product" onclick="event.stopPropagation();dealerProductDetails('${p.item}')"><i class="fa-regular fa-eye"></i></button>
+  <button class="gallery-arrow left" type="button" onclick="event.stopPropagation();slideCardPhoto('dealer','${p.item}',-1)"><i class="fa-solid fa-chevron-left"></i></button>
+  <div class="placeholder-icon gallery-visual" id="visual-dealer-${p.item}">${p.icon}</div>
+  <span class="photo-counter" id="counter-dealer-${p.item}">1/2</span>
+  <button class="gallery-arrow right" type="button" onclick="event.stopPropagation();slideCardPhoto('dealer','${p.item}',1)"><i class="fa-solid fa-chevron-right"></i></button>
 </div>
 <div class="product-body">
   <div class="item-no">ITEM: ${p.item}</div>
   <div class="product-name">${p.name}</div>
-  <div class="product-meta">
-    <div class="meta-cell"><b>Machine Brand</b><span>${p.brand}</span></div>
-    <div class="meta-cell"><b>Part Brand</b><span>${p.spareBrand}</span></div>
-    <div class="meta-cell"><b>Model</b><span>${p.model}</span></div>
-    <div class="meta-cell"><b>System</b><span>${p.system}</span></div>
-  </div>
-  <div class="public-detail-row">
-    <button class="details-btn public-full-detail" onclick="publicProductDetails('${p.item}')"><i class="fa-regular fa-eye"></i> VIEW DETAILS</button>
-  </div>
+  <div class="product-meta"><div class="meta-cell"><b>Machine Brand</b><span>${p.brand}</span></div><div class="meta-cell"><b>Part Brand</b><span>${p.spareBrand}</span></div><div class="meta-cell"><b>Model</b><span>${p.model}</span></div><div class="meta-cell"><b>System</b><span>${p.system}</span></div></div>
+  <div class="dealer-rate">${p.dealerRate}</div>
+  <div class="cart-controls"><div class="qty-control" id="qtybox-${p.item}"><button id="minus-${p.item}" onclick="changeQty('${p.item}',-1)">−</button><input id="qty-${p.item}" class="qty-input" type="number" min="1" value="1" inputmode="numeric" oninput="sanitizeQty('${p.item}')"><button id="plus-${p.item}" onclick="changeQty('${p.item}',1)">+</button></div><button class="add-cart-btn" id="cart-${p.item}" onclick="addDemoCart('${p.item}',this)"><i class="fa-solid fa-cart-plus"></i> ADD TO CART</button></div>
 </div></div>`}
-function dealerProductCard(p){const badge=badgeClass(p.tag);return `<div class="product-card">
-<div class="product-photo click-photo product-gallery" id="gallery-dealer-${p.item}" onclick="dealerProductDetails('${p.item}')">
-<span class="product-badge ${badge}">${p.tag}</span>
-<button class="eye-btn" type="button" title="View Product" onclick="event.stopPropagation();dealerProductDetails('${p.item}')"><i class="fa-regular fa-eye"></i></button>
-<button class="gallery-arrow left" type="button" onclick="event.stopPropagation();slideCardPhoto('dealer','${p.item}',-1)"><i class="fa-solid fa-chevron-left"></i></button>
-<div class="placeholder-icon gallery-visual" id="visual-dealer-${p.item}">${p.icon}</div><span class="photo-counter" id="counter-dealer-${p.item}">1/2</span>
-<button class="gallery-arrow right" type="button" onclick="event.stopPropagation();slideCardPhoto('dealer','${p.item}',1)"><i class="fa-solid fa-chevron-right"></i></button>
-</div>
-<div class="product-body"><div class="item-no">ITEM: ${p.item}</div><div class="product-name">${p.name}</div>
-<div class="product-meta"><div class="meta-cell"><b>Machine Brand</b><span>${p.brand}</span></div><div class="meta-cell"><b>Part Brand</b><span>${p.spareBrand}</span></div><div class="meta-cell"><b>Model</b><span>${p.model}</span></div><div class="meta-cell"><b>System</b><span>${p.system}</span></div></div>
-<div class="dealer-rate">${p.dealerRate}</div>
-<div class="cart-controls"><div class="qty-control" id="qtybox-${p.item}"><button id="minus-${p.item}" onclick="changeQty('${p.item}',-1)">−</button><input id="qty-${p.item}" class="qty-input" type="number" min="1" value="1" inputmode="numeric" oninput="sanitizeQty('${p.item}')"><button id="plus-${p.item}" onclick="changeQty('${p.item}',1)">+</button></div><button class="add-cart-btn" id="cart-${p.item}" onclick="addDemoCart('${p.item}',this)"><i class="fa-solid fa-cart-plus"></i> ADD TO CART</button></div>
-</div></div>`}')"><span class="product-badge ${badge}">${p.tag}</span><button class="eye-btn" type="button" title="View Product" onclick="event.stopPropagation();dealerProductDetails('${p.item}')"><i class="fa-regular fa-eye"></i></button><div class="placeholder-icon">${p.icon}</div></div><div class="product-body"><div class="item-no">ITEM: ${p.item}</div><div class="product-name">${p.name}</div><div class="product-meta"><div class="meta-cell"><b>Machine Brand</b><span>${p.brand}</span></div><div class="meta-cell"><b>Part Brand</b><span>${p.spareBrand}</span></div><div class="meta-cell"><b>Model</b><span>${p.model}</span></div><div class="meta-cell"><b>System</b><span>${p.system}</span></div></div><div class="dealer-rate">${p.dealerRate}</div><div class="cart-controls"><div class="qty-control" id="qtybox-${p.item}"><button id="minus-${p.item}" onclick="changeQty('${p.item}',-1)">−</button><input id="qty-${p.item}" class="qty-input" type="number" min="1" value="1" inputmode="numeric" oninput="sanitizeQty('${p.item}')"><button id="plus-${p.item}" onclick="changeQty('${p.item}',1)">+</button></div><button class="add-cart-btn" id="cart-${p.item}" onclick="addDemoCart('${p.item}',this)">ADD TO CART</button></div></div></div>`}
 function renderPublicProducts(products=demoProducts){const g=document.getElementById("publicProductGrid");if(!g)return;g.innerHTML=products.length?products.map(publicProductCard).join(""):`<div style="grid-column:1/-1;background:#fff;border:1px solid #e2e4e8;border-radius:16px;padding:25px;text-align:center">No matching product found. You can send a Part Enquiry.</div>`}
 function renderDealerProducts(products=demoProducts){const g=document.getElementById("dealerProductGrid");if(g)g.innerHTML=products.map(dealerProductCard).join("")}
 initializeFinder();renderPublicProducts();renderDealerProducts();
@@ -1500,14 +1516,21 @@ function addDemoCart(item,btn){
  const box=document.getElementById("qtybox-"+item), input=document.getElementById("qty-"+item);
  if(box)box.classList.add("locked"); if(input)input.disabled=true;
  ["minus-","plus-"].forEach(x=>{const b=document.getElementById(x+item);if(b)b.disabled=true});
- if(btn){btn.innerHTML='<i class="fa-solid fa-check"></i> ADDED';btn.classList.add("added");btn.disabled=true} updateCartCount();
+ if(btn){btn.innerHTML='<i class="fa-solid fa-check"></i> ADDED';btn.classList.add("added");btn.disabled=true}
+ updateCartCount();
 }
 function closeProductDetail(){document.getElementById("productDetailModal")?.classList.remove("show")}
 function openProductDetail(item,isDealer){
  const p=products.find(x=>x.item===item)||products[0]; if(!p)return;
  const recent=products.filter(x=>x.item!==p.item).slice(0,4);
- const rate=isDealer?`<div class="dealer-rate" style="margin-top:10px">${p.dealerRate}</div>`:`<button class="top-rate-badge" style="position:static;margin-top:10px" onclick="closeProductDetail();openAuth('login')"><i class="fa-solid fa-lock"></i> LOGIN FOR RATE</button>`;
- document.getElementById("productDetailBody").innerHTML=`<div class="product-detail-main"><div class="detail-photo-gallery"><div><div class="product-detail-photo">${p.icon}</div><div class="detail-photo-label">PHOTO 1</div></div><div><div class="product-detail-photo alt"><span style="display:inline-block;transform:rotate(-7deg) scale(.92)">${p.icon}</span></div><div class="detail-photo-label">PHOTO 2</div></div></div><div><div class="detail-kicker">ITEM: ${p.item}</div><div class="detail-title">${p.name}</div><div class="detail-data"><div><b>Machine Brand</b>${p.brand}</div><div><b>Part Brand</b>${p.spareBrand}</div><div><b>Machine</b>${p.machine}</div><div><b>Model</b>${p.model}</div><div><b>Category</b>${p.part}</div><div><b>System</b>${p.system}</div></div>${rate}</div></div><div class="new-arrivals-wrap"><div class="new-arrivals-head"><h3><i class="fa-solid fa-sparkles"></i> NEW ARRIVALS / RECENTLY ADDED</h3><span>Admin-published items will appear here.</span></div><div class="new-arrivals-grid">${recent.map(r=>`<button class="arrival-card" onclick="openProductDetail('${r.item}',${isDealer})"><div class="arrival-photo">${r.icon}</div><b>${r.name}</b><small>ITEM: ${r.item}</small></button>`).join("")}</div></div>`;
+ const rate=isDealer?`<div class="dealer-rate" style="margin-top:10px">${p.dealerRate}</div>`:`<span class="top-rate-badge rate-info" style="position:static;display:inline-flex;margin-top:10px"><i class="fa-solid fa-lock"></i> LOGIN FOR RATE</span>`;
+ document.getElementById("productDetailBody").innerHTML=`<div class="product-detail-main">
+ <div class="detail-photo-gallery">
+   <div><div class="product-detail-photo">${p.icon}</div><div class="detail-photo-label">PHOTO 1</div></div>
+   <div><div class="product-detail-photo alt"><span class="detail-alt-visual">${p.icon}</span></div><div class="detail-photo-label">PHOTO 2</div></div>
+ </div>
+ <div><div class="detail-kicker">ITEM: ${p.item}</div><div class="detail-title">${p.name}</div><div class="detail-data"><div><b>Machine Brand</b>${p.brand}</div><div><b>Part Brand</b>${p.spareBrand}</div><div><b>Machine</b>${p.machine}</div><div><b>Model</b>${p.model}</div><div><b>Category</b>${p.part}</div><div><b>System</b>${p.system}</div></div>${rate}</div></div>
+ <div class="new-arrivals-wrap"><div class="new-arrivals-head"><h3>NEW ARRIVALS / RECENTLY ADDED</h3><span>Admin-published items will appear here.</span></div><div class="new-arrivals-grid">${recent.map(r=>`<button class="arrival-card" onclick="openProductDetail('${r.item}',${isDealer})"><div class="arrival-photo">${r.icon}</div><b>${r.name}</b><small>ITEM: ${r.item}</small></button>`).join("")}</div></div>`;
  document.getElementById("productDetailModal")?.classList.add("show");
 }
 function publicProductDetails(item){openProductDetail(item,false)}
@@ -1515,10 +1538,14 @@ function dealerProductDetails(item){openProductDetail(item,true)}
 
 const cardPhotoState={};
 function slideCardPhoto(scope,item,delta){
- const key=scope+"-"+item; cardPhotoState[key]=cardPhotoState[key]===2?1:2;
- const visual=document.getElementById("visual-"+key),counter=document.getElementById("counter-"+key);
- if(visual)visual.classList.toggle("alt-view",cardPhotoState[key]===2);
- if(counter)counter.textContent=(cardPhotoState[key]||1)+"/2";
+ const key=scope+"-"+item;
+ const current=cardPhotoState[key]||1;
+ const next=current===1?2:1;
+ cardPhotoState[key]=next;
+ const visual=document.getElementById("visual-"+scope+"-"+item);
+ const counter=document.getElementById("counter-"+scope+"-"+item);
+ if(visual)visual.classList.toggle("alt-view",next===2);
+ if(counter)counter.textContent=next+"/2";
 }
 function updateCartCount(){const el=document.getElementById("cartCount");if(el)el.textContent=Object.keys(demoCartState).length}
 function openCart(){renderCart();document.getElementById("cartModal")?.classList.add("show")}
@@ -1526,19 +1553,30 @@ function openNotifications(){document.getElementById("notificationModal")?.class
 function closeUtility(id){document.getElementById(id)?.classList.remove("show")}
 function markNoticeRead(el){
  if(!el.classList.contains("unread"))return;
- el.classList.remove("unread");const tag=el.querySelector(":scope > span");if(tag)tag.textContent="READ";
- const c=document.getElementById("notificationCount");if(c)c.textContent=Math.max(0,(parseInt(c.textContent)||0)-1);
+ el.classList.remove("unread");
+ const tag=el.querySelector(":scope > span"); if(tag)tag.textContent="READ";
+ const c=document.getElementById("notificationCount"); if(c)c.textContent=Math.max(0,(parseInt(c.textContent)||0)-1);
 }
 function renderCart(){
- const body=document.getElementById("cartBody");if(!body)return;
+ const body=document.getElementById("cartBody"); if(!body)return;
  const keys=Object.keys(demoCartState);
- if(!keys.length){body.innerHTML='<div style="padding:25px;text-align:center;color:#667085"><i class="fa-solid fa-cart-shopping" style="font-size:30px;margin-bottom:8px"></i><br><b>Your cart is empty.</b></div>';return}
+ if(!keys.length){body.innerHTML='<div class="empty-cart"><i class="fa-solid fa-cart-shopping"></i><b>Your cart is empty.</b></div>';return}
  let totalQty=0,totalAmount=0;
- const rows=keys.map(item=>{const p=products.find(x=>x.item===item);const q=demoCartState[item].qty;totalQty+=q;const rate=parseFloat(String(p?.dealerRate||"0").replace(/[^0-9.]/g,""))||0;totalAmount+=rate*q;return `<div class="cart-line"><div class="cart-thumb">${p?.icon||"⚙️"}</div><div><b>${p?.name||item}</b><small>ITEM: ${item}</small></div><input class="cart-edit-qty" type="number" min="1" value="${q}" onchange="cartQty('${item}',this.value)"><button class="cart-remove" onclick="removeCartItem('${item}')"><i class="fa-solid fa-trash"></i></button></div>`}).join("");
+ const rows=keys.map(item=>{
+   const p=products.find(x=>x.item===item); const q=demoCartState[item].qty; totalQty+=q;
+   const rate=parseFloat(String(p?.dealerRate||"0").replace(/[^0-9.]/g,""))||0; totalAmount+=rate*q;
+   return `<div class="cart-line"><div class="cart-thumb">${p?.icon||"⚙️"}</div><div><b>${p?.name||item}</b><small>ITEM: ${item}</small></div><input class="cart-edit-qty" type="number" min="1" value="${q}" onchange="cartQty('${item}',this.value)"><button class="cart-remove" onclick="removeCartItem('${item}')"><i class="fa-solid fa-trash"></i></button></div>`;
+ }).join("");
  body.innerHTML=rows+`<div class="cart-summary"><div><b>Total Items</b><strong>${keys.length}</strong></div><div><b>Total Quantity</b><strong>${totalQty}</strong></div><div><b>Estimated Amount</b><strong>${totalAmount?("₹"+totalAmount.toLocaleString("en-IN")):"Preview"}</strong></div></div><button class="primary-btn review-order-btn" onclick="futureFeature('Review Order / Sales Order')"><i class="fa-solid fa-clipboard-check"></i> REVIEW ORDER</button>`;
 }
 function cartQty(item,value){const q=Math.max(1,parseInt(value)||1);if(demoCartState[item])demoCartState[item].qty=q;renderCart()}
-function removeCartItem(item){delete demoCartState[item];updateCartCount();renderCart();const b=document.getElementById("cart-"+item),box=document.getElementById("qtybox-"+item),input=document.getElementById("qty-"+item);if(b){b.disabled=false;b.classList.remove("added");b.innerHTML='<i class="fa-solid fa-cart-plus"></i> ADD TO CART'}if(box)box.classList.remove("locked");if(input)input.disabled=false;["minus-","plus-"].forEach(x=>{const z=document.getElementById(x+item);if(z)z.disabled=false})}
+function removeCartItem(item){
+ delete demoCartState[item]; updateCartCount(); renderCart();
+ const btn=document.getElementById("cart-"+item), box=document.getElementById("qtybox-"+item), input=document.getElementById("qty-"+item);
+ if(btn){btn.disabled=false;btn.classList.remove("added");btn.innerHTML='<i class="fa-solid fa-cart-plus"></i> ADD TO CART'}
+ if(box)box.classList.remove("locked"); if(input)input.disabled=false;
+ ["minus-","plus-"].forEach(x=>{const b=document.getElementById(x+item);if(b)b.disabled=false});
+}
 </script>
 </body>
 </html>
