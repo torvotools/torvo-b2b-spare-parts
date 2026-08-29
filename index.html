@@ -125,6 +125,87 @@
     .dealer-qty-control input{min-width:62px!important;width:72px!important}.dealer-qty-control button{display:inline-grid!important;place-items:center!important}
     @media(max-width:760px){.report-grid,.settings-grid,.smart-alert-grid{grid-template-columns:1fr}.history-row{grid-template-columns:85px 1fr}.history-row .history-tag{grid-column:2}.smart-alert-card{grid-template-columns:42px 1fr}.smart-alert-card button{grid-column:2;width:max-content}.dealer-icon-grid{grid-template-columns:repeat(2,1fr)}}
 
+
+    /* ===== V14 QUICK STATUS + BALANCED CART CONTROLS ===== */
+    .status-six-grid{grid-template-columns:repeat(6,minmax(0,1fr))!important;gap:8px!important}
+    .quick-status-panel{padding:13px 14px!important;margin-bottom:12px!important}
+    .status-six-grid .status-app-card{min-height:96px!important;padding:8px 5px!important;border-radius:14px!important}
+    .status-six-grid .status-app-icon{width:38px!important;height:38px!important;border-radius:11px!important;font-size:16px!important;margin-bottom:4px!important}
+    .status-six-grid .status-app-card strong{font-size:17px!important;margin-bottom:3px!important}
+    .status-six-grid .status-app-card span{font-size:8.4px!important;line-height:1.2!important;display:block!important}
+    .status-six-grid .availability-status{position:relative!important}
+    .status-six-grid .availability-status em{display:inline-block!important;margin-top:4px!important;font-style:normal!important;font-size:6.8px!important;font-weight:1000!important;letter-spacing:.25px!important;padding:2px 5px!important;border-radius:999px!important;background:#eef2f7!important;color:#667085!important}
+    .status-cyan .status-app-icon{background:#e7f8fb!important;color:#1686a6!important}
+    .status-red .status-app-icon{background:#ffecef!important;color:#d71920!important}
+
+    .cart-controls{
+      display:grid!important;
+      grid-template-columns:minmax(0,1fr) 72px!important;
+      gap:8px!important;
+      align-items:center!important;
+      margin-top:auto!important;
+      padding-top:10px!important;
+    }
+    .qty-control{
+      height:38px!important;
+      border:1px solid #d8dee8!important;
+      border-radius:10px!important;
+      display:grid!important;
+      grid-template-columns:36px minmax(46px,1fr) 36px!important;
+      align-items:center!important;
+      overflow:hidden!important;
+      background:#fff!important;
+    }
+    .qty-control button{
+      height:100%!important;
+      border:0!important;
+      background:#fff!important;
+      font-size:18px!important;
+      font-weight:1000!important;
+      cursor:pointer!important;
+    }
+    .qty-control button:first-child{color:#e21b23!important;border-right:1px solid #e3e7ed!important}
+    .qty-control button:last-child{color:#159447!important;border-left:1px solid #e3e7ed!important}
+    .qty-control input,.qty-input{
+      width:100%!important;
+      min-width:0!important;
+      height:100%!important;
+      border:0!important;
+      outline:0!important;
+      text-align:center!important;
+      font-size:12px!important;
+      font-weight:950!important;
+      color:#17213b!important;
+      background:#fff!important;
+      padding:0 3px!important;
+      appearance:textfield!important;
+      -moz-appearance:textfield!important;
+    }
+    .qty-control input::-webkit-outer-spin-button,.qty-control input::-webkit-inner-spin-button{-webkit-appearance:none!important;margin:0!important}
+    .dealer-cart-btn,.add-cart-btn.dealer-cart-btn{
+      width:72px!important;
+      min-width:72px!important;
+      height:38px!important;
+      border-radius:10px!important;
+      background:#1f66b3!important;
+      color:#fff!important;
+      display:grid!important;
+      place-items:center!important;
+      padding:0!important;
+      font-size:15px!important;
+      box-shadow:0 2px 5px rgba(31,102,179,.15)!important;
+    }
+    .dealer-cart-btn.added{background:#16823b!important}
+    @media(max-width:1200px){
+      .status-six-grid{grid-template-columns:repeat(3,1fr)!important}
+    }
+    @media(max-width:760px){
+      .status-six-grid{grid-template-columns:repeat(2,1fr)!important}
+      .cart-controls{grid-template-columns:minmax(0,1fr) 66px!important}
+      .dealer-cart-btn,.add-cart-btn.dealer-cart-btn{width:66px!important;min-width:66px!important}
+      .qty-control{grid-template-columns:34px minmax(42px,1fr) 34px!important}
+    }
+
     @media(max-width:1100px){.header-inner{grid-template-columns:190px 1fr}.header-actions{grid-column:1/-1;padding-bottom:10px;justify-content:flex-end}.app-grid{grid-template-columns:repeat(3,1fr)}.product-grid{grid-template-columns:repeat(3,1fr)}.finder-grid{grid-template-columns:1fr 1fr}.find-btn{width:100%}.contact-grid{grid-template-columns:repeat(3,1fr)}.dealer-icon-grid{grid-template-columns:repeat(3,1fr)}}
     @media(max-width:760px){.topbar{display:none}.header{position:relative}.header-inner{display:flex;flex-wrap:wrap;padding:10px 0;gap:10px}.brand{flex:1}.brand-logo{width:45px;height:45px;border-radius:12px;font-size:25px}.brand-name{font-size:23px}.brand-sub{display:none}.header-actions{padding:0;order:2}.small-btn{display:none}.login-btn{min-height:43px;padding:6px 10px}.login-btn .login-main{font-size:10px}.login-btn .login-sub{font-size:7px}.main-search{order:3;width:100%;grid-template-columns:1fr 42px 42px 48px;height:48px}.main-search select{display:none}.hero{padding-top:12px}.hero-box{grid-template-columns:1fr;min-height:0}.hero-content{padding:26px 20px}.hero h1{font-size:31px}.hero p{font-size:14px}.hero-visual{padding:0 20px 25px}.hero-machine{max-width:310px}.app-grid{grid-template-columns:repeat(2,1fr);gap:10px}.app-card{min-height:158px;padding:12px 6px;border-radius:19px}.app-icon{width:88px;height:88px;font-size:42px;border-radius:25px}.app-name{font-size:12px}.app-help{display:none}.finder-grid{grid-template-columns:1fr}.product-grid{grid-template-columns:repeat(2,1fr);gap:9px}.product-photo{height:145px}.product-body{padding:10px}.business-strip{grid-template-columns:1fr 1fr}.business-card{display:block;padding:13px}.business-icon{margin-bottom:8px}.process-grid{grid-template-columns:repeat(2,1fr)}.about-box{grid-template-columns:1fr}.contact-grid{grid-template-columns:1fr 1fr}.footer-grid{grid-template-columns:1fr 1fr}.dealer-header{grid-template-columns:1fr auto;height:auto;padding:10px 3%}.dealer-search{grid-column:1/-1;width:100%}.dealer-layout{display:block;margin-bottom:80px}.dealer-sidebar{display:none}.dealer-icon-grid{grid-template-columns:repeat(3,1fr);gap:8px}.dealer-icon-card{min-height:125px}.dealer-icon-card .app-icon{width:64px;height:64px;font-size:31px}.status-grid{grid-template-columns:1fr 1fr}.mobile-nav{display:grid}.two-fields{grid-template-columns:1fr}}
     @media(max-width:420px){.app-grid{grid-template-columns:repeat(2,1fr)}.app-icon{width:82px;height:82px;font-size:39px}.product-name{font-size:13px}.contact-grid{grid-template-columns:1fr}.footer-grid{grid-template-columns:1fr}}
@@ -1104,19 +1185,15 @@
 <div class="dealer-welcome compact-welcome"><div><h2>Welcome to TORVO B2B</h2><p>Dealer portal preview • Search, order and track in one place.</p></div><div class="rate-chip">PREVIEW • RATE GROUP A</div></div>
 <div class="dealer-panel quick-status-panel">
   <div class="section-head"><div><h3 style="margin:0">Quick Status</h3><p class="section-sub">Dealer-facing status only.</p></div></div>
-  <div class="status-app-grid">
+  <div class="status-app-grid status-six-grid">
     <button class="status-app-card status-blue" onclick="openDealerSection('orders')"><div class="status-app-icon"><i class="fa-solid fa-hourglass-half"></i></div><strong>0</strong><span>Order Pending</span></button>
     <button class="status-app-card status-green" onclick="openDealerSection('orders')"><div class="status-app-icon"><i class="fa-solid fa-circle-check"></i></div><strong>0</strong><span>Order Approved</span></button>
     <button class="status-app-card status-orange" onclick="openDealerSection('delivery')"><div class="status-app-icon"><i class="fa-solid fa-box-open"></i></div><strong>0</strong><span>Ready for Delivery</span></button>
     <button class="status-app-card status-purple" onclick="openDealerSection('delivery')"><div class="status-app-icon"><i class="fa-solid fa-truck-fast"></i></div><strong>0</strong><span>Dispatched</span></button>
+    <button class="status-app-card status-cyan availability-status" onclick="openDealerSection('products');playTorvoSound('action')"><div class="status-app-icon"><i class="fa-solid fa-magnifying-glass"></i></div><strong>0</strong><span>Searched Item Available</span><em>AUTOMATIC</em></button>
+    <button class="status-app-card status-red availability-status" onclick="openDealerSection('products');playTorvoSound('action')"><div class="status-app-icon"><i class="fa-solid fa-box-open"></i></div><strong>0</strong><span>Order Item Available</span><em>AUTOMATIC</em></button>
   </div>
 </div>
-<div class="dealer-panel smart-alerts">
-<div class="smart-alert-head"><h3><i class="fa-solid fa-bolt"></i> NOW AVAILABLE FOR YOU</h3><span>AUTOMATIC</span></div>
-<div class="smart-alert-grid" id="smartAvailabilityGrid">
-<div class="smart-alert-card"><div class="smart-icon"><i class="fa-solid fa-magnifying-glass"></i></div><div><b>Previously Searched Item</b><small>If an item you searched was unavailable and is later published as available, it will appear here automatically.</small></div><button onclick="openDealerSection('products');playTorvoSound('action')">ORDER NOW</button></div>
-<div class="smart-alert-card"><div class="smart-icon"><i class="fa-solid fa-box-open"></i></div><div><b>Previously Unavailable Order Item</b><small>If an item was removed from your order/estimate due to non-availability and later arrives, it will appear here automatically.</small></div><button onclick="openDealerSection('products');playTorvoSound('action')">ORDER NOW</button></div>
-</div></div>
 <div class="dealer-icon-grid">
 <button class="dealer-icon-card" onclick="openDealerSection('products')"><div class="app-icon">⚙️</div><div class="app-name">Spare Parts</div></button>
 <button class="dealer-icon-card" onclick="openDealerSection('products')"><div class="app-icon">🧰</div><div class="app-name">Accessories</div></button>
