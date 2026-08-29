@@ -1139,6 +1139,29 @@
   letter-spacing:0!important;
 }
 
+
+/* ===== V20 FINAL SUPPORT / DELIVERY / SOUND POLISH ===== */
+.contact-card-action{align-items:flex-start!important}
+.contact-card-action .support-number{display:inline-block!important;margin-top:5px!important;font-size:16px!important;line-height:1.1!important;font-weight:1000!important;letter-spacing:.3px!important;text-decoration:none!important}
+.contact-card-action .phone-number{color:#ffd400!important}
+.contact-card-action .whatsapp-number{color:#32e875!important}
+.support-action-btn{display:inline-flex!important;align-items:center!important;gap:6px!important;margin-top:9px!important;padding:8px 11px!important;border-radius:8px!important;background:#14923f!important;color:#fff!important;text-decoration:none!important;font-size:9px!important;font-weight:1000!important}
+.phone-card{border-color:#2674d9!important}.whatsapp-card{border-color:#16823b!important}
+
+.delivery-app-grid{display:grid!important;grid-template-columns:repeat(6,minmax(0,1fr))!important;gap:10px!important;margin-top:14px!important}
+.delivery-app-card{min-height:118px!important;border:1px solid #e4e7ec!important;border-radius:15px!important;background:#fff!important;padding:12px 8px!important;text-align:center!important;text-decoration:none!important;cursor:pointer!important;display:flex!important;flex-direction:column!important;align-items:center!important;justify-content:center!important;box-shadow:0 5px 16px rgba(15,23,42,.07)!important}
+.delivery-app-card:hover{transform:translateY(-2px)!important;box-shadow:0 9px 22px rgba(15,23,42,.11)!important}
+.delivery-app-icon{width:44px!important;height:44px!important;border-radius:13px!important;display:grid!important;place-items:center!important;margin-bottom:7px!important;font-size:19px!important}
+.delivery-app-card b{font-size:10.5px!important;color:#17213b!important;font-weight:1000!important}
+.delivery-app-card>span:last-child{margin-top:4px!important;font-size:9px!important;color:#344054!important;font-weight:850!important}
+.delivery-app-card.blue .delivery-app-icon{background:#eaf2ff!important;color:#2674d9!important}.delivery-app-card.orange .delivery-app-icon{background:#fff3e4!important;color:#e17c0e!important}.delivery-app-card.green .delivery-app-icon{background:#eaf8ef!important;color:#16823b!important}.delivery-app-card.cyan .delivery-app-icon{background:#e9fbfb!important;color:#0f8a8a!important}.delivery-app-card.purple .delivery-app-icon{background:#f1eaff!important;color:#7b48c8!important}.delivery-app-card.red .delivery-app-icon{background:#fff0f1!important;color:#d71920!important}
+@media(max-width:900px){.delivery-app-grid{grid-template-columns:repeat(3,1fr)!important}}
+@media(max-width:760px){.delivery-app-grid{grid-template-columns:repeat(2,1fr)!important}}
+
+.order-summary-card span,.status-app-card span,.history-app-card span,.profile-app-card span,.reward-app-card span,.form-app-card span,.delivery-app-card span{color:#344054!important;font-weight:850!important}
+.order-summary-card b,.history-app-card b,.profile-app-card b,.reward-app-card b,.form-app-card b,.delivery-app-card b{color:#17213b!important;font-weight:1000!important}
+.add-cart-btn,.add-cart-btn.added,.dealer-cart-btn,.dealer-cart-btn.added{font-size:7px!important;font-weight:900!important;letter-spacing:0!important}
+
 </style>
 <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.7.2/css/all.min.css">
 </head>
@@ -1209,8 +1232,18 @@
     <section class="section"><div class="container"><div class="about-box"><div><h2>About TORVO</h2><p>TORVO TOOLS PRIVATE LIMITED is building a professional B2B system focused on power tool spare parts and accessories. Our goal is to make product identification, dealer ordering, support and delivery easier through a modern digital platform.</p></div><div class="about-points"><div class="about-point">⚙️ Spare Parts Focus</div><div class="about-point">🧰 Accessories</div><div class="about-point">🏪 Dealer Network</div><div class="about-point">📱 Digital B2B System</div></div></div></div></section>
 
     <section class="section"><div class="container"><div class="contact-box"><div class="contact-head"><div><h2>TORVO Dealer Support</h2><p>Contact details can be updated from the system configuration.</p></div><button class="primary-btn" onclick="openAuth('register')">BECOME A DEALER</button></div><div class="contact-grid">
-      <div class="contact-card"><div class="c-icon phone-support"><i class="fa-solid fa-phone"></i></div><strong>Customer Care</strong><span id="contactPhone"><a href="tel:7027751533">7027751533</a></span></div>
-      <div class="contact-card"><div class="c-icon whatsapp-support"><i class="fa-brands fa-whatsapp"></i></div><strong>WhatsApp</strong><span id="contactWhatsapp"><a href="https://wa.me/917027751533" target="_blank" rel="noopener">7027751533</a></span></div>
+      <div class="contact-card contact-card-action phone-card">
+  <div class="c-icon phone-support"><i class="fa-solid fa-phone"></i></div>
+  <strong>Customer Care</strong>
+  <span id="contactPhone"><a class="support-number phone-number" href="tel:7027751533">7027751533</a></span>
+  <a class="support-action-btn call-now" href="tel:7027751533"><i class="fa-solid fa-phone"></i> CALL NOW</a>
+</div>
+      <div class="contact-card contact-card-action whatsapp-card">
+  <div class="c-icon whatsapp-support"><i class="fa-brands fa-whatsapp"></i></div>
+  <strong>WhatsApp</strong>
+  <span id="contactWhatsapp"><a class="support-number whatsapp-number" href="https://wa.me/917027751533" target="_blank" rel="noopener">7027751533</a></span>
+  <a class="support-action-btn chat-now" href="https://wa.me/917027751533" target="_blank" rel="noopener"><i class="fa-brands fa-whatsapp"></i> CHAT NOW</a>
+</div>
       <div class="contact-card"><div class="c-icon mail-support"><i class="fa-solid fa-envelope"></i></div><strong>Email</strong><span id="contactEmail">Contact details will be updated shortly.</span></div>
       <div class="contact-card"><div class="c-icon address-support"><i class="fa-solid fa-location-dot"></i></div><strong>Address</strong><span id="contactAddress">Contact details will be updated shortly.</span></div>
       <div class="contact-card"><div class="c-icon hours-support"><i class="fa-regular fa-clock"></i></div><strong>Working Hours</strong><span id="contactHours">Contact details will be updated shortly.</span></div>
@@ -1406,7 +1439,20 @@
 <button class="status-app-card status-orange"><div class="status-app-icon"><i class="fa-solid fa-indian-rupee-sign"></i></div><strong>0</strong><span>Payment Pending</span></button>
 <button class="status-app-card status-purple"><div class="status-app-icon"><i class="fa-solid fa-wallet"></i></div><strong>0</strong><span>Payment Received</span></button>
 </div></div></section>
-<section id="dealer-delivery" class="dealer-section"><div class="dealer-panel"><h2>🚚 Delivery</h2><p class="section-sub">Ready for Delivery → Dispatched → Delivered.</p></div></section>
+<section id="dealer-delivery" class="dealer-section">
+<div class="dealer-panel">
+  <h2><i class="fa-solid fa-truck-fast"></i> Delivery</h2>
+  <p class="section-sub">Ready for Delivery → Dispatched → Delivered.</p>
+  <div class="delivery-app-grid">
+    <button class="delivery-app-card blue" onclick="futureFeature('Ready for Delivery')"><span class="delivery-app-icon"><i class="fa-solid fa-box-open"></i></span><b>Ready for Delivery</b><span>Prepared orders</span></button>
+    <button class="delivery-app-card orange" onclick="futureFeature('Dispatched')"><span class="delivery-app-icon"><i class="fa-solid fa-truck-fast"></i></span><b>Dispatched</b><span>On the way</span></button>
+    <button class="delivery-app-card green" onclick="futureFeature('Delivered')"><span class="delivery-app-icon"><i class="fa-solid fa-circle-check"></i></span><b>Delivered</b><span>Completed</span></button>
+    <button class="delivery-app-card cyan" onclick="futureFeature('Track Delivery')"><span class="delivery-app-icon"><i class="fa-solid fa-location-dot"></i></span><b>Track Delivery</b><span>Check status</span></button>
+    <button class="delivery-app-card purple" onclick="futureFeature('Delivery Details')"><span class="delivery-app-icon"><i class="fa-solid fa-file-lines"></i></span><b>Delivery Details</b><span>Records & details</span></button>
+    <a class="delivery-app-card red" href="tel:7027751533"><span class="delivery-app-icon"><i class="fa-solid fa-headset"></i></span><b>Delivery Help</b><span>Call 7027751533</span></a>
+  </div>
+</div>
+</section>
 <section id="dealer-points" class="dealer-section"><div class="dealer-panel">
 <h2><i class="fa-solid fa-gift"></i> Reward Points</h2><p class="section-sub">Reward points are separate from payment/outstanding.</p>
 <div class="reward-app-grid">
@@ -1590,8 +1636,8 @@ function showContact(id,value){
  const el=document.getElementById(id);if(!el)return;
  if(value&&String(value).trim()){
    const clean=String(value).replace(/\s+/g,"");
-   if(id==="contactPhone"){el.innerHTML=`<a href="tel:${clean}">${value}</a>`;return}
-   if(id==="contactWhatsapp"){el.innerHTML=`<a href="https://wa.me/91${clean}" target="_blank" rel="noopener">${value}</a>`;return}
+   if(id==="contactPhone"){el.innerHTML=`<a class="support-number phone-number" href="tel:${clean}">${value}</a>`;return}
+   if(id==="contactWhatsapp"){el.innerHTML=`<a class="support-number whatsapp-number" href="https://wa.me/91${clean}" target="_blank" rel="noopener">${value}</a>`;return}
    el.textContent=value;return;
  }
  el.textContent="Contact details will be updated shortly.";
@@ -1904,8 +1950,8 @@ function slideCardPhoto(scope,item,delta){
  if(counter)counter.textContent=next+"/"+maxPhotos;
 }
 function updateCartCount(){const el=document.getElementById("cartCount");if(el)el.textContent=Object.keys(demoCartState).length}
-function openCart(){renderCart();document.getElementById("cartModal")?.classList.add("show")}
-function openNotifications(){document.getElementById("notificationModal")?.classList.add("show")}
+function openCart(){renderCart();document.getElementById("cartModal")?.classList.add("show");playTorvoSound("popup")}
+function openNotifications(){document.getElementById("notificationModal")?.classList.add("show");playTorvoSound("popup")}
 function closeUtility(id){document.getElementById(id)?.classList.remove("show")}
 function markNoticeRead(el){
  if(!el.classList.contains("unread"))return;
@@ -1916,14 +1962,18 @@ function markNoticeRead(el){
 
 let torvoSettings={sound:true,notifications:true,personalized:true,whatsapp:true};
 try{torvoSettings={...torvoSettings,...JSON.parse(localStorage.getItem("torvoDealerSettings")||"{}")}}catch(e){}
+let torvoAudioContext=null;
 function playTorvoSound(kind="click"){
  if(!torvoSettings.sound)return;
  try{
    const C=window.AudioContext||window.webkitAudioContext;if(!C)return;
-   const ctx=new C(),o=ctx.createOscillator(),g=ctx.createGain();
-   const f={click:520,popup:620,error:180,success:760,action:680}[kind]||520;
-   o.frequency.value=f;o.type="sine";g.gain.setValueAtTime(.035,ctx.currentTime);g.gain.exponentialRampToValueAtTime(.001,ctx.currentTime+.08);
-   o.connect(g);g.connect(ctx.destination);o.start();o.stop(ctx.currentTime+.08);
+   if(!torvoAudioContext)torvoAudioContext=new C();
+   const ctx=torvoAudioContext;if(ctx.state==="suspended")ctx.resume();
+   const o=ctx.createOscillator(),g=ctx.createGain();
+   const f={click:470,popup:610,error:190,success:760,action:660}[kind]||470;
+   const d={click:.055,popup:.075,error:.11,success:.095,action:.07}[kind]||.06;
+   o.frequency.value=f;o.type="sine";g.gain.setValueAtTime(.026,ctx.currentTime);g.gain.exponentialRampToValueAtTime(.001,ctx.currentTime+d);
+   o.connect(g);g.connect(ctx.destination);o.start();o.stop(ctx.currentTime+d);
  }catch(e){}
 }
 function saveDealerSetting(key,value){
@@ -1949,8 +1999,12 @@ function closeRegistrationSuccess(){
 }
 function continueShopping(){closeUtility("cartModal");openDealerSection("products");playTorvoSound("action")}
 document.addEventListener("click",e=>{
- const b=e.target.closest("button");
- if(b&&!b.classList.contains("continue-shopping"))playTorvoSound("click");
+ const action=e.target.closest("button,a,.dealer-menu,.dealer-icon-card,.status-app-card,.order-summary-card,.history-app-card,.profile-app-card,.reward-app-card,.form-app-card,.delivery-app-card,.gallery-arrow,.click-photo");
+ if(!action)return;
+ let kind="click";
+ if(action.closest(".add-cart-btn,.dealer-cart-btn,.support-action-btn,.delivery-app-card"))kind="action";
+ if(action.closest(".full-red-btn,.primary-btn,.review-order-btn"))kind="action";
+ playTorvoSound(kind);
 });
 
 function renderCart(){
