@@ -4,7 +4,7 @@
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <meta name="theme-color" content="#d71920" />
-  <title>TORVO Tools | B2B Power Tool Spare Parts - V4</title>
+  <title>TORVO Tools | B2B Power Tool Spare Parts - V5</title>
 
   <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
 
@@ -129,6 +129,32 @@
 .v4-info strong{font-size:11px}
 .v4-suitable{margin-top:10px;border:1px solid #ffd6d8;background:#fff7f7;border-radius:12px;padding:10px;font-size:10px;line-height:1.6}
 @media(max-width:760px){.v4-system-grid{grid-template-columns:repeat(2,1fr)}.v4-detail-grid{grid-template-columns:1fr}.v4-detail-photo{min-height:190px}}
+
+/* V5 refinements */
+.topbar-inner{padding-left:0;padding-right:0}
+.login-btn .login-sub{font-weight:850!important;opacity:1!important}
+.view-all{background:var(--red)!important;color:#fff!important;border:0!important;border-radius:10px!important;padding:9px 14px!important;font-size:11px!important;box-shadow:0 4px 10px rgba(215,25,32,.16)}
+.finder{padding:20px!important}
+.finder-grid{gap:12px!important}
+.field select{appearance:none;-webkit-appearance:none;background-image:linear-gradient(45deg,transparent 50%,#4d535c 50%),linear-gradient(135deg,#4d535c 50%,transparent 50%);background-position:calc(100% - 17px) 20px,calc(100% - 12px) 20px;background-size:6px 6px,6px 6px;background-repeat:no-repeat;padding-left:14px!important;padding-right:34px!important;font-weight:750!important}
+.v5-finder-grid{display:grid;grid-template-columns:1.02fr 1.12fr 1fr 1fr .9fr 1fr auto;gap:9px;align-items:end}
+.v5-finder-grid .field label{font-size:9.5px;white-space:nowrap}
+.v5-finder-grid .field select{height:47px;font-size:12px}
+.v5-finder-grid .find-btn{height:47px;padding:0 15px;white-space:nowrap}
+.product-grid{gap:12px!important}
+.product-photo{height:160px!important}
+.product-photo .placeholder-icon{font-size:68px!important}
+.product-body{padding:11px 12px 12px!important}
+.product-name{font-size:14px!important;margin:4px 0 7px!important;min-height:auto!important}
+.product-meta{display:grid!important;grid-template-columns:1fr 1fr;gap:5px 8px!important;line-height:1.25!important;color:var(--grey);font-size:10px!important}
+.product-meta .meta-cell{background:#f7f8fa;border-radius:7px;padding:5px 6px;min-width:0;overflow:hidden;text-overflow:ellipsis;white-space:nowrap}
+.product-meta .meta-cell b{color:#343941}
+.dealer-rate{padding:7px!important;margin-top:8px!important}
+.product-actions{margin-top:7px!important}
+.details-btn{height:36px!important}
+@media(max-width:1180px) and (min-width:761px){.v5-finder-grid{gap:6px}.v5-finder-grid .field label{font-size:8.5px}.v5-finder-grid .field select{font-size:11px;padding-left:9px!important}.v5-finder-grid .find-btn{padding:0 10px;font-size:11px}}
+@media(max-width:760px){.v5-finder-grid{grid-template-columns:1fr 1fr;gap:9px}.v5-finder-grid .find-btn{grid-column:1/-1}.product-photo{height:125px!important}.product-meta{grid-template-columns:1fr!important}.product-meta .meta-cell{padding:4px 5px}}
+
 </style>
 </head>
 <body>
@@ -162,48 +188,20 @@
     </div></section>
 
     <section class="section" id="finderSection"><div class="container"><div class="section-head"><div><h2 class="section-title">Quick Part Finder</h2><p class="section-sub">Maximum dropdown selection, minimum typing.</p></div><button class="view-all" onclick="clearFinder()">CLEAR ALL</button></div>
-      <div class="finder"><div class="finder-grid" style="grid-template-columns:repeat(5,1fr) auto">
-        <div class="field"><label>PRODUCT TYPE</label><select id="finderType" onchange="refreshFinderOptions()"><option value="">All Types</option><option>Spare Part</option><option>Accessory</option></select></div>
-        <div class="field"><label>BRAND / COMPANY</label><select id="finderBrand" onchange="refreshFinderOptions()"><option value="">All Brands</option></select></div>
-        <div class="field"><label>MACHINE</label><select id="finderMachine" onchange="refreshFinderOptions()"><option value="">All Machines</option></select></div>
-        <div class="field"><label>MODEL</label><select id="finderModel" onchange="refreshFinderOptions()"><option value="">All Models</option></select></div>
-        <div class="field"><label>PART / CATEGORY</label><select id="finderPart"><option value="">All Parts</option></select></div>
-        <button class="find-btn" onclick="runFinder()">FIND PARTS</button>
-      </div>
-      <div style="margin-top:9px;color:var(--grey);font-size:11px">Linked dropdowns: Type → Brand → Machine → Model → Part. Real TORVO master data will replace these demo values later.</div>
-      </div>
-    </div></section>
+  <div class="finder"><div class="v5-finder-grid">
+    <div class="field"><label>PRODUCT TYPE</label><select id="finderType" onchange="refreshFinderOptions()"><option value="">All Types</option><option>Spare Part</option><option>Accessory</option></select></div>
+    <div class="field"><label>MACHINE SYSTEM / TYPE</label><select id="finderSystem" onchange="refreshFinderOptions()"><option value="">All Systems</option></select></div>
+    <div class="field"><label>BRAND / COMPANY</label><select id="finderBrand" onchange="refreshFinderOptions()"><option value="">All Brands</option></select></div>
+    <div class="field"><label>MACHINE</label><select id="finderMachine" onchange="refreshFinderOptions()"><option value="">All Machines</option></select></div>
+    <div class="field"><label>MODEL</label><select id="finderModel" onchange="refreshFinderOptions()"><option value="">All Models</option></select></div>
+    <div class="field"><label>PART / CATEGORY</label><select id="finderPart"><option value="">All Parts</option></select></div>
+    <button class="find-btn" onclick="runFinder()">FIND PARTS</button>
+  </div>
+  <div style="margin-top:9px;color:var(--grey);font-size:10px">Linked dropdowns: Product Type → Machine System/Type → Brand/Company → Machine → Model → Part/Category.</div>
+  </div>
+</div></section>
 
-    <section class="section" id="v4CatalogueFinder">
-<div class="container">
-  <div class="section-head">
-    <div><h2 class="section-title">Spare Part Catalogue</h2><p class="section-sub">First choose what type of machine the spare part belongs to.</p></div>
-    <button class="clear-link" onclick="v4Clear()">CLEAR ALL</button>
-  </div>
-  <div class="v4-system-box">
-    <div class="v4-system-title">MACHINE SYSTEM / TYPE</div>
-    <div class="v4-system-grid">
-      <button class="v4-system-btn" onclick="v4System('Electric Power Tools',this)"><span>⚡</span>Electric Power Tools</button>
-      <button class="v4-system-btn" onclick="v4System('Cordless Tools',this)"><span>🔋</span>Cordless Tools</button>
-      <button class="v4-system-btn" onclick="v4System('Welding Machines',this)"><span>✨</span>Welding Machines</button>
-      <button class="v4-system-btn" onclick="v4System('Compressors',this)"><span>💨</span>Compressors</button>
-      <button class="v4-system-btn" onclick="v4System('',this)"><span>▦</span>All / Future Types</button>
-    </div>
-  </div>
-  <div class="finder">
-    <div class="finder-grid" style="grid-template-columns:repeat(4,1fr)">
-      <div class="field"><label>MACHINE SYSTEM / TYPE</label><select id="v4SystemSelect" onchange="v4Refresh()"><option value="">All Systems</option><option>Electric Power Tools</option><option>Cordless Tools</option><option>Welding Machines</option><option>Compressors</option></select></div>
-      <div class="field"><label>SPARE PART BRAND / MANUFACTURER</label><select id="v4SpareBrand" onchange="v4Refresh()"><option value="">All Spare Part Brands</option></select></div>
-      <div class="field"><label>SUITABLE MACHINE BRAND</label><select id="v4MachineBrand" onchange="v4Refresh()"><option value="">All Machine Brands</option></select></div>
-      <div class="field"><label>MACHINE</label><select id="v4Machine" onchange="v4Refresh()"><option value="">All Machines</option></select></div>
-      <div class="field"><label>MODEL</label><select id="v4Model" onchange="v4Refresh()"><option value="">All Models</option></select></div>
-      <div class="field"><label>PART / CATEGORY</label><select id="v4Part"><option value="">All Parts</option></select></div>
-      <button class="find-btn" style="grid-column:span 2" onclick="v4Find()">FIND SPARE PARTS</button>
-    </div>
-    <div class="v4-brand-note"><b>Important:</b> Spare Part Brand and Suitable Machine Brand are separate. A company may manufacture only spare parts, while its part may fit Bosch, Makita, DeWalt or other machines. Only Admin-approved suitable mappings will be shown.</div>
-  </div>
-</div>
-</section>
+    
 
 <section class="section" id="productsSection"><div class="container"><div class="section-head"><div><h2 class="section-title">Featured Spare Parts</h2><p class="section-sub">Product photos will connect with approved TORVO product data later.</p></div><button class="view-all" onclick="resetProducts()">VIEW ALL →</button></div><div class="product-grid" id="publicProductGrid"></div></div></section>
 
@@ -389,27 +387,27 @@ let supabaseClient=null;
 try{if(window.supabase){supabaseClient=window.supabase.createClient(SUPABASE_URL,SUPABASE_KEY)}}catch(error){console.error("Supabase initialization error:",error)}
 
 const demoProducts=[
-{item:"T-1001",name:"Angle Grinder Armature",brand:"Bosch",model:"100",machine:"Angle Grinder",type:"Spare Part",part:"Armature",icon:"⚙️",tag:"POPULAR",dealerRate:"₹ Preview Rate"},
-{item:"T-1002",name:"Marble Cutter Field",brand:"Makita",model:"110",machine:"Marble Cutter",type:"Spare Part",part:"Field / Stator",icon:"🔩",tag:"NEW",dealerRate:"₹ Preview Rate"},
-{item:"T-1003",name:"Power Tool Carbon Brush",brand:"Multi Brand",model:"Various",machine:"Power Tool",type:"Spare Part",part:"Carbon Brush",icon:"◼️",tag:"POPULAR",dealerRate:"₹ Preview Rate"},
-{item:"T-1004",name:"Angle Grinder Switch",brand:"Multi Brand",model:"801",machine:"Angle Grinder",type:"Spare Part",part:"Switch",icon:"🔘",tag:"NEW",dealerRate:"₹ Preview Rate"},
-{item:"T-1005",name:"Gear Set",brand:"Multi Brand",model:"Various",machine:"Power Tool",type:"Spare Part",part:"Gear",icon:"⚙️",tag:"POPULAR",dealerRate:"₹ Preview Rate"},
-{item:"T-2001",name:"Diamond Cutting Blade",brand:"TORVO",model:"Various",machine:"Marble Cutter",type:"Accessory",part:"Diamond Blade",icon:"💿",tag:"NEW",dealerRate:"₹ Preview Rate"},
-{item:"T-2002",name:"Drill Bit",brand:"TORVO",model:"Various",machine:"Drill Machine",type:"Accessory",part:"Drill Bit",icon:"🪛",tag:"POPULAR",dealerRate:"₹ Preview Rate"},
-{item:"T-1006",name:"Bearing Set",brand:"Multi Brand",model:"Various",machine:"Power Tool",type:"Spare Part",part:"Bearing",icon:"⭕",tag:"POPULAR",dealerRate:"₹ Preview Rate"},
-{item:"T-1007",name:"Gear Box Assembly",brand:"Multi Brand",model:"Various",machine:"Angle Grinder",type:"Spare Part",part:"Gear Box",icon:"⚙️",tag:"NEW",dealerRate:"₹ Preview Rate"},
-{item:"T-1008",name:"Power Tool Stator",brand:"Multi Brand",model:"Various",machine:"Power Tool",type:"Spare Part",part:"Field / Stator",icon:"🔧",tag:"POPULAR",dealerRate:"₹ Preview Rate"}];
+{item:"T-1001",name:"Angle Grinder Armature",brand:"Bosch",spareBrand:"TORVO",system:"Electric Power Tools",model:"GWS 600",machine:"Angle Grinder",type:"Spare Part",part:"Armature",icon:"⚙️",tag:"POPULAR",dealerRate:"₹ Preview Rate"},
+{item:"T-1002",name:"Marble Cutter Field",brand:"Makita",spareBrand:"TORVO",system:"Electric Power Tools",model:"4100",machine:"Marble Cutter",type:"Spare Part",part:"Field / Stator",icon:"🔩",tag:"NEW",dealerRate:"₹ Preview Rate"},
+{item:"T-1003",name:"Cordless Drill Switch",brand:"Makita",spareBrand:"DDI Spare",system:"Cordless Tools",model:"DF330",machine:"Cordless Drill",type:"Spare Part",part:"Switch",icon:"🔘",tag:"POPULAR",dealerRate:"₹ Preview Rate"},
+{item:"T-1004",name:"Angle Grinder Switch",brand:"Bosch",spareBrand:"ABC Spare Parts",system:"Electric Power Tools",model:"GWS 600",machine:"Angle Grinder",type:"Spare Part",part:"Switch",icon:"🔘",tag:"NEW",dealerRate:"₹ Preview Rate"},
+{item:"T-1005",name:"Welding Cooling Fan",brand:"Multi Brand",spareBrand:"TORVO",system:"Welding Machines",model:"ARC 200",machine:"Inverter Welder",type:"Spare Part",part:"Cooling Fan",icon:"🌀",tag:"POPULAR",dealerRate:"₹ Preview Rate"},
+{item:"T-2001",name:"Diamond Cutting Blade",brand:"Makita",spareBrand:"TORVO",system:"Electric Power Tools",model:"Various",machine:"Marble Cutter",type:"Accessory",part:"Diamond Blade",icon:"💿",tag:"NEW",dealerRate:"₹ Preview Rate"},
+{item:"T-2002",name:"Drill Bit",brand:"Bosch",spareBrand:"TORVO",system:"Electric Power Tools",model:"Various",machine:"Drill Machine",type:"Accessory",part:"Drill Bit",icon:"🪛",tag:"POPULAR",dealerRate:"₹ Preview Rate"},
+{item:"T-1006",name:"Bearing Set",brand:"Bosch",spareBrand:"XYZ Components",system:"Electric Power Tools",model:"GWS 600",machine:"Angle Grinder",type:"Spare Part",part:"Bearing",icon:"⭕",tag:"POPULAR",dealerRate:"₹ Preview Rate"},
+{item:"T-1007",name:"Compressor Piston Ring",brand:"Multi Brand",spareBrand:"ABC Spare Parts",system:"Compressors",model:"2HP",machine:"Air Compressor",type:"Spare Part",part:"Piston Ring",icon:"⭕",tag:"NEW",dealerRate:"₹ Preview Rate"},
+{item:"T-1008",name:"Power Tool Stator",brand:"Stanley",spareBrand:"TORVO",system:"Electric Power Tools",model:"SDH600",machine:"Drill Machine",type:"Spare Part",part:"Field / Stator",icon:"🔧",tag:"POPULAR",dealerRate:"₹ Preview Rate"}];
 
 function showContact(id,value){const el=document.getElementById(id);if(el)el.textContent=value&&value.trim()?value:"Contact details will be updated shortly."}
 showContact("contactPhone",TORVO_CONTACT.customerCare);showContact("contactWhatsapp",TORVO_CONTACT.whatsapp);showContact("contactEmail",TORVO_CONTACT.email);showContact("contactAddress",TORVO_CONTACT.address);showContact("contactHours",TORVO_CONTACT.hours);
 
-function publicProductCard(p){return `<div class="product-card"><div class="product-photo"><span class="product-badge">${p.tag}</span><div class="placeholder-icon">${p.icon}</div></div><div class="product-body"><div class="item-no">ITEM: ${p.item}</div><div class="product-name">${p.name}</div><div class="product-meta">Brand: ${p.brand}<br>Machine: ${p.machine}<br>Model: ${p.model}<br>Part: ${p.part||'-'}</div><div class="dealer-rate">🔐 LOGIN FOR DEALER RATE</div><div class="product-actions"><button class="details-btn" onclick="publicProductDetails('${p.item}')">VIEW DETAILS</button><button class="share-btn" onclick="shareProduct('${p.item}')">↗</button></div></div></div>`}
-function dealerProductCard(p){return `<div class="product-card"><div class="product-photo"><span class="product-badge">${p.tag}</span><div class="placeholder-icon">${p.icon}</div></div><div class="product-body"><div class="item-no">ITEM: ${p.item}</div><div class="product-name">${p.name}</div><div class="product-meta">Brand: ${p.brand}<br>Machine: ${p.machine}<br>Model: ${p.model}<br>Part: ${p.part||'-'}</div><div class="dealer-rate">${p.dealerRate}</div><div class="product-actions"><button class="details-btn" onclick="dealerProductDetails('${p.item}')">ADD / DETAILS</button><button class="share-btn" onclick="shareProduct('${p.item}')">↗</button></div></div></div>`}
+function publicProductCard(p){return `<div class="product-card"><div class="product-photo"><span class="product-badge">${p.tag}</span><div class="placeholder-icon">${p.icon}</div></div><div class="product-body"><div class="item-no">ITEM: ${p.item}</div><div class="product-name">${p.name}</div><div class="product-meta"><div class="meta-cell"><b>Machine Brand:</b> ${p.brand}</div><div class="meta-cell"><b>Part Brand:</b> ${p.spareBrand}</div><div class="meta-cell"><b>Machine:</b> ${p.machine}</div><div class="meta-cell"><b>Model:</b> ${p.model}</div><div class="meta-cell"><b>Part:</b> ${p.part||'-'}</div><div class="meta-cell"><b>System:</b> ${p.system}</div></div><div class="dealer-rate">🔐 LOGIN FOR DEALER RATE</div><div class="product-actions"><button class="details-btn" onclick="publicProductDetails('${p.item}')">VIEW DETAILS</button><button class="share-btn" onclick="shareProduct('${p.item}')">↗</button></div></div></div>`}
+function dealerProductCard(p){return `<div class="product-card"><div class="product-photo"><span class="product-badge">${p.tag}</span><div class="placeholder-icon">${p.icon}</div></div><div class="product-body"><div class="item-no">ITEM: ${p.item}</div><div class="product-name">${p.name}</div><div class="product-meta"><div class="meta-cell"><b>Machine Brand:</b> ${p.brand}</div><div class="meta-cell"><b>Part Brand:</b> ${p.spareBrand}</div><div class="meta-cell"><b>Machine:</b> ${p.machine}</div><div class="meta-cell"><b>Model:</b> ${p.model}</div><div class="meta-cell"><b>Part:</b> ${p.part||'-'}</div><div class="meta-cell"><b>System:</b> ${p.system}</div></div><div class="dealer-rate">${p.dealerRate}</div><div class="product-actions"><button class="details-btn" onclick="dealerProductDetails('${p.item}')">ADD / DETAILS</button><button class="share-btn" onclick="shareProduct('${p.item}')">↗</button></div></div></div>`}
 function renderPublicProducts(products=demoProducts){const g=document.getElementById("publicProductGrid");if(!g)return;g.innerHTML=products.length?products.map(publicProductCard).join(""):`<div style="grid-column:1/-1;background:#fff;border:1px solid #e2e4e8;border-radius:16px;padding:25px;text-align:center">No matching product found. You can send a Part Enquiry.</div>`}
 function renderDealerProducts(products=demoProducts){const g=document.getElementById("dealerProductGrid");if(g)g.innerHTML=products.map(dealerProductCard).join("")}
 initializeFinder();renderPublicProducts();renderDealerProducts();
 
-function filterPublicProducts(){const input=document.getElementById("publicSearch"),type=document.getElementById("searchType").value,q=(input.value||"").trim().toLowerCase();if(!q){renderPublicProducts();return}renderPublicProducts(demoProducts.filter(p=>{if(type==="item")return p.item.toLowerCase().includes(q);if(type==="product")return p.name.toLowerCase().includes(q);if(type==="brand")return p.brand.toLowerCase().includes(q);if(type==="model")return p.model.toLowerCase().includes(q);if(type==="category")return p.type.toLowerCase().includes(q);return [p.item,p.name,p.brand,p.model,p.machine,p.type,p.tag].join(" ").toLowerCase().includes(q)}))}
+function filterPublicProducts(){const input=document.getElementById("publicSearch"),type=document.getElementById("searchType").value,q=(input.value||"").trim().toLowerCase();if(!q){renderPublicProducts();return}renderPublicProducts(demoProducts.filter(p=>{if(type==="item")return p.item.toLowerCase().includes(q);if(type==="product")return p.name.toLowerCase().includes(q);if(type==="brand")return p.brand.toLowerCase().includes(q);if(type==="model")return p.model.toLowerCase().includes(q);if(type==="category")return p.type.toLowerCase().includes(q);return [p.item,p.name,p.brand,p.spareBrand,p.system,p.model,p.machine,p.part,p.type,p.tag].join(" ").toLowerCase().includes(q)}))}
 function setQuickFilter(f){let x=demoProducts;if(f==="Spare Part")x=demoProducts.filter(p=>p.type==="Spare Part");if(f==="Accessory")x=demoProducts.filter(p=>p.type==="Accessory");if(f==="New")x=demoProducts.filter(p=>p.tag==="NEW");if(f==="Popular")x=demoProducts.filter(p=>p.tag==="POPULAR");renderPublicProducts(x);scrollToProducts()}
 function resetProducts(){document.getElementById("publicSearch").value="";renderPublicProducts()}
 function scrollToProducts(){document.getElementById("productsSection").scrollIntoView({behavior:"smooth"})}
@@ -423,11 +421,16 @@ function fillFinderSelect(id,values,label){
 }
 function refreshFinderOptions(){
   const type=document.getElementById("finderType").value;
+  const system=document.getElementById("finderSystem").value;
   const brand=document.getElementById("finderBrand").value;
   const machine=document.getElementById("finderMachine").value;
   const model=document.getElementById("finderModel").value;
 
   let data=demoProducts.filter(p=>!type||p.type===type);
+  fillFinderSelect("finderSystem",uniqueValues(data.map(p=>p.system)),"All Systems");
+
+  const activeSystem=document.getElementById("finderSystem").value||system;
+  data=data.filter(p=>!activeSystem||p.system===activeSystem);
   fillFinderSelect("finderBrand",uniqueValues(data.map(p=>p.brand)),"All Brands");
 
   const activeBrand=document.getElementById("finderBrand").value||brand;
@@ -444,18 +447,19 @@ function refreshFinderOptions(){
 }
 function clearFinder(){
   document.getElementById("finderType").value="";
-  ["finderBrand","finderMachine","finderModel","finderPart"].forEach(id=>{const el=document.getElementById(id);if(el)el.value=""});
+  ["finderSystem","finderBrand","finderMachine","finderModel","finderPart"].forEach(id=>{const el=document.getElementById(id);if(el)el.value=""});
   initializeFinder(); renderPublicProducts(demoProducts);
 }
 function initializeFinder(){
+  fillFinderSelect("finderSystem",uniqueValues(demoProducts.map(p=>p.system)),"All Systems");
   fillFinderSelect("finderBrand",uniqueValues(demoProducts.map(p=>p.brand)),"All Brands");
   fillFinderSelect("finderMachine",uniqueValues(demoProducts.map(p=>p.machine)),"All Machines");
   fillFinderSelect("finderModel",uniqueValues(demoProducts.map(p=>p.model)),"All Models");
   fillFinderSelect("finderPart",uniqueValues(demoProducts.map(p=>p.part)),"All Parts");
 }
 function runFinder(){
-  const type=document.getElementById("finderType").value,brand=document.getElementById("finderBrand").value,machine=document.getElementById("finderMachine").value,model=document.getElementById("finderModel").value,part=document.getElementById("finderPart").value;
-  renderPublicProducts(demoProducts.filter(p=>(!type||p.type===type)&&(!brand||p.brand===brand)&&(!machine||p.machine===machine)&&(!model||p.model===model)&&(!part||p.part===part)));
+  const type=document.getElementById("finderType").value,system=document.getElementById("finderSystem").value,brand=document.getElementById("finderBrand").value,machine=document.getElementById("finderMachine").value,model=document.getElementById("finderModel").value,part=document.getElementById("finderPart").value;
+  renderPublicProducts(demoProducts.filter(p=>(!type||p.type===type)&&(!system||p.system===system)&&(!brand||p.brand===brand)&&(!machine||p.machine===machine)&&(!model||p.model===model)&&(!part||p.part===part)));
   scrollToProducts();
 }
 
@@ -528,68 +532,11 @@ function closePartEnquiry(){document.getElementById("enquiryModal").classList.re
 function demoEnquiry(){alert("Part Enquiry UI is ready. Secure photo upload and enquiry database connection will be added in the backend connection stage.")}
 function publicProductDetails(item){alert(`Item ${item}\n\nPublic Product Detail page will be connected in the next product-detail stage.\nDealer rate remains hidden until secure approved dealer login.`)}
 function dealerProductDetails(item){alert(`Item ${item}\n\nDealer product detail + quantity + Sales Order function will be connected in the ordering stage.`)}
-function shareProduct(item){const p=demoProducts.find(x=>x.item===item);if(!p)return;const text=`TORVO - ${p.name} | Item ${p.item} | ${p.brand} | ${p.model}`;if(navigator.share)navigator.share({title:"TORVO Product",text}).catch(()=>{});else alert(text)}
+function shareProduct(item){const p=demoProducts.find(x=>x.item===item);if(!p)return;const text=`TORVO - ${p.name} | Item ${p.item} | Machine Brand: ${p.brand} | Part Brand: ${p.spareBrand} | ${p.model}`;if(navigator.share)navigator.share({title:"TORVO Product",text}).catch(()=>{});else alert(text)}
 function futureFeature(name){alert(`${name}\n\nThis feature is reserved in the TORVO future-ready structure. It will be activated only after the correct secure technology/API is selected and approved.`)}
 function toggleLanguage(){alert("EN / HI full translation will be connected after the main portal UI is finalized.")}
 window.addEventListener("click",e=>{const a=document.getElementById("authModal"),q=document.getElementById("enquiryModal");if(e.target===a)closeAuth();if(e.target===q)closePartEnquiry()});
 
-const v4Catalogue=[
- {item:"T-1001",name:"Angle Grinder Armature",system:"Electric Power Tools",spareBrand:"TORVO",machineBrand:"Bosch",machine:"Angle Grinder",model:"GWS 600",part:"Armature",icon:"⚙️",suitable:["Bosch • Angle Grinder • GWS 600","Bosch • Angle Grinder • GWS 750"]},
- {item:"T-1002",name:"Cordless Drill Switch",system:"Cordless Tools",spareBrand:"DDI Spare",machineBrand:"Makita",machine:"Cordless Drill",model:"DF330",part:"Switch",icon:"🔘",suitable:["Makita • Cordless Drill • DF330"]},
- {item:"T-1003",name:"Welding Machine Cooling Fan",system:"Welding Machines",spareBrand:"TORVO",machineBrand:"Multi Brand",machine:"Inverter Welder",model:"ARC 200",part:"Cooling Fan",icon:"🌀",suitable:["ARC 200 • Admin-published mapping"]},
- {item:"T-1004",name:"Air Compressor Piston Ring",system:"Compressors",spareBrand:"ABC Spare Parts",machineBrand:"Multi Brand",machine:"Air Compressor",model:"2HP",part:"Piston Ring",icon:"⭕",suitable:["2HP Air Compressor • Admin-published mapping"]},
- {item:"T-1005",name:"Rotary Hammer Bearing Set",system:"Electric Power Tools",spareBrand:"XYZ Components",machineBrand:"Bosch",machine:"Rotary Hammer",model:"GBH 2-26",part:"Bearing",icon:"⭕",suitable:["Bosch • Rotary Hammer • GBH 2-26"]}
-];
-
-function v4Unique(a){return [...new Set(a.filter(Boolean))].sort()}
-function v4Fill(id,values,label){
- const e=document.getElementById(id);if(!e)return;const old=e.value;
- e.innerHTML='<option value="">'+label+'</option>'+values.map(v=>'<option value="'+v+'">'+v+'</option>').join('');
- if(values.includes(old))e.value=old;
-}
-function v4Init(){
- v4Fill("v4SpareBrand",v4Unique(v4Catalogue.map(x=>x.spareBrand)),"All Spare Part Brands");
- v4Fill("v4MachineBrand",v4Unique(v4Catalogue.map(x=>x.machineBrand)),"All Machine Brands");
- v4Fill("v4Machine",v4Unique(v4Catalogue.map(x=>x.machine)),"All Machines");
- v4Fill("v4Model",v4Unique(v4Catalogue.map(x=>x.model)),"All Models");
- v4Fill("v4Part",v4Unique(v4Catalogue.map(x=>x.part)),"All Parts");
-}
-function v4System(system,btn){
- document.querySelectorAll(".v4-system-btn").forEach(x=>x.classList.remove("active"));if(btn)btn.classList.add("active");
- document.getElementById("v4SystemSelect").value=system;v4Refresh();
-}
-function v4Refresh(){
- const s=document.getElementById("v4SystemSelect").value;
- const sb=document.getElementById("v4SpareBrand").value;
- const mb=document.getElementById("v4MachineBrand").value;
- const mc=document.getElementById("v4Machine").value;
- let d=v4Catalogue.filter(x=>!s||x.system===s);
- v4Fill("v4SpareBrand",v4Unique(d.map(x=>x.spareBrand)),"All Spare Part Brands");
- const a=document.getElementById("v4SpareBrand").value||sb;d=d.filter(x=>!a||x.spareBrand===a);
- v4Fill("v4MachineBrand",v4Unique(d.map(x=>x.machineBrand)),"All Machine Brands");
- const b=document.getElementById("v4MachineBrand").value||mb;d=d.filter(x=>!b||x.machineBrand===b);
- v4Fill("v4Machine",v4Unique(d.map(x=>x.machine)),"All Machines");
- const c=document.getElementById("v4Machine").value||mc;d=d.filter(x=>!c||x.machine===c);
- v4Fill("v4Model",v4Unique(d.map(x=>x.model)),"All Models");
- v4Fill("v4Part",v4Unique(d.map(x=>x.part)),"All Parts");
-}
-function v4Clear(){
- ["v4SystemSelect","v4SpareBrand","v4MachineBrand","v4Machine","v4Model","v4Part"].forEach(id=>{const e=document.getElementById(id);if(e)e.value=""});
- document.querySelectorAll(".v4-system-btn").forEach(x=>x.classList.remove("active"));v4Init();renderPublicProducts();
-}
-function v4Find(){
- const s=document.getElementById("v4SystemSelect").value,sb=document.getElementById("v4SpareBrand").value,mb=document.getElementById("v4MachineBrand").value,mc=document.getElementById("v4Machine").value,md=document.getElementById("v4Model").value,pt=document.getElementById("v4Part").value;
- const found=v4Catalogue.filter(x=>(!s||x.system===s)&&(!sb||x.spareBrand===sb)&&(!mb||x.machineBrand===mb)&&(!mc||x.machine===mc)&&(!md||x.model===md)&&(!pt||x.part===pt));
- if(!found.length){alert("No matching demo item found. Real TORVO catalogue data will be connected later.");return}
- v4ShowDetail(found[0].item);
-}
-function v4ShowDetail(item){
- const p=v4Catalogue.find(x=>x.item===item);if(!p)return;
- document.getElementById("v4ProductBody").innerHTML=`<div class="v4-detail-grid"><div class="v4-detail-photo">${p.icon}</div><div><div class="item-no">ITEM: ${p.item}</div><h2 style="margin:5px 0 12px">${p.name}</h2><div class="v4-detail-info"><div class="v4-info"><small>SPARE PART BRAND</small><strong>${p.spareBrand}</strong></div><div class="v4-info"><small>SUITABLE MACHINE BRAND</small><strong>${p.machineBrand}</strong></div><div class="v4-info"><small>MACHINE SYSTEM</small><strong>${p.system}</strong></div><div class="v4-info"><small>MACHINE</small><strong>${p.machine}</strong></div><div class="v4-info"><small>MODEL</small><strong>${p.model}</strong></div><div class="v4-info"><small>PART / CATEGORY</small><strong>${p.part}</strong></div></div><div class="v4-suitable"><b>Suitable For — Admin Published Only</b><br>${p.suitable.map(x=>"✓ "+x).join("<br>")}</div><div class="lock-rate">🔐 LOGIN FOR DEALER RATE</div><button class="full-red-btn" style="margin-top:9px" onclick="v4CloseDetail();openAuth('login')">DEALER LOGIN TO ORDER</button></div></div>`;
- document.getElementById("v4ProductModal").classList.add("show");
-}
-function v4CloseDetail(){document.getElementById("v4ProductModal").classList.remove("show")}
-v4Init();
 </script>
 </body>
 </html>
