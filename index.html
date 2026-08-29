@@ -4,7 +4,7 @@
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <meta name="theme-color" content="#d71920" />
-  <title>TORVO Tools | B2B Power Tool Spare Parts</title>
+  <title>TORVO Tools | B2B Power Tool Spare Parts - V2</title>
 
   <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
 
@@ -61,9 +61,9 @@
     .section-sub{margin:5px 0 0;color:var(--grey);font-size:13px}
     .view-all{border:0;background:transparent;color:var(--red);font-weight:900}
     .app-grid{display:grid;grid-template-columns:repeat(6,1fr);gap:14px}
-    .app-card{border:1px solid var(--line);background:#fff;border-radius:20px;min-height:155px;padding:15px 10px;text-align:center;box-shadow:0 5px 14px rgba(0,0,0,.04);transition:.2s}
+    .app-card{border:1px solid var(--line);background:#fff;border-radius:22px;min-height:175px;padding:16px 10px;text-align:center;box-shadow:0 6px 18px rgba(0,0,0,.05);transition:.2s}
     .app-card:hover{transform:translateY(-4px);border-color:#c9ccd1;box-shadow:var(--shadow)}
-    .app-icon{width:82px;height:82px;margin:0 auto 10px;border-radius:24px;background:#f1f2f4;display:grid;place-items:center;font-size:40px}
+    .app-icon{width:98px;height:98px;margin:0 auto 11px;border-radius:29px;background:linear-gradient(145deg,#fff5f5,#ffe7e8);display:grid;place-items:center;font-size:47px;box-shadow:inset 0 0 0 1px #ffd6d8}
     .app-card:nth-child(1) .app-icon,.app-card:nth-child(6) .app-icon{background:#fff0f0}
     .app-card:nth-child(2) .app-icon{background:#eef5ff}.app-card:nth-child(3) .app-icon{background:#fff7e7}.app-card:nth-child(4) .app-icon{background:#eefaf3}.app-card:nth-child(5) .app-icon{background:#f4efff}
     .app-name{font-weight:900;font-size:14px}.app-help{color:var(--grey);font-size:11px;margin-top:4px}
@@ -75,14 +75,14 @@
     .product-grid{display:grid;grid-template-columns:repeat(5,1fr);gap:14px}
     .product-card{background:#fff;border:1px solid var(--line);border-radius:18px;overflow:hidden;transition:.2s}
     .product-card:hover{transform:translateY(-3px);box-shadow:var(--shadow)}
-    .product-photo{height:180px;background:linear-gradient(145deg,#f7f7f8,#e9ebee);display:grid;place-items:center;position:relative;border-bottom:1px solid var(--line)}
-    .product-photo .placeholder-icon{font-size:70px;opacity:.75}
+    .product-photo{height:205px;background:linear-gradient(145deg,#fafbfc,#eceff2);display:grid;place-items:center;position:relative;border-bottom:1px solid var(--line)}
+    .product-photo .placeholder-icon{font-size:84px;opacity:.78}
     .product-badge{position:absolute;top:10px;left:10px;background:var(--red);color:#fff;border-radius:20px;padding:6px 9px;font-size:10px;font-weight:900}
     .product-body{padding:13px}.item-no{color:var(--red);font-size:11px;font-weight:900}.product-name{font-size:15px;font-weight:900;margin:5px 0 8px;min-height:35px}
     .product-meta{color:var(--grey);font-size:11px;line-height:1.55}.dealer-rate{background:#f5f6f7;border-radius:9px;padding:8px;margin-top:10px;text-align:center;font-size:11px;font-weight:900}
     .product-actions{display:grid;grid-template-columns:1fr 44px;gap:7px;margin-top:9px}.details-btn{border:0;background:var(--black);color:#fff;height:40px;border-radius:10px;font-weight:900;font-size:12px}.share-btn{border:1px solid var(--line);background:#fff;border-radius:10px;font-size:18px}
     .business-strip{display:grid;grid-template-columns:repeat(4,1fr);gap:12px}.business-card{background:#fff;border:1px solid var(--line);border-radius:17px;padding:18px;display:flex;align-items:center;gap:14px}
-    .business-icon{min-width:58px;width:58px;height:58px;border-radius:18px;background:#fff0f0;display:grid;place-items:center;font-size:29px}.business-card strong{display:block;font-size:14px;margin-bottom:4px}.business-card span{color:var(--grey);font-size:11px;line-height:1.4}
+    .business-icon{min-width:66px;width:66px;height:66px;border-radius:20px;background:#fff0f0;display:grid;place-items:center;font-size:33px}.business-card strong{display:block;font-size:14px;margin-bottom:4px}.business-card span{color:var(--grey);font-size:11px;line-height:1.4}
     .process-grid{display:grid;grid-template-columns:repeat(5,1fr);gap:12px}.process-card{background:#fff;border:1px solid var(--line);border-radius:18px;padding:18px;text-align:center;position:relative}
     .process-number{width:34px;height:34px;border-radius:50%;background:var(--red);color:#fff;display:grid;place-items:center;font-weight:900;margin:0 auto 10px}.process-icon{font-size:38px;margin-bottom:8px}.process-card strong{display:block;font-size:13px}.process-card small{display:block;color:var(--grey);margin-top:5px;line-height:1.4}
     .about-box{background:#fff;border:1px solid var(--line);border-radius:22px;padding:25px;display:grid;grid-template-columns:1.2fr .8fr;gap:25px}.about-box h2{margin:0 0 10px;font-size:26px}.about-box p{color:var(--grey);line-height:1.7;margin:0;font-size:14px}
@@ -105,8 +105,8 @@
     .dealer-section{display:none}.dealer-section.active{display:block}.dealer-panel{background:#fff;border:1px solid var(--line);border-radius:18px;padding:18px;margin-bottom:15px}.status-grid{display:grid;grid-template-columns:repeat(4,1fr);gap:10px}.status-card{border:1px solid var(--line);border-radius:14px;padding:14px;background:#fafafa}.status-card strong{font-size:22px;display:block;margin-bottom:5px}.status-card span{color:var(--grey);font-size:11px;font-weight:700}.back-public{border:1px solid var(--line);background:#fff;border-radius:11px;height:42px;padding:0 12px;font-weight:900}
     .mobile-nav{display:none;position:fixed;left:0;right:0;bottom:0;background:#fff;border-top:1px solid var(--line);z-index:80;padding:6px 5px;grid-template-columns:repeat(5,1fr)}.mobile-nav button{border:0;background:#fff;font-size:10px;font-weight:800;padding:5px 2px}.mobile-nav span{display:block;font-size:20px;margin-bottom:2px}
     @media(max-width:1100px){.header-inner{grid-template-columns:190px 1fr}.header-actions{grid-column:1/-1;padding-bottom:10px;justify-content:flex-end}.app-grid{grid-template-columns:repeat(3,1fr)}.product-grid{grid-template-columns:repeat(3,1fr)}.finder-grid{grid-template-columns:1fr 1fr}.find-btn{width:100%}.contact-grid{grid-template-columns:repeat(3,1fr)}.dealer-icon-grid{grid-template-columns:repeat(3,1fr)}}
-    @media(max-width:760px){.topbar{display:none}.header{position:relative}.header-inner{display:flex;flex-wrap:wrap;padding:10px 0;gap:10px}.brand{flex:1}.brand-logo{width:45px;height:45px;border-radius:12px;font-size:25px}.brand-name{font-size:23px}.brand-sub{display:none}.header-actions{padding:0;order:2}.small-btn{display:none}.login-btn{height:43px;padding:0 12px;font-size:12px}.main-search{order:3;width:100%;grid-template-columns:1fr 42px 42px 48px;height:48px}.main-search select{display:none}.hero{padding-top:12px}.hero-box{grid-template-columns:1fr;min-height:0}.hero-content{padding:26px 20px}.hero h1{font-size:31px}.hero p{font-size:14px}.hero-visual{padding:0 20px 25px}.hero-machine{max-width:310px}.app-grid{grid-template-columns:repeat(3,1fr);gap:9px}.app-card{min-height:135px;padding:11px 5px;border-radius:17px}.app-icon{width:68px;height:68px;font-size:33px;border-radius:20px}.app-name{font-size:12px}.app-help{display:none}.finder-grid{grid-template-columns:1fr}.product-grid{grid-template-columns:repeat(2,1fr);gap:9px}.product-photo{height:145px}.product-body{padding:10px}.business-strip{grid-template-columns:1fr 1fr}.business-card{display:block;padding:13px}.business-icon{margin-bottom:8px}.process-grid{grid-template-columns:repeat(2,1fr)}.about-box{grid-template-columns:1fr}.contact-grid{grid-template-columns:1fr 1fr}.footer-grid{grid-template-columns:1fr 1fr}.dealer-header{grid-template-columns:1fr auto;height:auto;padding:10px 3%}.dealer-search{grid-column:1/-1;width:100%}.dealer-layout{display:block;margin-bottom:80px}.dealer-sidebar{display:none}.dealer-icon-grid{grid-template-columns:repeat(3,1fr);gap:8px}.dealer-icon-card{min-height:125px}.dealer-icon-card .app-icon{width:64px;height:64px;font-size:31px}.status-grid{grid-template-columns:1fr 1fr}.mobile-nav{display:grid}.two-fields{grid-template-columns:1fr}}
-    @media(max-width:420px){.app-grid{grid-template-columns:repeat(3,1fr)}.app-icon{width:62px;height:62px;font-size:30px}.product-name{font-size:13px}.contact-grid{grid-template-columns:1fr}.footer-grid{grid-template-columns:1fr}}
+    @media(max-width:760px){.topbar{display:none}.header{position:relative}.header-inner{display:flex;flex-wrap:wrap;padding:10px 0;gap:10px}.brand{flex:1}.brand-logo{width:45px;height:45px;border-radius:12px;font-size:25px}.brand-name{font-size:23px}.brand-sub{display:none}.header-actions{padding:0;order:2}.small-btn{display:none}.login-btn{height:43px;padding:0 12px;font-size:12px}.main-search{order:3;width:100%;grid-template-columns:1fr 42px 42px 48px;height:48px}.main-search select{display:none}.hero{padding-top:12px}.hero-box{grid-template-columns:1fr;min-height:0}.hero-content{padding:26px 20px}.hero h1{font-size:31px}.hero p{font-size:14px}.hero-visual{padding:0 20px 25px}.hero-machine{max-width:310px}.app-grid{grid-template-columns:repeat(2,1fr);gap:10px}.app-card{min-height:158px;padding:12px 6px;border-radius:19px}.app-icon{width:88px;height:88px;font-size:42px;border-radius:25px}.app-name{font-size:12px}.app-help{display:none}.finder-grid{grid-template-columns:1fr}.product-grid{grid-template-columns:repeat(2,1fr);gap:9px}.product-photo{height:145px}.product-body{padding:10px}.business-strip{grid-template-columns:1fr 1fr}.business-card{display:block;padding:13px}.business-icon{margin-bottom:8px}.process-grid{grid-template-columns:repeat(2,1fr)}.about-box{grid-template-columns:1fr}.contact-grid{grid-template-columns:1fr 1fr}.footer-grid{grid-template-columns:1fr 1fr}.dealer-header{grid-template-columns:1fr auto;height:auto;padding:10px 3%}.dealer-search{grid-column:1/-1;width:100%}.dealer-layout{display:block;margin-bottom:80px}.dealer-sidebar{display:none}.dealer-icon-grid{grid-template-columns:repeat(3,1fr);gap:8px}.dealer-icon-card{min-height:125px}.dealer-icon-card .app-icon{width:64px;height:64px;font-size:31px}.status-grid{grid-template-columns:1fr 1fr}.mobile-nav{display:grid}.two-fields{grid-template-columns:1fr}}
+    @media(max-width:420px){.app-grid{grid-template-columns:repeat(2,1fr)}.app-icon{width:82px;height:82px;font-size:39px}.product-name{font-size:13px}.contact-grid{grid-template-columns:1fr}.footer-grid{grid-template-columns:1fr}}
   </style>
 </head>
 <body>
@@ -139,14 +139,17 @@
       </div>
     </div></section>
 
-    <section class="section"><div class="container"><div class="section-head"><div><h2 class="section-title">Quick Part Finder</h2><p class="section-sub">Use dropdowns to reduce typing and find parts faster.</p></div></div>
-      <div class="finder"><div class="finder-grid">
-        <div class="field"><label>PRODUCT TYPE</label><select id="finderType"><option value="">Select Type</option><option>Spare Part</option><option>Accessory</option></select></div>
-        <div class="field"><label>BRAND / COMPANY</label><select id="finderBrand"><option value="">Select Brand</option><option>Bosch</option><option>Makita</option><option>DeWalt</option><option>Stanley</option><option>Other</option></select></div>
-        <div class="field"><label>MACHINE</label><select id="finderMachine"><option value="">Select Machine</option><option>Angle Grinder</option><option>Marble Cutter</option><option>Drill Machine</option><option>Demolition Hammer</option><option>Rotary Hammer</option><option>Cut Off Machine</option></select></div>
-        <div class="field"><label>MODEL</label><select id="finderModel"><option value="">Select Model</option><option>801</option><option>100</option><option>110</option><option>Other Model</option></select></div>
+    <section class="section" id="finderSection"><div class="container"><div class="section-head"><div><h2 class="section-title">Quick Part Finder</h2><p class="section-sub">Maximum dropdown selection, minimum typing.</p></div><button class="view-all" onclick="clearFinder()">CLEAR ALL</button></div>
+      <div class="finder"><div class="finder-grid" style="grid-template-columns:repeat(5,1fr) auto">
+        <div class="field"><label>PRODUCT TYPE</label><select id="finderType" onchange="refreshFinderOptions()"><option value="">All Types</option><option>Spare Part</option><option>Accessory</option></select></div>
+        <div class="field"><label>BRAND / COMPANY</label><select id="finderBrand" onchange="refreshFinderOptions()"><option value="">All Brands</option></select></div>
+        <div class="field"><label>MACHINE</label><select id="finderMachine" onchange="refreshFinderOptions()"><option value="">All Machines</option></select></div>
+        <div class="field"><label>MODEL</label><select id="finderModel" onchange="refreshFinderOptions()"><option value="">All Models</option></select></div>
+        <div class="field"><label>PART / CATEGORY</label><select id="finderPart"><option value="">All Parts</option></select></div>
         <button class="find-btn" onclick="runFinder()">FIND PARTS</button>
-      </div></div>
+      </div>
+      <div style="margin-top:9px;color:var(--grey);font-size:11px">Linked dropdowns: Type → Brand → Machine → Model → Part. Real TORVO master data will replace these demo values later.</div>
+      </div>
     </div></section>
 
     <section class="section" id="productsSection"><div class="container"><div class="section-head"><div><h2 class="section-title">Featured Spare Parts</h2><p class="section-sub">Product photos will connect with approved TORVO product data later.</p></div><button class="view-all" onclick="resetProducts()">VIEW ALL →</button></div><div class="product-grid" id="publicProductGrid"></div></div></section>
@@ -214,32 +217,75 @@ let supabaseClient=null;
 try{if(window.supabase){supabaseClient=window.supabase.createClient(SUPABASE_URL,SUPABASE_KEY)}}catch(error){console.error("Supabase initialization error:",error)}
 
 const demoProducts=[
-{item:"T-1001",name:"Angle Grinder Armature",brand:"Bosch",model:"100",machine:"Angle Grinder",type:"Spare Part",icon:"⚙️",tag:"POPULAR",dealerRate:"₹ Preview Rate"},
-{item:"T-1002",name:"Marble Cutter Field",brand:"Makita",model:"110",machine:"Marble Cutter",type:"Spare Part",icon:"🔩",tag:"NEW",dealerRate:"₹ Preview Rate"},
-{item:"T-1003",name:"Power Tool Carbon Brush",brand:"Multi Brand",model:"Various",machine:"Power Tool",type:"Spare Part",icon:"◼️",tag:"POPULAR",dealerRate:"₹ Preview Rate"},
-{item:"T-1004",name:"Angle Grinder Switch",brand:"Multi Brand",model:"801",machine:"Angle Grinder",type:"Spare Part",icon:"🔘",tag:"NEW",dealerRate:"₹ Preview Rate"},
-{item:"T-1005",name:"Gear Set",brand:"Multi Brand",model:"Various",machine:"Power Tool",type:"Spare Part",icon:"⚙️",tag:"POPULAR",dealerRate:"₹ Preview Rate"},
-{item:"T-2001",name:"Diamond Cutting Blade",brand:"TORVO",model:"Various",machine:"Marble Cutter",type:"Accessory",icon:"💿",tag:"NEW",dealerRate:"₹ Preview Rate"},
-{item:"T-2002",name:"Drill Bit",brand:"TORVO",model:"Various",machine:"Drill Machine",type:"Accessory",icon:"🪛",tag:"POPULAR",dealerRate:"₹ Preview Rate"},
-{item:"T-1006",name:"Bearing Set",brand:"Multi Brand",model:"Various",machine:"Power Tool",type:"Spare Part",icon:"⭕",tag:"POPULAR",dealerRate:"₹ Preview Rate"},
-{item:"T-1007",name:"Gear Box Assembly",brand:"Multi Brand",model:"Various",machine:"Angle Grinder",type:"Spare Part",icon:"⚙️",tag:"NEW",dealerRate:"₹ Preview Rate"},
-{item:"T-1008",name:"Power Tool Stator",brand:"Multi Brand",model:"Various",machine:"Power Tool",type:"Spare Part",icon:"🔧",tag:"POPULAR",dealerRate:"₹ Preview Rate"}];
+{item:"T-1001",name:"Angle Grinder Armature",brand:"Bosch",model:"100",machine:"Angle Grinder",type:"Spare Part",part:"Armature",icon:"⚙️",tag:"POPULAR",dealerRate:"₹ Preview Rate"},
+{item:"T-1002",name:"Marble Cutter Field",brand:"Makita",model:"110",machine:"Marble Cutter",type:"Spare Part",part:"Field / Stator",icon:"🔩",tag:"NEW",dealerRate:"₹ Preview Rate"},
+{item:"T-1003",name:"Power Tool Carbon Brush",brand:"Multi Brand",model:"Various",machine:"Power Tool",type:"Spare Part",part:"Carbon Brush",icon:"◼️",tag:"POPULAR",dealerRate:"₹ Preview Rate"},
+{item:"T-1004",name:"Angle Grinder Switch",brand:"Multi Brand",model:"801",machine:"Angle Grinder",type:"Spare Part",part:"Switch",icon:"🔘",tag:"NEW",dealerRate:"₹ Preview Rate"},
+{item:"T-1005",name:"Gear Set",brand:"Multi Brand",model:"Various",machine:"Power Tool",type:"Spare Part",part:"Gear",icon:"⚙️",tag:"POPULAR",dealerRate:"₹ Preview Rate"},
+{item:"T-2001",name:"Diamond Cutting Blade",brand:"TORVO",model:"Various",machine:"Marble Cutter",type:"Accessory",part:"Diamond Blade",icon:"💿",tag:"NEW",dealerRate:"₹ Preview Rate"},
+{item:"T-2002",name:"Drill Bit",brand:"TORVO",model:"Various",machine:"Drill Machine",type:"Accessory",part:"Drill Bit",icon:"🪛",tag:"POPULAR",dealerRate:"₹ Preview Rate"},
+{item:"T-1006",name:"Bearing Set",brand:"Multi Brand",model:"Various",machine:"Power Tool",type:"Spare Part",part:"Bearing",icon:"⭕",tag:"POPULAR",dealerRate:"₹ Preview Rate"},
+{item:"T-1007",name:"Gear Box Assembly",brand:"Multi Brand",model:"Various",machine:"Angle Grinder",type:"Spare Part",part:"Gear Box",icon:"⚙️",tag:"NEW",dealerRate:"₹ Preview Rate"},
+{item:"T-1008",name:"Power Tool Stator",brand:"Multi Brand",model:"Various",machine:"Power Tool",type:"Spare Part",part:"Field / Stator",icon:"🔧",tag:"POPULAR",dealerRate:"₹ Preview Rate"}];
 
 function showContact(id,value){const el=document.getElementById(id);if(el)el.textContent=value&&value.trim()?value:"Contact details will be updated shortly."}
 showContact("contactPhone",TORVO_CONTACT.customerCare);showContact("contactWhatsapp",TORVO_CONTACT.whatsapp);showContact("contactEmail",TORVO_CONTACT.email);showContact("contactAddress",TORVO_CONTACT.address);showContact("contactHours",TORVO_CONTACT.hours);
 
-function publicProductCard(p){return `<div class="product-card"><div class="product-photo"><span class="product-badge">${p.tag}</span><div class="placeholder-icon">${p.icon}</div></div><div class="product-body"><div class="item-no">ITEM: ${p.item}</div><div class="product-name">${p.name}</div><div class="product-meta">Brand: ${p.brand}<br>Machine: ${p.machine}<br>Model: ${p.model}</div><div class="dealer-rate">🔐 LOGIN FOR DEALER RATE</div><div class="product-actions"><button class="details-btn" onclick="publicProductDetails('${p.item}')">VIEW DETAILS</button><button class="share-btn" onclick="shareProduct('${p.item}')">↗</button></div></div></div>`}
-function dealerProductCard(p){return `<div class="product-card"><div class="product-photo"><span class="product-badge">${p.tag}</span><div class="placeholder-icon">${p.icon}</div></div><div class="product-body"><div class="item-no">ITEM: ${p.item}</div><div class="product-name">${p.name}</div><div class="product-meta">Brand: ${p.brand}<br>Machine: ${p.machine}<br>Model: ${p.model}</div><div class="dealer-rate">${p.dealerRate}</div><div class="product-actions"><button class="details-btn" onclick="dealerProductDetails('${p.item}')">ADD / DETAILS</button><button class="share-btn" onclick="shareProduct('${p.item}')">↗</button></div></div></div>`}
+function publicProductCard(p){return `<div class="product-card"><div class="product-photo"><span class="product-badge">${p.tag}</span><div class="placeholder-icon">${p.icon}</div></div><div class="product-body"><div class="item-no">ITEM: ${p.item}</div><div class="product-name">${p.name}</div><div class="product-meta">Brand: ${p.brand}<br>Machine: ${p.machine}<br>Model: ${p.model}<br>Part: ${p.part||'-'}</div><div class="dealer-rate">🔐 LOGIN FOR DEALER RATE</div><div class="product-actions"><button class="details-btn" onclick="publicProductDetails('${p.item}')">VIEW DETAILS</button><button class="share-btn" onclick="shareProduct('${p.item}')">↗</button></div></div></div>`}
+function dealerProductCard(p){return `<div class="product-card"><div class="product-photo"><span class="product-badge">${p.tag}</span><div class="placeholder-icon">${p.icon}</div></div><div class="product-body"><div class="item-no">ITEM: ${p.item}</div><div class="product-name">${p.name}</div><div class="product-meta">Brand: ${p.brand}<br>Machine: ${p.machine}<br>Model: ${p.model}<br>Part: ${p.part||'-'}</div><div class="dealer-rate">${p.dealerRate}</div><div class="product-actions"><button class="details-btn" onclick="dealerProductDetails('${p.item}')">ADD / DETAILS</button><button class="share-btn" onclick="shareProduct('${p.item}')">↗</button></div></div></div>`}
 function renderPublicProducts(products=demoProducts){const g=document.getElementById("publicProductGrid");if(!g)return;g.innerHTML=products.length?products.map(publicProductCard).join(""):`<div style="grid-column:1/-1;background:#fff;border:1px solid #e2e4e8;border-radius:16px;padding:25px;text-align:center">No matching product found. You can send a Part Enquiry.</div>`}
 function renderDealerProducts(products=demoProducts){const g=document.getElementById("dealerProductGrid");if(g)g.innerHTML=products.map(dealerProductCard).join("")}
-renderPublicProducts();renderDealerProducts();
+initializeFinder();renderPublicProducts();renderDealerProducts();
 
 function filterPublicProducts(){const input=document.getElementById("publicSearch"),type=document.getElementById("searchType").value,q=(input.value||"").trim().toLowerCase();if(!q){renderPublicProducts();return}renderPublicProducts(demoProducts.filter(p=>{if(type==="item")return p.item.toLowerCase().includes(q);if(type==="product")return p.name.toLowerCase().includes(q);if(type==="brand")return p.brand.toLowerCase().includes(q);if(type==="model")return p.model.toLowerCase().includes(q);if(type==="category")return p.type.toLowerCase().includes(q);return [p.item,p.name,p.brand,p.model,p.machine,p.type,p.tag].join(" ").toLowerCase().includes(q)}))}
 function setQuickFilter(f){let x=demoProducts;if(f==="Spare Part")x=demoProducts.filter(p=>p.type==="Spare Part");if(f==="Accessory")x=demoProducts.filter(p=>p.type==="Accessory");if(f==="New")x=demoProducts.filter(p=>p.tag==="NEW");if(f==="Popular")x=demoProducts.filter(p=>p.tag==="POPULAR");renderPublicProducts(x);scrollToProducts()}
 function resetProducts(){document.getElementById("publicSearch").value="";renderPublicProducts()}
 function scrollToProducts(){document.getElementById("productsSection").scrollIntoView({behavior:"smooth"})}
-function focusModelFinder(){document.getElementById("finderModel").scrollIntoView({behavior:"smooth",block:"center"});setTimeout(()=>document.getElementById("finderModel").focus(),500)}
-function runFinder(){const type=document.getElementById("finderType").value,brand=document.getElementById("finderBrand").value,machine=document.getElementById("finderMachine").value,model=document.getElementById("finderModel").value;renderPublicProducts(demoProducts.filter(p=>(!type||p.type===type)&&(!brand||brand==="Other"||p.brand===brand||p.brand==="Multi Brand")&&(!machine||p.machine===machine||p.machine==="Power Tool")&&(!model||model==="Other Model"||p.model===model||p.model==="Various")));scrollToProducts()}
+function focusModelFinder(){document.getElementById("finderSection").scrollIntoView({behavior:"smooth",block:"center"});setTimeout(()=>document.getElementById("finderModel").focus(),500)}
+function uniqueValues(arr){return [...new Set(arr.filter(Boolean))].sort((a,b)=>a.localeCompare(b))}
+function fillFinderSelect(id,values,label){
+  const el=document.getElementById(id); if(!el)return;
+  const old=el.value;
+  el.innerHTML=`<option value="">${label}</option>`+values.map(v=>`<option value="${v}">${v}</option>`).join("");
+  if(values.includes(old))el.value=old;
+}
+function refreshFinderOptions(){
+  const type=document.getElementById("finderType").value;
+  const brand=document.getElementById("finderBrand").value;
+  const machine=document.getElementById("finderMachine").value;
+  const model=document.getElementById("finderModel").value;
+
+  let data=demoProducts.filter(p=>!type||p.type===type);
+  fillFinderSelect("finderBrand",uniqueValues(data.map(p=>p.brand)),"All Brands");
+
+  const activeBrand=document.getElementById("finderBrand").value||brand;
+  data=data.filter(p=>!activeBrand||p.brand===activeBrand);
+  fillFinderSelect("finderMachine",uniqueValues(data.map(p=>p.machine)),"All Machines");
+
+  const activeMachine=document.getElementById("finderMachine").value||machine;
+  data=data.filter(p=>!activeMachine||p.machine===activeMachine);
+  fillFinderSelect("finderModel",uniqueValues(data.map(p=>p.model)),"All Models");
+
+  const activeModel=document.getElementById("finderModel").value||model;
+  data=data.filter(p=>!activeModel||p.model===activeModel);
+  fillFinderSelect("finderPart",uniqueValues(data.map(p=>p.part)),"All Parts");
+}
+function clearFinder(){
+  document.getElementById("finderType").value="";
+  ["finderBrand","finderMachine","finderModel","finderPart"].forEach(id=>{const el=document.getElementById(id);if(el)el.value=""});
+  initializeFinder(); renderPublicProducts(demoProducts);
+}
+function initializeFinder(){
+  fillFinderSelect("finderBrand",uniqueValues(demoProducts.map(p=>p.brand)),"All Brands");
+  fillFinderSelect("finderMachine",uniqueValues(demoProducts.map(p=>p.machine)),"All Machines");
+  fillFinderSelect("finderModel",uniqueValues(demoProducts.map(p=>p.model)),"All Models");
+  fillFinderSelect("finderPart",uniqueValues(demoProducts.map(p=>p.part)),"All Parts");
+}
+function runFinder(){
+  const type=document.getElementById("finderType").value,brand=document.getElementById("finderBrand").value,machine=document.getElementById("finderMachine").value,model=document.getElementById("finderModel").value,part=document.getElementById("finderPart").value;
+  renderPublicProducts(demoProducts.filter(p=>(!type||p.type===type)&&(!brand||p.brand===brand)&&(!machine||p.machine===machine)&&(!model||p.model===model)&&(!part||p.part===part)));
+  scrollToProducts();
+}
 
 function openAuth(mode="login"){document.getElementById("authModal").classList.add("show");switchAuth(mode)}
 function closeAuth(){document.getElementById("authModal").classList.remove("show")}
