@@ -1162,6 +1162,45 @@
 .order-summary-card b,.history-app-card b,.profile-app-card b,.reward-app-card b,.form-app-card b,.delivery-app-card b{color:#17213b!important;font-weight:1000!important}
 .add-cart-btn,.add-cart-btn.added,.dealer-cart-btn,.dealer-cart-btn.added{font-size:7px!important;font-weight:900!important;letter-spacing:0!important}
 
+
+/* ===== V21 TODAY LAST OF FINAL ===== */
+
+/* Customer Care number: force approved bright yellow */
+#contactPhone a,
+#contactPhone a.phone-number,
+.contact-card-action #contactPhone a{
+  color:#ffd400!important;
+  font-size:16px!important;
+  font-weight:1000!important;
+  text-decoration:none!important;
+}
+#contactWhatsapp a,
+#contactWhatsapp a.whatsapp-number,
+.contact-card-action #contactWhatsapp a{
+  color:#32e875!important;
+  font-size:16px!important;
+  font-weight:1000!important;
+  text-decoration:none!important;
+}
+
+/* ADDED text: slightly larger than V20, still compact */
+.add-cart-btn.added,
+.dealer-cart-btn.added{
+  font-size:9px!important;
+  font-weight:950!important;
+  letter-spacing:0!important;
+}
+.add-cart-btn.added i,
+.dealer-cart-btn.added i{
+  font-size:9px!important;
+  margin-right:3px!important;
+}
+
+
+/* Three approved product photos in detail view */
+.detail-photo-gallery{grid-template-columns:repeat(3,minmax(0,1fr))!important}
+@media(max-width:760px){.detail-photo-gallery{grid-template-columns:1fr!important}}
+
 </style>
 <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.7.2/css/all.min.css">
 </head>
@@ -1907,7 +1946,7 @@ function badgeClass(tag){
 }
 function getQty(item){const el=document.getElementById("qty-"+item);return Math.max(1,parseInt(el?.value||"1",10)||1)}
 function sanitizeQty(item){const el=document.getElementById("qty-"+item);if(!el)return;if(el.value!==""&&parseInt(el.value,10)<1)el.value=1}
-function changeQty(item,delta){if(demoCartState[item])return;const el=document.getElementById("qty-"+item);if(!el)return;el.value=Math.max(1,getQty(item)+delta)}
+function changeQty(item,delta){if(demoCartState[item])return;const el=document.getElementById("qty-"+item);if(!el)return;el.value=Math.max(1,getQty(item)+delta);playTorvoSound("click")}
 function addDemoCart(item,btn){
  if(demoCartState[item])return;
  const q=getQty(item); demoCartState[item]={qty:q};
@@ -1916,6 +1955,7 @@ function addDemoCart(item,btn){
  ["minus-","plus-"].forEach(x=>{const b=document.getElementById(x+item);if(b)b.disabled=true});
  if(btn){btn.innerHTML='<i class="fa-solid fa-check"></i> ADDED';btn.classList.add("added");btn.disabled=true}
  updateCartCount();
+ playTorvoSound("success");
 }
 function closeProductDetail(){document.getElementById("productDetailModal")?.classList.remove("show")}
 function openProductDetail(item,isDealer){
@@ -1926,6 +1966,7 @@ function openProductDetail(item,isDealer){
  <div class="detail-photo-gallery">
    <div><div class="product-detail-photo">${p.icon}</div><div class="detail-photo-label">PHOTO 1</div></div>
    <div><div class="product-detail-photo alt"><span class="detail-alt-visual">${p.icon}</span></div><div class="detail-photo-label">PHOTO 2</div></div>
+   <div><div class="product-detail-photo alt"><span class="detail-alt-visual third-view">${p.icon}</span></div><div class="detail-photo-label">PHOTO 3</div></div>
  </div>
  <div><div class="detail-kicker">ITEM: ${p.item}</div><div class="detail-title">${p.name}</div><div class="detail-data"><div><b>Machine Brand</b>${p.brand}</div><div><b>Part Brand</b>${p.spareBrand}</div><div><b>Machine</b>${p.machine}</div><div><b>Model</b>${p.model}</div><div><b>Category</b>${p.part}</div><div><b>System</b>${p.system}</div></div>${rate}</div></div>
  <div class="new-arrivals-wrap"><div class="new-arrivals-head"><h3>NEW ARRIVALS / RECENTLY ADDED</h3><span>Admin-published items will appear here.</span></div><div class="new-arrivals-grid">${recent.map(r=>`<button class="arrival-card" onclick="openProductDetail('${r.item}',${isDealer})"><div class="arrival-photo">${r.icon}</div><b>${r.name}</b><small>ITEM: ${r.item}</small></button>`).join("")}</div></div>`;
@@ -1963,19 +2004,70 @@ function markNoticeRead(el){
 let torvoSettings={sound:true,notifications:true,personalized:true,whatsapp:true};
 try{torvoSettings={...torvoSettings,...JSON.parse(localStorage.getItem("torvoDealerSettings")||"{}")}}catch(e){}
 let torvoAudioContext=null;
-function playTorvoSound(kind="click"){
- if(!torvoSettings.sound)return;
- try{
-   const C=window.AudioContext||window.webkitAudioContext;if(!C)return;
-   if(!torvoAudioContext)torvoAudioContext=new C();
-   const ctx=torvoAudioContext;if(ctx.state==="suspended")ctx.resume();
-   const o=ctx.createOscillator(),g=ctx.createGain();
-   const f={click:470,popup:610,error:190,success:760,action:660}[kind]||470;
-   const d={click:.055,popup:.075,error:.11,success:.095,action:.07}[kind]||.06;
-   o.frequency.value=f;o.type="sine";g.gain.setValueAtTime(.026,ctx.currentTime);g.gain.exponentialRampToValueAtTime(.001,ctx.currentTime+d);
-   o.connect(g);g.connect(ctx.destination);o.start();o.stop(ctx.currentTime+d);
- }catch(e){}
+let torvoAudioUnlocked=false;
+
+function getTorvoAudioContext(){
+  try{
+    const C=window.AudioContext||window.webkitAudioContext;
+    if(!C)return null;
+    if(!torvoAudioContext)torvoAudioContext=new C();
+    return torvoAudioContext;
+  }catch(e){return null}
 }
+
+function unlockTorvoAudio(){
+  if(!torvoSettings.sound)return;
+  const ctx=getTorvoAudioContext();
+  if(!ctx)return;
+  try{
+    const ready=()=>{torvoAudioUnlocked=true};
+    if(ctx.state==="suspended"){
+      const r=ctx.resume();
+      if(r&&typeof r.then==="function")r.then(ready).catch(()=>{});
+      else ready();
+    }else ready();
+  }catch(e){}
+}
+
+function emitTorvoTone(kind="click"){
+  if(!torvoSettings.sound)return;
+  const ctx=getTorvoAudioContext();
+  if(!ctx)return;
+  try{
+    const now=ctx.currentTime;
+    const o=ctx.createOscillator();
+    const g=ctx.createGain();
+    const f={click:520,popup:650,error:210,success:820,action:710}[kind]||520;
+    const d={click:.065,popup:.09,error:.13,success:.11,action:.08}[kind]||.07;
+    o.type=(kind==="error")?"triangle":"sine";
+    o.frequency.setValueAtTime(f,now);
+    g.gain.setValueAtTime(.075,now);
+    g.gain.exponentialRampToValueAtTime(.001,now+d);
+    o.connect(g);g.connect(ctx.destination);
+    o.start(now);o.stop(now+d);
+  }catch(e){}
+}
+
+function playTorvoSound(kind="click"){
+  if(!torvoSettings.sound)return;
+  const ctx=getTorvoAudioContext();
+  if(!ctx)return;
+  try{
+    if(ctx.state==="suspended"){
+      const r=ctx.resume();
+      if(r&&typeof r.then==="function"){
+        r.then(()=>{torvoAudioUnlocked=true;emitTorvoTone(kind)}).catch(()=>{});
+        return;
+      }
+    }
+    torvoAudioUnlocked=true;
+    emitTorvoTone(kind);
+  }catch(e){}
+}
+
+/* Browsers require a real user gesture before sound can start. */
+document.addEventListener("pointerdown",unlockTorvoAudio,{passive:true});
+document.addEventListener("keydown",unlockTorvoAudio,{passive:true});
 function saveDealerSetting(key,value){
  torvoSettings[key]=value;try{localStorage.setItem("torvoDealerSettings",JSON.stringify(torvoSettings))}catch(e){}
  playTorvoSound("success");
@@ -1999,11 +2091,18 @@ function closeRegistrationSuccess(){
 }
 function continueShopping(){closeUtility("cartModal");openDealerSection("products");playTorvoSound("action")}
 document.addEventListener("click",e=>{
- const action=e.target.closest("button,a,.dealer-menu,.dealer-icon-card,.status-app-card,.order-summary-card,.history-app-card,.profile-app-card,.reward-app-card,.form-app-card,.delivery-app-card,.gallery-arrow,.click-photo");
+ const action=e.target.closest("button,a,.dealer-menu,.dealer-icon-card,.status-app-card,.order-summary-card,.history-app-card,.profile-app-card,.reward-app-card,.form-app-card,.delivery-app-card,.gallery-arrow,.click-photo,.app-card,.mini-app,.contact-card-action");
  if(!action)return;
+
+ /* Sound master toggle itself: ON gives confirmation, OFF immediately silences. */
+ if(action.closest(".setting-card") && action.closest(".setting-card").querySelector("#settingSound")){
+   setTimeout(()=>{if(torvoSettings.sound)playTorvoSound("success")},0);
+   return;
+ }
+
  let kind="click";
- if(action.closest(".add-cart-btn,.dealer-cart-btn,.support-action-btn,.delivery-app-card"))kind="action";
- if(action.closest(".full-red-btn,.primary-btn,.review-order-btn"))kind="action";
+ if(action.closest(".add-cart-btn,.dealer-cart-btn,.support-action-btn,.delivery-app-card,.full-red-btn,.primary-btn,.review-order-btn"))kind="action";
+ if(action.closest(".close-btn"))kind="click";
  playTorvoSound(kind);
 });
 
