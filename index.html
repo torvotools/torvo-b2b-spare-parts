@@ -1015,6 +1015,76 @@
 .free-delivery-note{margin-top:8px;padding:8px 10px;border-radius:9px;background:#eef8f1;color:#13763a;font-size:9.5px;font-weight:850;border:1px solid #d7ebdd}
 .delivery-progress-note{margin-top:8px;padding:8px 10px;border-radius:9px;background:#f5f8fc;color:#173f7a;font-size:9.5px;font-weight:850;border:1px solid #dfe6ef}
 
+
+/* ===== V17 APPROVED PRODUCT CARD + REGISTRATION POLISH ===== */
+
+/* Product cards: clearer separation from the light page background */
+.product-card{
+  border:1px solid #dde3eb!important;
+  box-shadow:0 8px 22px rgba(15,23,42,.11)!important;
+}
+.product-card:hover{
+  transform:translateY(-3px)!important;
+  box-shadow:0 13px 30px rgba(15,23,42,.16)!important;
+}
+
+/* Keep the page itself light; cards now stand out through shadow, not dark backgrounds */
+.product-grid{gap:14px!important}
+
+/* Approved New Dealer helper layout: green + blue information side-by-side on desktop */
+.approved-mobile-field .same-number-strip,
+.approved-mobile-field .verify-placeholder{
+  min-height:34px!important;
+  margin-top:7px!important;
+  border-radius:8px!important;
+  display:flex!important;
+  align-items:center!important;
+}
+.approved-mobile-field{
+  display:grid!important;
+  grid-template-columns:1fr 1fr!important;
+  column-gap:8px!important;
+}
+.approved-mobile-field>label,
+.approved-mobile-field>.mobile-whatsapp-row{
+  grid-column:1/-1!important;
+}
+.approved-mobile-field .same-number-strip{grid-column:1!important;margin-right:0!important}
+.approved-mobile-field .verify-placeholder{
+  grid-column:2!important;
+  margin-left:0!important;
+  padding:7px 9px!important;
+  background:#eef6ff!important;
+  color:#1769c2!important;
+  border:1px solid #d7e8fb!important;
+  font-size:9px!important;
+  font-weight:800!important;
+  line-height:1.25!important;
+}
+
+/* Rating-ready footer: no fake star score is shown until real dealer-review data exists */
+.product-rating-ready{
+  margin-top:9px!important;
+  padding-top:8px!important;
+  border-top:1px solid #edf0f4!important;
+  display:flex!important;
+  align-items:center!important;
+  justify-content:space-between!important;
+  gap:8px!important;
+  font-size:8.5px!important;
+  font-weight:850!important;
+  color:#667085!important;
+}
+.product-rating-ready .rating-star{color:#f59e0b!important}
+.product-rating-ready .rating-status{white-space:nowrap!important}
+
+@media(max-width:760px){
+  .approved-mobile-field{grid-template-columns:1fr!important}
+  .approved-mobile-field .same-number-strip,
+  .approved-mobile-field .verify-placeholder{grid-column:1!important}
+  .product-card{box-shadow:0 6px 18px rgba(15,23,42,.10)!important}
+}
+
 </style>
 <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.7.2/css/all.min.css">
 </head>
@@ -1485,6 +1555,7 @@ function publicProductCard(p){const badge=badgeClass(p.tag);return `<div class="
     <div class="meta-cell"><b>System</b><span>${p.system}</span></div>
   </div>
   <div class="public-detail-row"><button class="details-btn public-full-detail" onclick="publicProductDetails('${p.item}')"><i class="fa-regular fa-eye"></i> VIEW DETAILS</button></div>
+  <div class="product-rating-ready"><span><i class="fa-solid fa-star rating-star"></i> PRODUCT RATING</span><span class="rating-status">Reviews coming soon</span></div>
 </div></div>`}
 function dealerProductCard(p){const badge=badgeClass(p.tag);return `<div class="product-card">
 <div class="product-photo click-photo product-gallery" onclick="dealerProductDetails('${p.item}')">
@@ -1501,6 +1572,7 @@ function dealerProductCard(p){const badge=badgeClass(p.tag);return `<div class="
   <div class="product-meta"><div class="meta-cell"><b>Machine Brand</b><span>${p.brand}</span></div><div class="meta-cell"><b>Part Brand</b><span>${p.spareBrand}</span></div><div class="meta-cell"><b>Model</b><span>${p.model}</span></div><div class="meta-cell"><b>System</b><span>${p.system}</span></div></div>
   <div class="dealer-rate">${p.dealerRate}</div>
   <div class="cart-controls"><div class="qty-control" id="qtybox-${p.item}"><button id="minus-${p.item}" onclick="changeQty('${p.item}',-1)">−</button><input id="qty-${p.item}" class="qty-input" type="number" min="1" value="1" inputmode="numeric" oninput="sanitizeQty('${p.item}')"><button id="plus-${p.item}" onclick="changeQty('${p.item}',1)">+</button></div><button class="add-cart-btn dealer-cart-btn" id="cart-${p.item}" title="Add to Cart" aria-label="Add to Cart" onclick="addDemoCart('${p.item}',this)"><i class="fa-solid fa-cart-plus"></i></button></div>
+  <div class="product-rating-ready"><span><i class="fa-solid fa-star rating-star"></i> PRODUCT RATING</span><span class="rating-status">Reviews coming soon</span></div>
 </div></div>`}
 function renderPublicProducts(products=demoProducts){const g=document.getElementById("publicProductGrid");if(!g)return;g.innerHTML=products.length?products.map(publicProductCard).join(""):`<div style="grid-column:1/-1;background:#fff;border:1px solid #e2e4e8;border-radius:16px;padding:25px;text-align:center">No matching product found. You can send a Part Enquiry.</div>`}
 function renderDealerProducts(products=demoProducts){const g=document.getElementById("dealerProductGrid");if(g)g.innerHTML=products.map(dealerProductCard).join("")}
