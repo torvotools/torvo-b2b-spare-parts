@@ -4,7 +4,7 @@
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <meta name="theme-color" content="#d71920" />
-  <title>TORVO Tools | B2B Power Tool Spare Parts - V6</title>
+  <title>TORVO Tools | B2B Power Tool Spare Parts - V7</title>
 
   <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
 
@@ -335,6 +335,302 @@
   #authModal .modal-body{max-height:72vh!important;overflow:auto!important}
 }
 
+
+/* ===== V7 HOME + DEALER PORTAL FINAL POLISH ===== */
+
+/* Search bars: same visual language everywhere */
+.search-wrap,.dealer-search{
+  display:flex!important;
+  align-items:center!important;
+  min-width:0!important;
+}
+.search-select,.dealer-search-select{
+  appearance:none!important;
+  -webkit-appearance:none!important;
+  background-color:#fff!important;
+  background-image:
+    linear-gradient(45deg,transparent 50%,#4b5563 50%),
+    linear-gradient(135deg,#4b5563 50%,transparent 50%)!important;
+  background-position:calc(100% - 17px) 50%,calc(100% - 12px) 50%!important;
+  background-size:6px 6px,6px 6px!important;
+  background-repeat:no-repeat!important;
+  padding:0 34px 0 14px!important;
+  font-weight:800!important;
+  color:#1f2937!important;
+}
+.search-icon-btn,.dealer-search-icon{
+  width:48px!important;
+  min-width:48px!important;
+  height:100%!important;
+  border:0!important;
+  border-left:1px solid #d9dee7!important;
+  border-radius:0!important;
+  background:#fff!important;
+  display:grid!important;
+  place-items:center!important;
+  cursor:pointer!important;
+  font-size:19px!important;
+  line-height:1!important;
+  box-shadow:none!important;
+}
+.search-icon-btn.camera,.dealer-search-icon.camera{color:#2789d8!important}
+.search-icon-btn.mic,.dealer-search-icon.mic{color:#d71920!important}
+.search-submit,.dealer-search-submit{
+  width:52px!important;
+  min-width:52px!important;
+  border:0!important;
+  border-radius:0 11px 11px 0!important;
+  background:var(--red)!important;
+  color:#fff!important;
+  font-size:19px!important;
+  font-weight:900!important;
+}
+.dealer-search{
+  flex:1!important;
+  max-width:850px!important;
+  height:48px!important;
+  border:1px solid #d9dee7!important;
+  border-radius:12px!important;
+  overflow:hidden!important;
+  background:#fff!important;
+}
+.dealer-search-select{
+  width:125px!important;
+  height:100%!important;
+  border:0!important;
+  border-right:1px solid #d9dee7!important;
+}
+.dealer-search input{
+  flex:1!important;
+  height:100%!important;
+  border:0!important;
+  outline:0!important;
+  padding:0 15px!important;
+  min-width:0!important;
+  font-size:13px!important;
+}
+
+/* Product cards: compact, all details retained, equal button line */
+.product-grid{
+  align-items:stretch!important;
+}
+.product-card{
+  display:flex!important;
+  flex-direction:column!important;
+  min-height:0!important;
+  background:#fff!important;
+  border:1px solid #e5e7eb!important;
+  border-radius:14px!important;
+  overflow:hidden!important;
+  box-shadow:0 4px 14px rgba(15,23,42,.055)!important;
+}
+.product-photo{
+  height:142px!important;
+  min-height:142px!important;
+  background:#fff!important;
+  border-bottom:1px solid #eef0f3!important;
+}
+.product-photo .placeholder-icon{
+  font-size:66px!important;
+}
+.product-body{
+  display:flex!important;
+  flex-direction:column!important;
+  flex:1!important;
+  padding:10px 11px 11px!important;
+}
+.item-no{
+  font-size:9px!important;
+  line-height:1.1!important;
+  margin-bottom:3px!important;
+}
+.product-name{
+  font-size:13px!important;
+  line-height:1.2!important;
+  min-height:31px!important;
+  margin:0 0 7px!important;
+  display:-webkit-box!important;
+  -webkit-line-clamp:2!important;
+  -webkit-box-orient:vertical!important;
+  overflow:hidden!important;
+}
+.product-meta{
+  display:grid!important;
+  grid-template-columns:1fr!important;
+  gap:3px!important;
+  font-size:9.5px!important;
+  line-height:1.15!important;
+}
+.product-meta .meta-cell{
+  display:grid!important;
+  grid-template-columns:88px minmax(0,1fr)!important;
+  gap:6px!important;
+  padding:0!important;
+  background:transparent!important;
+  min-width:0!important;
+}
+.product-meta .meta-cell b{
+  color:#667085!important;
+  font-weight:750!important;
+}
+.product-meta .meta-cell span{
+  color:#16213a!important;
+  font-weight:850!important;
+  overflow:hidden!important;
+  text-overflow:ellipsis!important;
+  white-space:nowrap!important;
+}
+.product-actions{
+  display:grid!important;
+  grid-template-columns:1fr 1fr!important;
+  gap:7px!important;
+  margin-top:auto!important;
+  padding-top:10px!important;
+}
+.rate-btn{
+  height:34px!important;
+  border:1.5px solid var(--red)!important;
+  background:#fff!important;
+  color:var(--red)!important;
+  border-radius:8px!important;
+  font-size:9.5px!important;
+  font-weight:900!important;
+  white-space:nowrap!important;
+}
+.details-btn{
+  height:34px!important;
+  border:0!important;
+  background:#173f7a!important;
+  color:#fff!important;
+  border-radius:8px!important;
+  font-size:9.5px!important;
+  font-weight:900!important;
+  white-space:nowrap!important;
+}
+.details-btn:hover{background:#123564!important}
+.dealer-rate{
+  margin-top:8px!important;
+  padding:6px!important;
+  font-size:10px!important;
+  border-radius:7px!important;
+}
+.wish-btn{
+  width:30px!important;
+  height:30px!important;
+  right:9px!important;
+  top:8px!important;
+  font-size:16px!important;
+}
+
+/* Dealer Products finder mirrors Home Quick Part Finder */
+.dealer-finder-grid{
+  display:grid!important;
+  grid-template-columns:1.02fr 1.12fr 1fr 1fr .9fr 1fr auto!important;
+  gap:9px!important;
+  align-items:end!important;
+}
+.dealer-finder-grid .field label{
+  white-space:nowrap!important;
+  font-size:9px!important;
+}
+.dealer-finder-grid .field select{
+  height:45px!important;
+  font-size:11px!important;
+}
+.dealer-finder-grid .find-btn{
+  height:45px!important;
+  padding:0 14px!important;
+  white-space:nowrap!important;
+}
+
+/* Sidebar: every menu item same height and single line */
+.dealer-menu{
+  min-height:54px!important;
+  white-space:nowrap!important;
+}
+.dealer-menu .menu-icon{flex:0 0 auto!important}
+
+/* New Dealer modal */
+#authModal .modal-box{
+  width:min(760px,94vw)!important;
+  max-height:94vh!important;
+}
+#authModal .modal-head strong{
+  font-size:22px!important;
+  font-weight:1000!important;
+  letter-spacing:.4px!important;
+  color:#13264d!important;
+}
+#registerPanel{
+  padding-bottom:2px!important;
+}
+#registerPanel .two-fields{
+  gap:10px 12px!important;
+}
+#registerPanel .form-field{
+  margin-bottom:9px!important;
+}
+#registerPanel .form-field label{
+  font-size:9.5px!important;
+}
+#registerPanel .form-field input,
+#registerPanel .form-field select,
+#registerPanel .form-field textarea{
+  min-height:43px!important;
+}
+#registerPanel .address-field textarea{
+  min-height:58px!important;
+  resize:vertical!important;
+}
+#registerPanel .registration-note{
+  background:#f5f7fa!important;
+  border:1px solid #e4e7ec!important;
+  border-radius:10px!important;
+  padding:9px 11px!important;
+  font-size:10px!important;
+  color:#475467!important;
+  margin:3px 0 9px!important;
+}
+
+/* Part enquiry */
+.photo-help{
+  font-size:9.5px!important;
+  color:#667085!important;
+  margin-top:4px!important;
+}
+.enquiry-part-name-row{
+  display:grid!important;
+  grid-template-columns:1fr!important;
+}
+.dealer-enquiry-form{
+  max-width:680px!important;
+}
+
+/* Keep brand subtitle slightly highlighted */
+.brand-sub,.brand-subtitle{
+  font-weight:850!important;
+  color:#4b5563!important;
+  letter-spacing:.45px!important;
+}
+
+@media(max-width:1150px) and (min-width:761px){
+  .dealer-finder-grid{gap:6px!important}
+  .dealer-finder-grid .field label{font-size:8px!important}
+  .dealer-finder-grid .field select{font-size:10px!important}
+}
+@media(max-width:760px){
+  .dealer-search-select{width:95px!important}
+  .search-icon-btn,.dealer-search-icon{width:42px!important;min-width:42px!important}
+  .search-submit,.dealer-search-submit{width:46px!important;min-width:46px!important}
+  .dealer-finder-grid{grid-template-columns:1fr 1fr!important}
+  .dealer-finder-grid .find-btn{grid-column:1/-1!important}
+  .product-photo{height:120px!important;min-height:120px!important}
+  .product-photo .placeholder-icon{font-size:55px!important}
+  .product-meta .meta-cell{grid-template-columns:82px minmax(0,1fr)!important}
+  .product-actions{grid-template-columns:1fr 1fr!important}
+  #authModal .modal-box{width:min(96vw,760px)!important}
+}
+
 </style>
 </head>
 <body>
@@ -345,7 +641,7 @@
     <div class="main-search">
       <select class="search-select" id="searchType"><option value="all">All</option><option value="item">Item No.</option><option value="product">Product</option><option value="brand">Brand</option><option value="model">Model</option><option value="category">Category</option></select>
       <input id="publicSearch" type="search" placeholder="Search Item No., Product, Brand, Model..." oninput="filterPublicProducts()" />
-      <button class="search-icon-btn" title="Photo Search - Future Ready" onclick="futureFeature('Photo Search')">📷</button><button class="search-icon-btn" title="Voice Search - Future Ready" onclick="futureFeature('Voice Search')">🎙️</button><button class="search-submit" onclick="filterPublicProducts()">⌕</button>
+      <button class="search-icon-btn camera" title="Photo Search - Future Ready" onclick="futureFeature('Photo Search')">📷</button><button class="search-icon-btn mic" title="Voice Search - Future Ready" onclick="futureFeature('Voice Search')">🎙️</button><button class="search-submit" onclick="filterPublicProducts()">⌕</button>
     </div>
     <div class="header-actions"><button class="small-btn" onclick="toggleLanguage()">EN / HI</button><button class="login-btn" onclick="openAuth('login')"><span class="login-main">DEALER ACCESS</span><span class="login-sub">LOGIN • NEW REGISTER</span></button></div>
   </div></header>
@@ -414,7 +710,7 @@
   <footer><div class="container footer-grid"><div><div class="brand-name"><span>TORVO</span></div><div class="footer-text" style="margin-top:10px">TORVO TOOLS PRIVATE LIMITED<br>B2B Power Tool Spare Parts & Accessories</div></div><div><div class="footer-title">Products</div><span class="footer-link" onclick="setQuickFilter('Spare Part')">Spare Parts</span><span class="footer-link" onclick="setQuickFilter('Accessory')">Accessories</span><span class="footer-link" onclick="focusModelFinder()">Search by Model</span></div><div><div class="footer-title">Dealer</div><span class="footer-link" onclick="openAuth('login')">Dealer Login</span><span class="footer-link" onclick="openAuth('register')">New Dealer Registration</span><span class="footer-link" onclick="openPartEnquiry()">Part Enquiry</span></div><div><div class="footer-title">Support</div><span class="footer-link">Customer Care</span><span class="footer-link">WhatsApp Support</span><span class="footer-link">Business Enquiry</span></div></div></footer>
 </div>
 
-<div class="modal" id="authModal"><div class="modal-box"><div class="modal-head"><strong>TORVO B2B Dealer</strong><button class="close-btn" onclick="closeAuth()">×</button></div><div class="modal-body">
+<div class="modal" id="authModal"><div class="modal-box"><div class="modal-head"><strong>TORVO B2B DEALER</strong><button class="close-btn" onclick="closeAuth()">×</button></div><div class="modal-body">
   <div class="auth-tabs"><button id="loginTab" class="auth-tab active" onclick="switchAuth('login')">DEALER LOGIN</button><button id="registerTab" class="auth-tab" onclick="switchAuth('register')">NEW DEALER</button></div><div id="authMessage" class="message"></div>
   <div id="loginPanel" class="form-panel active"><div class="form-field"><label>MOBILE NUMBER</label><input id="loginMobile" inputmode="numeric" placeholder="Enter registered mobile number"></div><div class="form-field"><label>4-DIGIT PIN</label><input id="loginPin" inputmode="numeric" maxlength="4" type="password" placeholder="••••"></div><button class="full-red-btn" onclick="demoLogin()">LOGIN</button><button class="preview-btn" onclick="previewDealer()">PREVIEW DEALER AREA</button><div style="display:flex;justify-content:space-between;gap:10px;margin-top:12px;font-size:11px;font-weight:800"><span style="cursor:pointer;color:var(--red)" onclick="demoOtp()">FIRST LOGIN / OTP</span><span style="cursor:pointer;color:var(--red)" onclick="demoForgotPin()">FORGOT PIN?</span></div><div class="security-note">Secure dealer authentication is not enabled in this UI preview. Production login will use secure backend authentication and database permissions.</div></div>
   <div id="registerPanel" class="form-panel">
@@ -479,26 +775,84 @@
           <input id="regPincode" required inputmode="numeric" maxlength="6" placeholder="6-digit PIN code">
         </div>
 
-        <button class="full-red-btn" id="registerSubmitBtn" onclick="submitInquiry()">SUBMIT DEALER REQUEST</button>
+        <div class="form-field address-field">
+          <label>FULL ADDRESS <span class="req">*</span></label>
+          <textarea id="regAddress" required placeholder="Shop / business full address"></textarea>
+        </div>
+
+        <div class="registration-note">After submission, TORVO admin will verify the dealer details. GST number can be collected later during verification if required.</div>
+
+        <button class="full-red-btn" id="registerSubmitBtn" onclick="submitInquiry()">SUBMIT REGISTRATION REQUEST</button>
         <div class="security-note">Dealer access will be provided only after TORVO admin verification and approval.</div>
       </div>
 </div></div></div>
 
-<div class="modal" id="enquiryModal"><div class="modal-box"><div class="modal-head"><strong>Part Not Found?</strong><button class="close-btn" onclick="closePartEnquiry()">×</button></div><div class="modal-body"><div class="form-field"><label>SELECT BRAND</label><select id="enquiryBrand"><option value="">Select Brand</option><option>Bosch</option><option>Makita</option><option>DeWalt</option><option>Stanley</option><option>Other</option></select></div><div class="form-field"><label>SELECT MACHINE</label><select id="enquiryMachine"><option value="">Select Machine</option><option>Angle Grinder</option><option>Marble Cutter</option><option>Drill Machine</option><option>Rotary Hammer</option><option>Demolition Hammer</option><option>Other</option></select></div><div class="form-field"><label>MODEL</label><input placeholder="Enter model if known"></div><div class="form-field"><label>PART NAME</label><input placeholder="Enter part name if known"></div><div class="form-field"><label>PHOTO</label><input type="file" accept="image/*"></div><div class="form-field"><label>NOTE</label><textarea placeholder="Describe the spare part"></textarea></div><button class="full-red-btn" onclick="demoEnquiry()">SEND ENQUIRY</button></div></div></div>
+<div class="modal" id="enquiryModal"><div class="modal-box"><div class="modal-head"><strong>Part Not Found?</strong><button class="close-btn" onclick="closePartEnquiry()">×</button></div><div class="modal-body">
+    <div class="form-field"><label>SELECT BRAND</label><select id="enquiryBrand"><option value="">Select Brand</option><option>Bosch</option><option>Makita</option><option>DeWalt</option><option>Stanley</option><option>Other</option></select></div>
+    <div class="form-field"><label>SELECT MACHINE</label><select id="enquiryMachine"><option value="">Select Machine</option><option>Angle Grinder</option><option>Marble Cutter</option><option>Drill Machine</option><option>Rotary Hammer</option><option>Demolition Hammer</option><option>Other</option></select></div>
+    <div class="form-field"><label>MODEL</label><input id="enquiryModel" placeholder="Enter model if known"></div>
+    <div class="form-field"><label>SPARE PART NAME</label><input id="enquiryPartName" placeholder="Enter / select required spare part name"></div>
+    <div class="form-field"><label>PHOTOS (MAX 5)</label><input id="enquiryPhotos" type="file" accept="image/*" multiple onchange="limitEnquiryPhotos(this)"><div class="photo-help">Upload machine, model plate and spare-part photos if available.</div></div>
+    <div class="form-field"><label>NOTE</label><textarea id="enquiryNote" placeholder="Describe the required spare part"></textarea></div>
+    <button class="full-red-btn" onclick="demoEnquiry()">SEND ENQUIRY</button>
+    </div></div></div>
 
-<div id="dealerApp"><div class="dealer-header"><div class="brand"><div class="brand-logo">T</div><div><div class="brand-name"><span>TORVO</span></div><div class="brand-sub">DEALER PORTAL</div></div></div><div class="dealer-search"><input id="dealerSearchInput" placeholder="Search item, brand, model..." oninput="filterDealerProducts()"><button onclick="futureFeature('Dealer Photo Search')">📷</button><button onclick="futureFeature('Dealer Voice Search')">🎙️</button></div><button class="back-public" onclick="exitDealerPreview()">LOGOUT</button></div>
+<div id="dealerApp"><div class="dealer-header">
+      <div class="brand"><div class="brand-logo">T</div><div><div class="brand-name"><span>TORVO</span></div><div class="brand-sub">DEALER PORTAL</div></div></div>
+      <div class="dealer-search">
+        <select class="dealer-search-select" id="dealerSearchType">
+          <option value="all">All</option><option value="item">Item No.</option><option value="product">Product</option><option value="brand">Brand</option><option value="model">Model</option><option value="category">Category</option>
+        </select>
+        <input id="dealerSearchInput" placeholder="Search Item No., Product, Brand, Model..." oninput="filterDealerProducts()">
+        <button class="dealer-search-icon camera" onclick="futureFeature('Dealer Photo Search')" title="Photo Search">📷</button>
+        <button class="dealer-search-icon mic" onclick="futureFeature('Dealer Voice Search')" title="Voice Search">🎙️</button>
+        <button class="dealer-search-submit" onclick="filterDealerProducts()" title="Search">⌕</button>
+      </div>
+      <button class="back-public" onclick="exitDealerPreview()">LOGOUT</button>
+    </div>
 <div class="dealer-layout"><aside class="dealer-sidebar">
-<button class="dealer-menu active" onclick="openDealerSection('home',this)"><span class="menu-icon">🏠</span> HOME</button><button class="dealer-menu" onclick="openDealerSection('products',this)"><span class="menu-icon">⚙️</span> PRODUCTS</button><button class="dealer-menu" onclick="openDealerSection('orders',this)"><span class="menu-icon">📦</span> MY ORDERS</button><button class="dealer-menu" onclick="openDealerSection('delivery',this)"><span class="menu-icon">🚚</span> DELIVERY</button><button class="dealer-menu" onclick="openDealerSection('points',this)"><span class="menu-icon">⭐</span> REWARD POINTS</button><button class="dealer-menu" onclick="openDealerSection('enquiry',this)"><span class="menu-icon">📷</span> PART ENQUIRY</button><button class="dealer-menu" onclick="openDealerSection('profile',this)"><span class="menu-icon">👤</span> PROFILE</button>
+<button class="dealer-menu active" onclick="openDealerSection('home',this)"><span class="menu-icon">🏠</span> HOME</button><button class="dealer-menu" onclick="openDealerSection('products',this)"><span class="menu-icon">⚙️</span> PRODUCTS</button><button class="dealer-menu" onclick="openDealerSection('orders',this)"><span class="menu-icon">📦</span> MY ORDERS</button><button class="dealer-menu" onclick="openDealerSection('delivery',this)"><span class="menu-icon">🚚</span> DELIVERY</button><button class="dealer-menu" onclick="openDealerSection('points',this)"><span class="menu-icon">⭐</span><span>REWARD POINTS</span></button><button class="dealer-menu" onclick="openDealerSection('enquiry',this)"><span class="menu-icon">📷</span> PART ENQUIRY</button><button class="dealer-menu" onclick="openDealerSection('profile',this)"><span class="menu-icon">👤</span> PROFILE</button>
 </aside><main class="dealer-main">
 <section id="dealer-home" class="dealer-section active"><div class="dealer-welcome"><div><h2>Welcome to TORVO B2B</h2><p>Dealer portal preview • Search, order and track in one place.</p></div><div class="rate-chip">PREVIEW • RATE GROUP A</div></div>
 <div class="dealer-icon-grid">
 <button class="dealer-icon-card" onclick="openDealerSection('products')"><div class="app-icon">⚙️</div><div class="app-name">Spare Parts</div></button><button class="dealer-icon-card" onclick="openDealerSection('products')"><div class="app-icon">🧰</div><div class="app-name">Accessories</div></button><button class="dealer-icon-card" onclick="openDealerSection('orders')"><div class="app-icon">📦</div><div class="app-name">My Orders</div></button><button class="dealer-icon-card" onclick="openDealerSection('delivery')"><div class="app-icon">🚚</div><div class="app-name">Delivery</div></button><button class="dealer-icon-card" onclick="openDealerSection('points')"><div class="app-icon">⭐</div><div class="app-name">Reward Points</div></button><button class="dealer-icon-card" onclick="openDealerSection('enquiry')"><div class="app-icon">📷</div><div class="app-name">Part Enquiry</div></button><button class="dealer-icon-card" onclick="futureFeature('Barcode / QR Search')"><div class="app-icon">▦</div><div class="app-name">Scan QR</div></button><button class="dealer-icon-card" onclick="futureFeature('Smart Suitable Part Search')"><div class="app-icon">🎯</div><div class="app-name">Suitable Part</div></button><button class="dealer-icon-card" onclick="futureFeature('WhatsApp Support')"><div class="app-icon">💬</div><div class="app-name">WhatsApp</div></button><button class="dealer-icon-card" onclick="openDealerSection('profile')"><div class="app-icon">👤</div><div class="app-name">My Profile</div></button>
 </div><div class="dealer-panel"><div class="section-head"><div><h3 style="margin:0">Quick Status</h3><p class="section-sub">Dealer-facing status only.</p></div></div><div class="status-grid"><div class="status-card"><strong>0</strong><span>Order Pending</span></div><div class="status-card"><strong>0</strong><span>Order Approved</span></div><div class="status-card"><strong>0</strong><span>Ready for Delivery</span></div><div class="status-card"><strong>0</strong><span>Dispatched</span></div></div></div></section>
-<section id="dealer-products" class="dealer-section"><div class="dealer-panel"><div class="section-head"><div><h2 class="section-title">Products</h2><p class="section-sub">Preview dealer rate shown only inside dealer preview.</p></div></div><div class="finder" style="margin-bottom:15px"><div class="finder-grid"><div class="field"><label>TYPE</label><select><option>All Products</option><option>Spare Parts</option><option>Accessories</option></select></div><div class="field"><label>BRAND</label><select><option>All Brands</option><option>Bosch</option><option>Makita</option><option>DeWalt</option></select></div><div class="field"><label>MACHINE</label><select><option>All Machines</option><option>Angle Grinder</option><option>Marble Cutter</option><option>Drill Machine</option></select></div><div class="field"><label>MODEL</label><select><option>All Models</option><option>801</option><option>100</option><option>110</option></select></div><button class="find-btn" onclick="filterDealerProducts()">SEARCH</button></div></div><div class="product-grid" id="dealerProductGrid"></div></div></section>
+<section id="dealer-products" class="dealer-section">
+      <div class="dealer-panel">
+        <div class="section-head">
+          <div><h2 class="section-title">Products</h2><p class="section-sub">Search with the same TORVO filter structure used on the Home Page.</p></div>
+          <button class="view-all" onclick="clearDealerFinder()">CLEAR ALL</button>
+        </div>
+        <div class="finder" style="margin-bottom:15px">
+          <div class="dealer-finder-grid">
+            <div class="field"><label>PRODUCT TYPE</label><select id="dealerFinderType" onchange="refreshDealerFinderOptions()"><option value="">All Types</option><option>Spare Part</option><option>Accessory</option></select></div>
+            <div class="field"><label>MACHINE SYSTEM / TYPE</label><select id="dealerFinderSystem" onchange="refreshDealerFinderOptions()"><option value="">All Systems</option></select></div>
+            <div class="field"><label>BRAND / COMPANY</label><select id="dealerFinderBrand" onchange="refreshDealerFinderOptions()"><option value="">All Brands</option></select></div>
+            <div class="field"><label>MACHINE</label><select id="dealerFinderMachine" onchange="refreshDealerFinderOptions()"><option value="">All Machines</option></select></div>
+            <div class="field"><label>MODEL</label><select id="dealerFinderModel" onchange="refreshDealerFinderOptions()"><option value="">All Models</option></select></div>
+            <div class="field"><label>PART / CATEGORY</label><select id="dealerFinderPart"><option value="">All Parts</option></select></div>
+            <button class="find-btn" onclick="runDealerFinder()">FIND PARTS</button>
+          </div>
+        </div>
+        <div class="product-grid" id="dealerProductGrid"></div>
+      </div>
+    </section>
 <section id="dealer-orders" class="dealer-section"><div class="dealer-panel"><h2>📦 My Orders</h2><p class="section-sub">Sales Order → Admin Review → Dealer Approval → Final Order → Estimate.</p><div class="status-grid" style="margin-top:15px"><div class="status-card"><strong>0</strong><span>Order Pending</span></div><div class="status-card"><strong>0</strong><span>Order Approved</span></div><div class="status-card"><strong>0</strong><span>Payment Pending</span></div><div class="status-card"><strong>0</strong><span>Payment Received</span></div></div></div></section>
 <section id="dealer-delivery" class="dealer-section"><div class="dealer-panel"><h2>🚚 Delivery</h2><p class="section-sub">Ready for Delivery → Dispatched → Delivered.</p></div></section>
 <section id="dealer-points" class="dealer-section"><div class="dealer-panel"><h2>⭐ Reward Points</h2><p class="section-sub">Reward points are separate from payment/outstanding.</p><div class="status-card" style="margin-top:15px;max-width:260px"><strong>0</strong><span>Available Reward Points</span></div></div></section>
-<section id="dealer-enquiry" class="dealer-section"><div class="dealer-panel"><h2>📷 Part Enquiry</h2><p class="section-sub">Can't find a part? Send machine/part information.</p><div style="max-width:600px;margin-top:16px"><div class="form-field"><label>BRAND</label><select><option>Select Brand</option><option>Bosch</option><option>Makita</option><option>DeWalt</option><option>Other</option></select></div><div class="form-field"><label>MACHINE</label><select><option>Select Machine</option><option>Angle Grinder</option><option>Marble Cutter</option><option>Drill Machine</option><option>Other</option></select></div><div class="form-field"><label>MODEL</label><input placeholder="Enter model"></div><div class="form-field"><label>PHOTO</label><input type="file" accept="image/*"></div><div class="form-field"><label>NOTE</label><textarea placeholder="Describe required part"></textarea></div><button class="primary-btn" onclick="demoEnquiry()">SEND ENQUIRY</button></div></div></section>
+<section id="dealer-enquiry" class="dealer-section"><div class="dealer-panel">
+      <h2>📷 Part Enquiry</h2>
+      <p class="section-sub">Can't find a part? Send machine and spare-part information.</p>
+      <div class="dealer-enquiry-form" style="margin-top:16px">
+        <div class="form-field"><label>BRAND</label><select><option>Select Brand</option><option>Bosch</option><option>Makita</option><option>DeWalt</option><option>Other</option></select></div>
+        <div class="form-field"><label>MACHINE</label><select><option>Select Machine</option><option>Angle Grinder</option><option>Marble Cutter</option><option>Drill Machine</option><option>Other</option></select></div>
+        <div class="form-field"><label>MODEL</label><input placeholder="Enter model"></div>
+        <div class="form-field"><label>SPARE PART NAME</label><input placeholder="Enter / select spare part name"></div>
+        <div class="form-field"><label>PHOTOS (MAX 5)</label><input type="file" accept="image/*" multiple onchange="limitEnquiryPhotos(this)"><div class="photo-help">You can upload up to 5 photos.</div></div>
+        <div class="form-field"><label>NOTE</label><textarea placeholder="Describe required part"></textarea></div>
+        <button class="primary-btn" onclick="demoEnquiry()">SEND ENQUIRY</button>
+      </div>
+    </div></section>
 <section id="dealer-profile" class="dealer-section"><div class="dealer-panel"><h2>👤 Dealer Profile</h2><div class="about-points" style="margin-top:15px"><div class="about-point">Business Name: Preview Dealer</div><div class="about-point">Rate Group: A</div><div class="about-point">Account: Preview Only</div><div class="about-point">Status: UI Testing</div></div></div></section>
 </main></div>
 <nav class="mobile-nav"><button onclick="openDealerSection('home')"><span>🏠</span>Home</button><button onclick="openDealerSection('products')"><span>⚙️</span>Products</button><button onclick="openDealerSection('orders')"><span>📦</span>Orders</button><button onclick="openDealerSection('delivery')"><span>🚚</span>Delivery</button><button onclick="openDealerSection('profile')"><span>👤</span>Profile</button></nav>
@@ -699,8 +1053,9 @@ async function submitInquiry(){
  const otherCity=document.getElementById("regOtherCity").value.trim();
  const city=selectedCity==="Other City / Town"?otherCity:selectedCity;
  const pincode=document.getElementById("regPincode").value.trim();
+ const address=document.getElementById("regAddress").value.trim();
 
- if(!shop||!person||!mobile||!whatsapp||!state||!city||!pincode){
+ if(!shop||!person||!mobile||!whatsapp||!state||!city||!pincode||!address){
    showAuthMessage("Please fill all fields marked with *.","error");return;
  }
  if(!/^[6-9]\d{9}$/.test(mobile)){
@@ -726,7 +1081,7 @@ async function submitInquiry(){
    if(error)throw error;
 
    showAuthMessage("Dealer request submitted successfully. TORVO admin will verify your request.","success");
-   ["regShop","regPerson","regMobile","regWhatsapp","regEmail","regPincode","regOtherCity"].forEach(id=>{
+   ["regShop","regPerson","regMobile","regWhatsapp","regEmail","regPincode","regOtherCity","regAddress"].forEach(id=>{
      const el=document.getElementById(id);if(el)el.value="";
    });
    document.getElementById("regState").value="";
@@ -736,7 +1091,7 @@ async function submitInquiry(){
    console.error(e);
    showAuthMessage("Dealer request could not be submitted. Please check connection or database permissions.","error");
  }finally{
-   btn.disabled=false;btn.textContent="SUBMIT DEALER REQUEST";
+   btn.disabled=false;btn.textContent="SUBMIT REGISTRATION REQUEST";
  }
 }
 function demoLogin(){showAuthMessage("Secure dealer login will be connected in the authentication stage. Use Preview Dealer Area for UI testing.","error")}
@@ -745,7 +1100,19 @@ function demoForgotPin(){showAuthMessage("Secure PIN recovery will be connected 
 function previewDealer(){closeAuth();document.getElementById("publicSite").style.display="none";document.getElementById("dealerApp").style.display="block";window.scrollTo(0,0);openDealerSection("home")}
 function exitDealerPreview(){document.getElementById("dealerApp").style.display="none";document.getElementById("publicSite").style.display="block";window.scrollTo(0,0)}
 function openDealerSection(section,clickedButton=null){document.querySelectorAll(".dealer-section").forEach(e=>e.classList.remove("active"));const t=document.getElementById(`dealer-${section}`);if(t)t.classList.add("active");document.querySelectorAll(".dealer-menu").forEach(e=>e.classList.remove("active"));if(clickedButton)clickedButton.classList.add("active");window.scrollTo({top:0,behavior:"smooth"})}
-function filterDealerProducts(){const q=(document.getElementById("dealerSearchInput").value||"").trim().toLowerCase();renderDealerProducts(!q?demoProducts:demoProducts.filter(p=>[p.item,p.name,p.brand,p.model,p.machine,p.type].join(" ").toLowerCase().includes(q)))}
+function filterDealerProducts(){
+  const q=(document.getElementById("dealerSearchInput").value||"").trim().toLowerCase();
+  const type=document.getElementById("dealerSearchType")?.value||"all";
+  if(!q){renderDealerProducts();return}
+  renderDealerProducts(demoProducts.filter(p=>{
+    if(type==="item")return p.item.toLowerCase().includes(q);
+    if(type==="product")return p.name.toLowerCase().includes(q);
+    if(type==="brand")return (p.brand+" "+p.spareBrand).toLowerCase().includes(q);
+    if(type==="model")return p.model.toLowerCase().includes(q);
+    if(type==="category")return (p.type+" "+p.part).toLowerCase().includes(q);
+    return [p.item,p.name,p.brand,p.spareBrand,p.system,p.model,p.machine,p.part,p.type].join(" ").toLowerCase().includes(q);
+  }))
+}
 function openPartEnquiry(){document.getElementById("enquiryModal").classList.add("show")}
 function closePartEnquiry(){document.getElementById("enquiryModal").classList.remove("show")}
 function demoEnquiry(){alert("Part Enquiry UI is ready. Secure photo upload and enquiry database connection will be added in the backend connection stage.")}
@@ -764,6 +1131,67 @@ function toggleWish(item,btn){
   btn.textContent=active?"♡":"♥";
   btn.style.color=active?"#111827":"#d71920";
 }
+
+function initializeDealerFinder(){
+  fillFinderSelect("dealerFinderSystem",uniqueValues(demoProducts.map(p=>p.system)),"All Systems");
+  fillFinderSelect("dealerFinderBrand",uniqueValues(demoProducts.map(p=>p.brand)),"All Brands");
+  fillFinderSelect("dealerFinderMachine",uniqueValues(demoProducts.map(p=>p.machine)),"All Machines");
+  fillFinderSelect("dealerFinderModel",uniqueValues(demoProducts.map(p=>p.model)),"All Models");
+  fillFinderSelect("dealerFinderPart",uniqueValues(demoProducts.map(p=>p.part)),"All Parts");
+}
+function refreshDealerFinderOptions(){
+  const type=document.getElementById("dealerFinderType")?.value||"";
+  const system=document.getElementById("dealerFinderSystem")?.value||"";
+  const brand=document.getElementById("dealerFinderBrand")?.value||"";
+  const machine=document.getElementById("dealerFinderMachine")?.value||"";
+  const model=document.getElementById("dealerFinderModel")?.value||"";
+
+  let data=demoProducts.filter(p=>!type||p.type===type);
+  fillFinderSelect("dealerFinderSystem",uniqueValues(data.map(p=>p.system)),"All Systems");
+  const activeSystem=document.getElementById("dealerFinderSystem")?.value||system;
+  data=data.filter(p=>!activeSystem||p.system===activeSystem);
+
+  fillFinderSelect("dealerFinderBrand",uniqueValues(data.map(p=>p.brand)),"All Brands");
+  const activeBrand=document.getElementById("dealerFinderBrand")?.value||brand;
+  data=data.filter(p=>!activeBrand||p.brand===activeBrand);
+
+  fillFinderSelect("dealerFinderMachine",uniqueValues(data.map(p=>p.machine)),"All Machines");
+  const activeMachine=document.getElementById("dealerFinderMachine")?.value||machine;
+  data=data.filter(p=>!activeMachine||p.machine===activeMachine);
+
+  fillFinderSelect("dealerFinderModel",uniqueValues(data.map(p=>p.model)),"All Models");
+  const activeModel=document.getElementById("dealerFinderModel")?.value||model;
+  data=data.filter(p=>!activeModel||p.model===activeModel);
+
+  fillFinderSelect("dealerFinderPart",uniqueValues(data.map(p=>p.part)),"All Parts");
+}
+function runDealerFinder(){
+  const type=document.getElementById("dealerFinderType")?.value||"";
+  const system=document.getElementById("dealerFinderSystem")?.value||"";
+  const brand=document.getElementById("dealerFinderBrand")?.value||"";
+  const machine=document.getElementById("dealerFinderMachine")?.value||"";
+  const model=document.getElementById("dealerFinderModel")?.value||"";
+  const part=document.getElementById("dealerFinderPart")?.value||"";
+  renderDealerProducts(demoProducts.filter(p=>
+    (!type||p.type===type)&&(!system||p.system===system)&&(!brand||p.brand===brand)&&
+    (!machine||p.machine===machine)&&(!model||p.model===model)&&(!part||p.part===part)
+  ));
+}
+function clearDealerFinder(){
+  ["dealerFinderType","dealerFinderSystem","dealerFinderBrand","dealerFinderMachine","dealerFinderModel","dealerFinderPart"].forEach(id=>{
+    const e=document.getElementById(id); if(e)e.value="";
+  });
+  initializeDealerFinder();
+  renderDealerProducts();
+}
+function limitEnquiryPhotos(input){
+  if(!input?.files)return;
+  if(input.files.length>5){
+    alert("Maximum 5 photos can be uploaded.");
+    input.value="";
+  }
+}
+initializeDealerFinder();
 </script>
 </body>
 </html>
