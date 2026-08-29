@@ -4,7 +4,7 @@
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <meta name="theme-color" content="#d71920" />
-  <title>TORVO Tools | B2B Power Tool Spare Parts - V9</title>
+  <title>TORVO Tools | B2B Power Tool Spare Parts - V10</title>
 
   <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
 
@@ -708,6 +708,91 @@
 /* EN/HI removed; keep Dealer Access aligned neatly */
 .header-actions{justify-content:flex-end!important}
 
+
+/* ===== V10 CURRENT UI ===== */
+.app-grid{grid-template-columns:repeat(7,minmax(0,1fr))!important;gap:11px!important}
+.app-card{min-width:0!important;padding-left:7px!important;padding-right:7px!important}
+@media(max-width:1100px){.app-grid{grid-template-columns:repeat(4,1fr)!important}}
+@media(max-width:760px){.app-grid{grid-template-columns:repeat(2,1fr)!important}}
+
+.number-hint{font-size:10.5px!important;font-weight:800!important;color:#344054!important;margin-top:6px!important}
+.verify-placeholder{font-size:10px!important;font-weight:850!important;color:#1769aa!important;background:#edf6ff!important;border:1px solid #d8eaff!important}
+.reg-mobile-pin{align-items:start!important}
+
+/* Badge readability and status colors */
+.product-badge{font-size:9px!important;padding:5px 8px!important;font-weight:950!important;letter-spacing:.25px!important}
+.product-badge.badge-new{background:#16823b!important;color:#fff!important}
+.product-badge.badge-popular{background:#f28c18!important;color:#fff!important}
+.product-badge.badge-best{background:#2674d9!important;color:#fff!important}
+.product-badge.badge-trending{background:#7b48c8!important;color:#fff!important}
+.product-badge.badge-limited{background:#d71920!important;color:#fff!important}
+.product-badge.badge-default{background:#343a40!important;color:#fff!important}
+.top-rate-badge{font-size:9px!important;padding:5px 8px!important}
+
+/* Qty supports keyboard before add; freezes after add */
+.qty-control input.qty-input{width:100%!important;height:100%!important;border:0!important;outline:0!important;text-align:center!important;font-size:11px!important;font-weight:950!important;color:#17213b!important;background:#fff!important;-moz-appearance:textfield!important}
+.qty-control input.qty-input::-webkit-outer-spin-button,.qty-control input.qty-input::-webkit-inner-spin-button{-webkit-appearance:none!important;margin:0!important}
+.qty-control.locked{opacity:.6!important;background:#f2f4f7!important}
+.qty-control.locked button,.qty-control.locked input{pointer-events:none!important;background:#f2f4f7!important}
+
+/* Wider dealer search, compact sidebar */
+.dealer-header{grid-template-columns:205px minmax(420px,1fr) auto!important;gap:13px!important}
+.dealer-search{width:100%!important;max-width:none!important}
+.dealer-layout{grid-template-columns:190px 1fr!important}
+.dealer-sidebar{padding:8px!important}
+.dealer-menu{font-size:10.5px!important;font-weight:780!important;padding:10px 9px!important;gap:8px!important}
+.dealer-menu .menu-icon{font-size:15px!important}
+
+/* Compact Welcome then Quick Status */
+.compact-welcome{padding:12px 16px!important;border-radius:15px!important;margin-bottom:10px!important}
+.compact-welcome h2{font-size:17px!important;margin-bottom:3px!important}
+.compact-welcome p{font-size:10px!important}
+.compact-welcome .rate-chip{padding:7px 9px!important;font-size:9px!important}
+.quick-status-panel{padding:13px!important;margin-bottom:12px!important}
+.status-app-grid{display:grid!important;grid-template-columns:repeat(4,1fr)!important;gap:10px!important}
+.status-app-card{border:1px solid #e4e7ec!important;background:#fff!important;border-radius:16px!important;padding:12px 8px!important;text-align:center!important;cursor:pointer!important;min-height:112px!important}
+.status-app-icon{width:46px!important;height:46px!important;margin:0 auto 6px!important;border-radius:14px!important;display:grid!important;place-items:center!important;font-size:20px!important}
+.status-app-card strong{display:block!important;font-size:20px!important;line-height:1!important;margin-bottom:5px!important;color:#17213b!important}
+.status-app-card span{font-size:9.5px!important;font-weight:800!important;color:#667085!important}
+.status-blue .status-app-icon{background:#eaf2ff!important;color:#2674d9!important}.status-green .status-app-icon{background:#eaf8ef!important;color:#16823b!important}
+.status-orange .status-app-icon{background:#fff3e4!important;color:#e17c0e!important}.status-purple .status-app-icon{background:#f2ebff!important;color:#7b48c8!important}
+.orders-app-grid .status-app-card{min-height:128px!important}
+
+/* Reward */
+.reward-app-grid{display:grid!important;grid-template-columns:repeat(2,minmax(220px,320px))!important;gap:12px!important;margin-top:14px!important}
+.reward-app-card{border:1px solid #e4e7ec!important;border-radius:18px!important;padding:15px!important;background:#fff!important}
+.reward-app-icon{width:58px!important;height:58px!important;display:grid!important;place-items:center!important;border-radius:17px!important;background:#fff1d8!important;color:#d99100!important;font-size:25px!important;margin-bottom:10px!important}
+.reward-app-icon.gift{background:#ffecef!important;color:#d71920!important}.reward-value{font-size:26px!important;font-weight:1000!important;color:#173f7a!important}.scheme-title{font-size:14px!important;font-weight:950!important;margin-top:6px!important}.scheme-note{font-size:10px!important;color:#667085!important;line-height:1.5!important}.scheme-btn{width:100%!important;margin-top:10px!important}
+
+/* Part enquiry app strip */
+.form-app-strip{display:grid!important;grid-template-columns:repeat(6,1fr)!important;gap:8px!important;margin-top:14px!important}
+.mini-app{border:1px solid #e4e7ec!important;border-radius:14px!important;background:#fff!important;padding:9px 5px!important;text-align:center!important;font-size:9px!important;font-weight:850!important;color:#475467!important}
+.mini-app i{display:grid!important;place-items:center!important;width:38px!important;height:38px!important;border-radius:12px!important;margin:0 auto 5px!important;font-size:17px!important}
+.mini-app.blue i{background:#eaf2ff;color:#2674d9}.mini-app.purple i{background:#f2ebff;color:#7b48c8}.mini-app.cyan i{background:#e7f8fb;color:#1686a6}.mini-app.orange i{background:#fff3e4;color:#e17c0e}.mini-app.green i{background:#eaf8ef;color:#16823b}.mini-app.red i{background:#ffecef;color:#d71920}
+.enquiry-send-btn{display:flex!important;align-items:center!important;justify-content:center!important;gap:7px!important}
+
+/* Profile app grid */
+.profile-app-grid{display:grid!important;grid-template-columns:repeat(3,1fr)!important;gap:11px!important;margin-top:14px!important}
+.profile-app-card{border:1px solid #e4e7ec!important;background:#fff!important;border-radius:17px!important;padding:14px!important;text-align:left!important;cursor:pointer!important;min-height:120px!important}
+.profile-app-card i{width:48px!important;height:48px!important;display:grid!important;place-items:center!important;border-radius:14px!important;font-size:20px!important;margin-bottom:9px!important}
+.profile-app-card b{display:block!important;font-size:11px!important;margin-bottom:4px!important}.profile-app-card span{font-size:9px!important;color:#667085!important}
+.profile-app-card.blue i{background:#eaf2ff;color:#2674d9}.profile-app-card.green i{background:#eaf8ef;color:#16823b}.profile-app-card.purple i{background:#f2ebff;color:#7b48c8}.profile-app-card.orange i{background:#fff3e4;color:#e17c0e}.profile-app-card.cyan i{background:#e7f8fb;color:#1686a6}.profile-app-card.red i{background:#ffecef;color:#d71920}
+
+/* Product details + new arrivals */
+.product-detail-box{width:min(850px,94vw)!important}
+.product-detail-main{display:grid!important;grid-template-columns:230px 1fr!important;gap:18px!important}
+.product-detail-photo{height:220px!important;border:1px solid #e4e7ec!important;border-radius:18px!important;background:#f7f8fa!important;display:grid!important;place-items:center!important;font-size:82px!important}
+.detail-kicker{font-size:9px!important;font-weight:950!important;color:#d71920!important}.detail-title{font-size:22px!important;font-weight:1000!important;color:#17213b!important;margin:5px 0 10px!important}
+.detail-data{display:grid!important;grid-template-columns:1fr 1fr!important;gap:8px!important}.detail-data div{border:1px solid #e4e7ec!important;border-radius:10px!important;padding:8px!important;font-size:9px!important}.detail-data b{display:block!important;color:#667085!important;margin-bottom:3px!important}
+.new-arrivals-wrap{border-top:1px solid #e4e7ec!important;margin-top:18px!important;padding-top:14px!important}.new-arrivals-head{display:flex!important;justify-content:space-between!important;align-items:end!important;margin-bottom:9px!important}.new-arrivals-head h3{margin:0!important;font-size:14px!important}.new-arrivals-head span{font-size:9px!important;color:#667085!important}
+.new-arrivals-grid{display:grid!important;grid-template-columns:repeat(4,1fr)!important;gap:8px!important}.arrival-card{border:1px solid #e4e7ec!important;border-radius:13px!important;background:#fff!important;padding:8px!important;text-align:left!important;cursor:pointer!important}.arrival-photo{height:70px!important;border-radius:10px!important;background:#f7f8fa!important;display:grid!important;place-items:center!important;font-size:31px!important;margin-bottom:6px!important}.arrival-card b{display:block!important;font-size:9px!important;line-height:1.25!important}.arrival-card small{font-size:8px!important;color:#667085!important}
+@media(max-width:900px){.dealer-header{grid-template-columns:180px 1fr auto!important}.dealer-layout{grid-template-columns:175px 1fr!important}}
+@media(max-width:760px){
+ .dealer-header{grid-template-columns:1fr auto!important}.dealer-layout{display:block!important}.status-app-grid{grid-template-columns:repeat(2,1fr)!important}
+ .form-app-strip{grid-template-columns:repeat(3,1fr)!important}.profile-app-grid{grid-template-columns:repeat(2,1fr)!important}.reward-app-grid{grid-template-columns:1fr 1fr!important}
+ .product-detail-main{grid-template-columns:1fr!important}.product-detail-photo{height:170px!important}.new-arrivals-grid{grid-template-columns:repeat(2,1fr)!important}
+}
+
 </style>
 <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.7.2/css/all.min.css">
 </head>
@@ -806,14 +891,17 @@
           </div>
         </div>
 
-        <div class="two-fields">
+        <div class="two-fields reg-mobile-pin">
           <div class="form-field">
             <label>MOBILE / WHATSAPP NUMBER <span class="req">*</span></label>
             <input id="regMobile" required inputmode="numeric" maxlength="10" placeholder="10-digit Call + WhatsApp number">
-<div class="number-hint">Enter the number you actively use for both calls and WhatsApp.</div>
-<div class="verify-placeholder"><i class="fa-brands fa-whatsapp"></i> WhatsApp OTP will be connected securely at launch.</div>
+            <div class="number-hint"><i class="fa-solid fa-phone"></i> Use the same active number for both Call & WhatsApp.</div>
+            <div class="verify-placeholder"><i class="fa-brands fa-whatsapp"></i> WhatsApp OTP verification will be connected securely at launch.</div>
           </div>
-          
+          <div class="form-field">
+            <label>PIN CODE <span class="req">*</span></label>
+            <input id="regPincode" required inputmode="numeric" maxlength="6" placeholder="6-digit PIN code">
+          </div>
         </div>
 
         
@@ -845,11 +933,6 @@
           </div>
         </div>
 
-        <div class="form-field">
-          <label>PIN CODE <span class="req">*</span></label>
-          <input id="regPincode" required inputmode="numeric" maxlength="6" placeholder="6-digit PIN code">
-        </div>
-
         <div class="form-field address-field">
           <label>FULL ADDRESS <span class="req">*</span></label>
           <textarea id="regAddress" required placeholder="Shop / business full address"></textarea>
@@ -872,6 +955,11 @@
     <button class="full-red-btn" onclick="demoEnquiry()">SEND ENQUIRY</button>
     </div></div></div>
 
+<div class="modal" id="productDetailModal"><div class="modal-box product-detail-box">
+<div class="modal-head"><strong><i class="fa-regular fa-eye"></i> PRODUCT DETAILS</strong><button class="close-btn" onclick="closeProductDetail()">×</button></div>
+<div class="modal-body" id="productDetailBody"></div>
+</div></div>
+
 <div id="dealerApp"><div class="dealer-header">
       <div class="brand"><div class="brand-logo">T</div><div><div class="brand-name"><span>TORVO</span></div><div class="brand-sub">DEALER PORTAL</div></div></div>
       <div class="dealer-search">
@@ -888,10 +976,31 @@
 <div class="dealer-layout"><aside class="dealer-sidebar">
 <button class="dealer-menu active" onclick="openDealerSection('home',this)"><span class="menu-icon">🏠</span> HOME</button><button class="dealer-menu" onclick="openDealerSection('products',this)"><span class="menu-icon">⚙️</span> PRODUCTS</button><button class="dealer-menu" onclick="openDealerSection('orders',this)"><span class="menu-icon">📦</span> MY ORDERS</button><button class="dealer-menu" onclick="openDealerSection('delivery',this)"><span class="menu-icon">🚚</span> DELIVERY</button><button class="dealer-menu" onclick="openDealerSection('points',this)"><span class="menu-icon">⭐</span><span>REWARD</span></button><button class="dealer-menu" onclick="openDealerSection('enquiry',this)"><span class="menu-icon">📷</span> PART ENQUIRY</button><button class="dealer-menu" onclick="openDealerSection('profile',this)"><span class="menu-icon">👤</span> PROFILE</button>
 </aside><main class="dealer-main">
-<section id="dealer-home" class="dealer-section active"><div class="dealer-welcome"><div><h2>Welcome to TORVO B2B</h2><p>Dealer portal preview • Search, order and track in one place.</p></div><div class="rate-chip">PREVIEW • RATE GROUP A</div></div>
+<section id="dealer-home" class="dealer-section active">
+<div class="dealer-welcome compact-welcome"><div><h2>Welcome to TORVO B2B</h2><p>Dealer portal preview • Search, order and track in one place.</p></div><div class="rate-chip">PREVIEW • RATE GROUP A</div></div>
+<div class="dealer-panel quick-status-panel">
+  <div class="section-head"><div><h3 style="margin:0">Quick Status</h3><p class="section-sub">Dealer-facing status only.</p></div></div>
+  <div class="status-app-grid">
+    <button class="status-app-card status-blue" onclick="openDealerSection('orders')"><div class="status-app-icon"><i class="fa-solid fa-hourglass-half"></i></div><strong>0</strong><span>Order Pending</span></button>
+    <button class="status-app-card status-green" onclick="openDealerSection('orders')"><div class="status-app-icon"><i class="fa-solid fa-circle-check"></i></div><strong>0</strong><span>Order Approved</span></button>
+    <button class="status-app-card status-orange" onclick="openDealerSection('delivery')"><div class="status-app-icon"><i class="fa-solid fa-box-open"></i></div><strong>0</strong><span>Ready for Delivery</span></button>
+    <button class="status-app-card status-purple" onclick="openDealerSection('delivery')"><div class="status-app-icon"><i class="fa-solid fa-truck-fast"></i></div><strong>0</strong><span>Dispatched</span></button>
+  </div>
+</div>
 <div class="dealer-icon-grid">
-<button class="dealer-icon-card" onclick="openDealerSection('products')"><div class="app-icon">⚙️</div><div class="app-name">Spare Parts</div></button><button class="dealer-icon-card" onclick="openDealerSection('products')"><div class="app-icon">🧰</div><div class="app-name">Accessories</div></button><button class="dealer-icon-card" onclick="openDealerSection('orders')"><div class="app-icon">📦</div><div class="app-name">My Orders</div></button><button class="dealer-icon-card" onclick="openDealerSection('delivery')"><div class="app-icon">🚚</div><div class="app-name">Delivery</div></button><button class="dealer-icon-card" onclick="openDealerSection('points')"><div class="app-icon">⭐</div><div class="app-name">Reward Points</div></button><button class="dealer-icon-card" onclick="openDealerSection('enquiry')"><div class="app-icon">📷</div><div class="app-name">Part Enquiry</div></button><button class="dealer-icon-card" onclick="futureFeature('Barcode / QR Search')"><div class="app-icon">▦</div><div class="app-name">Scan QR</div></button><button class="dealer-icon-card" onclick="futureFeature('Smart Suitable Part Search')"><div class="app-icon">🎯</div><div class="app-name">Suitable Part</div></button><button class="dealer-icon-card" onclick="futureFeature('WhatsApp Support')"><div class="app-icon">💬</div><div class="app-name">WhatsApp</div></button><button class="dealer-icon-card youtube-card" onclick="futureFeature('TORVO YouTube link')"><div class="app-icon youtube-icon"><i class="fa-brands fa-youtube"></i></div><div class="app-name">YouTube</div></button><button class="dealer-icon-card" onclick="openDealerSection('profile')"><div class="app-icon">👤</div><div class="app-name">My Profile</div></button>
-</div><div class="dealer-panel"><div class="section-head"><div><h3 style="margin:0">Quick Status</h3><p class="section-sub">Dealer-facing status only.</p></div></div><div class="status-grid"><div class="status-card"><strong>0</strong><span>Order Pending</span></div><div class="status-card"><strong>0</strong><span>Order Approved</span></div><div class="status-card"><strong>0</strong><span>Ready for Delivery</span></div><div class="status-card"><strong>0</strong><span>Dispatched</span></div></div></div></section>
+<button class="dealer-icon-card" onclick="openDealerSection('products')"><div class="app-icon">⚙️</div><div class="app-name">Spare Parts</div></button>
+<button class="dealer-icon-card" onclick="openDealerSection('products')"><div class="app-icon">🧰</div><div class="app-name">Accessories</div></button>
+<button class="dealer-icon-card" onclick="openDealerSection('orders')"><div class="app-icon">📦</div><div class="app-name">My Orders</div></button>
+<button class="dealer-icon-card" onclick="openDealerSection('delivery')"><div class="app-icon">🚚</div><div class="app-name">Delivery</div></button>
+<button class="dealer-icon-card" onclick="openDealerSection('points')"><div class="app-icon">⭐</div><div class="app-name">Reward Points</div></button>
+<button class="dealer-icon-card" onclick="openDealerSection('enquiry')"><div class="app-icon">📷</div><div class="app-name">Part Enquiry</div></button>
+<button class="dealer-icon-card" onclick="futureFeature('Barcode / QR Search')"><div class="app-icon">▦</div><div class="app-name">Scan QR</div></button>
+<button class="dealer-icon-card" onclick="futureFeature('Smart Suitable Part Search')"><div class="app-icon">🎯</div><div class="app-name">Suitable Part</div></button>
+<button class="dealer-icon-card" onclick="futureFeature('WhatsApp Support')"><div class="app-icon">💬</div><div class="app-name">WhatsApp</div></button>
+<button class="dealer-icon-card youtube-card" onclick="futureFeature('TORVO YouTube link')"><div class="app-icon youtube-icon"><i class="fa-brands fa-youtube"></i></div><div class="app-name">YouTube</div></button>
+<button class="dealer-icon-card" onclick="openDealerSection('profile')"><div class="app-icon">👤</div><div class="app-name">My Profile</div></button>
+</div>
+</section>
 <section id="dealer-products" class="dealer-section">
       <div class="dealer-panel">
         <div class="section-head">
@@ -912,23 +1021,51 @@
         <div class="product-grid" id="dealerProductGrid"></div>
       </div>
     </section>
-<section id="dealer-orders" class="dealer-section"><div class="dealer-panel"><h2>📦 My Orders</h2><p class="section-sub">Sales Order → Admin Review → Dealer Approval → Final Order → Estimate.</p><div class="status-grid" style="margin-top:15px"><div class="status-card"><strong>0</strong><span>Order Pending</span></div><div class="status-card"><strong>0</strong><span>Order Approved</span></div><div class="status-card"><strong>0</strong><span>Payment Pending</span></div><div class="status-card"><strong>0</strong><span>Payment Received</span></div></div></div></section>
+<section id="dealer-orders" class="dealer-section"><div class="dealer-panel">
+<h2><i class="fa-solid fa-box"></i> My Orders</h2><p class="section-sub">Sales Order → Admin Review → Dealer Approval → Final Order → Estimate.</p>
+<div class="status-app-grid orders-app-grid" style="margin-top:15px">
+<button class="status-app-card status-blue"><div class="status-app-icon"><i class="fa-solid fa-hourglass-half"></i></div><strong>0</strong><span>Order Pending</span></button>
+<button class="status-app-card status-green"><div class="status-app-icon"><i class="fa-solid fa-circle-check"></i></div><strong>0</strong><span>Order Approved</span></button>
+<button class="status-app-card status-orange"><div class="status-app-icon"><i class="fa-solid fa-indian-rupee-sign"></i></div><strong>0</strong><span>Payment Pending</span></button>
+<button class="status-app-card status-purple"><div class="status-app-icon"><i class="fa-solid fa-wallet"></i></div><strong>0</strong><span>Payment Received</span></button>
+</div></div></section>
 <section id="dealer-delivery" class="dealer-section"><div class="dealer-panel"><h2>🚚 Delivery</h2><p class="section-sub">Ready for Delivery → Dispatched → Delivered.</p></div></section>
-<section id="dealer-points" class="dealer-section"><div class="dealer-panel"><h2>⭐ Reward Points</h2><p class="section-sub">Reward points are separate from payment/outstanding.</p><div class="status-card" style="margin-top:15px;max-width:260px"><strong>0</strong><span>Available Reward Points</span></div></div></section>
+<section id="dealer-points" class="dealer-section"><div class="dealer-panel">
+<h2><i class="fa-solid fa-gift"></i> Reward Points</h2><p class="section-sub">Reward points are separate from payment/outstanding.</p>
+<div class="reward-app-grid">
+<div class="reward-app-card"><div class="reward-app-icon"><i class="fa-solid fa-star"></i></div><b>MY POINTS</b><div class="reward-value">0</div><div class="scheme-note">Live points will appear after the rewards database is connected.</div></div>
+<div class="reward-app-card"><div class="reward-app-icon gift"><i class="fa-solid fa-gift"></i></div><b>OFFER / SCHEME</b><div class="scheme-title">3 Month Reward Cycle</div><div class="scheme-note">View Amazon / Flipkart voucher tiers and future 3 → 6 → 12 month carry-forward choices.</div><button class="details-btn scheme-btn" onclick="futureFeature('Reward Scheme Detail')">VIEW SCHEME</button></div>
+</div></div></section>
 <section id="dealer-enquiry" class="dealer-section"><div class="dealer-panel">
-      <h2>📷 Part Enquiry</h2>
-      <p class="section-sub">Can't find a part? Send machine and spare-part information.</p>
-      <div class="dealer-enquiry-form" style="margin-top:16px">
-        <div class="form-field"><label>BRAND</label><select><option>Select Brand</option><option>Bosch</option><option>Makita</option><option>DeWalt</option><option>Other</option></select></div>
-        <div class="form-field"><label>MACHINE</label><select><option>Select Machine</option><option>Angle Grinder</option><option>Marble Cutter</option><option>Drill Machine</option><option>Other</option></select></div>
-        <div class="form-field"><label>MODEL</label><input placeholder="Enter model"></div>
-        <div class="form-field"><label>SPARE PART NAME</label><input placeholder="Enter / select spare part name"></div>
-        <div class="form-field"><label>PHOTOS (MAX 5)</label><input type="file" accept="image/*" multiple onchange="limitEnquiryPhotos(this)"><div class="photo-help">You can upload up to 5 photos.</div></div>
-        <div class="form-field"><label>NOTE</label><textarea placeholder="Describe required part"></textarea></div>
-        <button class="primary-btn" onclick="demoEnquiry()">SEND ENQUIRY</button>
-      </div>
-    </div></section>
-<section id="dealer-profile" class="dealer-section"><div class="dealer-panel"><h2>👤 Dealer Profile</h2><div class="about-points" style="margin-top:15px"><div class="about-point">Business Name: Preview Dealer</div><div class="about-point">Rate Group: A</div><div class="about-point">Account: Preview Only</div><div class="about-point">Status: UI Testing</div></div></div></section>
+<h2><i class="fa-solid fa-camera"></i> Part Enquiry</h2>
+<p class="section-sub">Can't find a part? Send machine and spare-part information.</p>
+<div class="form-app-strip">
+<div class="mini-app blue"><i class="fa-solid fa-tag"></i><span>Brand</span></div>
+<div class="mini-app purple"><i class="fa-solid fa-screwdriver-wrench"></i><span>Machine</span></div>
+<div class="mini-app cyan"><i class="fa-solid fa-barcode"></i><span>Model</span></div>
+<div class="mini-app orange"><i class="fa-solid fa-gears"></i><span>Spare Part</span></div>
+<div class="mini-app green"><i class="fa-solid fa-images"></i><span>Photos</span></div>
+<div class="mini-app red"><i class="fa-solid fa-paper-plane"></i><span>Send</span></div>
+</div>
+<div class="dealer-enquiry-form" style="margin-top:14px">
+<div class="form-field"><label>BRAND</label><select><option>Select Brand</option><option>Bosch</option><option>Makita</option><option>DeWalt</option><option>Other</option></select></div>
+<div class="form-field"><label>MACHINE</label><select><option>Select Machine</option><option>Angle Grinder</option><option>Marble Cutter</option><option>Drill Machine</option><option>Other</option></select></div>
+<div class="form-field"><label>MODEL</label><input placeholder="Enter model"></div>
+<div class="form-field"><label>SPARE PART NAME</label><input placeholder="Enter / select spare part name"></div>
+<div class="form-field"><label>PHOTOS (MAX 5)</label><input type="file" accept="image/*" multiple onchange="limitEnquiryPhotos(this)"><div class="photo-help">You can upload up to 5 photos.</div></div>
+<div class="form-field"><label>NOTE</label><textarea placeholder="Describe required part"></textarea></div>
+<button class="primary-btn enquiry-send-btn" onclick="demoEnquiry()"><i class="fa-solid fa-paper-plane"></i> SEND ENQUIRY</button>
+</div></div></section>
+<section id="dealer-profile" class="dealer-section"><div class="dealer-panel">
+<h2><i class="fa-solid fa-user"></i> Dealer Profile</h2><p class="section-sub">Open a section to view or manage dealer information.</p>
+<div class="profile-app-grid">
+<button class="profile-app-card blue" onclick="futureFeature('Business Details')"><i class="fa-solid fa-store"></i><b>Business Details</b><span>Preview Dealer</span></button>
+<button class="profile-app-card green" onclick="futureFeature('Contact Details')"><i class="fa-solid fa-phone"></i><b>Contact Details</b><span>Call + WhatsApp</span></button>
+<button class="profile-app-card purple" onclick="futureFeature('Address Details')"><i class="fa-solid fa-location-dot"></i><b>Address</b><span>Dealer address</span></button>
+<button class="profile-app-card orange" onclick="futureFeature('Visiting Card')"><i class="fa-solid fa-address-card"></i><b>Visiting Card</b><span>View saved card</span></button>
+<button class="profile-app-card cyan" onclick="futureFeature('Verification Status')"><i class="fa-solid fa-shield-halved"></i><b>Verification</b><span>Approval status</span></button>
+<button class="profile-app-card red" onclick="futureFeature('Password & Security')"><i class="fa-solid fa-lock"></i><b>Security</b><span>Password & OTP</span></button>
+</div></div></section>
 </main></div>
 <nav class="mobile-nav"><button onclick="openDealerSection('home')"><span>🏠</span>Home</button><button onclick="openDealerSection('products')"><span>⚙️</span>Products</button><button onclick="openDealerSection('orders')"><span>📦</span>Orders</button><button onclick="openDealerSection('delivery')"><span>🚚</span>Delivery</button><button onclick="openDealerSection('profile')"><span>👤</span>Profile</button></nav>
 </div>
@@ -1010,9 +1147,9 @@ const demoProducts=[
 function showContact(id,value){const el=document.getElementById(id);if(el)el.textContent=value&&value.trim()?value:"Contact details will be updated shortly."}
 showContact("contactPhone",TORVO_CONTACT.customerCare);showContact("contactWhatsapp",TORVO_CONTACT.whatsapp);showContact("contactEmail",TORVO_CONTACT.email);showContact("contactAddress",TORVO_CONTACT.address);showContact("contactHours",TORVO_CONTACT.hours);
 
-function publicProductCard(p){return `<div class="product-card">
+function publicProductCard(p){const badge=badgeClass(p.tag);return `<div class="product-card">
 <div class="product-photo click-photo" onclick="publicProductDetails('${p.item}')" title="View product details">
-  <span class="product-badge">${p.tag}</span>
+  <span class="product-badge ${badge}">${p.tag}</span>
   <button class="top-rate-badge" type="button" onclick="event.stopPropagation();openAuth('login')"><i class="fa-solid fa-lock"></i> LOGIN FOR RATE</button>
   <div class="placeholder-icon">${p.icon}</div>
 </div>
@@ -1029,7 +1166,7 @@ function publicProductCard(p){return `<div class="product-card">
     <button class="details-btn public-full-detail" onclick="publicProductDetails('${p.item}')"><i class="fa-regular fa-eye"></i> VIEW DETAILS</button>
   </div>
 </div></div>`}
-function dealerProductCard(p){return `<div class="product-card"><div class="product-photo click-photo" onclick="dealerProductDetails('${p.item}')"><span class="product-badge">${p.tag}</span><button class="eye-btn" type="button" title="View Product" onclick="event.stopPropagation();dealerProductDetails('${p.item}')"><i class="fa-regular fa-eye"></i></button><div class="placeholder-icon">${p.icon}</div></div><div class="product-body"><div class="item-no">ITEM: ${p.item}</div><div class="product-name">${p.name}</div><div class="product-meta"><div class="meta-cell"><b>Machine Brand</b><span>${p.brand}</span></div><div class="meta-cell"><b>Part Brand</b><span>${p.spareBrand}</span></div><div class="meta-cell"><b>Model</b><span>${p.model}</span></div><div class="meta-cell"><b>System</b><span>${p.system}</span></div></div><div class="dealer-rate">${p.dealerRate}</div><div class="cart-controls"><div class="qty-control"><button onclick="changeQty('${p.item}',-1)">−</button><span id="qty-${p.item}">1</span><button onclick="changeQty('${p.item}',1)">+</button></div><button class="add-cart-btn" id="cart-${p.item}" onclick="addDemoCart('${p.item}',this)">ADD TO CART</button></div></div></div>`}
+function dealerProductCard(p){const badge=badgeClass(p.tag);return `<div class="product-card"><div class="product-photo click-photo" onclick="dealerProductDetails('${p.item}')"><span class="product-badge ${badge}">${p.tag}</span><button class="eye-btn" type="button" title="View Product" onclick="event.stopPropagation();dealerProductDetails('${p.item}')"><i class="fa-regular fa-eye"></i></button><div class="placeholder-icon">${p.icon}</div></div><div class="product-body"><div class="item-no">ITEM: ${p.item}</div><div class="product-name">${p.name}</div><div class="product-meta"><div class="meta-cell"><b>Machine Brand</b><span>${p.brand}</span></div><div class="meta-cell"><b>Part Brand</b><span>${p.spareBrand}</span></div><div class="meta-cell"><b>Model</b><span>${p.model}</span></div><div class="meta-cell"><b>System</b><span>${p.system}</span></div></div><div class="dealer-rate">${p.dealerRate}</div><div class="cart-controls"><div class="qty-control" id="qtybox-${p.item}"><button id="minus-${p.item}" onclick="changeQty('${p.item}',-1)">−</button><input id="qty-${p.item}" class="qty-input" type="number" min="1" value="1" inputmode="numeric" oninput="sanitizeQty('${p.item}')"><button id="plus-${p.item}" onclick="changeQty('${p.item}',1)">+</button></div><button class="add-cart-btn" id="cart-${p.item}" onclick="addDemoCart('${p.item}',this)">ADD TO CART</button></div></div></div>`}
 function renderPublicProducts(products=demoProducts){const g=document.getElementById("publicProductGrid");if(!g)return;g.innerHTML=products.length?products.map(publicProductCard).join(""):`<div style="grid-column:1/-1;background:#fff;border:1px solid #e2e4e8;border-radius:16px;padding:25px;text-align:center">No matching product found. You can send a Part Enquiry.</div>`}
 function renderDealerProducts(products=demoProducts){const g=document.getElementById("dealerProductGrid");if(g)g.innerHTML=products.map(dealerProductCard).join("")}
 initializeFinder();renderPublicProducts();renderDealerProducts();
@@ -1170,8 +1307,7 @@ function filterDealerProducts(){
 function openPartEnquiry(){document.getElementById("enquiryModal").classList.add("show")}
 function closePartEnquiry(){document.getElementById("enquiryModal").classList.remove("show")}
 function demoEnquiry(){alert("Part Enquiry UI is ready. Secure photo upload and enquiry database connection will be added in the backend connection stage.")}
-function publicProductDetails(item){alert(`Item ${item}\n\nPublic Product Detail page will be connected in the next product-detail stage.\nDealer rate remains hidden until secure approved dealer login.`)}
-function dealerProductDetails(item){alert(`Item ${item}\n\nDealer product detail + quantity + Sales Order function will be connected in the ordering stage.`)}
+
 function shareProduct(item){const p=demoProducts.find(x=>x.item===item);if(!p)return;const text=`TORVO - ${p.name} | Item ${p.item} | Machine Brand: ${p.brand} | Part Brand: ${p.spareBrand} | ${p.model}`;if(navigator.share)navigator.share({title:"TORVO Product",text}).catch(()=>{});else alert(text)}
 function futureFeature(name){alert(`${name}\n\nThis feature is reserved in the TORVO future-ready structure. It will be activated only after the correct secure technology/API is selected and approved.`)}
 window.addEventListener("click",e=>{const a=document.getElementById("authModal"),q=document.getElementById("enquiryModal");if(e.target===a)closeAuth();if(e.target===q)closePartEnquiry()});
@@ -1247,8 +1383,36 @@ function limitEnquiryPhotos(input){
 initializeDealerFinder();
 
 const demoCartState={};
-function changeQty(item,delta){const el=document.getElementById("qty-"+item);if(!el)return;let q=parseInt(el.textContent||"1",10)+delta;if(q<1)q=1;el.textContent=q;if(demoCartState[item])demoCartState[item].qty=q}
-function addDemoCart(item,btn){const q=parseInt(document.getElementById("qty-"+item)?.textContent||"1",10);if(demoCartState[item]){if(btn){btn.textContent="✓ ALREADY ADDED";btn.classList.add("added")}return}demoCartState[item]={qty:q};if(btn){btn.textContent="✓ ADDED TO CART";btn.classList.add("added")}}
+function badgeClass(tag){
+ const x=(tag||"").toUpperCase();
+ if(x.includes("NEW"))return "badge-new";
+ if(x.includes("POPULAR"))return "badge-popular";
+ if(x.includes("BEST"))return "badge-best";
+ if(x.includes("TREND"))return "badge-trending";
+ if(x.includes("LIMIT"))return "badge-limited";
+ return "badge-default";
+}
+function getQty(item){const el=document.getElementById("qty-"+item);return Math.max(1,parseInt(el?.value||"1",10)||1)}
+function sanitizeQty(item){const el=document.getElementById("qty-"+item);if(!el)return;if(el.value!==""&&parseInt(el.value,10)<1)el.value=1}
+function changeQty(item,delta){if(demoCartState[item])return;const el=document.getElementById("qty-"+item);if(!el)return;el.value=Math.max(1,getQty(item)+delta)}
+function addDemoCart(item,btn){
+ if(demoCartState[item])return;
+ const q=getQty(item); demoCartState[item]={qty:q};
+ const box=document.getElementById("qtybox-"+item), input=document.getElementById("qty-"+item);
+ if(box)box.classList.add("locked"); if(input)input.disabled=true;
+ ["minus-","plus-"].forEach(x=>{const b=document.getElementById(x+item);if(b)b.disabled=true});
+ if(btn){btn.textContent="✓ ADDED TO CART";btn.classList.add("added");btn.disabled=true}
+}
+function closeProductDetail(){document.getElementById("productDetailModal")?.classList.remove("show")}
+function openProductDetail(item,isDealer){
+ const p=products.find(x=>x.item===item)||products[0]; if(!p)return;
+ const recent=products.filter(x=>x.item!==p.item).slice(0,4);
+ const rate=isDealer?`<div class="dealer-rate" style="margin-top:10px">${p.dealerRate}</div>`:`<button class="top-rate-badge" style="position:static;margin-top:10px" onclick="closeProductDetail();openAuth('login')"><i class="fa-solid fa-lock"></i> LOGIN FOR RATE</button>`;
+ document.getElementById("productDetailBody").innerHTML=`<div class="product-detail-main"><div class="product-detail-photo">${p.icon}</div><div><div class="detail-kicker">ITEM: ${p.item}</div><div class="detail-title">${p.name}</div><div class="detail-data"><div><b>Machine Brand</b>${p.brand}</div><div><b>Part Brand</b>${p.spareBrand}</div><div><b>Machine</b>${p.machine}</div><div><b>Model</b>${p.model}</div><div><b>Category</b>${p.part}</div><div><b>System</b>${p.system}</div></div>${rate}</div></div><div class="new-arrivals-wrap"><div class="new-arrivals-head"><h3><i class="fa-solid fa-sparkles"></i> NEW ARRIVALS / RECENTLY ADDED</h3><span>Admin-published items will appear here.</span></div><div class="new-arrivals-grid">${recent.map(r=>`<button class="arrival-card" onclick="openProductDetail('${r.item}',${isDealer})"><div class="arrival-photo">${r.icon}</div><b>${r.name}</b><small>ITEM: ${r.item}</small></button>`).join("")}</div></div>`;
+ document.getElementById("productDetailModal")?.classList.add("show");
+}
+function publicProductDetails(item){openProductDetail(item,false)}
+function dealerProductDetails(item){openProductDetail(item,true)}
 </script>
 </body>
 </html>
