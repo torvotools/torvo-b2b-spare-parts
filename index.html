@@ -4,7 +4,7 @@
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <meta name="theme-color" content="#d71920" />
-  <title>TORVO Tools | B2B Power Tool Spare Parts - V3</title>
+  <title>TORVO Tools | B2B Power Tool Spare Parts - V4</title>
 
   <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
 
@@ -113,7 +113,23 @@
     @media(max-width:1100px){.header-inner{grid-template-columns:190px 1fr}.header-actions{grid-column:1/-1;padding-bottom:10px;justify-content:flex-end}.app-grid{grid-template-columns:repeat(3,1fr)}.product-grid{grid-template-columns:repeat(3,1fr)}.finder-grid{grid-template-columns:1fr 1fr}.find-btn{width:100%}.contact-grid{grid-template-columns:repeat(3,1fr)}.dealer-icon-grid{grid-template-columns:repeat(3,1fr)}}
     @media(max-width:760px){.topbar{display:none}.header{position:relative}.header-inner{display:flex;flex-wrap:wrap;padding:10px 0;gap:10px}.brand{flex:1}.brand-logo{width:45px;height:45px;border-radius:12px;font-size:25px}.brand-name{font-size:23px}.brand-sub{display:none}.header-actions{padding:0;order:2}.small-btn{display:none}.login-btn{min-height:43px;padding:6px 10px}.login-btn .login-main{font-size:10px}.login-btn .login-sub{font-size:7px}.main-search{order:3;width:100%;grid-template-columns:1fr 42px 42px 48px;height:48px}.main-search select{display:none}.hero{padding-top:12px}.hero-box{grid-template-columns:1fr;min-height:0}.hero-content{padding:26px 20px}.hero h1{font-size:31px}.hero p{font-size:14px}.hero-visual{padding:0 20px 25px}.hero-machine{max-width:310px}.app-grid{grid-template-columns:repeat(2,1fr);gap:10px}.app-card{min-height:158px;padding:12px 6px;border-radius:19px}.app-icon{width:88px;height:88px;font-size:42px;border-radius:25px}.app-name{font-size:12px}.app-help{display:none}.finder-grid{grid-template-columns:1fr}.product-grid{grid-template-columns:repeat(2,1fr);gap:9px}.product-photo{height:145px}.product-body{padding:10px}.business-strip{grid-template-columns:1fr 1fr}.business-card{display:block;padding:13px}.business-icon{margin-bottom:8px}.process-grid{grid-template-columns:repeat(2,1fr)}.about-box{grid-template-columns:1fr}.contact-grid{grid-template-columns:1fr 1fr}.footer-grid{grid-template-columns:1fr 1fr}.dealer-header{grid-template-columns:1fr auto;height:auto;padding:10px 3%}.dealer-search{grid-column:1/-1;width:100%}.dealer-layout{display:block;margin-bottom:80px}.dealer-sidebar{display:none}.dealer-icon-grid{grid-template-columns:repeat(3,1fr);gap:8px}.dealer-icon-card{min-height:125px}.dealer-icon-card .app-icon{width:64px;height:64px;font-size:31px}.status-grid{grid-template-columns:1fr 1fr}.mobile-nav{display:grid}.two-fields{grid-template-columns:1fr}}
     @media(max-width:420px){.app-grid{grid-template-columns:repeat(2,1fr)}.app-icon{width:82px;height:82px;font-size:39px}.product-name{font-size:13px}.contact-grid{grid-template-columns:1fr}.footer-grid{grid-template-columns:1fr}}
-  </style>
+  
+.v4-system-box{background:#fff;border:1px solid var(--line);border-radius:20px;padding:16px;margin-bottom:14px}
+.v4-system-title{font-size:11px;font-weight:1000;color:var(--muted);margin-bottom:10px}
+.v4-system-grid{display:grid;grid-template-columns:repeat(5,1fr);gap:9px}
+.v4-system-btn{border:1px solid var(--line);background:#fff;border-radius:15px;padding:10px 6px;font-size:10px;font-weight:1000}
+.v4-system-btn span{display:grid;place-items:center;width:52px;height:52px;margin:0 auto 6px;border-radius:16px;background:#fff0f1;font-size:26px}
+.v4-system-btn.active{border-color:var(--red);color:var(--red);box-shadow:0 0 0 2px rgba(215,25,32,.08)}
+.v4-brand-note{margin-top:9px;padding:10px;border-radius:11px;background:#f7f8fa;font-size:10px;color:var(--muted);line-height:1.5}
+.v4-detail-grid{display:grid;grid-template-columns:.85fr 1.15fr;gap:16px}
+.v4-detail-photo{min-height:250px;border:1px solid var(--line);border-radius:18px;background:#f4f5f7;display:grid;place-items:center;font-size:90px}
+.v4-detail-info{display:grid;grid-template-columns:1fr 1fr;gap:8px}
+.v4-info{border:1px solid var(--line);border-radius:11px;padding:9px;background:#fafafa}
+.v4-info small{display:block;font-size:8px;color:var(--muted);font-weight:1000;margin-bottom:3px}
+.v4-info strong{font-size:11px}
+.v4-suitable{margin-top:10px;border:1px solid #ffd6d8;background:#fff7f7;border-radius:12px;padding:10px;font-size:10px;line-height:1.6}
+@media(max-width:760px){.v4-system-grid{grid-template-columns:repeat(2,1fr)}.v4-detail-grid{grid-template-columns:1fr}.v4-detail-photo{min-height:190px}}
+</style>
 </head>
 <body>
 <div id="publicSite">
@@ -158,7 +174,38 @@
       </div>
     </div></section>
 
-    <section class="section" id="productsSection"><div class="container"><div class="section-head"><div><h2 class="section-title">Featured Spare Parts</h2><p class="section-sub">Product photos will connect with approved TORVO product data later.</p></div><button class="view-all" onclick="resetProducts()">VIEW ALL →</button></div><div class="product-grid" id="publicProductGrid"></div></div></section>
+    <section class="section" id="v4CatalogueFinder">
+<div class="container">
+  <div class="section-head">
+    <div><h2 class="section-title">Spare Part Catalogue</h2><p class="section-sub">First choose what type of machine the spare part belongs to.</p></div>
+    <button class="clear-link" onclick="v4Clear()">CLEAR ALL</button>
+  </div>
+  <div class="v4-system-box">
+    <div class="v4-system-title">MACHINE SYSTEM / TYPE</div>
+    <div class="v4-system-grid">
+      <button class="v4-system-btn" onclick="v4System('Electric Power Tools',this)"><span>⚡</span>Electric Power Tools</button>
+      <button class="v4-system-btn" onclick="v4System('Cordless Tools',this)"><span>🔋</span>Cordless Tools</button>
+      <button class="v4-system-btn" onclick="v4System('Welding Machines',this)"><span>✨</span>Welding Machines</button>
+      <button class="v4-system-btn" onclick="v4System('Compressors',this)"><span>💨</span>Compressors</button>
+      <button class="v4-system-btn" onclick="v4System('',this)"><span>▦</span>All / Future Types</button>
+    </div>
+  </div>
+  <div class="finder">
+    <div class="finder-grid" style="grid-template-columns:repeat(4,1fr)">
+      <div class="field"><label>MACHINE SYSTEM / TYPE</label><select id="v4SystemSelect" onchange="v4Refresh()"><option value="">All Systems</option><option>Electric Power Tools</option><option>Cordless Tools</option><option>Welding Machines</option><option>Compressors</option></select></div>
+      <div class="field"><label>SPARE PART BRAND / MANUFACTURER</label><select id="v4SpareBrand" onchange="v4Refresh()"><option value="">All Spare Part Brands</option></select></div>
+      <div class="field"><label>SUITABLE MACHINE BRAND</label><select id="v4MachineBrand" onchange="v4Refresh()"><option value="">All Machine Brands</option></select></div>
+      <div class="field"><label>MACHINE</label><select id="v4Machine" onchange="v4Refresh()"><option value="">All Machines</option></select></div>
+      <div class="field"><label>MODEL</label><select id="v4Model" onchange="v4Refresh()"><option value="">All Models</option></select></div>
+      <div class="field"><label>PART / CATEGORY</label><select id="v4Part"><option value="">All Parts</option></select></div>
+      <button class="find-btn" style="grid-column:span 2" onclick="v4Find()">FIND SPARE PARTS</button>
+    </div>
+    <div class="v4-brand-note"><b>Important:</b> Spare Part Brand and Suitable Machine Brand are separate. A company may manufacture only spare parts, while its part may fit Bosch, Makita, DeWalt or other machines. Only Admin-approved suitable mappings will be shown.</div>
+  </div>
+</div>
+</section>
+
+<section class="section" id="productsSection"><div class="container"><div class="section-head"><div><h2 class="section-title">Featured Spare Parts</h2><p class="section-sub">Product photos will connect with approved TORVO product data later.</p></div><button class="view-all" onclick="resetProducts()">VIEW ALL →</button></div><div class="product-grid" id="publicProductGrid"></div></div></section>
 
     <section class="section"><div class="container"><div class="section-head"><div><h2 class="section-title">Why TORVO?</h2></div></div><div class="business-strip">
       <div class="business-card"><div class="business-icon">🔧</div><div><strong>Multi-Brand Range</strong><span>Power tool spare parts and accessories for multiple brands.</span></div></div>
@@ -485,6 +532,64 @@ function shareProduct(item){const p=demoProducts.find(x=>x.item===item);if(!p)re
 function futureFeature(name){alert(`${name}\n\nThis feature is reserved in the TORVO future-ready structure. It will be activated only after the correct secure technology/API is selected and approved.`)}
 function toggleLanguage(){alert("EN / HI full translation will be connected after the main portal UI is finalized.")}
 window.addEventListener("click",e=>{const a=document.getElementById("authModal"),q=document.getElementById("enquiryModal");if(e.target===a)closeAuth();if(e.target===q)closePartEnquiry()});
+
+const v4Catalogue=[
+ {item:"T-1001",name:"Angle Grinder Armature",system:"Electric Power Tools",spareBrand:"TORVO",machineBrand:"Bosch",machine:"Angle Grinder",model:"GWS 600",part:"Armature",icon:"⚙️",suitable:["Bosch • Angle Grinder • GWS 600","Bosch • Angle Grinder • GWS 750"]},
+ {item:"T-1002",name:"Cordless Drill Switch",system:"Cordless Tools",spareBrand:"DDI Spare",machineBrand:"Makita",machine:"Cordless Drill",model:"DF330",part:"Switch",icon:"🔘",suitable:["Makita • Cordless Drill • DF330"]},
+ {item:"T-1003",name:"Welding Machine Cooling Fan",system:"Welding Machines",spareBrand:"TORVO",machineBrand:"Multi Brand",machine:"Inverter Welder",model:"ARC 200",part:"Cooling Fan",icon:"🌀",suitable:["ARC 200 • Admin-published mapping"]},
+ {item:"T-1004",name:"Air Compressor Piston Ring",system:"Compressors",spareBrand:"ABC Spare Parts",machineBrand:"Multi Brand",machine:"Air Compressor",model:"2HP",part:"Piston Ring",icon:"⭕",suitable:["2HP Air Compressor • Admin-published mapping"]},
+ {item:"T-1005",name:"Rotary Hammer Bearing Set",system:"Electric Power Tools",spareBrand:"XYZ Components",machineBrand:"Bosch",machine:"Rotary Hammer",model:"GBH 2-26",part:"Bearing",icon:"⭕",suitable:["Bosch • Rotary Hammer • GBH 2-26"]}
+];
+
+function v4Unique(a){return [...new Set(a.filter(Boolean))].sort()}
+function v4Fill(id,values,label){
+ const e=document.getElementById(id);if(!e)return;const old=e.value;
+ e.innerHTML='<option value="">'+label+'</option>'+values.map(v=>'<option value="'+v+'">'+v+'</option>').join('');
+ if(values.includes(old))e.value=old;
+}
+function v4Init(){
+ v4Fill("v4SpareBrand",v4Unique(v4Catalogue.map(x=>x.spareBrand)),"All Spare Part Brands");
+ v4Fill("v4MachineBrand",v4Unique(v4Catalogue.map(x=>x.machineBrand)),"All Machine Brands");
+ v4Fill("v4Machine",v4Unique(v4Catalogue.map(x=>x.machine)),"All Machines");
+ v4Fill("v4Model",v4Unique(v4Catalogue.map(x=>x.model)),"All Models");
+ v4Fill("v4Part",v4Unique(v4Catalogue.map(x=>x.part)),"All Parts");
+}
+function v4System(system,btn){
+ document.querySelectorAll(".v4-system-btn").forEach(x=>x.classList.remove("active"));if(btn)btn.classList.add("active");
+ document.getElementById("v4SystemSelect").value=system;v4Refresh();
+}
+function v4Refresh(){
+ const s=document.getElementById("v4SystemSelect").value;
+ const sb=document.getElementById("v4SpareBrand").value;
+ const mb=document.getElementById("v4MachineBrand").value;
+ const mc=document.getElementById("v4Machine").value;
+ let d=v4Catalogue.filter(x=>!s||x.system===s);
+ v4Fill("v4SpareBrand",v4Unique(d.map(x=>x.spareBrand)),"All Spare Part Brands");
+ const a=document.getElementById("v4SpareBrand").value||sb;d=d.filter(x=>!a||x.spareBrand===a);
+ v4Fill("v4MachineBrand",v4Unique(d.map(x=>x.machineBrand)),"All Machine Brands");
+ const b=document.getElementById("v4MachineBrand").value||mb;d=d.filter(x=>!b||x.machineBrand===b);
+ v4Fill("v4Machine",v4Unique(d.map(x=>x.machine)),"All Machines");
+ const c=document.getElementById("v4Machine").value||mc;d=d.filter(x=>!c||x.machine===c);
+ v4Fill("v4Model",v4Unique(d.map(x=>x.model)),"All Models");
+ v4Fill("v4Part",v4Unique(d.map(x=>x.part)),"All Parts");
+}
+function v4Clear(){
+ ["v4SystemSelect","v4SpareBrand","v4MachineBrand","v4Machine","v4Model","v4Part"].forEach(id=>{const e=document.getElementById(id);if(e)e.value=""});
+ document.querySelectorAll(".v4-system-btn").forEach(x=>x.classList.remove("active"));v4Init();renderPublicProducts();
+}
+function v4Find(){
+ const s=document.getElementById("v4SystemSelect").value,sb=document.getElementById("v4SpareBrand").value,mb=document.getElementById("v4MachineBrand").value,mc=document.getElementById("v4Machine").value,md=document.getElementById("v4Model").value,pt=document.getElementById("v4Part").value;
+ const found=v4Catalogue.filter(x=>(!s||x.system===s)&&(!sb||x.spareBrand===sb)&&(!mb||x.machineBrand===mb)&&(!mc||x.machine===mc)&&(!md||x.model===md)&&(!pt||x.part===pt));
+ if(!found.length){alert("No matching demo item found. Real TORVO catalogue data will be connected later.");return}
+ v4ShowDetail(found[0].item);
+}
+function v4ShowDetail(item){
+ const p=v4Catalogue.find(x=>x.item===item);if(!p)return;
+ document.getElementById("v4ProductBody").innerHTML=`<div class="v4-detail-grid"><div class="v4-detail-photo">${p.icon}</div><div><div class="item-no">ITEM: ${p.item}</div><h2 style="margin:5px 0 12px">${p.name}</h2><div class="v4-detail-info"><div class="v4-info"><small>SPARE PART BRAND</small><strong>${p.spareBrand}</strong></div><div class="v4-info"><small>SUITABLE MACHINE BRAND</small><strong>${p.machineBrand}</strong></div><div class="v4-info"><small>MACHINE SYSTEM</small><strong>${p.system}</strong></div><div class="v4-info"><small>MACHINE</small><strong>${p.machine}</strong></div><div class="v4-info"><small>MODEL</small><strong>${p.model}</strong></div><div class="v4-info"><small>PART / CATEGORY</small><strong>${p.part}</strong></div></div><div class="v4-suitable"><b>Suitable For — Admin Published Only</b><br>${p.suitable.map(x=>"✓ "+x).join("<br>")}</div><div class="lock-rate">🔐 LOGIN FOR DEALER RATE</div><button class="full-red-btn" style="margin-top:9px" onclick="v4CloseDetail();openAuth('login')">DEALER LOGIN TO ORDER</button></div></div>`;
+ document.getElementById("v4ProductModal").classList.add("show");
+}
+function v4CloseDetail(){document.getElementById("v4ProductModal").classList.remove("show")}
+v4Init();
 </script>
 </body>
 </html>
