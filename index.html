@@ -4,7 +4,7 @@
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <meta name="theme-color" content="#d71920" />
-  <title>TORVO TOOLS | B2B POWER TOOL SPARE PARTS - V24</title>
+  <title>TORVO TOOLS | B2B POWER TOOL SPARE PARTS - V26 DEMO</title>
 
   <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
 
@@ -1381,38 +1381,83 @@ input[type="email"],input[type="password"],.preserve-case{text-transform:none!im
 }
 </style>
 
-<style id="torvo-v26-stable-final-upgrade">
-/* V26 STABLE: APPROVED CARD SCALE, HOVER OPEN VIEW, SUPPORT ACTIONS, MERGED DEALER STRIP, PROMO CARDS, STRONGER SOUND */
+<style id="torvo-v26-demo-final">
+/* V26 DEMO FINAL: approved visuals + compact 8/10 product cards + stronger sound + support actions */
+:root{--v26-blue:#1263df;--v26-navy:#102a56}
+
+/* Product cards: keep approved design, reduce overall footprint ~20% */
 @media(min-width:761px){
-  .product-grid{grid-template-columns:repeat(auto-fit,minmax(185px,1fr))!important;gap:9px!important}
-  .product-photo.v24-photo{height:clamp(145px,12vw,220px)!important;min-height:145px!important;margin:3px 6px 0!important;padding:8px!important}
-  .v24-card-top{height:32px!important;padding:5px 6px 2px!important}
-  .v24-card-top .product-badge{font-size:7px!important;padding:4px 6px!important}
-  .v24-item-code{font-size:7.8px!important}
-  .v24-body .product-name{font-size:11px!important;min-height:27px!important;margin-bottom:5px!important}
-  .v24-spec-row{min-height:27px!important;padding:5px 6px!important;grid-template-columns:minmax(76px,41%) 7px minmax(0,1fr)!important}
-  .v24-spec-label{font-size:7.7px!important}.v24-spec-value{font-size:7.7px!important}.v24-spec-colon{font-size:8px!important}
-  .v24-body .cart-controls{padding-top:6px!important}.v24-body .qty-control{height:33px!important}.v24-body .dealer-cart-btn{height:33px!important}
-  .v24-body .public-full-detail,.v26-dealer-view{min-height:30px!important;font-size:8px!important;margin-top:6px!important}
+  .product-grid{grid-template-columns:repeat(auto-fit,minmax(180px,1fr))!important;gap:8px!important}
+  .product-card{border-radius:13px!important}
+  .v24-card-top{height:32px!important;padding:5px 6px 2px!important;gap:4px!important}
+  .v24-card-top .product-badge{font-size:6.8px!important;padding:4px 6px!important}
+  .v24-item-code{font-size:7.2px!important}
+  .v24-card-top .rate-lock-only{width:23px!important;height:22px!important;min-width:23px!important}
+  .v24-card-top .rate-lock-only i{font-size:9px!important}
+  .product-photo.v24-photo{height:clamp(140px,12vw,215px)!important;min-height:140px!important;margin:2px 6px 0!important;padding:7px!important;border-radius:10px!important}
+  .v24-photo .gallery-visual{font-size:clamp(48px,5vw,82px)!important}
+  .v24-photo .gallery-arrow{width:22px!important;height:22px!important;font-size:8px!important}
+  .v24-photo .gallery-arrow.left{left:4px!important}.v24-photo .gallery-arrow.right{right:4px!important}
+  .v24-photo-dot{width:5px!important;height:5px!important}
+  .product-body.v24-body{padding:6px!important}
+  .v24-body .product-name{font-size:10.5px!important;min-height:25px!important;margin:1px 1px 5px!important}
+  .v24-spec-row{grid-template-columns:minmax(67px,40%) 5px minmax(0,1fr)!important;padding:5px 6px!important;min-height:24px!important}
+  .v24-spec-label,.v24-spec-value{font-size:6.8px!important}
+  .v24-spec-colon{font-size:7px!important}
+  .v24-body .public-full-detail{min-height:29px!important;font-size:7px!important;margin-top:6px!important}
+  .v24-body .dealer-rate{margin-top:5px!important;font-size:8px!important}
+  .v24-body .cart-controls{padding-top:6px!important;grid-template-columns:minmax(0,1fr) 58px!important;gap:6px!important}
+  .v24-body .qty-control{height:31px!important;grid-template-columns:28px minmax(28px,1fr) 28px!important}
+  .v24-body .qty-control button{font-size:13px!important}
+  .v24-body .qty-control input{font-size:11px!important}
+  .v24-body .dealer-cart-btn{min-width:58px!important;width:58px!important;height:31px!important;font-size:13px!important}
 }
-.v24-photo .gallery-arrow{width:22px!important;height:22px!important;font-size:8px!important}.v24-photo .gallery-arrow.left{left:4px!important}.v24-photo .gallery-arrow.right{right:4px!important}
-.product-photo.v24-photo{cursor:pointer!important}
-.product-photo.v24-photo::after{content:"OPEN VIEW";position:absolute;right:8px;top:8px;background:#0f2b68;color:#fff;border-radius:6px;padding:4px 6px;font-size:7px;font-weight:1000;letter-spacing:.2px;opacity:0;visibility:hidden;transform:translateY(-2px);transition:.15s;z-index:5;pointer-events:none}
-@media(hover:hover){.product-photo.v24-photo:hover::after{opacity:1;visibility:visible;transform:translateY(0)}}
-.v26-dealer-view{width:100%;border:0;border-radius:8px;background:#1263df;color:#fff;font-weight:1000;cursor:pointer;display:flex;align-items:center;justify-content:center;gap:5px}
-/* One compact dealer strip only */
-.compact-welcome{padding:10px 14px!important;min-height:58px!important;margin-bottom:10px!important;border-radius:14px!important}
-.compact-welcome .v26-welcome-right{display:flex;align-items:center;gap:8px;flex-wrap:wrap;justify-content:flex-end}.compact-welcome .v26-delivery-chip{background:#fff;color:#111827;border-radius:9px;padding:6px 9px;font-size:8px;font-weight:1000;white-space:nowrap}.compact-welcome .rate-chip{margin:0!important}
-#dealerPromo{display:none!important}
-/* Image/promotion style recommendations */
-.dealer-reco-grid{grid-template-columns:repeat(4,minmax(0,1fr))!important;gap:9px!important}.dealer-reco-card{padding:0!important;overflow:hidden!important;background:#fff!important;border:1px solid #d6dae1!important}.dealer-reco-card .promo-visual{height:90px;display:grid;place-items:center;background:#f8fafc;border-bottom:1px solid #e2e5ea;font-size:42px}.dealer-reco-card .promo-copy{padding:8px}.dealer-reco-card b{font-size:8.5px!important}.dealer-reco-card span{font-size:7px!important}
-@media(max-width:760px){.dealer-reco-grid{grid-template-columns:repeat(2,minmax(0,1fr))!important}.dealer-reco-card .promo-visual{height:74px}.compact-welcome{align-items:flex-start!important}.compact-welcome .v26-welcome-right{justify-content:flex-start}}
-/* Support action buttons: logical colors and equal styling */
-.contact-card .v26-support-btn{margin-top:auto!important;display:inline-flex;align-items:center;justify-content:center;gap:5px;min-height:29px;padding:6px 9px;border-radius:7px;color:#fff!important;text-decoration:none;font-size:8px;font-weight:1000;border:0;cursor:pointer;white-space:nowrap}
-.v26-mail-btn{background:#1263df!important}.v26-location-btn{background:#e11d2e!important}.v26-hours-btn{background:#f59e0b!important;color:#111827!important}
-/* Existing call/chat logical colors */
-.call-now{background:#1263df!important}.chat-now{background:#16a34a!important}
+@media(min-width:1500px){.product-grid{grid-template-columns:repeat(auto-fit,minmax(195px,1fr))!important}}
+@media(max-width:760px){
+  .product-photo.v24-photo{height:145px!important;min-height:145px!important}
+  .v24-photo .gallery-arrow{width:21px!important;height:21px!important;font-size:8px!important}
+}
+
+/* Product image hover hint. No extra permanent icon. */
+.product-photo.v24-photo::after{
+  content:"OPEN VIEW";position:absolute;right:8px;top:8px;z-index:6;
+  background:#102a56;color:#fff;font-size:6.8px;font-weight:1000;letter-spacing:.25px;
+  padding:5px 7px;border-radius:6px;box-shadow:0 4px 12px rgba(0,0,0,.16);
+  opacity:0;visibility:hidden;transform:translateY(-2px);transition:.15s;pointer-events:none
+}
+.product-photo.v24-photo:hover::after{opacity:1;visibility:visible;transform:translateY(0)}
+@media(hover:none){.product-photo.v24-photo::after{display:none}}
+
+/* Single compact dealer welcome + delivery strip */
+.v26-merged-welcome{padding:11px 14px!important;border-radius:13px!important;margin-bottom:11px!important;min-height:60px!important}
+.v26-merged-welcome .v26-welcome-main h2{font-size:15px!important;margin:0 0 3px!important}
+.v26-merged-welcome .v26-welcome-main p{font-size:8px!important}
+.v26-welcome-delivery{display:flex;align-items:center;gap:8px;background:rgba(255,255,255,.08);border:1px solid rgba(255,255,255,.14);padding:7px 10px;border-radius:9px;white-space:nowrap}
+.v26-welcome-delivery i{font-size:17px;color:#ffd84d}.v26-welcome-delivery b{display:block;font-size:9px}.v26-welcome-delivery small{display:block;font-size:6.8px;color:#cfd5df;margin-top:2px}
+@media(max-width:760px){.v26-merged-welcome{align-items:flex-start!important}.v26-welcome-delivery{white-space:normal}}
+
+/* Image-style promotional cards; admin-controlled structure ready */
+.v26-promo-grid{display:grid;grid-template-columns:repeat(4,minmax(0,1fr));gap:8px}
+.v26-promo-card{position:relative;min-height:105px;border:1px solid #d9dde4;border-radius:12px;overflow:hidden;background:linear-gradient(135deg,#f8fafc,#eef4ff);cursor:pointer;text-align:left;padding:0;box-shadow:0 4px 12px rgba(15,23,42,.06)}
+.v26-promo-card:hover{transform:translateY(-2px);box-shadow:0 8px 18px rgba(15,23,42,.11)}
+.v26-promo-art{height:62px;display:grid;place-items:center;font-size:34px;background:#fff;border-bottom:1px solid #e3e7ed}
+.v26-promo-copy{padding:7px 8px}.v26-promo-copy b{font-size:8px;color:#102a56;display:block;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}.v26-promo-copy span{font-size:6.8px;color:#667085;display:block;margin-top:2px}
+.v26-promo-badge{position:absolute;left:6px;top:6px;background:#d71920;color:#fff;border-radius:5px;padding:3px 5px;font-size:5.8px;font-weight:1000}
+@media(max-width:760px){.v26-promo-grid{grid-template-columns:repeat(2,minmax(0,1fr))}}
+
+/* Support action colors by logic */
+.support-action-btn.call-now{background:#1263df!important;color:#fff!important}
+.support-action-btn.chat-now{background:#169b55!important;color:#fff!important}
+.support-action-btn.email-now{background:#2474d8!important;color:#fff!important}
+.support-action-btn.location-now{background:#d71920!important;color:#fff!important}
+.support-action-btn.hours-now{background:#e88912!important;color:#fff!important}
+.email-card{border-color:#2d6fc5!important}.address-card{border-color:#c72a32!important}.hours-card{border-color:#d78212!important}
+
+/* Demo mode indicator */
+.v26-demo-chip{position:fixed;right:12px;bottom:12px;z-index:1200;border:0;border-radius:999px;background:#111827;color:#fff;padding:8px 11px;font-size:7px;font-weight:1000;box-shadow:0 6px 18px rgba(0,0,0,.2);cursor:pointer}
+.v26-demo-chip.on{background:#16834a}
 </style>
+
 </head>
 <body>
 <div id="publicSite">
@@ -1494,9 +1539,9 @@ input[type="email"],input[type="password"],.preserve-case{text-transform:none!im
   <span id="contactWhatsapp"><a class="support-number whatsapp-number" href="https://wa.me/917027751533" target="_blank" rel="noopener">7027751533</a></span>
   <a class="support-action-btn chat-now" href="https://wa.me/917027751533" target="_blank" rel="noopener"><i class="fa-brands fa-whatsapp"></i> CHAT NOW</a>
 </div>
-      <div class="contact-card"><div class="c-icon mail-support"><i class="fa-solid fa-envelope"></i></div><strong>EMAIL</strong><span id="contactEmail">CONTACT DETAILS WILL BE UPDATED SHORTLY.</span><button class="v26-support-btn v26-mail-btn" onclick="futureFeature('COMPANY EMAIL / SEND EMAIL')"><i class="fa-solid fa-envelope"></i> SEND EMAIL</button></div>
-      <div class="contact-card"><div class="c-icon address-support"><i class="fa-solid fa-location-dot"></i></div><strong>ADDRESS</strong><span id="contactAddress">CONTACT DETAILS WILL BE UPDATED SHORTLY.</span><button class="v26-support-btn v26-location-btn" onclick="futureFeature('COMPANY ADDRESS / MAP LOCATION')"><i class="fa-solid fa-location-dot"></i> VIEW LOCATION</button></div>
-      <div class="contact-card"><div class="c-icon hours-support"><i class="fa-regular fa-clock"></i></div><strong>WORKING HOURS</strong><span id="contactHours">CONTACT DETAILS WILL BE UPDATED SHORTLY.</span><button class="v26-support-btn v26-hours-btn" onclick="futureFeature('WORKING HOURS')"><i class="fa-regular fa-clock"></i> VIEW HOURS</button></div>
+      <div class="contact-card contact-card-action email-card"><div class="c-icon mail-support"><i class="fa-solid fa-envelope"></i></div><strong>EMAIL</strong><span id="contactEmail">Contact details will be updated shortly.</span><button class="support-action-btn email-now" type="button" onclick="openSupportAction('email')"><i class="fa-solid fa-envelope"></i> SEND EMAIL</button></div>
+      <div class="contact-card contact-card-action address-card"><div class="c-icon address-support"><i class="fa-solid fa-location-dot"></i></div><strong>ADDRESS</strong><span id="contactAddress">Contact details will be updated shortly.</span><button class="support-action-btn location-now" type="button" onclick="openSupportAction('address')"><i class="fa-solid fa-location-dot"></i> VIEW LOCATION</button></div>
+      <div class="contact-card contact-card-action hours-card"><div class="c-icon hours-support"><i class="fa-regular fa-clock"></i></div><strong>WORKING HOURS</strong><span id="contactHours">Contact details will be updated shortly.</span><button class="support-action-btn hours-now" type="button" onclick="openSupportAction('hours')"><i class="fa-regular fa-clock"></i> VIEW HOURS</button></div>
     </div></div></div></section>
   </main>
 
@@ -1634,7 +1679,10 @@ input[type="email"],input[type="password"],.preserve-case{text-transform:none!im
 <button class="dealer-menu active" onclick="openDealerSection('home',this)"><span class="menu-icon">🏠</span> HOME</button><button class="dealer-menu" onclick="openDealerSection('products',this)"><span class="menu-icon">⚙️</span> PRODUCTS</button><button class="dealer-menu" onclick="openDealerSection('orders',this)"><span class="menu-icon">📦</span> MY ORDERS</button><button class="dealer-menu" onclick="openDealerSection('delivery',this)"><span class="menu-icon">🚚</span> DELIVERY</button><button class="dealer-menu" onclick="openDealerSection('points',this)"><span class="menu-icon">⭐</span><span>REWARD</span></button><button class="dealer-menu" onclick="openDealerSection('enquiry',this)"><span class="menu-icon">📷</span> PART ENQUIRY</button><button class="dealer-menu" onclick="openDealerSection('feedback',this)"><span class="menu-icon"><i class="fa-solid fa-comment-dots"></i></span> FEEDBACK</button><button class="dealer-menu" onclick="openDealerSection('target',this)"><span class="menu-icon"><i class="fa-solid fa-bullseye"></i></span> MY TARGET</button><button class="dealer-menu" onclick="openDealerSection('history',this)"><span class="menu-icon"><i class="fa-solid fa-clock-rotate-left"></i></span> HISTORY</button><button class="dealer-menu" onclick="openDealerSection('profile',this)"><span class="menu-icon">👤</span> PROFILE</button><button class="dealer-menu" onclick="openDealerSection('settings',this)"><span class="menu-icon"><i class="fa-solid fa-gear"></i></span> SETTINGS</button>
 </aside><main class="dealer-main">
 <section id="dealer-home" class="dealer-section active">
-<div class="dealer-welcome compact-welcome"><div><h2>WELCOME TO TORVO B2B</h2><p>DEALER PORTAL PREVIEW • SEARCH, ORDER AND TRACK IN ONE PLACE.</p></div><div class="v26-welcome-right"><div class="v26-delivery-chip">FREE DELIVERY PAN INDIA ABOVE ₹10,000</div><div class="rate-chip">PREVIEW • RATE GROUP A</div></div></div>
+<div class="dealer-welcome compact-welcome v26-merged-welcome">
+  <div class="v26-welcome-main"><h2>WELCOME TO TORVO B2B</h2><p>DEALER PORTAL PREVIEW • SEARCH, ORDER AND TRACK IN ONE PLACE.</p></div>
+  <div class="v26-welcome-delivery"><i class="fa-solid fa-truck-fast"></i><span><b>FREE DELIVERY PAN INDIA</b><small>ON ₹10,000+ ORDER VALUE</small></span></div>
+</div>
 <div id="billingInactivityWarning" class="history-notice" style="display:none;border-color:#f2b8b5;background:#fff3f2;color:#9f1c1c;margin-bottom:10px"><i class="fa-solid fa-triangle-exclamation"></i> <b>Billing Alert:</b> Your billing activity is approaching / has reached 3 months of inactivity. Please resume billing to keep your dealer code active. Continued inactivity may result in Admin-controlled suspension.</div>
 <div class="dealer-panel quick-status-panel">
   <div class="section-head"><div><h3 style="margin:0">Quick Status</h3><p class="section-sub">Dealer-facing status only.</p></div></div>
@@ -1660,7 +1708,12 @@ input[type="email"],input[type="password"],.preserve-case{text-transform:none!im
 <button class="dealer-icon-card youtube-card" onclick="futureFeature('TORVO YouTube link')"><div class="app-icon youtube-icon"><i class="fa-brands fa-youtube"></i></div><div class="app-name">YouTube</div></button>
 
 </div>
-<div class="dealer-reco-wrap"><div class="torvo-promo" id="dealerPromo"><div><small>TORVO DEALER UPDATE</small><b id="dealerPromoTitle">FAST-MOVING ITEMS FOR YOUR BUSINESS</b><span id="dealerPromoText">PROMOTIONS CAN BE CHANGED FROM ADMIN CONFIGURATION LATER.</span></div><div class="torvo-promo-mark" id="dealerPromoMark">📦</div></div><div class="dealer-reco-title">BEST SELLING ITEMS</div><div class="dealer-reco-grid" id="bestSellingGrid"></div><div class="dealer-reco-title">TORVO PICKS</div><div class="dealer-reco-grid" id="torvoPicksGrid"></div></div>
+<div class="dealer-reco-wrap v26-promo-area">
+  <div class="dealer-reco-title">BEST SELLING • PROMOTION</div>
+  <div class="v26-promo-grid" id="bestSellingGrid"></div>
+  <div class="dealer-reco-title">TORVO PICKS • PROMOTION</div>
+  <div class="v26-promo-grid" id="torvoPicksGrid"></div>
+</div>
 </section>
 <section id="dealer-products" class="dealer-section">
       <div class="dealer-panel">
@@ -2256,7 +2309,7 @@ function emitTorvoTone(kind="click"){
     const d={click:.065,popup:.09,error:.13,success:.11,action:.08}[kind]||.07;
     o.type=(kind==="error")?"triangle":"sine";
     o.frequency.setValueAtTime(f,now);
-    g.gain.setValueAtTime(.14,now);
+    g.gain.setValueAtTime(.075,now);
     g.gain.exponentialRampToValueAtTime(.001,now+d);
     o.connect(g);g.connect(ctx.destination);
     o.start(now);o.stop(now+d);
@@ -2392,7 +2445,7 @@ function submitTargetRequest(){
       <div class="v24-photo-dots" data-photo-dots="dealer-${p.item}"><span class="v24-photo-dot active"></span><span class="v24-photo-dot"></span></div>
       <button class="gallery-arrow right" type="button" onclick="event.stopPropagation();slideCardPhoto('dealer','${p.item}',1)"><i class="fa-solid fa-chevron-right"></i></button>
     </div>
-    <div class="product-body v24-body"><div class="product-name">${p.name}</div><div class="v24-specs"><div class="v24-spec-row"><span class="v24-spec-label">MACHINE BRAND</span><span class="v24-spec-colon">:</span><span class="v24-spec-value">${p.brand}</span></div><div class="v24-spec-row"><span class="v24-spec-label">MODEL</span><span class="v24-spec-colon">:</span><span class="v24-spec-value">${p.model}</span></div><div class="v24-spec-row"><span class="v24-spec-label">PART BRAND</span><span class="v24-spec-colon">:</span><span class="v24-spec-value">${p.spareBrand}</span></div><div class="v24-spec-row"><span class="v24-spec-label">USRD FOR</span><span class="v24-spec-colon">:</span><span class="v24-spec-value">${p.system}</span></div></div><div class="dealer-rate">${p.dealerRate}</div><button class="v26-dealer-view" type="button" onclick="dealerProductDetails('${p.item}')"><i class="fa-regular fa-eye"></i> VIEW DETAILS</button><div class="cart-controls"><div class="qty-control" id="qtybox-${p.item}"><button id="minus-${p.item}" onclick="changeQty('${p.item}',-1)">−</button><input id="qty-${p.item}" class="qty-input" type="number" min="1" value="1" inputmode="numeric" oninput="sanitizeQty('${p.item}')"><button id="plus-${p.item}" onclick="changeQty('${p.item}',1)">+</button></div><button class="add-cart-btn dealer-cart-btn" id="cart-${p.item}" title="ADD TO CART" aria-label="ADD TO CART" onclick="addDemoCart('${p.item}',this)"><i class="fa-solid fa-cart-plus"></i></button></div></div></div>`}
+    <div class="product-body v24-body"><div class="product-name">${p.name}</div><div class="v24-specs"><div class="v24-spec-row"><span class="v24-spec-label">MACHINE BRAND</span><span class="v24-spec-colon">:</span><span class="v24-spec-value">${p.brand}</span></div><div class="v24-spec-row"><span class="v24-spec-label">MODEL</span><span class="v24-spec-colon">:</span><span class="v24-spec-value">${p.model}</span></div><div class="v24-spec-row"><span class="v24-spec-label">PART BRAND</span><span class="v24-spec-colon">:</span><span class="v24-spec-value">${p.spareBrand}</span></div><div class="v24-spec-row"><span class="v24-spec-label">USRD FOR</span><span class="v24-spec-colon">:</span><span class="v24-spec-value">${p.system}</span></div></div><div class="dealer-rate">${p.dealerRate}</div><div class="cart-controls"><div class="qty-control" id="qtybox-${p.item}"><button id="minus-${p.item}" onclick="changeQty('${p.item}',-1)">−</button><input id="qty-${p.item}" class="qty-input" type="number" min="1" value="1" inputmode="numeric" oninput="sanitizeQty('${p.item}')"><button id="plus-${p.item}" onclick="changeQty('${p.item}',1)">+</button></div><button class="add-cart-btn dealer-cart-btn" id="cart-${p.item}" title="ADD TO CART" aria-label="ADD TO CART" onclick="addDemoCart('${p.item}',this)"><i class="fa-solid fa-cart-plus"></i></button></div></div></div>`}
 
   function paginationHtml(total,page,kind){
     const pages=Math.max(1,Math.ceil(total/PAGE_SIZE)); if(pages<=1)return "";
@@ -2428,7 +2481,7 @@ function submitTargetRequest(){
   ];
   function renderPromo(prefix,p){const t=document.getElementById(prefix+"PromoTitle"),x=document.getElementById(prefix+"PromoText"),m=document.getElementById(prefix+"PromoMark");if(t)t.textContent=p.title;if(x)x.textContent=p.text;if(m)m.textContent=p.mark}
   let promoIndex=0;setInterval(()=>{promoIndex=(promoIndex+1)%TORVO_PROMOS.length;renderPromo("public",TORVO_PROMOS[promoIndex]);renderPromo("dealer",TORVO_PROMOS[promoIndex])},6000);
-  function renderDealerRecommendations(){const best=document.getElementById("bestSellingGrid"),picks=document.getElementById("torvoPicksGrid");const card=p=>`<button class="dealer-reco-card" onclick="dealerProductDetails('${p.item}')" title="OPEN PROMOTION"><span class="promo-visual">${p.icon||"⚙️"}</span><span class="promo-copy"><b>${p.name}</b><span>ITEM: ${p.item} • ${p.brand}</span></span></button>`;if(best)best.innerHTML=allProducts().slice(0,4).map(card).join("");if(picks)picks.innerHTML=allProducts().slice(4,8).map(card).join("")}
+  function renderDealerRecommendations(){const best=document.getElementById("bestSellingGrid"),picks=document.getElementById("torvoPicksGrid");const card=p=>`<button class="dealer-reco-card" onclick="dealerProductDetails('${p.item}')"><b>${p.name}</b><span>ITEM: ${p.item} • ${p.brand}</span></button>`;if(best)best.innerHTML=allProducts().slice(0,4).map(card).join("");if(picks)picks.innerHTML=allProducts().slice(4,8).map(card).join("")}
   renderDealerRecommendations();
 
   function shouldUppercaseField(el){if(!el||!el.matches)return false;if(el.matches('input[type="password"],input[type="email"],[data-preserve-case="true"]'))return false;return el.matches('input[type="text"],input[type="search"],input:not([type]),textarea')}
@@ -2438,6 +2491,75 @@ function submitTargetRequest(){
   window.renderPublicProducts(allProducts());window.renderDealerProducts(allProducts());
 })();
 </script>
+
+<script id="torvo-v26-demo-final-script">
+(function(){
+"use strict";
+
+/* Stronger Home + Dealer sound, still respects browser interaction unlock */
+const oldPlay=window.playTorvoSound;
+if(typeof oldPlay==="function"){
+  window.playTorvoSound=function(kind){
+    try{
+      oldPlay(kind);
+      const enabled=localStorage.getItem("torvoPortalSound")!=="off";
+      if(!enabled)return;
+      const AC=window.AudioContext||window.webkitAudioContext;if(!AC)return;
+      const ctx=window.__torvoV26Ctx||(window.__torvoV26Ctx=new AC());
+      if(ctx.state==="suspended")ctx.resume();
+      const o=ctx.createOscillator(),g=ctx.createGain();
+      const f=kind==="success"?760:kind==="error"?210:kind==="popup"?540:440;
+      o.frequency.value=f;o.type="sine";g.gain.setValueAtTime(.028,ctx.currentTime);g.gain.exponentialRampToValueAtTime(.001,ctx.currentTime+.08);
+      o.connect(g);g.connect(ctx.destination);o.start();o.stop(ctx.currentTime+.08);
+    }catch(_){}
+  };
+}
+
+/* Support demo actions: never invent unknown business details */
+window.openSupportAction=function(kind){
+  const c=(typeof TORVO_CONTACT!=="undefined"?TORVO_CONTACT:{});
+  if(kind==="email"){
+    if(c.email&&String(c.email).trim()){location.href="mailto:"+String(c.email).trim();return}
+    alert("EMAIL DETAILS WILL BE UPDATED FROM ADMIN CONFIGURATION.");
+  }else if(kind==="address"){
+    if(c.address&&String(c.address).trim()){window.open("https://www.google.com/maps/search/?api=1&query="+encodeURIComponent(c.address),"_blank");return}
+    alert("ADDRESS / MAP LOCATION WILL BE UPDATED FROM ADMIN CONFIGURATION.");
+  }else if(kind==="hours"){
+    alert(c.hours&&String(c.hours).trim()?("WORKING HOURS: "+c.hours):"WORKING HOURS WILL BE UPDATED FROM ADMIN CONFIGURATION.");
+  }
+  if(typeof playTorvoSound==="function")playTorvoSound("action");
+};
+
+/* Promotion cards are demo data now; later Admin will supply image, copy, link and ON/OFF. */
+function v26PromoCard(p,label){
+  return `<button class="v26-promo-card" onclick="dealerProductDetails('${p.item}')">
+    <span class="v26-promo-badge">${label}</span>
+    <span class="v26-promo-art">${p.icon||"⚙️"}</span>
+    <span class="v26-promo-copy"><b>${p.name}</b><span>ITEM: ${p.item} • ${p.brand}</span></span>
+  </button>`;
+}
+function v26RenderPromos(){
+  const products=(typeof demoProducts!=="undefined"&&Array.isArray(demoProducts))?demoProducts:[];
+  const best=document.getElementById("bestSellingGrid"),picks=document.getElementById("torvoPicksGrid");
+  if(best)best.innerHTML=products.slice(0,4).map(p=>v26PromoCard(p,"BEST SELLING")).join("");
+  if(picks)picks.innerHTML=products.slice(4,8).map(p=>v26PromoCard(p,"TORVO PICK")).join("");
+}
+setTimeout(v26RenderPromos,0);
+
+/* Explicit demo mode control */
+let demoChip=document.createElement("button");
+demoChip.className="v26-demo-chip on";demoChip.type="button";demoChip.textContent="DEMO MODE • ON";
+demoChip.title="THIS VERSION USES DEMO / LOCAL PREVIEW DATA";
+demoChip.onclick=function(){
+  const on=!demoChip.classList.contains("on");
+  demoChip.classList.toggle("on",on);
+  demoChip.textContent=on?"DEMO MODE • ON":"DEMO MODE • OFF";
+  alert(on?"DEMO MODE IS ON. PREVIEW DATA AND UI ACTIONS ARE AVAILABLE.":"DEMO MODE LABEL IS OFF. SECURE LIVE BACKEND IS STILL NOT CONNECTED.");
+};
+document.body.appendChild(demoChip);
+})();
+</script>
+
 <!-- V24 ARCHITECTURE NOTE: ADMIN/ACCOUNTANT IMAGE STUDIO TO USE NO-CROP AUTO FIT, PREVIEW BEFORE SAVE, ORIGINAL PRESERVE AND OPTIMIZED WEB IMAGE. -->
 </body>
 </html>
