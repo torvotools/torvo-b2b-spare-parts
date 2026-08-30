@@ -1353,6 +1353,33 @@ input[type="email"],input[type="password"],.preserve-case{text-transform:none!im
 .dealer-reco-wrap{margin-top:12px}.dealer-reco-title{font-size:12px;font-weight:1000;margin:10px 0 7px}.dealer-reco-grid{display:grid;grid-template-columns:repeat(4,minmax(0,1fr));gap:8px}.dealer-reco-card{border:1px solid #d9dde4;background:#fff;border-radius:11px;padding:9px;text-align:left;cursor:pointer}.dealer-reco-card b{display:block;font-size:9px;color:#152549}.dealer-reco-card span{display:block;font-size:8px;color:#6b7280;margin-top:3px}.dealer-reco-card:hover{box-shadow:0 5px 13px rgba(0,0,0,.08)}
 @media(max-width:760px){.dealer-reco-grid{grid-template-columns:repeat(2,minmax(0,1fr))}.torvo-promo{padding:12px 13px;min-height:80px}.torvo-promo b{font-size:14px}}
 </style>
+
+<style id="torvo-v25-card-fix">
+/* V25 APPROVED CARD REFINEMENTS: NO CUT ITEM CODE, LOCK-ONLY RATE, SMALLER SPECS, PROPER CART */
+.v24-card-top{grid-template-columns:auto minmax(0,1fr) auto!important;gap:5px!important;padding:7px 7px 3px!important}
+.v24-item-code{font-size:8.7px!important;font-weight:1000!important;letter-spacing:0!important;white-space:nowrap!important;overflow:visible!important;text-overflow:clip!important;min-width:0!important}
+.v24-card-top .rate-lock-only{position:relative!important;width:28px!important;height:26px!important;min-width:28px!important;padding:0!important;border:1px solid #c9d8ee!important;border-radius:7px!important;background:#fff!important;color:#1557a6!important;display:inline-grid!important;place-items:center!important;cursor:pointer!important}
+.v24-card-top .rate-lock-only i{font-size:11px!important;margin:0!important}
+.v24-card-top .rate-lock-only::after{content:"LOGIN FOR RATE";position:absolute;right:0;top:calc(100% + 6px);background:#13233f;color:#fff;font-size:7px;font-weight:900;white-space:nowrap;padding:5px 7px;border-radius:6px;box-shadow:0 4px 12px rgba(0,0,0,.18);opacity:0;visibility:hidden;transform:translateY(-2px);transition:.14s;z-index:30;pointer-events:none}
+.v24-card-top .rate-lock-only:hover::after,.v24-card-top .rate-lock-only:focus::after{opacity:1;visibility:visible;transform:translateY(0)}
+.v24-spec-row{grid-template-columns:minmax(78px,40%) 6px minmax(0,1fr)!important;gap:2px!important;padding:6px 7px!important;min-height:29px!important}
+.v24-spec-label{font-size:8px!important;font-weight:900!important}
+.v24-spec-colon{font-size:8.5px!important;font-weight:1000!important}
+.v24-spec-value{font-size:8px!important;font-weight:900!important;white-space:normal!important;overflow:visible!important;text-overflow:clip!important;overflow-wrap:anywhere!important;line-height:1.15!important}
+.v24-body .cart-controls{grid-template-columns:minmax(0,1fr) 72px!important;gap:8px!important}
+.v24-body .dealer-cart-btn{min-width:72px!important;width:72px!important;height:37px!important;padding:0!important;border-radius:9px!important;display:grid!important;place-items:center!important;overflow:visible!important}
+.v24-body .dealer-cart-btn i{font-size:16px!important;line-height:1!important;display:block!important}
+.public-detail-row{display:none!important}
+@media(max-width:760px){
+ .v24-card-top{grid-template-columns:auto minmax(0,1fr) auto!important;row-gap:0!important}
+ .v24-card-top .rate-lock-only{grid-column:auto!important;justify-self:end!important;width:25px!important;height:24px!important;min-width:25px!important}
+ .v24-item-code{font-size:7.2px!important}
+ .v24-spec-row{grid-template-columns:minmax(62px,41%) 5px minmax(0,1fr)!important;padding:5px 5px!important}
+ .v24-spec-label,.v24-spec-value{font-size:6.9px!important}
+ .v24-body .cart-controls{grid-template-columns:minmax(0,1fr) 58px!important}
+ .v24-body .dealer-cart-btn{min-width:58px!important;width:58px!important}
+}
+</style>
 </head>
 <body>
 <div id="publicSite">
@@ -2316,7 +2343,7 @@ function submitTargetRequest(){
   publicResults=allProducts();dealerResults=allProducts();
 
   function v22PublicCard(p){const badge=typeof badgeClass==="function"?badgeClass(p.tag):"";return `<div class="product-card">
-    <div class="v24-card-top"><span class="product-badge ${badge}">${p.tag}</span><span class="v24-item-code">ITEM CODE: ${p.item}</span><button class="top-rate-badge rate-info" type="button" onclick="event.stopPropagation();openAuth('login')"><i class="fa-solid fa-lock"></i> LOGIN FOR RATE</button></div>
+    <div class="v24-card-top"><span class="product-badge ${badge}">${p.tag}</span><span class="v24-item-code">ITEM CODE: ${p.item}</span><button class="rate-lock-only" type="button" title="LOGIN FOR RATE" aria-label="LOGIN FOR RATE" onclick="event.stopPropagation();openAuth('login')"><i class="fa-solid fa-lock"></i></button></div>
     <div class="product-photo v24-photo click-photo product-gallery" onclick="publicProductDetails('${p.item}')" title="VIEW PRODUCT DETAILS">
       <button class="gallery-arrow left" type="button" onclick="event.stopPropagation();slideCardPhoto('public','${p.item}',-1)" aria-label="PREVIOUS PHOTO"><i class="fa-solid fa-chevron-left"></i></button>
       <div class="placeholder-icon gallery-visual" id="visual-public-${p.item}">${p.icon}</div>
@@ -2325,7 +2352,7 @@ function submitTargetRequest(){
     </div>
     <div class="product-body v24-body"><div class="product-name">${p.name}</div><div class="v24-specs"><div class="v24-spec-row"><span class="v24-spec-label">MACHINE BRAND</span><span class="v24-spec-colon">:</span><span class="v24-spec-value">${p.brand}</span></div><div class="v24-spec-row"><span class="v24-spec-label">MODEL</span><span class="v24-spec-colon">:</span><span class="v24-spec-value">${p.model}</span></div><div class="v24-spec-row"><span class="v24-spec-label">PART BRAND</span><span class="v24-spec-colon">:</span><span class="v24-spec-value">${p.spareBrand}</span></div><div class="v24-spec-row"><span class="v24-spec-label">USRD FOR</span><span class="v24-spec-colon">:</span><span class="v24-spec-value">${p.system}</span></div></div><div class="public-detail-row"><button class="details-btn public-full-detail" onclick="publicProductDetails('${p.item}')"><i class="fa-regular fa-eye"></i> VIEW DETAILS</button></div></div></div>`}
   function v22DealerCard(p){const badge=typeof badgeClass==="function"?badgeClass(p.tag):"";return `<div class="product-card">
-    <div class="v24-card-top"><span class="product-badge ${badge}">${p.tag}</span><span class="v24-item-code">ITEM CODE: ${p.item}</span><button class="eye-btn" type="button" title="VIEW PRODUCT" onclick="dealerProductDetails('${p.item}')"><i class="fa-regular fa-eye"></i></button></div>
+    <div class="v24-card-top"><span class="product-badge ${badge}">${p.tag}</span><span class="v24-item-code">ITEM CODE: ${p.item}</span><span aria-hidden="true" style="width:1px"></span></div>
     <div class="product-photo v24-photo click-photo product-gallery" onclick="dealerProductDetails('${p.item}')">
       <button class="gallery-arrow left" type="button" onclick="event.stopPropagation();slideCardPhoto('dealer','${p.item}',-1)"><i class="fa-solid fa-chevron-left"></i></button>
       <div class="placeholder-icon gallery-visual" id="visual-dealer-${p.item}">${p.icon}</div>
