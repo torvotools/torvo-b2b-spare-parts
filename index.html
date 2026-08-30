@@ -1203,6 +1203,90 @@
 
 </style>
 <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.7.2/css/all.min.css">
+
+<style id="torvo-v22-safe-upgrade">
+/* ===== TORVO V22 SAFE UPGRADE: RESPONSIVE + CARD READABILITY + PAGINATION + ORDER REVIEW ===== */
+:root{--v22-page-max:1840px;--v22-free-limit:10000px;}
+.container{width:min(var(--v22-page-max),96%)!important;max-width:none!important}
+.dealer-layout{width:min(var(--v22-page-max),97%)!important;max-width:none!important}
+@media (min-width:1500px){
+  .product-grid{grid-template-columns:repeat(auto-fit,minmax(220px,1fr))!important}
+  .dealer-layout{grid-template-columns:235px minmax(0,1fr)!important}
+  .dealer-main{min-width:0!important}
+}
+@media (min-width:1900px){
+  .container{width:96.5%!important}
+  .dealer-layout{width:97.5%!important}
+  .product-grid{grid-template-columns:repeat(auto-fit,minmax(235px,1fr))!important}
+}
+@media (min-width:761px) and (max-width:1250px){
+  .container{width:95%!important}
+  .dealer-layout{width:96%!important;grid-template-columns:205px minmax(0,1fr)!important}
+  .product-grid{grid-template-columns:repeat(3,minmax(0,1fr))!important}
+}
+@media (max-width:760px){
+  .container,.dealer-layout{width:94%!important}
+  .product-grid{grid-template-columns:repeat(2,minmax(0,1fr))!important}
+}
+
+/* Product card separation/readability */
+.product-card{overflow:hidden!important}
+.product-photo{background:#fff!important;padding-top:18px!important}
+.product-body{background:#f7f8fa!important;border-top:1px solid #e5e7eb!important}
+.product-body .item-no{color:#c71920!important;font-weight:950!important;letter-spacing:.2px!important}
+.product-body .product-name{color:#111827!important;font-weight:950!important;font-size:13px!important;line-height:1.25!important}
+.product-meta{gap:6px!important}
+.product-meta .meta-cell{background:#fff!important;border:1px solid #e6e9ee!important;border-radius:8px!important;padding:6px 7px!important}
+.product-meta .meta-cell b{color:#5d6470!important;font-weight:850!important}
+.product-meta .meta-cell span{color:#141922!important;font-weight:900!important}
+
+/* Simple quantity controls: no solid red/green blocks */
+.qty-control{background:#fff!important;border:1px solid #d7dce4!important}
+.qty-control button,.qty-control button:first-child,.qty-control button:last-child{
+  background:#fff!important;border:0!important;color:#273142!important;box-shadow:none!important
+}
+.qty-control button:first-child{color:#c62828!important;border-right:1px solid #e1e5eb!important}
+.qty-control button:last-child{color:#16864b!important;border-left:1px solid #e1e5eb!important}
+.qty-control button:hover,.qty-control button:first-child:hover,.qty-control button:last-child:hover{background:#f2f4f7!important}
+.qty-control input.qty-input{background:#fff!important;color:#111827!important;font-weight:950!important}
+
+/* Public LOGIN FOR RATE becomes a clean action */
+button.top-rate-badge.rate-info{cursor:pointer!important;border:1px solid #e0e4ea!important}
+button.top-rate-badge.rate-info:hover{transform:translateY(-1px);box-shadow:0 4px 10px rgba(0,0,0,.09)!important}
+
+/* Pagination */
+.torvo-pagination{display:flex;align-items:center;justify-content:center;gap:6px;margin:18px 0 4px;flex-wrap:wrap}
+.torvo-pagination button{min-width:34px;height:34px;border:1px solid #d8dde5;background:#fff;color:#273142;border-radius:8px;font-weight:900;cursor:pointer;padding:0 9px}
+.torvo-pagination button:hover{background:#f3f5f8}
+.torvo-pagination button.active{background:#e11d2e;color:#fff;border-color:#e11d2e}
+.torvo-pagination button:disabled{opacity:.35;cursor:not-allowed}
+.torvo-pagination .dots{padding:0 2px;color:#717784;font-weight:900}
+@media(max-width:760px){.torvo-pagination{gap:4px}.torvo-pagination button{min-width:30px;height:32px;padding:0 7px}}
+
+/* Order review */
+.v22-review-overlay{position:fixed;inset:0;background:rgba(15,18,24,.58);z-index:10050;display:none;align-items:center;justify-content:center;padding:18px}
+.v22-review-overlay.show{display:flex}
+.v22-review-box{width:min(920px,96vw);max-height:90vh;overflow:auto;background:#fff;border-radius:18px;box-shadow:0 24px 70px rgba(0,0,0,.28)}
+.v22-review-head{position:sticky;top:0;z-index:2;background:#111318;color:#fff;padding:14px 16px;display:flex;align-items:center;justify-content:space-between;gap:10px}
+.v22-review-head strong{font-size:15px}.v22-review-head button{border:0;background:#fff;color:#111;width:34px;height:34px;border-radius:9px;font-size:22px;cursor:pointer}
+.v22-review-body{padding:14px}
+.v22-review-line{display:grid;grid-template-columns:52px minmax(0,1fr) auto;gap:10px;align-items:center;border:1px solid #e3e6ec;border-radius:12px;padding:10px;margin-bottom:9px;background:#fafbfc}
+.v22-review-thumb{width:48px;height:48px;border-radius:10px;background:#fff;border:1px solid #e3e6ec;display:grid;place-items:center;font-size:25px}
+.v22-review-name b{display:block;color:#111827}.v22-review-name small{display:block;color:#6b7280;margin-top:3px}
+.v22-review-controls{display:flex;align-items:center;gap:5px;flex-wrap:wrap;justify-content:flex-end}
+.v22-review-controls button{height:32px;border:1px solid #d8dde5;background:#fff;border-radius:8px;font-weight:900;cursor:pointer;padding:0 9px}
+.v22-review-controls input{width:64px;height:32px;border:1px solid #d8dde5;border-radius:8px;text-align:center;font-weight:950}
+.v22-pack-btn{color:#145da0!important;background:#eef6ff!important;border-color:#bfd8f3!important}
+.v22-summary{margin-top:12px;border:1px solid #dfe3ea;border-radius:14px;overflow:hidden}
+.v22-summary-row{display:flex;justify-content:space-between;gap:10px;padding:10px 12px;border-bottom:1px solid #e8ebef;background:#fff}
+.v22-summary-row:last-child{border-bottom:0}.v22-summary-row strong{color:#111827}
+.v22-delivery-note{margin-top:12px;border-radius:12px;padding:11px 12px;font-weight:900;text-align:center}
+.v22-delivery-note.free{background:#e9f8ef;color:#157a43;border:1px solid #b8e4c8}
+.v22-delivery-note.charge{background:#fff4e8;color:#9a4f00;border:1px solid #ffd3a3}
+.v22-delivery-note.info{background:#eef5ff;color:#164f91;border:1px solid #c7daf4}
+.v22-submit-order{width:100%;margin-top:12px;min-height:44px;border:0;border-radius:10px;background:#d71920;color:#fff;font-weight:950;cursor:pointer}
+@media(max-width:640px){.v22-review-line{grid-template-columns:45px 1fr}.v22-review-controls{grid-column:1/-1;justify-content:flex-start}.v22-review-thumb{width:42px;height:42px}}
+</style>
 </head>
 <body>
 <div id="publicSite">
@@ -2146,6 +2230,77 @@ function submitTargetRequest(){
   playTorvoSound("success");
   alert("Target request preview submitted. TORVO Admin approval and private benefits will be connected securely with the backend.");
 }
+</script>
+
+<script id="torvo-v22-safe-upgrade-script">
+(function(){
+  "use strict";
+  const PAGE_SIZE=10;
+  const DELIVERY_RULE={freeLimit:10000,belowLimitCharge:300};
+  let publicResults=Array.isArray(window.demoProducts)?window.demoProducts:[];
+  let dealerResults=Array.isArray(window.demoProducts)?window.demoProducts:[];
+  let publicPage=1,dealerPage=1;
+
+  function allProducts(){return (typeof demoProducts!=="undefined"&&Array.isArray(demoProducts))?demoProducts:[]}
+  publicResults=allProducts();dealerResults=allProducts();
+
+  function v22PublicCard(p){const badge=typeof badgeClass==="function"?badgeClass(p.tag):"";return `<div class="product-card">
+    <div class="product-photo click-photo product-gallery" onclick="publicProductDetails('${p.item}')" title="View product details">
+      <span class="product-badge ${badge}">${p.tag}</span>
+      <button class="top-rate-badge rate-info" type="button" onclick="event.stopPropagation();openAuth('login')"><i class="fa-solid fa-lock"></i> LOGIN FOR RATE</button>
+      <button class="gallery-arrow left" type="button" onclick="event.stopPropagation();slideCardPhoto('public','${p.item}',-1)" aria-label="Previous photo"><i class="fa-solid fa-chevron-left"></i></button>
+      <div class="placeholder-icon gallery-visual" id="visual-public-${p.item}">${p.icon}</div>
+      <span class="photo-counter" id="counter-public-${p.item}">1/3</span>
+      <button class="gallery-arrow right" type="button" onclick="event.stopPropagation();slideCardPhoto('public','${p.item}',1)" aria-label="Next photo"><i class="fa-solid fa-chevron-right"></i></button>
+    </div>
+    <div class="product-body">
+      <div class="item-no">ITEM: ${p.item}</div><div class="product-name">${p.name}</div>
+      <div class="product-meta"><div class="meta-cell"><b>Machine Brand</b><span>${p.brand}</span></div><div class="meta-cell"><b>Part Brand</b><span>${p.spareBrand}</span></div><div class="meta-cell"><b>Model</b><span>${p.model}</span></div><div class="meta-cell"><b>System</b><span>${p.system}</span></div></div>
+      <div class="public-detail-row"><button class="details-btn public-full-detail" onclick="publicProductDetails('${p.item}')"><i class="fa-regular fa-eye"></i> VIEW DETAILS</button></div>
+    </div></div>`}
+
+  function v22DealerCard(p){const badge=typeof badgeClass==="function"?badgeClass(p.tag):"";return `<div class="product-card">
+    <div class="product-photo click-photo product-gallery" onclick="dealerProductDetails('${p.item}')">
+      <span class="product-badge ${badge}">${p.tag}</span><button class="eye-btn" type="button" title="View Product" onclick="event.stopPropagation();dealerProductDetails('${p.item}')"><i class="fa-regular fa-eye"></i></button>
+      <button class="gallery-arrow left" type="button" onclick="event.stopPropagation();slideCardPhoto('dealer','${p.item}',-1)"><i class="fa-solid fa-chevron-left"></i></button>
+      <div class="placeholder-icon gallery-visual" id="visual-dealer-${p.item}">${p.icon}</div><span class="photo-counter" id="counter-dealer-${p.item}">1/3</span>
+      <button class="gallery-arrow right" type="button" onclick="event.stopPropagation();slideCardPhoto('dealer','${p.item}',1)"><i class="fa-solid fa-chevron-right"></i></button>
+    </div>
+    <div class="product-body"><div class="item-no">ITEM: ${p.item}</div><div class="product-name">${p.name}</div>
+      <div class="product-meta"><div class="meta-cell"><b>Machine Brand</b><span>${p.brand}</span></div><div class="meta-cell"><b>Part Brand</b><span>${p.spareBrand}</span></div><div class="meta-cell"><b>Model</b><span>${p.model}</span></div><div class="meta-cell"><b>System</b><span>${p.system}</span></div></div>
+      <div class="dealer-rate">${p.dealerRate}</div>
+      <div class="cart-controls"><div class="qty-control" id="qtybox-${p.item}"><button id="minus-${p.item}" onclick="changeQty('${p.item}',-1)">−</button><input id="qty-${p.item}" class="qty-input" type="number" min="1" value="1" inputmode="numeric" oninput="sanitizeQty('${p.item}')"><button id="plus-${p.item}" onclick="changeQty('${p.item}',1)">+</button></div><button class="add-cart-btn dealer-cart-btn" id="cart-${p.item}" title="Add to Cart" aria-label="Add to Cart" onclick="addDemoCart('${p.item}',this)"><i class="fa-solid fa-cart-plus"></i></button></div>
+    </div></div>`}
+
+  function paginationHtml(total,page,kind){
+    const pages=Math.max(1,Math.ceil(total/PAGE_SIZE)); if(pages<=1)return "";
+    let nums=[];
+    if(pages<=7){for(let i=1;i<=pages;i++)nums.push(i)}
+    else{nums=[1];if(page>3)nums.push("...");for(let i=Math.max(2,page-1);i<=Math.min(pages-1,page+1);i++)nums.push(i);if(page<pages-2)nums.push("...");nums.push(pages)}
+    return `<div class="torvo-pagination" aria-label="Product pages"><button ${page<=1?"disabled":""} onclick="torvoGoPage('${kind}',${page-1})">←</button>${nums.map(n=>n==="..."?`<span class="dots">…</span>`:`<button class="${n===page?"active":""}" onclick="torvoGoPage('${kind}',${n})">${n}</button>`).join("")}<button ${page>=pages?"disabled":""} onclick="torvoGoPage('${kind}',${page+1})">→</button></div>`
+  }
+  function ensurePager(gridId,pagerId){const g=document.getElementById(gridId);if(!g)return null;let p=document.getElementById(pagerId);if(!p){p=document.createElement("div");p.id=pagerId;g.insertAdjacentElement("afterend",p)}return p}
+  window.torvoGoPage=function(kind,page){
+    if(kind==="public"){const pages=Math.max(1,Math.ceil(publicResults.length/PAGE_SIZE));publicPage=Math.min(pages,Math.max(1,page));window.renderPublicProducts(publicResults,true);document.getElementById("productsSection")?.scrollIntoView({behavior:"smooth",block:"start"})}
+    else{const pages=Math.max(1,Math.ceil(dealerResults.length/PAGE_SIZE));dealerPage=Math.min(pages,Math.max(1,page));window.renderDealerProducts(dealerResults,true);document.getElementById("dealerProductGrid")?.scrollIntoView({behavior:"smooth",block:"start"})}
+  };
+  window.renderPublicProducts=function(products,keepPage){publicResults=Array.isArray(products)?products:allProducts();if(!keepPage)publicPage=1;const g=document.getElementById("publicProductGrid");if(!g)return;const start=(publicPage-1)*PAGE_SIZE,arr=publicResults.slice(start,start+PAGE_SIZE);g.innerHTML=arr.length?arr.map(v22PublicCard).join(""):`<div style="grid-column:1/-1;background:#fff;border:1px solid #e2e4e8;border-radius:16px;padding:25px;text-align:center">No matching product found. You can send a Part Enquiry.</div>`;const p=ensurePager("publicProductGrid","publicProductPager");if(p)p.innerHTML=paginationHtml(publicResults.length,publicPage,"public")};
+  window.renderDealerProducts=function(products,keepPage){dealerResults=Array.isArray(products)?products:allProducts();if(!keepPage)dealerPage=1;const g=document.getElementById("dealerProductGrid");if(!g)return;const start=(dealerPage-1)*PAGE_SIZE,arr=dealerResults.slice(start,start+PAGE_SIZE);g.innerHTML=arr.length?arr.map(v22DealerCard).join(""):`<div style="grid-column:1/-1;background:#fff;border:1px solid #e2e4e8;border-radius:16px;padding:25px;text-align:center">No matching product found.</div>`;const p=ensurePager("dealerProductGrid","dealerProductPager");if(p)p.innerHTML=paginationHtml(dealerResults.length,dealerPage,"dealer")};
+
+  function money(n){return "₹"+Number(n||0).toLocaleString("en-IN",{maximumFractionDigits:2})}
+  function numericRate(p){const text=String(p?.dealerRate||"");const n=parseFloat(text.replace(/[^0-9.]/g,""));return Number.isFinite(n)?n:0}
+  function ensureReviewModal(){if(document.getElementById("v22OrderReview"))return;document.body.insertAdjacentHTML("beforeend",`<div class="v22-review-overlay" id="v22OrderReview"><div class="v22-review-box"><div class="v22-review-head"><strong><i class="fa-solid fa-clipboard-check"></i> FINAL ORDER REVIEW</strong><button onclick="closeOrderReview()">×</button></div><div class="v22-review-body" id="v22ReviewBody"></div></div></div>`)}
+  window.closeOrderReview=function(){document.getElementById("v22OrderReview")?.classList.remove("show")};
+  window.v22ReviewQty=function(item,delta){if(!window.demoCartState||!demoCartState[item])return;demoCartState[item].qty=Math.max(1,Number(demoCartState[item].qty||1)+Number(delta||0));renderOrderReview()};
+  window.v22ReviewSetQty=function(item,value){if(!window.demoCartState||!demoCartState[item])return;demoCartState[item].qty=Math.max(1,parseInt(value||1,10)||1);renderOrderReview()};
+  window.renderOrderReview=function(){ensureReviewModal();const body=document.getElementById("v22ReviewBody"),cart=(typeof demoCartState!=="undefined"?demoCartState:{}),keys=Object.keys(cart||{});if(!keys.length){body.innerHTML="<div class='empty-cart'><b>Your cart is empty.</b></div>";return}let qty=0,amount=0,hasLiveRate=true;const rows=keys.map(item=>{const p=allProducts().find(x=>x.item===item)||{};const q=Math.max(1,Number(cart[item].qty||1));qty+=q;const rate=numericRate(p);if(!rate)hasLiveRate=false;amount+=rate*q;const packs=(Array.isArray(p.packOptions)&&p.packOptions.length?p.packOptions:[10,20]).slice(0,3);return `<div class="v22-review-line"><div class="v22-review-thumb">${p.icon||"⚙️"}</div><div class="v22-review-name"><b>${p.name||item}</b><small>ITEM: ${item}${rate?` • ${money(rate)} each`:""}</small></div><div class="v22-review-controls"><button onclick="v22ReviewQty('${item}',-1)">−</button><input type="number" min="1" value="${q}" onchange="v22ReviewSetQty('${item}',this.value)"><button onclick="v22ReviewQty('${item}',1)">+</button>${packs.map(n=>`<button class="v22-pack-btn" title="Add pack quantity" onclick="v22ReviewQty('${item}',${Number(n)})">+${Number(n)}</button>`).join("")}</div></div>`}).join("");let delivery=0,note="";if(hasLiveRate){delivery=amount<DELIVERY_RULE.freeLimit?DELIVERY_RULE.belowLimitCharge:0;note=amount>=DELIVERY_RULE.freeLimit?`<div class="v22-delivery-note free">✓ FREE DELIVERY – PAN INDIA</div>`:`<div class="v22-delivery-note charge">Delivery Charge ${money(DELIVERY_RULE.belowLimitCharge)} • Add ${money(DELIVERY_RULE.freeLimit-amount)} more to unlock FREE DELIVERY PAN INDIA</div>`}else{note=`<div class="v22-delivery-note info">Delivery Rule: Below ${money(DELIVERY_RULE.freeLimit)} = ${money(DELIVERY_RULE.belowLimitCharge)} delivery • ${money(DELIVERY_RULE.freeLimit)}+ = FREE PAN INDIA.<br><small>Final amount will calculate from live dealer rates.</small></div>`}body.innerHTML=rows+`<div class="v22-summary"><div class="v22-summary-row"><span>Total Items</span><strong>${keys.length}</strong></div><div class="v22-summary-row"><span>Total Quantity</span><strong>${qty}</strong></div><div class="v22-summary-row"><span>Order Amount</span><strong>${hasLiveRate?money(amount):"LIVE RATE DATA REQUIRED"}</strong></div><div class="v22-summary-row"><span>Delivery Charge</span><strong>${hasLiveRate?money(delivery):"RULE READY"}</strong></div><div class="v22-summary-row"><span>Final Amount</span><strong>${hasLiveRate?money(amount+delivery):"LIVE RATE DATA REQUIRED"}</strong></div></div>${note}<button class="v22-submit-order" onclick="futureFeature('Secure Sales Order Submit / Backend')"><i class="fa-solid fa-paper-plane"></i> SUBMIT SALES ORDER</button>`};
+  window.openOrderReview=function(){ensureReviewModal();renderOrderReview();document.getElementById("v22OrderReview")?.classList.add("show");if(typeof playTorvoSound==="function")playTorvoSound("popup")};
+
+  window.renderCart=function(){const body=document.getElementById("cartBody");if(!body)return;const cart=(typeof demoCartState!=="undefined"?demoCartState:{}),keys=Object.keys(cart||{});if(!keys.length){body.innerHTML='<div class="empty-cart"><i class="fa-solid fa-cart-shopping"></i><b>Your cart is empty.</b><button class="continue-shopping" onclick="continueShopping()">CONTINUE SHOPPING</button></div>';return}let totalQty=0,totalAmount=0,hasLiveRate=true;const rows=keys.map(item=>{const p=allProducts().find(x=>x.item===item)||{};const q=cart[item].qty;totalQty+=q;const rate=numericRate(p);if(!rate)hasLiveRate=false;totalAmount+=rate*q;return `<div class="cart-line"><div class="cart-thumb">${p.icon||"⚙️"}</div><div><b>${p.name||item}</b><small>ITEM: ${item}</small></div><input class="cart-edit-qty" type="number" min="1" value="${q}" onchange="cartQty('${item}',this.value)"><button class="cart-remove" onclick="removeCartItem('${item}')"><i class="fa-solid fa-trash"></i></button></div>`}).join("");body.innerHTML=rows+`<div class="cart-summary"><div><b>Total Items</b><strong>${keys.length}</strong></div><div><b>Total Quantity</b><strong>${totalQty}</strong></div><div><b>Estimated Amount</b><strong>${hasLiveRate?money(totalAmount):"Live Rate"}</strong></div></div><button class="primary-btn review-order-btn" onclick="openOrderReview()"><i class="fa-solid fa-clipboard-check"></i> REVIEW ORDER</button>`};
+
+  document.addEventListener("click",function(e){if(e.target===document.getElementById("v22OrderReview"))closeOrderReview()});
+  window.renderPublicProducts(allProducts());window.renderDealerProducts(allProducts());
+})();
 </script>
 </body>
 </html>
