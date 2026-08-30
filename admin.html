@@ -818,6 +818,7 @@ input[type="email"],input[type="password"]{text-transform:none!important}
 @media(max-width:760px){.v28ProductFinder{grid-template-columns:repeat(2,minmax(0,1fr))}.v28FindBtn,.v28ClearBtn{width:100%}}
 
 </style>
+<!-- TORVO V29: NAVIGATION FIX - BACKUP REMINDER NO LONGER BLOCKS SECTIONS -->
 </head>
 <body>
 <div class="app">
@@ -2303,7 +2304,7 @@ function fullBackupV16(){return{version:"TORVO-V16",createdAt:new Date().toISOSt
 async function backupNowV16(){var text=JSON.stringify(fullBackupV16(),null,2),blob=new Blob([text],{type:"application/json"}),name="TORVO_FULL_BACKUP_"+new Date().toISOString().replace(/[:.]/g,"-")+".json";try{if(window.__torvoBackupDirV16){var h=await window.__torvoBackupDirV16.getFileHandle(name,{create:true}),w=await h.createWritable();await w.write(blob);await w.close()}else{var a=document.createElement("a"),u=URL.createObjectURL(blob);a.href=u;a.download=name;a.click();setTimeout(function(){URL.revokeObjectURL(u)},500)}var ts=Date.now(),hist=backupHistoryV16();hist.unshift({time:fmtDTV16(ts),size:(blob.size/1024).toFixed(1)+" KB"});localStorage.setItem(BACKUP_TS_V16,String(ts));localStorage.setItem("TORVO_LAST_BACKUP",fmtDTV16(ts));localStorage.setItem(BACKUP_HISTORY_V16,JSON.stringify(hist.slice(0,50)));updateBackupUIV16();toast("FULL BACKUP SUCCESSFUL — NEXT DUE IN 24 HOURS","success")}catch(e){toast("BACKUP SAVE FAILED","error")}}
 async function chooseBackupFolderV16(){if(!window.showDirectoryPicker)return toast("DIRECT FOLDER SAVE NOT SUPPORTED HERE — DOWNLOADS WILL BE USED","alert");try{window.__torvoBackupDirV16=await window.showDirectoryPicker({mode:"readwrite"});E("backupFolderV16").textContent="LOCATION SELECTED FOR THIS SESSION: "+(window.__torvoBackupDirV16.name||"SELECTED FOLDER");toast("BACKUP LOCATION SELECTED","success")}catch(e){}}
 function emailBackupV16(){toast("SECURE EMAIL BACKUP WILL USE SUPABASE EDGE FUNCTION / EMAIL SERVICE. NO SMTP OR API SECRET WILL BE STORED IN HTML.","alert")}
-var _openSectionV16=openSection;openSection=function(id,btn){if(backupDueV16()&&id!=="settings"&&id!=="dashboard"){_openSectionV16("settings",null);setTimeout(function(){settingsOpen("setBackup");updateBackupUIV16()},20);toast("BACKUP DUE — TAKE A SUCCESSFUL BACKUP TO CONTINUE","error");return}return _openSectionV16(id,btn)};
+var _openSectionV16=openSection;openSection=function(id,btn){if(backupDueV16()&&id!=="settings"&&id!=="dashboard"){toast("BACKUP DUE — PLEASE TAKE A BACKUP SOON","warning");updateBackupUIV16()}return _openSectionV16(id,btn)};
 function fixRefreshV16(){document.querySelectorAll("button").forEach(function(b){if(N(b.textContent).trim().startsWith("refresh")){b.type="button";b.onclick=function(e){e.preventDefault();e.stopPropagation();try{refreshAll();refreshItemIdentityMasters()}catch(x){};updateBackupUIV16();toneV14("success");toast("DATA REFRESHED","success");return false}}})}
 function initV16(){initReportsV16();ensureBackupClockV16();updateBackupUIV16();updateVerifyV15();fixRefreshV16();reportHomeV16()}setTimeout(initV16,150);
 
