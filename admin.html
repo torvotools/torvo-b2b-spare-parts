@@ -801,6 +801,23 @@ body{zoom:1.00!important}
 .v27SuitableSearchRow{display:flex;gap:8px;align-items:center;flex-wrap:wrap}.v27SuitableSearchRow input{flex:1;min-width:240px}
 </style>
 
+<style id="torvo-admin-v28">
+
+/* ===== TORVO ADMIN V28: RESPONSIVE + PRODUCT FILTER + UPPERCASE ===== */
+html,body{max-width:100%;overflow-x:hidden}
+body,button,select,option,label,table,.panel,.card,.section,.nav,.rnav{text-transform:uppercase}
+input:not([type="email"]):not([type="password"]),textarea{text-transform:uppercase}
+input[type="email"],input[type="password"]{text-transform:none!important}
+.main,.content,.workspace{min-width:0!important;max-width:none!important}
+.v28ProductFinder{display:grid;grid-template-columns:repeat(6,minmax(125px,1fr)) auto auto;gap:7px;align-items:end;margin:9px 0 10px;padding:10px;border:1px solid #d6d9df;border-radius:10px;background:#f8fafc}
+.v28ProductFinder label{font-size:7.5px;font-weight:1000;color:#374151;display:block;min-width:0}.v28ProductFinder select{width:100%;height:34px;margin-top:4px;border:1px solid #cbd0d8;border-radius:7px;background:#fff;padding:0 7px;font-size:8px;font-weight:900;min-width:0}.v28FindBtn,.v28ClearBtn{height:34px!important;white-space:nowrap!important;padding:0 9px!important}.v28ClearBtn{font-size:7px!important}
+.v28Pager{display:flex;justify-content:center;align-items:center;gap:5px;flex-wrap:wrap;margin:12px 0 4px}.v28Pager button{min-width:30px;height:30px;border:1px solid #cbd0d8;border-radius:7px;background:#fff;color:#111827;font-size:8px;font-weight:1000;cursor:pointer}.v28Pager button.active{background:#d71920;color:#fff;border-color:#d71920}.v28Pager button:disabled{opacity:.35;cursor:not-allowed}.v28Pager span{font-size:9px;font-weight:900;color:#6b7280}
+#v22AutoSync .v26TimerBadge,.v22AutoSync .v26TimerBadge{min-width:21px!important;width:21px!important;height:21px!important;border-radius:50%!important;font-size:9px!important;margin-left:4px!important;border:1px solid #fff!important;box-shadow:0 0 0 1px rgba(17,24,39,.08)!important}
+@media(min-width:1500px){.content,.main{max-width:none!important}.itemGrid{grid-template-columns:repeat(auto-fit,minmax(285px,1fr))!important}}
+@media(max-width:1250px){.v28ProductFinder{grid-template-columns:repeat(3,minmax(0,1fr))}.v28FindBtn,.v28ClearBtn{width:100%}}
+@media(max-width:760px){.v28ProductFinder{grid-template-columns:repeat(2,minmax(0,1fr))}.v28FindBtn,.v28ClearBtn{width:100%}}
+
+</style>
 </head>
 <body>
 <div class="app">
@@ -912,8 +929,18 @@ Machines are not sold on this portal. Dealer website sales are only for Spare Pa
 <div class="card" onclick="setFilter('top')"><small>TOP SELLING</small><strong id="imTop">0</strong></div>
 <div class="card" onclick="setFilter('low')"><small>LEAST SELLING</small><strong id="imLow">0</strong></div>
 </div>
-<div class="toolbar" style="margin-top:8px"><input id="itemSearch" class="grow upper" placeholder="SEARCH ITEM NO., PRODUCT, BRAND, MACHINE, SIZE..." oninput="renderItems()"><button class="btn blue" onclick="setFilter('all')">ALL</button><button class="btn green" onclick="setFilter('in')">IN STOCK</button><button class="btn red" onclick="setFilter('out')">OUT</button><button class="btn orange" onclick="setFilter('reorder')">REORDER</button><button class="btn purple" onclick="setFilter('top')">TOP</button><button class="btn dark" onclick="setFilter('low')">LEAST</button></div>
-<div id="itemGrid" class="itemGrid"></div></div>
+<div class="toolbar" style="margin-top:8px"><input id="itemSearch" class="grow upper" placeholder="SEARCH ITEM NO., PRODUCT, BRAND, MACHINE, SIZE..." oninput="adminV28ResetPage();renderItems()"><button class="btn blue" onclick="setFilter('all')">ALL</button><button class="btn green" onclick="setFilter('in')">IN STOCK</button><button class="btn red" onclick="setFilter('out')">OUT</button><button class="btn orange" onclick="setFilter('reorder')">REORDER</button><button class="btn purple" onclick="setFilter('top')">TOP</button><button class="btn dark" onclick="setFilter('low')">LEAST</button></div>
+<div class="v28ProductFinder" id="v28ProductFinder">
+  <label>PRODUCT TYPE<select id="v28FType" onchange="v28FinderChanged('type')"><option value="">ALL TYPES</option></select></label>
+  <label>MACHINE SYSTEM / TYPE<select id="v28FSystem" onchange="v28FinderChanged('system')"><option value="">ALL SYSTEMS</option></select></label>
+  <label>BRAND / COMPANY<select id="v28FBrand" onchange="v28FinderChanged('brand')"><option value="">ALL BRANDS</option></select></label>
+  <label>MACHINE<select id="v28FMachine" onchange="v28FinderChanged('machine')"><option value="">ALL MACHINES</option></select></label>
+  <label>MODEL<select id="v28FModel" onchange="v28FinderChanged('model')"><option value="">ALL MODELS</option></select></label>
+  <label>PART / CATEGORY<select id="v28FPart" onchange="adminV28ResetPage()"><option value="">ALL PARTS</option></select></label>
+  <button class="btn green v28FindBtn" onclick="adminV28ResetPage();renderItems()">FIND PARTS</button>
+  <button class="btn light v28ClearBtn" onclick="v28ClearFinder()">CLEAR ALL</button>
+</div>
+<div id="itemGrid" class="itemGrid"></div><div id="v28ItemPager" class="v28Pager"></div></div>
 </section>
 
 <section id="suitable" class="section">
@@ -1501,7 +1528,9 @@ function inventoryDelete(i){
 }
 
 function renderItems(){
- var a=filteredItems();
+ var all=filteredItems();
+ var pages=Math.max(1,Math.ceil(all.length/adminV28PageSize));adminV28ItemPage=Math.min(Math.max(1,adminV28ItemPage),pages);
+ var a=all.slice((adminV28ItemPage-1)*adminV28PageSize,adminV28ItemPage*adminV28PageSize);
  E("itemGrid").innerHTML=a.length?a.map(function(x){
   var i=DB.items.indexOf(x);
   return "<div class='itemCard'>"+
@@ -1527,6 +1556,8 @@ function renderItems(){
    "</div>"+
   "</div>"
  }).join(""):"<div class='empty'>NO MATCHING ITEMS.</div>"
+ var pager=E("v28ItemPager");if(pager){pager.innerHTML=adminV28PagerHtml(all.length,adminV28ItemPage)}
+
 }
 
 
@@ -2950,6 +2981,23 @@ window.v27CheckSuitableProduct=function(){
  (maps.length?maps.map(function(m){return '✅ '+String(m.brand||"")+' '+String(m.model||m.machineModel||"")}).join("<br>"):'NO SUITABLE MACHINE MAPPING FOUND YET.');
 }
 })();
+
+
+/* ===== TORVO ADMIN V28 PRODUCT FINDER / PAGINATION / UPPERCASE ===== */
+var adminV28ItemPage=1,adminV28PageSize=10;
+function adminV28ResetPage(){adminV28ItemPage=1}
+function v28Unique(a){return Array.from(new Set((a||[]).filter(Boolean).map(function(v){return U(String(v))}))).sort()}
+function v28SetOptions(id,vals,label,keep){var el=E(id);if(!el)return;var current=keep?el.value:"";el.innerHTML='<option value="">'+label+'</option>'+v28Unique(vals).map(function(v){return'<option>'+H(v)+'</option>'}).join('');if(current&&Array.from(el.options).some(function(o){return o.value===current}))el.value=current}
+function v28MachinesForItem(x){var models=(x.machines||[]).map(U);return (DB.machines||[]).filter(function(m){return models.includes(U(m.model))})}
+function v28FinderBase(){var type=E('v28FType')?E('v28FType').value:'',system=E('v28FSystem')?E('v28FSystem').value:'',brand=E('v28FBrand')?E('v28FBrand').value:'',machine=E('v28FMachine')?E('v28FMachine').value:'',model=E('v28FModel')?E('v28FModel').value:'';return (DB.items||[]).filter(function(x){var ms=v28MachinesForItem(x);if(type&&U(x.type)!==U(type))return false;if(system&&!ms.some(function(m){return U(m.work)===U(system)}))return false;if(brand&&U(x.brand)!==U(brand)&&!ms.some(function(m){return U(m.brand)===U(brand)}))return false;if(machine&&!ms.some(function(m){return U(m.type)===U(machine)}))return false;if(model&&!ms.some(function(m){return U(m.model)===U(model)}))return false;return true})}
+function v28RefreshFinder(){var base=v28FinderBase(),allM=[];base.forEach(function(x){allM=allM.concat(v28MachinesForItem(x))});v28SetOptions('v28FType',(DB.items||[]).map(function(x){return x.type}),'ALL TYPES',true);v28SetOptions('v28FSystem',allM.map(function(m){return m.work}),'ALL SYSTEMS',true);v28SetOptions('v28FBrand',v28Unique(base.map(function(x){return x.brand}).concat(allM.map(function(m){return m.brand}))),'ALL BRANDS',true);v28SetOptions('v28FMachine',allM.map(function(m){return m.type}),'ALL MACHINES',true);v28SetOptions('v28FModel',allM.map(function(m){return m.model}),'ALL MODELS',true);v28SetOptions('v28FPart',base.map(function(x){return x.category}),'ALL PARTS',true)}
+function v28FinderChanged(level){adminV28ResetPage();var order=['type','system','brand','machine','model'],ids=['v28FType','v28FSystem','v28FBrand','v28FMachine','v28FModel'];var i=order.indexOf(level);for(var j=i+1;j<ids.length;j++){if(E(ids[j]))E(ids[j]).value=''}if(E('v28FPart'))E('v28FPart').value='';v28RefreshFinder();renderItems()}
+function v28ClearFinder(){['v28FType','v28FSystem','v28FBrand','v28FMachine','v28FModel','v28FPart'].forEach(function(id){if(E(id))E(id).value=''});adminV28ResetPage();v28RefreshFinder();renderItems()}
+var _v27FilteredItems=filteredItems;
+filteredItems=function(){var a=_v27FilteredItems();var type=E('v28FType')?E('v28FType').value:'',system=E('v28FSystem')?E('v28FSystem').value:'',brand=E('v28FBrand')?E('v28FBrand').value:'',machine=E('v28FMachine')?E('v28FMachine').value:'',model=E('v28FModel')?E('v28FModel').value:'',part=E('v28FPart')?E('v28FPart').value:'';return a.filter(function(x){var ms=v28MachinesForItem(x);if(type&&U(x.type)!==U(type))return false;if(system&&!ms.some(function(m){return U(m.work)===U(system)}))return false;if(brand&&U(x.brand)!==U(brand)&&!ms.some(function(m){return U(m.brand)===U(brand)}))return false;if(machine&&!ms.some(function(m){return U(m.type)===U(machine)}))return false;if(model&&!ms.some(function(m){return U(m.model)===U(model)}))return false;if(part&&U(x.category)!==U(part))return false;return true})}
+function adminV28PagerHtml(total,page){var pages=Math.max(1,Math.ceil(total/adminV28PageSize));if(pages<=1)return'';var nums=[];if(pages<=7){for(var i=1;i<=pages;i++)nums.push(i)}else{nums=[1];if(page>3)nums.push('...');for(var j=Math.max(2,page-1);j<=Math.min(pages-1,page+1);j++)nums.push(j);if(page<pages-2)nums.push('...');nums.push(pages)}return '<button '+(page<=1?'disabled':'')+' onclick="adminV28GoPage('+(page-1)+')">←</button>'+nums.map(function(n){return n==='...'?'<span>…</span>':'<button class="'+(n===page?'active':'')+'" onclick="adminV28GoPage('+n+')">'+n+'</button>'}).join('')+'<button '+(page>=pages?'disabled':'')+' onclick="adminV28GoPage('+(page+1)+')">→</button>'}
+function adminV28GoPage(p){var pages=Math.max(1,Math.ceil(filteredItems().length/adminV28PageSize));adminV28ItemPage=Math.min(pages,Math.max(1,p));renderItems();E('itemmaster')&&E('itemmaster').scrollIntoView({behavior:'smooth',block:'start'})}
+(function(){var preserve=new Set(['email','password','date','time','datetime-local','month','week','number','tel','url','file','range','color']);document.addEventListener('input',function(e){var el=e.target;if(!el||!el.matches('input,textarea'))return;var type=(el.getAttribute('type')||'text').toLowerCase();if(preserve.has(type)||el.dataset.preserveCase==='true')return;var a=el.selectionStart,b=el.selectionEnd,up=String(el.value||'').toUpperCase();if(el.value!==up){el.value=up;try{el.setSelectionRange(a,b)}catch(_){}}});setTimeout(function(){v28RefreshFinder();if(E('itemGrid'))renderItems()},500)})();
 </script>
 
 </body>
