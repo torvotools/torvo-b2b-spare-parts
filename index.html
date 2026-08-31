@@ -2499,6 +2499,211 @@ body.torvo-auth-locked{
 }
 </style>
 
+
+<style id="torvo-review-08-fixes">
+/* Dealer Access lower line back to white */
+.login-btn .login-sub{
+  color:#fff!important;
+  opacity:.96!important;
+}
+
+/* Dealer Login Customer Care: lightly bold, more breathing room, same popup size */
+.torvo-login-panel .torvo-support-mini{
+  min-height:50px!important;
+  margin:5px 0 7px!important;
+  padding:7px 10px 9px!important;
+}
+.torvo-support-left b{
+  font-weight:650!important;
+  font-size:8.8px!important;
+}
+.torvo-support-left a{
+  font-weight:650!important;
+  font-size:13px!important;
+}
+.torvo-wa-button{
+  font-weight:650!important;
+  box-shadow:none!important;
+}
+.torvo-security-note{
+  margin-top:2px!important;
+  padding:4px 7px!important;
+}
+
+/* Hero delivery: medium/light bold, not heavy */
+.hero-delivery-note b{
+  font-weight:650!important;
+}
+.hero-delivery-note span{
+  font-weight:600!important;
+}
+
+/* Product card: one clean centered code only */
+.v24-card-top{
+  display:grid!important;
+  grid-template-columns:minmax(0,1fr) 26px!important;
+  align-items:center!important;
+  min-height:31px!important;
+  height:31px!important;
+  padding:5px 6px 3px!important;
+  gap:4px!important;
+}
+.v24-card-top.dealer-card-top{
+  grid-template-columns:minmax(0,1fr) 26px!important;
+}
+.v24-item-code{
+  grid-column:1!important;
+  text-align:center!important;
+  font-size:9.4px!important;
+  font-weight:450!important;
+  color:#8e2731!important;
+  letter-spacing:.15px!important;
+  white-space:nowrap!important;
+}
+.v24-card-top .rate-lock-only{
+  grid-column:2!important;
+  width:22px!important;
+  min-width:22px!important;
+  height:22px!important;
+  transform:none!important;
+}
+.v24-card-top .rate-lock-only i{font-size:8px!important}
+.dealer-code-spacer{grid-column:2;width:22px;height:22px}
+
+/* NEW / POPULAR inside the photo top-left */
+.v24-photo .product-badge{
+  position:absolute!important;
+  top:7px!important;
+  left:7px!important;
+  z-index:6!important;
+  font-size:7px!important;
+  line-height:1!important;
+  font-weight:600!important;
+  padding:3px 6px!important;
+  border-radius:9px!important;
+}
+
+/* Smaller gallery arrows */
+.v24-photo .gallery-arrow{
+  width:18px!important;
+  height:18px!important;
+  font-size:7px!important;
+}
+
+/* Product title: tiny amount of emphasis only */
+.v24-body .product-name{
+  font-size:10.1px!important;
+  font-weight:520!important;
+  line-height:1.13!important;
+  min-height:14px!important;
+  margin:0 1px 1px!important;
+}
+
+/* Card labels/values: mild emphasis, never heavy */
+.v24-spec-label{
+  font-weight:520!important;
+  font-size:8.2px!important;
+}
+.v24-spec-colon{
+  font-weight:500!important;
+}
+.v24-spec-value{
+  font-weight:520!important;
+  font-size:8.2px!important;
+}
+
+/* Less empty space between USRD FOR and VIEW DETAILS */
+.public-detail-row{
+  margin-top:4px!important;
+  padding-top:2px!important;
+}
+.public-full-detail{
+  margin-top:2px!important;
+  min-height:29px!important;
+  font-size:9px!important;
+  font-weight:600!important;
+}
+
+/* Email / Address / System Guide buttons: no extra shadow, same clean pattern */
+.email-now,
+.location-now,
+.guide-now,
+.diagram-now{
+  box-shadow:none!important;
+  transform:none!important;
+  filter:none!important;
+}
+.email-now:hover,
+.location-now:hover,
+.guide-now:hover,
+.diagram-now:hover{
+  box-shadow:none!important;
+  transform:none!important;
+}
+
+/* Footer app badges: proper matching pair */
+.footer-app-links{
+  display:flex!important;
+  gap:7px!important;
+  margin:8px 0 9px!important;
+  align-items:center!important;
+}
+.footer-app-links button{
+  min-width:84px!important;
+  height:29px!important;
+  display:inline-flex!important;
+  align-items:center!important;
+  justify-content:center!important;
+  gap:5px!important;
+  border:1px solid rgba(255,255,255,.38)!important;
+  background:#1a2233!important;
+  color:#fff!important;
+  border-radius:8px!important;
+  padding:0 9px!important;
+  font-size:8px!important;
+  font-weight:550!important;
+  box-shadow:none!important;
+}
+
+/* Process heading: keep bold, but lighter than before */
+.process-section .section-title,
+#howItWorks .section-title{
+  font-weight:650!important;
+}
+
+/* Step cards get right-flow arrows from Register to Happy Customer */
+.process-card:not(:last-child)::after{
+  content:"→";
+  position:absolute;
+  right:-12px;
+  top:50%;
+  transform:translateY(-50%);
+  width:24px;
+  height:24px;
+  display:flex;
+  align-items:center;
+  justify-content:center;
+  border-radius:50%;
+  background:#fff;
+  color:#d71920;
+  border:1px solid #e2e6ec;
+  font-size:15px;
+  font-weight:650;
+  z-index:4;
+  box-shadow:0 2px 7px rgba(15,23,42,.08);
+}
+.process-card strong{
+  font-weight:600!important;
+}
+.process-card small{
+  font-weight:450!important;
+}
+
+@media(max-width:900px){
+  .process-card::after{display:none!important}
+}
+</style>
+
 </head>
 <body>
 <div id="publicSite">
@@ -3578,9 +3783,11 @@ function submitTargetRequest(){
   function allProducts(){return (typeof demoProducts!=="undefined"&&Array.isArray(demoProducts))?demoProducts:[]}
   publicResults=allProducts();dealerResults=allProducts();
 
+  function torvoDisplayCode(item){const m=String(item||"").match(/(\d+)$/);return "T-CODE-"+String(m?Number(m[1]):1).padStart(6,"0")}
   function v22PublicCard(p){const badge=typeof badgeClass==="function"?badgeClass(p.tag):"";return `<div class="product-card">
-    <div class="v24-card-top"><span class="product-badge ${badge}">${p.tag}</span><span class="v24-item-code">ITEM CODE: ${p.item}</span><button class="rate-lock-only" type="button" title="LOGIN FOR RATE" aria-label="LOGIN FOR RATE" onclick="event.stopPropagation();openAuth('login')"><i class="fa-solid fa-lock"></i></button></div>
+    <div class="v24-card-top"><span class="v24-item-code">${torvoDisplayCode(p.item)}</span><button class="rate-lock-only" type="button" title="LOGIN FOR RATE" aria-label="LOGIN FOR RATE" onclick="event.stopPropagation();openAuth('login')"><i class="fa-solid fa-lock"></i></button></div>
     <div class="product-photo v24-photo click-photo product-gallery" onclick="publicProductDetails('${p.item}')">
+      <span class="product-badge ${badge}">${p.tag}</span>
       <button class="gallery-arrow left" type="button" onclick="event.stopPropagation();slideCardPhoto('public','${p.item}',-1)" aria-label="PREVIOUS PHOTO"><i class="fa-solid fa-chevron-left"></i></button>
       <div class="placeholder-icon gallery-visual" id="visual-public-${p.item}">${p.icon}</div>
       <div class="v24-photo-dots" data-photo-dots="public-${p.item}"><span class="v24-photo-dot active"></span><span class="v24-photo-dot"></span></div>
@@ -3588,8 +3795,9 @@ function submitTargetRequest(){
     </div>
     <div class="product-body v24-body"><div class="product-name">${p.name}</div><div class="v24-specs"><div class="v24-spec-row"><span class="v24-spec-label">MACHINE BRAND</span><span class="v24-spec-colon">:</span><span class="v24-spec-value">${p.brand}</span></div><div class="v24-spec-row"><span class="v24-spec-label">MODEL</span><span class="v24-spec-colon">:</span><span class="v24-spec-value">${p.model}</span></div><div class="v24-spec-row"><span class="v24-spec-label">PART BRAND</span><span class="v24-spec-colon">:</span><span class="v24-spec-value">${p.spareBrand}</span></div><div class="v24-spec-row"><span class="v24-spec-label">USRD FOR</span><span class="v24-spec-colon">:</span><span class="v24-spec-value">${p.system}</span></div></div><div class="public-detail-row"><button class="details-btn public-full-detail" onclick="publicProductDetails('${p.item}')">VIEW DETAILS</button></div></div></div>`}
   function v22DealerCard(p){const badge=typeof badgeClass==="function"?badgeClass(p.tag):"";return `<div class="product-card">
-    <div class="v24-card-top"><span class="product-badge ${badge}">${p.tag}</span><span class="v24-item-code">ITEM CODE: ${p.item}</span><span aria-hidden="true" style="width:1px"></span></div>
+    <div class="v24-card-top dealer-card-top"><span class="v24-item-code">${torvoDisplayCode(p.item)}</span><span class="dealer-code-spacer" aria-hidden="true"></span></div>
     <div class="product-photo v24-photo click-photo product-gallery" onclick="dealerProductDetails('${p.item}')">
+      <span class="product-badge ${badge}">${p.tag}</span>
       <button class="gallery-arrow left" type="button" onclick="event.stopPropagation();slideCardPhoto('dealer','${p.item}',-1)"><i class="fa-solid fa-chevron-left"></i></button>
       <div class="placeholder-icon gallery-visual" id="visual-dealer-${p.item}">${p.icon}</div>
       <div class="v24-photo-dots" data-photo-dots="dealer-${p.item}"><span class="v24-photo-dot active"></span><span class="v24-photo-dot"></span></div>
@@ -4237,23 +4445,6 @@ function submitTargetRequest(){
     document.getElementById("torvoProofActions")?.classList.remove("show");
   };
 
-  function finishProductCards(){
-    document.querySelectorAll(".product-card").forEach((card,idx)=>{
-      const top=card.querySelector(".v24-card-top");
-      const photo=card.querySelector(".v24-photo");
-      const code=card.querySelector(".v24-item-code");
-      if(code) code.textContent="T-CODE-"+String(idx+1).padStart(6,"0");
-      if(top && photo){
-        const badge=top.querySelector(".product-badge");
-        if(badge) photo.appendChild(badge);
-      }
-    });
-  }
-
-  document.addEventListener("DOMContentLoaded",function(){
-    finishProductCards();
-    [120,400,900,1600].forEach(ms=>setTimeout(finishProductCards,ms));
-  });
 })();
 </script>
 
