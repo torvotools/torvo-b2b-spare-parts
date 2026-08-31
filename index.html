@@ -3064,6 +3064,294 @@ body.torvo-auth-locked{
 .hero-uploaded-image{object-fit:contain!important;max-width:100%!important;max-height:100%!important}
 </style>
 
+
+<style id="torvo-home-final-review-11">
+/* ===== TORVO HOME FINAL REVIEW 11 ===== */
+
+/* Dealer Access: only the lower text is slightly larger. Button size stays unchanged. */
+.login-btn .login-sub{
+  font-size:9px!important;
+  font-weight:600!important;
+  color:#fff!important;
+  opacity:.96!important;
+}
+
+/* Delivery box: approved black box, white border, white main line, red charge line. */
+.hero-delivery-note{
+  background:#070707!important;
+  border:2px solid #fff!important;
+  color:#fff!important;
+  box-shadow:none!important;
+}
+.hero-delivery-note i{color:#fff!important}
+.hero-delivery-note b{
+  color:#fff!important;
+  font-weight:600!important;
+}
+.hero-delivery-note span{
+  color:#ff3b43!important;
+  font-weight:600!important;
+}
+
+/* Quick Access: darker/clearer boundary line without changing card size. */
+.app-card{
+  border:1.5px solid #667085!important;
+  box-shadow:none!important;
+}
+
+/* Six-step journey: exactly six cards on desktop and connected green flow. */
+.process-grid{
+  grid-template-columns:repeat(6,minmax(0,1fr))!important;
+  gap:28px!important;
+  overflow:visible!important;
+}
+.process-card{overflow:visible!important}
+.process-number{
+  background:#08783d!important;
+  border-color:#08783d!important;
+  color:#fff!important;
+}
+.process-card strong{
+  color:#08783d!important;
+  font-weight:600!important;
+}
+.process-card:not(:last-child)::after{
+  content:"›"!important;
+  position:absolute!important;
+  right:-22px!important;
+  top:50%!important;
+  transform:translateY(-50%)!important;
+  width:28px!important;
+  height:28px!important;
+  border-radius:50%!important;
+  display:flex!important;
+  align-items:center!important;
+  justify-content:center!important;
+  background:#08783d!important;
+  color:#fff!important;
+  border:2px solid #08783d!important;
+  font-size:22px!important;
+  font-weight:600!important;
+  z-index:8!important;
+}
+.process-card:not(:last-child)::before{
+  content:""!important;
+  position:absolute!important;
+  right:-29px!important;
+  top:50%!important;
+  width:32px!important;
+  height:2px!important;
+  background:#08783d!important;
+  z-index:7!important;
+}
+@media(max-width:900px){
+  .process-grid{grid-template-columns:1fr!important;gap:34px!important}
+  .process-card:not(:last-child)::after{
+    content:"⌄"!important;
+    right:auto!important;
+    left:50%!important;
+    top:auto!important;
+    bottom:-31px!important;
+    transform:translateX(-50%)!important;
+  }
+  .process-card:not(:last-child)::before{
+    right:auto!important;
+    left:50%!important;
+    top:auto!important;
+    bottom:-35px!important;
+    width:2px!important;
+    height:30px!important;
+    transform:translateX(-50%)!important;
+  }
+}
+
+/* PRODUCT CARD FINAL: single photo only. */
+.gallery-arrow,
+.v24-photo-dots,
+.v24-photo-dot,
+.photo-counter{
+  display:none!important;
+}
+
+/* Top code row is no longer used; image box moves upward into that free space. */
+.single-photo-card{
+  margin-top:5px!important;
+  height:clamp(154px,12.5vw,214px)!important;
+  min-height:154px!important;
+  padding:8px 8px 27px!important;
+  border:1px solid #cfd5dd!important;
+  border-radius:12px!important;
+}
+.single-photo-card .gallery-visual{
+  width:100%!important;
+  height:100%!important;
+  display:grid!important;
+  place-items:center!important;
+  transform:none!important;
+}
+.single-photo-card .gallery-visual img{
+  width:100%!important;
+  height:100%!important;
+  object-fit:contain!important;
+}
+
+/* NEW / POPULAR at photo top-left; rate lock at photo top-right. */
+.single-photo-card .product-badge{
+  position:absolute!important;
+  left:8px!important;
+  top:8px!important;
+  z-index:5!important;
+}
+.single-photo-card .photo-rate-lock{
+  position:absolute!important;
+  right:8px!important;
+  top:7px!important;
+  z-index:5!important;
+}
+
+/* Item code moves to the old dots position. Slightly larger and only lightly bold. */
+.photo-item-code{
+  position:absolute!important;
+  left:50%!important;
+  bottom:7px!important;
+  transform:translateX(-50%)!important;
+  width:max-content!important;
+  max-width:80%!important;
+  color:#1f2937!important;
+  font-size:9.5px!important;
+  font-weight:600!important;
+  line-height:1!important;
+  letter-spacing:.15px!important;
+  text-align:center!important;
+  background:rgba(255,255,255,.94)!important;
+  padding:2px 5px!important;
+  border-radius:5px!important;
+}
+
+/* Product title and four specification lines: only slight bold, colors unchanged. */
+.v24-body .product-name{
+  font-size:11.3px!important;
+  font-weight:600!important;
+}
+.v24-spec-label,
+.v24-spec-value{
+  font-weight:600!important;
+}
+
+/* Keep specs compact so overall card does not become bulky. */
+.v24-spec-row{
+  min-height:23px!important;
+  padding:3px 6px!important;
+}
+.v24-specs{margin-bottom:4px!important}
+
+/* Red View Details + requested blue cart button on Home card. */
+.public-card-actions{
+  display:grid!important;
+  grid-template-columns:minmax(0,1fr) 42px!important;
+  gap:6px!important;
+  margin-top:6px!important;
+}
+.public-card-actions .public-full-detail{
+  display:flex!important;
+  min-height:30px!important;
+  margin:0!important;
+  background:#d71920!important;
+  color:#fff!important;
+  font-size:9px!important;
+  font-weight:600!important;
+  border-radius:8px!important;
+  box-shadow:none!important;
+}
+.public-blue-cart{
+  min-width:42px!important;
+  width:42px!important;
+  min-height:30px!important;
+  border:0!important;
+  border-radius:8px!important;
+  background:#1769d2!important;
+  color:#fff!important;
+  display:grid!important;
+  place-items:center!important;
+  font-size:14px!important;
+  cursor:pointer!important;
+  box-shadow:none!important;
+}
+
+/* Dealer Login: Preview becomes compact; First Login/Forgot PIN text slightly larger. */
+.torvo-preview-btn{
+  width:max-content!important;
+  min-width:0!important;
+  height:30px!important;
+  margin:8px auto 0!important;
+  padding:0 11px!important;
+  border-radius:8px!important;
+  font-size:8.8px!important;
+  gap:5px!important;
+}
+.torvo-preview-btn small{
+  font-size:6.8px!important;
+}
+.torvo-login-links button{
+  font-size:10.5px!important;
+  font-weight:600!important;
+}
+
+/* Customer Care + WhatsApp aligned as one clean bottom support row. */
+.torvo-support-mini{
+  display:grid!important;
+  grid-template-columns:minmax(0,1fr) auto!important;
+  align-items:center!important;
+  gap:10px!important;
+  margin-top:10px!important;
+  padding:9px 10px 11px!important;
+  background:#f8fafc!important;
+  border:1px solid #e1e6ed!important;
+}
+.torvo-support-left{
+  display:flex!important;
+  align-items:center!important;
+  gap:8px!important;
+  min-width:0!important;
+}
+.torvo-support-mini b{
+  font-size:9.3px!important;
+  font-weight:600!important;
+}
+.torvo-support-mini a{
+  font-weight:600!important;
+}
+.torvo-wa-button{
+  width:auto!important;
+  min-width:88px!important;
+  height:32px!important;
+  padding:0 10px!important;
+  border-radius:8px!important;
+  gap:5px!important;
+  font-size:10px!important;
+  background:#1fa84f!important;
+  color:#fff!important;
+}
+.torvo-wa-button span{display:inline!important}
+
+/* Search ALL: keep moderate, not heavy. */
+.main-search select,
+.search-select{
+  font-weight:500!important;
+}
+
+@media(max-width:760px){
+  .single-photo-card{
+    height:150px!important;
+    min-height:150px!important;
+  }
+  .photo-item-code{font-size:8.4px!important}
+  .public-card-actions{grid-template-columns:minmax(0,1fr) 38px!important}
+  .public-blue-cart{width:38px!important;min-width:38px!important}
+  .torvo-login-links button{font-size:10px!important}
+}
+</style>
+
 </head>
 <body>
 <div id="publicSite">
@@ -4146,26 +4434,51 @@ function submitTargetRequest(){
 
   function torvoDisplayCode(item){const m=String(item||"").match(/(\d+)$/);return "T-"+String(m?Number(m[1]):1).padStart(5,"0")}
   function v22PublicCard(p){const badge=typeof badgeClass==="function"?badgeClass(p.tag):"";return `<div class="product-card">
-    <div class="v24-card-top"><span class="v24-item-code">${torvoDisplayCode(p.item)}</span></div>
-    <div class="product-photo v24-photo click-photo product-gallery" onclick="publicProductDetails('${p.item}')">
+    <div class="product-photo v24-photo click-photo product-gallery single-photo-card" onclick="publicProductDetails('${p.item}')">
       <span class="product-badge ${badge}">${p.tag}</span>
       <button class="photo-rate-lock" type="button" aria-label="LOGIN FOR RATE" onclick="event.stopPropagation();openAuth('login')"><i class="fa-solid fa-lock"></i></button>
-      <button class="gallery-arrow left" type="button" onclick="event.stopPropagation();slideCardPhoto('public','${p.item}',-1)" aria-label="PREVIOUS PHOTO"><i class="fa-solid fa-chevron-left"></i></button>
       <div class="placeholder-icon gallery-visual" id="visual-public-${p.item}">${p.icon}</div>
-      <div class="v24-photo-dots" data-photo-dots="public-${p.item}"><span class="v24-photo-dot active"></span><span class="v24-photo-dot"></span></div>
-      <button class="gallery-arrow right" type="button" onclick="event.stopPropagation();slideCardPhoto('public','${p.item}',1)" aria-label="NEXT PHOTO"><i class="fa-solid fa-chevron-right"></i></button>
+      <div class="v24-item-code photo-item-code">${torvoDisplayCode(p.item)}</div>
     </div>
-    <div class="product-body v24-body"><div class="product-name">${p.name}</div><div class="v24-specs"><div class="v24-spec-row"><span class="v24-spec-label">MACHINE BRAND</span><span class="v24-spec-colon">:</span><span class="v24-spec-value">${p.brand}</span></div><div class="v24-spec-row"><span class="v24-spec-label">MODEL</span><span class="v24-spec-colon">:</span><span class="v24-spec-value">${p.model}</span></div><div class="v24-spec-row"><span class="v24-spec-label">PART BRAND</span><span class="v24-spec-colon">:</span><span class="v24-spec-value">${p.spareBrand}</span></div><div class="v24-spec-row"><span class="v24-spec-label">USED FOR</span><span class="v24-spec-colon">:</span><span class="v24-spec-value">${p.system}</span></div></div><div class="public-detail-row"><button class="details-btn public-full-detail" onclick="publicProductDetails('${p.item}')">VIEW DETAILS</button></div></div></div>`}
+    <div class="product-body v24-body">
+      <div class="product-name">${p.name}</div>
+      <div class="v24-specs">
+        <div class="v24-spec-row"><span class="v24-spec-label">MACHINE BRAND</span><span class="v24-spec-colon">:</span><span class="v24-spec-value">${p.brand}</span></div>
+        <div class="v24-spec-row"><span class="v24-spec-label">MODEL</span><span class="v24-spec-colon">:</span><span class="v24-spec-value">${p.model}</span></div>
+        <div class="v24-spec-row"><span class="v24-spec-label">PART BRAND</span><span class="v24-spec-colon">:</span><span class="v24-spec-value">${p.spareBrand}</span></div>
+        <div class="v24-spec-row"><span class="v24-spec-label">USED FOR</span><span class="v24-spec-colon">:</span><span class="v24-spec-value">${p.system}</span></div>
+      </div>
+      <div class="public-card-actions">
+        <button class="details-btn public-full-detail" onclick="event.stopPropagation();publicProductDetails('${p.item}')">VIEW DETAILS</button>
+        <button class="public-blue-cart" type="button" title="LOGIN TO ADD" aria-label="LOGIN TO ADD" onclick="event.stopPropagation();openAuth('login')"><i class="fa-solid fa-cart-plus"></i></button>
+      </div>
+    </div>
+  </div>`}
   function v22DealerCard(p){const badge=typeof badgeClass==="function"?badgeClass(p.tag):"";return `<div class="product-card">
-    <div class="v24-card-top dealer-card-top"><span class="v24-item-code">${torvoDisplayCode(p.item)}</span></div>
-    <div class="product-photo v24-photo click-photo product-gallery" onclick="dealerProductDetails('${p.item}')">
+    <div class="product-photo v24-photo click-photo product-gallery single-photo-card" onclick="dealerProductDetails('${p.item}')">
       <span class="product-badge ${badge}">${p.tag}</span>
-      <button class="gallery-arrow left" type="button" onclick="event.stopPropagation();slideCardPhoto('dealer','${p.item}',-1)"><i class="fa-solid fa-chevron-left"></i></button>
       <div class="placeholder-icon gallery-visual" id="visual-dealer-${p.item}">${p.icon}</div>
-      <div class="v24-photo-dots" data-photo-dots="dealer-${p.item}"><span class="v24-photo-dot active"></span><span class="v24-photo-dot"></span></div>
-      <button class="gallery-arrow right" type="button" onclick="event.stopPropagation();slideCardPhoto('dealer','${p.item}',1)"><i class="fa-solid fa-chevron-right"></i></button>
+      <div class="v24-item-code photo-item-code">${torvoDisplayCode(p.item)}</div>
     </div>
-    <div class="product-body v24-body"><div class="product-name">${p.name}</div><div class="v24-specs"><div class="v24-spec-row"><span class="v24-spec-label">MACHINE BRAND</span><span class="v24-spec-colon">:</span><span class="v24-spec-value">${p.brand}</span></div><div class="v24-spec-row"><span class="v24-spec-label">MODEL</span><span class="v24-spec-colon">:</span><span class="v24-spec-value">${p.model}</span></div><div class="v24-spec-row"><span class="v24-spec-label">PART BRAND</span><span class="v24-spec-colon">:</span><span class="v24-spec-value">${p.spareBrand}</span></div><div class="v24-spec-row"><span class="v24-spec-label">USED FOR</span><span class="v24-spec-colon">:</span><span class="v24-spec-value">${p.system}</span></div></div><div class="dealer-rate">${p.dealerRate}</div><div class="cart-controls"><div class="qty-control" id="qtybox-${p.item}"><button id="minus-${p.item}" onclick="changeQty('${p.item}',-1)">−</button><input id="qty-${p.item}" class="qty-input" type="number" min="1" value="1" inputmode="numeric" oninput="sanitizeQty('${p.item}')"><button id="plus-${p.item}" onclick="changeQty('${p.item}',1)">+</button></div><button class="add-cart-btn dealer-cart-btn" id="cart-${p.item}" title="ADD TO CART" aria-label="ADD TO CART" onclick="addDemoCart('${p.item}',this)"><i class="fa-solid fa-cart-plus"></i></button></div></div></div>`}
+    <div class="product-body v24-body">
+      <div class="product-name">${p.name}</div>
+      <div class="v24-specs">
+        <div class="v24-spec-row"><span class="v24-spec-label">MACHINE BRAND</span><span class="v24-spec-colon">:</span><span class="v24-spec-value">${p.brand}</span></div>
+        <div class="v24-spec-row"><span class="v24-spec-label">MODEL</span><span class="v24-spec-colon">:</span><span class="v24-spec-value">${p.model}</span></div>
+        <div class="v24-spec-row"><span class="v24-spec-label">PART BRAND</span><span class="v24-spec-colon">:</span><span class="v24-spec-value">${p.spareBrand}</span></div>
+        <div class="v24-spec-row"><span class="v24-spec-label">USED FOR</span><span class="v24-spec-colon">:</span><span class="v24-spec-value">${p.system}</span></div>
+      </div>
+      <div class="dealer-rate">${p.dealerRate}</div>
+      <div class="cart-controls">
+        <div class="qty-control" id="qtybox-${p.item}">
+          <button id="minus-${p.item}" onclick="changeQty('${p.item}',-1)">−</button>
+          <input id="qty-${p.item}" class="qty-input" type="number" min="1" value="1" inputmode="numeric" oninput="sanitizeQty('${p.item}')">
+          <button id="plus-${p.item}" onclick="changeQty('${p.item}',1)">+</button>
+        </div>
+        <button class="add-cart-btn dealer-cart-btn" id="cart-${p.item}" title="ADD TO CART" aria-label="ADD TO CART" onclick="addDemoCart('${p.item}',this)"><i class="fa-solid fa-cart-plus"></i></button>
+      </div>
+    </div>
+  </div>`}
 
   function paginationHtml(total,page,kind){
     const pages=Math.max(1,Math.ceil(total/PAGE_SIZE)); if(pages<=1)return "";
