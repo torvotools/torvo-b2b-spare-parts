@@ -1603,7 +1603,9 @@ input[type="email"],input[type="password"],.preserve-case{text-transform:none!im
           </div>
 <div class="form-field">
   <label>DISTRICT <span class="req">*</span></label>
-  <input id="regDistrict" required placeholder="Enter district">
+ <select id="regDistrict" required>
+  <option value="">Select District</option>
+</select>
 </div>
           <div class="form-field">
             <label>CITY <span class="req">*</span></label>
@@ -1869,7 +1871,14 @@ input[type="email"],input[type="password"],.preserve-case{text-transform:none!im
 const TORVO_CONTACT={customerCare:"7027751533",whatsapp:"7027751533",email:"",address:"",hours:""};
 const SUPABASE_URL="https://gckafjiitjocodlrwanm.supabase.co";
 const SUPABASE_KEY="sb_publishable_9Jbo6ZcyihmVqMTaGdslMg_Wbtg0bLl";
-
+const districtMap={
+  "Haryana":[
+    "Ambala","Bhiwani","Charkhi Dadri","Faridabad","Fatehabad",
+    "Gurugram","Hisar","Jhajjar","Jind","Kaithal","Karnal",
+    "Kurukshetra","Mahendragarh","Nuh","Palwal","Panchkula",
+    "Panipat","Rewari","Rohtak","Sirsa","Sonipat","Yamunanagar"
+  ]
+};
 const cityMap={
 "Andhra Pradesh":["Visakhapatnam","Vijayawada","Guntur","Nellore","Tirupati","Kurnool","Rajahmundry","Kakinada","Other City / Town"],
 "Arunachal Pradesh":["Itanagar","Naharlagun","Pasighat","Tawang","Ziro","Other City / Town"],
@@ -1912,6 +1921,10 @@ const cityMap={
 function loadCities(){
  const state=document.getElementById("regState").value;
  const city=document.getElementById("regCity");
+ const district=document.getElementById("regDistrict");
+ const districts=districtMap[state]||[];
+district.innerHTML='<option value="">Select District</option>'+
+  districts.map(d=><option value="${d}">${d}</option>).join(''); 
  const other=document.getElementById("regOtherCity");
  const values=cityMap[state]||[];
  city.innerHTML='<option value="">Select City</option>'+values.map(v=>`<option value="${v}">${v}</option>`).join("");
