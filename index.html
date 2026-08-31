@@ -1945,6 +1945,169 @@ body.torvo-auth-locked{
 }
 </style>
 
+
+<style id="torvo-review-04-fixes">
+/* ===== PRODUCT SEARCH: NOT AN INPUT, SO PASSWORD MANAGERS CANNOT TREAT IT AS EMAIL/USERNAME ===== */
+.torvo-catalog-search-control{
+  min-width:0!important;
+  height:100%!important;
+  display:flex!important;
+  align-items:center!important;
+  padding:0 14px!important;
+  outline:none!important;
+  overflow:hidden!important;
+  white-space:nowrap!important;
+  text-overflow:ellipsis!important;
+  color:#202a3c!important;
+  font-size:12px!important;
+  font-weight:700!important;
+  background:#fff!important;
+  cursor:text!important;
+}
+.torvo-catalog-search-control:empty:before{
+  content:attr(data-placeholder);
+  color:#59657a;
+  font-weight:750;
+  pointer-events:none;
+}
+.torvo-catalog-search-control:focus{
+  box-shadow:inset 0 0 0 1px rgba(215,25,32,.30)!important;
+}
+
+/* ===== AUTH POPUP: about 8/10 scale, with guaranteed internal vertical scrolling ===== */
+.torvo-auth-box{
+  width:min(700px,93vw)!important;
+  max-width:700px!important;
+  height:auto!important;
+  max-height:82vh!important;
+  border-radius:18px!important;
+  overflow:hidden!important;
+  display:flex!important;
+  flex-direction:column!important;
+}
+.torvo-auth-top{
+  flex:0 0 54px!important;
+  min-height:54px!important;
+  padding:10px 15px!important;
+}
+.torvo-auth-body{
+  flex:1 1 auto!important;
+  min-height:0!important;
+  height:calc(82vh - 54px)!important;
+  max-height:calc(82vh - 54px)!important;
+  overflow-y:scroll!important;
+  overflow-x:hidden!important;
+  padding:12px 15px 22px!important;
+  overscroll-behavior:contain!important;
+  scrollbar-gutter:stable both-edges!important;
+}
+.torvo-auth-body::-webkit-scrollbar{width:11px!important}
+.torvo-auth-body::-webkit-scrollbar-track{background:#edf0f4!important}
+.torvo-auth-body::-webkit-scrollbar-thumb{
+  background:#8d98aa!important;
+  border-radius:12px!important;
+  border:2px solid #edf0f4!important;
+}
+.torvo-auth-body{scrollbar-width:auto!important;scrollbar-color:#8d98aa #edf0f4!important}
+
+/* Top Dealer Login / New Dealer tabs: slightly larger than previous review */
+.auth-tab{
+  min-height:44px!important;
+  font-size:11.5px!important;
+  font-weight:950!important;
+  letter-spacing:.15px!important;
+}
+.auth-tabs{gap:9px!important;margin-bottom:11px!important}
+
+/* Keep the popup text compact but strong enough to read */
+.torvo-auth-box .form-field label{
+  font-size:9.4px!important;
+  line-height:1.25!important;
+}
+.torvo-auth-box input,
+.torvo-auth-box select,
+.torvo-auth-box textarea{
+  min-height:38px!important;
+  font-size:11.2px!important;
+}
+.torvo-auth-box textarea{min-height:68px!important}
+.torvo-form-title b{font-size:14.5px!important}
+.torvo-form-title small{font-size:9px!important}
+
+/* Login lower support strip: balanced Customer Care + WhatsApp */
+.torvo-support-mini{
+  margin-top:10px!important;
+  padding:10px 12px!important;
+  display:flex!important;
+  align-items:center!important;
+  justify-content:space-between!important;
+  gap:12px!important;
+  background:linear-gradient(90deg,#fff7e8,#f1fbf4)!important;
+  border:1px solid #e8dfca!important;
+  border-radius:12px!important;
+}
+.torvo-support-left{display:flex;align-items:center;gap:9px;min-width:0}
+.torvo-support-icon{
+  width:34px;height:34px;display:flex;align-items:center;justify-content:center;
+  border-radius:50%;background:#fff;color:#d71920;border:1px solid #ead6d8;font-size:15px;flex:0 0 auto
+}
+.torvo-support-left b{
+  display:block!important;
+  color:#465065!important;
+  font-size:8.4px!important;
+  line-height:1.1!important;
+}
+.torvo-support-left a{
+  display:block!important;
+  color:#d71920!important;
+  font-size:13px!important;
+  line-height:1.2!important;
+  font-weight:950!important;
+  text-decoration:none!important;
+  margin-top:2px!important;
+}
+.torvo-wa-button{
+  width:auto!important;
+  min-width:106px!important;
+  height:36px!important;
+  padding:0 11px!important;
+  border-radius:9px!important;
+  display:flex!important;
+  align-items:center!important;
+  justify-content:center!important;
+  gap:6px!important;
+  background:#179d4c!important;
+  color:#fff!important;
+  text-decoration:none!important;
+  font-size:9px!important;
+  font-weight:950!important;
+}
+.torvo-wa-button i{font-size:17px!important}
+.torvo-wa-button span{display:inline!important}
+
+/* Delivery sub-line should stand out distinctly from main white headline */
+.hero-delivery-note span{
+  color:#ffd45a!important;
+  font-size:11.5px!important;
+  font-weight:950!important;
+  letter-spacing:.1px!important;
+}
+
+/* Future Admin-controlled hero marketing copy */
+#torvoHeroDescription{transition:opacity .15s ease}
+
+@media(max-width:760px){
+  .torvo-auth-box{width:95vw!important;max-height:88vh!important}
+  .torvo-auth-body{
+    height:calc(88vh - 54px)!important;
+    max-height:calc(88vh - 54px)!important;
+  }
+  .auth-tab{min-height:42px!important;font-size:10.5px!important}
+  .torvo-support-mini{align-items:stretch!important}
+  .torvo-wa-button{min-width:94px!important}
+}
+</style>
+
 </head>
 <body>
 <div id="publicSite">
@@ -1953,24 +2116,15 @@ body.torvo-auth-locked{
     <div class="brand" onclick="window.scrollTo({top:0,behavior:'smooth'})"><div class="brand-logo">T</div><div><div class="brand-name"><span>TORVO</span></div><div class="brand-sub">TOOLS PRIVATE LIMITED</div></div></div>
     <div class="main-search">
       <select class="search-select" id="searchType"><option value="all">All</option><option value="item">Item No.</option><option value="product">Product</option><option value="brand">Brand</option><option value="model">Model</option><option value="category">Category</option></select>
-      <input id="publicSearch"
-      name="torvo_catalog_search_only"
-      type="search"
+      <div id="publicSearch"
+      class="torvo-catalog-search-control"
       role="searchbox"
-      value=""
-      readonly
-      autocomplete="off"
-      aria-autocomplete="none"
-      autocapitalize="off"
+      contenteditable="true"
+      tabindex="0"
+      aria-label="Search Item No. / Product / Brand / Model"
+      data-placeholder="Search Item No. / Product / Brand / Model..."
       spellcheck="false"
-      data-lpignore="true"
-      data-1p-ignore="true"
-      data-form-type="other"
-      placeholder="Search Item No. / Product / Brand / Model..."
-      onfocus="this.removeAttribute('readonly'); if(/@/.test(this.value)){this.value='';}"
-      onpointerdown="this.removeAttribute('readonly'); if(/@/.test(this.value)){this.value='';}"
-      onkeydown="this.removeAttribute('readonly');"
-      oninput="filterPublicProducts()" />
+      oninput="filterPublicProducts()"></div>
       <button class="search-icon-btn camera" title="Photo Search - Future Ready" onclick="futureFeature('Photo Search')"><img class="admin-search-svg" alt="" src="data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24'><path d='M5 7h3l1.5-2h5L16 7h3a2 2 0 0 1 2 2v9a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V9a2 2 0 0 1 2-2z' fill='%234285F4'/><circle cx='12' cy='13' r='4' fill='white'/><circle cx='12' cy='13' r='2.6' fill='%2334A853'/><circle cx='18' cy='10' r='1' fill='%23EA4335'/></svg>"></button><button class="search-icon-btn mic" title="Voice Search - Future Ready" onclick="futureFeature('Voice Search')"><img class="admin-search-svg" alt="" src="data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24'><rect x='9' y='3' width='6' height='11' rx='3' fill='%234285F4'/><path d='M5 11a7 7 0 0 0 14 0' fill='none' stroke='%2334A853' stroke-width='2'/><path d='M12 18v3M9 21h6' stroke='%23EA4335' stroke-width='2' stroke-linecap='round'/></svg>"></button><button class="search-submit" onclick="filterPublicProducts()"><img class="admin-search-svg" alt="" src="data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24'><circle cx='11' cy='11' r='6' fill='none' stroke='%234285F4' stroke-width='2.4'/><path d='M16 16l5 5' stroke='%2334A853' stroke-width='2.8' stroke-linecap='round'/></svg>"></button>
     </div>
     <div class="header-actions"><button class="login-btn" onclick="openAuth('login')"><span class="login-main">DEALER ACCESS</span><span class="login-sub">LOGIN • NEW REGISTER</span></button></div>
@@ -1981,7 +2135,7 @@ body.torvo-auth-locked{
       <div class="hero-content">
         <div class="hero-label">POWER TOOL SPARE PARTS • B2B</div>
         <h1>Find the Right <span>Spare Part</span> Faster.</h1>
-        <p>Multi-brand power tool spare parts and accessories for dealers. Search by item, brand, machine or model and send your B2B order through the TORVO dealer system.</p>
+        <p id="torvoHeroDescription">Multi-brand power tool spare parts and accessories for dealers. Search by item, brand, machine or model and send your B2B order through the TORVO dealer system.</p>
         <div class="hero-actions">
           <button class="primary-btn" onclick="scrollToProducts()">BROWSE SPARE PARTS</button>
           <button class="outline-btn" onclick="openAuth('register')">REGISTER AS DEALER</button>
@@ -2117,8 +2271,11 @@ body.torvo-auth-locked{
         </div>
 
         <div class="torvo-support-mini">
-          <div><b>Customer Care</b><a href="tel:7027751533">7027751533</a></div>
-          <a class="torvo-wa-button" href="https://wa.me/917027751533" target="_blank" rel="noopener" aria-label="WhatsApp TORVO Support"><i class="fa-brands fa-whatsapp"></i></a>
+          <div class="torvo-support-left">
+            <span class="torvo-support-icon"><i class="fa-solid fa-headset"></i></span>
+            <div><b>CUSTOMER CARE</b><a href="tel:7027751533">7027751533</a></div>
+          </div>
+          <a class="torvo-wa-button" href="https://wa.me/917027751533" target="_blank" rel="noopener" aria-label="WhatsApp TORVO Support"><i class="fa-brands fa-whatsapp"></i><span>WHATSAPP</span></a>
         </div>
       </div>
 
@@ -3143,7 +3300,7 @@ function submitTargetRequest(){
   }
   function clearSearchEmailAutofill(){
     const e=document.getElementById("publicSearch");
-    if(!e)return;
+    if(!e || e.tagName!=="INPUT")return;
     e.setAttribute("name","torvo_catalog_item_product_search_"+Date.now());
     e.setAttribute("autocomplete","new-password");
     e.setAttribute("data-lpignore","true");
@@ -3423,7 +3580,7 @@ function submitTargetRequest(){
   const emailLike = v => /@|gmail|yahoo|outlook|hotmail/i.test(String(v||""));
   function lockClean(){
     const e=document.getElementById("publicSearch");
-    if(!e)return;
+    if(!e || e.tagName!=="INPUT")return;
     if(emailLike(e.value)) e.value="";
     if(document.activeElement!==e) e.setAttribute("readonly","");
     e.setAttribute("autocomplete","off");
@@ -3492,6 +3649,56 @@ function submitTargetRequest(){
     modal.addEventListener("touchmove",function(e){
       if(!e.target.closest(".torvo-auth-body"))e.preventDefault();
     },{passive:false});
+  });
+})();
+</script>
+
+
+<script id="torvo-review-04-search-and-hero">
+(function(){
+  "use strict";
+
+  function setupCatalogSearch(){
+    const e=document.getElementById("publicSearch");
+    if(!e || e.tagName==="INPUT" || e.tagName==="TEXTAREA") return;
+
+    try{
+      Object.defineProperty(e,"value",{
+        configurable:true,
+        get:function(){ return (this.textContent||"").replace(/\u00a0/g," ").trim(); },
+        set:function(v){ this.textContent=String(v||""); }
+      });
+    }catch(_){}
+
+    e.addEventListener("keydown",function(ev){
+      if(ev.key==="Enter"){
+        ev.preventDefault();
+        try{ if(typeof window.filterPublicProducts==="function") window.filterPublicProducts(); }catch(_){}
+      }
+    });
+
+    e.addEventListener("paste",function(ev){
+      ev.preventDefault();
+      const txt=(ev.clipboardData||window.clipboardData).getData("text");
+      document.execCommand("insertText",false,txt.replace(/\s+/g," "));
+    });
+  }
+
+  /* Shared Home marketing copy hook for future Admin Panel.
+     Until database Portal Settings is connected, this reads the common local settings key only. */
+  function applyHeroCopy(){
+    const el=document.getElementById("torvoHeroDescription");
+    if(!el)return;
+    const saved=(localStorage.getItem("torvo_home_hero_description")||"").trim();
+    if(saved) el.textContent=saved;
+  }
+
+  document.addEventListener("DOMContentLoaded",function(){
+    setupCatalogSearch();
+    applyHeroCopy();
+  });
+  window.addEventListener("storage",function(ev){
+    if(ev.key==="torvo_home_hero_description") applyHeroCopy();
   });
 })();
 </script>
