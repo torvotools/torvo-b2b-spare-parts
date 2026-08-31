@@ -2210,6 +2210,110 @@ body.torvo-auth-locked{
 }
 </style>
 
+
+<style id="torvo-review-06-fixes">
+/* SEARCH: clean single line and normal short caret at left */
+#publicSearch.torvo-catalog-search-control{
+  display:block!important;
+  height:46px!important;
+  min-height:46px!important;
+  line-height:18px!important;
+  padding:14px 14px!important;
+  border:0!important;
+  outline:0!important;
+  box-shadow:none!important;
+  text-align:left!important;
+  white-space:nowrap!important;
+  overflow:hidden!important;
+  caret-color:#d71920!important;
+}
+#publicSearch.torvo-catalog-search-control:focus{border:0!important;outline:0!important;box-shadow:none!important}
+#publicSearch.torvo-catalog-search-control:empty:before{display:inline!important;line-height:18px!important}
+
+/* LOGIN SUPPORT: one complete box, no cut bottom */
+.torvo-login-panel{padding-bottom:10px!important}
+.torvo-login-panel .torvo-support-mini{
+  width:100%!important;
+  box-sizing:border-box!important;
+  min-height:56px!important;
+  margin:9px 0 7px!important;
+  padding:9px 11px!important;
+  border-radius:11px!important;
+  overflow:visible!important;
+  align-items:center!important;
+}
+.torvo-support-left b{font-weight:600!important}
+.torvo-support-left a{font-weight:600!important}
+.torvo-wa-button{font-weight:700!important}
+
+/* New Dealer: mouse wheel + visible scroll rail */
+.torvo-register-panel.active{
+  max-height:55vh!important;
+  overflow-y:scroll!important;
+  overscroll-behavior:contain!important;
+  touch-action:pan-y!important;
+}
+
+/* Product card title: no heavy bold, slightly larger, less wasted height */
+.v24-body .product-name{
+  font-size:11.4px!important;
+  line-height:1.15!important;
+  font-weight:500!important;
+  min-height:16px!important;
+  margin:0 1px 1px!important;
+  padding:0!important;
+}
+.product-body.v24-body{padding:4px 6px!important}
+.v24-spec-row{padding:3px 6px!important;min-height:22px!important}
+.product-photo.v24-photo{height:clamp(136px,11vw,196px)!important;min-height:136px!important}
+
+/* Remove OPEN VIEW hover label; the bottom details button is enough */
+.product-photo.v24-photo::after{display:none!important;content:none!important}
+
+/* Product VIEW DETAILS button: red and smaller text */
+.public-full-detail{
+  background:#d71920!important;
+  color:#fff!important;
+  font-size:7.3px!important;
+  font-weight:700!important;
+  min-height:29px!important;
+}
+.public-full-detail:hover{background:#b9151b!important}
+
+/* Dealer support cards: all action buttons use one pattern and sit centered */
+.contact-card-action{display:flex!important;flex-direction:column!important;align-items:center!important;text-align:center!important}
+.contact-card-action .c-icon{margin-left:auto!important;margin-right:auto!important}
+.contact-card-action .support-action-btn{
+  align-self:center!important;
+  margin-left:auto!important;
+  margin-right:auto!important;
+  min-width:92px!important;
+  justify-content:center!important;
+  border-radius:8px!important;
+  font-size:8px!important;
+  padding:6px 9px!important;
+}
+.contact-card-action .support-number{font-weight:600!important}
+.contact-card strong{font-weight:700!important}
+.contact-card span{font-weight:500!important}
+
+/* System Guide replaces Working Hours */
+.system-guide-card span{min-height:auto!important}
+.system-guide-actions{display:flex;flex-wrap:wrap;justify-content:center;gap:5px;margin-top:auto}
+.support-action-btn.guide-now{background:#d71920!important}
+.app-mini-btn{border:1px solid #444a56;background:#20242c;color:#fff;border-radius:7px;padding:6px 7px;font-size:7px;font-weight:700;cursor:pointer}
+.app-mini-btn i{margin-right:3px}
+
+/* App downloads also available inside dealer area after login/preview */
+.dealer-app-downloads{display:flex;gap:5px;align-items:center}
+.dealer-app-downloads button{border:1px solid rgba(255,255,255,.28);background:rgba(255,255,255,.08);color:#fff;border-radius:8px;padding:7px 8px;font-size:7.5px;font-weight:700;cursor:pointer}
+
+@media(max-width:760px){
+  .v24-body .product-name{font-size:10.4px!important}
+  .dealer-app-downloads{width:100%;justify-content:center}
+}
+</style>
+
 </head>
 <body>
 <div id="publicSite">
@@ -2314,7 +2418,7 @@ body.torvo-auth-locked{
 </div>
       <div class="contact-card contact-card-action"><div class="c-icon mail-support"><i class="fa-solid fa-envelope"></i></div><strong>EMAIL</strong><span id="contactEmail">CONTACT DETAILS WILL BE UPDATED SHORTLY.</span><button class="support-action-btn email-now" type="button" onclick="futureFeature('COMPANY EMAIL / SEND EMAIL')"><i class="fa-solid fa-envelope"></i> SEND EMAIL</button></div>
       <div class="contact-card contact-card-action"><div class="c-icon address-support"><i class="fa-solid fa-location-dot"></i></div><strong>ADDRESS</strong><span id="contactAddress">CONTACT DETAILS WILL BE UPDATED SHORTLY.</span><button class="support-action-btn location-now" type="button" onclick="futureFeature('TORVO ADDRESS / MAP LOCATION')"><i class="fa-solid fa-location-dot"></i> VIEW LOCATION</button></div>
-      <div class="contact-card contact-card-action"><div class="c-icon hours-support"><i class="fa-regular fa-clock"></i></div><strong>WORKING HOURS</strong><span id="contactHours">CONTACT DETAILS WILL BE UPDATED SHORTLY.</span><button class="support-action-btn hours-now" type="button" onclick="futureFeature('TORVO WORKING HOURS')"><i class="fa-regular fa-clock"></i> VIEW HOURS</button></div>
+      <div class="contact-card contact-card-action system-guide-card"><div class="c-icon system-guide-support"><i class="fa-solid fa-circle-play"></i></div><strong>SYSTEM GUIDE</strong><span>APP / WEBSITE USE VIDEO &amp; DIAGRAM</span><div class="system-guide-actions"><button class="support-action-btn guide-now" type="button" onclick="futureFeature('TORVO SYSTEM USE VIDEO / DIAGRAM')"><i class="fa-solid fa-play"></i> VIEW GUIDE</button><button class="app-mini-btn" type="button" onclick="futureFeature('ANDROID APP DOWNLOAD')"><i class="fa-brands fa-android"></i> ANDROID</button><button class="app-mini-btn" type="button" onclick="futureFeature('IOS APP DOWNLOAD')"><i class="fa-brands fa-apple"></i> iOS</button></div></div>
     </div></div></div></section>
   </main>
 
@@ -2543,7 +2647,7 @@ body.torvo-auth-locked{
 <button class="dealer-menu active" onclick="openDealerSection('home',this)"><span class="menu-icon">🏠</span> HOME</button><button class="dealer-menu" onclick="openDealerSection('products',this)"><span class="menu-icon">⚙️</span> PRODUCTS</button><button class="dealer-menu" onclick="openDealerSection('orders',this)"><span class="menu-icon">📦</span> MY ORDERS</button><button class="dealer-menu" onclick="openDealerSection('delivery',this)"><span class="menu-icon">🚚</span> DELIVERY</button><button class="dealer-menu" onclick="openDealerSection('points',this)"><span class="menu-icon">⭐</span><span>REWARD</span></button><button class="dealer-menu" onclick="openDealerSection('enquiry',this)"><span class="menu-icon">📷</span> PART ENQUIRY</button><button class="dealer-menu" onclick="openDealerSection('feedback',this)"><span class="menu-icon"><i class="fa-solid fa-comment-dots"></i></span> FEEDBACK</button><button class="dealer-menu" onclick="openDealerSection('target',this)"><span class="menu-icon"><i class="fa-solid fa-bullseye"></i></span> MY TARGET</button><button class="dealer-menu" onclick="openDealerSection('history',this)"><span class="menu-icon"><i class="fa-solid fa-clock-rotate-left"></i></span> HISTORY</button><button class="dealer-menu" onclick="openDealerSection('profile',this)"><span class="menu-icon">👤</span> PROFILE</button><button class="dealer-menu" onclick="openDealerSection('settings',this)"><span class="menu-icon"><i class="fa-solid fa-gear"></i></span> SETTINGS</button>
 </aside><main class="dealer-main">
 <section id="dealer-home" class="dealer-section active">
-<div class="dealer-welcome compact-welcome v26-unified-strip"><div class="v26-welcome-copy"><h2>WELCOME TO TORVO B2B</h2><p>SEARCH • ORDER • TRACK IN ONE PLACE</p></div><div class="v26-delivery-copy"><i class="fa-solid fa-truck-fast"></i><div><b>₹10,000+ FREE DELIVERY • PAN INDIA</b><span>BELOW LIMIT: ₹300 DELIVERY CHARGE</span></div></div><div class="rate-chip">PREVIEW • RATE GROUP A</div></div>
+<div class="dealer-welcome compact-welcome v26-unified-strip"><div class="v26-welcome-copy"><h2>WELCOME TO TORVO B2B</h2><p>SEARCH • ORDER • TRACK IN ONE PLACE</p></div><div class="v26-delivery-copy"><i class="fa-solid fa-truck-fast"></i><div><b>₹10,000+ FREE DELIVERY • PAN INDIA</b><span>BELOW LIMIT: ₹300 DELIVERY CHARGE</span></div></div><div class="dealer-app-downloads"><button onclick="futureFeature('ANDROID APP DOWNLOAD')"><i class="fa-brands fa-android"></i> ANDROID</button><button onclick="futureFeature('IOS APP DOWNLOAD')"><i class="fa-brands fa-apple"></i> iOS</button></div><div class="rate-chip">PREVIEW • RATE GROUP A</div></div>
 <div id="billingInactivityWarning" class="history-notice" style="display:none;border-color:#f2b8b5;background:#fff3f2;color:#9f1c1c;margin-bottom:10px"><i class="fa-solid fa-triangle-exclamation"></i> <b>Billing Alert:</b> Your billing activity is approaching / has reached 3 months of inactivity. Please resume billing to keep your dealer code active. Continued inactivity may result in Admin-controlled suspension.</div>
 <div class="dealer-panel quick-status-panel">
   <div class="section-head"><div><h3 style="margin:0">Quick Status</h3><p class="section-sub">Dealer-facing status only.</p></div></div>
@@ -3286,7 +3390,7 @@ function submitTargetRequest(){
 
   function v22PublicCard(p){const badge=typeof badgeClass==="function"?badgeClass(p.tag):"";return `<div class="product-card">
     <div class="v24-card-top"><span class="product-badge ${badge}">${p.tag}</span><span class="v24-item-code">ITEM CODE: ${p.item}</span><button class="rate-lock-only" type="button" title="LOGIN FOR RATE" aria-label="LOGIN FOR RATE" onclick="event.stopPropagation();openAuth('login')"><i class="fa-solid fa-lock"></i></button></div>
-    <div class="product-photo v24-photo click-photo product-gallery" onclick="publicProductDetails('${p.item}')" title="VIEW PRODUCT DETAILS">
+    <div class="product-photo v24-photo click-photo product-gallery" onclick="publicProductDetails('${p.item}')">
       <button class="gallery-arrow left" type="button" onclick="event.stopPropagation();slideCardPhoto('public','${p.item}',-1)" aria-label="PREVIOUS PHOTO"><i class="fa-solid fa-chevron-left"></i></button>
       <div class="placeholder-icon gallery-visual" id="visual-public-${p.item}">${p.icon}</div>
       <div class="v24-photo-dots" data-photo-dots="public-${p.item}"><span class="v24-photo-dot active"></span><span class="v24-photo-dot"></span></div>
@@ -3874,6 +3978,47 @@ function submitTargetRequest(){
   document.addEventListener("DOMContentLoaded",function(){
     setupSearchCaret();
     setupLoginMobile();
+  });
+})();
+</script>
+
+
+<script id="torvo-review-06-scroll-search-fixes">
+(function(){
+  "use strict";
+  function setCaretStart(el){
+    try{
+      const r=document.createRange(), s=window.getSelection();
+      r.selectNodeContents(el); r.collapse(true);
+      s.removeAllRanges(); s.addRange(r);
+    }catch(_){ }
+  }
+
+  document.addEventListener("DOMContentLoaded",function(){
+    const search=document.getElementById("publicSearch");
+    if(search){
+      search.addEventListener("mousedown",function(ev){
+        if(!(this.textContent||"").trim()){
+          ev.preventDefault(); this.focus(); setCaretStart(this);
+        }
+      });
+      search.addEventListener("focus",function(){
+        if(!(this.textContent||"").trim()) requestAnimationFrame(()=>setCaretStart(this));
+      });
+    }
+
+    const reg=document.getElementById("registerPanel");
+    if(reg){
+      reg.addEventListener("wheel",function(ev){
+        if(!this.classList.contains("active"))return;
+        const before=this.scrollTop;
+        this.scrollTop += ev.deltaY;
+        if(this.scrollTop!==before){
+          ev.preventDefault();
+          ev.stopPropagation();
+        }
+      },{passive:false});
+    }
   });
 })();
 </script>
