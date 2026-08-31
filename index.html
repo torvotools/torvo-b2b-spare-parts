@@ -2314,6 +2314,191 @@ body.torvo-auth-locked{
 }
 </style>
 
+
+<style id="torvo-review-07-fixes">
+/* Search: normal text, normal ALL, slightly taller caret */
+#publicSearch.torvo-catalog-search-control{
+  font-size:12px!important;
+  font-weight:400!important;
+  line-height:24px!important;
+  padding-top:11px!important;
+  padding-bottom:11px!important;
+  caret-color:#d71920!important;
+}
+#publicSearch.torvo-catalog-search-control:empty:before{
+  font-weight:400!important;
+  color:#455168!important;
+}
+.search-wrap select,
+.search-box select,
+.search-category,
+.search-category select{
+  font-weight:400!important;
+}
+
+/* Dealer Access: only lower line black */
+.login-btn .login-sub{
+  color:#111!important;
+}
+
+/* Hero descriptive text: a touch smaller and not bold */
+#torvoHeroDescription{
+  font-size:12px!important;
+  line-height:1.42!important;
+  font-weight:400!important;
+}
+
+/* Delivery second line: red but normal font-weight */
+.hero-delivery-note span{
+  color:#ff3b3b!important;
+  font-size:11.2px!important;
+  font-weight:400!important;
+}
+
+/* Dealer Login bottom support fits fully inside popup */
+.torvo-login-panel .torvo-support-mini{
+  box-sizing:border-box!important;
+  width:100%!important;
+  min-height:48px!important;
+  margin:5px 0 4px!important;
+  padding:7px 10px!important;
+  border-radius:10px!important;
+}
+.torvo-support-left b,
+.torvo-support-left a{font-weight:500!important}
+.torvo-wa-button{font-weight:600!important}
+.torvo-security-note{margin-top:3px!important;padding:5px 7px!important}
+
+/* Visiting card preview actions */
+.torvo-proof-actions{
+  display:none;
+  gap:6px;
+  margin-top:7px;
+  flex-wrap:wrap;
+}
+.torvo-proof-actions.show{display:flex}
+.torvo-proof-actions button{
+  border:1px solid #ccd3dd;
+  background:#fff;
+  color:#27324a;
+  border-radius:7px;
+  padding:6px 8px;
+  font-size:8px;
+  font-weight:500;
+  cursor:pointer;
+}
+.torvo-proof-actions button:first-child{border-color:#d71920;color:#d71920}
+
+/* Five dealer support cards: all have visible themed boundary */
+.contact-grid .contact-card:nth-child(1){border:1.5px solid #2da9ff!important}
+.contact-grid .contact-card:nth-child(2){border:1.5px solid #1db954!important}
+.contact-grid .contact-card:nth-child(3){border:1.5px solid #28a7e8!important}
+.contact-grid .contact-card:nth-child(4){border:1.5px solid #ff4e64!important}
+.contact-grid .contact-card:nth-child(5){border:1.5px solid #8b7dff!important}
+
+/* System Guide only Video + Diagram */
+.system-guide-actions{
+  display:flex!important;
+  justify-content:center!important;
+  gap:6px!important;
+  flex-wrap:wrap!important;
+}
+.system-guide-actions .support-action-btn{
+  min-width:78px!important;
+  font-size:8px!important;
+  font-weight:600!important;
+}
+.diagram-now{background:#6d5dfc!important}
+
+/* Android/iOS app buttons in footer beside TORVO */
+.footer-app-links{display:flex;gap:6px;margin:7px 0 8px;flex-wrap:wrap}
+.footer-app-links button{
+  border:1px solid rgba(255,255,255,.28);
+  background:rgba(255,255,255,.08);
+  color:#fff;
+  border-radius:7px;
+  padding:6px 8px;
+  font-size:8px;
+  font-weight:500;
+  cursor:pointer;
+}
+.footer-app-links button i{margin-right:4px}
+
+/* Product card top row: keep full card size; make code the clean focus */
+.v24-card-top{
+  min-height:32px!important;
+  padding:7px 34px 5px 8px!important;
+  display:flex!important;
+  align-items:center!important;
+  justify-content:center!important;
+  position:relative!important;
+}
+.v24-item-code{
+  font-size:9.4px!important;
+  font-weight:400!important;
+  color:#98202d!important;
+  letter-spacing:.1px!important;
+  white-space:nowrap!important;
+  overflow:visible!important;
+  text-overflow:clip!important;
+}
+
+/* NEW / POPULAR badge belongs inside photo, not in top row */
+.v24-photo{position:relative!important}
+.v24-photo .product-badge{
+  position:absolute!important;
+  left:8px!important;
+  top:8px!important;
+  z-index:5!important;
+  font-size:7px!important;
+  font-weight:600!important;
+  padding:3px 6px!important;
+  border-radius:10px!important;
+}
+
+/* Smaller top-right blue edit icon */
+.v24-card-top .top-rate-badge{
+  transform:scale(.80)!important;
+  transform-origin:center!important;
+}
+.v24-photo .gallery-arrow{
+  width:20px!important;
+  height:20px!important;
+  font-size:8px!important;
+}
+
+/* Product name: no heavy bold; slightly smaller and clean */
+.v24-body .product-name{
+  font-size:10.1px!important;
+  line-height:1.14!important;
+  font-weight:400!important;
+  min-height:15px!important;
+  margin:0 1px 1px!important;
+}
+
+/* Spec rows: only slight emphasis, no heavy bold */
+.v24-spec-row .v24-spec-label,
+.v24-spec-row .v24-spec-value{
+  font-size:8.3px!important;
+  font-weight:500!important;
+}
+
+/* VIEW DETAILS red button: larger text, same card size */
+.public-full-detail{
+  font-size:8.8px!important;
+  font-weight:600!important;
+  min-height:29px!important;
+}
+
+/* Do not re-introduce photo hover Open View */
+.product-photo.v24-photo::after{display:none!important;content:none!important}
+
+@media(max-width:760px){
+  .v24-item-code{font-size:8.7px!important}
+  .v24-body .product-name{font-size:9.6px!important}
+}
+</style>
+
 </head>
 <body>
 <div id="publicSite">
@@ -2418,11 +2603,11 @@ body.torvo-auth-locked{
 </div>
       <div class="contact-card contact-card-action"><div class="c-icon mail-support"><i class="fa-solid fa-envelope"></i></div><strong>EMAIL</strong><span id="contactEmail">CONTACT DETAILS WILL BE UPDATED SHORTLY.</span><button class="support-action-btn email-now" type="button" onclick="futureFeature('COMPANY EMAIL / SEND EMAIL')"><i class="fa-solid fa-envelope"></i> SEND EMAIL</button></div>
       <div class="contact-card contact-card-action"><div class="c-icon address-support"><i class="fa-solid fa-location-dot"></i></div><strong>ADDRESS</strong><span id="contactAddress">CONTACT DETAILS WILL BE UPDATED SHORTLY.</span><button class="support-action-btn location-now" type="button" onclick="futureFeature('TORVO ADDRESS / MAP LOCATION')"><i class="fa-solid fa-location-dot"></i> VIEW LOCATION</button></div>
-      <div class="contact-card contact-card-action system-guide-card"><div class="c-icon system-guide-support"><i class="fa-solid fa-circle-play"></i></div><strong>SYSTEM GUIDE</strong><span>APP / WEBSITE USE VIDEO &amp; DIAGRAM</span><div class="system-guide-actions"><button class="support-action-btn guide-now" type="button" onclick="futureFeature('TORVO SYSTEM USE VIDEO / DIAGRAM')"><i class="fa-solid fa-play"></i> VIEW GUIDE</button><button class="app-mini-btn" type="button" onclick="futureFeature('ANDROID APP DOWNLOAD')"><i class="fa-brands fa-android"></i> ANDROID</button><button class="app-mini-btn" type="button" onclick="futureFeature('IOS APP DOWNLOAD')"><i class="fa-brands fa-apple"></i> iOS</button></div></div>
+      <div class="contact-card contact-card-action system-guide-card"><div class="c-icon system-guide-support"><i class="fa-solid fa-circle-play"></i></div><strong>SYSTEM GUIDE</strong><span>APP / WEBSITE USE</span><div class="system-guide-actions"><button class="support-action-btn guide-now" type="button" onclick="futureFeature('TORVO SYSTEM USE VIDEO')"><i class="fa-solid fa-play"></i> VIDEO</button><button class="support-action-btn diagram-now" type="button" onclick="futureFeature('TORVO SYSTEM USE DIAGRAM')"><i class="fa-solid fa-diagram-project"></i> DIAGRAM</button></div></div>
     </div></div></div></section>
   </main>
 
-  <footer><div class="container footer-grid"><div><div class="brand-name"><span>TORVO</span></div><div class="footer-text" style="margin-top:10px">TORVO TOOLS PRIVATE LIMITED<br>B2B Power Tool Spare Parts & Accessories</div></div><div><div class="footer-title">Products</div><span class="footer-link" onclick="setQuickFilter('Spare Part')">Spare Parts</span><span class="footer-link" onclick="setQuickFilter('Accessory')">Accessories</span><span class="footer-link" onclick="focusModelFinder()">Search by Model</span></div><div><div class="footer-title">Dealer</div><span class="footer-link" onclick="openAuth('login')">Dealer Login</span><span class="footer-link" onclick="openAuth('register')">New Dealer Registration</span><span class="footer-link" onclick="openPartEnquiry()">Part Enquiry</span></div><div><div class="footer-title">Support</div><span class="footer-link">CUSTOMER CARE</span><span class="footer-link">WhatsApp Support</span><span class="footer-link">Business Enquiry</span></div></div></footer>
+  <footer><div class="container footer-grid"><div><div class="brand-name"><span>TORVO</span></div><div class="footer-app-links"><button type="button" onclick="futureFeature('ANDROID APP DOWNLOAD')"><i class="fa-brands fa-android"></i> ANDROID</button><button type="button" onclick="futureFeature('IOS APP DOWNLOAD')"><i class="fa-brands fa-apple"></i> iOS</button></div><div class="footer-text" style="margin-top:10px">TORVO TOOLS PRIVATE LIMITED<br>B2B Power Tool Spare Parts & Accessories</div></div><div><div class="footer-title">Products</div><span class="footer-link" onclick="setQuickFilter('Spare Part')">Spare Parts</span><span class="footer-link" onclick="setQuickFilter('Accessory')">Accessories</span><span class="footer-link" onclick="focusModelFinder()">Search by Model</span></div><div><div class="footer-title">Dealer</div><span class="footer-link" onclick="openAuth('login')">Dealer Login</span><span class="footer-link" onclick="openAuth('register')">New Dealer Registration</span><span class="footer-link" onclick="openPartEnquiry()">Part Enquiry</span></div><div><div class="footer-title">Support</div><span class="footer-link">CUSTOMER CARE</span><span class="footer-link">WhatsApp Support</span><span class="footer-link">Business Enquiry</span></div></div></footer>
 </div>
 
 <div class="modal" id="authModal">
@@ -2573,7 +2758,12 @@ body.torvo-auth-locked{
 
         <div class="form-field torvo-proof-field">
           <label>VISITING CARD / BUSINESS PROOF <span class="torvo-optional">(OPTIONAL)</span></label>
-          <input id="regVisitingCard" type="file" accept="image/*,.pdf">
+          <input id="regVisitingCard" type="file" accept="image/*,.pdf" onchange="handleTorvoProofPreview(this)">
+          <div class="torvo-proof-actions" id="torvoProofActions">
+            <button type="button" onclick="previewTorvoProof()"><i class="fa-regular fa-eye"></i> PREVIEW</button>
+            <button type="button" onclick="document.getElementById('regVisitingCard').click()"><i class="fa-solid fa-rotate"></i> CHANGE</button>
+            <button type="button" onclick="removeTorvoProof()"><i class="fa-solid fa-trash"></i> REMOVE</button>
+          </div>
           <small>JPG, PNG or PDF. You can also provide it later during verification.</small>
         </div>
 
@@ -2885,14 +3075,14 @@ let supabaseClient=null;
 try{if(window.supabase){supabaseClient=window.supabase.createClient(SUPABASE_URL,SUPABASE_KEY)}}catch(error){console.error("Supabase initialization error:",error)}
 
 const demoProducts=[
-{item:"T-1001",name:"Angle Grinder Armature",brand:"Bosch",spareBrand:"TORVO",system:"Power Tools",model:"GWS 600",machine:"Angle Grinder",wattage:"670W",type:"Spare Part",part:"Armature",icon:"⚙️",tag:"POPULAR",dealerRate:"₹ Preview Rate"},
-{item:"T-1002",name:"Marble Cutter Field",brand:"Makita",spareBrand:"TORVO",system:"Power Tools",model:"4100",machine:"Marble Cutter",wattage:"1200W",type:"Spare Part",part:"Field / Stator",icon:"🔩",tag:"NEW",dealerRate:"₹ Preview Rate"},
-{item:"T-1003",name:"Cordless Drill Switch",brand:"Makita",spareBrand:"DDI Spare",system:"Cordless Tools",model:"DF330",machine:"Cordless Drill",wattage:"",type:"Spare Part",part:"Switch",icon:"🔘",tag:"POPULAR",dealerRate:"₹ Preview Rate"},
-{item:"T-1004",name:"Angle Grinder Switch",brand:"Bosch",spareBrand:"ABC Spare Parts",system:"Power Tools",model:"GWS 600",machine:"Angle Grinder",wattage:"670W",type:"Spare Part",part:"Switch",icon:"🔘",tag:"NEW",dealerRate:"₹ Preview Rate"},
-{item:"T-1005",name:"Welding Cooling Fan",brand:"Multi Brand",spareBrand:"TORVO",system:"Welding Machines",model:"ARC 200",machine:"Inverter Welder",wattage:"",type:"Spare Part",part:"Cooling Fan",icon:"🌀",tag:"POPULAR",dealerRate:"₹ Preview Rate"},
+{item:"T-CODE-000001",name:"Angle Grinder Armature",brand:"Bosch",spareBrand:"TORVO",system:"Power Tools",model:"GWS 600",machine:"Angle Grinder",wattage:"670W",type:"Spare Part",part:"Armature",icon:"⚙️",tag:"POPULAR",dealerRate:"₹ Preview Rate"},
+{item:"T-CODE-000002",name:"Marble Cutter Field",brand:"Makita",spareBrand:"TORVO",system:"Power Tools",model:"4100",machine:"Marble Cutter",wattage:"1200W",type:"Spare Part",part:"Field / Stator",icon:"🔩",tag:"NEW",dealerRate:"₹ Preview Rate"},
+{item:"T-CODE-000003",name:"Cordless Drill Switch",brand:"Makita",spareBrand:"DDI Spare",system:"Cordless Tools",model:"DF330",machine:"Cordless Drill",wattage:"",type:"Spare Part",part:"Switch",icon:"🔘",tag:"POPULAR",dealerRate:"₹ Preview Rate"},
+{item:"T-CODE-000004",name:"Angle Grinder Switch",brand:"Bosch",spareBrand:"ABC Spare Parts",system:"Power Tools",model:"GWS 600",machine:"Angle Grinder",wattage:"670W",type:"Spare Part",part:"Switch",icon:"🔘",tag:"NEW",dealerRate:"₹ Preview Rate"},
+{item:"T-CODE-000005",name:"Welding Cooling Fan",brand:"Multi Brand",spareBrand:"TORVO",system:"Welding Machines",model:"ARC 200",machine:"Inverter Welder",wattage:"",type:"Spare Part",part:"Cooling Fan",icon:"🌀",tag:"POPULAR",dealerRate:"₹ Preview Rate"},
 {item:"T-2001",name:"Diamond Cutting Blade",brand:"Makita",spareBrand:"TORVO",system:"Power Tools",model:"Various",machine:"Marble Cutter",wattage:"",type:"Accessory",part:"Diamond Blade",icon:"💿",tag:"NEW",dealerRate:"₹ Preview Rate"},
 {item:"T-2002",name:"Drill Bit",brand:"Bosch",spareBrand:"TORVO",system:"Power Tools",model:"Various",machine:"Drill Machine",wattage:"",type:"Accessory",part:"Drill Bit",icon:"🪛",tag:"POPULAR",dealerRate:"₹ Preview Rate"},
-{item:"T-1006",name:"Bearing Set",brand:"Bosch",spareBrand:"XYZ Components",system:"Power Tools",model:"GWS 600",machine:"Angle Grinder",wattage:"670W",type:"Spare Part",part:"Bearing",icon:"⭕",tag:"POPULAR",dealerRate:"₹ Preview Rate"},
+{item:"T-CODE-000006",name:"Bearing Set",brand:"Bosch",spareBrand:"XYZ Components",system:"Power Tools",model:"GWS 600",machine:"Angle Grinder",wattage:"670W",type:"Spare Part",part:"Bearing",icon:"⭕",tag:"POPULAR",dealerRate:"₹ Preview Rate"},
 {item:"T-1007",name:"Compressor Piston Ring",brand:"Multi Brand",spareBrand:"ABC Spare Parts",system:"Compressors",model:"2HP",machine:"Air Compressor",wattage:"1500W",type:"Spare Part",part:"Piston Ring",icon:"⭕",tag:"NEW",dealerRate:"₹ Preview Rate"},
 {item:"T-1008",name:"Power Tool Stator",brand:"Stanley",spareBrand:"TORVO",system:"Power Tools",model:"SDH600",machine:"Drill Machine",wattage:"600W",type:"Spare Part",part:"Field / Stator",icon:"🔧",tag:"POPULAR",dealerRate:"₹ Preview Rate"},
 {item:"T-1009",name:"Angle Grinder Carbon Brush",brand:"DeWalt",spareBrand:"TORVO",system:"Power Tools",model:"DW801",machine:"Angle Grinder",wattage:"850W",type:"Spare Part",part:"Carbon Brush",icon:"▰",tag:"NEW",dealerRate:"₹ Preview Rate"},
@@ -4019,6 +4209,50 @@ function submitTargetRequest(){
         }
       },{passive:false});
     }
+  });
+})();
+</script>
+
+
+<script id="torvo-review-07-runtime">
+(function(){
+  "use strict";
+  let torvoProofUrl="";
+
+  window.handleTorvoProofPreview=function(input){
+    const file=input && input.files && input.files[0];
+    const actions=document.getElementById("torvoProofActions");
+    if(!file){actions?.classList.remove("show");return;}
+    if(torvoProofUrl)URL.revokeObjectURL(torvoProofUrl);
+    torvoProofUrl=URL.createObjectURL(file);
+    actions?.classList.add("show");
+  };
+  window.previewTorvoProof=function(){
+    if(torvoProofUrl)window.open(torvoProofUrl,"_blank","noopener");
+  };
+  window.removeTorvoProof=function(){
+    const input=document.getElementById("regVisitingCard");
+    if(input)input.value="";
+    if(torvoProofUrl){URL.revokeObjectURL(torvoProofUrl);torvoProofUrl="";}
+    document.getElementById("torvoProofActions")?.classList.remove("show");
+  };
+
+  function finishProductCards(){
+    document.querySelectorAll(".product-card").forEach((card,idx)=>{
+      const top=card.querySelector(".v24-card-top");
+      const photo=card.querySelector(".v24-photo");
+      const code=card.querySelector(".v24-item-code");
+      if(code) code.textContent="T-CODE-"+String(idx+1).padStart(6,"0");
+      if(top && photo){
+        const badge=top.querySelector(".product-badge");
+        if(badge) photo.appendChild(badge);
+      }
+    });
+  }
+
+  document.addEventListener("DOMContentLoaded",function(){
+    finishProductCards();
+    [120,400,900,1600].forEach(ms=>setTimeout(finishProductCards,ms));
   });
 })();
 </script>
