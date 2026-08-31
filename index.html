@@ -1645,6 +1645,136 @@ input[type="email"],input[type="password"],.preserve-case{text-transform:none!im
 }
 </style>
 
+
+<style id="torvo-review-02-fixes">
+/* Search must open visually empty; readonly blocks credential autofill until real user interaction */
+#publicSearch[readonly]{cursor:text!important;background:#fff!important;color:#20242c!important}
+
+/* Hero delivery sales message: larger, clearer and more useful */
+.hero-delivery-note{
+  width:max-content!important;
+  min-width:390px!important;
+  max-width:100%!important;
+  padding:13px 16px!important;
+  margin-top:15px!important;
+  border-radius:12px!important;
+  background:rgba(255,255,255,.13)!important;
+  border:1px solid rgba(255,255,255,.24)!important;
+}
+.hero-delivery-note i{font-size:22px!important}
+.hero-delivery-note b{
+  font-size:13px!important;
+  line-height:1.25!important;
+  font-weight:900!important;
+  letter-spacing:.15px!important;
+}
+.hero-delivery-note span{
+  font-size:10.5px!important;
+  line-height:1.35!important;
+  margin-top:4px!important;
+  font-weight:700!important;
+  color:#eef2f7!important;
+}
+
+/* Dealer Login / New Dealer popup: reduce visual scale from roughly 10 to 6 */
+.torvo-auth-box{
+  width:min(640px,94vw)!important;
+  max-width:640px!important;
+  max-height:84vh!important;
+  border-radius:16px!important;
+}
+.torvo-auth-top{
+  min-height:48px!important;
+  padding:9px 13px!important;
+}
+.torvo-auth-brand strong{font-size:14px!important}
+.torvo-auth-close{
+  width:31px!important;
+  height:31px!important;
+  font-size:19px!important;
+}
+.torvo-auth-body{
+  padding:10px 13px 14px!important;
+  max-height:calc(84vh - 48px)!important;
+  overflow-y:auto!important;
+  scrollbar-gutter:stable!important;
+}
+.torvo-auth-body::-webkit-scrollbar{width:8px}
+.torvo-auth-body::-webkit-scrollbar-thumb{background:#c9ced8;border-radius:10px}
+.torvo-auth-body::-webkit-scrollbar-track{background:#f5f6f8}
+.auth-tabs{margin-bottom:9px!important}
+.auth-tab{min-height:38px!important;font-size:10px!important}
+.torvo-form-title{margin:0 0 8px!important}
+.torvo-form-title b{font-size:13px!important}
+.torvo-form-title small{font-size:8px!important}
+.torvo-auth-box .form-field{margin-bottom:8px!important}
+.torvo-auth-box .form-field label{font-size:8px!important;margin-bottom:4px!important}
+.torvo-auth-box input,
+.torvo-auth-box select,
+.torvo-auth-box textarea{min-height:36px!important;font-size:10px!important}
+.torvo-auth-box textarea{min-height:58px!important}
+.torvo-two-col,.torvo-location-grid{gap:7px 9px!important}
+.torvo-same-number{padding:5px 7px!important;font-size:7.8px!important;margin-top:4px!important}
+.torvo-send-otp{font-size:8px!important}
+.torvo-login-main{height:38px!important;font-size:10px!important}
+.torvo-preview-btn{height:39px!important;font-size:9px!important}
+.torvo-preview-btn small{font-size:7px!important}
+.torvo-login-links{gap:7px!important;margin-top:7px!important}
+.torvo-login-links button{height:34px!important;font-size:8px!important}
+.torvo-security-note{margin-top:8px!important;padding:8px!important}
+.torvo-security-note i{font-size:15px!important}
+.torvo-security-note b{font-size:8.5px!important}
+.torvo-security-note span{font-size:7.4px!important}
+.torvo-support-mini{margin-top:8px!important;padding:7px 9px!important}
+.torvo-support-mini b{font-size:8px!important}
+.torvo-support-mini a{font-size:11px!important}
+.torvo-registration-note{font-size:7.7px!important;padding:7px!important}
+#registerSubmitBtn{height:38px!important;font-size:9px!important}
+.torvo-proof-field small{font-size:7px!important}
+
+/* Six system-working app cards stay in ONE row on desktop */
+.process-grid{
+  grid-template-columns:repeat(6,minmax(0,1fr))!important;
+  gap:9px!important;
+}
+.process-card{
+  min-width:0!important;
+  padding:12px 8px!important;
+  border-radius:14px!important;
+}
+.process-number{
+  width:27px!important;
+  height:27px!important;
+  margin-bottom:6px!important;
+  font-size:10px!important;
+}
+.process-icon{
+  font-size:27px!important;
+  margin-bottom:5px!important;
+}
+.process-card strong{
+  font-size:10px!important;
+  line-height:1.2!important;
+}
+.process-card small{
+  font-size:7.5px!important;
+  line-height:1.3!important;
+  margin-top:4px!important;
+}
+
+@media(max-width:900px){
+  .process-grid{grid-template-columns:repeat(3,1fr)!important}
+}
+@media(max-width:760px){
+  .torvo-auth-box{width:min(94vw,600px)!important;max-height:88vh!important}
+  .torvo-auth-body{max-height:calc(88vh - 48px)!important}
+  .hero-delivery-note{min-width:0!important;width:100%!important}
+  .hero-delivery-note b{font-size:11.5px!important}
+  .hero-delivery-note span{font-size:9.5px!important}
+  .process-grid{grid-template-columns:repeat(2,1fr)!important}
+}
+</style>
+
 </head>
 <body>
 <div id="publicSite">
@@ -1654,16 +1784,22 @@ input[type="email"],input[type="password"],.preserve-case{text-transform:none!im
     <div class="main-search">
       <select class="search-select" id="searchType"><option value="all">All</option><option value="item">Item No.</option><option value="product">Product</option><option value="brand">Brand</option><option value="model">Model</option><option value="category">Category</option></select>
       <input id="publicSearch"
-      name="torvo_product_catalog_search"
-      type="text"
+      name="torvo_catalog_search_only"
+      type="search"
       role="searchbox"
+      value=""
+      readonly
       autocomplete="off"
       aria-autocomplete="none"
       autocapitalize="off"
       spellcheck="false"
       data-lpignore="true"
       data-1p-ignore="true"
+      data-form-type="other"
       placeholder="Search Item No. / Product / Brand / Model..."
+      onfocus="this.removeAttribute('readonly'); if(/@/.test(this.value)){this.value='';}"
+      onpointerdown="this.removeAttribute('readonly'); if(/@/.test(this.value)){this.value='';}"
+      onkeydown="this.removeAttribute('readonly');"
       oninput="filterPublicProducts()" />
       <button class="search-icon-btn camera" title="Photo Search - Future Ready" onclick="futureFeature('Photo Search')"><img class="admin-search-svg" alt="" src="data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24'><path d='M5 7h3l1.5-2h5L16 7h3a2 2 0 0 1 2 2v9a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V9a2 2 0 0 1 2-2z' fill='%234285F4'/><circle cx='12' cy='13' r='4' fill='white'/><circle cx='12' cy='13' r='2.6' fill='%2334A853'/><circle cx='18' cy='10' r='1' fill='%23EA4335'/></svg>"></button><button class="search-icon-btn mic" title="Voice Search - Future Ready" onclick="futureFeature('Voice Search')"><img class="admin-search-svg" alt="" src="data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24'><rect x='9' y='3' width='6' height='11' rx='3' fill='%234285F4'/><path d='M5 11a7 7 0 0 0 14 0' fill='none' stroke='%2334A853' stroke-width='2'/><path d='M12 18v3M9 21h6' stroke='%23EA4335' stroke-width='2' stroke-linecap='round'/></svg>"></button><button class="search-submit" onclick="filterPublicProducts()"><img class="admin-search-svg" alt="" src="data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24'><circle cx='11' cy='11' r='6' fill='none' stroke='%234285F4' stroke-width='2.4'/><path d='M16 16l5 5' stroke='%2334A853' stroke-width='2.8' stroke-linecap='round'/></svg>"></button>
     </div>
@@ -1736,6 +1872,7 @@ input[type="email"],input[type="password"],.preserve-case{text-transform:none!im
       <div class="process-card"><div class="process-number">3</div><div class="process-icon">🔐</div><strong>Dealer Login</strong><small>Approved dealer enters secure dealer area.</small></div>
       <div class="process-card"><div class="process-number">4</div><div class="process-icon">🛒</div><strong>Place Order</strong><small>Search products and create a B2B order.</small></div>
       <div class="process-card"><div class="process-number">5</div><div class="process-icon">🚚</div><strong>Track Delivery</strong><small>See simplified order and delivery status.</small></div>
+      <div class="process-card"><div class="process-number">6</div><div class="process-icon">😊</div><strong>Happy Customer</strong><small>Better service, support and dealer satisfaction.</small></div>
     </div></div></section>
 
     <section class="section"><div class="container"><div class="about-box"><div><h2>About TORVO</h2><p>TORVO TOOLS PRIVATE LIMITED is building a professional B2B system focused on power tool spare parts and accessories. Our goal is to make product identification, dealer ordering, support and delivery easier through a modern digital platform.</p></div><div class="about-points"><div class="about-point">⚙️ Spare Parts Focus</div><div class="about-point">🧰 Accessories</div><div class="about-point">🏪 Dealer Network</div><div class="about-point">📱 Digital B2B System</div></div></div></div></section>
@@ -3109,6 +3246,40 @@ function submitTargetRequest(){
       setTimeout(applySharedBranding,0);
     };
   }
+})();
+</script>
+
+
+<script id="torvo-review-02-search-guard">
+(function(){
+  "use strict";
+  const emailLike = v => /@|gmail|yahoo|outlook|hotmail/i.test(String(v||""));
+  function lockClean(){
+    const e=document.getElementById("publicSearch");
+    if(!e)return;
+    if(emailLike(e.value)) e.value="";
+    if(document.activeElement!==e) e.setAttribute("readonly","");
+    e.setAttribute("autocomplete","off");
+    e.setAttribute("data-lpignore","true");
+    e.setAttribute("data-1p-ignore","true");
+    e.setAttribute("data-form-type","other");
+  }
+  document.addEventListener("DOMContentLoaded",function(){
+    lockClean();
+    [50,150,300,600,1000,1600,2400,3500,5000].forEach(ms=>setTimeout(lockClean,ms));
+    const e=document.getElementById("publicSearch");
+    if(e){
+      e.addEventListener("focus",function(){
+        this.removeAttribute("readonly");
+        if(emailLike(this.value)){this.value=""; try{filterPublicProducts();}catch(_){}}
+      });
+      e.addEventListener("blur",function(){
+        if(emailLike(this.value))this.value="";
+        this.setAttribute("readonly","");
+      });
+    }
+  });
+  window.addEventListener("pageshow",()=>setTimeout(lockClean,20));
 })();
 </script>
 
