@@ -2099,7 +2099,7 @@ if(!shop||!person||!mobile||!state||!district||!city||!pincode||!address){
    if(error)throw error;
 
    showRegistrationSuccess();
-  ["regShop","regPerson","regMobile","regDistrict","regPincode","regOtherCity","regAddress"]
+ ["regShop","regPerson","regMobile","regDistrict","regPincode","regOtherCity","regAddress"].forEach(id=>{
      const el=document.getElementById(id);if(el)el.value="";
    });
    document.getElementById("regState").value="";
