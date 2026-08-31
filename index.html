@@ -1417,6 +1417,234 @@ input[type="email"],input[type="password"],.preserve-case{text-transform:none!im
 @media(max-width:760px){.product-grid{grid-template-columns:repeat(2,minmax(0,1fr))!important}.product-photo.v24-photo{height:145px!important;min-height:145px!important}.v24-photo .gallery-arrow{width:20px!important;height:20px!important}.v26-unified-strip{grid-template-columns:1fr!important}.v26-delivery-copy{border:0;border-top:1px solid rgba(255,255,255,.14);border-bottom:1px solid rgba(255,255,255,.14);padding:7px 0}.v26-unified-strip .rate-chip{justify-self:start}.dealer-reco-grid{grid-template-columns:repeat(2,minmax(0,1fr))!important}.product-photo.v24-photo::after{display:none}}
 </style>
 
+
+
+<style id="torvo-h29-final">
+:root{--torvo-red:#d71920;--torvo-blue:#1768d2;--torvo-green:#16813d}
+
+/* FILTER -> PRODUCT CARDS DIRECTLY */
+#publicSite .torvo-promo-wrap,
+#productsSection .view-all,
+.public-detail-row{display:none!important}
+
+/* APPROVED COMPACT CARD PROPORTIONS */
+#publicSite .product-grid,
+#dealerPortal .product-grid,
+#dealerApp .product-grid{
+  display:grid!important;
+  grid-template-columns:repeat(auto-fit,minmax(188px,1fr))!important;
+  gap:10px!important;
+  align-items:stretch!important;
+}
+#publicSite .product-card,
+#dealerPortal .product-card,
+#dealerApp .product-card{
+  border:1px solid #cfd4dc!important;
+  border-radius:12px!important;
+  background:#fff!important;
+  overflow:hidden!important;
+  box-shadow:0 3px 10px rgba(16,24,40,.055)!important;
+  min-width:0!important;
+  height:auto!important;
+}
+.v24-card-top{
+  height:31px!important;min-height:31px!important;padding:5px 7px!important;
+  display:grid!important;grid-template-columns:auto minmax(0,1fr) 26px!important;
+  align-items:center!important;gap:5px!important
+}
+.v24-card-top .product-badge{
+  position:static!important;font-size:7px!important;line-height:1!important;
+  font-weight:800!important;padding:4px 6px!important;border-radius:6px!important;white-space:nowrap!important
+}
+.v24-item-code{
+  font-size:8.2px!important;font-weight:700!important;color:#20242c!important;text-align:center!important;
+  white-space:nowrap!important;overflow:hidden!important;text-overflow:ellipsis!important;letter-spacing:0!important
+}
+.v24-item-code .h29-code,.v24-item-code .h27-code{
+  color:#e1181f!important;font-size:9.2px!important;font-weight:800!important
+}
+
+/* PHOTO / ARROWS / DOTS / OPEN VIEW */
+.product-photo.v24-photo{
+  position:relative!important;height:148px!important;min-height:148px!important;
+  margin:2px 6px 0!important;padding:7px!important;border:0!important;border-radius:9px!important;
+  background:#fff!important;overflow:hidden!important
+}
+.v24-photo .gallery-visual{
+  width:100%!important;height:100%!important;display:grid!important;place-items:center!important;
+  font-size:64px!important;overflow:hidden!important
+}
+.v24-photo .gallery-visual img{width:100%!important;height:100%!important;object-fit:contain!important;object-position:center!important}
+.v24-photo .gallery-arrow{
+  width:20px!important;height:20px!important;border-radius:50%!important;background:rgba(255,255,255,.96)!important;
+  border:1px solid #d8dce3!important;color:#111827!important;box-shadow:0 2px 6px rgba(0,0,0,.07)!important;
+  font-size:7px!important;display:grid!important;place-items:center!important
+}
+.v24-photo .gallery-arrow.left{left:4px!important}.v24-photo .gallery-arrow.right{right:4px!important}
+.v24-photo-dots{bottom:4px!important;gap:4px!important}
+.v24-photo-dot{width:5px!important;height:5px!important;background:#bfc4cb!important}
+.v24-photo-dot.active{background:#e1181f!important;transform:none!important}
+.product-photo.v24-photo::after{
+  content:"OPEN VIEW"!important;position:absolute!important;left:50%!important;top:7px!important;
+  transform:translateX(-50%) translateY(-2px)!important;background:#162c68!important;color:#fff!important;
+  border-radius:5px!important;padding:4px 7px!important;font-size:6.3px!important;font-weight:800!important;
+  letter-spacing:.2px!important;opacity:0!important;visibility:hidden!important;transition:.14s!important;
+  pointer-events:none!important;z-index:7!important
+}
+.product-photo.v24-photo:hover::after{opacity:1!important;visibility:visible!important;transform:translateX(-50%) translateY(0)!important}
+
+/* BLUE SQUARE EDIT ONLY AFTER ADDED */
+.h27-edit-qty,.h29-edit-qty{
+  position:absolute!important;right:7px!important;top:7px!important;z-index:9!important;
+  width:26px!important;height:26px!important;border-radius:4px!important;border:2px solid #1768d2!important;
+  background:#fff!important;color:#1768d2!important;display:grid!important;place-items:center!important;
+  padding:0!important;box-shadow:0 2px 6px rgba(23,104,210,.12)!important
+}
+.h27-edit-qty i,.h29-edit-qty i{font-size:9px!important}
+
+/* TITLE IS CLEAN, NOT HEAVY */
+.product-body.v24-body{padding:6px 7px 7px!important;background:#fff!important;display:flex!important;flex-direction:column!important}
+.v24-body .product-name,
+#dealerPortal .product-name,#dealerApp .product-name,#publicSite .product-name{
+  margin:2px 1px 6px!important;min-height:23px!important;font-size:10px!important;line-height:1.18!important;
+  font-weight:600!important;letter-spacing:0!important;color:#151922!important
+}
+
+/* FOUR DETAIL ROWS: COLON HAS ITS OWN COLUMN */
+.v24-specs{border:1px solid #cfd4dc!important;border-radius:7px!important;overflow:hidden!important;background:#fff!important}
+.v24-spec-row{
+  display:grid!important;grid-template-columns:minmax(78px,46%) 10px minmax(0,1fr)!important;
+  gap:2px!important;align-items:center!important;min-height:25px!important;padding:4px 6px!important;
+  border-bottom:1px solid #d9dde3!important
+}
+.v24-spec-row:last-child{border-bottom:0!important}
+.v24-spec-label{
+  font-size:7.7px!important;line-height:1.15!important;font-weight:600!important;color:#20242c!important;
+  white-space:normal!important;overflow:visible!important
+}
+.v24-spec-colon{font-size:8.5px!important;font-weight:700!important;color:#20242c!important;text-align:center!important}
+.v24-spec-value{
+  font-size:7.8px!important;line-height:1.15!important;font-weight:600!important;color:#182746!important;
+  white-space:normal!important;overflow:visible!important;text-overflow:clip!important;word-break:normal!important
+}
+.v24-spec-row:nth-child(1) .v24-spec-value{color:#d71920!important}
+.v24-spec-row:nth-child(2) .v24-spec-value{color:#173b7a!important}
+.v24-spec-row:nth-child(3) .v24-spec-value{color:#147a3c!important}
+.v24-spec-row:nth-child(4) .v24-spec-value{color:#6f2aa3!important}
+
+.v24-body .dealer-rate{
+  margin:5px 0 0!important;padding:0!important;background:transparent!important;
+  font-size:7.4px!important;font-weight:700!important;color:#d71920!important;text-align:center!important;
+  min-height:16px!important;display:flex!important;align-items:center!important;justify-content:center!important
+}
+.v24-body .cart-controls{
+  margin-top:3px!important;padding-top:0!important;display:grid!important;
+  grid-template-columns:minmax(0,1fr) 62px!important;gap:7px!important
+}
+.v24-body .qty-control{
+  height:34px!important;border:1px solid #cfd4dc!important;border-radius:7px!important;
+  display:grid!important;grid-template-columns:32px minmax(30px,1fr) 32px!important;overflow:hidden!important
+}
+.v24-body .qty-control button{
+  font-size:13px!important;font-weight:700!important;color:#111827!important;background:#fff!important;border:0!important
+}
+.v24-body .qty-control input{
+  font-size:10px!important;font-weight:600!important;color:#111827!important;text-align:center!important;border:0!important
+}
+.v24-body .dealer-cart-btn{
+  width:62px!important;min-width:62px!important;height:34px!important;padding:0 6px!important;border:0!important;
+  border-radius:7px!important;background:#d71920!important;color:#fff!important;font-size:8.1px!important;
+  font-weight:700!important;letter-spacing:0!important;display:flex!important;align-items:center!important;
+  justify-content:center!important;gap:4px!important
+}
+.v24-body .dealer-cart-btn i{font-size:9px!important}
+.v24-body .dealer-cart-btn .cart-text{display:inline!important;font-size:8.1px!important;font-weight:700!important}
+.v24-body .dealer-cart-btn.added .cart-text{font-size:7.1px!important}
+.v24-body .dealer-cart-btn.added{background:#d71920!important;color:#fff!important}
+.h29-public-login{
+  width:100%!important;height:33px!important;margin-top:6px!important;border:1px solid #d71920!important;
+  border-radius:7px!important;background:#fff!important;color:#d71920!important;font-size:7.8px!important;font-weight:700!important
+}
+
+/* LOGIN / REGISTER COMPACT APP-STYLE */
+#authModal .modal-box{
+  width:min(790px,94vw)!important;max-height:90vh!important;overflow:hidden!important;border-radius:17px!important;
+  box-shadow:0 22px 60px rgba(15,23,42,.22)!important
+}
+#authModal .modal-head{padding:10px 14px!important;min-height:52px!important}
+#authModal .auth-brand-title{font-size:15px!important}
+#authModal .close-btn{
+  width:34px!important;height:34px!important;border-radius:8px!important;border:1px solid #d4d8df!important;
+  background:#fff!important;color:#111827!important;font-size:23px!important;font-weight:500!important
+}
+#authModal .modal-body{padding:11px 14px 14px!important;overflow:auto!important;max-height:calc(90vh - 52px)!important}
+#authModal .auth-tabs{max-width:450px!important;margin:0 auto 10px!important;gap:7px!important}
+#authModal .auth-tab{height:38px!important;min-height:38px!important;border-radius:8px!important;font-size:9.5px!important;font-weight:800!important}
+#authModal .auth-tab.active{background:#d71920!important;color:#fff!important;border-color:#d71920!important}
+.h29-auth-heading{display:flex;align-items:center;gap:9px;margin:1px 0 10px;padding-bottom:9px;border-bottom:1px solid #e4e7ec}
+.h29-auth-icon{width:34px;height:34px;border-radius:9px;background:#fff1f2;color:#d71920;display:grid;place-items:center;font-size:14px}
+.h29-auth-heading h3{margin:0;font-size:13px;color:#151922}.h29-auth-heading p{margin:2px 0 0;font-size:8.5px;color:#667085}
+#authModal .form-field{margin-bottom:8px!important}
+#authModal .form-field label{display:block;margin:0 0 4px!important;font-size:8.3px!important;font-weight:700!important;color:#242a34!important}
+#authModal input,#authModal select,#authModal textarea{
+  min-height:38px!important;border-radius:8px!important;border:1px solid #d8dde5!important;
+  font-size:10px!important;padding:8px 10px!important;background:#fff!important
+}
+#authModal textarea{min-height:53px!important;resize:vertical!important}
+#authModal .two-fields{grid-template-columns:1fr 1fr!important;gap:8px!important}
+.h29-address-grid{display:grid;grid-template-columns:repeat(4,minmax(0,1fr));gap:8px}
+.h29-mobile-login{display:grid;grid-template-columns:48px 1fr;align-items:stretch}
+.h29-mobile-login>span{display:grid;place-items:center;border:1px solid #d8dde5;border-right:0;border-radius:8px 0 0 8px;font-size:10px;font-weight:700;background:#f8fafc}
+.h29-mobile-login input{border-radius:0 8px 8px 0!important}
+#authModal .mobile-whatsapp-row{display:grid!important;grid-template-columns:48px 1fr 100px!important;gap:0!important}
+#authModal .country-code{min-height:38px!important;border-radius:8px 0 0 8px!important;display:grid!important;place-items:center!important}
+#authModal .mobile-whatsapp-row input{border-radius:0!important}
+#authModal .whatsapp-block{min-height:38px!important;border-radius:0 8px 8px 0!important;font-size:8px!important}
+#authModal .same-number-strip{font-size:7.7px!important;line-height:1.35!important;padding:6px 8px!important;margin-top:5px!important}
+#authModal .h27-otp-actions{margin-top:6px!important}.h27-otp-btn,.h27-verify-btn{height:34px!important;font-size:8px!important}
+#authModal .h27-otp-state{font-size:7px!important;padding:5px 7px!important}
+#authModal .h27-otp-box{margin-top:6px!important}
+#authModal .full-red-btn{height:40px!important;min-height:40px!important;border-radius:8px!important;font-size:9px!important;font-weight:800!important}
+.h29-login-links{display:flex;justify-content:space-between;gap:8px;margin-top:8px}
+.h29-login-links button{border:0;background:transparent;color:#d71920;font-size:8.2px;font-weight:800;padding:4px 0;cursor:pointer}
+#authModal .security-note,#authModal .registration-note{font-size:7.8px!important;line-height:1.4!important;padding:7px 8px!important;border-radius:8px!important;margin-top:7px!important}
+#authModal .h27-visiting-card small{font-size:7.4px!important;line-height:1.3!important}
+#authModal .h27-visiting-card input[type="file"]{min-height:36px!important;padding:5px!important}
+#authModal .preview-btn{display:none!important}
+
+/* FIVE EQUAL COMPACT DEALER SUPPORT CARDS */
+#publicSite .contact-box{padding:17px!important;border-radius:16px!important}
+#publicSite .contact-head{margin-bottom:11px!important}
+#publicSite .contact-grid{grid-template-columns:repeat(5,minmax(0,1fr))!important;gap:8px!important}
+#publicSite .contact-card{
+  min-height:128px!important;padding:9px 7px!important;border-radius:11px!important;display:flex!important;
+  flex-direction:column!important;align-items:center!important;justify-content:flex-start!important;text-align:center!important
+}
+#publicSite .contact-card .c-icon{font-size:19px!important;margin:0 auto 5px!important}
+#publicSite .contact-card strong{font-size:8.2px!important;margin-bottom:4px!important}
+#publicSite .contact-card span{font-size:7.4px!important;line-height:1.3!important;min-height:29px!important;text-align:center!important}
+#publicSite .support-number{font-size:9.4px!important;font-weight:800!important}
+#publicSite .support-action-btn{
+  min-width:86px!important;min-height:28px!important;margin:auto auto 0!important;padding:5px 7px!important;
+  border-radius:6px!important;font-size:7px!important;font-weight:800!important;display:inline-flex!important;
+  align-items:center!important;justify-content:center!important;gap:4px!important
+}
+@media(min-width:1200px){
+  #dealerApp .product-grid,#dealerPortal .product-grid,#publicSite .product-grid{grid-template-columns:repeat(5,minmax(0,1fr))!important}
+}
+@media(max-width:980px){
+  .h29-address-grid{grid-template-columns:repeat(2,minmax(0,1fr))}
+  #publicSite .contact-grid{grid-template-columns:repeat(3,minmax(0,1fr))!important}
+}
+@media(max-width:760px){
+  #publicSite .product-grid,#dealerApp .product-grid,#dealerPortal .product-grid{grid-template-columns:repeat(2,minmax(0,1fr))!important;gap:7px!important}
+  .product-photo.v24-photo{height:128px!important;min-height:128px!important}
+  #authModal .two-fields,.h29-address-grid{grid-template-columns:1fr!important}
+  #authModal .mobile-whatsapp-row{grid-template-columns:44px 1fr 82px!important}
+  #publicSite .contact-grid{grid-template-columns:repeat(2,minmax(0,1fr))!important}
+}
+</style>
+
 </head>
 <body>
 <div id="publicSite">
@@ -1425,7 +1653,10 @@ input[type="email"],input[type="password"],.preserve-case{text-transform:none!im
     <div class="brand" onclick="window.scrollTo({top:0,behavior:'smooth'})"><div class="brand-logo">T</div><div><div class="brand-name"><span>TORVO</span></div><div class="brand-sub">TOOLS PRIVATE LIMITED</div></div></div>
     <div class="main-search">
       <select class="search-select" id="searchType"><option value="all">All</option><option value="item">Item No.</option><option value="product">Product</option><option value="brand">Brand</option><option value="model">Model</option><option value="category">Category</option></select>
-      <input id="publicSearch" type="search" placeholder="Search Item No., Product, Brand, Model..." oninput="filterPublicProducts()" />
+      <input id="publicSearch" name="torvo_catalog_search_only" type="text" role="searchbox"
+autocomplete="off" aria-autocomplete="none" autocapitalize="off" spellcheck="false"
+data-lpignore="true" data-1p-ignore="true"
+placeholder="Search Item No., Product, Brand, Model..." oninput="filterPublicProducts()" />
       <button class="search-icon-btn camera" title="Photo Search - Future Ready" onclick="futureFeature('Photo Search')"><img class="admin-search-svg" alt="" src="data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24'><path d='M5 7h3l1.5-2h5L16 7h3a2 2 0 0 1 2 2v9a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V9a2 2 0 0 1 2-2z' fill='%234285F4'/><circle cx='12' cy='13' r='4' fill='white'/><circle cx='12' cy='13' r='2.6' fill='%2334A853'/><circle cx='18' cy='10' r='1' fill='%23EA4335'/></svg>"></button><button class="search-icon-btn mic" title="Voice Search - Future Ready" onclick="futureFeature('Voice Search')"><img class="admin-search-svg" alt="" src="data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24'><rect x='9' y='3' width='6' height='11' rx='3' fill='%234285F4'/><path d='M5 11a7 7 0 0 0 14 0' fill='none' stroke='%2334A853' stroke-width='2'/><path d='M12 18v3M9 21h6' stroke='%23EA4335' stroke-width='2' stroke-linecap='round'/></svg>"></button><button class="search-submit" onclick="filterPublicProducts()"><img class="admin-search-svg" alt="" src="data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24'><circle cx='11' cy='11' r='6' fill='none' stroke='%234285F4' stroke-width='2.4'/><path d='M16 16l5 5' stroke='%2334A853' stroke-width='2.8' stroke-linecap='round'/></svg>"></button>
     </div>
     <div class="header-actions"><button class="login-btn" onclick="openAuth('login')"><span class="login-main">DEALER ACCESS</span><span class="login-sub">LOGIN • NEW REGISTER</span></button></div>
@@ -1465,7 +1696,6 @@ input[type="email"],input[type="password"],.preserve-case{text-transform:none!im
 
     
 
-<section class="section torvo-promo-wrap"><div class="container"><div class="torvo-promo" id="publicPromo"><div><small>TORVO BUSINESS UPDATE</small><b id="publicPromoTitle">NEW SPARE PARTS ARRIVING REGULARLY</b><span id="publicPromoText">CHECK THE LATEST TORVO RANGE AND FAST-MOVING ITEMS.</span></div><div class="torvo-promo-mark" id="publicPromoMark">⚙️</div></div></div></section>
 <section class="section" id="productsSection"><div class="container"><div class="section-head"><div><h2 class="section-title">Featured Spare Parts</h2><p class="section-sub">Search or filter above — products continue directly below.</p></div></div><div class="product-grid" id="publicProductGrid"></div></div></section>
 
     <section class="section"><div class="container"><div class="section-head"><div><h2 class="section-title">Why TORVO?</h2></div></div><div class="business-strip">
@@ -1509,107 +1739,121 @@ input[type="email"],input[type="password"],.preserve-case{text-transform:none!im
 
 <div class="modal" id="authModal"><div class="modal-box"><div class="modal-head"><strong class="auth-brand-title"><span class="dark">TORVO B2B</span> <span class="red">DEALER</span></strong><button class="close-btn" onclick="closeAuth()">×</button></div><div class="modal-body">
   <div class="auth-tabs"><button id="loginTab" class="auth-tab active" onclick="switchAuth('login')">DEALER LOGIN</button><button id="registerTab" class="auth-tab" onclick="switchAuth('register')">NEW DEALER</button></div><div id="authMessage" class="message"></div>
-  <div id="loginPanel" class="form-panel active"><div class="form-field"><label>MOBILE NUMBER</label><input id="loginMobile" inputmode="numeric" placeholder="Enter registered mobile number"></div><div class="form-field"><label>4-DIGIT PIN</label><input id="loginPin" inputmode="numeric" maxlength="4" type="password" placeholder="••••"></div><button class="full-red-btn" onclick="demoLogin()">LOGIN</button><button class="preview-btn" onclick="previewDealer()">PREVIEW DEALER AREA</button><div style="display:flex;justify-content:space-between;gap:10px;margin-top:12px;font-size:11px;font-weight:800"><span style="cursor:pointer;color:var(--red)" onclick="demoOtp()">FIRST LOGIN / OTP</span><span style="cursor:pointer;color:var(--red)" onclick="demoForgotPin()">FORGOT PIN?</span></div><div class="security-note">Secure dealer authentication is not enabled in this UI preview. Production login will use secure backend authentication and database permissions.</div></div>
+  <div id="loginPanel" class="form-panel active">
+    <div class="h29-auth-heading">
+      <div class="h29-auth-icon"><i class="fa-solid fa-user-lock"></i></div>
+      <div><h3>DEALER LOGIN</h3><p>Approved dealer access</p></div>
+    </div>
+    <div class="form-field">
+      <label>REGISTERED CALLING &amp; WHATSAPP NUMBER</label>
+      <div class="h29-mobile-login"><span>+91</span><input id="loginMobile" name="torvo_login_mobile" autocomplete="tel" inputmode="numeric" maxlength="10" placeholder="Enter 10-digit registered number"></div>
+    </div>
+    <div class="form-field">
+      <label>4-DIGIT PIN</label>
+      <input id="loginPin" name="torvo_login_pin" autocomplete="current-password" inputmode="numeric" maxlength="4" type="password" placeholder="Enter your 4-digit PIN">
+    </div>
+    <button class="full-red-btn" onclick="demoLogin()"><i class="fa-solid fa-lock"></i> LOGIN</button>
+    <div class="h29-login-links">
+      <button type="button" onclick="demoOtp()">FIRST LOGIN / OTP</button>
+      <button type="button" onclick="demoForgotPin()">FORGOT PIN?</button>
+    </div>
+    <div class="security-note">First login OTP is issued only after TORVO Admin approval. After first verification, the dealer can set a 4-digit PIN.</div>
+  </div>
+
   <div id="registerPanel" class="form-panel">
-        <div class="required-note"><span class="req">*</span> Required information</div>
+    <div class="h29-auth-heading">
+      <div class="h29-auth-icon"><i class="fa-solid fa-user-plus"></i></div>
+      <div><h3>NEW DEALER REGISTRATION</h3><p>Verify your active Calling &amp; WhatsApp number first</p></div>
+    </div>
+    <div class="required-note"><span class="req">*</span> Required information</div>
 
-        <div class="two-fields">
-          <div class="form-field">
-            <label>SHOP / BUSINESS NAME <span class="req">*</span></label>
-            <input id="regShop" required placeholder="Business name">
-          </div>
-          <div class="form-field">
-            <label>CONTACT PERSON – FULL NAME <span class="req">*</span></label>
-            <input id="regPerson" required placeholder="Enter full name">
-          </div>
-        </div>
-
-        <div class="two-fields reg-mobile-pin">
-          <div class="form-field approved-mobile-field">
-            <label>CALLING &amp; WHATSAPP NUMBER <span class="req">*</span></label>
-            <div class="mobile-whatsapp-row">
-              <span class="country-code">+91</span>
-              <input id="regMobile" required inputmode="numeric" maxlength="10" placeholder="10-digit Mobile Number">
-              <span class="whatsapp-block"><i class="fa-brands fa-whatsapp"></i><b>WHATSAPP</b></span>
-            </div>
-            <div class="same-number-strip"><i class="fa-solid fa-circle-check"></i> One active number is required for both Calling &amp; WhatsApp. Do not use different numbers.</div>
-            <div class="h27-otp-actions">
-              <button type="button" id="regSendOtpBtn" class="h27-otp-btn" onclick="sendRegistrationOtp()"><i class="fa-brands fa-whatsapp"></i> SEND OTP</button>
-              <span id="regOtpState" class="h27-otp-state">NUMBER NOT VERIFIED</span>
-            </div>
-            <div id="regOtpBox" class="h27-otp-box">
-              <input id="regOtp" inputmode="numeric" maxlength="6" placeholder="Enter 6-digit OTP">
-              <button type="button" class="h27-verify-btn" onclick="verifyRegistrationOtp()">VERIFY OTP</button>
-            </div>
-          </div>
-          <div class="form-field">
-            <label>PIN CODE <span class="req">*</span></label>
-            <input id="regPincode" required inputmode="numeric" maxlength="6" placeholder="6-digit PIN code">
-          </div>
-        </div>
-
-        
-
-        <div class="two-fields">
-          <div class="form-field">
-            <label>STATE / UNION TERRITORY <span class="req">*</span></label>
-            <select id="regState" required onchange="loadCities()">
-              <option value="">Select State / UT</option>
-              <option>Andhra Pradesh</option><option>Arunachal Pradesh</option><option>Assam</option><option>Bihar</option>
-              <option>Chhattisgarh</option><option>Goa</option><option>Gujarat</option><option>Haryana</option>
-              <option>Himachal Pradesh</option><option>Jharkhand</option><option>Karnataka</option><option>Kerala</option>
-              <option>Madhya Pradesh</option><option>Maharashtra</option><option>Manipur</option><option>Meghalaya</option>
-              <option>Mizoram</option><option>Nagaland</option><option>Odisha</option><option>Punjab</option>
-              <option>Rajasthan</option><option>Sikkim</option><option>Tamil Nadu</option><option>Telangana</option>
-              <option>Tripura</option><option>Uttar Pradesh</option><option>Uttarakhand</option><option>West Bengal</option>
-              <option>Andaman and Nicobar Islands</option><option>Chandigarh</option>
-              <option>Dadra and Nagar Haveli and Daman and Diu</option><option>Delhi</option>
-              <option>Jammu and Kashmir</option><option>Ladakh</option><option>Lakshadweep</option><option>Puducherry</option>
-            </select>
-          </div>
-
-          <div class="form-field">
-            <label>DISTRICT <span class="req">*</span></label>
-            <select id="regDistrict" required onchange="loadH27Cities()">
-              <option value="">Select State first</option>
-            </select>
-          </div>
-
-          <div class="form-field">
-            <label>CITY <span class="req">*</span></label>
-            <select id="regCity" required onchange="toggleOtherCity()">
-              <option value="">Select State first</option>
-            </select>
-            <input id="regOtherCity" class="city-other" placeholder="Enter city / town name">
-          </div>
-        </div>
-
-        <div class="form-field h27-visiting-card">
-          <label>VISITING CARD / BUSINESS PROOF <span class="h27-optional">(OPTIONAL)</span></label>
-          <input id="regVisitingCard" type="file" accept="image/*,.pdf">
-          <small>You may upload it now or provide it later to TORVO Admin.</small>
-        </div>
-
-        <div class="form-field address-field">
-          <label>FULL SHOP ADDRESS <span class="req">*</span></label>
-          <textarea id="regAddress" required placeholder="Shop / business full address"></textarea>
-        </div>
-
-        <div class="registration-note">After WhatsApp number verification, the request will be sent to TORVO Admin for approval. After approval, a separate first-login OTP will be sent to the verified number.</div>
-
-        <button class="full-red-btn" id="registerSubmitBtn" onclick="submitInquiry()">SUBMIT REGISTRATION REQUEST</button>
-        <div class="security-note">Dealer access will be provided only after TORVO admin verification and approval.</div>
-        <div class="registration-success" id="registrationSuccess">
-          <div class="success-icon"><i class="fa-solid fa-circle-check"></i></div>
-          <h2>WELCOME TO TORVO B2B</h2>
-          <h3>Registration Request Submitted Successfully</h3>
-          <p>Thank you for registering with TORVO Tools.</p>
-          <p>Your dealer account is under verification.</p>
-          <p>You will be notified on WhatsApp after approval.</p>
-          <p id="successContact">Customer Care details will be updated shortly.</p>
-          <button onclick="closeRegistrationSuccess()">BACK TO HOME</button>
-        </div>
+    <div class="two-fields">
+      <div class="form-field">
+        <label>SHOP / BUSINESS NAME <span class="req">*</span></label>
+        <input id="regShop" autocomplete="organization" required placeholder="Enter shop / business name">
       </div>
+      <div class="form-field">
+        <label>CONTACT PERSON – FULL NAME <span class="req">*</span></label>
+        <input id="regPerson" autocomplete="name" required placeholder="Enter full name">
+      </div>
+    </div>
+
+    <div class="form-field approved-mobile-field">
+      <label>CALLING &amp; WHATSAPP NUMBER <span class="req">*</span></label>
+      <div class="mobile-whatsapp-row">
+        <span class="country-code">+91</span>
+        <input id="regMobile" name="torvo_registration_mobile" autocomplete="tel" required inputmode="numeric" maxlength="10" placeholder="Enter 10-digit active number">
+        <span class="whatsapp-block"><i class="fa-brands fa-whatsapp"></i><b>WHATSAPP</b></span>
+      </div>
+      <div class="same-number-strip"><i class="fa-solid fa-circle-check"></i> Use one active number for both Calling and WhatsApp. Different numbers are not allowed.</div>
+      <div class="h27-otp-actions">
+        <button type="button" id="regSendOtpBtn" class="h27-otp-btn" onclick="sendRegistrationOtp()"><i class="fa-brands fa-whatsapp"></i> SEND OTP</button>
+        <span id="regOtpState" class="h27-otp-state">NUMBER NOT VERIFIED</span>
+      </div>
+      <div id="regOtpBox" class="h27-otp-box">
+        <input id="regOtp" autocomplete="one-time-code" inputmode="numeric" maxlength="6" placeholder="Enter 6-digit OTP">
+        <button type="button" class="h27-verify-btn" onclick="verifyRegistrationOtp()">VERIFY OTP</button>
+      </div>
+    </div>
+
+    <div class="h29-address-grid">
+      <div class="form-field">
+        <label>STATE / UNION TERRITORY <span class="req">*</span></label>
+        <select id="regState" autocomplete="address-level1" required onchange="loadCities()">
+          <option value="">Select State / UT</option>
+          <option>Andhra Pradesh</option><option>Arunachal Pradesh</option><option>Assam</option><option>Bihar</option>
+          <option>Chhattisgarh</option><option>Goa</option><option>Gujarat</option><option>Haryana</option>
+          <option>Himachal Pradesh</option><option>Jharkhand</option><option>Karnataka</option><option>Kerala</option>
+          <option>Madhya Pradesh</option><option>Maharashtra</option><option>Manipur</option><option>Meghalaya</option>
+          <option>Mizoram</option><option>Nagaland</option><option>Odisha</option><option>Punjab</option>
+          <option>Rajasthan</option><option>Sikkim</option><option>Tamil Nadu</option><option>Telangana</option>
+          <option>Tripura</option><option>Uttar Pradesh</option><option>Uttarakhand</option><option>West Bengal</option>
+          <option>Andaman and Nicobar Islands</option><option>Chandigarh</option>
+          <option>Dadra and Nagar Haveli and Daman and Diu</option><option>Delhi</option>
+          <option>Jammu and Kashmir</option><option>Ladakh</option><option>Lakshadweep</option><option>Puducherry</option>
+        </select>
+      </div>
+      <div class="form-field">
+        <label>DISTRICT <span class="req">*</span></label>
+        <select id="regDistrict" autocomplete="address-level2" required onchange="loadH27Cities()"><option value="">Select State first</option></select>
+      </div>
+      <div class="form-field">
+        <label>CITY / TOWN <span class="req">*</span></label>
+        <select id="regCity" autocomplete="address-level3" required onchange="toggleOtherCity()"><option value="">Select District first</option></select>
+        <input id="regOtherCity" class="city-other" autocomplete="address-level3" placeholder="Enter city / town name">
+      </div>
+      <div class="form-field">
+        <label>PIN CODE <span class="req">*</span></label>
+        <input id="regPincode" autocomplete="postal-code" required inputmode="numeric" maxlength="6" placeholder="6-digit PIN code">
+      </div>
+    </div>
+
+    <div class="form-field address-field">
+      <label>FULL SHOP ADDRESS <span class="req">*</span></label>
+      <textarea id="regAddress" autocomplete="street-address" required placeholder="Enter full shop / business address"></textarea>
+    </div>
+
+    <div class="form-field h27-visiting-card">
+      <label>VISITING CARD / BUSINESS PROOF <span class="h27-optional">(OPTIONAL)</span></label>
+      <input id="regVisitingCard" type="file" accept="image/*,.pdf">
+      <small>If available, you may select it now. Registration must continue even without a visiting card.</small>
+    </div>
+
+    <div class="registration-note"><i class="fa-solid fa-circle-info"></i> Registration OTP verifies the number before submission. After Admin approval, a separate first-login OTP will be sent to the same verified number.</div>
+
+    <button class="full-red-btn" id="registerSubmitBtn" onclick="submitInquiry()"><i class="fa-solid fa-paper-plane"></i> SUBMIT REGISTRATION REQUEST</button>
+    <div class="security-note">Dealer access remains pending until TORVO Admin verifies and approves the request.</div>
+
+    <div class="registration-success" id="registrationSuccess">
+      <div class="success-icon"><i class="fa-solid fa-circle-check"></i></div>
+      <h2>WELCOME TO TORVO B2B</h2>
+      <h3>Registration Request Submitted Successfully</h3>
+      <p>Your dealer account is under verification.</p>
+      <p>You will be notified on the same verified WhatsApp number after approval.</p>
+      <p id="successContact">Customer Care: 7027751533</p>
+      <button onclick="closeRegistrationSuccess()">BACK TO HOME</button>
+    </div>
+  </div>
 </div></div></div>
 
 <div class="modal" id="enquiryModal"><div class="modal-box"><div class="modal-head"><strong>Part Not Found?</strong><button class="close-btn" onclick="closePartEnquiry()">×</button></div><div class="modal-body">
@@ -1643,7 +1887,10 @@ input[type="email"],input[type="password"],.preserve-case{text-transform:none!im
         <select class="dealer-search-select" id="dealerSearchType">
           <option value="all">All</option><option value="item">Item No.</option><option value="product">Product</option><option value="brand">Brand</option><option value="model">Model</option><option value="category">Category</option>
         </select>
-        <input id="dealerSearchInput" placeholder="Search Item No., Product, Brand, Model..." oninput="filterDealerProducts()">
+        <input id="dealerSearchInput" name="torvo_dealer_catalog_search_only" type="text" role="searchbox"
+autocomplete="off" aria-autocomplete="none" autocapitalize="off" spellcheck="false"
+data-lpignore="true" data-1p-ignore="true"
+placeholder="Search Item No., Product, Brand, Model..." oninput="filterDealerProducts()">
         <button class="dealer-search-icon camera" onclick="futureFeature('Dealer Photo Search')" title="Photo Search"><img class="admin-search-svg" alt="" src="data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24'><path d='M5 7h3l1.5-2h5L16 7h3a2 2 0 0 1 2 2v9a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V9a2 2 0 0 1 2-2z' fill='%234285F4'/><circle cx='12' cy='13' r='4' fill='white'/><circle cx='12' cy='13' r='2.6' fill='%2334A853'/><circle cx='18' cy='10' r='1' fill='%23EA4335'/></svg>"></button>
         <button class="dealer-search-icon mic" onclick="futureFeature('Dealer Voice Search')" title="Voice Search"><img class="admin-search-svg" alt="" src="data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24'><rect x='9' y='3' width='6' height='11' rx='3' fill='%234285F4'/><path d='M5 11a7 7 0 0 0 14 0' fill='none' stroke='%2334A853' stroke-width='2'/><path d='M12 18v3M9 21h6' stroke='%23EA4335' stroke-width='2' stroke-linecap='round'/></svg>"></button>
         <button class="dealer-search-submit" onclick="filterDealerProducts()" title="Search"><img class="admin-search-svg" alt="" src="data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24'><circle cx='11' cy='11' r='6' fill='none' stroke='%234285F4' stroke-width='2.4'/><path d='M16 16l5 5' stroke='%2334A853' stroke-width='2.8' stroke-linecap='round'/></svg>"></button>
@@ -2400,14 +2647,14 @@ function submitTargetRequest(){
   publicResults=allProducts();dealerResults=allProducts();
 
   function v22PublicCard(p){const badge=typeof badgeClass==="function"?badgeClass(p.tag):"";return `<div class="product-card">
-    <div class="v24-card-top"><span class="product-badge ${badge}">${p.tag}</span><span class="v24-item-code">ITEM CODE: ${p.item}</span><button class="rate-lock-only" type="button" title="LOGIN FOR RATE" aria-label="LOGIN FOR RATE" onclick="event.stopPropagation();openAuth('login')"><i class="fa-solid fa-lock"></i></button></div>
-    <div class="product-photo v24-photo click-photo product-gallery" onclick="publicProductDetails('${p.item}')" title="VIEW PRODUCT DETAILS">
+    <div class="v24-card-top"><span class="product-badge ${badge}">${p.tag}</span><span class="v24-item-code">ITEM CODE: <span class="h28-code">${p.item}</span></span><button class="rate-lock-only" type="button" title="LOGIN FOR RATE" aria-label="LOGIN FOR RATE" onclick="event.stopPropagation();openAuth('login')"><i class="fa-solid fa-lock"></i></button></div>
+    <div class="product-photo v24-photo click-photo product-gallery" onclick="publicProductDetails('${p.item}')" title="OPEN VIEW">
       <button class="gallery-arrow left" type="button" onclick="event.stopPropagation();slideCardPhoto('public','${p.item}',-1)" aria-label="PREVIOUS PHOTO"><i class="fa-solid fa-chevron-left"></i></button>
       <div class="placeholder-icon gallery-visual" id="visual-public-${p.item}">${p.icon}</div>
       <div class="v24-photo-dots" data-photo-dots="public-${p.item}"><span class="v24-photo-dot active"></span><span class="v24-photo-dot"></span></div>
       <button class="gallery-arrow right" type="button" onclick="event.stopPropagation();slideCardPhoto('public','${p.item}',1)" aria-label="NEXT PHOTO"><i class="fa-solid fa-chevron-right"></i></button>
     </div>
-    <div class="product-body v24-body"><div class="product-name">${p.name}</div><div class="v24-specs"><div class="v24-spec-row"><span class="v24-spec-label">MACHINE BRAND</span><span class="v24-spec-colon">:</span><span class="v24-spec-value">${p.brand}</span></div><div class="v24-spec-row"><span class="v24-spec-label">MODEL</span><span class="v24-spec-colon">:</span><span class="v24-spec-value">${p.model}</span></div><div class="v24-spec-row"><span class="v24-spec-label">PART BRAND</span><span class="v24-spec-colon">:</span><span class="v24-spec-value">${p.spareBrand}</span></div><div class="v24-spec-row"><span class="v24-spec-label">USRD FOR</span><span class="v24-spec-colon">:</span><span class="v24-spec-value">${p.system}</span></div></div><div class="public-detail-row"><button class="details-btn public-full-detail" onclick="publicProductDetails('${p.item}')">VIEW DETAILS</button></div></div></div>`}
+    <div class="product-body v24-body"><div class="product-name">${p.name}</div><div class="v24-specs"><div class="v24-spec-row"><span class="v24-spec-label">MACHINE BRAND</span><span class="v24-spec-colon">:</span><span class="v24-spec-value">${p.brand}</span></div><div class="v24-spec-row"><span class="v24-spec-label">MODEL</span><span class="v24-spec-colon">:</span><span class="v24-spec-value">${p.model}</span></div><div class="v24-spec-row"><span class="v24-spec-label">SPARE PART BRAND</span><span class="v24-spec-colon">:</span><span class="v24-spec-value">${p.spareBrand}</span></div><div class="v24-spec-row"><span class="v24-spec-label">USED FOR</span><span class="v24-spec-colon">:</span><span class="v24-spec-value">${p.system}</span></div></div></div></div>`}
   function v22DealerCard(p){const badge=typeof badgeClass==="function"?badgeClass(p.tag):"";return `<div class="product-card">
     <div class="v24-card-top"><span class="product-badge ${badge}">${p.tag}</span><span class="v24-item-code">ITEM CODE: ${p.item}</span><span aria-hidden="true" style="width:1px"></span></div>
     <div class="product-photo v24-photo click-photo product-gallery" onclick="dealerProductDetails('${p.item}')">
@@ -2544,6 +2791,139 @@ function ensureH27EditIcon(item){const visual=document.getElementById('visual-de
 function syncH27AddedButtons(){if(typeof demoCartState==='undefined')return;Object.keys(demoCartState||{}).forEach(item=>{const b=document.getElementById('cart-'+item);if(b){b.innerHTML='<i class="fa-solid fa-check"></i> <span class="cart-text">ADDED</span>';b.classList.add('added');b.disabled=true}ensureH27EditIcon(item)})}
 window.openH27QtyEditor=function(item){h27EditItem=item;const q=demoCartState?.[item]?.qty||1;const i=document.getElementById('h27QtyInput');if(i)i.value=q;document.getElementById('h27QtyOverlay')?.classList.add('show')};window.closeH27QtyEditor=function(){document.getElementById('h27QtyOverlay')?.classList.remove('show')};window.h27StepQty=function(d){const i=document.getElementById('h27QtyInput');if(i)i.value=Math.max(1,(parseInt(i.value||'1',10)||1)+d)};window.saveH27Qty=function(){const i=document.getElementById('h27QtyInput'),q=Math.max(1,parseInt(i?.value||'1',10)||1);if(h27EditItem&&demoCartState?.[h27EditItem]){demoCartState[h27EditItem].qty=q;const qi=document.getElementById('qty-'+h27EditItem);if(qi)qi.value=q;if(typeof updateCartCount==='function')updateCartCount();if(typeof renderCart==='function')renderCart();if(typeof playTorvoSound==='function')playTorvoSound('success')}closeH27QtyEditor()};
 setTimeout(function(){if(typeof demoProducts!=='undefined')window.renderDealerProducts(demoProducts);loadH27Districts()},250);
+})();
+</script>
+
+
+
+<script id="torvo-h29-final-behavior">
+(function(){
+"use strict";
+window.TORVO_BUILD="H29";
+function esc29(v){return String(v==null?"":v).replace(/[&<>"']/g,function(c){return({"&":"&amp;","<":"&lt;",">":"&gt;",'"':"&quot;","'":"&#39;"})[c]})}
+function all29(){return (typeof demoProducts!=="undefined"&&Array.isArray(demoProducts))?demoProducts:[]}
+function badge29(p){return typeof badgeClass==="function"?badgeClass(p.tag):""}
+
+function h29DealerCard(p){
+  return `<div class="product-card">
+    <div class="v24-card-top">
+      <span class="product-badge ${badge29(p)}">${esc29(p.tag||"")}</span>
+      <span class="v24-item-code">ITEM CODE: <span class="h29-code">${esc29(p.item)}</span></span>
+      <span class="h29-edit-slot" aria-hidden="true"></span>
+    </div>
+    <div class="product-photo v24-photo click-photo product-gallery" onclick="dealerProductDetails('${esc29(p.item)}')" title="OPEN VIEW">
+      <button class="gallery-arrow left" type="button" onclick="event.stopPropagation();slideCardPhoto('dealer','${esc29(p.item)}',-1)" aria-label="Previous photo"><i class="fa-solid fa-chevron-left"></i></button>
+      <div class="placeholder-icon gallery-visual" id="visual-dealer-${esc29(p.item)}">${p.icon||"⚙️"}</div>
+      <div class="v24-photo-dots" data-photo-dots="dealer-${esc29(p.item)}"><span class="v24-photo-dot active"></span><span class="v24-photo-dot"></span></div>
+      <button class="gallery-arrow right" type="button" onclick="event.stopPropagation();slideCardPhoto('dealer','${esc29(p.item)}',1)" aria-label="Next photo"><i class="fa-solid fa-chevron-right"></i></button>
+    </div>
+    <div class="product-body v24-body">
+      <div class="product-name">${esc29(p.name)}</div>
+      <div class="v24-specs">
+        <div class="v24-spec-row"><span class="v24-spec-label">MACHINE BRAND</span><span class="v24-spec-colon">:</span><span class="v24-spec-value">${esc29(p.brand)}</span></div>
+        <div class="v24-spec-row"><span class="v24-spec-label">MODEL</span><span class="v24-spec-colon">:</span><span class="v24-spec-value">${esc29(p.model)}</span></div>
+        <div class="v24-spec-row"><span class="v24-spec-label">SPARE PART BRAND</span><span class="v24-spec-colon">:</span><span class="v24-spec-value">${esc29(p.spareBrand)}</span></div>
+        <div class="v24-spec-row"><span class="v24-spec-label">USED FOR</span><span class="v24-spec-colon">:</span><span class="v24-spec-value">${esc29(p.system)}</span></div>
+      </div>
+      <div class="dealer-rate">( PREVIEW RATE )</div>
+      <div class="cart-controls">
+        <div class="qty-control" id="qtybox-${esc29(p.item)}">
+          <button id="minus-${esc29(p.item)}" type="button" onclick="changeQty('${esc29(p.item)}',-1)">−</button>
+          <input id="qty-${esc29(p.item)}" class="qty-input" type="number" min="1" value="1" inputmode="numeric" oninput="sanitizeQty('${esc29(p.item)}')">
+          <button id="plus-${esc29(p.item)}" type="button" onclick="changeQty('${esc29(p.item)}',1)">+</button>
+        </div>
+        <button class="add-cart-btn dealer-cart-btn" id="cart-${esc29(p.item)}" type="button" onclick="addDemoCart('${esc29(p.item)}',this)">
+          <span class="cart-text">ADD</span><i class="fa-solid fa-cart-plus"></i>
+        </button>
+      </div>
+    </div>
+  </div>`;
+}
+function h29PublicCard(p){
+  return `<div class="product-card">
+    <div class="v24-card-top">
+      <span class="product-badge ${badge29(p)}">${esc29(p.tag||"")}</span>
+      <span class="v24-item-code">ITEM CODE: <span class="h29-code">${esc29(p.item)}</span></span>
+      <span aria-hidden="true"></span>
+    </div>
+    <div class="product-photo v24-photo click-photo product-gallery" onclick="publicProductDetails('${esc29(p.item)}')" title="OPEN VIEW">
+      <button class="gallery-arrow left" type="button" onclick="event.stopPropagation();slideCardPhoto('public','${esc29(p.item)}',-1)" aria-label="Previous photo"><i class="fa-solid fa-chevron-left"></i></button>
+      <div class="placeholder-icon gallery-visual" id="visual-public-${esc29(p.item)}">${p.icon||"⚙️"}</div>
+      <div class="v24-photo-dots" data-photo-dots="public-${esc29(p.item)}"><span class="v24-photo-dot active"></span><span class="v24-photo-dot"></span></div>
+      <button class="gallery-arrow right" type="button" onclick="event.stopPropagation();slideCardPhoto('public','${esc29(p.item)}',1)" aria-label="Next photo"><i class="fa-solid fa-chevron-right"></i></button>
+    </div>
+    <div class="product-body v24-body">
+      <div class="product-name">${esc29(p.name)}</div>
+      <div class="v24-specs">
+        <div class="v24-spec-row"><span class="v24-spec-label">MACHINE BRAND</span><span class="v24-spec-colon">:</span><span class="v24-spec-value">${esc29(p.brand)}</span></div>
+        <div class="v24-spec-row"><span class="v24-spec-label">MODEL</span><span class="v24-spec-colon">:</span><span class="v24-spec-value">${esc29(p.model)}</span></div>
+        <div class="v24-spec-row"><span class="v24-spec-label">SPARE PART BRAND</span><span class="v24-spec-colon">:</span><span class="v24-spec-value">${esc29(p.spareBrand)}</span></div>
+        <div class="v24-spec-row"><span class="v24-spec-label">USED FOR</span><span class="v24-spec-colon">:</span><span class="v24-spec-value">${esc29(p.system)}</span></div>
+      </div>
+      <button class="h29-public-login" type="button" onclick="openAuth('login')"><i class="fa-solid fa-lock"></i> LOGIN FOR RATE</button>
+    </div>
+  </div>`;
+}
+window.renderPublicProducts=function(products){
+  var arr=Array.isArray(products)?products:all29(),g=document.getElementById("publicProductGrid");
+  if(!g)return;
+  g.innerHTML=arr.length?arr.map(h29PublicCard).join(""):'<div style="grid-column:1/-1;background:#fff;border:1px solid #e2e4e8;border-radius:12px;padding:20px;text-align:center">No matching product found. You can send a Part Enquiry.</div>';
+  ["publicProductPager","publicPager"].forEach(function(id){var p=document.getElementById(id);if(p)p.remove()});
+};
+window.renderDealerProducts=function(products){
+  var arr=Array.isArray(products)?products:all29(),g=document.getElementById("dealerProductGrid");
+  if(!g)return;
+  g.innerHTML=arr.length?arr.map(h29DealerCard).join(""):'<div style="grid-column:1/-1;background:#fff;border:1px solid #e2e4e8;border-radius:12px;padding:20px;text-align:center">No matching product found.</div>';
+  ["dealerProductPager","dealerPager"].forEach(function(id){var p=document.getElementById(id);if(p)p.remove()});
+  setTimeout(syncAdded29,0);
+};
+function ensureEdit29(item){
+  var visual=document.getElementById("visual-dealer-"+item),photo=visual&&visual.closest(".product-photo");
+  if(!photo||photo.querySelector(".h27-edit-qty,.h29-edit-qty"))return;
+  var b=document.createElement("button");
+  b.className="h29-edit-qty";b.type="button";b.title="Edit quantity";b.setAttribute("aria-label","Edit quantity");
+  b.innerHTML='<i class="fa-solid fa-pen"></i>';
+  b.onclick=function(e){e.stopPropagation();if(typeof openH27QtyEditor==="function")openH27QtyEditor(item)};
+  photo.appendChild(b);
+}
+function syncAdded29(){
+  if(typeof demoCartState==="undefined")return;
+  Object.keys(demoCartState||{}).forEach(function(item){
+    var b=document.getElementById("cart-"+item);
+    if(b){b.innerHTML='<span class="cart-text">ADDED</span><i class="fa-solid fa-check"></i>';b.classList.add("added");b.disabled=true}
+    ensureEdit29(item);
+  });
+}
+var addBefore29=window.addDemoCart;
+window.addDemoCart=function(item,btn){
+  if(typeof addBefore29==="function")addBefore29(item,btn);
+  if(btn){btn.innerHTML='<span class="cart-text">ADDED</span><i class="fa-solid fa-check"></i>';btn.classList.add("added");btn.disabled=true}
+  ensureEdit29(item);
+};
+function clearWrongSearch29(){
+  ["publicSearch","dealerSearchInput"].forEach(function(id){
+    var e=document.getElementById(id);if(!e)return;
+    e.setAttribute("autocomplete","off");e.setAttribute("aria-autocomplete","none");
+    e.setAttribute("data-lpignore","true");e.setAttribute("data-1p-ignore","true");
+    var v=String(e.value||"").trim();
+    if(/@|gmail|yahoo|outlook|\.com$|\.in$/i.test(v))e.value="";
+  });
+}
+function forceSupport29(){
+  var p=document.getElementById("contactPhone"),w=document.getElementById("contactWhatsapp");
+  if(p)p.innerHTML='<a class="support-number phone-number" href="tel:7027751533">7027751533</a>';
+  if(w)w.innerHTML='<a class="support-number whatsapp-number" href="https://wa.me/917027751533" target="_blank" rel="noopener">7027751533</a>';
+  document.querySelectorAll('a.call-now').forEach(function(x){x.href="tel:7027751533"});
+  document.querySelectorAll('a.chat-now').forEach(function(x){x.href="https://wa.me/917027751533"});
+}
+function start29(){
+  clearWrongSearch29();forceSupport29();
+  window.renderPublicProducts(all29());
+  if(document.getElementById("dealerProductGrid"))window.renderDealerProducts(all29());
+}
+document.addEventListener("DOMContentLoaded",function(){setTimeout(start29,60)});
+window.addEventListener("load",function(){setTimeout(start29,180)});
+window.addEventListener("pageshow",function(){setTimeout(start29,80)});
 })();
 </script>
 
