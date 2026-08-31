@@ -818,133 +818,30 @@ input[type="email"],input[type="password"]{text-transform:none!important}
 @media(max-width:760px){.v28ProductFinder{grid-template-columns:repeat(2,minmax(0,1fr))}.v28FindBtn,.v28ClearBtn{width:100%}}
 
 </style>
-<!-- TORVO V30: NAVIGATION FIX - BACKUP REMINDER NO LONGER BLOCKS SECTIONS -->
+<!-- TORVO V30: APPROVED UI + GLOBAL CONTEXTUAL PRODUCT FILTER + MONO ADD-ITEM ICONS + EN/HI REMOVED -->
+<!-- TORVO V29: NAVIGATION FIX - BACKUP REMINDER NO LONGER BLOCKS SECTIONS -->
 
-<style id="torvo-v30-stable-admin-upgrade">
-/* V30 STABLE ADMIN: ENGLISH ONLY, FILTER UNDER TOP SEARCH, MONOCHROME ADD-ITEM ICONS */
-#v30GlobalFinder{display:none;margin:0 12px 10px;padding:8px 10px;border:1px solid #d6d9df;border-radius:10px;background:#f8fafc;grid-template-columns:repeat(6,minmax(105px,1fr)) auto auto;gap:6px;align-items:end}
-#v30GlobalFinder.show{display:grid}
-#v30GlobalFinder label{font-size:7px;font-weight:1000;color:#374151;display:block;min-width:0}#v30GlobalFinder select{width:100%;height:31px;margin-top:3px;border:1px solid #cbd0d8;border-radius:7px;background:#fff;padding:0 6px;font-size:7.5px;font-weight:900;min-width:0}#v30GlobalFinder .btn{height:31px!important;white-space:nowrap!important;padding:0 8px!important;font-size:7px!important}
-.v30LineIcon{width:72px;height:62px;display:block;margin:0 auto 7px;color:#111827}.v30LineIcon svg{width:100%;height:100%;fill:none;stroke:currentColor;stroke-width:1.8;stroke-linecap:round;stroke-linejoin:round}
-.v23BigApp{min-height:175px!important}.v23BigApp b{font-size:11px!important}.v23BigApp small{font-size:7.5px!important}
-#langToggle{display:none!important}
-@media(max-width:1250px){#v30GlobalFinder.show{grid-template-columns:repeat(3,minmax(0,1fr))}}
-@media(max-width:760px){#v30GlobalFinder.show{grid-template-columns:repeat(2,minmax(0,1fr))}}
+<style id="torvo-admin-v30-current-approved">
+/* ===== ADMIN V30 CURRENT APPROVED ===== */
+.v30FinderShell{padding:0 8px;display:none}.v30FinderShell.show{display:block}.v30FinderShell .v28ProductFinder{margin:6px 0 8px!important;padding:7px!important;border-radius:9px!important;grid-template-columns:repeat(6,minmax(105px,1fr)) auto auto!important;background:#f8fafc!important}.v30FinderShell .v28ProductFinder label{font-size:6.7px!important}.v30FinderShell .v28ProductFinder select{height:30px!important;font-size:7px!important;margin-top:3px!important}.v30FinderShell .v28FindBtn,.v30FinderShell .v28ClearBtn{height:30px!important;font-size:7px!important}
+/* SMALL, CLEAR, BLACK OUTLINE APP ICONS */
+.v30LineIcon{width:74px;height:56px;display:grid;place-items:center;margin:0 auto 8px}.v30LineIcon svg{width:68px;height:52px;fill:none;stroke:#0f172a;stroke-width:3;stroke-linecap:round;stroke-linejoin:round}.v23BigApp{min-height:150px!important}.v23BigApp .v30LineIcon+b{margin-top:0!important}
+/* EN/HI REMOVED: keep right controls aligned */
+.rightTopControls{justify-content:flex-end!important}
+@media(max-width:1250px){.v30FinderShell .v28ProductFinder{grid-template-columns:repeat(3,minmax(0,1fr)) auto auto!important}}
+@media(max-width:760px){.v30FinderShell{padding:0 5px}.v30FinderShell .v28ProductFinder{grid-template-columns:repeat(2,minmax(0,1fr))!important}.v30FinderShell .v28FindBtn,.v30FinderShell .v28ClearBtn{width:100%!important}.v30LineIcon{width:58px;height:45px}.v30LineIcon svg{width:54px;height:42px}}
 </style>
+
+
+<!-- ===== TORVO A31 SECURE HEAD ===== -->
 <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
-<script>
-const SUPABASE_URL="https://gckafjiitjocodlrwanm.supabase.co";
-const SUPABASE_KEY="sb_publishable_9Jbo6ZcyihmVqMTaGdslMg_Wbtg0bLl";
-window.supabaseClient=window.supabase.createClient(SUPABASE_URL,SUPABASE_KEY);
-</script>
- <script>
-document.addEventListener("DOMContentLoaded", async function () {
-  if (!window.supabaseClient || !window.supabaseClient.auth) {
-    console.error("SUPABASE AUTH NOT READY");
-    return;
-  }
+<style id="torvo-a31-head-css">
+html.torvo-auth-locked body>*:not(#torvoAdminAuthGate){display:none!important}
+#a31AuthGate{position:fixed;inset:0;z-index:2147483647;background:linear-gradient(135deg,#f8fafc,#eef2f7);display:flex;align-items:center;justify-content:center;padding:20px;font-family:Arial,sans-serif}#a31AuthGate .a31-login{width:min(430px,94vw);background:#fff;border:1px solid #dfe4eb;border-radius:22px;padding:25px;box-shadow:0 25px 70px rgba(15,23,42,.18)}#a31AuthGate .a31-brand{font-size:28px;font-weight:1000;color:#d71920}#a31AuthGate .a31-sub{font-size:11px;font-weight:850;color:#667085;margin-top:3px}#a31AuthGate h2{font-size:20px;margin:23px 0 6px;color:#17213b}#a31AuthGate p{font-size:11px;color:#667085;line-height:1.55}#a31AuthGate input{width:100%;height:46px;border:1px solid #d8dee8;border-radius:11px;padding:0 12px;margin-top:9px;font-size:12px;box-sizing:border-box}#a31AuthGate button{width:100%;height:46px;border:0;border-radius:11px;background:#d71920;color:#fff;font-weight:1000;margin-top:10px;cursor:pointer}#a31AuthGate .a31-status{margin-top:11px;min-height:18px;font-size:10px;font-weight:850;color:#475467}#a31AuthGate .a31-shield{width:50px;height:50px;border-radius:14px;background:#fff0f1;color:#d71920;display:grid;place-items:center;font-size:23px;margin-bottom:12px}
+#v24SessionAge{font-size:14px!important;font-weight:1000!important;color:#111827!important;background:#facc15!important;border:2px solid #eab308!important;padding:6px 10px!important;border-radius:10px!important;min-width:62px!important;text-align:center!important}
+</style>
+<script>window.__torvoInitialAdminSection=(location.hash||'').replace(/^#/,'');document.documentElement.classList.add('torvo-auth-locked');</script>
 
-  async function checkAdminSession() {
-    const { data } = await window.supabaseClient.auth.getSession();
-    const session = data && data.session;
-
-    if (session) {
-      console.log("SUPABASE ADMIN AUTH CONNECTED:", session.user.id);
-
-      if (typeof window.loadSupabaseDealerRequests === "function") {
-        window.loadSupabaseDealerRequests();
-      }
-      return;
-    }
-
-    showAdminAuthBox();
-  }
-
-  function showAdminAuthBox() {
-    if (document.getElementById("torvoSupabaseAdminLogin")) return;
-
-    const box = document.createElement("div");
-    box.id = "torvoSupabaseAdminLogin";
-    box.style.cssText =
-      "position:fixed;z-index:999999;left:50%;top:50%;transform:translate(-50%,-50%);" +
-      "background:#fff;width:min(92%,420px);padding:22px;border-radius:16px;" +
-      "box-shadow:0 15px 50px rgba(0,0,0,.35);font-family:Arial;color:#111827";
-
-    box.innerHTML = `
-      <div style="font-size:20px;font-weight:900;margin-bottom:8px;">
-        TORVO ADMIN SECURE LOGIN
-      </div>
-
-      <div style="font-size:13px;margin-bottom:14px;color:#4b5563;">
-        Enter your Supabase Admin email. A secure login link will be sent to that email.
-      </div>
-
-      <input
-        id="torvoAdminAuthEmail"
-        type="email"
-        placeholder="Admin Email"
-        style="width:100%;box-sizing:border-box;padding:12px;border:1px solid #cbd5e1;border-radius:9px;margin-bottom:12px;"
-      >
-
-      <button
-        id="torvoAdminMagicLinkBtn"
-        type="button"
-        style="width:100%;padding:12px;border:0;border-radius:9px;background:#111827;color:white;font-weight:800;cursor:pointer;"
-      >
-        SEND SECURE LOGIN LINK
-      </button>
-
-      <div
-        id="torvoAdminAuthMessage"
-        style="font-size:12px;margin-top:12px;line-height:1.5;"
-      ></div>
-    `;
-
-    document.body.appendChild(box);
-
-    document.getElementById("torvoAdminMagicLinkBtn").onclick = async function () {
-      const email = document.getElementById("torvoAdminAuthEmail").value.trim();
-      const msg = document.getElementById("torvoAdminAuthMessage");
-
-      if (!email) {
-        msg.textContent = "Please enter Admin email.";
-        return;
-      }
-
-      msg.textContent = "Sending secure login link...";
-
-      const { error } = await window.supabaseClient.auth.signInWithOtp({
-        email: email,
-        options: {
-          emailRedirectTo: window.location.href.split("#")[0]
-        }
-      });
-
-      if (error) {
-        msg.textContent = "Login link could not be sent: " + error.message;
-        return;
-      }
-
-      msg.textContent = "Secure login link sent. Open the email and click the login link.";
-    };
-  }
-
-  window.supabaseClient.auth.onAuthStateChange(function (event, session) {
-    if (session) {
-      const box = document.getElementById("torvoSupabaseAdminLogin");
-      if (box) box.remove();
-
-      setTimeout(function () {
-        if (typeof window.loadSupabaseDealerRequests === "function") {
-          window.loadSupabaseDealerRequests();
-        }
-      }, 500);
-    }
-  });
-
-  checkAdminSession();
-});
-</script> 
 </head>
 <body>
 <div class="app">
@@ -975,16 +872,16 @@ document.addEventListener("DOMContentLoaded", async function () {
 
 <div class="bell"><button onclick="toggleNotifications()">🔔</button><span id="bellNum" class="bellNum">0</span></div>
 </div>
-<div class="v28ProductFinder" id="v30GlobalFinder">
+<div id="v30FinderShell" class="v30FinderShell"><div class="v28ProductFinder" id="v28ProductFinder">
   <label>PRODUCT TYPE<select id="v28FType" onchange="v28FinderChanged('type')"><option value="">ALL TYPES</option></select></label>
   <label>MACHINE SYSTEM / TYPE<select id="v28FSystem" onchange="v28FinderChanged('system')"><option value="">ALL SYSTEMS</option></select></label>
   <label>BRAND / COMPANY<select id="v28FBrand" onchange="v28FinderChanged('brand')"><option value="">ALL BRANDS</option></select></label>
   <label>MACHINE<select id="v28FMachine" onchange="v28FinderChanged('machine')"><option value="">ALL MACHINES</option></select></label>
   <label>MODEL<select id="v28FModel" onchange="v28FinderChanged('model')"><option value="">ALL MODELS</option></select></label>
   <label>PART / CATEGORY<select id="v28FPart" onchange="adminV28ResetPage()"><option value="">ALL PARTS</option></select></label>
-  <button class="btn green" onclick="adminV28ResetPage();openSection('itemmaster');renderItems()">FIND PARTS</button>
-  <button class="btn light" onclick="v28ClearFinder()">CLEAR ALL</button>
-</div>
+  <button class="btn green v28FindBtn" onclick="v30ApplyProductFilter()">FIND PARTS</button>
+  <button class="btn light v28ClearBtn" onclick="v30ClearProductFilter()">CLEAR ALL</button>
+</div></div>
 
 <section id="dashboard" class="section active">
 <div class="cards">
@@ -1010,9 +907,9 @@ document.addEventListener("DOMContentLoaded", async function () {
 <div class="pTitle"><span class="tag red">ADD ITEM</span><b>SELECT ITEM TYPE</b></div>
 <div class="sectionIntro">ONE CLEAN ENTRY POINT FOR MACHINE, SPARE PART AND ACCESSORY.</div>
 <div class="v23ThreeApps">
-<button class="v23BigApp" onclick="openSection('machines',this)"><span class="v30LineIcon" aria-hidden="true"><svg viewBox="0 0 80 64"><path d="M18 31h28l8-8h8v18h-8l-8-8H18z"/><path d="M18 26v12M12 28v8M7 30v4"/><path d="M31 31v18h15M46 49v7H29"/></svg></span><b>ADD MACHINE</b><small>MACHINE REFERENCE • BRAND • MODEL</small></button>
-<button class="v23BigApp" onclick="openSection('spares',this)"><span class="v30LineIcon" aria-hidden="true"><svg viewBox="0 0 80 64"><circle cx="24" cy="35" r="10"/><circle cx="24" cy="35" r="4"/><path d="M44 19l9-5 9 5v10l-9 5-9-5z"/><path d="M44 45h18M47 40l12 10M47 50l12-10"/></svg></span><b>ADD SPARE PART</b><small>ITEM • STOCK • RATE • SUITABLE MACHINE</small></button>
-<button class="v23BigApp" onclick="openSection('accessories',this)"><span class="v30LineIcon" aria-hidden="true"><svg viewBox="0 0 80 64"><path d="M18 12l8 40M22 12l8 40"/><circle cx="50" cy="30" r="15"/><circle cx="50" cy="30" r="4"/><path d="M41 19l18 22M39 39l22-18"/></svg></span><b>ADD ACCESSORY</b><small>CUTTING • DRILLING • CORING ACCESSORY</small></button>
+<button class="v23BigApp" onclick="openSection('machines',this)"><span class="v30LineIcon" aria-hidden="true"><svg viewBox="0 0 96 72"><path d="M14 31h43l10-9h10v27H67l-10-9H14zM28 31V21h17v10M26 40v12h20V40"/><path d="M77 28h7v15h-7"/></svg></span><b>ADD MACHINE</b><small>MACHINE REFERENCE • BRAND • MODEL</small></button>
+<button class="v23BigApp" onclick="openSection('spares',this)"><span class="v30LineIcon" aria-hidden="true"><svg viewBox="0 0 96 72"><circle cx="27" cy="37" r="14"/><circle cx="27" cy="37" r="6"/><path d="M59 20l9 5 9-5 7 12-8 5 1 10-14 2-3-9-9-5z"/><circle cx="67" cy="36" r="6"/></svg></span><b>ADD SPARE PART</b><small>ITEM • STOCK • RATE • SUITABLE MACHINE</small></button>
+<button class="v23BigApp" onclick="openSection('accessories',this)"><span class="v30LineIcon" aria-hidden="true"><svg viewBox="0 0 96 72"><circle cx="31" cy="39" r="16"/><circle cx="31" cy="39" r="4"/><path d="M59 13l6 2-9 42-6-2zM72 18l6 2-8 37-6-2z"/></svg></span><b>ADD ACCESSORY</b><small>CUTTING • DRILLING • CORING ACCESSORY</small></button>
 </div></div></section>
 
 <section id="machines" class="section">
@@ -1067,6 +964,7 @@ Machines are not sold on this portal. Dealer website sales are only for Spare Pa
 <div class="card" onclick="setFilter('low')"><small>LEAST SELLING</small><strong id="imLow">0</strong></div>
 </div>
 <div class="toolbar" style="margin-top:8px"><input id="itemSearch" class="grow upper" placeholder="SEARCH ITEM NO., PRODUCT, BRAND, MACHINE, SIZE..." oninput="adminV28ResetPage();renderItems()"><button class="btn blue" onclick="setFilter('all')">ALL</button><button class="btn green" onclick="setFilter('in')">IN STOCK</button><button class="btn red" onclick="setFilter('out')">OUT</button><button class="btn orange" onclick="setFilter('reorder')">REORDER</button><button class="btn purple" onclick="setFilter('top')">TOP</button><button class="btn dark" onclick="setFilter('low')">LEAST</button></div>
+<div id="v28FinderMovedFromItemMaster"></div>
 <div id="itemGrid" class="itemGrid"></div><div id="v28ItemPager" class="v28Pager"></div></div>
 </section>
 
@@ -1437,7 +1335,6 @@ Machines are not sold on this portal. Dealer website sales are only for Spare Pa
 <div class="rightTopZone">
   <button id="adminOnlineStatus" class="adminProfileLink" onclick="openAdminProfile()" title="OPEN ADMIN PROFILE">● ADMIN</button><span id="v22AutoSync" class="v22AutoSync" title="AUTO DATA SYNC EVERY 15 SECONDS">● AUTO SYNC</span>
   <div class="rightTopControls">
-    
     <button class="rightMiniBtn logoutMini" onclick="logoutAdmin()">LOGOUT</button>
   </div>
 </div>
@@ -1500,7 +1397,7 @@ function logActivity(t){DB.activity.unshift({time:new Date().toLocaleString(),te
 
 var titles={dashboard:"TORVO DASHBOARD",machines:"MACHINES",spares:"ADD SPARE PART",accessories:"ADD ACCESSORY",itemmaster:"ITEM MASTER",suitable:"SUITABLE SEARCH",orders:"SALES ORDERS",estimates:"ESTIMATES",delivery:"DELIVERY & TRACKING",customers:"CUSTOMER HISTORY",dealers:"DEALER MANAGEMENT",inquiries:"INQUIRY CENTER",journey:"30-DAY DEALER JOURNEY",chat:"DEALER CHAT",points:"DEALER POINT",salesReport:"SALES REPORT",profit:"PROFIT / INCOME",drawings:"MACHINE DRAWINGS",ads:"ADS & PROMOTIONS",homepage:"HOME PAGE CONTENT",ai:"AI & API HUB",updates:"UPDATE CENTER",reports:"REPORTS CENTER",settings:"SETTINGS",marketAdd:"MARKET ADD",verify:"SYSTEM VERIFY",paymentReceived:"PAYMENT RECEIVED",finalSale:"FINAL SALE & PACKING",dayWiseSale:"SALE HISTORY"};
 function openSection(id,btn){
- var gf=E("v30GlobalFinder");if(gf){var filterSections=["itemmaster","spares","accessories","machines","suitable","orders","estimates","inventory"];gf.classList.toggle("show",filterSections.includes(id));}
+ v30UpdateFinderVisibility(id);
  if(id==="settings")setTimeout(function(){settingsHome();loadV14()},0);
  if(id==="inventory")setTimeout(renderInventory,0);
  if(id==="addSpare"||id==="addAccessory"||id==="machines"){setTimeout(function(){syncMasterDropdowns();ensureAutoItemNo()},0)}sndClick();document.querySelectorAll(".section").forEach(function(x){x.classList.remove("active")});document.querySelectorAll(".nav,.rnav").forEach(function(x){x.classList.remove("active")});var s=E(id);if(!s)return;s.classList.add("active");if(btn)btn.classList.add("active");E("pageTitle").textContent=titles[id]||"TORVO";if(id==="spares")buildItemForm("SPARE PART");if(id==="accessories")buildItemForm("ACCESSORY");if(id==="itemmaster")renderItems();if(id==="suitable")renderSuitableResults();if(id==="customers")renderCustomerHistory();if(id==="dealers")renderDealers();if(id==="inquiries")renderInquiries();if(id==="journey")renderJourney();if(id==="chat")renderChat();if(id==="points")renderPoints();if(id==="salesReport")renderSalesReport();if(id==="profit")renderProfit();if(id==="drawings")renderDrawings();if(id==="ads")renderAds();if(id==="homepage")renderHome();if(id==="ai")loadAI();if(id==="reports")renderReportsCenter();if(id==="settings")loadPortalSettings();if(id==="delivery"){renderPendingDeliveries();renderDeliveryHistory()}window.scrollTo(0,0)}
@@ -1918,7 +1815,12 @@ function setActionBadge(id,n){var e=E(id);if(!e)return;e.textContent=n;e.classLi
 function refreshActionBadges(){var n=getActionCounts();setActionBadge("badgeOrders",n.orders);setActionBadge("badgeEst",n.estimates);setActionBadge("badgeInquiry",n.inquiries);setActionBadge("badgeChat",n.messages);setActionBadge("badgeReorderLeft",n.reorder);setActionBadge("badgeDelivery",n.delivery);setActionBadge("badgeDealer",n.dealers);setActionBadge("badgeSystem",n.system);setActionBadge("badgeUpdate",n.updates);setActionBadge("dBadgeOrders",n.orders);setActionBadge("dBadgeInquiries",n.inquiries);setActionBadge("dBadgeMessages",n.messages);setActionBadge("dBadgeReorder",n.reorder);setActionBadge("dBadgeDelivery",n.delivery);setActionBadge("dBadgeDealer",n.dealers);setActionBadge("dBadgeIssues",n.system);if(E("bellNum")){E("bellNum").textContent=n.total;E("bellNum").style.display=n.total?"flex":"none"}if(E("dOrders"))E("dOrders").textContent=n.orders;if(E("dInquiries"))E("dInquiries").textContent=n.inquiries;if(E("dMessages"))E("dMessages").textContent=n.messages;if(E("dDelivery"))E("dDelivery").textContent=n.delivery;if(E("dDealerAttention"))E("dDealerAttention").textContent=n.dealers}
 function showActionPanel(type){var p=E("dashboardActionPanel"),html="",n=getActionCounts();if(type==="orders"){html="<b>NEW SALES ORDERS ("+n.orders+")</b>"+DB.orders.filter(function(x){return !x.readAdmin&&U(x.status||"NEW")==="NEW"}).map(function(x){return"<div class='actionRow'><b>"+H(x.no||"ORDER")+"</b> | "+H(x.dealer||"")+" | "+money(x.amount)+" <button class='btn blue' onclick=\\\"markOrderRead('"+H(x.no||"")+"')\\\">OPEN / MARK READ</button></div>"}).join("")}if(type==="inquiries"){html="<b>NEW INQUIRIES / REQUESTS ("+n.inquiries+")</b>"+DB.inquiries.filter(function(x){return !x.read}).map(function(x){return"<div class='actionRow'><b>"+H(x.type||"INQUIRY")+"</b> | "+H(x.name||"")+" | "+H(x.message||"")+" <button class='btn blue' onclick='markInquiryRead("+DB.inquiries.indexOf(x)+")'>OPEN</button></div>"}).join("")}if(type==="delivery"){html="<b>PENDING DELIVERY ("+n.delivery+")</b>"+DB.deliveries.filter(function(x){return !U(x.status||"PENDING").includes("DELIVER")}).map(function(x){return"<div class='actionRow'>"+H(x.order||"")+" | "+H(x.dealer||"")+" | "+H(x.tracking||"")+" <button class='btn teal' onclick=\\\"openSection('delivery')\\\">TRACK</button></div>"}).join("")}if(type==="chat"){html="<b>UNREAD MESSAGES ("+n.messages+")</b>"+DB.messages.filter(function(x){return !x.read&&U(x.from||"DEALER")!=="ADMIN"}).map(function(x){return"<div class='actionRow'>"+H(x.dealerId||"")+" | "+H(x.message||"")+" <button class='btn blue' onclick=\\\"openSection('chat')\\\">OPEN CHAT</button></div>"}).join("")}if(type==="dealers"){html="<b>DEALER ATTENTION ("+n.dealers+")</b>"+DB.dealers.filter(function(x){var s=U(x.status||"PENDING");return s==="PENDING"||s==="BLOCKED"}).map(function(x){return"<div class='actionRow'>"+H(x.shop||x.id||"DEALER")+" | "+H(x.status||"PENDING")+" <button class='btn blue' onclick=\\\"openSection('dealers')\\\">OPEN</button></div>"}).join("")}p.innerHTML=html||"<b>NO PENDING WORK.</b>";p.classList.add("show")}
 function markOrderRead(no){var o=DB.orders.find(function(x){return N(x.no)===N(no)});if(o)o.readAdmin=true;saveDB();toast("ORDER MARKED READ","success")}
-function toggleLanguage(){currentLang="EN";toast("ENGLISH ONLY","success")
+function toggleLanguage(){
+ currentLang=currentLang==="EN"?"HI":"EN";E("langToggle").textContent=currentLang==="EN"?"EN|HI":"HI|EN";
+ var hi={"DASHBOARD":"डैशबोर्ड","ADD MACHINE":"मशीन जोड़ें","ADD SPARE PART":"स्पेयर पार्ट जोड़ें","ADD ACCESSORY":"एक्सेसरी जोड़ें","ITEM MASTER":"आइटम मास्टर","SUITABLE SEARCH":"सूटेबल सर्च","MACHINE DRAWINGS":"मशीन ड्रॉइंग","SALES ORDERS":"सेल्स ऑर्डर","FINAL ESTIMATES / SALES":"फाइनल एस्टिमेट / सेल","DELIVERY & TRACKING":"डिलीवरी / ट्रैकिंग","INQUIRIES":"इंक्वायरी","DEALER MANAGEMENT":"डीलर मैनेजमेंट","CUSTOMER HISTORY":"कस्टमर हिस्ट्री","30-DAY DEALER JOURNEY":"30-दिन डीलर हिस्ट्री","DEALER CHAT":"डीलर चैट","DEALER POINT":"पॉइंट्स / सालाना स्कीम","REPORTS CENTER":"रिपोर्ट्स सेंटर","DEALER CONTROL":"डीलर कंट्रोल","POINTS & SCHEME":"पॉइंट्स / स्कीम","ADS & PROMOTIONS":"विज्ञापन / प्रमोशन","HOME PAGE CONTENT":"होम पेज कंटेंट","AI & API HUB":"AI / API हब","UPDATE CENTER":"अपडेट सेंटर","VERIFY SYSTEM":"सिस्टम वेरिफाई","SETTINGS":"सेटिंग्स","HOME & CATALOG":"होम / कैटलॉग","ONLINE PROCESS":"ऑनलाइन प्रक्रिया","DEALERS":"डीलर्स","BUSINESS":"बिजनेस","PROMOTION":"प्रमोशन","SMART CONTROL":"स्मार्ट कंट्रोल","SYSTEM":"सिस्टम"};
+ document.querySelectorAll(".nav,.rnav,.menuTitle").forEach(function(el){if(!el.dataset.enLabel)el.dataset.enLabel=el.childNodes[0]?el.childNodes[0].textContent.trim():el.textContent.trim();var en=el.dataset.enLabel;if(currentLang==="HI"&&hi[en]){if(el.childNodes[0])el.childNodes[0].textContent=hi[en]+" ";else el.textContent=hi[en]}else if(currentLang==="EN"){if(el.childNodes[0])el.childNodes[0].textContent=en+" ";else el.textContent=en}});
+ var title=E("pageTitle");if(title){if(!title.dataset.en)title.dataset.en=title.textContent;var map={"TORVO DASHBOARD":"टॉरवो डैशबोर्ड","MACHINES":"मशीन मास्टर","ITEM MASTER":"आइटम मास्टर","SUITABLE SEARCH":"सूटेबल सर्च","DELIVERY & TRACKING":"डिलीवरी / ट्रैकिंग","CUSTOMER HISTORY":"कस्टमर हिस्ट्री","REPORTS CENTER":"रिपोर्ट्स सेंटर","SYSTEM VERIFY":"सिस्टम वेरिफाई","DEALER MANAGEMENT":"डीलर मैनेजमेंट"};title.textContent=currentLang==="HI"?(map[title.dataset.en]||title.dataset.en):title.dataset.en}
+ toast(currentLang==="HI"?"HINDI MODE ON":"ENGLISH MODE ON","success")
 }
 function quickSet(id,val){if(E(id)){E(id).value=val;E(id).dispatchEvent(new Event("input"))}}
 function saveLegacyPortalSettings(){/* legacy settings function retained but disabled */}
@@ -2744,63 +2646,7 @@ setTimeout(init21,420);
 function Q(id){return document.getElementById(id)}
 function N22(x){return String(x==null?"":x).trim().toUpperCase()}
 function ensure22(){if(!DB.dealerRequests)DB.dealerRequests=[]}
-window.loadSupabaseDealerRequests=async function(){
-  try{
-    if(!window.supabaseClient){
-      console.log("SUPABASE CLIENT NOT READY");
-      return;
-    }
-
-    var res=await window.supabaseClient
-      .from("dealer_inquiries")
-      .select("id,inquiry_number,shop_name,contact_person,mobile,whatsapp,email,state,district,city,status,created_at")
-      .order("created_at",{ascending:true});
-
-    if(res.error)throw res.error;
-
-    ensure22();
-
-    var remote=(res.data||[]).map(function(r){
-      var st=N22(r.status);
-      return{
-        id:r.inquiry_number||r.id,
-        supabaseId:r.id,
-        shop:r.shop_name||"",
-        person:r.contact_person||"",
-        mobile:r.mobile||"",
-        whatsapp:r.whatsapp||"",
-        email:r.email||"",
-        gst:"",
-        address:[r.state,r.district,r.city].filter(Boolean).join(", "),
-        status:(!st||st==="NEW")?"PENDING":st,
-        createdAt:r.created_at||""
-      };
-    });
-
-    var local=(DB.dealerRequests||[]).filter(function(x){
-      return !x.supabaseId;
-    });
-
-    DB.dealerRequests=local.concat(remote);
-
-    if(typeof renderV22DealerRequests==="function"){
-      renderV22DealerRequests();
-    }
-    if(typeof updateV22Counts==="function"){
-      updateV22Counts();
-    }
-
-    console.log("SUPABASE DEALER REQUESTS LOADED:",remote.length);
-  }catch(e){
-    console.error("DEALER REQUEST LOAD ERROR:",e);
-    if(typeof toast==="function"){
-      toast("DEALER REQUEST SYNC FAILED: "+(e.message||e),"error");
-    }
-  }
-};
-
-setTimeout(loadSupabaseDealerRequests,1000);
-  function save22(){saveDB();updateV22Counts()}
+function save22(){saveDB();updateV22Counts()}
 function dealerDuplicate22(r){
  var ds=DB.dealers||[],m=N22(r.mobile),g=N22(r.gst),s=N22(r.shop);
  var hit=ds.find(function(d){return (m&&N22(d.mobile)===m)||(g&&N22(d.gst)===g)||(s&&N22(d.shop)===s)});
@@ -3177,6 +3023,70 @@ filteredItems=function(){var a=_v27FilteredItems();var type=E('v28FType')?E('v28
 function adminV28PagerHtml(total,page){var pages=Math.max(1,Math.ceil(total/adminV28PageSize));if(pages<=1)return'';var nums=[];if(pages<=7){for(var i=1;i<=pages;i++)nums.push(i)}else{nums=[1];if(page>3)nums.push('...');for(var j=Math.max(2,page-1);j<=Math.min(pages-1,page+1);j++)nums.push(j);if(page<pages-2)nums.push('...');nums.push(pages)}return '<button '+(page<=1?'disabled':'')+' onclick="adminV28GoPage('+(page-1)+')">←</button>'+nums.map(function(n){return n==='...'?'<span>…</span>':'<button class="'+(n===page?'active':'')+'" onclick="adminV28GoPage('+n+')">'+n+'</button>'}).join('')+'<button '+(page>=pages?'disabled':'')+' onclick="adminV28GoPage('+(page+1)+')">→</button>'}
 function adminV28GoPage(p){var pages=Math.max(1,Math.ceil(filteredItems().length/adminV28PageSize));adminV28ItemPage=Math.min(pages,Math.max(1,p));renderItems();E('itemmaster')&&E('itemmaster').scrollIntoView({behavior:'smooth',block:'start'})}
 (function(){var preserve=new Set(['email','password','date','time','datetime-local','month','week','number','tel','url','file','range','color']);document.addEventListener('input',function(e){var el=e.target;if(!el||!el.matches('input,textarea'))return;var type=(el.getAttribute('type')||'text').toLowerCase();if(preserve.has(type)||el.dataset.preserveCase==='true')return;var a=el.selectionStart,b=el.selectionEnd,up=String(el.value||'').toUpperCase();if(el.value!==up){el.value=up;try{el.setSelectionRange(a,b)}catch(_){}}});setTimeout(function(){v28RefreshFinder();if(E('itemGrid'))renderItems()},500)})();
+</script>
+
+
+<script id="torvo-admin-v30-current-approved-script">
+(function(){
+  "use strict";
+  const PRODUCT_FILTER_SECTIONS=new Set(["dashboard","addItem","machines","spares","accessories","itemmaster","suitable","orders","estimates","delivery","inquiries"]);
+  window.v30UpdateFinderVisibility=function(id){const shell=document.getElementById("v30FinderShell");if(!shell)return;shell.classList.toggle("show",PRODUCT_FILTER_SECTIONS.has(id));if(PRODUCT_FILTER_SECTIONS.has(id)&&typeof v28RefreshFinder==="function")setTimeout(v28RefreshFinder,0)};
+  window.v30ApplyProductFilter=function(){
+    if(typeof adminV28ResetPage==="function")adminV28ResetPage();
+    const active=document.querySelector(".section.active");
+    if(active&&active.id==="itemmaster"&&typeof renderItems==="function"){renderItems();return}
+    const vals=["v28FType","v28FSystem","v28FBrand","v28FMachine","v28FModel","v28FPart"].map(id=>document.getElementById(id)?.value||"").filter(Boolean);
+    const q=document.getElementById("globalSearch");if(q&&vals.length)q.value=vals.join(" ");
+    if(typeof globalFind==="function")globalFind();
+  };
+  window.v30ClearProductFilter=function(){
+    ["v28FType","v28FSystem","v28FBrand","v28FMachine","v28FModel","v28FPart"].forEach(id=>{const e=document.getElementById(id);if(e)e.value=""});
+    if(typeof adminV28ResetPage==="function")adminV28ResetPage();if(typeof v28RefreshFinder==="function")v28RefreshFinder();
+    const active=document.querySelector(".section.active");if(active&&active.id==="itemmaster"&&typeof renderItems==="function")renderItems();
+  };
+  /* Start on dashboard with the finder under the search bar. */
+  setTimeout(()=>v30UpdateFinderVisibility(document.querySelector(".section.active")?.id||"dashboard"),0);
+})();
+</script>
+
+
+<!-- ===== TORVO A31 CONSOLIDATED SAFE UPGRADE ===== -->
+<script id="torvo-a31-js">
+(function(){
+'use strict';
+window.TORVO_ADMIN_BUILD='A31';
+const SUPABASE_URL='https://gckafjiitjocodlrwanm.supabase.co';
+const SUPABASE_KEY='sb_publishable_9Jbo6ZcyihmVqMTaGdslMg_Wbtg0bLl';
+const ADMIN_UID='9369b783-df58-4b72-99c6-93733e83d1c4';
+try{if(window.supabase&&!window.supabaseClient)window.supabaseClient=window.supabase.createClient(SUPABASE_URL,SUPABASE_KEY)}catch(e){console.error('Supabase initialization error:',e)}
+
+function makeGate(){if(document.getElementById('a31AuthGate'))return;const g=document.createElement('div');g.id='a31AuthGate';g.innerHTML=`<div class="a31-login"><div class="a31-shield"><i class="fa-solid fa-shield-halved"></i></div><div class="a31-brand">TORVO</div><div class="a31-sub">B2B ADMIN SECURE ACCESS</div><h2>Admin Login</h2><p>The Admin dashboard stays hidden until Supabase verifies the authorised Admin account.</p><input id="a31AdminEmail" type="email" value="torvotools@gmail.com" placeholder="Admin email"><button type="button" onclick="a31SendMagicLink()"><i class="fa-solid fa-envelope"></i> SEND SECURE LOGIN LINK</button><div class="a31-status" id="a31GateStatus">Checking secure session…</div></div>`;document.body.appendChild(g)}
+function gateStatus(t,bad){const x=document.getElementById('a31GateStatus');if(x){x.textContent=t;x.style.color=bad?'#b42318':'#475467'}}
+function unlockAdmin(){document.documentElement.classList.remove('torvo-auth-locked');document.getElementById('a31AuthGate')?.remove();sessionStorage.setItem('torvo_a31_verified_at',new Date().toISOString());setTimeout(function(){loadSupabaseDealerRequests();restoreA31Section()},300)}
+async function lockAdmin(){document.documentElement.classList.add('torvo-auth-locked');makeGate();gateStatus('Secure Admin login required.',false)}
+window.a31SendMagicLink=async function(){const email=(document.getElementById('a31AdminEmail')?.value||'').trim();if(!email)return gateStatus('Enter Admin email.',true);if(!window.supabaseClient)return gateStatus('Supabase client is not available.',true);gateStatus('Sending secure login link…');try{const r=await window.supabaseClient.auth.signInWithOtp({email,options:{emailRedirectTo:'https://torvotools.com/admin.html',shouldCreateUser:false}});if(r.error)throw r.error;gateStatus('Login link sent. Open the newest email on this same device/browser.',false)}catch(e){console.error(e);gateStatus('Login link could not be sent: '+(e.message||e),true)}};
+async function checkAdmin(){makeGate();if(!window.supabaseClient)return gateStatus('Supabase client not ready.',true);try{const r=await window.supabaseClient.auth.getSession();const u=r.data?.session?.user;if(u&&u.id===ADMIN_UID){unlockAdmin()}else{await lockAdmin()}}catch(e){console.error(e);await lockAdmin()}}
+window.supabaseClient?.auth?.onAuthStateChange(function(_event,session){const u=session?.user;if(u&&u.id===ADMIN_UID)unlockAdmin();else lockAdmin()});
+
+/* Hard session ceiling: after 2 hours require fresh secure email verification. */
+setInterval(async function(){const s=sessionStorage.getItem('torvo_a31_verified_at');if(!s||!window.supabaseClient)return;const age=Date.now()-new Date(s).getTime();if(age>=2*60*60*1000){try{await window.supabaseClient.auth.signOut()}catch(e){}sessionStorage.removeItem('torvo_a31_verified_at');lockAdmin()}},30000);
+
+window.loadSupabaseDealerRequests=async function(){
+ try{if(!window.supabaseClient)return;const res=await window.supabaseClient.from('dealer_inquiries').select('id,inquiry_number,shop_name,contact_person,mobile,whatsapp,email,state,district,city,status,created_at').order('created_at',{ascending:true});if(res.error)throw res.error;if(typeof ensure22==='function')ensure22();const remote=(res.data||[]).map(function(r){const st=typeof N22==='function'?N22(r.status):String(r.status||'').toUpperCase();return{id:r.inquiry_number||r.id,supabaseId:r.id,shop:r.shop_name||'',person:r.contact_person||'',mobile:r.mobile||'',whatsapp:r.whatsapp||'',email:r.email||'',gst:'',address:[r.state,r.district,r.city].filter(Boolean).join(', '),status:(!st||st==='NEW')?'PENDING':st,createdAt:r.created_at||''}});const local=(DB.dealerRequests||[]).filter(function(x){return !x.supabaseId});DB.dealerRequests=local.concat(remote);if(typeof renderV22DealerRequests==='function')renderV22DealerRequests();if(typeof updateV22Counts==='function')updateV22Counts();console.log('SUPABASE DEALER REQUESTS LOADED:',remote.length)}catch(e){console.error('DEALER REQUEST LOAD ERROR:',e);if(typeof toast==='function')toast('DEALER REQUEST SYNC FAILED: '+(e.message||e),'error')}};
+async function syncStatus(id,status){const r=(DB.dealerRequests||[]).find(x=>x.id===id);if(!r?.supabaseId||!window.supabaseClient)return;const q=await window.supabaseClient.from('dealer_inquiries').update({status:String(status).toLowerCase()}).eq('id',r.supabaseId);if(q.error)throw q.error}
+const oldApprove=window.approveV22Dealer,oldHold=window.holdV22Dealer,oldReject=window.rejectV22Dealer;
+if(typeof oldApprove==='function')window.approveV22Dealer=async function(id){oldApprove(id);const r=(DB.dealerRequests||[]).find(x=>x.id===id);if(r?.status==='APPROVED'){try{await syncStatus(id,'approved')}catch(e){console.error(e);toast('APPROVED LOCALLY — SUPABASE STATUS SYNC FAILED','error')}}};
+if(typeof oldHold==='function')window.holdV22Dealer=async function(id){oldHold(id);try{await syncStatus(id,'hold')}catch(e){console.error(e);toast('HOLD SAVED LOCALLY — SUPABASE SYNC FAILED','error')}};
+if(typeof oldReject==='function')window.rejectV22Dealer=async function(id){oldReject(id);try{await syncStatus(id,'rejected')}catch(e){console.error(e);toast('REJECTED LOCALLY — SUPABASE SYNC FAILED','error')}};
+
+/* Restore exact section after browser refresh instead of forcing Dashboard. */
+function restoreA31Section(){const id=window.__torvoInitialAdminSection;if(id&&id!=='dashboard'&&document.getElementById(id)&&typeof window.openSection==='function'){try{window.openSection(id);history.replaceState({torvoSection:id},'', '#'+id)}catch(e){console.error('Section restore failed',e)}}}
+window.addEventListener('load',function(){setTimeout(restoreA31Section,450)});
+
+/* Keep Dealer Requests fresh without weakening RLS. */
+setInterval(function(){if(!document.documentElement.classList.contains('torvo-auth-locked'))loadSupabaseDealerRequests()},60000);
+checkAdmin();
+})();
 </script>
 
 </body>
