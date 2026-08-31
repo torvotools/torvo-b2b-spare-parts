@@ -2636,7 +2636,63 @@ setTimeout(init21,420);
 function Q(id){return document.getElementById(id)}
 function N22(x){return String(x==null?"":x).trim().toUpperCase()}
 function ensure22(){if(!DB.dealerRequests)DB.dealerRequests=[]}
-function save22(){saveDB();updateV22Counts()}
+window.loadSupabaseDealerRequests=async function(){
+  try{
+    if(!window.supabaseClient){
+      console.log("SUPABASE CLIENT NOT READY");
+      return;
+    }
+
+    var res=await window.supabaseClient
+      .from("dealer_inquiries")
+      .select("id,inquiry_number,shop_name,contact_person,mobile,whatsapp,email,state,district,city,status,created_at")
+      .order("created_at",{ascending:true});
+
+    if(res.error)throw res.error;
+
+    ensure22();
+
+    var remote=(res.data||[]).map(function(r){
+      var st=N22(r.status);
+      return{
+        id:r.inquiry_number||r.id,
+        supabaseId:r.id,
+        shop:r.shop_name||"",
+        person:r.contact_person||"",
+        mobile:r.mobile||"",
+        whatsapp:r.whatsapp||"",
+        email:r.email||"",
+        gst:"",
+        address:[r.state,r.district,r.city].filter(Boolean).join(", "),
+        status:(!st||st==="NEW")?"PENDING":st,
+        createdAt:r.created_at||""
+      };
+    });
+
+    var local=(DB.dealerRequests||[]).filter(function(x){
+      return !x.supabaseId;
+    });
+
+    DB.dealerRequests=local.concat(remote);
+
+    if(typeof renderV22DealerRequests==="function"){
+      renderV22DealerRequests();
+    }
+    if(typeof updateV22Counts==="function"){
+      updateV22Counts();
+    }
+
+    console.log("SUPABASE DEALER REQUESTS LOADED:",remote.length);
+  }catch(e){
+    console.error("DEALER REQUEST LOAD ERROR:",e);
+    if(typeof toast==="function"){
+      toast("DEALER REQUEST SYNC FAILED: "+(e.message||e),"error");
+    }
+  }
+};
+
+setTimeout(loadSupabaseDealerRequests,1000);
+  function save22(){saveDB();updateV22Counts()}
 function dealerDuplicate22(r){
  var ds=DB.dealers||[],m=N22(r.mobile),g=N22(r.gst),s=N22(r.shop);
  var hit=ds.find(function(d){return (m&&N22(d.mobile)===m)||(g&&N22(d.gst)===g)||(s&&N22(d.shop)===s)});
