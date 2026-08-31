@@ -1775,6 +1775,176 @@ input[type="email"],input[type="password"],.preserve-case{text-transform:none!im
 }
 </style>
 
+
+<style id="torvo-review-03-fixes">
+/* ---- AUTH POPUP FINAL REVIEW ---- */
+/* User requested scale around 9/10: larger than previous compact version, but still contained */
+.torvo-auth-box{
+  width:min(760px,94vw)!important;
+  max-width:760px!important;
+  max-height:90vh!important;
+  border-radius:18px!important;
+  overflow:hidden!important;
+  display:flex!important;
+  flex-direction:column!important;
+}
+.torvo-auth-top{
+  flex:0 0 auto!important;
+  min-height:54px!important;
+  padding:10px 15px!important;
+}
+.torvo-auth-body{
+  flex:1 1 auto!important;
+  min-height:0!important;
+  max-height:calc(90vh - 54px)!important;
+  overflow-y:scroll!important;
+  overflow-x:hidden!important;
+  padding:12px 15px 18px!important;
+  overscroll-behavior:contain!important;
+  scrollbar-gutter:stable!important;
+  scrollbar-width:thin!important;
+  scrollbar-color:#9da6b4 #eef1f5!important;
+}
+.torvo-auth-body::-webkit-scrollbar{width:10px!important}
+.torvo-auth-body::-webkit-scrollbar-track{background:#eef1f5!important;border-radius:20px!important}
+.torvo-auth-body::-webkit-scrollbar-thumb{background:#9da6b4!important;border-radius:20px!important;border:2px solid #eef1f5!important}
+
+/* Background must stay locked and visually blurred while auth popup is open */
+#authModal.modal.show{
+  background:rgba(11,18,30,.66)!important;
+  backdrop-filter:blur(5px)!important;
+  -webkit-backdrop-filter:blur(5px)!important;
+  overscroll-behavior:none!important;
+}
+html.torvo-auth-locked,
+body.torvo-auth-locked{
+  overflow:hidden!important;
+  height:100%!important;
+  overscroll-behavior:none!important;
+}
+
+/* Two-colour TORVO B2B DEALER title */
+.torvo-double-title{font-size:17px!important;font-weight:950!important;letter-spacing:.7px!important}
+.torvo-title-dark{color:#17233d!important}
+.torvo-title-red{color:#d71920!important}
+
+/* Improve faint text/readability throughout both login and registration */
+.torvo-auth-box .form-field label{
+  color:#27324a!important;
+  font-size:9px!important;
+  font-weight:900!important;
+  letter-spacing:.15px!important;
+}
+.torvo-auth-box input,
+.torvo-auth-box select,
+.torvo-auth-box textarea{
+  color:#202a3c!important;
+  font-size:11px!important;
+  font-weight:700!important;
+  background:#fff!important;
+}
+.torvo-auth-box input::placeholder,
+.torvo-auth-box textarea::placeholder{
+  color:#737e91!important;
+  opacity:1!important;
+  font-weight:650!important;
+}
+.torvo-form-title b{font-size:14px!important;color:#17233d!important;font-weight:950!important}
+.torvo-form-title small{font-size:8.7px!important;color:#56627a!important;font-weight:750!important}
+.torvo-same-number{
+  color:#0d7134!important;
+  background:#e4f7ea!important;
+  font-size:8.4px!important;
+  font-weight:850!important;
+}
+
+/* WhatsApp + SEND OTP are one single green control */
+.torvo-reg-mobile{grid-template-columns:54px minmax(0,1fr) 116px!important}
+.torvo-wa-otp-btn{
+  min-width:116px!important;
+  height:auto!important;
+  border:0!important;
+  border-left:1px solid #d9e5dd!important;
+  border-radius:0!important;
+  background:#169c4c!important;
+  color:#fff!important;
+  display:flex!important;
+  align-items:center!important;
+  justify-content:center!important;
+  gap:7px!important;
+  font-size:9px!important;
+  font-weight:950!important;
+  cursor:pointer!important;
+}
+.torvo-wa-otp-btn i{font-size:17px!important}
+.torvo-wa-otp-btn span{white-space:nowrap!important}
+
+/* Login lower content: clearer hierarchy and spacing */
+.torvo-preview-btn{
+  margin-top:8px!important;
+  height:42px!important;
+  border:1px solid #aeb6c3!important;
+  background:#fff!important;
+  color:#222d40!important;
+  font-size:9.5px!important;
+  font-weight:900!important;
+}
+.torvo-preview-btn small{font-size:7.5px!important;color:#5e697d!important;font-weight:800!important}
+.torvo-login-links button{
+  height:38px!important;
+  font-size:8.6px!important;
+  font-weight:900!important;
+}
+.torvo-security-note{
+  background:#e8f6ee!important;
+  border:1px solid #cde7d7!important;
+  color:#17653a!important;
+}
+.torvo-security-note b{font-size:9.2px!important;font-weight:950!important}
+.torvo-security-note span{font-size:8px!important;color:#3c684e!important;font-weight:700!important}
+.torvo-support-mini{
+  background:#fff7e8!important;
+  border:1px solid #f0ddb9!important;
+}
+.torvo-support-mini b{color:#3c4659!important;font-size:8.5px!important}
+.torvo-support-mini a{font-size:12px!important}
+
+/* Hero delivery benefit: larger and sales-focused, with readable subline */
+.hero-delivery-note{
+  min-width:430px!important;
+  padding:14px 18px!important;
+  border-radius:13px!important;
+  background:rgba(255,255,255,.15)!important;
+  border:1px solid rgba(255,255,255,.30)!important;
+}
+.hero-delivery-note i{font-size:24px!important}
+.hero-delivery-note b{
+  font-size:14px!important;
+  line-height:1.25!important;
+  font-weight:950!important;
+  color:#fff!important;
+}
+.hero-delivery-note span{
+  font-size:11.5px!important;
+  line-height:1.35!important;
+  color:#f4f6fa!important;
+  font-weight:800!important;
+}
+
+/* Rotating promo strip below filters is intentionally removed */
+.torvo-promo-wrap,#publicPromo{display:none!important}
+
+@media(max-width:760px){
+  .torvo-auth-box{width:95vw!important;max-height:92vh!important}
+  .torvo-auth-body{max-height:calc(92vh - 54px)!important}
+  .torvo-reg-mobile{grid-template-columns:50px minmax(0,1fr) 104px!important}
+  .torvo-wa-otp-btn{min-width:104px!important}
+  .hero-delivery-note{min-width:0!important;width:100%!important}
+  .hero-delivery-note b{font-size:12.5px!important}
+  .hero-delivery-note span{font-size:10px!important}
+}
+</style>
+
 </head>
 <body>
 <div id="publicSite">
@@ -1853,10 +2023,6 @@ input[type="email"],input[type="password"],.preserve-case{text-transform:none!im
   <div class="finder-helper">Linked dropdowns: Product Type → Machine System/Type → Brand/Company → Machine → Model → Part/Category.</div>
   </div>
 </div></section>
-
-    
-
-<section class="section torvo-promo-wrap"><div class="container"><div class="torvo-promo" id="publicPromo"><div><small>TORVO BUSINESS UPDATE</small><b id="publicPromoTitle">NEW SPARE PARTS ARRIVING REGULARLY</b><span id="publicPromoText">CHECK THE LATEST TORVO RANGE AND FAST-MOVING ITEMS.</span></div><div class="torvo-promo-mark" id="publicPromoMark">⚙️</div></div></div></section>
 <section class="section" id="productsSection"><div class="container"><div class="section-head"><div><h2 class="section-title">Featured Spare Parts</h2><p class="section-sub">Product photos will connect with approved TORVO product data later.</p></div><button class="view-all" onclick="resetProducts()">VIEW ALL →</button></div><div class="product-grid" id="publicProductGrid"></div></div></section>
 
     <section class="section"><div class="container"><div class="section-head"><div><h2 class="section-title">Why TORVO?</h2></div></div><div class="business-strip">
@@ -1904,7 +2070,7 @@ input[type="email"],input[type="password"],.preserve-case{text-transform:none!im
     <div class="modal-head torvo-auth-top">
       <div class="torvo-auth-brand">
         <div class="torvo-auth-logo-slot" id="torvoAuthLogoSlot" aria-hidden="true"></div>
-        <strong><span class="dark">TORVO B2B</span> <span class="red">DEALER</span></strong>
+        <strong class="torvo-double-title"><span class="torvo-title-dark">TORVO B2B</span> <span class="torvo-title-red">DEALER</span></strong>
       </div>
       <button class="close-btn torvo-auth-close" onclick="closeAuth()" aria-label="Close">×</button>
     </div>
@@ -1979,8 +2145,9 @@ input[type="email"],input[type="password"],.preserve-case{text-transform:none!im
             <input id="regMobile" name="torvo_registration_mobile" autocomplete="tel" required
                    inputmode="numeric" maxlength="10" placeholder="Enter 10-digit active number"
                    oninput="torvoResetOtpIfMobileChanged()">
-            <span class="torvo-wa-mark"><i class="fa-brands fa-whatsapp"></i></span>
-            <button type="button" id="regSendOtpBtn" class="torvo-send-otp" onclick="sendRegistrationOtp()">SEND OTP</button>
+            <button type="button" id="regSendOtpBtn" class="torvo-send-otp torvo-wa-otp-btn" onclick="sendRegistrationOtp()">
+              <i class="fa-brands fa-whatsapp"></i><span>SEND OTP</span>
+            </button>
           </div>
           <div class="torvo-same-number"><i class="fa-solid fa-circle-check"></i> Use the same active number for both Call &amp; WhatsApp.</div>
         </div>
@@ -3108,7 +3275,7 @@ function submitTargetRequest(){
 
   function setOtpBusy(b){
     const btn=document.getElementById("regSendOtpBtn");
-    if(btn){btn.disabled=!!b;btn.textContent=b?"SENDING...":"SEND OTP";}
+    if(btn){btn.disabled=!!b;btn.innerHTML=b?'<i class="fa-brands fa-whatsapp"></i><span>SENDING...</span>':'<i class="fa-brands fa-whatsapp"></i><span>SEND OTP</span>';}
   }
   function otpState(text,ok){
     const s=document.getElementById("regOtpState");
@@ -3280,6 +3447,52 @@ function submitTargetRequest(){
     }
   });
   window.addEventListener("pageshow",()=>setTimeout(lockClean,20));
+})();
+</script>
+
+
+<script id="torvo-review-03-modal-lock">
+(function(){
+  "use strict";
+  let savedScrollY=0;
+
+  function syncAuthLock(){
+    const modal=document.getElementById("authModal");
+    const open=!!(modal && modal.classList.contains("show"));
+    if(open){
+      if(!document.body.classList.contains("torvo-auth-locked")){
+        savedScrollY=window.scrollY||document.documentElement.scrollTop||0;
+      }
+      document.documentElement.classList.add("torvo-auth-locked");
+      document.body.classList.add("torvo-auth-locked");
+    }else{
+      const wasLocked=document.body.classList.contains("torvo-auth-locked");
+      document.documentElement.classList.remove("torvo-auth-locked");
+      document.body.classList.remove("torvo-auth-locked");
+      if(wasLocked) window.scrollTo(0,savedScrollY);
+    }
+  }
+
+  document.addEventListener("DOMContentLoaded",function(){
+    const modal=document.getElementById("authModal");
+    if(!modal)return;
+
+    syncAuthLock();
+    new MutationObserver(syncAuthLock).observe(modal,{attributes:true,attributeFilter:["class"]});
+
+    /* Prevent wheel/touch scrolling from escaping the white popup into background */
+    modal.addEventListener("wheel",function(e){
+      const body=document.querySelector("#authModal .torvo-auth-body");
+      if(!body)return;
+      const atTop=body.scrollTop<=0 && e.deltaY<0;
+      const atBottom=Math.ceil(body.scrollTop+body.clientHeight)>=body.scrollHeight && e.deltaY>0;
+      if(atTop||atBottom)e.preventDefault();
+    },{passive:false});
+
+    modal.addEventListener("touchmove",function(e){
+      if(!e.target.closest(".torvo-auth-body"))e.preventDefault();
+    },{passive:false});
+  });
 })();
 </script>
 
