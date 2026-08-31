@@ -2108,6 +2108,108 @@ body.torvo-auth-locked{
 }
 </style>
 
+
+<style id="torvo-review-05-fixes">
+/* Search control: single clean box line; caret starts from the left */
+#publicSearch.torvo-catalog-search-control{
+  border:0!important;
+  outline:0!important;
+  box-shadow:none!important;
+  text-align:left!important;
+  justify-content:flex-start!important;
+  align-items:center!important;
+  padding-left:14px!important;
+}
+#publicSearch.torvo-catalog-search-control:focus{
+  border:0!important;
+  outline:0!important;
+  box-shadow:none!important;
+}
+
+/* Login/New Dealer top buttons keep the same size; only text gets slightly larger */
+.auth-tab{
+  min-height:44px!important;
+  height:44px!important;
+  font-size:13.5px!important;
+  font-weight:950!important;
+}
+
+/* New Dealer form gets its own permanent, visible vertical scroll rail */
+.torvo-register-panel.active{
+  display:block!important;
+  max-height:56vh!important;
+  overflow-y:scroll!important;
+  overflow-x:hidden!important;
+  padding-right:12px!important;
+  overscroll-behavior:contain!important;
+  scrollbar-gutter:stable!important;
+  scrollbar-width:auto!important;
+  scrollbar-color:#7f8a9d #e8ecf1!important;
+}
+.torvo-register-panel.active::-webkit-scrollbar{width:12px!important}
+.torvo-register-panel.active::-webkit-scrollbar-track{background:#e8ecf1!important;border-radius:12px!important}
+.torvo-register-panel.active::-webkit-scrollbar-thumb{background:#7f8a9d!important;border-radius:12px!important;border:2px solid #e8ecf1!important}
+
+/* Login support must remain clearly visible without increasing popup size */
+.torvo-login-panel .torvo-support-mini{
+  margin:8px 0!important;
+  padding:9px 11px!important;
+}
+.torvo-support-left b{font-size:8.8px!important;color:#263248!important}
+.torvo-support-left a{font-size:13.5px!important;color:#d71920!important}
+.torvo-wa-button{height:36px!important;min-width:104px!important}
+.torvo-security-note{margin-top:6px!important;padding:7px 8px!important}
+
+/* Login mobile is no longer a username/email input */
+.torvo-login-mobile-control{
+  min-width:0!important;
+  min-height:38px!important;
+  display:flex!important;
+  align-items:center!important;
+  padding:0 12px!important;
+  color:#202a3c!important;
+  font-size:11.2px!important;
+  font-weight:750!important;
+  background:#fff!important;
+  outline:none!important;
+  overflow:hidden!important;
+  white-space:nowrap!important;
+}
+.torvo-login-mobile-control:empty:before{
+  content:attr(data-placeholder);
+  color:#69758a!important;
+  font-weight:700!important;
+  pointer-events:none!important;
+}
+
+/* Delivery second line: full red as requested */
+.hero-delivery-note span{
+  color:#ff3b3b!important;
+  font-size:11.5px!important;
+  font-weight:950!important;
+}
+
+/* Product card title: lighter, smaller and more compact; reduce wasted vertical space */
+.v24-body .product-name{
+  font-size:10.5px!important;
+  line-height:1.15!important;
+  font-weight:600!important;
+  min-height:18px!important;
+  margin:0 1px 2px!important;
+  color:#162b55!important;
+}
+.product-body.v24-body{padding:5px 6px!important}
+.v24-spec-row{padding:4px 6px!important;min-height:24px!important}
+.product-photo.v24-photo{height:clamp(140px,11.5vw,205px)!important;min-height:140px!important}
+
+@media(max-width:760px){
+  .torvo-register-panel.active{max-height:62vh!important}
+  .auth-tab{font-size:11.5px!important}
+  .v24-body .product-name{font-size:9.6px!important;min-height:17px!important}
+  .product-photo.v24-photo{height:140px!important;min-height:140px!important}
+}
+</style>
+
 </head>
 <body>
 <div id="publicSite">
@@ -2243,10 +2345,11 @@ body.torvo-auth-locked{
 
         <div class="form-field">
           <label>REGISTERED CALLING &amp; WHATSAPP NUMBER</label>
-          <div class="torvo-mobile-row">
+          <div class="torvo-mobile-row torvo-login-mobile-row">
             <span class="torvo-country-code">+91</span>
-            <input id="loginMobile" name="torvo_dealer_login_mobile" autocomplete="tel"
-                   inputmode="numeric" maxlength="10" placeholder="Enter 10-digit registered number">
+            <div id="loginMobile" class="torvo-login-mobile-control" role="textbox" contenteditable="true" tabindex="0"
+                 inputmode="numeric" data-placeholder="Enter registered Calling & WhatsApp number"
+                 aria-label="Registered Calling and WhatsApp number" spellcheck="false"></div>
             <span class="torvo-wa-mark"><i class="fa-brands fa-whatsapp"></i></span>
           </div>
         </div>
@@ -2265,11 +2368,6 @@ body.torvo-auth-locked{
           <button type="button" onclick="demoForgotPin()"><i class="fa-solid fa-key"></i> FORGOT PIN?</button>
         </div>
 
-        <div class="torvo-security-note">
-          <i class="fa-solid fa-shield-halved"></i>
-          <div><b>Secure Dealer Access</b><span>First-login OTP is issued only after TORVO Admin approval. After verification, the dealer can set a 4-digit PIN.</span></div>
-        </div>
-
         <div class="torvo-support-mini">
           <div class="torvo-support-left">
             <span class="torvo-support-icon"><i class="fa-solid fa-headset"></i></span>
@@ -2277,6 +2375,13 @@ body.torvo-auth-locked{
           </div>
           <a class="torvo-wa-button" href="https://wa.me/917027751533" target="_blank" rel="noopener" aria-label="WhatsApp TORVO Support"><i class="fa-brands fa-whatsapp"></i><span>WHATSAPP</span></a>
         </div>
+
+        <div class="torvo-security-note">
+          <i class="fa-solid fa-shield-halved"></i>
+          <div><b>Secure Dealer Access</b><span>First-login OTP is issued only after TORVO Admin approval. After verification, the dealer can set a 4-digit PIN.</span></div>
+        </div>
+
+
       </div>
 
       <div id="registerPanel" class="form-panel torvo-register-panel">
@@ -3699,6 +3804,76 @@ function submitTargetRequest(){
   });
   window.addEventListener("storage",function(ev){
     if(ev.key==="torvo_home_hero_description") applyHeroCopy();
+  });
+})();
+</script>
+
+
+<script id="torvo-review-05-interaction-fixes">
+(function(){
+  "use strict";
+  function placeCaretStart(el){
+    try{
+      const sel=window.getSelection();
+      const range=document.createRange();
+      range.selectNodeContents(el);
+      range.collapse(true);
+      sel.removeAllRanges();
+      sel.addRange(range);
+    }catch(_){ }
+  }
+
+  function setupSearchCaret(){
+    const e=document.getElementById("publicSearch");
+    if(!e)return;
+    e.addEventListener("pointerdown",function(ev){
+      if((this.textContent||"").trim()===""){
+        ev.preventDefault();
+        this.focus();
+        placeCaretStart(this);
+      }
+    });
+    e.addEventListener("focus",function(){
+      if((this.textContent||"").trim()==="") placeCaretStart(this);
+    });
+  }
+
+  function setupLoginMobile(){
+    const e=document.getElementById("loginMobile");
+    if(!e || e.tagName==="INPUT")return;
+    try{
+      Object.defineProperty(e,"value",{
+        configurable:true,
+        get:function(){return (this.textContent||"").replace(/\D/g,"").slice(0,10);},
+        set:function(v){this.textContent=String(v||"").replace(/\D/g,"").slice(0,10);}
+      });
+    }catch(_){ }
+
+    e.addEventListener("beforeinput",function(ev){
+      if(ev.data && /\D/.test(ev.data)) ev.preventDefault();
+    });
+    e.addEventListener("input",function(){
+      const digits=(this.textContent||"").replace(/\D/g,"").slice(0,10);
+      if(this.textContent!==digits){
+        this.textContent=digits;
+        const sel=window.getSelection(), range=document.createRange();
+        range.selectNodeContents(this); range.collapse(false);
+        sel.removeAllRanges(); sel.addRange(range);
+      }
+    });
+    e.addEventListener("paste",function(ev){
+      ev.preventDefault();
+      const txt=(ev.clipboardData||window.clipboardData).getData("text").replace(/\D/g,"").slice(0,10);
+      this.textContent=txt;
+      const sel=window.getSelection(), range=document.createRange();
+      range.selectNodeContents(this); range.collapse(false);
+      sel.removeAllRanges(); sel.addRange(range);
+    });
+  }
+
+  document.addEventListener("DOMContentLoaded",function(){
+    setupSearchCaret();
+    setupLoginMobile();
   });
 })();
 </script>
