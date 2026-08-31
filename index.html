@@ -2612,7 +2612,7 @@ body.torvo-auth-locked{
   font-size:8.2px!important;
 }
 
-/* Less empty space between USRD FOR and VIEW DETAILS */
+/* Less empty space between USED FOR and VIEW DETAILS */
 .public-detail-row{
   margin-top:4px!important;
   padding-top:2px!important;
@@ -2857,7 +2857,7 @@ body.torvo-auth-locked{
   font-weight:520!important;
 }
 
-/* Reduce gap after USRD FOR and improve VIEW DETAILS label without resizing card */
+/* Reduce gap after USED FOR and improve VIEW DETAILS label without resizing card */
 .public-detail-row{
   margin-top:2px!important;
   padding-top:0!important;
@@ -2956,6 +2956,114 @@ body.torvo-auth-locked{
 }
 </style>
 
+
+<style id="torvo-home-final-review-10">
+/* REVIEW 10 — latest Home UI decisions */
+.search-select{
+  font-weight:500!important;
+}
+
+/* Dealer Access subtitle back to white */
+.login-btn .login-sub{color:#fff!important;font-weight:500!important}
+
+/* Delivery block: black interior, clear white boundary, no heavy shadow */
+.hero-delivery-note{
+  background:#111827!important;
+  border:2px solid rgba(255,255,255,.92)!important;
+  box-shadow:none!important;
+  color:#fff!important;
+  padding:10px 14px!important;
+}
+.hero-delivery-note i{color:#fff!important}
+.hero-delivery-note b{color:#fff!important;font-weight:600!important}
+.hero-delivery-note span{color:#ef4444!important;font-weight:550!important}
+
+/* Product card typography — compact, only slightly bold */
+.v24-top-code,.v24-item-code,.product-code,.public-item-code{
+  font-weight:600!important;
+  letter-spacing:.15px!important;
+  text-align:center!important;
+}
+.product-name{font-weight:600!important}
+.v24-spec-label,.v24-spec-value{font-weight:550!important}
+.public-full-detail{
+  font-size:9.5px!important;
+  font-weight:600!important;
+  box-shadow:none!important;
+}
+.v24-body{padding-bottom:5px!important}
+.v24-specs{margin-bottom:4px!important}
+
+/* NEW/POPULAR and lock stay inside photo box */
+.v24-photo,.product-photo,.public-product-photo{position:relative!important}
+.v24-tag,.product-tag,.public-product-tag{
+  position:absolute!important;left:8px!important;top:8px!important;z-index:4!important;
+}
+.v24-lock,.product-lock,.public-product-lock{
+  position:absolute!important;right:8px!important;top:7px!important;z-index:4!important;
+}
+.gallery-arrow{width:20px!important;height:20px!important;font-size:10px!important}
+
+/* All five Dealer Support cards: visible boundaries and flat action buttons */
+.contact-card{box-shadow:none!important}
+.contact-card:nth-child(1){border:2px solid #22a7f0!important}
+.contact-card:nth-child(2){border:2px solid #22c77a!important}
+.contact-card:nth-child(3){border:2px solid #22a7f0!important}
+.contact-card:nth-child(4){border:2px solid #f43f5e!important}
+.contact-card:nth-child(5){border:2px solid #60a5fa!important}
+.support-action-btn{box-shadow:none!important;filter:none!important}
+
+/* Footer app controls: clean store-style icon treatment */
+.footer-app-links{display:flex!important;gap:7px!important;align-items:center!important;flex-wrap:wrap!important}
+.footer-app-links button{
+  min-height:30px!important;padding:5px 10px!important;border:1px solid rgba(255,255,255,.55)!important;
+  border-radius:7px!important;background:#111827!important;color:#fff!important;box-shadow:none!important;
+  font-size:8.5px!important;font-weight:600!important
+}
+.footer-app-links button i{font-size:15px!important}
+
+/* Six-step journey: visually connected dark-green flow */
+.process-grid{column-gap:28px!important;overflow:visible!important}
+.process-card{position:relative!important;overflow:visible!important}
+.process-number{background:#08783d!important;border-color:#08783d!important;color:#fff!important}
+.process-card strong{color:#08783d!important;font-weight:600!important}
+.process-card:not(:last-child)::after{
+  content:"›"!important;
+  position:absolute!important;
+  right:-22px!important;top:50%!important;transform:translateY(-50%)!important;
+  width:28px!important;height:28px!important;border-radius:50%!important;
+  display:flex!important;align-items:center!important;justify-content:center!important;
+  background:#08783d!important;color:#fff!important;border:2px solid #08783d!important;
+  font-size:23px!important;font-weight:600!important;line-height:1!important;
+  box-shadow:none!important;z-index:6!important;
+}
+.process-card:not(:last-child)::before{
+  content:""!important;position:absolute!important;right:-29px!important;top:50%!important;
+  width:32px!important;height:2px!important;background:#08783d!important;z-index:5!important;
+}
+@media(max-width:900px){
+  .process-grid{row-gap:34px!important}
+  .process-card:not(:last-child)::after{
+    content:"⌄"!important;right:auto!important;left:50%!important;top:auto!important;
+    bottom:-31px!important;transform:translateX(-50%)!important;
+  }
+  .process-card:not(:last-child)::before{
+    right:auto!important;left:50%!important;top:auto!important;bottom:-35px!important;
+    width:2px!important;height:30px!important;transform:translateX(-50%)!important;
+  }
+}
+
+/* Login popup: keep outer size, improve internal fit and bottom breathing room */
+#authModal .auth-bottom-actions{padding-bottom:10px!important}
+#authModal .first-login-btn,#authModal .forgot-pin-btn{font-size:10px!important;font-weight:600!important}
+#authModal .auth-support-row{padding-bottom:12px!important;margin-bottom:4px!important}
+#authModal .auth-support-row strong,#authModal .auth-support-row a{font-weight:600!important}
+
+/* Hero image area stays visually merged with black hero; no picture border */
+.hero-visual,.hero-machine,.hero-uploaded-image{border:none!important;box-shadow:none!important;background:transparent!important}
+.hero-uploaded-image{object-fit:contain!important;max-width:100%!important;max-height:100%!important}
+</style>
+
 </head>
 <body>
 <div id="publicSite">
@@ -3025,7 +3133,7 @@ body.torvo-auth-locked{
   <div class="finder-helper">Linked dropdowns: Product Type → Machine System/Type → Brand/Company → Machine → Model → Part/Category.</div>
   </div>
 </div></section>
-<section class="section" id="productsSection"><div class="container"><div class="section-head"><div><h2 class="section-title">Featured Spare Parts</h2><p class="section-sub">Product photos will connect with approved TORVO product data later.</p></div><button class="view-all" onclick="resetProducts()">VIEW ALL →</button></div><div class="product-grid" id="publicProductGrid"></div></div></section>
+<section class="section" id="productsSection"><div class="container"><div class="section-head"><div><h2 class="section-title">Featured Spare Parts</h2><p class="section-sub">Product photos will connect with approved TORVO product data later.</p></div></div><div class="product-grid" id="publicProductGrid"></div></div></section>
 
     <section class="section"><div class="container"><div class="section-head"><div><h2 class="section-title">Why TORVO?</h2></div></div><div class="business-strip">
       <div class="business-card"><div class="business-icon">🔧</div><div><strong>Multi-Brand Range</strong><span>Power tool spare parts and accessories for multiple brands.</span></div></div>
@@ -3533,14 +3641,14 @@ let supabaseClient=null;
 try{if(window.supabase){supabaseClient=window.supabase.createClient(SUPABASE_URL,SUPABASE_KEY)}}catch(error){console.error("Supabase initialization error:",error)}
 
 const demoProducts=[
-{item:"T-CODE-000001",name:"Angle Grinder Armature",brand:"Bosch",spareBrand:"TORVO",system:"Power Tools",model:"GWS 600",machine:"Angle Grinder",wattage:"670W",type:"Spare Part",part:"Armature",icon:"⚙️",tag:"POPULAR",dealerRate:"₹ Preview Rate"},
-{item:"T-CODE-000002",name:"Marble Cutter Field",brand:"Makita",spareBrand:"TORVO",system:"Power Tools",model:"4100",machine:"Marble Cutter",wattage:"1200W",type:"Spare Part",part:"Field / Stator",icon:"🔩",tag:"NEW",dealerRate:"₹ Preview Rate"},
-{item:"T-CODE-000003",name:"Cordless Drill Switch",brand:"Makita",spareBrand:"DDI Spare",system:"Cordless Tools",model:"DF330",machine:"Cordless Drill",wattage:"",type:"Spare Part",part:"Switch",icon:"🔘",tag:"POPULAR",dealerRate:"₹ Preview Rate"},
-{item:"T-CODE-000004",name:"Angle Grinder Switch",brand:"Bosch",spareBrand:"ABC Spare Parts",system:"Power Tools",model:"GWS 600",machine:"Angle Grinder",wattage:"670W",type:"Spare Part",part:"Switch",icon:"🔘",tag:"NEW",dealerRate:"₹ Preview Rate"},
-{item:"T-CODE-000005",name:"Welding Cooling Fan",brand:"Multi Brand",spareBrand:"TORVO",system:"Welding Machines",model:"ARC 200",machine:"Inverter Welder",wattage:"",type:"Spare Part",part:"Cooling Fan",icon:"🌀",tag:"POPULAR",dealerRate:"₹ Preview Rate"},
+{item:"T-000001",name:"Angle Grinder Armature",brand:"Bosch",spareBrand:"TORVO",system:"Power Tools",model:"GWS 600",machine:"Angle Grinder",wattage:"670W",type:"Spare Part",part:"Armature",icon:"⚙️",tag:"POPULAR",dealerRate:"₹ Preview Rate"},
+{item:"T-000002",name:"Marble Cutter Field",brand:"Makita",spareBrand:"TORVO",system:"Power Tools",model:"4100",machine:"Marble Cutter",wattage:"1200W",type:"Spare Part",part:"Field / Stator",icon:"🔩",tag:"NEW",dealerRate:"₹ Preview Rate"},
+{item:"T-000003",name:"Cordless Drill Switch",brand:"Makita",spareBrand:"DDI Spare",system:"Cordless Tools",model:"DF330",machine:"Cordless Drill",wattage:"",type:"Spare Part",part:"Switch",icon:"🔘",tag:"POPULAR",dealerRate:"₹ Preview Rate"},
+{item:"T-000004",name:"Angle Grinder Switch",brand:"Bosch",spareBrand:"ABC Spare Parts",system:"Power Tools",model:"GWS 600",machine:"Angle Grinder",wattage:"670W",type:"Spare Part",part:"Switch",icon:"🔘",tag:"NEW",dealerRate:"₹ Preview Rate"},
+{item:"T-000005",name:"Welding Cooling Fan",brand:"Multi Brand",spareBrand:"TORVO",system:"Welding Machines",model:"ARC 200",machine:"Inverter Welder",wattage:"",type:"Spare Part",part:"Cooling Fan",icon:"🌀",tag:"POPULAR",dealerRate:"₹ Preview Rate"},
 {item:"T-2001",name:"Diamond Cutting Blade",brand:"Makita",spareBrand:"TORVO",system:"Power Tools",model:"Various",machine:"Marble Cutter",wattage:"",type:"Accessory",part:"Diamond Blade",icon:"💿",tag:"NEW",dealerRate:"₹ Preview Rate"},
 {item:"T-2002",name:"Drill Bit",brand:"Bosch",spareBrand:"TORVO",system:"Power Tools",model:"Various",machine:"Drill Machine",wattage:"",type:"Accessory",part:"Drill Bit",icon:"🪛",tag:"POPULAR",dealerRate:"₹ Preview Rate"},
-{item:"T-CODE-000006",name:"Bearing Set",brand:"Bosch",spareBrand:"XYZ Components",system:"Power Tools",model:"GWS 600",machine:"Angle Grinder",wattage:"670W",type:"Spare Part",part:"Bearing",icon:"⭕",tag:"POPULAR",dealerRate:"₹ Preview Rate"},
+{item:"T-000006",name:"Bearing Set",brand:"Bosch",spareBrand:"XYZ Components",system:"Power Tools",model:"GWS 600",machine:"Angle Grinder",wattage:"670W",type:"Spare Part",part:"Bearing",icon:"⭕",tag:"POPULAR",dealerRate:"₹ Preview Rate"},
 {item:"T-1007",name:"Compressor Piston Ring",brand:"Multi Brand",spareBrand:"ABC Spare Parts",system:"Compressors",model:"2HP",machine:"Air Compressor",wattage:"1500W",type:"Spare Part",part:"Piston Ring",icon:"⭕",tag:"NEW",dealerRate:"₹ Preview Rate"},
 {item:"T-1008",name:"Power Tool Stator",brand:"Stanley",spareBrand:"TORVO",system:"Power Tools",model:"SDH600",machine:"Drill Machine",wattage:"600W",type:"Spare Part",part:"Field / Stator",icon:"🔧",tag:"POPULAR",dealerRate:"₹ Preview Rate"},
 {item:"T-1009",name:"Angle Grinder Carbon Brush",brand:"DeWalt",spareBrand:"TORVO",system:"Power Tools",model:"DW801",machine:"Angle Grinder",wattage:"850W",type:"Spare Part",part:"Carbon Brush",icon:"▰",tag:"NEW",dealerRate:"₹ Preview Rate"},
@@ -3847,7 +3955,7 @@ function openProductDetail(item,isDealer){
    <div><div class="product-detail-photo">${p.icon}</div><div class="detail-photo-label">PHOTO 1</div></div>
    <div><div class="product-detail-photo alt"><span class="detail-alt-visual">${p.icon}</span></div><div class="detail-photo-label">PHOTO 2</div></div>
  </div>
- <div><div class="detail-kicker">ITEM: ${p.item}</div><div class="detail-title">${p.name}</div><div class="detail-data"><div><b>MACHINE BRAND</b>${p.brand}</div><div><b>MODEL</b>${p.model}</div><div><b>PART BRAND</b>${p.spareBrand}</div><div><b>USRD FOR</b>${p.system}</div><div><b>MACHINE</b>${p.machine}</div><div><b>CATEGORY</b>${p.part}</div>${watt}</div>${rate}</div></div>
+ <div><div class="detail-kicker">ITEM: ${p.item}</div><div class="detail-title">${p.name}</div><div class="detail-data"><div><b>MACHINE BRAND</b>${p.brand}</div><div><b>MODEL</b>${p.model}</div><div><b>PART BRAND</b>${p.spareBrand}</div><div><b>USED FOR</b>${p.system}</div><div><b>MACHINE</b>${p.machine}</div><div><b>CATEGORY</b>${p.part}</div>${watt}</div>${rate}</div></div>
  <div class="new-arrivals-wrap"><div class="new-arrivals-head"><h3>NEW ARRIVALS / RECENTLY ADDED</h3><span>ADMIN-PUBLISHED ITEMS WILL APPEAR HERE.</span></div><div class="new-arrivals-grid">${recent.map(r=>`<button class="arrival-card" onclick="openProductDetail('${r.item}',${isDealer})"><div class="arrival-photo">${r.icon}</div><b>${r.name}</b><small>ITEM: ${r.item}</small></button>`).join("")}</div></div>`;
  document.getElementById("productDetailModal")?.classList.add("show");
 }
@@ -4036,7 +4144,7 @@ function submitTargetRequest(){
   function allProducts(){return (typeof demoProducts!=="undefined"&&Array.isArray(demoProducts))?demoProducts:[]}
   publicResults=allProducts();dealerResults=allProducts();
 
-  function torvoDisplayCode(item){const m=String(item||"").match(/(\d+)$/);return "T-CODE-"+String(m?Number(m[1]):1).padStart(6,"0")}
+  function torvoDisplayCode(item){const m=String(item||"").match(/(\d+)$/);return "T-"+String(m?Number(m[1]):1).padStart(5,"0")}
   function v22PublicCard(p){const badge=typeof badgeClass==="function"?badgeClass(p.tag):"";return `<div class="product-card">
     <div class="v24-card-top"><span class="v24-item-code">${torvoDisplayCode(p.item)}</span></div>
     <div class="product-photo v24-photo click-photo product-gallery" onclick="publicProductDetails('${p.item}')">
@@ -4047,7 +4155,7 @@ function submitTargetRequest(){
       <div class="v24-photo-dots" data-photo-dots="public-${p.item}"><span class="v24-photo-dot active"></span><span class="v24-photo-dot"></span></div>
       <button class="gallery-arrow right" type="button" onclick="event.stopPropagation();slideCardPhoto('public','${p.item}',1)" aria-label="NEXT PHOTO"><i class="fa-solid fa-chevron-right"></i></button>
     </div>
-    <div class="product-body v24-body"><div class="product-name">${p.name}</div><div class="v24-specs"><div class="v24-spec-row"><span class="v24-spec-label">MACHINE BRAND</span><span class="v24-spec-colon">:</span><span class="v24-spec-value">${p.brand}</span></div><div class="v24-spec-row"><span class="v24-spec-label">MODEL</span><span class="v24-spec-colon">:</span><span class="v24-spec-value">${p.model}</span></div><div class="v24-spec-row"><span class="v24-spec-label">PART BRAND</span><span class="v24-spec-colon">:</span><span class="v24-spec-value">${p.spareBrand}</span></div><div class="v24-spec-row"><span class="v24-spec-label">USRD FOR</span><span class="v24-spec-colon">:</span><span class="v24-spec-value">${p.system}</span></div></div><div class="public-detail-row"><button class="details-btn public-full-detail" onclick="publicProductDetails('${p.item}')">VIEW DETAILS</button></div></div></div>`}
+    <div class="product-body v24-body"><div class="product-name">${p.name}</div><div class="v24-specs"><div class="v24-spec-row"><span class="v24-spec-label">MACHINE BRAND</span><span class="v24-spec-colon">:</span><span class="v24-spec-value">${p.brand}</span></div><div class="v24-spec-row"><span class="v24-spec-label">MODEL</span><span class="v24-spec-colon">:</span><span class="v24-spec-value">${p.model}</span></div><div class="v24-spec-row"><span class="v24-spec-label">PART BRAND</span><span class="v24-spec-colon">:</span><span class="v24-spec-value">${p.spareBrand}</span></div><div class="v24-spec-row"><span class="v24-spec-label">USED FOR</span><span class="v24-spec-colon">:</span><span class="v24-spec-value">${p.system}</span></div></div><div class="public-detail-row"><button class="details-btn public-full-detail" onclick="publicProductDetails('${p.item}')">VIEW DETAILS</button></div></div></div>`}
   function v22DealerCard(p){const badge=typeof badgeClass==="function"?badgeClass(p.tag):"";return `<div class="product-card">
     <div class="v24-card-top dealer-card-top"><span class="v24-item-code">${torvoDisplayCode(p.item)}</span></div>
     <div class="product-photo v24-photo click-photo product-gallery" onclick="dealerProductDetails('${p.item}')">
@@ -4057,7 +4165,7 @@ function submitTargetRequest(){
       <div class="v24-photo-dots" data-photo-dots="dealer-${p.item}"><span class="v24-photo-dot active"></span><span class="v24-photo-dot"></span></div>
       <button class="gallery-arrow right" type="button" onclick="event.stopPropagation();slideCardPhoto('dealer','${p.item}',1)"><i class="fa-solid fa-chevron-right"></i></button>
     </div>
-    <div class="product-body v24-body"><div class="product-name">${p.name}</div><div class="v24-specs"><div class="v24-spec-row"><span class="v24-spec-label">MACHINE BRAND</span><span class="v24-spec-colon">:</span><span class="v24-spec-value">${p.brand}</span></div><div class="v24-spec-row"><span class="v24-spec-label">MODEL</span><span class="v24-spec-colon">:</span><span class="v24-spec-value">${p.model}</span></div><div class="v24-spec-row"><span class="v24-spec-label">PART BRAND</span><span class="v24-spec-colon">:</span><span class="v24-spec-value">${p.spareBrand}</span></div><div class="v24-spec-row"><span class="v24-spec-label">USRD FOR</span><span class="v24-spec-colon">:</span><span class="v24-spec-value">${p.system}</span></div></div><div class="dealer-rate">${p.dealerRate}</div><div class="cart-controls"><div class="qty-control" id="qtybox-${p.item}"><button id="minus-${p.item}" onclick="changeQty('${p.item}',-1)">−</button><input id="qty-${p.item}" class="qty-input" type="number" min="1" value="1" inputmode="numeric" oninput="sanitizeQty('${p.item}')"><button id="plus-${p.item}" onclick="changeQty('${p.item}',1)">+</button></div><button class="add-cart-btn dealer-cart-btn" id="cart-${p.item}" title="ADD TO CART" aria-label="ADD TO CART" onclick="addDemoCart('${p.item}',this)"><i class="fa-solid fa-cart-plus"></i></button></div></div></div>`}
+    <div class="product-body v24-body"><div class="product-name">${p.name}</div><div class="v24-specs"><div class="v24-spec-row"><span class="v24-spec-label">MACHINE BRAND</span><span class="v24-spec-colon">:</span><span class="v24-spec-value">${p.brand}</span></div><div class="v24-spec-row"><span class="v24-spec-label">MODEL</span><span class="v24-spec-colon">:</span><span class="v24-spec-value">${p.model}</span></div><div class="v24-spec-row"><span class="v24-spec-label">PART BRAND</span><span class="v24-spec-colon">:</span><span class="v24-spec-value">${p.spareBrand}</span></div><div class="v24-spec-row"><span class="v24-spec-label">USED FOR</span><span class="v24-spec-colon">:</span><span class="v24-spec-value">${p.system}</span></div></div><div class="dealer-rate">${p.dealerRate}</div><div class="cart-controls"><div class="qty-control" id="qtybox-${p.item}"><button id="minus-${p.item}" onclick="changeQty('${p.item}',-1)">−</button><input id="qty-${p.item}" class="qty-input" type="number" min="1" value="1" inputmode="numeric" oninput="sanitizeQty('${p.item}')"><button id="plus-${p.item}" onclick="changeQty('${p.item}',1)">+</button></div><button class="add-cart-btn dealer-cart-btn" id="cart-${p.item}" title="ADD TO CART" aria-label="ADD TO CART" onclick="addDemoCart('${p.item}',this)"><i class="fa-solid fa-cart-plus"></i></button></div></div></div>`}
 
   function paginationHtml(total,page,kind){
     const pages=Math.max(1,Math.ceil(total/PAGE_SIZE)); if(pages<=1)return "";
@@ -4770,6 +4878,65 @@ function submitTargetRequest(){
       el.addEventListener("change",()=>el.classList.remove("torvo-field-error"));
     });
   });
+})();
+</script>
+
+
+<script id="torvo-home-final-review-10-runtime">
+(function(){
+  "use strict";
+
+  /* Short TORVO own code: T-00001 */
+  window.torvoDisplayCode=function(item){
+    const m=String(item||"").match(/(\d+)$/);
+    return "T-"+String(m?Number(m[1]):1).padStart(5,"0");
+  };
+
+  /* Keep ALL selector moderate even if older CSS loads later. */
+  function softenSearchAll(){
+    const s=document.getElementById("searchType");
+    if(s){s.style.fontWeight="500";}
+  }
+
+  /*
+    Hero supports up to 3 Admin-supplied image URLs.
+    When backend sync is connected, Admin can populate TORVO_HOME_HERO_IMAGES.
+    No fake upload/backend success is claimed here.
+  */
+  let heroTimer=null, heroIndex=0;
+  function getHeroImages(){
+    let arr=[];
+    try{
+      const stored=JSON.parse(localStorage.getItem("TORVO_HOME_HERO_IMAGES")||"[]");
+      if(Array.isArray(stored)) arr=stored;
+    }catch(_){}
+    if(Array.isArray(window.TORVO_HOME_HERO_IMAGES) && window.TORVO_HOME_HERO_IMAGES.length){
+      arr=window.TORVO_HOME_HERO_IMAGES;
+    }
+    return arr.filter(Boolean).slice(0,3);
+  }
+  function startHeroRotation(){
+    const img=document.getElementById("publicHeroImage");
+    if(!img)return;
+    const arr=getHeroImages();
+    if(!arr.length)return;
+    heroIndex=0;
+    img.src=arr[0]; img.style.display="block";
+    if(heroTimer)clearInterval(heroTimer);
+    if(arr.length>1){
+      heroTimer=setInterval(function(){
+        heroIndex=(heroIndex+1)%arr.length;
+        img.src=arr[heroIndex];
+        img.style.display="block";
+      },4500);
+    }
+  }
+
+  document.addEventListener("DOMContentLoaded",function(){
+    softenSearchAll();
+    startHeroRotation();
+  });
+  window.addEventListener("pageshow",softenSearchAll);
 })();
 </script>
 
