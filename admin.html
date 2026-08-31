@@ -837,6 +837,114 @@ const SUPABASE_URL="https://gckafjiitjocodlrwanm.supabase.co";
 const SUPABASE_KEY="sb_publishable_9Jbo6ZcyihmVqMTaGdslMg_Wbtg0bLl";
 window.supabaseClient=window.supabase.createClient(SUPABASE_URL,SUPABASE_KEY);
 </script>
+ <script>
+document.addEventListener("DOMContentLoaded", async function () {
+  if (!window.supabaseClient || !window.supabaseClient.auth) {
+    console.error("SUPABASE AUTH NOT READY");
+    return;
+  }
+
+  async function checkAdminSession() {
+    const { data } = await window.supabaseClient.auth.getSession();
+    const session = data && data.session;
+
+    if (session) {
+      console.log("SUPABASE ADMIN AUTH CONNECTED:", session.user.id);
+
+      if (typeof window.loadSupabaseDealerRequests === "function") {
+        window.loadSupabaseDealerRequests();
+      }
+      return;
+    }
+
+    showAdminAuthBox();
+  }
+
+  function showAdminAuthBox() {
+    if (document.getElementById("torvoSupabaseAdminLogin")) return;
+
+    const box = document.createElement("div");
+    box.id = "torvoSupabaseAdminLogin";
+    box.style.cssText =
+      "position:fixed;z-index:999999;left:50%;top:50%;transform:translate(-50%,-50%);" +
+      "background:#fff;width:min(92%,420px);padding:22px;border-radius:16px;" +
+      "box-shadow:0 15px 50px rgba(0,0,0,.35);font-family:Arial;color:#111827";
+
+    box.innerHTML = `
+      <div style="font-size:20px;font-weight:900;margin-bottom:8px;">
+        TORVO ADMIN SECURE LOGIN
+      </div>
+
+      <div style="font-size:13px;margin-bottom:14px;color:#4b5563;">
+        Enter your Supabase Admin email. A secure login link will be sent to that email.
+      </div>
+
+      <input
+        id="torvoAdminAuthEmail"
+        type="email"
+        placeholder="Admin Email"
+        style="width:100%;box-sizing:border-box;padding:12px;border:1px solid #cbd5e1;border-radius:9px;margin-bottom:12px;"
+      >
+
+      <button
+        id="torvoAdminMagicLinkBtn"
+        type="button"
+        style="width:100%;padding:12px;border:0;border-radius:9px;background:#111827;color:white;font-weight:800;cursor:pointer;"
+      >
+        SEND SECURE LOGIN LINK
+      </button>
+
+      <div
+        id="torvoAdminAuthMessage"
+        style="font-size:12px;margin-top:12px;line-height:1.5;"
+      ></div>
+    `;
+
+    document.body.appendChild(box);
+
+    document.getElementById("torvoAdminMagicLinkBtn").onclick = async function () {
+      const email = document.getElementById("torvoAdminAuthEmail").value.trim();
+      const msg = document.getElementById("torvoAdminAuthMessage");
+
+      if (!email) {
+        msg.textContent = "Please enter Admin email.";
+        return;
+      }
+
+      msg.textContent = "Sending secure login link...";
+
+      const { error } = await window.supabaseClient.auth.signInWithOtp({
+        email: email,
+        options: {
+          emailRedirectTo: window.location.href.split("#")[0]
+        }
+      });
+
+      if (error) {
+        msg.textContent = "Login link could not be sent: " + error.message;
+        return;
+      }
+
+      msg.textContent = "Secure login link sent. Open the email and click the login link.";
+    };
+  }
+
+  window.supabaseClient.auth.onAuthStateChange(function (event, session) {
+    if (session) {
+      const box = document.getElementById("torvoSupabaseAdminLogin");
+      if (box) box.remove();
+
+      setTimeout(function () {
+        if (typeof window.loadSupabaseDealerRequests === "function") {
+          window.loadSupabaseDealerRequests();
+        }
+      }, 500);
+    }
+  });
+
+  checkAdminSession();
+});
+</script> 
 </head>
 <body>
 <div class="app">
