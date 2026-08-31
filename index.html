@@ -1417,6 +1417,149 @@ input[type="email"],input[type="password"],.preserve-case{text-transform:none!im
 @media(max-width:760px){.product-grid{grid-template-columns:repeat(2,minmax(0,1fr))!important}.product-photo.v24-photo{height:145px!important;min-height:145px!important}.v24-photo .gallery-arrow{width:20px!important;height:20px!important}.v26-unified-strip{grid-template-columns:1fr!important}.v26-delivery-copy{border:0;border-top:1px solid rgba(255,255,255,.14);border-bottom:1px solid rgba(255,255,255,.14);padding:7px 0}.v26-unified-strip .rate-chip{justify-self:start}.dealer-reco-grid{grid-template-columns:repeat(2,minmax(0,1fr))!important}.product-photo.v24-photo::after{display:none}}
 </style>
 
+
+<style id="torvo-v26-batch1-home-fixes">
+/* CHANGE 1: public search remains a catalogue field, not a login/email field */
+#publicSearch{
+  font-size:12px!important;
+  font-weight:600!important;
+  color:#20242c!important;
+}
+
+/* CHANGE 2: top black strip — slimmer and calmer */
+.topbar{
+  font-size:10.5px!important;
+  line-height:1.2!important;
+}
+.topbar-inner{
+  min-height:27px!important;
+  gap:10px!important;
+}
+.topbar-right{
+  gap:10px!important;
+}
+.topbar-inner>div,
+.topbar-right span{
+  font-weight:600!important;
+  letter-spacing:.05px!important;
+}
+
+/* CHANGE 3: hero black box — same location, smaller typography, image-only right side */
+.hero{
+  padding:18px 0 10px!important;
+}
+.hero-box{
+  min-height:268px!important;
+  grid-template-columns:1.08fr .92fr!important;
+}
+.hero-content{
+  padding:30px 34px!important;
+}
+.hero-label{
+  padding:6px 10px!important;
+  border-radius:22px!important;
+  font-size:9.5px!important;
+  font-weight:750!important;
+  letter-spacing:.45px!important;
+  margin-bottom:10px!important;
+}
+.hero h1{
+  font-size:34px!important;
+  line-height:1.08!important;
+  margin:0 0 10px!important;
+}
+.hero p{
+  font-size:13px!important;
+  line-height:1.48!important;
+  max-width:680px!important;
+  margin:0 0 15px!important;
+}
+.hero-actions{
+  gap:8px!important;
+}
+.hero-actions .primary-btn,
+.hero-actions .outline-btn{
+  height:40px!important;
+  border-radius:10px!important;
+  padding:0 14px!important;
+  font-size:10px!important;
+  font-weight:800!important;
+}
+
+/* Delivery rule moved into the hero box */
+.hero-delivery-note{
+  margin-top:12px!important;
+  display:inline-flex!important;
+  width:max-content!important;
+  max-width:100%!important;
+  align-items:center!important;
+  gap:8px!important;
+  padding:7px 10px!important;
+  border-radius:9px!important;
+  background:rgba(255,255,255,.10)!important;
+  border:1px solid rgba(255,255,255,.16)!important;
+}
+.hero-delivery-note i{
+  color:#ffd54a!important;
+  font-size:14px!important;
+}
+.hero-delivery-note b{
+  display:block!important;
+  color:#fff!important;
+  font-size:8.5px!important;
+  line-height:1.2!important;
+  font-weight:800!important;
+}
+.hero-delivery-note span{
+  display:block!important;
+  color:#cfd4dc!important;
+  font-size:7.2px!important;
+  line-height:1.2!important;
+  margin-top:2px!important;
+}
+
+/* Right side must show only the uploaded image — no gear, no tag text */
+.hero-visual{
+  padding:18px!important;
+}
+.hero-machine{
+  width:min(410px,94%)!important;
+  aspect-ratio:1.45!important;
+  border-radius:20px!important;
+  overflow:hidden!important;
+  background:transparent!important;
+  border:0!important;
+  box-shadow:none!important;
+}
+.hero-uploaded-image{
+  width:100%!important;
+  height:100%!important;
+  object-fit:contain!important;
+  object-position:center!important;
+  display:block!important;
+}
+.hero-machine:has(.hero-uploaded-image[src=""]),
+.hero-machine:has(.hero-uploaded-image:not([src])){
+  opacity:.18!important;
+}
+.hero-machine .big-gear,
+.hero-machine .tag{
+  display:none!important;
+}
+
+@media(max-width:760px){
+  .topbar-inner{min-height:25px!important}
+  .topbar{font-size:9px!important}
+  .hero-box{grid-template-columns:1fr!important;min-height:0!important}
+  .hero-content{padding:24px 22px!important}
+  .hero h1{font-size:28px!important}
+  .hero p{font-size:12px!important}
+  .hero-visual{padding:8px 18px 18px!important}
+  .hero-machine{width:100%!important;max-height:210px!important}
+  .hero-delivery-note{width:100%!important}
+}
+</style>
+
 </head>
 <body>
 <div id="publicSite">
@@ -1425,7 +1568,18 @@ input[type="email"],input[type="password"],.preserve-case{text-transform:none!im
     <div class="brand" onclick="window.scrollTo({top:0,behavior:'smooth'})"><div class="brand-logo">T</div><div><div class="brand-name"><span>TORVO</span></div><div class="brand-sub">TOOLS PRIVATE LIMITED</div></div></div>
     <div class="main-search">
       <select class="search-select" id="searchType"><option value="all">All</option><option value="item">Item No.</option><option value="product">Product</option><option value="brand">Brand</option><option value="model">Model</option><option value="category">Category</option></select>
-      <input id="publicSearch" type="search" placeholder="Search Item No., Product, Brand, Model..." oninput="filterPublicProducts()" />
+      <input id="publicSearch"
+      name="torvo_product_catalog_search"
+      type="text"
+      role="searchbox"
+      autocomplete="off"
+      aria-autocomplete="none"
+      autocapitalize="off"
+      spellcheck="false"
+      data-lpignore="true"
+      data-1p-ignore="true"
+      placeholder="Search Item No. / Product / Brand / Model..."
+      oninput="filterPublicProducts()" />
       <button class="search-icon-btn camera" title="Photo Search - Future Ready" onclick="futureFeature('Photo Search')"><img class="admin-search-svg" alt="" src="data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24'><path d='M5 7h3l1.5-2h5L16 7h3a2 2 0 0 1 2 2v9a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V9a2 2 0 0 1 2-2z' fill='%234285F4'/><circle cx='12' cy='13' r='4' fill='white'/><circle cx='12' cy='13' r='2.6' fill='%2334A853'/><circle cx='18' cy='10' r='1' fill='%23EA4335'/></svg>"></button><button class="search-icon-btn mic" title="Voice Search - Future Ready" onclick="futureFeature('Voice Search')"><img class="admin-search-svg" alt="" src="data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24'><rect x='9' y='3' width='6' height='11' rx='3' fill='%234285F4'/><path d='M5 11a7 7 0 0 0 14 0' fill='none' stroke='%2334A853' stroke-width='2'/><path d='M12 18v3M9 21h6' stroke='%23EA4335' stroke-width='2' stroke-linecap='round'/></svg>"></button><button class="search-submit" onclick="filterPublicProducts()"><img class="admin-search-svg" alt="" src="data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24'><circle cx='11' cy='11' r='6' fill='none' stroke='%234285F4' stroke-width='2.4'/><path d='M16 16l5 5' stroke='%2334A853' stroke-width='2.8' stroke-linecap='round'/></svg>"></button>
     </div>
     <div class="header-actions"><button class="login-btn" onclick="openAuth('login')"><span class="login-main">DEALER ACCESS</span><span class="login-sub">LOGIN • NEW REGISTER</span></button></div>
@@ -1433,8 +1587,24 @@ input[type="email"],input[type="password"],.preserve-case{text-transform:none!im
 
   <main>
     <section class="hero"><div class="container"><div class="hero-box">
-      <div class="hero-content"><div class="hero-label">POWER TOOL SPARE PARTS • B2B</div><h1>Find the Right <span>Spare Part</span> Faster.</h1><p>Multi-brand power tool spare parts and accessories for dealers. Search by item, brand, machine or model and send your B2B order through the TORVO dealer system.</p><div class="hero-actions"><button class="primary-btn" onclick="scrollToProducts()">BROWSE SPARE PARTS</button><button class="outline-btn" onclick="openAuth('register')">REGISTER AS DEALER</button></div></div>
-      <div class="hero-visual"><div class="hero-machine"><div class="big-gear">⚙️</div><div class="tag">MULTI-BRAND SPARE PARTS & ACCESSORIES</div></div></div>
+      <div class="hero-content">
+        <div class="hero-label">POWER TOOL SPARE PARTS • B2B</div>
+        <h1>Find the Right <span>Spare Part</span> Faster.</h1>
+        <p>Multi-brand power tool spare parts and accessories for dealers. Search by item, brand, machine or model and send your B2B order through the TORVO dealer system.</p>
+        <div class="hero-actions">
+          <button class="primary-btn" onclick="scrollToProducts()">BROWSE SPARE PARTS</button>
+          <button class="outline-btn" onclick="openAuth('register')">REGISTER AS DEALER</button>
+        </div>
+        <div class="hero-delivery-note">
+          <i class="fa-solid fa-truck-fast"></i>
+          <div><b>₹10,000+ FREE DELIVERY • PAN INDIA</b><span>Below ₹10,000: ₹300 delivery charge</span></div>
+        </div>
+      </div>
+      <div class="hero-visual">
+        <div class="hero-machine" id="publicHeroImageSlot">
+          <img id="publicHeroImage" class="hero-uploaded-image" alt="TORVO product banner image" src="" onerror="this.style.display='none'">
+        </div>
+      </div>
     </div></div></section>
 
     <section class="section"><div class="container"><div class="section-head"><div><h2 class="section-title">Quick Access</h2><p class="section-sub">Choose an option like an app.</p></div></div>
@@ -2444,5 +2614,36 @@ function submitTargetRequest(){
 </script>
 <!-- V26 NOTE: APPROVED CARD KEPT; REJECTED MOCKUPS NOT APPLIED. -->
 <!-- V24 ARCHITECTURE NOTE: ADMIN/ACCOUNTANT IMAGE STUDIO TO USE NO-CROP AUTO FIT, PREVIEW BEFORE SAVE, ORIGINAL PRESERVE AND OPTIMIZED WEB IMAGE. -->
+
+<script id="torvo-v26-batch1-search-guard">
+(function(){
+  "use strict";
+  function looksLikeEmail(v){
+    return /@|gmail|yahoo|outlook|hotmail|\.com$|\.in$/i.test(String(v||"").trim());
+  }
+  function protectPublicSearch(){
+    var e=document.getElementById("publicSearch");
+    if(!e)return;
+    e.setAttribute("autocomplete","off");
+    e.setAttribute("aria-autocomplete","none");
+    e.setAttribute("data-lpignore","true");
+    e.setAttribute("data-1p-ignore","true");
+    if(looksLikeEmail(e.value)){
+      e.value="";
+      if(typeof renderPublicProducts==="function")renderPublicProducts();
+    }
+  }
+  document.addEventListener("DOMContentLoaded",function(){
+    var e=document.getElementById("publicSearch");
+    if(e){
+      e.addEventListener("focus",protectPublicSearch);
+      e.addEventListener("pointerdown",protectPublicSearch);
+    }
+    [0,120,350,800,1500].forEach(function(ms){setTimeout(protectPublicSearch,ms)});
+  });
+  window.addEventListener("pageshow",function(){setTimeout(protectPublicSearch,50)});
+})();
+</script>
+
 </body>
 </html>
