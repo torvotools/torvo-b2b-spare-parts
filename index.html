@@ -1560,6 +1560,91 @@ input[type="email"],input[type="password"],.preserve-case{text-transform:none!im
 }
 </style>
 
+
+<style id="torvo-current-final-review-01">
+/* Current review: auth UI, readable delivery badge, shared logo/banner hooks */
+.torvo-auth-box{max-width:820px!important;border-radius:20px!important;overflow:hidden!important}
+.torvo-auth-top{padding:13px 17px!important;min-height:58px!important}
+.torvo-auth-brand{display:flex;align-items:center;gap:10px}
+.torvo-auth-logo-slot:empty{display:none}
+.torvo-auth-logo-slot img{width:40px;height:40px;object-fit:contain;display:block}
+.torvo-auth-brand strong{font-size:17px;letter-spacing:.5px}
+.torvo-auth-close{width:36px!important;height:36px!important;font-size:22px!important;font-weight:800!important}
+.torvo-auth-body{padding:16px 18px 20px!important}
+.torvo-form-title{display:flex;align-items:center;justify-content:space-between;margin:2px 0 13px}
+.torvo-form-title b{display:block;font-size:16px;color:#111827}
+.torvo-form-title small{display:block;margin-top:3px;color:#697386;font-size:10px;font-weight:600}
+.torvo-two-col{display:grid;grid-template-columns:1fr 1fr;gap:12px}
+.torvo-location-grid{display:grid;grid-template-columns:1fr 1fr;gap:10px 12px}
+.torvo-mobile-row{display:grid;grid-template-columns:54px 1fr 42px;align-items:stretch;border:1px solid #d9dee8;border-radius:10px;overflow:hidden;background:#fff}
+.torvo-mobile-row input{border:0!important;border-left:1px solid #e5e7eb!important;border-radius:0!important}
+.torvo-country-code{display:flex;align-items:center;justify-content:center;font-weight:850;color:#111827;background:#f8fafc}
+.torvo-wa-mark{display:flex;align-items:center;justify-content:center;color:#13a447;font-size:19px;border-left:1px solid #e5e7eb}
+.torvo-reg-mobile{grid-template-columns:54px 1fr 42px 95px}
+.torvo-send-otp{border:0;background:#179c4b;color:#fff;font-size:9px;font-weight:850;cursor:pointer}
+.torvo-send-otp:disabled{opacity:.55;cursor:not-allowed}
+.torvo-same-number{margin-top:6px;padding:7px 9px;border-radius:8px;background:#eaf8ee;color:#18733a;font-size:9px;font-weight:750}
+.torvo-otp-box{display:none;margin:10px 0;padding:10px;border:1px solid #dce6df;border-radius:10px;background:#f8fffa}
+.torvo-otp-box.show{display:block}
+.torvo-otp-row{display:grid;grid-template-columns:1fr 110px;gap:8px}
+.torvo-otp-row button{border:1px solid #169447;background:#fff;color:#12833d;border-radius:9px;font-size:9px;font-weight:850}
+.torvo-otp-state{font-size:9px;font-weight:850;color:#a33;margin-top:4px}
+.torvo-otp-state.ok{color:#168542}
+.torvo-preview-btn{display:flex!important;align-items:center;justify-content:center;gap:8px;height:46px!important;font-size:11px!important;font-weight:850!important}
+.torvo-preview-btn small{font-size:8px;color:#697386}
+.torvo-login-links{display:grid;grid-template-columns:1fr 1fr;gap:10px;margin-top:10px}
+.torvo-login-links button{height:40px;border:1px solid #d7dce5;background:#fff;border-radius:9px;font-size:9px;font-weight:850;color:#262d38;cursor:pointer}
+.torvo-login-links button:first-child{border-color:#df5960;color:#c91b24}
+.torvo-security-note{display:flex;gap:10px;align-items:flex-start;margin-top:12px;padding:10px;border-radius:10px;background:#edf9f0;color:#1b6f38}
+.torvo-security-note i{font-size:18px;margin-top:1px}
+.torvo-security-note b{display:block;font-size:10px}
+.torvo-security-note span{display:block;font-size:8.5px;line-height:1.4;margin-top:2px}
+.torvo-support-mini{display:flex;justify-content:space-between;align-items:center;margin-top:12px;padding:10px 12px;background:#f8fafc;border:1px solid #e6eaf0;border-radius:10px}
+.torvo-support-mini b{display:block;font-size:9px}
+.torvo-support-mini a{font-size:13px;font-weight:850;color:#d71920;text-decoration:none}
+.torvo-wa-button{width:36px;height:36px;border-radius:50%;display:flex!important;align-items:center;justify-content:center;background:#eaf8ee;color:#159447!important;font-size:20px!important}
+.torvo-proof-field small{display:block;margin-top:5px;font-size:8px;color:#707987}
+.torvo-optional{color:#6b7280;font-size:9px;font-weight:650}
+.torvo-registration-note{font-size:9px!important;line-height:1.45!important}
+.torvo-success-support{display:flex;align-items:center;justify-content:space-between;gap:10px;margin:12px 0;padding:10px;border-radius:10px;background:#fff7dc}
+.torvo-success-support span{display:block;font-size:8px;color:#686f7b}
+.torvo-success-support a{font-weight:850;text-decoration:none}
+.torvo-success-support>div a{font-size:14px;color:#d71920}
+.torvo-success-wa{display:inline-flex;align-items:center;gap:6px;background:#1fa84f;color:#fff!important;padding:9px 12px;border-radius:9px;font-size:9px!important}
+.torvo-other-city{display:none;margin-top:7px}
+
+/* Keep the hero delivery information readable and balanced */
+.hero-delivery-note{
+  margin-top:14px!important;
+  padding:10px 13px!important;
+  gap:10px!important;
+  border-radius:10px!important;
+  min-width:300px!important;
+}
+.hero-delivery-note i{font-size:18px!important}
+.hero-delivery-note b{font-size:11px!important;letter-spacing:.1px!important}
+.hero-delivery-note span{font-size:9px!important;margin-top:3px!important}
+
+/* Search is a product-search field only */
+#publicSearch{
+  autocomplete:off;
+}
+
+/* Logo/banner only use real uploaded URLs. No generated logo is inserted. */
+.brand-logo.torvo-has-uploaded-logo{background:#fff!important;color:transparent!important;overflow:hidden!important}
+.brand-logo.torvo-has-uploaded-logo img{width:100%;height:100%;object-fit:contain;display:block}
+.hero-uploaded-image[src=""]{display:none!important}
+
+@media(max-width:760px){
+  .torvo-auth-box{max-width:96vw!important}
+  .torvo-two-col,.torvo-location-grid{grid-template-columns:1fr!important}
+  .torvo-reg-mobile{grid-template-columns:50px 1fr 38px!important}
+  .torvo-send-otp{grid-column:1/-1;height:38px}
+  .torvo-login-links{grid-template-columns:1fr 1fr}
+  .hero-delivery-note{min-width:0!important;width:100%!important}
+}
+</style>
+
 </head>
 <body>
 <div id="publicSite">
@@ -1677,90 +1762,174 @@ input[type="email"],input[type="password"],.preserve-case{text-transform:none!im
   <footer><div class="container footer-grid"><div><div class="brand-name"><span>TORVO</span></div><div class="footer-text" style="margin-top:10px">TORVO TOOLS PRIVATE LIMITED<br>B2B Power Tool Spare Parts & Accessories</div></div><div><div class="footer-title">Products</div><span class="footer-link" onclick="setQuickFilter('Spare Part')">Spare Parts</span><span class="footer-link" onclick="setQuickFilter('Accessory')">Accessories</span><span class="footer-link" onclick="focusModelFinder()">Search by Model</span></div><div><div class="footer-title">Dealer</div><span class="footer-link" onclick="openAuth('login')">Dealer Login</span><span class="footer-link" onclick="openAuth('register')">New Dealer Registration</span><span class="footer-link" onclick="openPartEnquiry()">Part Enquiry</span></div><div><div class="footer-title">Support</div><span class="footer-link">CUSTOMER CARE</span><span class="footer-link">WhatsApp Support</span><span class="footer-link">Business Enquiry</span></div></div></footer>
 </div>
 
-<div class="modal" id="authModal"><div class="modal-box"><div class="modal-head"><strong class="auth-brand-title"><span class="dark">TORVO B2B</span> <span class="red">DEALER</span></strong><button class="close-btn" onclick="closeAuth()">×</button></div><div class="modal-body">
-  <div class="auth-tabs"><button id="loginTab" class="auth-tab active" onclick="switchAuth('login')">DEALER LOGIN</button><button id="registerTab" class="auth-tab" onclick="switchAuth('register')">NEW DEALER</button></div><div id="authMessage" class="message"></div>
-  <div id="loginPanel" class="form-panel active"><div class="form-field"><label>MOBILE NUMBER</label><input id="loginMobile" inputmode="numeric" placeholder="Enter registered mobile number"></div><div class="form-field"><label>4-DIGIT PIN</label><input id="loginPin" inputmode="numeric" maxlength="4" type="password" placeholder="••••"></div><button class="full-red-btn" onclick="demoLogin()">LOGIN</button><button class="preview-btn" onclick="previewDealer()">PREVIEW DEALER AREA</button><div style="display:flex;justify-content:space-between;gap:10px;margin-top:12px;font-size:11px;font-weight:800"><span style="cursor:pointer;color:var(--red)" onclick="demoOtp()">FIRST LOGIN / OTP</span><span style="cursor:pointer;color:var(--red)" onclick="demoForgotPin()">FORGOT PIN?</span></div><div class="security-note">Secure dealer authentication is not enabled in this UI preview. Production login will use secure backend authentication and database permissions.</div></div>
-  <div id="registerPanel" class="form-panel">
-        <div class="required-note"><span class="req">*</span> Required information</div>
+<div class="modal" id="authModal">
+  <div class="modal-box torvo-auth-box">
+    <div class="modal-head torvo-auth-top">
+      <div class="torvo-auth-brand">
+        <div class="torvo-auth-logo-slot" id="torvoAuthLogoSlot" aria-hidden="true"></div>
+        <strong><span class="dark">TORVO B2B</span> <span class="red">DEALER</span></strong>
+      </div>
+      <button class="close-btn torvo-auth-close" onclick="closeAuth()" aria-label="Close">×</button>
+    </div>
 
-        <div class="two-fields">
-          <div class="form-field">
-            <label>SHOP / BUSINESS NAME <span class="req">*</span></label>
-            <input id="regShop" required placeholder="Business name">
-          </div>
-          <div class="form-field">
-            <label>CONTACT PERSON <span class="req">*</span></label>
-            <input id="regPerson" required placeholder="Contact person">
+    <div class="modal-body torvo-auth-body">
+      <div class="auth-tabs">
+        <button id="loginTab" class="auth-tab active" onclick="switchAuth('login')">DEALER LOGIN</button>
+        <button id="registerTab" class="auth-tab" onclick="switchAuth('register')">NEW DEALER</button>
+      </div>
+      <div id="authMessage" class="message"></div>
+
+      <div id="loginPanel" class="form-panel active torvo-login-panel">
+        <div class="torvo-form-title">
+          <div><b>DEALER LOGIN</b><small>Approved dealer access</small></div>
+        </div>
+
+        <div class="form-field">
+          <label>REGISTERED CALLING &amp; WHATSAPP NUMBER</label>
+          <div class="torvo-mobile-row">
+            <span class="torvo-country-code">+91</span>
+            <input id="loginMobile" name="torvo_dealer_login_mobile" autocomplete="tel"
+                   inputmode="numeric" maxlength="10" placeholder="Enter 10-digit registered number">
+            <span class="torvo-wa-mark"><i class="fa-brands fa-whatsapp"></i></span>
           </div>
         </div>
 
-        <div class="two-fields reg-mobile-pin">
-          <div class="form-field approved-mobile-field">
-            <label>MOBILE / WHATSAPP NUMBER <span class="req">*</span></label>
-            <div class="mobile-whatsapp-row">
-              <span class="country-code">+91</span>
-              <input id="regMobile" required inputmode="numeric" maxlength="10" placeholder="10-digit Mobile Number">
-              <span class="whatsapp-block"><i class="fa-brands fa-whatsapp"></i><b>WHATSAPP</b></span>
+        <div class="form-field">
+          <label>4-DIGIT PIN</label>
+          <input id="loginPin" name="torvo_dealer_login_pin" autocomplete="current-password"
+                 inputmode="numeric" maxlength="4" type="password" placeholder="Enter your 4-digit PIN">
+        </div>
+
+        <button class="full-red-btn torvo-login-main" onclick="demoLogin()"><i class="fa-solid fa-lock"></i> LOGIN</button>
+        <button class="preview-btn torvo-preview-btn" onclick="previewDealer()"><i class="fa-regular fa-eye"></i> PREVIEW DEALER AREA <small>DEMO / TEST ONLY</small></button>
+
+        <div class="torvo-login-links">
+          <button type="button" onclick="demoOtp()"><i class="fa-solid fa-rotate"></i> FIRST LOGIN / OTP</button>
+          <button type="button" onclick="demoForgotPin()"><i class="fa-solid fa-key"></i> FORGOT PIN?</button>
+        </div>
+
+        <div class="torvo-security-note">
+          <i class="fa-solid fa-shield-halved"></i>
+          <div><b>Secure Dealer Access</b><span>First-login OTP is issued only after TORVO Admin approval. After verification, the dealer can set a 4-digit PIN.</span></div>
+        </div>
+
+        <div class="torvo-support-mini">
+          <div><b>Customer Care</b><a href="tel:7027751533">7027751533</a></div>
+          <a class="torvo-wa-button" href="https://wa.me/917027751533" target="_blank" rel="noopener" aria-label="WhatsApp TORVO Support"><i class="fa-brands fa-whatsapp"></i></a>
+        </div>
+      </div>
+
+      <div id="registerPanel" class="form-panel torvo-register-panel">
+        <div class="torvo-form-title torvo-register-title">
+          <div><b>NEW DEALER REGISTRATION</b><small>Complete the details below. Fields marked * are required.</small></div>
+        </div>
+
+        <div class="torvo-two-col">
+          <div class="form-field">
+            <label>SHOP / BUSINESS NAME <span class="req">*</span></label>
+            <input id="regShop" autocomplete="organization" required placeholder="Enter shop / business name">
+          </div>
+          <div class="form-field">
+            <label>CONTACT PERSON – FULL NAME <span class="req">*</span></label>
+            <input id="regPerson" autocomplete="name" required placeholder="Enter contact person full name">
+          </div>
+        </div>
+
+        <div class="form-field">
+          <label>CALLING &amp; WHATSAPP NUMBER <span class="req">*</span></label>
+          <div class="torvo-mobile-row torvo-reg-mobile">
+            <span class="torvo-country-code">+91</span>
+            <input id="regMobile" name="torvo_registration_mobile" autocomplete="tel" required
+                   inputmode="numeric" maxlength="10" placeholder="Enter 10-digit active number"
+                   oninput="torvoResetOtpIfMobileChanged()">
+            <span class="torvo-wa-mark"><i class="fa-brands fa-whatsapp"></i></span>
+            <button type="button" id="regSendOtpBtn" class="torvo-send-otp" onclick="sendRegistrationOtp()">SEND OTP</button>
+          </div>
+          <div class="torvo-same-number"><i class="fa-solid fa-circle-check"></i> Use the same active number for both Call &amp; WhatsApp.</div>
+        </div>
+
+        <div class="torvo-otp-box" id="regOtpBox">
+          <div class="form-field">
+            <label>ENTER OTP <span class="req">*</span></label>
+            <div class="torvo-otp-row">
+              <input id="regOtp" inputmode="numeric" maxlength="6" autocomplete="one-time-code" placeholder="Enter 6-digit OTP">
+              <button type="button" onclick="verifyRegistrationOtp()">VERIFY OTP</button>
             </div>
-            <div class="same-number-strip"><i class="fa-solid fa-circle-check"></i> Use the same active number for both Call &amp; WhatsApp.</div>
-            <div class="verify-placeholder"><i class="fa-brands fa-whatsapp"></i> WhatsApp OTP verification will be connected securely at launch.</div>
+          </div>
+          <div class="torvo-otp-state" id="regOtpState">NUMBER NOT VERIFIED</div>
+        </div>
+
+        <div class="torvo-location-grid">
+          <div class="form-field">
+            <label>STATE / UNION TERRITORY <span class="req">*</span></label>
+            <select id="regState" autocomplete="address-level1" required onchange="loadTorvoDistricts()">
+              <option value="">Select State / Union Territory</option>
+              <option>Andaman and Nicobar Islands</option><option>Andhra Pradesh</option><option>Arunachal Pradesh</option>
+              <option>Assam</option><option>Bihar</option><option>Chandigarh</option><option>Chhattisgarh</option>
+              <option>Dadra and Nagar Haveli and Daman and Diu</option><option>Delhi</option><option>Goa</option>
+              <option>Gujarat</option><option>Haryana</option><option>Himachal Pradesh</option><option>Jammu and Kashmir</option>
+              <option>Jharkhand</option><option>Karnataka</option><option>Kerala</option><option>Ladakh</option>
+              <option>Lakshadweep</option><option>Madhya Pradesh</option><option>Maharashtra</option><option>Manipur</option>
+              <option>Meghalaya</option><option>Mizoram</option><option>Nagaland</option><option>Odisha</option>
+              <option>Puducherry</option><option>Punjab</option><option>Rajasthan</option><option>Sikkim</option>
+              <option>Tamil Nadu</option><option>Telangana</option><option>Tripura</option><option>Uttar Pradesh</option>
+              <option>Uttarakhand</option><option>West Bengal</option>
+            </select>
+          </div>
+          <div class="form-field">
+            <label>DISTRICT <span class="req">*</span></label>
+            <select id="regDistrict" autocomplete="address-level2" required onchange="loadTorvoCities()">
+              <option value="">Select State first</option>
+            </select>
+          </div>
+          <div class="form-field">
+            <label>CITY / TOWN <span class="req">*</span></label>
+            <select id="regCity" autocomplete="address-level3" required onchange="toggleTorvoOtherCity()">
+              <option value="">Select District first</option>
+            </select>
+            <input id="regOtherCity" class="city-other torvo-other-city" autocomplete="address-level3"
+                   placeholder="Enter full City / Town name">
           </div>
           <div class="form-field">
             <label>PIN CODE <span class="req">*</span></label>
-            <input id="regPincode" required inputmode="numeric" maxlength="6" placeholder="6-digit PIN code">
+            <input id="regPincode" autocomplete="postal-code" required inputmode="numeric" maxlength="6" placeholder="Enter 6-digit PIN code">
           </div>
         </div>
 
-        
-
-        <div class="two-fields">
-          <div class="form-field">
-            <label>STATE / UNION TERRITORY <span class="req">*</span></label>
-            <select id="regState" required onchange="loadCities()">
-              <option value="">Select State / UT</option>
-              <option>Andhra Pradesh</option><option>Arunachal Pradesh</option><option>Assam</option><option>Bihar</option>
-              <option>Chhattisgarh</option><option>Goa</option><option>Gujarat</option><option>Haryana</option>
-              <option>Himachal Pradesh</option><option>Jharkhand</option><option>Karnataka</option><option>Kerala</option>
-              <option>Madhya Pradesh</option><option>Maharashtra</option><option>Manipur</option><option>Meghalaya</option>
-              <option>Mizoram</option><option>Nagaland</option><option>Odisha</option><option>Punjab</option>
-              <option>Rajasthan</option><option>Sikkim</option><option>Tamil Nadu</option><option>Telangana</option>
-              <option>Tripura</option><option>Uttar Pradesh</option><option>Uttarakhand</option><option>West Bengal</option>
-              <option>Andaman and Nicobar Islands</option><option>Chandigarh</option>
-              <option>Dadra and Nagar Haveli and Daman and Diu</option><option>Delhi</option>
-              <option>Jammu and Kashmir</option><option>Ladakh</option><option>Lakshadweep</option><option>Puducherry</option>
-            </select>
-          </div>
-
-          <div class="form-field">
-            <label>CITY <span class="req">*</span></label>
-            <select id="regCity" required onchange="toggleOtherCity()">
-              <option value="">Select State first</option>
-            </select>
-            <input id="regOtherCity" class="city-other" placeholder="Enter city / town name">
-          </div>
+        <div class="form-field">
+          <label>FULL SHOP ADDRESS <span class="req">*</span></label>
+          <textarea id="regAddress" autocomplete="street-address" required placeholder="Enter full shop / business address"></textarea>
         </div>
 
-        <div class="form-field address-field">
-          <label>FULL ADDRESS <span class="req">*</span></label>
-          <textarea id="regAddress" required placeholder="Shop / business full address"></textarea>
+        <div class="form-field torvo-proof-field">
+          <label>VISITING CARD / BUSINESS PROOF <span class="torvo-optional">(OPTIONAL)</span></label>
+          <input id="regVisitingCard" type="file" accept="image/*,.pdf">
+          <small>JPG, PNG or PDF. You can also provide it later during verification.</small>
         </div>
 
-        <div class="registration-note">After submission, TORVO admin will verify the dealer details. GST number can be collected later during verification if required.</div>
+        <div class="registration-note torvo-registration-note">
+          <i class="fa-solid fa-circle-info"></i>
+          Registration OTP verifies the Calling &amp; WhatsApp number before submission. Dealer access remains pending until Admin approval.
+        </div>
 
-        <button class="full-red-btn" id="registerSubmitBtn" onclick="submitInquiry()">SUBMIT REGISTRATION REQUEST</button>
-        <div class="security-note">Dealer access will be provided only after TORVO admin verification and approval.</div>
-        <div class="registration-success" id="registrationSuccess">
+        <button class="full-red-btn" id="registerSubmitBtn" onclick="submitInquiry()"><i class="fa-solid fa-paper-plane"></i> SUBMIT REGISTRATION REQUEST</button>
+
+        <div class="registration-success torvo-success-box" id="registrationSuccess">
           <div class="success-icon"><i class="fa-solid fa-circle-check"></i></div>
-          <h2>WELCOME TO TORVO B2B</h2>
-          <h3>Registration Request Submitted Successfully</h3>
-          <p>Thank you for registering with TORVO Tools.</p>
-          <p>Your dealer account is under verification.</p>
-          <p>You will be notified on WhatsApp after approval.</p>
-          <p id="successContact">Customer Care details will be updated shortly.</p>
+          <h2>WELCOME TO TORVO TOOLS</h2>
+          <h3>Registration Request Received</h3>
+          <p>Thank you. Your dealer registration request has been received successfully.</p>
+          <p>Our company team will contact you for verification. Dealer access will be activated only after verification and Admin approval.</p>
+          <div class="torvo-success-support">
+            <div><span>Customer Care</span><a href="tel:7027751533">7027751533</a></div>
+            <a class="torvo-success-wa" href="https://wa.me/917027751533?text=Hello%20TORVO%20TOOLS%2C%20I%20have%20submitted%20my%20dealer%20registration." target="_blank" rel="noopener"><i class="fa-brands fa-whatsapp"></i> WHATSAPP</a>
+          </div>
           <button onclick="closeRegistrationSuccess()">BACK TO HOME</button>
         </div>
       </div>
-</div></div></div>
+    </div>
+  </div>
+</div>
 
 <div class="modal" id="enquiryModal"><div class="modal-box"><div class="modal-head"><strong>Part Not Found?</strong><button class="close-btn" onclick="closePartEnquiry()">×</button></div><div class="modal-body">
     <div class="form-field"><label>SELECT BRAND</label><select id="enquiryBrand"><option value="">Select Brand</option><option>Bosch</option><option>Makita</option><option>DeWalt</option><option>Stanley</option><option>Other</option></select></div>
@@ -2642,6 +2811,304 @@ function submitTargetRequest(){
     [0,120,350,800,1500].forEach(function(ms){setTimeout(protectPublicSearch,ms)});
   });
   window.addEventListener("pageshow",function(){setTimeout(protectPublicSearch,50)});
+})();
+</script>
+
+
+<script id="torvo-current-final-review-01-js">
+(function(){
+  "use strict";
+
+  const TORVO_SUPPORT_NUMBER = "7027751533";
+  const LOCATION_API = "https://aniket-thapa.github.io/india-pincode-api";
+  let registrationOtpVerified = false;
+  let registrationOtpMobile = "";
+
+  function cleanMobile(v){ return String(v||"").replace(/\D/g,"").slice(-10); }
+  function slugify(v){ return String(v||"").trim().toLowerCase().replace(/&/g,"and").replace(/[^a-z0-9]+/g,"-").replace(/^-|-$/g,""); }
+  function pretty(v){
+    return String(v||"").toLowerCase().replace(/\b\w/g, c=>c.toUpperCase())
+      .replace(/\bAnd\b/g,"and").replace(/\bOf\b/g,"of");
+  }
+  function uniq(arr){ return [...new Set((arr||[]).map(x=>String(x||"").trim()).filter(Boolean))].sort((a,b)=>a.localeCompare(b)); }
+
+  /* Strong product-search protection against browser/password-manager email autofill */
+  function looksLikeEmail(v){
+    const x=String(v||"").trim();
+    return /@/.test(x) || /\b(gmail|yahoo|outlook|hotmail)\b/i.test(x) || /^[^\s]+@[^\s]+\.[^\s]+$/.test(x);
+  }
+  function clearSearchEmailAutofill(){
+    const e=document.getElementById("publicSearch");
+    if(!e)return;
+    e.setAttribute("name","torvo_catalog_item_product_search_"+Date.now());
+    e.setAttribute("autocomplete","new-password");
+    e.setAttribute("data-lpignore","true");
+    e.setAttribute("data-1p-ignore","true");
+    if(looksLikeEmail(e.value)){
+      e.value="";
+      try{ if(typeof window.renderPublicProducts==="function") window.renderPublicProducts(); }catch(_){}
+    }
+  }
+  let autofillTicks=0;
+  const autofillTimer=setInterval(function(){
+    clearSearchEmailAutofill();
+    autofillTicks++;
+    if(autofillTicks>=24)clearInterval(autofillTimer);
+  },500);
+  window.addEventListener("pageshow",()=>setTimeout(clearSearchEmailAutofill,30));
+  document.addEventListener("visibilitychange",()=>{if(!document.hidden)setTimeout(clearSearchEmailAutofill,30)});
+
+  /* Admin-controlled shared branding hooks.
+     Current Home reads shared values; Admin-side write control will use these same keys until DB settings are connected. */
+  function applySharedBranding(){
+    const logoUrl=(localStorage.getItem("torvo_company_logo_url")||"").trim();
+    const heroUrl=(localStorage.getItem("torvo_home_hero_banner_url")||"").trim();
+
+    const authSlot=document.getElementById("torvoAuthLogoSlot");
+    if(authSlot){
+      authSlot.innerHTML=logoUrl?'<img alt="TORVO logo" src="'+logoUrl.replace(/"/g,"&quot;")+'">':"";
+    }
+
+    document.querySelectorAll(".brand-logo").forEach(el=>{
+      if(!logoUrl)return;
+      el.classList.add("torvo-has-uploaded-logo");
+      el.innerHTML='<img alt="TORVO logo" src="'+logoUrl.replace(/"/g,"&quot;")+'">';
+    });
+
+    const hero=document.getElementById("publicHeroImage");
+    if(hero){
+      if(heroUrl){hero.src=heroUrl;hero.style.display="block";}
+      else{hero.removeAttribute("src");hero.style.display="none";}
+    }
+  }
+  window.addEventListener("storage",applySharedBranding);
+  document.addEventListener("DOMContentLoaded",function(){
+    applySharedBranding();
+    clearSearchEmailAutofill();
+  });
+
+  /* State -> District -> City/Town/Postal locality dropdown.
+     Districts and localities are loaded by selected state/district instead of a short hard-coded city list. */
+  window.loadTorvoDistricts = async function(){
+    const st=document.getElementById("regState");
+    const d=document.getElementById("regDistrict");
+    const c=document.getElementById("regCity");
+    const other=document.getElementById("regOtherCity");
+    if(!st||!d||!c)return;
+
+    d.innerHTML='<option value="">Loading districts...</option>';
+    c.innerHTML='<option value="">Select District first</option>';
+    if(other){other.value="";other.style.display="none";}
+    registrationOtpVerified=false;
+
+    const stateName=st.value;
+    if(!stateName){d.innerHTML='<option value="">Select State first</option>';return;}
+
+    try{
+      const res=await fetch(LOCATION_API+"/states/"+slugify(stateName)+".json",{cache:"force-cache"});
+      if(!res.ok)throw new Error("District list unavailable");
+      const data=await res.json();
+      const districts=uniq((data.districts||[]).map(x=>x.name||x));
+      d.innerHTML='<option value="">Select District</option>'+districts.map(name=>'<option value="'+name.replace(/"/g,"&quot;")+'" data-slug="'+slugify(name)+'">'+pretty(name)+'</option>').join("");
+    }catch(err){
+      console.error(err);
+      d.innerHTML='<option value="">District master could not load - try again</option>';
+      if(typeof window.showAuthMessage==="function")window.showAuthMessage("District list could not load. Please check internet connection and select State again.","error");
+    }
+  };
+
+  window.loadTorvoCities = async function(){
+    const st=document.getElementById("regState");
+    const d=document.getElementById("regDistrict");
+    const c=document.getElementById("regCity");
+    const other=document.getElementById("regOtherCity");
+    if(!st||!d||!c)return;
+
+    c.innerHTML='<option value="">Loading City / Town list...</option>';
+    if(other){other.value="";other.style.display="none";}
+    const stateName=st.value, districtName=d.value;
+    if(!stateName||!districtName){c.innerHTML='<option value="">Select District first</option>';return;}
+
+    const districtSlug=d.selectedOptions[0]?.dataset?.slug||slugify(districtName);
+    try{
+      const res=await fetch(LOCATION_API+"/districts/"+slugify(stateName)+"/"+districtSlug+".json",{cache:"force-cache"});
+      if(!res.ok)throw new Error("City/Town list unavailable");
+      const data=await res.json();
+
+      const names=uniq((data.offices||[]).map(o=>{
+        const raw=o.officeName||o.name||"";
+        return raw.replace(/\s+(B\.?O\.?|S\.?O\.?|H\.?O\.?)$/i,"").trim();
+      }));
+
+      c.innerHTML='<option value="">Select City / Town</option>'+
+        names.map(name=>'<option value="'+name.replace(/"/g,"&quot;")+'">'+pretty(name)+'</option>').join("")+
+        '<option value="Other City / Town">Other City / Town</option>';
+    }catch(err){
+      console.error(err);
+      c.innerHTML='<option value="">City/Town master could not load</option><option value="Other City / Town">Other City / Town</option>';
+      if(typeof window.showAuthMessage==="function")window.showAuthMessage("City/Town list could not load completely. You may select Other City / Town and enter the full name.","error");
+    }
+  };
+
+  window.toggleTorvoOtherCity = function(){
+    const c=document.getElementById("regCity");
+    const o=document.getElementById("regOtherCity");
+    if(!c||!o)return;
+    const show=c.value==="Other City / Town";
+    o.style.display=show?"block":"none";
+    o.required=show;
+    if(!show)o.value="";
+  };
+
+  window.torvoResetOtpIfMobileChanged=function(){
+    const m=cleanMobile(document.getElementById("regMobile")?.value);
+    if(m!==registrationOtpMobile){
+      registrationOtpVerified=false;
+      const s=document.getElementById("regOtpState");
+      if(s){s.textContent="NUMBER NOT VERIFIED";s.classList.remove("ok");}
+    }
+  };
+
+  function setOtpBusy(b){
+    const btn=document.getElementById("regSendOtpBtn");
+    if(btn){btn.disabled=!!b;btn.textContent=b?"SENDING...":"SEND OTP";}
+  }
+  function otpState(text,ok){
+    const s=document.getElementById("regOtpState");
+    if(!s)return;
+    s.textContent=text;
+    s.classList.toggle("ok",!!ok);
+  }
+
+  window.sendRegistrationOtp=async function(){
+    const mobile=cleanMobile(document.getElementById("regMobile")?.value);
+    if(!/^[6-9]\d{9}$/.test(mobile)){
+      window.showAuthMessage?.("Please enter a valid 10-digit Calling & WhatsApp number.","error");return;
+    }
+    if(!window.supabaseClient){
+      window.showAuthMessage?.("Secure OTP service is not connected yet.","error");return;
+    }
+    setOtpBusy(true);
+    try{
+      const r=await window.supabaseClient.functions.invoke("dealer-registration-otp",{body:{action:"send",mobile:"+91"+mobile}});
+      if(r.error)throw r.error;
+      registrationOtpMobile=mobile;
+      registrationOtpVerified=false;
+      document.getElementById("regOtpBox")?.classList.add("show");
+      otpState("OTP SENT - VERIFY TO CONTINUE",false);
+      window.showAuthMessage?.("OTP sent to your Calling & WhatsApp number.","success");
+    }catch(err){
+      console.error(err);
+      window.showAuthMessage?.("WhatsApp OTP service is not active yet. Registration has not been submitted.","error");
+    }finally{setOtpBusy(false);}
+  };
+
+  window.verifyRegistrationOtp=async function(){
+    const mobile=cleanMobile(document.getElementById("regMobile")?.value);
+    const otp=String(document.getElementById("regOtp")?.value||"").replace(/\D/g,"");
+    if(mobile!==registrationOtpMobile||!/^\d{6}$/.test(otp)){
+      window.showAuthMessage?.("Enter the 6-digit OTP sent to this same number.","error");return;
+    }
+    try{
+      const r=await window.supabaseClient.functions.invoke("dealer-registration-otp",{body:{action:"verify",mobile:"+91"+mobile,otp}});
+      if(r.error)throw r.error;
+      if(!(r.data&&r.data.verified))throw new Error("OTP not verified");
+      registrationOtpVerified=true;
+      otpState("NUMBER VERIFIED SUCCESSFULLY",true);
+      window.showAuthMessage?.("Calling & WhatsApp number verified successfully.","success");
+    }catch(err){
+      console.error(err);
+      registrationOtpVerified=false;
+      otpState("OTP NOT VERIFIED",false);
+      window.showAuthMessage?.("OTP could not be verified. Please check and try again.","error");
+    }
+  };
+
+  /* Submit only after real validation. Success box appears only after database insert succeeds. */
+  window.submitInquiry=async function(){
+    const shop=document.getElementById("regShop")?.value.trim()||"";
+    const person=document.getElementById("regPerson")?.value.trim()||"";
+    const mobile=cleanMobile(document.getElementById("regMobile")?.value);
+    const state=document.getElementById("regState")?.value||"";
+    const district=document.getElementById("regDistrict")?.value||"";
+    const selectedCity=document.getElementById("regCity")?.value||"";
+    const otherCity=document.getElementById("regOtherCity")?.value.trim()||"";
+    const city=selectedCity==="Other City / Town"?otherCity:selectedCity;
+    const pincode=String(document.getElementById("regPincode")?.value||"").replace(/\D/g,"");
+    const address=document.getElementById("regAddress")?.value.trim()||"";
+
+    if(!shop||!person||!mobile||!state||!district||!city||!pincode||!address){
+      window.showAuthMessage?.("Please fill all fields marked with *.","error");return;
+    }
+    if(!/^[6-9]\d{9}$/.test(mobile)){
+      window.showAuthMessage?.("Please enter a valid 10-digit Calling & WhatsApp number.","error");return;
+    }
+    if(!/^\d{6}$/.test(pincode)){
+      window.showAuthMessage?.("Please enter a valid 6-digit PIN code.","error");return;
+    }
+    if(!registrationOtpVerified || registrationOtpMobile!==mobile){
+      window.showAuthMessage?.("Please verify this Calling & WhatsApp number by OTP before submitting.","error");return;
+    }
+    if(!window.supabaseClient){
+      window.showAuthMessage?.("Connection is not available right now. Please try again.","error");return;
+    }
+
+    const btn=document.getElementById("registerSubmitBtn");
+    if(btn){btn.disabled=true;btn.innerHTML="SUBMITTING...";}
+    try{
+      const row={
+        shop_name:shop,
+        contact_person:person,
+        mobile:mobile,
+        whatsapp:mobile,
+        email:null,
+        state:state,
+        district:district,
+        city:city
+      };
+      const result=await window.supabaseClient.from("dealer_inquiries").insert([row]);
+      if(result.error)throw result.error;
+
+      const success=document.getElementById("registrationSuccess");
+      if(success)success.classList.add("show");
+      const msg=document.getElementById("authMessage");
+      if(msg)msg.className="message";
+
+      ["regShop","regPerson","regMobile","regOtp","regPincode","regOtherCity","regAddress"].forEach(id=>{
+        const el=document.getElementById(id);if(el)el.value="";
+      });
+      document.getElementById("regState").value="";
+      document.getElementById("regDistrict").innerHTML='<option value="">Select State first</option>';
+      document.getElementById("regCity").innerHTML='<option value="">Select District first</option>';
+      document.getElementById("regOtpBox")?.classList.remove("show");
+      registrationOtpVerified=false;registrationOtpMobile="";
+    }catch(err){
+      console.error(err);
+      window.showAuthMessage?.("Dealer request could not be submitted. Please check connection or database permissions.","error");
+    }finally{
+      if(btn){btn.disabled=false;btn.innerHTML='<i class="fa-solid fa-paper-plane"></i> SUBMIT REGISTRATION REQUEST';}
+    }
+  };
+
+  /* Keep preview while production dealer authentication is under construction. */
+  window.demoLogin=function(){
+    window.showAuthMessage?.("Secure dealer login is not live yet. Use Preview Dealer Area for current UI testing.","error");
+  };
+  window.demoOtp=function(){
+    window.showAuthMessage?.("First-login OTP will be activated with secure dealer authentication after Admin approval flow is connected.","success");
+  };
+  window.demoForgotPin=function(){
+    window.showAuthMessage?.("PIN recovery will use the registered Calling & WhatsApp number through secure OTP.","success");
+  };
+
+  /* Make sure both login/register modal routes use the same close button and shared branding. */
+  const originalOpenAuth=window.openAuth;
+  if(typeof originalOpenAuth==="function"){
+    window.openAuth=function(tab){
+      originalOpenAuth(tab);
+      setTimeout(applySharedBranding,0);
+    };
+  }
 })();
 </script>
 
