@@ -1924,7 +1924,7 @@ function loadCities(){
  const district=document.getElementById("regDistrict");
  const districts=districtMap[state]||[];
 district.innerHTML='<option value="">Select District</option>'+
-districts.map(d=><option value="${d}">${d}</option>).join('');
+districts.map(d=>'<option value="'+d+'">'+d+'</option>').join('');
  const other=document.getElementById("regOtherCity");
  const values=cityMap[state]||[];
  city.innerHTML='<option value="">Select City</option>'+values.map(v=>`<option value="${v}">${v}</option>`).join("");
