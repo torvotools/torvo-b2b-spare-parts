@@ -6248,6 +6248,45 @@ body.torvo-auth-locked{
 }
 </style>
 
+
+<style id="torvo-review-49-mobile-search-corrected">
+@media(max-width:760px){
+  /* Actual selected label used by this code */
+  #mobileSearchTypeLabel{
+    display:block!important;
+    min-width:0!important;
+    max-width:100%!important;
+    text-align:center!important;
+    line-height:1.02!important;
+    overflow:hidden!important;
+    white-space:nowrap!important;
+    font-weight:650!important;
+  }
+
+  /* Keep dropdown option typography unchanged/equal */
+  #mobileSearchTypeMenu button,
+  #mobileMediaMenuList button{
+    font-family:inherit!important;
+    font-size:14px!important;
+    font-weight:500!important;
+    line-height:1.2!important;
+  }
+
+  #mobileSearchTypeMenu button{
+    display:flex!important;
+    align-items:center!important;
+    gap:8px!important;
+  }
+
+  #mobileSearchTypeMenu .torvo-current-check{
+    margin-left:auto!important;
+    color:#e30613!important;
+    font-size:16px!important;
+    font-weight:800!important;
+  }
+}
+</style>
+
 </head>
 <body>
 <div id="publicSite">
@@ -8572,6 +8611,108 @@ function submitTargetRequest(){
     document.addEventListener('DOMContentLoaded', init);
   }else{
     init();
+  }
+})();
+</script>
+
+
+<script id="torvo-review-49-mobile-search-corrected-js">
+(function(){
+  function initTorvoMobileSearchFix(){
+    var wrap=document.getElementById('mobileSearchType');
+    var btn=document.getElementById('mobileSearchTypeBtn');
+    var label=document.getElementById('mobileSearchTypeLabel');
+    var menu=document.getElementById('mobileSearchTypeMenu');
+    var select=document.getElementById('searchType');
+
+    var mediaWrap=document.getElementById('mobileMediaMenu');
+    var mediaBtn=document.getElementById('mobileMediaMenuBtn');
+
+    if(!wrap || !btn || !label || !menu || !select) return;
+
+    function fitSelectedLabel(){
+      var t=(label.textContent||'ALL').trim();
+      label.style.whiteSpace='nowrap';
+      label.style.lineHeight='1.02';
+
+      if(t.length<=5){
+        label.style.fontSize='12px';
+      }else if(t.length<=8){
+        label.style.fontSize='10px';
+      }else if(t.length<=11){
+        label.style.fontSize='8.5px';
+      }else{
+        label.style.fontSize='8px';
+        label.style.whiteSpace='normal';
+        label.style.lineHeight='1';
+      }
+    }
+
+    function refreshChecks(){
+      menu.querySelectorAll('button[data-value]').forEach(function(item){
+        var old=item.querySelector('.torvo-current-check');
+        if(old) old.remove();
+
+        var selected=item.getAttribute('data-value')===select.value;
+        item.classList.toggle('active',selected);
+        item.setAttribute('aria-selected',selected?'true':'false');
+
+        /* Remove the old hard-coded check span content if present */
+        Array.prototype.forEach.call(item.querySelectorAll('span:not(.torvo-current-check)'),function(s){
+          if((s.textContent||'').trim()==='✓') s.textContent='';
+        });
+
+        if(selected){
+          var check=document.createElement('span');
+          check.className='torvo-current-check';
+          check.textContent='✓';
+          item.appendChild(check);
+        }
+      });
+    }
+
+    function sync(){
+      var selected=menu.querySelector('button[data-value="'+select.value+'"]');
+      if(selected){
+        var clean=selected.childNodes[0] ? selected.childNodes[0].textContent.trim() : '';
+        if(!clean) clean=(selected.textContent||'').replace('✓','').trim();
+        label.textContent=clean;
+      }
+      fitSelectedLabel();
+      refreshChecks();
+    }
+
+    /* One dropdown at a time */
+    btn.addEventListener('click',function(){
+      if(mediaWrap){
+        mediaWrap.classList.remove('open','show');
+        if(mediaBtn) mediaBtn.setAttribute('aria-expanded','false');
+      }
+    },true);
+
+    if(mediaBtn){
+      mediaBtn.addEventListener('click',function(){
+        wrap.classList.remove('open','show');
+        btn.setAttribute('aria-expanded','false');
+      },true);
+    }
+
+    /* Run after the original click handlers update searchType */
+    menu.querySelectorAll('button[data-value]').forEach(function(item){
+      item.addEventListener('click',function(){
+        setTimeout(sync,0);
+      });
+    });
+
+    select.addEventListener('change',function(){ setTimeout(sync,0); });
+
+    sync();
+  }
+
+  if(document.readyState==='loading'){
+    document.addEventListener('DOMContentLoaded',initTorvoMobileSearchFix);
+  }else{
+    initTorvoMobileSearchFix();
   }
 })();
 </script>
