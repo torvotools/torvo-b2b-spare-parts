@@ -6137,6 +6137,51 @@ body.torvo-auth-locked{
 }
 </style>
 
+
+<style id="torvo-review-46-mobile-photo-final-fix">
+@media(max-width:760px){
+
+  /* Move only the item-photo box a little to the left */
+  .torvo-mobile-hero-r28 .r28-media{
+    transform:translateX(-5px)!important;
+  }
+
+  /* Clean single photo box: rounded, no outer line/shadow */
+  .torvo-mobile-hero-r28 .r28-photo{
+    position:relative!important;
+    overflow:hidden!important;
+    border-radius:18px!important;
+    border:0!important;
+    outline:0!important;
+    box-shadow:none!important;
+    filter:none!important;
+    background:#202329!important;
+  }
+
+  /*
+    Crop the dark/shadow frame that is baked into the source image.
+    The outer rounded box remains the only visible boundary.
+  */
+  .torvo-mobile-hero-r28 .r28-photo #r28HeroImage{
+    position:absolute!important;
+    width:120%!important;
+    height:120%!important;
+    max-width:none!important;
+    left:-10%!important;
+    top:-10%!important;
+    margin:0!important;
+    object-fit:cover!important;
+    object-position:center!important;
+    border:0!important;
+    outline:0!important;
+    border-radius:0!important;
+    box-shadow:none!important;
+    filter:none!important;
+    transform:none!important;
+  }
+}
+</style>
+
 </head>
 <body>
 <div id="publicSite">
