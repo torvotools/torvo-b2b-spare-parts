@@ -5995,31 +5995,42 @@ body.torvo-auth-locked{
 </style>
 
 
-<style id="torvo-review-41-mobile-hero-media-fix">
+<style id="torvo-review-42-exact-mobile-fix">
 @media(max-width:760px){
-  /* Hero photo should sit cleanly on black hero: no shadow/frame effect */
-  .hero-machine{
-    background:transparent!important;
-    box-shadow:none!important;
-    border:0!important;
-    border-radius:0!important;
-    overflow:hidden!important;
-  }
+
+  /* PHOTO: remove every CSS shadow/frame/rounded effect from its wrapper and image */
+  #publicHeroImageSlot.hero-machine,
+  #publicHeroImageSlot,
+  #publicHeroImage.hero-uploaded-image,
   #publicHeroImage{
-    border:0!important;
-    border-radius:0!important;
     box-shadow:none!important;
+    -webkit-box-shadow:none!important;
     filter:none!important;
-    outline:0!important;
+    border:none!important;
+    outline:none!important;
+    border-radius:0!important;
   }
 
-  /* Google-style Camera/Mic icons inside the dropdown */
-  .mobile-media-menu-list .media-google-icon{
+  #publicHeroImageSlot.hero-machine{
+    background:#11151d!important;
+    overflow:hidden!important;
+  }
+
+  #publicHeroImage.hero-uploaded-image{
     display:block!important;
-    width:20px!important;
-    height:20px!important;
-    min-width:20px!important;
-    object-fit:contain!important;
+    width:100%!important;
+    height:100%!important;
+    object-fit:cover!important;
+    background:#11151d!important;
+  }
+
+  /* Dropdown Google icons */
+  .mobile-media-menu-list .google-media-svg{
+    display:block!important;
+    width:22px!important;
+    height:22px!important;
+    min-width:22px!important;
+    flex:0 0 22px!important;
   }
 }
 </style>
@@ -6063,10 +6074,22 @@ body.torvo-auth-locked{
           aria-label="Camera or Voice Search" aria-expanded="false"></button>
         <div class="mobile-media-menu-list" id="mobileMediaMenuList">
           <button type="button" id="mobileVoiceChoice">
-            <img class="media-google-icon" alt="" src="data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24'><rect x='9' y='3' width='6' height='11' rx='3' fill='%234285F4'/><path d='M5 11a7 7 0 0 0 14 0' fill='none' stroke='%2334A853' stroke-width='2'/><path d='M12 18v3M9 21h6' stroke='%23EA4335' stroke-width='2' stroke-linecap='round'/></svg>"><span>VOICE SEARCH</span>
+            <svg class="google-media-svg" viewBox="0 0 24 24" aria-hidden="true">
+<path fill="#4285F4" d="M12 14.5a3.5 3.5 0 0 0 3.5-3.5V6.5a3.5 3.5 0 1 0-7 0V11a3.5 3.5 0 0 0 3.5 3.5z"/>
+<path fill="#34A853" d="M6.5 10.5a1 1 0 0 1 1 1A4.5 4.5 0 0 0 12 16a1 1 0 1 1 0 2 6.5 6.5 0 0 1-6.5-6.5 1 1 0 0 1 1-1z"/>
+<path fill="#FBBC05" d="M17.5 10.5a1 1 0 0 1 1 1A6.5 6.5 0 0 1 12 18v-2a4.5 4.5 0 0 0 4.5-4.5 1 1 0 0 1 1-1z"/>
+<path fill="#EA4335" d="M11 17h2v4h-2zM8.5 20h7v2h-7z"/>
+</svg><span>VOICE SEARCH</span>
           </button>
           <button type="button" id="mobileCameraChoice">
-            <img class="media-google-icon" alt="" src="data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24'><path d='M5 7h3l1.5-2h5L16 7h3a2 2 0 0 1 2 2v9a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V9a2 2 0 0 1 2-2z' fill='%234285F4'/><circle cx='12' cy='13' r='4' fill='white'/><circle cx='12' cy='13' r='2.6' fill='%2334A853'/><circle cx='18' cy='10' r='1' fill='%23EA4335'/></svg>"><span>CAMERA</span>
+            <svg class="google-media-svg" viewBox="0 0 24 24" aria-hidden="true">
+<path fill="#4285F4" d="M4 4h6v2H6v4H4V4zm10 0h6v6h-2V6h-4V4z"/>
+<path fill="#34A853" d="M18 14h2v6h-6v-2h4v-4z"/>
+<path fill="#FBBC05" d="M4 14h2v4h4v2H4v-6z"/>
+<circle cx="12" cy="12" r="4.2" fill="#4285F4"/>
+<circle cx="12" cy="12" r="2.1" fill="#fff"/>
+<circle cx="17.8" cy="8.2" r="1.2" fill="#EA4335"/>
+</svg><span>CAMERA</span>
           </button>
         </div>
       </div>
