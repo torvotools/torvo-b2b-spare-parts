@@ -6035,6 +6035,36 @@ body.torvo-auth-locked{
 }
 </style>
 
+
+<style id="torvo-review-43-mobile-photo-crop-fix">
+@media(max-width:760px){
+  /*
+    The visible dark rounded area is inside the source photo itself,
+    not a CSS box-shadow. Crop/zoom the dedicated mobile hero image
+    from the bottom-left so the top/right dark rim is pushed outside.
+  */
+  .torvo-mobile-hero-r28 .r28-photo{
+    overflow:hidden!important;
+    border-radius:0!important;
+    box-shadow:none!important;
+    filter:none!important;
+  }
+  .torvo-mobile-hero-r28 .r28-photo #r28HeroImage{
+    width:114%!important;
+    height:114%!important;
+    max-width:none!important;
+    object-fit:cover!important;
+    object-position:left bottom!important;
+    transform:none!important;
+    margin-top:-14%!important;
+    margin-right:-14%!important;
+    box-shadow:none!important;
+    filter:none!important;
+    border-radius:0!important;
+  }
+}
+</style>
+
 </head>
 <body>
 <div id="publicSite">
