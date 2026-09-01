@@ -6,6 +6,18 @@
   <meta name="theme-color" content="#d71920" />
   <title>TORVO TOOLS | B2B POWER TOOL SPARE PARTS - V24</title>
 
+  <style id="torvo-initial-render-guard">
+    html.torvo-preload{background:#fff}
+    html.torvo-preload body{visibility:hidden!important}
+  </style>
+  <script>
+    document.documentElement.classList.add('torvo-preload');
+    window.addEventListener('DOMContentLoaded',function(){
+      document.documentElement.classList.remove('torvo-preload');
+    });
+    setTimeout(function(){document.documentElement.classList.remove('torvo-preload')},1800);
+  </script>
+
   <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
 
   <style>
@@ -6297,37 +6309,48 @@ body.torvo-auth-locked{
     overflow:hidden!important;
   }
   .mobile-search-type-btn{
-    display:grid!important;
-    grid-template-columns:minmax(0,1fr) 10px!important;
+    display:flex!important;
     align-items:center!important;
-    justify-content:stretch!important;
-    column-gap:4px!important;
+    justify-content:center!important;
+    gap:5px!important;
     padding:0 7px!important;
   }
+  .mobile-search-type-btn .mobile-search-type-label,
+  .mobile-search-type-btn .search-type-label{
+    display:none!important;
+  }
   #mobileSearchTypeLabel{
-    display:-webkit-box!important;
+    display:block!important;
     width:100%!important;
     min-width:0!important;
     max-width:100%!important;
     overflow:hidden!important;
-    white-space:normal!important;
+    white-space:nowrap!important;
     text-overflow:clip!important;
     text-align:center!important;
-    line-height:1.05!important;
-    overflow-wrap:anywhere!important;
+    line-height:1!important;
+    overflow-wrap:normal!important;
     word-break:normal!important;
-    -webkit-box-orient:vertical!important;
-    -webkit-line-clamp:2!important;
-    line-clamp:2!important;
     font-size:var(--torvo-mobile-filter-size,12px)!important;
     font-weight:650!important;
     letter-spacing:0!important;
   }
   .mobile-search-caret{
+    display:none!important;
+  }
+  .mobile-search-type-btn::after{
+    content:""!important;
     display:block!important;
+    width:0!important;
+    height:0!important;
     flex:0 0 auto!important;
-    justify-self:center!important;
+    border-left:4px solid transparent!important;
+    border-right:4px solid transparent!important;
+    border-top:5px solid #667085!important;
     margin:0!important;
+  }
+  .mobile-search-type.open .mobile-search-type-btn::after{
+    transform:rotate(180deg)!important;
   }
 }
 </style>
@@ -8394,7 +8417,7 @@ function submitTargetRequest(){
 
     function fitSelectedLabel(text){
       var length=String(text||'').length;
-      var size=length>11?9.2:length>8?9.8:length>6?10.4:12.2;
+      var size=length>11?6.2:length>8?7.4:length>6?8.4:12.2;
       label.style.setProperty('--torvo-mobile-filter-size',size+'px');
     }
 
@@ -8537,6 +8560,9 @@ function submitTargetRequest(){
   function qa(sel, root){ return Array.prototype.slice.call((root || document).querySelectorAll(sel)); }
 
   function init(){
+    /* Disabled: the current button already has #mobileSearchTypeLabel.
+       This older compatibility block created a second ALL label. */
+    return;
     var allWrap = document.getElementById('mobileSearchType');
     var allBtn = document.getElementById('mobileSearchTypeBtn');
     var allMenu = q('.mobile-search-type-menu', allWrap || document);
@@ -8598,7 +8624,7 @@ function submitTargetRequest(){
       }
 
       function setTopLabel(label){
-        var holder = q('.mobile-search-type-label', allBtn) || q('.search-type-label', allBtn);
+        var holder = q('#mobileSearchTypeLabel', allBtn) || q('.mobile-search-type-label', allBtn) || q('.search-type-label', allBtn);
         if(!holder){
           holder = document.createElement('span');
           holder.className = 'mobile-search-type-label';
@@ -8659,7 +8685,7 @@ function submitTargetRequest(){
         markSelected(current);
         setTopLabel(getLabel(current));
       }else{
-        var topHolder = q('.mobile-search-type-label', allBtn) || q('.search-type-label', allBtn);
+        var topHolder = q('#mobileSearchTypeLabel', allBtn) || q('.mobile-search-type-label', allBtn) || q('.search-type-label', allBtn);
         var topText = topHolder ? topHolder.textContent.trim().toUpperCase() : 'ALL';
         var matched = buttons.find(function(btn){ return getLabel(btn) === topText; }) || buttons[0];
         if(matched){
@@ -8692,6 +8718,11 @@ function submitTargetRequest(){
     var mediaBtn=document.getElementById('mobileMediaMenuBtn');
 
     if(!wrap || !btn || !label || !menu || !select) return;
+
+    /* Only the original label is allowed; remove any label created by older review code. */
+    btn.querySelectorAll('.mobile-search-type-label,.search-type-label').forEach(function(extra){
+      if(extra!==label) extra.remove();
+    });
 
     function fitSelectedLabel(){
       var t=(label.textContent||'ALL').trim();
