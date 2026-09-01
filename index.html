@@ -6340,6 +6340,13 @@ body.torvo-auth-locked{
     font-weight:650!important;
     letter-spacing:0!important;
   }
+  #mobileSearchTypeLabel.is-two-line{
+    white-space:normal!important;
+    line-height:1.02!important;
+    font-size:10.5px!important;
+    max-height:22px!important;
+    overflow:hidden!important;
+  }
   .mobile-search-caret{
     display:none!important;
   }
@@ -6375,6 +6382,41 @@ body.torvo-auth-locked{
     font-size:13.5px!important;
     line-height:1.2!important;
     font-weight:400!important;
+  }
+  #quickAccessSection .section-title{
+    font-size:22px!important;
+  }
+  #quickAccessSection .section-sub{
+    color:#4b5563!important;
+    font-weight:600!important;
+  }
+  /* Mobile public product cards: information-only Home Page layout. */
+  #publicProductGrid .single-photo-card .photo-item-code{
+    top:8px!important;
+    bottom:auto!important;
+    left:50%!important;
+    transform:translateX(-50%)!important;
+    max-width:52%!important;
+    font-size:10.5px!important;
+    font-weight:650!important;
+    z-index:6!important;
+  }
+  #publicProductGrid .photo-item-code .item-code-prefix{
+    color:#d71920!important;
+  }
+  #publicProductGrid .photo-item-code .item-code-number{
+    color:#111318!important;
+  }
+  #publicProductGrid .public-card-actions{
+    grid-template-columns:minmax(0,1fr)!important;
+  }
+  #publicProductGrid .public-blue-cart{
+    display:none!important;
+  }
+  #publicProductGrid .public-card-actions .public-full-detail{
+    width:100%!important;
+    min-height:34px!important;
+    font-size:10.5px!important;
   }
 }
 </style>
@@ -6511,7 +6553,7 @@ body.torvo-auth-locked{
 
 </section>
 
-    <section class="section"><div class="container"><div class="section-head"><div><h2 class="section-title">Quick Access</h2><p class="section-sub">Choose an option like an app.</p></div></div>
+    <section class="section" id="quickAccessSection"><div class="container"><div class="section-head"><div><h2 class="section-title">Quick Access</h2><p class="section-sub">Choose an option like an app.</p></div></div>
       <div class="app-grid">
         <button class="app-card" onclick="setQuickFilter('Spare Part')"><div class="app-icon">⚙️</div><div class="app-name">Spare Parts</div><div class="app-help">Browse spare parts</div></button>
         <button class="app-card" onclick="setQuickFilter('Accessory')"><div class="app-icon">🧰</div><div class="app-name">Accessories</div><div class="app-help">Browse accessories</div></button>
@@ -6519,7 +6561,6 @@ body.torvo-auth-locked{
         <button class="app-card" onclick="setQuickFilter('New')"><div class="app-icon">🆕</div><div class="app-name">New Items</div><div class="app-help">Latest additions</div></button>
         <button class="app-card" onclick="setQuickFilter('Popular')"><div class="app-icon">🔥</div><div class="app-name">Popular Parts</div><div class="app-help">Frequently searched</div></button>
         <button class="app-card" onclick="openPartEnquiry()"><div class="app-icon">📷</div><div class="app-name">Part Enquiry</div><div class="app-help">Can't find a part?</div></button>
-        <button class="app-card youtube-card" onclick="futureFeature('TORVO YouTube link')" title="TORVO YouTube"><div class="app-icon youtube-icon"><i class="fa-brands fa-youtube"></i></div><div class="app-name">YouTube</div><div class="app-help">Watch TORVO videos</div></button>
       </div>
     </div></section>
 
@@ -7548,12 +7589,16 @@ function submitTargetRequest(){
   publicResults=allProducts();dealerResults=allProducts();
 
   function torvoDisplayCode(item){const m=String(item||"").match(/(\d+)$/);return "T-"+String(m?Number(m[1]):1).padStart(5,"0")}
+  function torvoDisplayCodeHTML(item){
+    const code=torvoDisplayCode(item);
+    return `<span class="item-code-prefix">T-</span><span class="item-code-number">${code.slice(2)}</span>`;
+  }
   function v22PublicCard(p){const badge=typeof badgeClass==="function"?badgeClass(p.tag):"";return `<div class="product-card">
     <div class="product-photo v24-photo click-photo product-gallery single-photo-card" onclick="publicProductDetails('${p.item}')">
       <span class="product-badge ${badge}">${p.tag}</span>
       <button class="photo-rate-lock" type="button" aria-label="LOGIN FOR RATE" onclick="event.stopPropagation();openAuth('login')"><i class="fa-solid fa-lock"></i></button>
       <div class="placeholder-icon gallery-visual" id="visual-public-${p.item}">${p.icon}</div>
-      <div class="v24-item-code photo-item-code">${torvoDisplayCode(p.item)}</div>
+      <div class="v24-item-code photo-item-code">${torvoDisplayCodeHTML(p.item)}</div>
     </div>
     <div class="product-body v24-body">
       <div class="product-name">${p.name}</div>
@@ -8441,7 +8486,9 @@ function submitTargetRequest(){
 
     function fitSelectedLabel(text){
       var length=String(text||'').length;
-      var size=length>11?6.6:length>8?7.8:length>6?9.2:14;
+      var useTwoLines=length>9 && /\s/.test(String(text||''));
+      label.classList.toggle('is-two-line',useTwoLines);
+      var size=useTwoLines?10.5:length>8?7.8:length>6?9.2:14;
       label.style.setProperty('--torvo-mobile-filter-size',size+'px');
     }
 
