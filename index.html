@@ -6314,10 +6314,11 @@ body.torvo-auth-locked{
   }
   .mobile-search-type-btn{
     display:flex!important;
+    position:relative!important;
     align-items:center!important;
     justify-content:center!important;
-    gap:5px!important;
-    padding:0 7px!important;
+    gap:0!important;
+    padding:0 20px 0 6px!important;
   }
   .mobile-search-type-btn .mobile-search-type-label,
   .mobile-search-type-btn .search-type-label{
@@ -6348,13 +6349,17 @@ body.torvo-auth-locked{
     width:0!important;
     height:0!important;
     flex:0 0 auto!important;
+    position:absolute!important;
+    right:7px!important;
+    top:50%!important;
     border-left:5px solid transparent!important;
     border-right:5px solid transparent!important;
     border-top:6px solid #4b5563!important;
     margin:0!important;
+    transform:translateY(-50%)!important;
   }
   .mobile-search-type.open .mobile-search-type-btn::after{
-    transform:rotate(180deg)!important;
+    transform:translateY(-50%) rotate(180deg)!important;
   }
   /* Do not show broken-image text/icon while the mobile hero photo is being prepared. */
   .torvo-mobile-hero-r28 .r28-photo{
@@ -6363,6 +6368,13 @@ body.torvo-auth-locked{
   .torvo-mobile-hero-r28 #r28HeroImage[src=""],
   .torvo-mobile-hero-r28 #r28HeroImage:not([src]){
     visibility:hidden!important;
+  }
+  /* Mobile search placeholder and typed text: slightly larger and clearer. */
+  #publicSearch.torvo-catalog-search-control,
+  #publicSearch.torvo-catalog-search-control:empty::before{
+    font-size:13.5px!important;
+    line-height:1.2!important;
+    font-weight:400!important;
   }
 }
 </style>
