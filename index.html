@@ -6079,6 +6079,64 @@ body.torvo-auth-locked{
 }
 </style>
 
+
+<style id="torvo-review-45-mobile-consolidated">
+@media(max-width:760px){
+
+  /* TORVO: mobile wordmark visibly bold like desktop */
+  #publicSite .header .brand .brand-name,
+  #publicSite .header .brand .brand-name span{
+    font-weight:900!important;
+    -webkit-text-stroke:.55px currentColor!important;
+    text-shadow:.18px 0 currentColor,-.18px 0 currentColor!important;
+  }
+
+  /* TOOLS PRIVATE LIMITED: keep approved mobile size/weight */
+  #publicSite .header .brand .brand-sub{
+    font-size:10.6px!important;
+    font-weight:850!important;
+  }
+
+  /* Both dropdowns: same option typography */
+  .mobile-search-type-menu button,
+  .mobile-search-type-menu button span,
+  .mobile-media-menu-list button,
+  .mobile-media-menu-list button span{
+    font-family:inherit!important;
+    font-size:14px!important;
+    font-weight:500!important;
+    line-height:1.2!important;
+    letter-spacing:0!important;
+  }
+
+  /* Item photo box: soft rounded corners, no outside border/shadow */
+  .torvo-mobile-hero-r28 .r28-photo{
+    overflow:hidden!important;
+    border-radius:18px!important;
+    border:0!important;
+    outline:0!important;
+    box-shadow:none!important;
+    filter:none!important;
+    background:transparent!important;
+  }
+
+  .torvo-mobile-hero-r28 .r28-photo #r28HeroImage{
+    width:114%!important;
+    height:114%!important;
+    max-width:none!important;
+    object-fit:cover!important;
+    object-position:left bottom!important;
+    margin-top:-14%!important;
+    margin-right:-14%!important;
+    border:0!important;
+    outline:0!important;
+    box-shadow:none!important;
+    filter:none!important;
+    border-radius:0!important;
+  }
+}
+</style>
+
 </head>
 <body>
 <div id="publicSite">
@@ -8226,6 +8284,35 @@ function submitTargetRequest(){
     document.addEventListener('DOMContentLoaded',setupMobileMediaMenu);
   }else{
     setupMobileMediaMenu();
+  }
+})();
+</script>
+
+
+<script id="torvo-review-45-one-dropdown-only">
+(function(){
+  function setupExclusiveMobileDropdowns(){
+    var allWrap=document.getElementById('mobileSearchType');
+    var allBtn=document.getElementById('mobileSearchTypeBtn');
+    var mediaWrap=document.getElementById('mobileMediaMenu');
+    var mediaBtn=document.getElementById('mobileMediaMenuBtn');
+    if(!allWrap || !allBtn || !mediaWrap || !mediaBtn) return;
+
+    allBtn.addEventListener('click',function(){
+      mediaWrap.classList.remove('open');
+      mediaBtn.setAttribute('aria-expanded','false');
+    });
+
+    mediaBtn.addEventListener('click',function(){
+      allWrap.classList.remove('open');
+      allBtn.setAttribute('aria-expanded','false');
+    });
+  }
+
+  if(document.readyState==='loading'){
+    document.addEventListener('DOMContentLoaded',setupExclusiveMobileDropdowns);
+  }else{
+    setupExclusiveMobileDropdowns();
   }
 })();
 </script>
