@@ -6287,6 +6287,51 @@ body.torvo-auth-locked{
 }
 </style>
 
+<style id="torvo-review-50-mobile-dropdown-autofit">
+@media(max-width:760px){
+  /* Selected search type must always stay inside the ALL box. */
+  .mobile-search-type,
+  .mobile-search-type-btn{
+    min-width:0!important;
+    max-width:100%!important;
+    overflow:hidden!important;
+  }
+  .mobile-search-type-btn{
+    display:grid!important;
+    grid-template-columns:minmax(0,1fr) 10px!important;
+    align-items:center!important;
+    justify-content:stretch!important;
+    column-gap:4px!important;
+    padding:0 7px!important;
+  }
+  #mobileSearchTypeLabel{
+    display:-webkit-box!important;
+    width:100%!important;
+    min-width:0!important;
+    max-width:100%!important;
+    overflow:hidden!important;
+    white-space:normal!important;
+    text-overflow:clip!important;
+    text-align:center!important;
+    line-height:1.05!important;
+    overflow-wrap:anywhere!important;
+    word-break:normal!important;
+    -webkit-box-orient:vertical!important;
+    -webkit-line-clamp:2!important;
+    line-clamp:2!important;
+    font-size:var(--torvo-mobile-filter-size,12px)!important;
+    font-weight:650!important;
+    letter-spacing:0!important;
+  }
+  .mobile-search-caret{
+    display:block!important;
+    flex:0 0 auto!important;
+    justify-self:center!important;
+    margin:0!important;
+  }
+}
+</style>
+
 </head>
 <body>
 <div id="publicSite">
@@ -8338,9 +8383,26 @@ function submitTargetRequest(){
     var select=document.getElementById('searchType');
     if(!wrap || !btn || !menu || !label || !select) return;
 
+    var cleanLabels={
+      all:'ALL',
+      brand:'BRAND',
+      category:'CATEGORY',
+      product:'ITEM / PRODUCT',
+      model:'MODEL',
+      item:'ITEM NO.'
+    };
+
+    function fitSelectedLabel(text){
+      var length=String(text||'').length;
+      var size=length>11?9.2:length>8?9.8:length>6?10.4:12.2;
+      label.style.setProperty('--torvo-mobile-filter-size',size+'px');
+    }
+
     function setValue(value, text){
+      text=cleanLabels[value] || String(text||'ALL').replace(/\u2713/g,'').trim() || 'ALL';
       select.value=value;
       label.textContent=text;
+      fitSelectedLabel(text);
       menu.querySelectorAll('button[data-value]').forEach(function(b){
         b.classList.toggle('active', b.getAttribute('data-value')===value);
         var mark=b.querySelector('span');
@@ -8353,7 +8415,7 @@ function submitTargetRequest(){
 
     var initial=select.value || 'all';
     var initialBtn=menu.querySelector('button[data-value="'+initial+'"]') || menu.querySelector('button[data-value="all"]');
-    setValue(initial, initialBtn ? initialBtn.textContent.replace('✓','').trim() : 'ALL');
+    setValue(initial, cleanLabels[initial] || 'ALL');
 
     btn.addEventListener('click',function(e){
       e.stopPropagation();
@@ -8365,7 +8427,8 @@ function submitTargetRequest(){
     menu.querySelectorAll('button[data-value]').forEach(function(item){
       item.addEventListener('click',function(e){
         e.stopPropagation();
-        setValue(item.getAttribute('data-value'), item.textContent.replace('✓','').trim());
+        var value=item.getAttribute('data-value');
+        setValue(value, cleanLabels[value] || 'ALL');
       });
     });
 
