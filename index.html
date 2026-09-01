@@ -6302,7 +6302,11 @@ body.torvo-auth-locked{
 <style id="torvo-review-50-mobile-dropdown-autofit">
 @media(max-width:760px){
   /* Selected search type must always stay inside the ALL box. */
-  .mobile-search-type,
+  .mobile-search-type{
+    min-width:0!important;
+    max-width:100%!important;
+    overflow:visible!important;
+  }
   .mobile-search-type-btn{
     min-width:0!important;
     max-width:100%!important;
@@ -6344,13 +6348,21 @@ body.torvo-auth-locked{
     width:0!important;
     height:0!important;
     flex:0 0 auto!important;
-    border-left:4px solid transparent!important;
-    border-right:4px solid transparent!important;
-    border-top:5px solid #667085!important;
+    border-left:5px solid transparent!important;
+    border-right:5px solid transparent!important;
+    border-top:6px solid #4b5563!important;
     margin:0!important;
   }
   .mobile-search-type.open .mobile-search-type-btn::after{
     transform:rotate(180deg)!important;
+  }
+  /* Do not show broken-image text/icon while the mobile hero photo is being prepared. */
+  .torvo-mobile-hero-r28 .r28-photo{
+    background:#202329!important;
+  }
+  .torvo-mobile-hero-r28 #r28HeroImage[src=""],
+  .torvo-mobile-hero-r28 #r28HeroImage:not([src]){
+    visibility:hidden!important;
   }
 }
 </style>
@@ -6457,7 +6469,7 @@ body.torvo-auth-locked{
 
     <div class="r28-media">
       <div class="r28-photo">
-        <img id="r28HeroImage" src="" alt="TORVO spare part">
+        <img id="r28HeroImage" src="" alt="">
       </div>
       <div class="r28-dots" id="r28HeroDots">
         <span class="active"></span><span></span><span></span>
@@ -8417,7 +8429,7 @@ function submitTargetRequest(){
 
     function fitSelectedLabel(text){
       var length=String(text||'').length;
-      var size=length>11?6.2:length>8?7.4:length>6?8.4:12.2;
+      var size=length>11?6.6:length>8?7.8:length>6?9.2:14;
       label.style.setProperty('--torvo-mobile-filter-size',size+'px');
     }
 
