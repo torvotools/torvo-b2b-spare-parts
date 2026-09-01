@@ -3506,6 +3506,56 @@ body.torvo-auth-locked{
 }
 </style>
 
+
+<style id="torvo-home-final-review-13">
+/* Search bar: remove camera/image-search option only */
+.main-search .camera-btn,
+.main-search .search-camera,
+.main-search [aria-label*="camera" i],
+.main-search [title*="camera" i],
+.main-search i.fa-camera,
+.main-search i.fa-camera-retro,
+.main-search i.fa-image{
+  display:none!important;
+}
+
+/* Delivery warning: slightly larger and lightly bold */
+.hero-delivery-note span{
+  font-size:9.2px!important;
+  font-weight:600!important;
+}
+
+/* Keep the approved hero as the second mockup direction:
+   one photo at a time, no arrows, three dots, photo clear of text. */
+.hero-box{
+  grid-template-columns:.92fr 1.08fr!important;
+}
+.hero-content{
+  max-width:100%!important;
+}
+.hero-visual{
+  position:relative!important;
+  overflow:visible!important;
+}
+.hero-machine{
+  width:min(500px,98%)!important;
+  margin-left:auto!important;
+  margin-right:auto!important;
+}
+.hero-machine img{
+  width:100%!important;
+  height:100%!important;
+  object-fit:contain!important;
+}
+.hero-photo-dots{
+  margin-top:6px!important;
+}
+.hero-machine .gallery-arrow,
+.hero-visual .gallery-arrow{
+  display:none!important;
+}
+</style>
+
 </head>
 <body>
 <div id="publicSite">
