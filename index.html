@@ -9317,5 +9317,92 @@ function submitTargetRequest(){
 })();
 </script>
 
+<!-- ===== REVIEW 51: EXACT MOBILE ALIGNMENT CORRECTIONS ===== -->
+<style id="torvo-review-51-mobile-alignment-css">
+@media(max-width:760px){
+  /* Typed text and its caret stay vertically centered inside the search bar. */
+  #publicSite .header .main-search > #publicSearch{
+    display:block!important;
+    height:48px!important;
+    min-height:48px!important;
+    padding:0!important;
+    line-height:48px!important;
+    vertical-align:middle!important;
+    overflow:hidden!important;
+    white-space:nowrap!important;
+  }
+  #publicSite .header .main-search > #publicSearch:empty::before{
+    display:block!important;
+    height:48px!important;
+    line-height:48px!important;
+  }
+
+  /* Only the top DEALER ACCESS line becomes slightly bolder. */
+  #publicSite .header .login-btn .login-main{
+    font-weight:850!important;
+  }
+
+  /* Same delivery box and same truck; give both lines more usable width. */
+  .hero-delivery-note,
+  .torvo-mobile-hero-r28 .r28-delivery{
+    grid-template-columns:45px minmax(0,1fr)!important;
+    column-gap:5px!important;
+    padding-left:10px!important;
+    padding-right:9px!important;
+    overflow:hidden!important;
+  }
+  .hero-delivery-note i,
+  .torvo-mobile-hero-r28 .r28-delivery i{
+    width:45px!important;
+    min-width:45px!important;
+    margin:0!important;
+    text-align:center!important;
+  }
+  .hero-delivery-note > div,
+  .torvo-mobile-hero-r28 .r28-delivery > div{
+    width:100%!important;
+    min-width:0!important;
+    overflow:hidden!important;
+  }
+  .hero-delivery-note b,
+  .torvo-mobile-hero-r28 .r28-delivery b{
+    display:block!important;
+    width:100%!important;
+    margin:0!important;
+    font-size:11px!important;
+    line-height:1.25!important;
+    font-weight:600!important;
+    white-space:nowrap!important;
+    overflow:hidden!important;
+  }
+  .hero-delivery-note span,
+  .torvo-mobile-hero-r28 .r28-delivery span{
+    display:block!important;
+    width:100%!important;
+    margin-top:4px!important;
+    font-size:10px!important;
+    line-height:1.25!important;
+    font-weight:600!important;
+    white-space:nowrap!important;
+    overflow:hidden!important;
+  }
+}
+</style>
+
+<script id="torvo-review-51-mobile-alignment-js">
+(function(){
+  function applyReview51(){
+    document.querySelectorAll('.hero-delivery-note,.r28-delivery').forEach(function(box){
+      var main=box.querySelector('b');
+      var sub=box.querySelector('span');
+      if(main)main.textContent='₹10,000 + SPARE PARTS • FREE DELIVERY';
+      if(sub)sub.textContent='SPARE PARTS BELOW ₹10,000 • DELIVERY CHARGES';
+    });
+  }
+  if(document.readyState==='loading')document.addEventListener('DOMContentLoaded',applyReview51);
+  else applyReview51();
+})();
+</script>
+
 </body>
 </html>
