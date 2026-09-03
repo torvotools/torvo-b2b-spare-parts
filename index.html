@@ -9275,7 +9275,7 @@ function submitTargetRequest(){
         button.type='button';
         button.className='torvo-search-suggestion';
         button.setAttribute('role','option');
-        button.innerHTML='<span class="torvo-search-suggestion-icon '+typeClass(type)+'">'+typeIcon(type)+'</span><span class="torvo-search-suggestion-name">'+p.name+'</span><span class="torvo-search-suggestion-type">'+type+'</span>';
+        button.innerHTML='<span class="torvo-search-suggestion-icon '+typeClass(type)+'">'+typeIcon(type)+'</span><span class="torvo-search-suggestion-main"><span class="torvo-search-suggestion-name">'+p.name+'</span><span class="torvo-search-suggestion-meta">ITEM: '+(p.item||'—')+' • '+(p.brand||p.spareBrand||'TORVO')+(p.model?' • '+p.model:'')+'</span></span><span class="torvo-search-suggestion-type">'+type+'</span>';
         button.addEventListener('click',function(){choose(p)});
         list.appendChild(button);
       });
@@ -9448,6 +9448,87 @@ function submitTargetRequest(){
   }
 }
 </style>
+
+<!-- ===== REVIEW 53: APPROVED MOBILE HERO + DELIVERY + REFRESH STABILITY ===== -->
+<style id="torvo-review-53-approved-final-css">
+.torvo-search-suggestion-main{display:flex;min-width:0;flex-direction:column;gap:3px}
+.torvo-search-suggestion-meta{display:block;min-width:0;overflow:hidden;color:#697381;font-size:8.8px;font-weight:700;line-height:1.15;text-overflow:ellipsis;white-space:nowrap}
+
+/* Button boxes stay unchanged; only the labels become clearer. */
+.hero-actions .primary-btn,.hero-actions .outline-btn,
+.r28-actions .primary-btn,.r28-actions .outline-btn{
+  font-size:13px!important;font-weight:850!important;letter-spacing:0!important;white-space:nowrap!important
+}
+
+/* Approved single-line delivery policy. */
+.hero-delivery-note,.r28-delivery{
+  display:flex!important;align-items:center!important;justify-content:center!important;gap:10px!important;
+  box-sizing:border-box!important;overflow:hidden!important
+}
+.hero-delivery-note>i,.r28-delivery>i{flex:0 0 auto!important;margin:0!important;color:#111318!important}
+.hero-delivery-note>div,.r28-delivery>div{
+  display:flex!important;min-width:0!important;width:auto!important;align-items:center!important;
+  justify-content:center!important;overflow:visible!important
+}
+.hero-delivery-note b,.r28-delivery b{
+  display:block!important;width:auto!important;margin:0!important;color:#111318!important;font-weight:850!important;
+  line-height:1!important;white-space:nowrap!important;overflow:visible!important
+}
+.hero-delivery-note>div>span:not(.delivery-red):not(.delivery-black),
+.r28-delivery>div>span:not(.delivery-red):not(.delivery-black){display:none!important}
+.delivery-red{display:inline!important;color:#d71920!important}
+.delivery-black{display:inline!important;color:#111318!important}
+
+@media(max-width:760px){
+  .r28-actions .primary-btn,.r28-actions .outline-btn{
+    height:48px!important;padding:0 6px!important;font-size:12.4px!important;font-weight:850!important
+  }
+  /* Centered truck + sentence gives matching left and right end spacing. */
+  .hero-delivery-note,.torvo-mobile-hero-r28 .r28-delivery{
+    min-height:52px!important;height:52px!important;padding:7px 13px!important;gap:8px!important
+  }
+  .hero-delivery-note>i,.torvo-mobile-hero-r28 .r28-delivery>i{
+    width:auto!important;min-width:0!important;font-size:27px!important
+  }
+  .hero-delivery-note b,.torvo-mobile-hero-r28 .r28-delivery b{
+    font-size:clamp(10.4px,2.95vw,12.6px)!important;font-weight:900!important;letter-spacing:-.12px!important
+  }
+
+  /* Fixed single photo layer: no refresh fade, shadow, filter or animation. */
+  .torvo-mobile-hero-r28 .r28-photo{
+    contain:layout paint!important;background:#202329!important;box-shadow:none!important;filter:none!important
+  }
+  .torvo-mobile-hero-r28 #r28HeroImage,
+  .torvo-mobile-hero-r28 #r28HeroImage.torvo-photo-ready{
+    display:block!important;opacity:1!important;visibility:visible!important;animation:none!important;
+    transition:none!important;box-shadow:none!important;filter:none!important;will-change:auto!important
+  }
+  #torvoPublicSearchSuggestions .torvo-search-suggestion-name{font-size:11.5px!important;font-weight:800!important}
+}
+</style>
+
+<script id="torvo-review-53-approved-final-js">
+(function(){
+  function deliveryMarkup(){
+    return '<span class="delivery-red">₹10,000 +</span>&nbsp;<span class="delivery-black">SPARE PARTS •</span>&nbsp;<span class="delivery-red">FREE DELIVERY</span>';
+  }
+  function applyReview53(){
+    document.querySelectorAll('.hero-delivery-note,.r28-delivery').forEach(function(box){
+      var main=box.querySelector('b');
+      if(main)main.innerHTML=deliveryMarkup();
+      Array.prototype.slice.call(box.querySelectorAll('div>span')).forEach(function(span){
+        if(!span.classList.contains('delivery-red')&&!span.classList.contains('delivery-black'))span.remove();
+      });
+    });
+    var source=document.getElementById('publicHeroImage');
+    var mobile=document.getElementById('r28HeroImage');
+    if(source&&mobile&&source.src){mobile.src=source.src;mobile.classList.add('torvo-photo-ready')}
+  }
+  applyReview53();
+  if(document.readyState==='loading')document.addEventListener('DOMContentLoaded',applyReview53,{once:true});
+  window.addEventListener('pageshow',applyReview53);
+})();
+</script>
 
 </body>
 </html>
