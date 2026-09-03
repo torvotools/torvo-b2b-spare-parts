@@ -9742,5 +9742,63 @@ function submitTargetRequest(){
 })();
 </script>
 
+<!-- ===== REVIEW 57: LOCKED DESKTOP + MOBILE PROPORTIONS ===== -->
+<style id="torvo-review-57-locked-responsive-css">
+/* Locked radii: the same component uses the same corner pattern on mobile and desktop. */
+#publicSite .header .main-search{border-radius:15px!important}
+#publicSite .header .login-btn{border-radius:14px!important}
+
+@media(min-width:761px){
+  /* Compact desktop information strip. */
+  #publicSite .topbar-inner{min-height:30px!important;padding:0 12px!important}
+  #publicSite .desktop-topbar-text{font-size:12px!important;font-weight:700!important;letter-spacing:.08px!important}
+
+  /* Keep full horizontal length; reduce only vertical thickness and excess white space. */
+  #publicSite .header-inner{gap:9px 18px!important;padding:10px 0 10px!important}
+  #publicSite .header .main-search{height:48px!important;padding-top:0!important;padding-bottom:0!important}
+  #publicSite .header .main-search>#publicSearch,
+  #publicSite .header .main-search>#publicSearch:empty::before{
+    height:44px!important;min-height:44px!important;line-height:44px!important
+  }
+  #publicSite .header .main-search>button.search-icon-btn.camera,
+  #publicSite .header .main-search>button.search-icon-btn.mic,
+  #publicSite .header .main-search>button.search-submit{height:40px!important}
+  #publicSite .header .login-btn{min-height:48px!important;padding:7px 15px!important;width:auto!important}
+
+  /* Entire desktop hero and the start of Quick Access fit naturally in one viewport. */
+  #publicSite section.hero{padding:16px 0 12px!important}
+  #publicSite .hero-box{
+    min-height:475px!important;grid-template-rows:minmax(0,1fr) auto auto!important;
+    gap:10px 30px!important;padding:24px 34px 18px!important
+  }
+
+  /* Mobile-style charcoal photo box: visible fill, but no line, underline, rim or shadow. */
+  #publicSite .hero-machine{
+    max-width:570px!important;padding:25px!important;background:#25282e!important;
+    border:0!important;outline:0!important;box-shadow:none!important;border-radius:24px!important
+  }
+  #publicSite .hero-machine::before,#publicSite .hero-machine::after{display:none!important}
+  #publicSite .hero-uploaded-image{border:0!important;outline:0!important;box-shadow:none!important;filter:none!important}
+
+  /* The mobile-style delivery strip remains inside the black hero. */
+  #publicSite .hero-delivery-note{
+    grid-area:delivery!important;align-self:end!important;margin:2px 0 0!important;
+    min-height:60px!important;padding:9px 22px!important;border:0!important;box-shadow:none!important
+  }
+}
+
+@media(max-width:760px){
+  /* Mobile search: same width, only slightly thinner vertically. */
+  #publicSite .header .main-search{height:49px!important}
+  #publicSite .header .main-search>#publicSearch,
+  #publicSite .header .main-search>#publicSearch:empty::before{
+    height:45px!important;min-height:45px!important;line-height:45px!important
+  }
+  #publicSite .header .main-search>button.search-icon-btn.camera,
+  #publicSite .header .main-search>button.search-icon-btn.mic,
+  #publicSite .header .main-search>button.search-submit{height:40px!important}
+}
+</style>
+
 </body>
 </html>
