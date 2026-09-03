@@ -9800,5 +9800,76 @@ function submitTargetRequest(){
 }
 </style>
 
+<!-- ===== REVIEW 58: APPROVED MOBILE + DESKTOP MATCH (LOCK 1122) ===== -->
+<style id="torvo-review-58-approved-lock-1122-css">
+/* Colour lock: older rules must never turn the middle delivery text red. */
+#publicSite .hero-delivery-note b>.delivery-red,
+#publicSite .r28-delivery b>.delivery-red{color:#d71920!important}
+#publicSite .hero-delivery-note b>.delivery-black,
+#publicSite .r28-delivery b>.delivery-black{color:#111318!important}
+
+@media(min-width:761px){
+  /* Thin strip, but the PAN INDIA message remains clearly readable. */
+  #publicSite .topbar-inner{min-height:30px!important;height:30px!important;padding:0 12px!important}
+  #publicSite .desktop-topbar-text{font-size:14px!important;line-height:30px!important;font-weight:750!important;letter-spacing:.05px!important}
+
+  /* Compact logo/dealer row and thin full-length search row. */
+  #publicSite .header-inner{gap:6px 18px!important;padding:7px 0 7px!important}
+  #publicSite .header .main-search{height:43px!important;min-height:43px!important;padding:0 8px 0 13px!important;border-width:2px!important;border-color:#7f8995!important;border-radius:15px!important}
+  #publicSite .header .main-search>#publicSearch,
+  #publicSite .header .main-search>#publicSearch:empty::before{height:39px!important;min-height:39px!important;line-height:39px!important;font-size:16px!important}
+  #publicSite .header .main-search>button.search-icon-btn.camera,
+  #publicSite .header .main-search>button.search-icon-btn.mic,
+  #publicSite .header .main-search>button.search-submit{height:37px!important}
+  #publicSite .header .login-btn{min-height:46px!important;padding:6px 13px!important;border-radius:14px!important}
+
+  /* Compact hero keeps Quick Access visible below. */
+  #publicSite section.hero{padding:14px 0 10px!important}
+  #publicSite .hero-box{min-height:445px!important;gap:9px 28px!important;padding:22px 32px 16px!important}
+
+  /* Approved mobile-style grey photo box; crop only the baked outer frame/white edge. */
+  #publicSite #publicHeroImageSlot.hero-machine{
+    width:100%!important;max-width:570px!important;aspect-ratio:1.52!important;padding:0!important;
+    overflow:hidden!important;background:#25282e!important;border:0!important;outline:0!important;
+    box-shadow:none!important;border-radius:24px!important
+  }
+  #publicSite #publicHeroImageSlot.hero-machine::before,
+  #publicSite #publicHeroImageSlot.hero-machine::after{display:none!important;content:none!important}
+  #publicSite #publicHeroImageSlot>.hero-uploaded-image{
+    width:100%!important;height:100%!important;object-fit:cover!important;object-position:center!important;
+    transform:scale(1.075)!important;transform-origin:center!important;clip-path:inset(1px round 22px)!important;
+    border:0!important;outline:0!important;box-shadow:none!important;filter:none!important
+  }
+
+  /* Thin delivery strip inside the black hero with medium-bold text. */
+  #publicSite .hero-box>.hero-delivery-note{
+    grid-area:delivery!important;width:100%!important;min-height:46px!important;height:46px!important;
+    margin:2px 0 0!important;padding:6px 20px!important;gap:10px!important;
+    border:0!important;border-radius:14px!important;box-shadow:none!important;overflow:hidden!important
+  }
+  #publicSite .hero-box>.hero-delivery-note>i{font-size:25px!important;color:#111318!important}
+  #publicSite .hero-box>.hero-delivery-note b{
+    font-size:13px!important;line-height:1!important;font-weight:700!important;letter-spacing:0!important;
+    color:#111318!important;white-space:nowrap!important
+  }
+}
+
+@media(max-width:760px){
+  /* Slightly larger message without making the black strip taller. */
+  #publicSite .topbar-inner{min-height:33px!important;height:33px!important}
+  #publicSite .mobile-topbar-text{font-size:clamp(10.5px,3vw,12px)!important;line-height:33px!important;font-weight:850!important}
+
+  /* Reduce only the gap below logo/dealer and only a little search height. */
+  #publicSite .header-inner{padding:7px 0!important;column-gap:10px!important;row-gap:5px!important}
+  #publicSite .header .main-search{margin-top:0!important;height:46px!important;min-height:46px!important;border-radius:15px!important}
+  #publicSite .header .main-search>#publicSearch,
+  #publicSite .header .main-search>#publicSearch:empty::before{height:42px!important;min-height:42px!important;line-height:42px!important;font-size:15.5px!important}
+  #publicSite .header .main-search>button.search-icon-btn.camera,
+  #publicSite .header .main-search>button.search-icon-btn.mic,
+  #publicSite .header .main-search>button.search-submit{height:38px!important}
+  #publicSite .header .login-btn{border-radius:14px!important}
+}
+</style>
+
 </body>
 </html>
