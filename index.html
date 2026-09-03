@@ -9478,6 +9478,20 @@ function submitTargetRequest(){
 .r28-delivery>div>span:not(.delivery-red):not(.delivery-black){display:none!important}
 .delivery-red{display:inline!important;color:#d71920!important}
 .delivery-black{display:inline!important;color:#111318!important}
+/* Higher specificity than the older mobile two-line rules: keep all three
+   approved pieces beside each other instead of stacking and clipping them. */
+.hero-delivery-note b>span.delivery-red,
+.hero-delivery-note b>span.delivery-black,
+.torvo-mobile-hero-r28 .r28-delivery b>span.delivery-red,
+.torvo-mobile-hero-r28 .r28-delivery b>span.delivery-black{
+  display:inline!important;
+  width:auto!important;
+  margin:0!important;
+  font-size:inherit!important;
+  font-weight:inherit!important;
+  line-height:inherit!important;
+  white-space:nowrap!important;
+}
 
 @media(max-width:760px){
   .r28-actions .primary-btn,.r28-actions .outline-btn{
