@@ -4,7 +4,7 @@
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <meta name="theme-color" content="#d71920" />
-  <title>TORVO TOOLS | B2B POWER TOOL SPARE PARTS - V24</title>
+  <title>TORVO TOOLS | B2B POWER TOOL PORTAL - V59</title>
 
   <style id="torvo-initial-render-guard">
     html.torvo-preload{background:#fff}
@@ -9868,6 +9868,47 @@ function submitTargetRequest(){
   #publicSite .header .main-search>button.search-icon-btn.mic,
   #publicSite .header .main-search>button.search-submit{height:38px!important}
   #publicSite .header .login-btn{border-radius:14px!important}
+}
+</style>
+
+<!-- ===== REVIEW 59: PHOTO DOTS + DESKTOP HERO BADGE POSITION (LOCK 1122) ===== -->
+<style id="torvo-review-59-dots-and-badge-lock-1122-css">
+/* The three gallery indicators belong directly below the item photo on both views. */
+#publicSite .hero-visual,
+#publicSite .torvo-mobile-hero-r28 .r28-media{
+  display:flex!important;
+  flex-direction:column!important;
+  align-items:center!important;
+}
+#publicSite .hero-photo-dots,
+#publicSite .torvo-mobile-hero-r28 .r28-dots{
+  position:static!important;
+  inset:auto!important;
+  transform:none!important;
+  display:flex!important;
+  align-items:center!important;
+  justify-content:center!important;
+  flex:0 0 auto!important;
+}
+
+@media(min-width:761px){
+  #publicSite .hero-box{position:relative!important}
+
+  /* Desktop badge sits at the top of the black hero, matching the mobile hierarchy. */
+  #publicSite .hero-content{padding-top:45px!important}
+  #publicSite .hero-label{
+    position:absolute!important;
+    top:22px!important;
+    left:32px!important;
+    z-index:3!important;
+    margin:0!important;
+  }
+
+  #publicSite .hero-photo-dots{margin:10px 0 0!important}
+}
+
+@media(max-width:760px){
+  #publicSite .torvo-mobile-hero-r28 .r28-dots{margin:9px 0 0!important}
 }
 </style>
 
