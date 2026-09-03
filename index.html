@@ -6521,26 +6521,13 @@ body.torvo-auth-locked{
 <body>
 <div id="publicSite">
   <div class="topbar"><div class="container topbar-inner"><div>
-<span class="desktop-topbar-text">TORVO TOOLS PRIVATE LIMITED • B2B POWER TOOL SPARE PARTS</span>
-<span class="mobile-topbar-text">PAN INDIA B2B PORTAL FOR POWER TOOLS SPARE PARTS</span>
+<span class="desktop-topbar-text">PAN INDIA B2B PORTAL • MULTI-BRAND POWER TOOLS</span>
+<span class="mobile-topbar-text">PAN INDIA B2B PORTAL • MULTI-BRAND POWER TOOLS</span>
 </div><div class="topbar-right"><span>Dealer Support</span><span>Pan-India B2B</span></div></div></div>
   <header class="header"><div class="container header-inner">
     <div class="brand" onclick="window.scrollTo({top:0,behavior:'smooth'})"><div class="brand-logo">T</div><div><div class="brand-name"><span>TORVO</span></div><div class="brand-sub">TOOLS PRIVATE LIMITED</div></div></div>
     <div class="main-search">
-      <div class="mobile-search-type" id="mobileSearchType">
-        <button type="button" class="mobile-search-type-btn" id="mobileSearchTypeBtn" aria-expanded="false">
-          <span id="mobileSearchTypeLabel">ALL</span><span class="mobile-search-caret"></span>
-        </button>
-        <div class="mobile-search-type-menu" id="mobileSearchTypeMenu">
-          <button type="button" data-value="all">ALL <span>✓</span></button>
-          <button type="button" data-value="brand">BRAND</button>
-          <button type="button" data-value="category">CATEGORY</button>
-          <button type="button" data-value="product">ITEM / PRODUCT</button>
-          <button type="button" data-value="model">MODEL</button>
-          <button type="button" data-value="item">ITEM NO.</button>
-        </div>
-      </div>
-      <select class="search-select" id="searchType"><option value="all">All</option><option value="item">Item No.</option><option value="product">Product</option><option value="brand">Brand</option><option value="model">Model</option><option value="category">Category</option></select>
+      <select class="search-select" id="searchType" hidden aria-hidden="true"><option value="all">All</option><option value="item">Item No.</option><option value="product">Product</option><option value="brand">Brand</option><option value="model">Model</option><option value="category">Category</option></select>
       <div id="publicSearch"
       class="torvo-catalog-search-control"
       role="searchbox"
@@ -6551,30 +6538,6 @@ body.torvo-auth-locked{
       spellcheck="false"
       oninput="filterPublicProducts()"></div>
       <button class="search-icon-btn camera" title="Photo Search - Future Ready" onclick="futureFeature('Photo Search')"><img class="admin-search-svg" alt="" src="data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24'><path d='M5 7h3l1.5-2h5L16 7h3a2 2 0 0 1 2 2v9a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V9a2 2 0 0 1 2-2z' fill='%234285F4'/><circle cx='12' cy='13' r='4' fill='white'/><circle cx='12' cy='13' r='2.6' fill='%2334A853'/><circle cx='18' cy='10' r='1' fill='%23EA4335'/></svg>"></button><button class="search-icon-btn mic" title="Voice Search - Future Ready" onclick="futureFeature('Voice Search')"><img class="admin-search-svg" alt="" src="data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24'><rect x='9' y='3' width='6' height='11' rx='3' fill='%234285F4'/><path d='M5 11a7 7 0 0 0 14 0' fill='none' stroke='%2334A853' stroke-width='2'/><path d='M12 18v3M9 21h6' stroke='%23EA4335' stroke-width='2' stroke-linecap='round'/></svg>"></button>
-      <div class="mobile-media-menu" id="mobileMediaMenu">
-        <button type="button" class="mobile-media-menu-btn" id="mobileMediaMenuBtn"
-          aria-label="Camera or Voice Search" aria-expanded="false"></button>
-        <div class="mobile-media-menu-list" id="mobileMediaMenuList">
-          <button type="button" id="mobileVoiceChoice">
-            <svg class="google-media-svg" viewBox="0 0 24 24" aria-hidden="true">
-<path fill="#4285F4" d="M12 14.5a3.5 3.5 0 0 0 3.5-3.5V6.5a3.5 3.5 0 1 0-7 0V11a3.5 3.5 0 0 0 3.5 3.5z"/>
-<path fill="#34A853" d="M6.5 10.5a1 1 0 0 1 1 1A4.5 4.5 0 0 0 12 16a1 1 0 1 1 0 2 6.5 6.5 0 0 1-6.5-6.5 1 1 0 0 1 1-1z"/>
-<path fill="#FBBC05" d="M17.5 10.5a1 1 0 0 1 1 1A6.5 6.5 0 0 1 12 18v-2a4.5 4.5 0 0 0 4.5-4.5 1 1 0 0 1 1-1z"/>
-<path fill="#EA4335" d="M11 17h2v4h-2zM8.5 20h7v2h-7z"/>
-</svg><span>VOICE SEARCH</span>
-          </button>
-          <button type="button" id="mobileCameraChoice">
-            <svg class="google-media-svg" viewBox="0 0 24 24" aria-hidden="true">
-<path fill="#4285F4" d="M4 4h6v2H6v4H4V4zm10 0h6v6h-2V6h-4V4z"/>
-<path fill="#34A853" d="M18 14h2v6h-6v-2h4v-4z"/>
-<path fill="#FBBC05" d="M4 14h2v4h4v2H4v-6z"/>
-<circle cx="12" cy="12" r="4.2" fill="#4285F4"/>
-<circle cx="12" cy="12" r="2.1" fill="#fff"/>
-<circle cx="17.8" cy="8.2" r="1.2" fill="#EA4335"/>
-</svg><span>CAMERA</span>
-          </button>
-        </div>
-      </div>
 <button class="search-submit" onclick="filterPublicProducts()"><img class="admin-search-svg" alt="" src="data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24'><circle cx='11' cy='11' r='6' fill='none' stroke='%234285F4' stroke-width='2.4'/><path d='M16 16l5 5' stroke='%2334A853' stroke-width='2.8' stroke-linecap='round'/></svg>"></button>
     </div>
     <div class="header-actions"><button class="login-btn" onclick="openAuth('login')"><span class="login-main">DEALER ACCESS</span><span class="login-sub">LOGIN • NEW REGISTER</span></button></div>
@@ -6583,9 +6546,9 @@ body.torvo-auth-locked{
   <main>
     <section class="hero"><div class="container"><div class="hero-box">
       <div class="hero-content">
-        <div class="hero-label">POWER TOOLS SPARE PARTS • B2B</div>
+        <div class="hero-label">POWER TOOLS DEALER • B2B PORTAL</div>
         <h1 class="hero-title-desktop">Find the Right <span>Spare Part</span> Faster.</h1><h1 class="hero-title-mobile">Find The<br>Right <span>Spare</span><br><span>Part</span> Faster.</h1>
-        <p id="torvoHeroDescription">Multi-brand power tool spare parts and accessories for dealers. Search by item, brand, machine or model and send your B2B order through the TORVO dealer system.</p>
+        <p id="torvoHeroDescription">Multi-brand machines, spare parts and accessories for dealers. Search by items, brand, machine or model and send your B2B order through the TORVO dealer system.</p>
       </div>
       <div class="hero-visual">
         <div class="hero-machine" id="publicHeroImageSlot">
@@ -6608,7 +6571,7 @@ body.torvo-auth-locked{
     </div></div>
 
 <div class="torvo-mobile-hero-r28">
-  <div class="r28-label">POWER TOOLS SPARE PARTS • B2B</div>
+  <div class="r28-label">POWER TOOLS DEALER • B2B PORTAL</div>
 
   <div class="r28-top">
     <div class="r28-title">
@@ -6628,8 +6591,8 @@ body.torvo-auth-locked{
   </div>
 
   <div class="r28-desc">
-    MULTI-BRAND POWER TOOL SPARE PARTS AND ACCESSORIES FOR DEALERS.
-    SEARCH BY ITEM, BRAND, MACHINE OR MODEL AND SEND YOUR B2B ORDER
+    MULTI-BRAND MACHINES, SPARE PARTS AND ACCESSORIES FOR DEALERS.
+    SEARCH BY ITEMS, BRAND, MACHINE OR MODEL AND SEND YOUR B2B ORDER
     THROUGH THE TORVO DEALER SYSTEM.
   </div>
 
@@ -9541,6 +9504,158 @@ function submitTargetRequest(){
   applyReview53();
   if(document.readyState==='loading')document.addEventListener('DOMContentLoaded',applyReview53,{once:true});
   window.addEventListener('pageshow',applyReview53);
+})();
+</script>
+
+<!-- ===== REVIEW 55: FINAL APPROVED MOBILE HEADER + HERO ===== -->
+<style id="torvo-review-55-final-approved-css">
+/* The obsolete public search selectors have been removed from the HTML.
+   Keep the remaining hidden fallback select out of every viewport. */
+#publicSite .header .main-search > #searchType,
+#publicSite .header .main-search > .search-select,
+#publicSite .header .main-search > .mobile-search-type,
+#publicSite .header .main-search > .mobile-media-menu{display:none!important}
+
+/* One continuous approved search bar: typed text + original Camera/Mic/Search. */
+#publicSite .header .main-search{
+  position:relative!important;display:flex!important;align-items:center!important;
+  grid-template-columns:none!important;gap:3px!important;height:52px!important;
+  padding:0 8px 0 13px!important;overflow:visible!important;background:#fff!important;
+  border:2px solid #7f8995!important;border-radius:15px!important;box-shadow:none!important
+}
+#publicSite .header .main-search > #publicSearch{
+  position:relative!important;display:block!important;flex:1 1 auto!important;
+  width:auto!important;min-width:0!important;height:48px!important;min-height:48px!important;
+  padding:0!important;border:0!important;outline:0!important;background:#fff!important;
+  color:#26313d!important;font-size:15.5px!important;font-weight:400!important;
+  line-height:48px!important;white-space:nowrap!important;overflow:hidden!important
+}
+#publicSite .header .main-search > #publicSearch:empty::before{
+  display:block!important;height:48px!important;line-height:48px!important;
+  color:#59636f!important;opacity:1!important;white-space:nowrap!important
+}
+#publicSite .header .main-search > button.search-icon-btn.camera,
+#publicSite .header .main-search > button.search-icon-btn.mic,
+#publicSite .header .main-search > button.search-submit{
+  position:static!important;display:grid!important;visibility:visible!important;opacity:1!important;
+  place-items:center!important;flex:0 0 29px!important;width:29px!important;min-width:29px!important;
+  height:42px!important;padding:0!important;margin:0!important;border:0!important;
+  border-radius:0!important;background:transparent!important;box-shadow:none!important
+}
+#publicSite .header .main-search > button.search-icon-btn img,
+#publicSite .header .main-search > button.search-submit img{
+  display:block!important;width:23px!important;height:23px!important
+}
+
+@media(max-width:760px){
+  /* Compact black information strip approved for mobile. */
+  #publicSite .topbar{display:block!important;background:#111318!important;color:#fff!important;border:0!important}
+  #publicSite .topbar-inner{min-height:30px!important;padding:0 7px!important;justify-content:center!important}
+  #publicSite .mobile-topbar-text{
+    display:block!important;width:100%!important;color:#fff!important;text-align:center!important;
+    font-size:clamp(8.5px,2.55vw,10.8px)!important;font-weight:800!important;white-space:nowrap!important
+  }
+  #publicSite .desktop-topbar-text,#publicSite .topbar-right{display:none!important}
+
+  #publicSite .header .main-search{order:3!important;width:100%!important;height:52px!important;gap:3px!important;padding-right:7px!important}
+  #publicSite .header .main-search > button.search-icon-btn.camera,
+  #publicSite .header .main-search > button.search-icon-btn.mic,
+  #publicSite .header .main-search > button.search-submit{
+    flex-basis:28px!important;width:28px!important;min-width:28px!important
+  }
+
+  /* Keep the approved hero compact so the following section is reached naturally. */
+  section.hero{padding:12px 14px 14px!important}
+  .torvo-mobile-hero-r28{padding:18px 14px 12px!important}
+
+  /* Original charcoal capsule with a soft, thin boundary. */
+  .torvo-mobile-hero-r28 .r28-label{
+    background:rgba(255,255,255,.07)!important;
+    border:1px solid rgba(220,224,230,.13)!important;
+    box-shadow:none!important;font-weight:650!important
+  }
+
+  /* Stable photo: no refresh shadow, flash, fade or transition. */
+  .torvo-mobile-hero-r28 .r28-photo{
+    contain:layout paint!important;background:#202329!important;border:0!important;
+    box-shadow:none!important;filter:none!important
+  }
+  .torvo-mobile-hero-r28 #r28HeroImage{
+    opacity:0!important;visibility:hidden!important;animation:none!important;transition:none!important;
+    box-shadow:none!important;filter:none!important;will-change:auto!important
+  }
+  .torvo-mobile-hero-r28 #r28HeroImage.torvo-photo-ready{
+    opacity:1!important;visibility:visible!important
+  }
+
+  /* Approved single-line delivery badge with balanced ends. */
+  .torvo-mobile-hero-r28 .r28-delivery{
+    display:flex!important;align-items:center!important;justify-content:center!important;
+    min-height:52px!important;height:52px!important;margin-top:12px!important;
+    padding:7px 13px!important;gap:8px!important;overflow:hidden!important
+  }
+  .torvo-mobile-hero-r28 .r28-delivery > i{
+    flex:0 0 auto!important;width:auto!important;min-width:0!important;margin:0!important;
+    color:#111318!important;font-size:27px!important
+  }
+  .torvo-mobile-hero-r28 .r28-delivery > div{
+    display:flex!important;align-items:center!important;justify-content:center!important;
+    width:auto!important;min-width:0!important;overflow:visible!important
+  }
+  .torvo-mobile-hero-r28 .r28-delivery b{
+    display:block!important;width:auto!important;margin:0!important;line-height:1!important;
+    font-size:clamp(10.2px,2.9vw,12.4px)!important;font-weight:900!important;
+    letter-spacing:-.12px!important;white-space:nowrap!important;overflow:visible!important
+  }
+  .torvo-mobile-hero-r28 .r28-delivery b > span{
+    display:inline!important;width:auto!important;margin:0!important;font:inherit!important;
+    line-height:inherit!important;white-space:nowrap!important
+  }
+  .torvo-mobile-hero-r28 .r28-delivery > div > span:not(.delivery-red):not(.delivery-black){display:none!important}
+}
+</style>
+
+<script id="torvo-review-55-final-approved-js">
+(function(){
+  'use strict';
+  function deliveryMarkup(){
+    return '<span class="delivery-red">₹10,000 +</span>&nbsp;<span class="delivery-black">SPARE PARTS ORDER •</span>&nbsp;<span class="delivery-red">FREE DELIVERY</span>';
+  }
+  function revealMobileHeroImage(){
+    var source=document.getElementById('publicHeroImage');
+    var mobile=document.getElementById('r28HeroImage');
+    if(!source||!mobile||!source.src)return;
+    mobile.classList.remove('torvo-photo-ready');
+    if(mobile.src!==source.src)mobile.src=source.src;
+    function ready(){if(mobile.complete&&mobile.naturalWidth)mobile.classList.add('torvo-photo-ready')}
+    if(typeof mobile.decode==='function')mobile.decode().then(ready).catch(ready);
+    else if(mobile.complete)ready();
+    else mobile.addEventListener('load',ready,{once:true});
+  }
+  function applyReview55(){
+    document.querySelectorAll('.desktop-topbar-text,.mobile-topbar-text').forEach(function(el){
+      el.textContent='PAN INDIA B2B PORTAL • MULTI-BRAND POWER TOOLS';
+    });
+    document.querySelectorAll('.hero-label,.r28-label').forEach(function(el){
+      el.textContent='POWER TOOLS DEALER • B2B PORTAL';
+    });
+    var desktopDescription=document.getElementById('torvoHeroDescription');
+    if(desktopDescription)desktopDescription.textContent='Multi-brand machines, spare parts and accessories for dealers. Search by items, brand, machine or model and send your B2B order through the TORVO dealer system.';
+    var mobileDescription=document.querySelector('.r28-desc');
+    if(mobileDescription)mobileDescription.textContent='MULTI-BRAND MACHINES, SPARE PARTS AND ACCESSORIES FOR DEALERS. SEARCH BY ITEMS, BRAND, MACHINE OR MODEL AND SEND YOUR B2B ORDER THROUGH THE TORVO DEALER SYSTEM.';
+    document.querySelectorAll('.hero-delivery-note,.r28-delivery').forEach(function(box){
+      var main=box.querySelector('b');
+      if(main)main.innerHTML=deliveryMarkup();
+      Array.prototype.slice.call(box.querySelectorAll('div>span')).forEach(function(span){
+        if(!span.classList.contains('delivery-red')&&!span.classList.contains('delivery-black'))span.remove();
+      });
+    });
+    revealMobileHeroImage();
+  }
+  if(document.readyState==='loading')document.addEventListener('DOMContentLoaded',applyReview55,{once:true});
+  else applyReview55();
+  window.addEventListener('load',revealMobileHeroImage,{once:true});
+  window.addEventListener('pageshow',applyReview55);
 })();
 </script>
 
