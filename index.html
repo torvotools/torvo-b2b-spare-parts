@@ -9155,6 +9155,29 @@ function submitTargetRequest(){
     if(type==='ACCESSORY')return '<i class="fa-solid fa-boxes-stacked"></i>';
     return '<i class="fa-solid fa-microchip"></i>';
   }
+  function safeAttr(value){
+    return String(value||'').replace(/&/g,'&amp;').replace(/"/g,'&quot;').replace(/</g,'&lt;').replace(/>/g,'&gt;');
+  }
+  function productPhoto(product){
+    function source(value){
+      if(!value)return '';
+      if(typeof value==='string')return value;
+      if(typeof value==='object')return value.url||value.src||value.image||value.photo||'';
+      return '';
+    }
+    var direct=[product.primaryPhoto,product.mainPhoto,product.photo,product.photoUrl,product.image,product.imageUrl,product.photo1];
+    for(var i=0;i<direct.length;i++){var found=source(direct[i]);if(found)return found}
+    var collections=[product.photos,product.images];
+    for(var j=0;j<collections.length;j++){
+      if(Array.isArray(collections[j])&&collections[j].length){var first=source(collections[j][0]);if(first)return first}
+    }
+    return '';
+  }
+  function suggestionVisual(product,type){
+    var photo=productPhoto(product);
+    if(photo)return '<span class="torvo-search-suggestion-photo"><img src="'+safeAttr(photo)+'" alt=""></span>';
+    return '<span class="torvo-search-suggestion-icon '+typeClass(type)+'">'+typeIcon(type)+'</span>';
+  }
   function productSearchText(p){
     return [p.item,p.name,p.brand,p.spareBrand,p.system,p.model,p.machine,p.part,p.type,p.tag]
       .join(' ').toLowerCase();
@@ -9238,7 +9261,7 @@ function submitTargetRequest(){
         button.type='button';
         button.className='torvo-search-suggestion';
         button.setAttribute('role','option');
-        button.innerHTML='<span class="torvo-search-suggestion-icon '+typeClass(type)+'">'+typeIcon(type)+'</span><span class="torvo-search-suggestion-main"><span class="torvo-search-suggestion-name">'+p.name+'</span><span class="torvo-search-suggestion-meta">ITEM: '+(p.item||'—')+' • '+(p.brand||p.spareBrand||'TORVO')+(p.model?' • '+p.model:'')+'</span></span><span class="torvo-search-suggestion-type">'+type+'</span>';
+        button.innerHTML=suggestionVisual(p,type)+'<span class="torvo-search-suggestion-main"><span class="torvo-search-suggestion-name">'+p.name+'</span><span class="torvo-search-suggestion-meta">ITEM: '+(p.item||'—')+' • '+(p.brand||p.spareBrand||'TORVO')+(p.model?' • '+p.model:'')+'</span></span><span class="torvo-search-suggestion-type">'+type+'</span>';
         button.addEventListener('click',function(){choose(p)});
         list.appendChild(button);
       });
@@ -9656,6 +9679,66 @@ function submitTargetRequest(){
   else applyReview55();
   window.addEventListener('load',revealMobileHeroImage,{once:true});
   window.addEventListener('pageshow',applyReview55);
+})();
+</script>
+
+<!-- ===== REVIEW 56: COMBINED APPROVED MOBILE + DESKTOP VIEW ===== -->
+<style id="torvo-review-56-mobile-desktop-css">
+.torvo-search-suggestion-photo{width:30px;height:30px;border-radius:9px;display:grid;place-items:center;overflow:hidden;background:#f4f6f8;border:1px solid #e1e5e9}
+.torvo-search-suggestion-photo img{display:block;width:100%;height:100%;object-fit:contain;background:#fff}
+#publicSite .hero-uploaded-image{display:block;width:100%;height:100%;object-fit:contain;object-position:center;opacity:1;visibility:visible;animation:none;transition:none;filter:none;box-shadow:none}
+
+@media(min-width:761px){
+  #publicSite .topbar{display:block!important;background:#111318!important;color:#fff!important;border:0!important}
+  #publicSite .topbar-inner{min-height:40px!important;padding:0 16px!important;justify-content:center!important}
+  #publicSite .desktop-topbar-text{display:block!important;width:100%!important;text-align:center!important;color:#fff!important;font-size:15px!important;line-height:1!important;font-weight:850!important;letter-spacing:.15px!important;white-space:nowrap!important}
+  #publicSite .mobile-topbar-text,#publicSite .topbar-right{display:none!important}
+  #publicSite .header-inner{min-height:0!important;display:grid!important;grid-template-columns:auto minmax(40px,1fr) auto!important;grid-template-rows:auto auto!important;gap:13px 22px!important;padding:15px 0 13px!important}
+  #publicSite .brand{grid-column:1;grid-row:1}
+  #publicSite .header-actions{grid-column:3;grid-row:1}
+  #publicSite .main-search{grid-column:1/-1;grid-row:2;width:100%!important;height:54px!important}
+  #publicSite .header .main-search>#publicSearch{height:50px!important;min-height:50px!important;line-height:50px!important;font-size:17px!important}
+  #publicSite .header .main-search>#publicSearch:empty::before{height:50px!important;line-height:50px!important}
+  #publicSite section.hero{padding:22px 0 15px!important}
+  #publicSite .hero-box{min-height:510px!important;display:grid!important;grid-template-columns:minmax(0,.93fr) minmax(430px,1.07fr)!important;grid-template-areas:"content visual" "actions visual" "delivery delivery"!important;grid-template-rows:1fr auto auto!important;gap:13px 34px!important;padding:28px 38px 20px!important;border-radius:28px!important;overflow:hidden!important}
+  #publicSite .hero-content{grid-area:content!important;padding:0!important;align-self:center!important;justify-content:center!important}
+  #publicSite .hero-label{margin:0 0 18px!important;padding:9px 15px!important;background:rgba(255,255,255,.07)!important;border:1px solid rgba(220,224,230,.16)!important;box-shadow:none!important;font-size:13px!important}
+  #publicSite .hero-title-desktop{display:block!important;margin:0 0 17px!important;font-size:50px!important;line-height:1.04!important;max-width:590px!important}
+  #publicSite .hero-title-mobile{display:none!important}
+  #publicSite .hero-content p{margin:0!important;max-width:650px!important;font-size:16px!important;line-height:1.48!important;color:#f0f1f3!important}
+  #publicSite .hero-visual{grid-area:visual!important;padding:0!important;align-self:center!important;display:flex!important;flex-direction:column!important;align-items:center!important;justify-content:center!important}
+  #publicSite .hero-machine{width:100%!important;max-width:570px!important;aspect-ratio:1.45!important;padding:26px!important;overflow:hidden!important;border-radius:24px!important;background:linear-gradient(145deg,#25282e,#181a1f)!important;border:1px solid rgba(255,255,255,.10)!important;box-shadow:none!important}
+  #publicSite .hero-photo-dots{margin-top:13px!important}
+  #publicSite .hero-actions{grid-area:actions!important;display:grid!important;grid-template-columns:1fr 1fr!important;gap:13px!important;width:100%!important}
+  #publicSite .hero-actions button{width:100%!important;height:52px!important;padding:0 12px!important;font-size:14px!important}
+  #publicSite .hero-delivery-note{grid-area:delivery!important;width:100%!important;min-height:66px!important;margin-top:3px!important;padding:10px 24px!important;gap:15px!important;border-radius:18px!important;justify-content:center!important}
+  #publicSite .hero-delivery-note>i{font-size:34px!important}
+  #publicSite .hero-delivery-note b{font-size:18px!important;font-weight:900!important;letter-spacing:0!important}
+}
+
+@media(max-width:760px){
+  #publicSite .topbar-inner{min-height:33px!important}
+  #publicSite .mobile-topbar-text{font-size:clamp(10px,2.9vw,11.4px)!important;line-height:1!important;font-weight:850!important;letter-spacing:-.05px!important}
+  #publicSite .header .main-search>#publicSearch,#publicSite .header .main-search>#publicSearch:empty::before{height:48px!important;min-height:48px!important;line-height:48px!important;font-size:15.5px!important}
+  #publicSite .header .login-btn .login-main{font-weight:950!important}
+}
+</style>
+
+<script id="torvo-review-56-copy-and-photo-stability-js">
+(function(){
+  'use strict';
+  function deliveryMarkup(){return '<span class="delivery-red">₹10,000 +</span>&nbsp;<span class="delivery-black">SPARE PARTS ORDER •</span>&nbsp;<span class="delivery-red">FREE DELIVERY</span>'}
+  function applyReview56(){
+    document.querySelectorAll('.desktop-topbar-text,.mobile-topbar-text').forEach(function(el){el.textContent='PAN INDIA B2B PORTAL • MULTI-BRAND POWER TOOLS'});
+    document.querySelectorAll('.hero-label,.r28-label').forEach(function(el){el.textContent='POWER TOOLS DEALER • B2B PORTAL'});
+    document.querySelectorAll('.hero-delivery-note,.r28-delivery').forEach(function(box){
+      var main=box.querySelector('b');if(main)main.innerHTML=deliveryMarkup();
+      Array.prototype.slice.call(box.querySelectorAll('div>span')).forEach(function(span){if(!span.classList.contains('delivery-red')&&!span.classList.contains('delivery-black'))span.remove()});
+    });
+    var desktop=document.getElementById('publicHeroImage');if(desktop){desktop.style.animation='none';desktop.style.transition='none';desktop.style.filter='none';desktop.style.boxShadow='none'}
+  }
+  if(document.readyState==='loading')document.addEventListener('DOMContentLoaded',applyReview56,{once:true});else applyReview56();
+  window.addEventListener('pageshow',applyReview56);
 })();
 </script>
 
