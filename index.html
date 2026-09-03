@@ -4,7 +4,7 @@
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <meta name="theme-color" content="#d71920" />
-  <title>TORVO TOOLS | B2B POWER TOOL PORTAL - V59</title>
+  <title>TORVO TOOLS | B2B POWER TOOL PORTAL - V60</title>
 
   <style id="torvo-initial-render-guard">
     html.torvo-preload{background:#fff}
@@ -9909,6 +9909,39 @@ function submitTargetRequest(){
 
 @media(max-width:760px){
   #publicSite .torvo-mobile-hero-r28 .r28-dots{margin:9px 0 0!important}
+}
+</style>
+
+<!-- ===== REVIEW 60: DESKTOP SEARCH BETWEEN LOGO AND DEALER (LOCK 1122) ===== -->
+<style id="torvo-review-60-desktop-header-lock-1122-css">
+@media(min-width:761px){
+  /* One compact desktop row: TORVO | SEARCH | DEALER ACCESS. */
+  #publicSite .header-inner{
+    display:grid!important;
+    grid-template-columns:auto minmax(280px,1fr) auto!important;
+    grid-template-rows:auto!important;
+    align-items:center!important;
+    column-gap:18px!important;
+    row-gap:0!important;
+    padding:7px 0!important;
+  }
+  #publicSite .header-inner>.brand{
+    grid-column:1!important;
+    grid-row:1!important;
+  }
+  #publicSite .header-inner>.main-search{
+    grid-column:2!important;
+    grid-row:1!important;
+    width:100%!important;
+    margin:0!important;
+  }
+  #publicSite .header-inner>.header-actions{
+    grid-column:3!important;
+    grid-row:1!important;
+    padding:0!important;
+    margin:0!important;
+    justify-content:flex-end!important;
+  }
 }
 </style>
 
