@@ -6347,6 +6347,11 @@ body.torvo-auth-locked{
     max-height:22px!important;
     overflow:hidden!important;
   }
+  #mobileSearchTypeLabel .dropdown-label-line{
+    display:block!important;
+    width:100%!important;
+    text-align:center!important;
+  }
   .mobile-search-caret{
     display:none!important;
   }
@@ -6372,9 +6377,17 @@ body.torvo-auth-locked{
   .torvo-mobile-hero-r28 .r28-photo{
     background:#202329!important;
   }
-  .torvo-mobile-hero-r28 #r28HeroImage[src=""],
-  .torvo-mobile-hero-r28 #r28HeroImage:not([src]){
+  .torvo-mobile-hero-r28 #r28HeroImage{
+    opacity:0!important;
     visibility:hidden!important;
+    transition:none!important;
+    animation:none!important;
+    box-shadow:none!important;
+    filter:none!important;
+  }
+  .torvo-mobile-hero-r28 #r28HeroImage.torvo-photo-ready{
+    opacity:1!important;
+    visibility:visible!important;
   }
   /* Mobile search placeholder and typed text: slightly larger and clearer. */
   #publicSearch.torvo-catalog-search-control,
@@ -6383,7 +6396,12 @@ body.torvo-auth-locked{
     line-height:1.2!important;
     font-weight:400!important;
   }
-  #quickAccessSection .section-title{
+  #quickAccessSection .section-title,
+  #finderSection .section-title,
+  #productsSection .section-title,
+  #whyTorvoSection .section-title,
+  #howB2BWorksSection .section-title,
+  #aboutTorvoSection .about-box h2{
     font-size:22px!important;
   }
   #quickAccessSection .section-sub{
@@ -6417,6 +6435,84 @@ body.torvo-auth-locked{
     width:100%!important;
     min-height:34px!important;
     font-size:10.5px!important;
+  }
+  /* Product Details: locked-rate action stays inside content, away from Close. */
+  #productDetailModal .product-detail-box{
+    overflow:hidden!important;
+  }
+  #productDetailModal .modal-head{
+    position:relative!important;
+    padding-right:58px!important;
+  }
+  #productDetailModal .modal-head .close-btn{
+    position:absolute!important;
+    right:12px!important;
+    top:50%!important;
+    transform:translateY(-50%)!important;
+    width:36px!important;
+    height:36px!important;
+    min-width:36px!important;
+    z-index:10!important;
+  }
+  #productDetailModal .top-rate-badge.rate-info{
+    position:static!important;
+    inset:auto!important;
+    display:flex!important;
+    align-items:center!important;
+    justify-content:center!important;
+    width:100%!important;
+    max-width:100%!important;
+    min-height:36px!important;
+    box-sizing:border-box!important;
+    margin:10px 0 0!important;
+    padding:8px 10px!important;
+    border:1px solid #d71920!important;
+    border-radius:8px!important;
+    background:#d71920!important;
+    color:#fff!important;
+    font-size:10.5px!important;
+    font-weight:750!important;
+    line-height:1.15!important;
+    white-space:normal!important;
+    overflow:hidden!important;
+    pointer-events:auto!important;
+    cursor:pointer!important;
+    transform:none!important;
+  }
+  #productDetailModal .top-rate-badge.rate-info i{
+    color:#fff!important;
+    font-size:10px!important;
+    margin-right:5px!important;
+  }
+  /* Dedicated popup rate button: never inherit the card badge's absolute position. */
+  #productDetailModal .detail-rate-login{
+    position:static!important;
+    display:flex!important;
+    align-items:center!important;
+    justify-content:center!important;
+    width:100%!important;
+    max-width:100%!important;
+    min-height:38px!important;
+    box-sizing:border-box!important;
+    margin:10px 0 0!important;
+    padding:9px 12px!important;
+    border:1px solid #d71920!important;
+    border-radius:8px!important;
+    background:#d71920!important;
+    color:#fff!important;
+    font-size:11px!important;
+    font-weight:800!important;
+    line-height:1.15!important;
+    white-space:normal!important;
+    overflow:hidden!important;
+    cursor:pointer!important;
+    transform:none!important;
+    box-shadow:none!important;
+  }
+  #productDetailModal .detail-rate-login i{
+    color:#fff!important;
+    font-size:10px!important;
+    margin-right:6px!important;
   }
 }
 </style>
@@ -6579,14 +6675,14 @@ body.torvo-auth-locked{
 </div></section>
 <section class="section" id="productsSection"><div class="container"><div class="section-head"><div><h2 class="section-title">Featured Spare Parts</h2><p class="section-sub">Product photos will connect with approved TORVO product data later.</p></div></div><div class="product-grid" id="publicProductGrid"></div></div></section>
 
-    <section class="section"><div class="container"><div class="section-head"><div><h2 class="section-title">Why TORVO?</h2></div></div><div class="business-strip">
+    <section class="section" id="whyTorvoSection"><div class="container"><div class="section-head"><div><h2 class="section-title">Why TORVO?</h2></div></div><div class="business-strip">
       <div class="business-card"><div class="business-icon">🔧</div><div><strong>Multi-Brand Range</strong><span>Power tool spare parts and accessories for multiple brands.</span></div></div>
       <div class="business-card"><div class="business-icon">🎯</div><div><strong>Part Identification</strong><span>Search using item, machine, model and published suitable information.</span></div></div>
       <div class="business-card"><div class="business-icon">📦</div><div><strong>Dealer Ordering</strong><span>Simple B2B ordering with clear order and delivery status.</span></div></div>
       <div class="business-card"><div class="business-icon">🚚</div><div><strong>Pan-India Support</strong><span>Built for dealer supply and transport-based dispatch across India.</span></div></div>
     </div></div></section>
 
-    <section class="section"><div class="container"><div class="section-head"><div><h2 class="section-title">How B2B Dealer System Works</h2></div></div><div class="process-grid">
+    <section class="section" id="howB2BWorksSection"><div class="container"><div class="section-head"><div><h2 class="section-title">How B2B Dealer System Works</h2></div></div><div class="process-grid">
       <div class="process-card"><div class="process-number">1</div><div class="process-icon">📝</div><strong>Register</strong><small>Submit dealer business details.</small></div>
       <div class="process-card"><div class="process-number">2</div><div class="process-icon">✅</div><strong>Verification</strong><small>TORVO admin verifies the dealer.</small></div>
       <div class="process-card"><div class="process-number">3</div><div class="process-icon">🔐</div><strong>Dealer Login</strong><small>Approved dealer enters secure dealer area.</small></div>
@@ -6595,7 +6691,7 @@ body.torvo-auth-locked{
       <div class="process-card"><div class="process-number">6</div><div class="process-icon">😊</div><strong>Happy Customer</strong><small>Better service, support and dealer satisfaction.</small></div>
     </div></div></section>
 
-    <section class="section"><div class="container"><div class="about-box"><div><h2>About TORVO</h2><p>TORVO TOOLS PRIVATE LIMITED is building a professional B2B system focused on power tool spare parts and accessories. Our goal is to make product identification, dealer ordering, support and delivery easier through a modern digital platform.</p></div><div class="about-points"><div class="about-point">⚙️ Spare Parts Focus</div><div class="about-point">🧰 Accessories</div><div class="about-point">🏪 Dealer Network</div><div class="about-point">📱 Digital B2B System</div></div></div></div></section>
+    <section class="section" id="aboutTorvoSection"><div class="container"><div class="about-box"><div><h2>About TORVO</h2><p>TORVO TOOLS PRIVATE LIMITED is building a professional B2B system focused on power tool spare parts and accessories. Our goal is to make product identification, dealer ordering, support and delivery easier through a modern digital platform.</p></div><div class="about-points"><div class="about-point">⚙️ Spare Parts Focus</div><div class="about-point">🧰 Accessories</div><div class="about-point">🏪 Dealer Network</div><div class="about-point">📱 Digital B2B System</div></div></div></div></section>
 
     <section class="section"><div class="container"><div class="contact-box"><div class="contact-head"><div><h2>TORVO DEALER SUPPORT</h2><p>Contact details can be updated from the system configuration.</p></div><button class="primary-btn" onclick="openAuth('register')">BECOME A DEALER</button></div><div class="contact-grid">
       <div class="contact-card contact-card-action phone-card">
@@ -7392,7 +7488,7 @@ function closeProductDetail(){document.getElementById("productDetailModal")?.cla
 function openProductDetail(item,isDealer){
  const p=demoProducts.find(x=>x.item===item)||demoProducts[0]; if(!p)return;
  const recent=demoProducts.filter(x=>x.item!==p.item).slice(0,4);
- const rate=isDealer?`<div class="dealer-rate" style="margin-top:10px">${p.dealerRate}</div>`:`<button class="top-rate-badge rate-info" type="button" style="position:static;display:inline-flex;margin-top:10px" onclick="closeProductDetail();openAuth('login')"><i class="fa-solid fa-lock"></i> LOGIN FOR RATE</button>`;
+ const rate=isDealer?`<div class="dealer-rate" style="margin-top:10px">${p.dealerRate}</div>`:`<button class="detail-rate-login" type="button" onclick="closeProductDetail();openAuth('login')"><i class="fa-solid fa-lock"></i> LOGIN FOR RATE</button>`;
  const watt=p.wattage?`<div><b>WATTAGE</b>${p.wattage}</div>`:"";
  document.getElementById("productDetailBody").innerHTML=`<div class="product-detail-main">
  <div class="detail-photo-gallery" style="grid-template-columns:repeat(2,minmax(0,1fr))!important">
@@ -8439,11 +8535,33 @@ function submitTargetRequest(){
 
 <script id="torvo-review-28-sync">
 (function(){
+  var mobilePhotoToken=0;
+  function prepareMobilePhoto(img,src){
+    var token=++mobilePhotoToken;
+    img.classList.remove("torvo-photo-ready");
+    if(img.src!==src) img.src=src;
+    function reveal(){
+      if(token===mobilePhotoToken && img.complete && img.naturalWidth){
+        img.classList.add("torvo-photo-ready");
+      }
+    }
+    if(typeof img.decode==="function"){
+      img.decode().then(reveal).catch(function(){
+        if(img.complete) reveal();
+        else img.addEventListener("load",reveal,{once:true});
+      });
+    }else if(img.complete){
+      reveal();
+    }else{
+      img.addEventListener("load",reveal,{once:true});
+    }
+  }
   function syncR28Hero(){
     var desktopImg=document.getElementById("publicHeroImage");
     var mobileImg=document.getElementById("r28HeroImage");
-    if(desktopImg && mobileImg && desktopImg.src && mobileImg.src!==desktopImg.src){
-      mobileImg.src=desktopImg.src;
+    if(desktopImg && mobileImg && desktopImg.src &&
+       (mobileImg.src!==desktopImg.src || !mobileImg.classList.contains("torvo-photo-ready"))){
+      prepareMobilePhoto(mobileImg,desktopImg.src);
     }
     var sourceDots=[].slice.call(document.querySelectorAll("#heroPhotoDots .hero-photo-dot"));
     var targetDots=[].slice.call(document.querySelectorAll("#r28HeroDots span"));
@@ -8795,20 +8913,30 @@ function submitTargetRequest(){
       if(extra!==label) extra.remove();
     });
 
-    function fitSelectedLabel(){
-      var t=(label.textContent||'ALL').trim();
-      label.style.whiteSpace='nowrap';
-      label.style.lineHeight='1.02';
+    function fitSelectedLabel(text){
+      var t=String(text||label.textContent||'ALL').replace(/\s+/g,' ').trim();
+      var words=t.split(' ').filter(Boolean);
+      var useTwoLines=words.length>1;
+      label.classList.toggle('is-two-line',useTwoLines);
+      label.textContent='';
 
-      if(t.length<=5){
-        label.style.fontSize='12px';
-      }else if(t.length<=8){
-        label.style.fontSize='10px';
-      }else if(t.length<=11){
-        label.style.fontSize='8.5px';
-      }else{
-        label.style.fontSize='8px';
+      if(useTwoLines){
+        var cut=Math.ceil(words.length/2);
+        if(words.length===3 && words[1]==='/') cut=2;
+        var lines=[words.slice(0,cut).join(' '),words.slice(cut).join(' ')];
+        lines.forEach(function(line){
+          var span=document.createElement('span');
+          span.className='dropdown-label-line';
+          span.textContent=line;
+          label.appendChild(span);
+        });
+        label.style.fontSize='10.5px';
         label.style.whiteSpace='normal';
+        label.style.lineHeight='1.02';
+      }else{
+        label.textContent=t;
+        label.style.fontSize=t.length<=5?'14px':t.length<=8?'9.2px':'7.8px';
+        label.style.whiteSpace='nowrap';
         label.style.lineHeight='1';
       }
     }
@@ -8838,12 +8966,13 @@ function submitTargetRequest(){
 
     function sync(){
       var selected=menu.querySelector('button[data-value="'+select.value+'"]');
+      var clean='ALL';
       if(selected){
-        var clean=selected.childNodes[0] ? selected.childNodes[0].textContent.trim() : '';
+        clean=selected.childNodes[0] ? selected.childNodes[0].textContent.trim() : '';
         if(!clean) clean=(selected.textContent||'').replace('✓','').trim();
         label.textContent=clean;
       }
-      fitSelectedLabel();
+      fitSelectedLabel(clean);
       refreshChecks();
     }
 
@@ -8879,6 +9008,312 @@ function submitTargetRequest(){
   }else{
     initTorvoMobileSearchFix();
   }
+})();
+</script>
+
+<!-- ===== REVIEW 50 FINAL APPROVED HOMEPAGE UPDATES ===== -->
+<style id="torvo-review-50-final-approved-css">
+/* ALL/type selector removed from public search on mobile and desktop. */
+#publicSite .header .main-search > .mobile-search-type,
+#publicSite .header .main-search > .search-select,
+#publicSite .header .main-search > .mobile-media-menu{
+  display:none!important;
+}
+
+/* One clean search box: typing area + existing Camera + Mic + Search icons. */
+#publicSite .header .main-search{
+  position:relative!important;
+  display:flex!important;
+  align-items:center!important;
+  gap:4px!important;
+  grid-template-columns:none!important;
+  height:52px!important;
+  padding:0 8px 0 13px!important;
+  overflow:visible!important;
+  background:#fff!important;
+  border:2px solid #7f8995!important;
+  border-radius:15px!important;
+  box-shadow:none!important;
+}
+#publicSite .header .main-search > #publicSearch{
+  position:relative!important;
+  display:flex!important;
+  align-items:center!important;
+  flex:1 1 auto!important;
+  width:auto!important;
+  min-width:0!important;
+  height:100%!important;
+  padding:0!important;
+  border:0!important;
+  outline:0!important;
+  overflow:hidden!important;
+  white-space:nowrap!important;
+  font-size:15px!important;
+  line-height:1.2!important;
+  font-weight:400!important;
+  color:#26313d!important;
+  background:#fff!important;
+}
+#publicSite .header .main-search > #publicSearch:empty::before{
+  display:flex!important;
+  align-items:center!important;
+  height:100%!important;
+  color:#59636f!important;
+  opacity:1!important;
+}
+#publicSite .header .main-search > button.search-icon-btn.camera,
+#publicSite .header .main-search > button.search-icon-btn.mic,
+#publicSite .header .main-search > button.search-submit{
+  position:static!important;
+  display:grid!important;
+  visibility:visible!important;
+  opacity:1!important;
+  place-items:center!important;
+  flex:0 0 29px!important;
+  width:29px!important;
+  min-width:29px!important;
+  height:42px!important;
+  padding:0!important;
+  margin:0!important;
+  border:0!important;
+  border-left:0!important;
+  border-right:0!important;
+  border-radius:0!important;
+  background:transparent!important;
+  pointer-events:auto!important;
+}
+#publicSite .header .main-search > button.search-icon-btn img,
+#publicSite .header .main-search > button.search-submit img{
+  width:23px!important;
+  height:23px!important;
+  display:block!important;
+}
+
+/* Automatic suggestions: closed until the dealer starts typing. */
+#torvoPublicSearchSuggestions{
+  display:none;
+  position:absolute;
+  top:calc(100% + 6px);
+  left:0;
+  right:0;
+  z-index:900;
+  overflow:hidden;
+  background:#fff;
+  border:1px solid #c8d0d8;
+  border-radius:12px;
+  box-shadow:0 10px 24px rgba(15,23,42,.14);
+}
+#torvoPublicSearchSuggestions.open{display:block}
+.torvo-search-suggestion{
+  width:100%;
+  min-height:48px;
+  display:grid;
+  grid-template-columns:34px minmax(0,1fr) auto;
+  align-items:center;
+  gap:8px;
+  padding:8px 11px;
+  border:0;
+  border-bottom:1px solid #e4e8ec;
+  background:#fff;
+  text-align:left;
+}
+.torvo-search-suggestion:last-child{border-bottom:0}
+.torvo-search-suggestion:hover{background:#f7f9fb}
+.torvo-search-suggestion-icon{
+  width:30px;height:30px;border-radius:9px;display:grid;place-items:center;font-size:15px;
+}
+.torvo-search-suggestion-icon.machine{color:#126fc4;background:#eaf3ff}
+.torvo-search-suggestion-icon.spare-part{color:#d71920;background:#fff0f1}
+.torvo-search-suggestion-icon.accessory{color:#7a42bf;background:#f3ebff}
+.torvo-search-suggestion-name{min-width:0;color:#202733;font-size:12px;font-weight:750;overflow:hidden;text-overflow:ellipsis;white-space:nowrap}
+.torvo-search-suggestion-type{color:#66717e;font-size:9.5px;font-weight:800;white-space:nowrap}
+
+/* Final white delivery box: original truck stays; text remains on exactly two lines. */
+.hero-delivery-note b,.r28-delivery b{
+  white-space:nowrap!important;
+}
+.hero-delivery-note span,.r28-delivery span{
+  white-space:nowrap!important;
+}
+
+/* Chosen category identity: M1 blue, S5 red, A2 purple. */
+.torvo-machine-icon{color:#126fc4!important;background:#eaf3ff!important}
+.torvo-spare-icon{color:#d71920!important;background:#fff0f1!important}
+.torvo-accessory-icon{color:#7a42bf!important;background:#f3ebff!important}
+
+@media(max-width:760px){
+  #publicSite .header .main-search{
+    order:3!important;
+    width:100%!important;
+    height:52px!important;
+    gap:3px!important;
+    padding-right:7px!important;
+  }
+  #publicSite .header .main-search > #publicSearch{
+    font-size:14px!important;
+  }
+  #publicSite .header .main-search > button.search-icon-btn.camera,
+  #publicSite .header .main-search > button.search-icon-btn.mic,
+  #publicSite .header .main-search > button.search-submit{
+    flex-basis:28px!important;
+    width:28px!important;
+    min-width:28px!important;
+  }
+  #torvoPublicSearchSuggestions{top:calc(100% + 5px)!important}
+  .torvo-search-suggestion{grid-template-columns:32px minmax(0,1fr) auto;padding:8px 9px}
+  .torvo-search-suggestion-name{font-size:11px}
+  .torvo-search-suggestion-type{font-size:8.8px}
+}
+</style>
+
+<script id="torvo-review-50-final-approved-js">
+(function(){
+  'use strict';
+
+  /* Final delivery policy for later backend/database connection. */
+  window.TORVO_DELIVERY_POLICY={
+    sparePartsFreeFrom:10000,
+    sparePartsBelowLimit:'CHARGE',
+    machine:'CHARGE',
+    accessory:'CHARGE',
+    mixedOrderEligibility:'SPARE_PARTS_SUBTOTAL_ONLY'
+  };
+
+  function cleanType(value){
+    var t=String(value||'SPARE PART').trim().toUpperCase();
+    if(t==='MACHINE')return 'MACHINE';
+    if(t==='ACCESSORY')return 'ACCESSORY';
+    return 'SPARE PART';
+  }
+  function typeClass(type){return cleanType(type).toLowerCase().replace(/\s+/g,'-')}
+  function typeIcon(type){
+    type=cleanType(type);
+    if(type==='MACHINE')return '<i class="fa-solid fa-screwdriver-wrench"></i>';
+    if(type==='ACCESSORY')return '<i class="fa-solid fa-boxes-stacked"></i>';
+    return '<i class="fa-solid fa-microchip"></i>';
+  }
+  function productSearchText(p){
+    return [p.item,p.name,p.brand,p.spareBrand,p.system,p.model,p.machine,p.part,p.type,p.tag]
+      .join(' ').toLowerCase();
+  }
+
+  function ensureMachineDemoProduct(){
+    if(typeof demoProducts==='undefined'||!Array.isArray(demoProducts))return;
+    if(demoProducts.some(function(p){return cleanType(p.type)==='MACHINE'}))return;
+    demoProducts.unshift({
+      item:'M-000001',name:'Cordless Drill Machine',brand:'TORVO',spareBrand:'TORVO',
+      system:'Cordless Tools',model:'TD-21V',machine:'Cordless Drill',wattage:'21V',
+      type:'Machine',part:'Complete Machine',
+      icon:'<span style="color:#126fc4"><i class="fa-solid fa-screwdriver-wrench"></i></span>',
+      tag:'NEW',dealerRate:'₹ Preview Rate'
+    });
+  }
+
+  function setupQuickAccessMachine(){
+    var grid=document.querySelector('#quickAccessSection .app-grid');
+    if(!grid||grid.querySelector('[data-torvo-type="Machine"]'))return;
+    var button=document.createElement('button');
+    button.className='app-card';
+    button.setAttribute('data-torvo-type','Machine');
+    button.setAttribute('onclick',"setQuickFilter('Machine')");
+    button.innerHTML='<div class="app-icon torvo-machine-icon"><i class="fa-solid fa-screwdriver-wrench"></i></div><div class="app-name">Machines</div><div class="app-help">Browse machines</div>';
+    grid.insertBefore(button,grid.firstElementChild);
+
+    var spare=Array.prototype.find.call(grid.children,function(el){return /Spare Parts/i.test(el.textContent||'')});
+    var accessory=Array.prototype.find.call(grid.children,function(el){return /Accessories/i.test(el.textContent||'')});
+    if(spare){var icon=spare.querySelector('.app-icon');if(icon){icon.classList.add('torvo-spare-icon');icon.innerHTML='<i class="fa-solid fa-microchip"></i>'}}
+    if(accessory){var aicon=accessory.querySelector('.app-icon');if(aicon){aicon.classList.add('torvo-accessory-icon');aicon.innerHTML='<i class="fa-solid fa-boxes-stacked"></i>'}}
+  }
+
+  function setupFinderMachineType(){
+    var select=document.getElementById('finderType');
+    if(!select)return;
+    select.innerHTML='<option value="">All Types</option><option>Machine</option><option>Spare Part</option><option>Accessory</option>';
+  }
+
+  function updateDeliveryCopy(){
+    document.querySelectorAll('.hero-delivery-note,.r28-delivery').forEach(function(box){
+      var main=box.querySelector('b'),sub=box.querySelector('span');
+      if(main)main.textContent='₹10,000 + SPARE PARTS • FREE DELIVERY';
+      if(sub)sub.textContent='BELOW ₹10,000 SPARE PARTS: DELIVERY CHARGES APPLY';
+    });
+  }
+
+  function setupSearchSuggestions(){
+    var search=document.getElementById('publicSearch');
+    var main=search&&search.closest('.main-search');
+    if(!search||!main)return;
+
+    var oldType=document.getElementById('searchType');
+    if(oldType)oldType.value='all';
+
+    var list=document.getElementById('torvoPublicSearchSuggestions');
+    if(!list){
+      list=document.createElement('div');
+      list.id='torvoPublicSearchSuggestions';
+      list.setAttribute('role','listbox');
+      list.setAttribute('aria-label','Automatic product suggestions');
+      main.appendChild(list);
+    }
+
+    function query(){return String(search.value||search.textContent||'').trim().toLowerCase()}
+    function close(){list.classList.remove('open');list.innerHTML=''}
+    function choose(item){
+      search.value=item.name;
+      search.textContent=item.name;
+      close();
+      if(typeof window.filterPublicProducts==='function')window.filterPublicProducts();
+    }
+    function render(){
+      var q=query();
+      if(!q||typeof demoProducts==='undefined'){close();return}
+      var matches=demoProducts.filter(function(p){return productSearchText(p).indexOf(q)!==-1}).slice(0,6);
+      if(!matches.length){close();return}
+      list.innerHTML='';
+      matches.forEach(function(p){
+        var type=cleanType(p.type),button=document.createElement('button');
+        button.type='button';
+        button.className='torvo-search-suggestion';
+        button.setAttribute('role','option');
+        button.innerHTML='<span class="torvo-search-suggestion-icon '+typeClass(type)+'">'+typeIcon(type)+'</span><span class="torvo-search-suggestion-name">'+p.name+'</span><span class="torvo-search-suggestion-type">'+type+'</span>';
+        button.addEventListener('click',function(){choose(p)});
+        list.appendChild(button);
+      });
+      list.classList.add('open');
+    }
+    search.addEventListener('input',render);
+    search.addEventListener('focus',render);
+    document.addEventListener('pointerdown',function(e){if(!main.contains(e.target))close()});
+    search.addEventListener('keydown',function(e){if(e.key==='Escape')close()});
+  }
+
+  function applyMachineFilterSupport(){
+    window.setQuickFilter=function(filter){
+      var products=(typeof demoProducts!=='undefined'&&Array.isArray(demoProducts))?demoProducts:[];
+      var result=products;
+      if(filter==='Machine'||filter==='Spare Part'||filter==='Accessory')result=products.filter(function(p){return cleanType(p.type)===filter.toUpperCase()});
+      if(filter==='New'||filter==='Popular')result=products.filter(function(p){return String(p.tag||'').toUpperCase()===filter.toUpperCase()});
+      if(typeof window.renderPublicProducts==='function')window.renderPublicProducts(result);
+      var section=document.getElementById('productsSection');if(section)section.scrollIntoView({behavior:'smooth'});
+    };
+  }
+
+  function init(){
+    ensureMachineDemoProduct();
+    setupQuickAccessMachine();
+    setupFinderMachineType();
+    updateDeliveryCopy();
+    setupSearchSuggestions();
+    applyMachineFilterSupport();
+
+    var heading=document.querySelector('#productsSection .section-title');
+    if(heading)heading.textContent='Featured Products';
+    if(typeof window.renderPublicProducts==='function'&&typeof demoProducts!=='undefined')window.renderPublicProducts(demoProducts);
+    if(typeof window.renderDealerProducts==='function'&&typeof demoProducts!=='undefined')window.renderDealerProducts(demoProducts);
+  }
+
+  if(document.readyState==='loading')document.addEventListener('DOMContentLoaded',init);
+  else init();
 })();
 </script>
 
