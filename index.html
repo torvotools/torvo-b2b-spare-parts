@@ -4,7 +4,7 @@
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <meta name="theme-color" content="#d71920" />
-  <title>TORVO TOOLS | B2B POWER TOOL PORTAL - V67</title>
+  <title>TORVO TOOLS | B2B POWER TOOL PORTAL - V68</title>
 
   <style id="torvo-initial-render-guard">
     html.torvo-preload{background:#fff}
@@ -7840,7 +7840,7 @@ function submitTargetRequest(){
     const hero=document.getElementById("publicHeroImage");
     if(hero){
       if(heroUrl){hero.src=heroUrl;hero.style.display="block";}
-      else{hero.removeAttribute("src");hero.style.display="none";}
+      else{hero.style.display="block";}
     }
   }
   window.addEventListener("storage",applySharedBranding);
@@ -8501,7 +8501,7 @@ function submitTargetRequest(){
   var mobilePhotoToken=0;
   function prepareMobilePhoto(img,src){
     var token=++mobilePhotoToken;
-    img.classList.remove("torvo-photo-ready");
+    img.classList.add("torvo-photo-ready");
     if(img.src!==src) img.src=src;
     function reveal(){
       if(token===mobilePhotoToken && img.complete && img.naturalWidth){
@@ -9648,7 +9648,7 @@ function submitTargetRequest(){
     var source=document.getElementById('publicHeroImage');
     var mobile=document.getElementById('r28HeroImage');
     if(!source||!mobile||!source.src)return;
-    mobile.classList.remove('torvo-photo-ready');
+    mobile.classList.add('torvo-photo-ready');
     if(mobile.src!==source.src)mobile.src=source.src;
     function ready(){if(mobile.complete&&mobile.naturalWidth)mobile.classList.add('torvo-photo-ready')}
     if(typeof mobile.decode==='function')mobile.decode().then(ready).catch(ready);
@@ -10642,6 +10642,132 @@ function submitTargetRequest(){
     image.style.setProperty('filter','none','important');
     image.style.setProperty('transform','none','important');
   }
+})();
+</script>
+
+<!-- ===== REVIEW 68: RECTANGULAR DESKTOP PHOTO + ZERO REFRESH FLASH (LOCK 1122) ===== -->
+<style id="torvo-review-68-rectangular-photo-no-flash-lock-1122-css">
+/* Freeze the full hero during initial render on mobile and desktop. */
+#publicSite .hero-box,
+#publicSite .hero-visual,
+#publicSite #publicHeroImageSlot,
+#publicSite #publicHeroImage,
+#publicSite .torvo-mobile-hero-r28,
+#publicSite .torvo-mobile-hero-r28 .r28-photo,
+#publicSite .torvo-mobile-hero-r28 #r28HeroImage,
+#publicSite .hero-photo-dots,
+#publicSite #r28HeroDots{
+  animation:none!important;
+  transition:none!important;
+  filter:none!important;
+  box-shadow:none!important;
+  will-change:auto!important;
+}
+
+@media(min-width:761px){
+  /* Keep the approved solid-black outer hero. */
+  #publicSite .hero-box,
+  #publicSite .hero-visual{
+    background:#111318!important;
+    background-image:none!important;
+  }
+
+  /* Wider rectangular grey photo box, extended towards the right. */
+  #publicSite .hero-visual{
+    width:100%!important;
+    max-width:520px!important;
+    overflow:visible!important;
+  }
+  #publicSite #publicHeroImageSlot.hero-machine{
+    width:min(445px,100%)!important;
+    max-width:445px!important;
+    height:315px!important;
+    aspect-ratio:auto!important;
+    margin:0 0 0 auto!important;
+    padding:0!important;
+    overflow:hidden!important;
+    background:#202329!important;
+    background-image:none!important;
+    border:0!important;
+    outline:0!important;
+    border-radius:18px!important;
+  }
+
+  /* Fill the rectangular box edge-to-edge, removing both dark side bands. */
+  #publicSite #publicHeroImageSlot>.hero-uploaded-image,
+  #publicSite #publicHeroImageSlot>#publicHeroImage,
+  #publicSite #publicHeroImageSlot>img{
+    position:absolute!important;
+    inset:0!important;
+    display:block!important;
+    visibility:visible!important;
+    opacity:1!important;
+    width:100%!important;
+    height:100%!important;
+    object-fit:cover!important;
+    object-position:center center!important;
+    background:#202329!important;
+    border:0!important;
+    outline:0!important;
+    transform:none!important;
+  }
+
+  /* The selected three-line description: only a slight weight increase. */
+  #publicSite .hero-content p#torvoHeroDescription{
+    font-weight:650!important;
+    line-height:1.55!important;
+  }
+
+  /* Dots stay outside the photo, centred below it on the black area. */
+  #publicSite .hero-photo-dots{
+    position:static!important;
+    margin:8px 0 0 auto!important;
+    width:min(445px,100%)!important;
+    text-align:center!important;
+    transform:none!important;
+  }
+}
+
+@media(max-width:760px){
+  /* Never hide and re-reveal the mobile image during refresh. */
+  #publicSite .torvo-mobile-hero-r28,
+  #publicSite .torvo-mobile-hero-r28 .r28-photo{
+    opacity:1!important;
+    visibility:visible!important;
+  }
+  #publicSite .torvo-mobile-hero-r28 #r28HeroImage,
+  #publicSite .torvo-mobile-hero-r28 #r28HeroImage.torvo-photo-ready{
+    display:block!important;
+    opacity:1!important;
+    visibility:visible!important;
+    animation:none!important;
+    transition:none!important;
+    transform:none!important;
+  }
+}
+</style>
+
+<script id="torvo-review-68-stable-first-paint-lock-1122-js">
+(function(){
+  'use strict';
+  function keepHeroStable(){
+    var desktop=document.getElementById('publicHeroImage');
+    var mobile=document.getElementById('r28HeroImage');
+    [desktop,mobile].forEach(function(img){
+      if(!img)return;
+      img.classList.add('torvo-photo-ready');
+      img.style.setProperty('display','block','important');
+      img.style.setProperty('visibility','visible','important');
+      img.style.setProperty('opacity','1','important');
+      img.style.setProperty('animation','none','important');
+      img.style.setProperty('transition','none','important');
+      img.style.setProperty('filter','none','important');
+      img.style.setProperty('transform','none','important');
+    });
+  }
+  keepHeroStable();
+  if(document.readyState==='loading')document.addEventListener('DOMContentLoaded',keepHeroStable);
+  window.addEventListener('pageshow',keepHeroStable);
 })();
 </script>
 
