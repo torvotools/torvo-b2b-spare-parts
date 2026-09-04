@@ -4,7 +4,7 @@
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <meta name="theme-color" content="#d71920" />
-  <title>TORVO TOOLS | B2B POWER TOOL PORTAL - V70</title>
+  <title>TORVO TOOLS | B2B POWER TOOL PORTAL - V71</title>
 
   <style id="torvo-initial-render-guard">
     html.torvo-preload{background:#fff}
@@ -10934,6 +10934,131 @@ function submitTargetRequest(){
   filter:none!important;
   box-shadow:none!important;
   backface-visibility:hidden!important;
+}
+</style>
+
+<!-- ===== REVIEW 71: SINGLE PHOTO BOX + FURTHER RIGHT + LAYOUT-STABILITY LOCK 1122 ===== -->
+<style id="torvo-review-71-single-box-layout-stability-lock-1122-css">
+html{
+  overflow-y:scroll!important;
+  scrollbar-gutter:stable!important;
+  overflow-anchor:none!important;
+}
+#publicSite{
+  overflow-anchor:none!important;
+}
+
+@media(min-width:761px){
+  /* Reserve the final hero geometry immediately, preventing refresh reflow. */
+  #publicSite .hero-box{
+    min-height:400px!important;
+    height:400px!important;
+    background:#111318!important;
+    background-image:none!important;
+    contain:layout paint!important;
+  }
+  #publicSite .hero-visual{
+    width:calc(100% + 18px)!important;
+    max-width:585px!important;
+    height:347px!important;
+    min-height:347px!important;
+    margin-right:-18px!important;
+    padding:0!important;
+    align-items:flex-end!important;
+    justify-content:center!important;
+    overflow:visible!important;
+    background:#111318!important;
+    background-image:none!important;
+  }
+
+  /* The only visible photo box: long and placed farther to the right. */
+  #publicSite #publicHeroImageSlot.hero-machine{
+    position:relative!important;
+    flex:0 0 315px!important;
+    width:min(550px,100%)!important;
+    max-width:550px!important;
+    height:315px!important;
+    min-height:315px!important;
+    aspect-ratio:auto!important;
+    margin:0!important;
+    padding:0!important;
+    overflow:hidden!important;
+    background:rgb(33,35,39)!important;
+    background-image:none!important;
+    border:0!important;
+    outline:0!important;
+    box-shadow:none!important;
+    border-radius:18px!important;
+    contain:layout paint!important;
+  }
+
+  /* Blend the photo's own square background into the single wide box.
+     Armature remains fully contained; its rectangular image edge disappears. */
+  #publicSite #publicHeroImageSlot>.hero-uploaded-image,
+  #publicSite #publicHeroImageSlot>#publicHeroImage,
+  #publicSite #publicHeroImageSlot>img{
+    position:absolute!important;
+    top:0!important;
+    left:50%!important;
+    right:auto!important;
+    bottom:auto!important;
+    display:block!important;
+    visibility:visible!important;
+    opacity:1!important;
+    width:338px!important;
+    height:315px!important;
+    max-width:none!important;
+    max-height:none!important;
+    object-fit:contain!important;
+    object-position:center center!important;
+    margin:0!important;
+    padding:0!important;
+    background:transparent!important;
+    border:0!important;
+    outline:0!important;
+    border-radius:0!important;
+    box-shadow:none!important;
+    filter:none!important;
+    animation:none!important;
+    transition:none!important;
+    transform:translateX(-50%)!important;
+    -webkit-mask-image:radial-gradient(ellipse 64% 76% at center,#000 76%,transparent 100%)!important;
+    mask-image:radial-gradient(ellipse 64% 76% at center,#000 76%,transparent 100%)!important;
+  }
+
+  #publicSite .hero-photo-dots{
+    position:static!important;
+    flex:0 0 24px!important;
+    align-self:flex-end!important;
+    width:min(550px,100%)!important;
+    height:24px!important;
+    min-height:24px!important;
+    margin:8px 0 0!important;
+    text-align:center!important;
+  }
+}
+
+@media(max-width:760px){
+  /* Reserve the approved mobile hero/photo sizes before image decoding. */
+  #publicSite .torvo-mobile-hero-r28{
+    min-height:0!important;
+    contain:layout paint!important;
+  }
+  #publicSite .torvo-mobile-hero-r28 .r28-photo{
+    aspect-ratio:1.03!important;
+    height:auto!important;
+    min-height:0!important;
+    contain:layout paint!important;
+  }
+  #publicSite .torvo-mobile-hero-r28 #r28HeroImage{
+    width:100%!important;
+    height:100%!important;
+    opacity:1!important;
+    visibility:visible!important;
+    animation:none!important;
+    transition:none!important;
+    transform:none!important;
+  }
 }
 </style>
 
