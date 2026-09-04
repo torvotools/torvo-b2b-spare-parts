@@ -4,7 +4,7 @@
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <meta name="theme-color" content="#d71920" />
-  <title>TORVO TOOLS | B2B POWER TOOL PORTAL - V64</title>
+  <title>TORVO TOOLS | B2B POWER TOOL PORTAL - V65</title>
 
   <style id="torvo-initial-render-guard">
     html.torvo-preload{background:#fff}
@@ -10297,6 +10297,111 @@ function submitTargetRequest(){
   /* Maintain a clearly separated short delivery strip below the two buttons. */
   #publicSite .hero-box>.hero-delivery-note{
     margin-top:16px!important;
+  }
+}
+</style>
+
+<!-- ===== REVIEW 65: UNIFIED DESKTOP PHOTO AREA — FINAL (LOCK 1122) ===== -->
+<style id="torvo-review-65-unified-desktop-photo-lock-1122-css">
+@media(min-width:761px){
+  #publicSite .hero-box{
+    min-height:400px!important;
+    grid-template-columns:minmax(0,.80fr) minmax(430px,1.20fr)!important;
+    grid-template-areas:
+      "content visual"
+      "actions visual"
+      "delivery visual"!important;
+    column-gap:26px!important;
+    padding:17px 29px 16px!important;
+  }
+
+  /* One unified right-side panel. The hero gradient can no longer show as a side band. */
+  #publicSite .hero-visual{
+    grid-area:visual!important;
+    width:100%!important;
+    max-width:550px!important;
+    height:345px!important;
+    min-height:345px!important;
+    padding:8px 18px 7px!important;
+    margin:0!important;
+    box-sizing:border-box!important;
+    justify-self:center!important;
+    align-self:center!important;
+    display:flex!important;
+    flex-direction:column!important;
+    align-items:center!important;
+    justify-content:center!important;
+    overflow:hidden!important;
+    background:#202329!important;
+    border:0!important;
+    outline:0!important;
+    box-shadow:none!important;
+    border-radius:18px!important;
+    transform:none!important;
+  }
+  #publicSite .hero-visual::before,
+  #publicSite .hero-visual::after{
+    display:none!important;
+    content:none!important;
+  }
+
+  /* Keep the original item complete; crop only its baked outer frame/white edge. */
+  #publicSite #publicHeroImageSlot.hero-machine{
+    position:relative!important;
+    flex:0 0 auto!important;
+    width:350px!important;
+    max-width:calc(100% - 12px)!important;
+    height:auto!important;
+    min-height:0!important;
+    aspect-ratio:593 / 540!important;
+    margin:0 auto!important;
+    padding:0!important;
+    overflow:hidden!important;
+    background:#202329!important;
+    border:0!important;
+    outline:0!important;
+    box-shadow:none!important;
+    border-radius:15px!important;
+  }
+  #publicSite #publicHeroImageSlot.hero-machine::before,
+  #publicSite #publicHeroImageSlot.hero-machine::after{
+    display:none!important;
+    content:none!important;
+  }
+  #publicSite #publicHeroImageSlot>.hero-uploaded-image,
+  #publicSite #publicHeroImageSlot>#publicHeroImage{
+    position:absolute!important;
+    top:-5%!important;
+    left:-5%!important;
+    display:block!important;
+    width:110%!important;
+    height:110%!important;
+    max-width:none!important;
+    max-height:none!important;
+    object-fit:cover!important;
+    object-position:center center!important;
+    margin:0!important;
+    padding:0!important;
+    background:#202329!important;
+    transform:none!important;
+    clip-path:none!important;
+    border:0!important;
+    outline:0!important;
+    box-shadow:none!important;
+    filter:none!important;
+  }
+  #publicSite .hero-photo-dots{
+    position:static!important;
+    flex:0 0 auto!important;
+    margin:7px 0 0!important;
+    transform:none!important;
+  }
+
+  /* Keep delivery under the left buttons, separated and compact. */
+  #publicSite .hero-box>.hero-delivery-note{
+    grid-area:delivery!important;
+    width:100%!important;
+    margin:16px 0 0!important;
   }
 }
 </style>
