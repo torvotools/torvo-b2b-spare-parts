@@ -4,7 +4,7 @@
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <meta name="theme-color" content="#d71920" />
-  <title>TORVO TOOLS | B2B POWER TOOL PORTAL - V63</title>
+  <title>TORVO TOOLS | B2B POWER TOOL PORTAL - V64</title>
 
   <style id="torvo-initial-render-guard">
     html.torvo-preload{background:#fff}
@@ -10254,6 +10254,50 @@ function submitTargetRequest(){
   }
   #publicSite .hero-box>.hero-delivery-note b>.delivery-red{color:#d71920!important}
   #publicSite .hero-box>.hero-delivery-note b>.delivery-black{color:#111318!important}
+}
+</style>
+
+<!-- ===== REVIEW 64: REMOVE BAKED PHOTO FRAME ON DESKTOP (LOCK 1122) ===== -->
+<style id="torvo-review-64-clean-desktop-photo-lock-1122-css">
+@media(min-width:761px){
+  /* Keep the approved V63 layout. Crop only the unwanted border baked into the source image. */
+  #publicSite #publicHeroImageSlot.hero-machine{
+    position:relative!important;
+    width:100%!important;
+    max-width:405px!important;
+    aspect-ratio:593 / 540!important;
+    overflow:hidden!important;
+    background:#202329!important;
+    border:0!important;
+    outline:0!important;
+    box-shadow:none!important;
+  }
+  #publicSite #publicHeroImageSlot>.hero-uploaded-image,
+  #publicSite #publicHeroImageSlot>#publicHeroImage{
+    position:absolute!important;
+    top:-5%!important;
+    left:-5%!important;
+    width:110%!important;
+    height:110%!important;
+    max-width:none!important;
+    max-height:none!important;
+    object-fit:cover!important;
+    object-position:center center!important;
+    margin:0!important;
+    padding:0!important;
+    background:#202329!important;
+    transform:none!important;
+    clip-path:none!important;
+    border:0!important;
+    outline:0!important;
+    box-shadow:none!important;
+    filter:none!important;
+  }
+
+  /* Maintain a clearly separated short delivery strip below the two buttons. */
+  #publicSite .hero-box>.hero-delivery-note{
+    margin-top:16px!important;
+  }
 }
 </style>
 
