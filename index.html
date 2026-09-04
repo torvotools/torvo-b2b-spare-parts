@@ -4,7 +4,7 @@
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <meta name="theme-color" content="#d71920" />
-  <title>TORVO TOOLS | B2B POWER TOOL PORTAL - V65</title>
+  <title>TORVO TOOLS | B2B POWER TOOL PORTAL - V66</title>
 
   <style id="torvo-initial-render-guard">
     html.torvo-preload{background:#fff}
@@ -10405,6 +10405,86 @@ function submitTargetRequest(){
   }
 }
 </style>
+
+<!-- ===== REVIEW 66: DESKTOP FULL-PANEL PHOTO + DESCRIPTION SPACING (LOCK 1122) ===== -->
+<style id="torvo-review-66-desktop-full-panel-photo-lock-1122-css">
+@media(min-width:761px){
+  /* Readable desktop description; mobile line spacing remains untouched. */
+  #publicSite .hero-content p#torvoHeroDescription{
+    line-height:1.55!important;
+  }
+
+  /* The photo itself fills one panel: no smaller square box inside it. */
+  #publicSite .hero-visual{
+    position:relative!important;
+    width:100%!important;
+    max-width:550px!important;
+    height:345px!important;
+    min-height:345px!important;
+    padding:0!important;
+    overflow:hidden!important;
+    background-color:#202329!important;
+    background-repeat:no-repeat!important;
+    background-size:auto 125%!important;
+    background-position:51% center!important;
+    border:0!important;
+    outline:0!important;
+    box-shadow:none!important;
+    border-radius:18px!important;
+  }
+  #publicSite .hero-visual::before,
+  #publicSite .hero-visual::after{
+    display:none!important;
+    content:none!important;
+  }
+  #publicSite #publicHeroImageSlot.hero-machine{
+    position:absolute!important;
+    width:1px!important;
+    height:1px!important;
+    min-width:0!important;
+    min-height:0!important;
+    margin:0!important;
+    padding:0!important;
+    opacity:0!important;
+    pointer-events:none!important;
+    overflow:hidden!important;
+    border:0!important;
+    box-shadow:none!important;
+  }
+  #publicSite .hero-photo-dots{
+    position:absolute!important;
+    left:50%!important;
+    bottom:9px!important;
+    margin:0!important;
+    transform:translateX(-50%)!important;
+    z-index:3!important;
+  }
+}
+</style>
+
+<script id="torvo-review-66-desktop-photo-sync-lock-1122-js">
+(function(){
+  'use strict';
+  var image=document.getElementById('publicHeroImage');
+  var panel=document.querySelector('#publicSite .hero-visual');
+  if(!image||!panel)return;
+
+  function syncDesktopHeroPhoto(){
+    if(window.matchMedia('(min-width:761px)').matches){
+      var source=image.currentSrc||image.src||'';
+      panel.style.backgroundImage=source?'url("'+source.replace(/"/g,'%22')+'")':'none';
+    }else{
+      panel.style.removeProperty('background-image');
+    }
+  }
+
+  syncDesktopHeroPhoto();
+  window.addEventListener('load',syncDesktopHeroPhoto,{once:true});
+  window.addEventListener('resize',syncDesktopHeroPhoto);
+  image.addEventListener('load',syncDesktopHeroPhoto);
+  new MutationObserver(syncDesktopHeroPhoto).observe(image,{attributes:true,attributeFilter:['src']});
+})();
+</script>
 
 </body>
 </html>
