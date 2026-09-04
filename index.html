@@ -4,7 +4,7 @@
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <meta name="theme-color" content="#d71920" />
-  <title>TORVO TOOLS | B2B POWER TOOL PORTAL - V61</title>
+  <title>TORVO TOOLS | B2B POWER TOOL PORTAL - V62</title>
 
   <style id="torvo-initial-render-guard">
     html.torvo-preload{background:#fff}
@@ -10038,6 +10038,83 @@ function submitTargetRequest(){
   }
   #publicSite .hero-box>.hero-delivery-note b>.delivery-red{color:#d71920!important}
   #publicSite .hero-box>.hero-delivery-note b>.delivery-black{color:#111318!important}
+}
+</style>
+
+<!-- ===== REVIEW 62: SLIM DESKTOP HERO + CLEAN THREE-PHOTO FRAME (LOCK 1122) ===== -->
+<style id="torvo-review-62-slim-desktop-hero-lock-1122-css">
+@media(min-width:761px){
+  /* Desktop only: reduce total black-card height without disturbing mobile. */
+  #publicSite section.hero{padding:10px 0 8px!important}
+  #publicSite .hero-box{
+    min-height:354px!important;
+    grid-template-columns:minmax(0,.86fr) minmax(390px,1.14fr)!important;
+    grid-template-rows:minmax(0,1fr) auto auto!important;
+    gap:5px 20px!important;
+    padding:15px 27px 11px!important;
+  }
+  #publicSite .hero-label{top:13px!important;left:27px!important}
+  #publicSite .hero-content{padding-top:34px!important}
+  #publicSite .hero-title-desktop{font-size:38px!important;margin-bottom:9px!important}
+  #publicSite .hero-content p{font-size:13px!important;line-height:1.36!important}
+  #publicSite .hero-actions{gap:10px!important}
+  #publicSite .hero-actions button{height:42px!important;font-size:12.5px!important}
+
+  /* Smaller balanced grey photo frame. No black edge on any side. */
+  #publicSite .hero-visual{
+    width:100%!important;
+    max-width:510px!important;
+    justify-self:center!important;
+    transform:translateX(-12px)!important;
+  }
+  #publicSite #publicHeroImageSlot.hero-machine{
+    width:100%!important;
+    max-width:510px!important;
+    height:245px!important;
+    min-height:0!important;
+    aspect-ratio:auto!important;
+    padding:10px!important;
+    box-sizing:border-box!important;
+    overflow:hidden!important;
+    background:#2a2d33!important;
+    border:none!important;
+    outline:none!important;
+    box-shadow:none!important;
+    border-radius:18px!important;
+  }
+  #publicSite #publicHeroImageSlot>.hero-uploaded-image,
+  #publicSite #publicHeroImageSlot img{
+    display:block!important;
+    width:100%!important;
+    height:100%!important;
+    max-width:100%!important;
+    max-height:100%!important;
+    object-fit:contain!important;
+    object-position:center center!important;
+    margin:0 auto!important;
+    padding:0!important;
+    transform:none!important;
+    border:0!important;
+    outline:0!important;
+    box-shadow:none!important;
+    filter:none!important;
+  }
+  #publicSite .hero-photo-dots{margin:6px 0 0!important}
+
+  /* Slim white delivery strip; keep the approved red/black/red wording. */
+  #publicSite .hero-box>.hero-delivery-note{
+    min-height:38px!important;
+    height:38px!important;
+    padding:4px 18px!important;
+    gap:10px!important;
+    border-radius:14px!important;
+  }
+  #publicSite .hero-box>.hero-delivery-note>i{font-size:23px!important}
+  #publicSite .hero-box>.hero-delivery-note b{
+    font-size:14px!important;
+    font-weight:750!important;
+    line-height:1!important;
+  }
 }
 </style>
 
