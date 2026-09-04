@@ -4,7 +4,7 @@
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <meta name="theme-color" content="#d71920" />
-  <title>TORVO TOOLS | B2B POWER TOOL PORTAL - V66</title>
+  <title>TORVO TOOLS | B2B POWER TOOL PORTAL - V67</title>
 
   <style id="torvo-initial-render-guard">
     html.torvo-preload{background:#fff}
@@ -10483,6 +10483,165 @@ function submitTargetRequest(){
   window.addEventListener('resize',syncDesktopHeroPhoto);
   image.addEventListener('load',syncDesktopHeroPhoto);
   new MutationObserver(syncDesktopHeroPhoto).observe(image,{attributes:true,attributeFilter:['src']});
+})();
+</script>
+
+<!-- ===== REVIEW 67: MOBILE-MATCHED SOLID HERO + STABLE PHOTO (LOCK 1122) ===== -->
+<style id="torvo-review-67-mobile-matched-photo-lock-1122-css">
+/* One stable image layer on every screen: no refresh flash, moving shade or fade. */
+#publicSite #publicHeroImageSlot,
+#publicSite #publicHeroImage,
+#publicSite #publicHeroImageSlot::before,
+#publicSite #publicHeroImageSlot::after{
+  animation:none!important;
+  transition:none!important;
+  filter:none!important;
+  box-shadow:none!important;
+  will-change:auto!important;
+}
+
+@media(min-width:761px){
+  /* The whole hero is solid black, matching the approved mobile structure. */
+  #publicSite .hero-box{
+    min-height:400px!important;
+    background:#111318!important;
+    background-image:none!important;
+  }
+  #publicSite .hero-box::before,
+  #publicSite .hero-box::after{
+    display:none!important;
+    content:none!important;
+  }
+
+  /* This is only the black-area holder; the separate grey photo box sits inside. */
+  #publicSite .hero-visual{
+    grid-area:visual!important;
+    position:relative!important;
+    width:100%!important;
+    max-width:500px!important;
+    height:auto!important;
+    min-height:0!important;
+    margin:0!important;
+    padding:0!important;
+    align-self:center!important;
+    justify-self:center!important;
+    display:flex!important;
+    flex-direction:column!important;
+    align-items:center!important;
+    justify-content:center!important;
+    overflow:visible!important;
+    background:#111318!important;
+    background-image:none!important;
+    border:0!important;
+    outline:0!important;
+    box-shadow:none!important;
+    border-radius:0!important;
+    transform:none!important;
+  }
+  #publicSite .hero-visual::before,
+  #publicSite .hero-visual::after{
+    display:none!important;
+    content:none!important;
+  }
+
+  /* Separate mobile-style dark-grey box containing the actual product photo. */
+  #publicSite #publicHeroImageSlot.hero-machine{
+    position:relative!important;
+    inset:auto!important;
+    flex:0 0 auto!important;
+    display:block!important;
+    visibility:visible!important;
+    opacity:1!important;
+    pointer-events:auto!important;
+    width:min(370px,100%)!important;
+    max-width:370px!important;
+    height:auto!important;
+    min-width:0!important;
+    min-height:0!important;
+    aspect-ratio:1.03!important;
+    margin:0 auto!important;
+    padding:0!important;
+    overflow:hidden!important;
+    background:#202329!important;
+    background-image:none!important;
+    border:0!important;
+    outline:0!important;
+    border-radius:18px!important;
+    transform:none!important;
+  }
+  #publicSite #publicHeroImageSlot.hero-machine::before,
+  #publicSite #publicHeroImageSlot.hero-machine::after{
+    display:none!important;
+    content:none!important;
+  }
+  #publicSite #publicHeroImageSlot>.hero-uploaded-image,
+  #publicSite #publicHeroImageSlot>#publicHeroImage,
+  #publicSite #publicHeroImageSlot>img{
+    position:static!important;
+    inset:auto!important;
+    display:block!important;
+    visibility:visible!important;
+    opacity:1!important;
+    width:100%!important;
+    height:100%!important;
+    max-width:none!important;
+    max-height:none!important;
+    margin:0!important;
+    padding:0!important;
+    object-fit:cover!important;
+    object-position:center center!important;
+    background:#202329!important;
+    border:0!important;
+    outline:0!important;
+    border-radius:0!important;
+    transform:none!important;
+    clip-path:none!important;
+  }
+
+  /* Dots remain outside the photo box, on the solid black strip below it. */
+  #publicSite .hero-photo-dots{
+    position:static!important;
+    inset:auto!important;
+    flex:0 0 auto!important;
+    margin:8px 0 0!important;
+    transform:none!important;
+    z-index:3!important;
+  }
+}
+
+@media(max-width:760px){
+  /* Preserve the approved mobile layout; only remove refresh-time effects. */
+  #publicSite #publicHeroImageSlot,
+  #publicSite #publicHeroImage{
+    opacity:1!important;
+    visibility:visible!important;
+    animation:none!important;
+    transition:none!important;
+    filter:none!important;
+    box-shadow:none!important;
+    transform:none!important;
+  }
+}
+</style>
+
+<script id="torvo-review-67-disable-old-background-sync-lock-1122-js">
+(function(){
+  'use strict';
+  var panel=document.querySelector('#publicSite .hero-visual');
+  var image=document.getElementById('publicHeroImage');
+  if(panel){
+    panel.style.removeProperty('background-image');
+    panel.style.setProperty('background-image','none','important');
+  }
+  if(image){
+    image.style.setProperty('display','block','important');
+    image.style.setProperty('visibility','visible','important');
+    image.style.setProperty('opacity','1','important');
+    image.style.setProperty('animation','none','important');
+    image.style.setProperty('transition','none','important');
+    image.style.setProperty('filter','none','important');
+    image.style.setProperty('transform','none','important');
+  }
 })();
 </script>
 
