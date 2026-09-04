@@ -1836,12 +1836,12 @@ function printReport(type){viewReport(type);var w=window.open("","_blank");w.doc
 
 
 
-function masterArray(kind){
+function legacyMasterArray(kind){
  if(kind==="PRODUCT")return DB.productNames;
  if(kind==="MODEL")return DB.modelNumbers;
  return []
 }
-function masterUsage(kind,val){
+function legacyMasterUsage(kind,val){
  val=N(val);var hits=[];
  DB.items.forEach(function(x,i){
   if(kind==="PRODUCT"&&N(x.name)===val)hits.push({section:"items",index:i,label:"ITEM "+x.no+" — "+x.name});
@@ -1860,12 +1860,12 @@ function jumpToUsage(hit){
  openSection(hit.section,btn||null);
  setTimeout(function(){window.scrollTo({top:0,behavior:"smooth"});toast("USED RECORD OPENED — MODIFY HERE FIRST","alert")},100)
 }
-function addMaster(kind,inputId){
+function legacyAddMaster(kind,inputId){
  var v=U(E(inputId).value.trim());if(!v)return toast("ENTER VALUE FIRST","error");
  var a=masterArray(kind);if(a.some(function(x){return N(x)===N(v)}))return toast("ALREADY EXISTS","error");
  a.push(v);saveDB();syncMasterDropdowns();E(inputId).value=v;toast(v+" ADDED","success");torvoBeep("success")
 }
-function editMaster(kind,inputId){
+function legacyEditMaster(kind,inputId){
  var old=U(E(inputId).value.trim());if(!old)return toast("SELECT VALUE FIRST","error");
  var a=masterArray(kind),idx=a.findIndex(function(x){return N(x)===N(old)});
  if(idx<0)return toast("SELECT A SAVED MASTER VALUE","error");
@@ -1878,7 +1878,7 @@ function editMaster(kind,inputId){
  if(a.some(function(x,j){return j!==idx&&N(x)===N(nv)}))return toast("DUPLICATE VALUE NOT ALLOWED","error");
  a[idx]=nv;saveDB();syncMasterDropdowns();E(inputId).value=nv;toast("MASTER MODIFIED","success")
 }
-function deleteMaster(kind,inputId){
+function legacyDeleteMaster(kind,inputId){
  var v=U(E(inputId).value.trim());if(!v)return toast("SELECT VALUE FIRST","error");
  var a=masterArray(kind),idx=a.findIndex(function(x){return N(x)===N(v)});
  if(idx<0)return toast("SELECT A SAVED MASTER VALUE","error");
