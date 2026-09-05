@@ -1,0 +1,33 @@
+name: TORVO Brand Master Fix
+on:
+  push:
+    paths:
+      - '.github/workflows/torvo-brand-master-fix.yml'
+permissions:
+  contents: write
+jobs:
+  patch:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - name: Patch admin Brand master
+        run: |
+          python3 - <<'PY'
+          from pathlib import Path
+          p=Path('admin.html')
+          s=p.read_text(encoding='utf-8')
+          old='function addMaster(type,inputId){var input=E(inputId),v=U(input.value.trim());if(!v)v=U((prompt("NEW "+type+":")||"").trim());if(!v)return;if(masterArray(type).some(function(x){return N(x)===N(v)}))return toast("DATABASE MATCH: VALUE ALREADY EXISTS","error");if(type==="brand")DB.brands.push(v);if(type==="category")DB.categories.push(v);if(type==="machineType")DB.machineTypes.push(v);if(type==="workType")DB.workTypes.push(v);input.value=v;logActivity("MASTER ADDED: "+v);saveDB();toast("VALUE ADDED","success")}'
+          new='function addMaster(type,inputId){var input=E(inputId),v=U(input.value.trim());if(!v&&type==="brand"){v=U((prompt("ADD BRAND NAME")||"").trim())}else if(!v){v=U((prompt("NEW "+type+":")||"").trim())}if(!v)return;if(masterArray(type).some(function(x){return N(x)===N(v)}))return toast("DATABASE MATCH: VALUE ALREADY EXISTS","error");if(type==="brand")DB.brands.push(v);if(type==="category")DB.categories.push(v);if(type==="machineType")DB.machineTypes.push(v);if(type==="workType")DB.workTypes.push(v);input.value=v;logActivity("MASTER ADDED: "+v);saveDB();toast(type==="brand"?"BRAND ADDED":"VALUE ADDED","success")}'
+          if old not in s:
+              raise SystemExit('Expected addMaster source not found; admin.html left unchanged')
+          s=s.replace(old,new,1)
+          p.write_text(s,encoding='utf-8')
+          PY
+      - name: Commit approved change
+        run: |
+          git config user.name 'TORVO Admin Bot'
+          git config user.email 'actions@users.noreply.github.com'
+          git add admin.html
+          git diff --cached --quiet && exit 0
+          git commit -m 'Fix Brand Add popup in admin'
+          git push
