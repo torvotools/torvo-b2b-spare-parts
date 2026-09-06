@@ -1,6 +1,8 @@
-name: TORVO Admin Master Style
+name: TORVO Admin UI Rebuild V20
 on:
   push:
+    branches:
+      - admin-ui-rebuild
     paths:
       - '.github/workflows/torvo-master-style.yml'
 permissions:
@@ -10,13 +12,15 @@ jobs:
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v4
-      - name: Apply full reference Admin UI V18
+        with:
+          ref: admin-ui-rebuild
+      - name: Apply safe full Admin reference V20
         run: python3 .github/torvo_master_style_patch.py
-      - name: Commit full reference Admin UI V18
+      - name: Commit safe full Admin reference V20
         run: |
           git config user.name "TORVO Admin Bot"
           git config user.email "actions@users.noreply.github.com"
           git add admin.html
           git diff --cached --quiet && exit 0
-          git commit -m "Apply full reference Admin UI V18"
-          git push
+          git commit -m "Apply safe full Admin reference V20"
+          git push origin HEAD:admin-ui-rebuild
