@@ -10,13 +10,13 @@ jobs:
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v4
-      - name: Apply complete Add Item master controls fix
+      - name: Apply master dropdown cleanup
         run: python3 .github/torvo_master_style_patch.py
-      - name: Commit complete master controls fix
+      - name: Commit master dropdown cleanup
         run: |
           git config user.name "TORVO Admin Bot"
           git config user.email "actions@users.noreply.github.com"
           git add admin.html
           git diff --cached --quiet && exit 0
-          git commit -m "Complete Add Item dropdown popup and delete controls"
+          git commit -m "Fix duplicate dropdowns and delete overlay"
           git push
