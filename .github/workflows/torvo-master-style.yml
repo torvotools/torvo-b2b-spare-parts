@@ -10,13 +10,13 @@ jobs:
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v4
-      - name: Apply TORVO full component theme V13
+      - name: Apply fixed software workspace V14
         run: python3 .github/torvo_master_style_patch.py
-      - name: Commit TORVO full component theme V13
+      - name: Commit fixed software workspace V14
         run: |
           git config user.name "TORVO Admin Bot"
           git config user.email "actions@users.noreply.github.com"
           git add admin.html
           git diff --cached --quiet && exit 0
-          git commit -m "Apply TORVO full component theme V13"
+          git commit -m "Apply fixed software workspace V14"
           git push
