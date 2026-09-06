@@ -1,16 +1,12 @@
 from pathlib import Path
 p=Path('admin.html')
 s=p.read_text(encoding='utf-8')
-marker='/* TORVO ADD ITEM SAFE MASTER V4 */'
+marker='/* TORVO ADD BUTTON RED V5 */'
 if marker not in s:
     css='''
-<style id="torvo-add-item-safe-master-v4">
-/* TORVO ADD ITEM SAFE MASTER V4 */
-#spareFormHost .masterRow,#accessoryFormHost .masterRow{grid-template-columns:minmax(0,1fr) 34px!important}
-#spareFormHost .masterRow>.mini.edit,#spareFormHost .masterRow>.mini.del,#accessoryFormHost .masterRow>.mini.edit,#accessoryFormHost .masterRow>.mini.del{display:none!important}
-#spareFormHost .masterRow>input[list],#accessoryFormHost .masterRow>input[list]{padding-right:24px!important;background-color:#fff!important}
-#spareFormHost .torvoBrandMasterRow,#accessoryFormHost .torvoBrandMasterRow{grid-template-columns:minmax(0,1fr) 34px!important}
-@media(max-width:650px){#spareFormHost .masterRow,#accessoryFormHost .masterRow{grid-template-columns:minmax(0,1fr) 32px!important}}
+<style id="torvo-add-button-red-v5">
+/* TORVO ADD BUTTON RED V5 */
+#spareFormHost .masterRow>.mini:not(.edit):not(.del),#accessoryFormHost .masterRow>.mini:not(.edit):not(.del),#spareFormHost .torvoBrandAddBtn,#accessoryFormHost .torvoBrandAddBtn{background:#d71920!important;color:#fff!important;border-color:#d71920!important}
 </style>
 '''
     s=s.replace('</head>',css+'</head>',1)
