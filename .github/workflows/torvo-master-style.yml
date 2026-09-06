@@ -10,13 +10,13 @@ jobs:
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v4
-      - name: Apply TORVO red Add buttons
+      - name: Apply TORVO Category manager
         run: python3 .github/torvo_master_style_patch.py
-      - name: Commit TORVO red Add buttons
+      - name: Commit TORVO Category manager
         run: |
           git config user.name "TORVO Admin Bot"
           git config user.email "actions@users.noreply.github.com"
           git add admin.html
           git diff --cached --quiet && exit 0
-          git commit -m "Change Add Item plus buttons to TORVO red"
+          git commit -m "Add safe Category dropdown and manager"
           git push
