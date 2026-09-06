@@ -1,0 +1,22 @@
+name: TORVO Admin Master Style
+on:
+  push:
+    paths:
+      - '.github/workflows/torvo-master-style.yml'
+permissions:
+  contents: write
+jobs:
+  patch:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - name: Apply master style standard
+        run: python3 .github/torvo_master_style_patch.py
+      - name: Commit Admin master style
+        run: |
+          git config user.name "TORVO Admin Bot"
+          git config user.email "actions@users.noreply.github.com"
+          git add admin.html
+          git diff --cached --quiet && exit 0
+          git commit -m "Standardize Admin master controls style"
+          git push
