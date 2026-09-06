@@ -10,13 +10,13 @@ jobs:
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v4
-      - name: Apply master style standard
+      - name: Apply Add Item master style correction
         run: python3 .github/torvo_master_style_patch.py
-      - name: Commit Admin master style
+      - name: Commit Add Item master style correction
         run: |
           git config user.name "TORVO Admin Bot"
           git config user.email "actions@users.noreply.github.com"
           git add admin.html
           git diff --cached --quiet && exit 0
-          git commit -m "Standardize Admin master controls style"
+          git commit -m "Match Add Item master controls to Brand style"
           git push
