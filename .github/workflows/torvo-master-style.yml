@@ -10,13 +10,13 @@ jobs:
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v4
-      - name: Apply safe Add Item master layout
+      - name: Apply TORVO red Add buttons
         run: python3 .github/torvo_master_style_patch.py
-      - name: Commit safe Add Item master layout
+      - name: Commit TORVO red Add buttons
         run: |
           git config user.name "TORVO Admin Bot"
           git config user.email "actions@users.noreply.github.com"
           git add admin.html
           git diff --cached --quiet && exit 0
-          git commit -m "Use single Add control in Add Item masters"
+          git commit -m "Change Add Item plus buttons to TORVO red"
           git push
