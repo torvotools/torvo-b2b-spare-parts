@@ -10,13 +10,13 @@ jobs:
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v4
-      - name: Apply Admin workspace fix V16
+      - name: Apply selected TORVO Admin mockup UI V17
         run: python3 .github/torvo_master_style_patch.py
-      - name: Commit Admin workspace fix V16
+      - name: Commit selected TORVO Admin mockup UI V17
         run: |
           git config user.name "TORVO Admin Bot"
           git config user.email "actions@users.noreply.github.com"
           git add admin.html
           git diff --cached --quiet && exit 0
-          git commit -m "Apply Admin workspace fix V16"
+          git commit -m "Apply selected TORVO Admin mockup UI V17"
           git push
