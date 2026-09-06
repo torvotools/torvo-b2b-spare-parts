@@ -10,13 +10,13 @@ jobs:
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v4
-      - name: Apply Admin navigation and popup patch
+      - name: Apply robust Admin refresh restore fix
         run: python3 .github/torvo_brand_patch.py
-      - name: Commit Admin correction
+      - name: Commit Admin refresh correction
         run: |
           git config user.name "TORVO Admin Bot"
           git config user.email "actions@users.noreply.github.com"
           git add admin.html
           git diff --cached --quiet && exit 0
-          git commit -m "Fix Admin refresh back navigation and popup lock"
+          git commit -m "Keep current Admin section after refresh"
           git push
