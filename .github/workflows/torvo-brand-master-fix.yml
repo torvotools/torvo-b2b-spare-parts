@@ -10,9 +10,9 @@ jobs:
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v4
-      - name: Apply no-flash Admin refresh correction
+      - name: Apply corrected no-flash Admin refresh patch
         run: python3 .github/torvo_brand_patch.py
-      - name: Commit no-flash Admin refresh correction
+      - name: Commit corrected no-flash Admin refresh
         run: |
           git config user.name "TORVO Admin Bot"
           git config user.email "actions@users.noreply.github.com"
