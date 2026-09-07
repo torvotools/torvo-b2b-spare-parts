@@ -1,0 +1,20 @@
+/* TORVO V27 B2B WORKFLOW ENGINE */
+(function(){'use strict';
+function A(x){return Array.isArray(x)?x:[]}
+function U(x){return String(x==null?'':x).trim().toUpperCase()}
+function now(){return new Date().toISOString()}
+function db(){return window.DB&&typeof window.DB==='object'?window.DB:null}
+function save(){return typeof window.saveDB==='function'&&window.saveDB()!==false}
+function ensure(d,k){if(!Array.isArray(d[k]))d[k]=[];return d[k]}
+function id(prefix,list){return prefix+'-'+String(list.length+1).padStart(5,'0')}
+function hist(x,action,detail){x.history=A(x.history);x.history.push({at:now(),action:action,detail:detail||''})}
+function find(list,ref,keys){return A(list).find(function(x){return keys.some(function(k){return U(x[k])===U(ref)})})||null}
+function createQuotation(req){var d=db();if(!d)return {ok:false,message:'DATABASE NOT AVAILABLE'};var q=ensure(d,'quotations'),o={no:id('QT',q),date:now(),dealer:req.dealer||req.dealerName||'',dealerCode:req.dealerCode||'',items:A(req.items),status:'DRAFT',sourceRequest:req.no||req.id||'',transport:0,freight:0,otherCharges:0};hist(o,'QUOTATION CREATED');q.push(o);if(!save()){q.pop();return {ok:false,message:'SAVE FAILED'}}return {ok:true,data:o,message:'QUOTATION CREATED'}}
+function sendQuotation(ref){var d=db(),q=d&&find(d.quotations,ref,['no','id']);if(!q)return {ok:false,message:'QUOTATION NOT FOUND'};q.status='SENT';q.sentAt=now();hist(q,'QUOTATION SENT');return save()?{ok:true,data:q,message:'QUOTATION SENT'}:{ok:false,message:'SAVE FAILED'}}
+function acceptQuotation(ref){var d=db(),q=d&&find(d.quotations,ref,['no','id']);if(!q)return {ok:false,message:'QUOTATION NOT FOUND'};if(!['SENT','DRAFT'].includes(U(q.status)))return {ok:false,message:'QUOTATION STATUS NOT ALLOWED'};q.status='ACCEPTED';q.acceptedAt=now();hist(q,'QUOTATION ACCEPTED');if(!save())return {ok:false,message:'SAVE FAILED'};return createSalesOrder(q)}
+function createSalesOrder(q){var d=db();if(!d)return {ok:false,message:'DATABASE NOT AVAILABLE'};var list=ensure(d,'salesOrders'),s={no:id('SO',list),date:now(),dealer:q.dealer,dealerCode:q.dealerCode,items:A(q.items),sourceQuotation:q.no,status:'OPEN',transport:q.transport||0,freight:q.freight||0,otherCharges:q.otherCharges||0};hist(s,'SALES ORDER CREATED','FROM '+q.no);list.push(s);if(!save()){list.pop();return {ok:false,message:'SAVE FAILED'}}return {ok:true,data:s,message:'SALES ORDER CREATED'}}
+function finalSalesOrder(ref){var d=db(),s=d&&find(d.salesOrders,ref,['no','id']);if(!s)return {ok:false,message:'SALES ORDER NOT FOUND'};s.status='FINAL';s.finalAt=now();hist(s,'SALES ORDER FINAL');if(!save())return {ok:false,message:'SAVE FAILED'};return createEstimate(s)}
+function createEstimate(s){var d=db();if(!d)return {ok:false,message:'DATABASE NOT AVAILABLE'};var list=ensure(d,'estimates'),e={no:id('EST',list),date:now(),dealer:s.dealer,dealerCode:s.dealerCode,items:A(s.items),sourceSalesOrder:s.no,status:'PENDING',paymentStatus:'PENDING',deliveryStatus:'PENDING',stockDeducted:false,transport:s.transport||0,freight:s.freight||0,otherCharges:s.otherCharges||0};hist(e,'ESTIMATE CREATED','FROM '+s.no);list.push(e);s.status='ESTIMATE CREATED';if(!save()){list.pop();s.status='FINAL';return {ok:false,message:'SAVE FAILED'}}return {ok:true,data:e,message:'ESTIMATE CREATED - STOCK NOT DEDUCTED'}}
+function approveEstimate(ref){var d=db(),e=d&&find(d.estimates,ref,['no','estimateNo','id']);if(!e)return {ok:false,message:'ESTIMATE NOT FOUND'};if(U(e.deliveryStatus)==='DELIVERED')return {ok:false,message:'DELIVERED ESTIMATE LOCKED'};e.status='APPROVED';e.approvedAt=now();hist(e,'ESTIMATE APPROVED','STOCK NOT DEDUCTED');return save()?{ok:true,data:e,message:'ESTIMATE APPROVED - STOCK NOT DEDUCTED'}:{ok:false,message:'SAVE FAILED'}}
+window.TorvoV27Flow={createQuotation:createQuotation,sendQuotation:sendQuotation,acceptQuotation:acceptQuotation,createSalesOrder:createSalesOrder,finalSalesOrder:finalSalesOrder,createEstimate:createEstimate,approveEstimate:approveEstimate};
+})();
