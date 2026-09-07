@@ -953,6 +953,13 @@ html,body{background:var(--v20bg)!important}body,.nav,.rnav,.menuTitle,.pTitle,.
 @media(max-width:900px){.app{grid-template-columns:190px minmax(0,1fr)!important}.main{padding:0 10px 18px!important}.top{margin:0 -10px 12px!important;padding:9px 10px!important}.cards{grid-template-columns:repeat(2,1fr)!important}.grid{grid-template-columns:repeat(2,minmax(0,1fr))!important}}
 @media(max-width:640px){.app{display:block!important}.left{position:relative!important;width:100%!important;height:auto!important;max-height:none!important}.main{padding:0 8px 16px!important}.top{margin:0 -8px 10px!important;padding:8px!important;position:sticky!important}.cards,.grid{grid-template-columns:1fr!important}.left .nav{min-height:42px!important}}
 </style>
+<style id="torvo-exact-admin-reference-v21">/* TORVO EXACT ADMIN REFERENCE V21 */
+:root{--torvo-navy:#121e2e;--torvo-red:#ef2636;--torvo-blue:#1677ee;--torvo-bg:#f5f7fb;--torvo-line:#dce4ee;--torvo-text:#17243a;--torvo-muted:#75839a}
+html,body{background:var(--torvo-bg)!important}.app{grid-template-columns:238px minmax(0,1fr) 0!important;min-height:100vh!important}.left{background:var(--torvo-navy)!important;color:#fff!important;border:0!important;padding:12px 10px!important}.right{display:none!important}.main{background:var(--torvo-bg)!important;padding:0 16px 24px!important;min-width:0!important}.logo{font-size:27px!important;color:#fff!important;font-weight:950!important;padding:10px!important}.sub{color:#94a4b8!important;border-color:#2a394d!important;padding:0 10px 15px!important}.left .menuTitle{background:transparent!important;color:#71839a!important;border:0!important;font-size:9px!important;letter-spacing:1px!important;padding:11px 10px 5px!important}.left .nav{background:transparent!important;color:#d7e0eb!important;border:0!important;border-radius:7px!important;margin:2px 0!important;padding:9px 10px!important;min-height:36px!important;font-weight:850!important}.left .nav.active{background:var(--torvo-red)!important;color:#fff!important;box-shadow:0 6px 14px #ef263633!important}.left .nav:hover{background:#1c2c41!important}.top{margin:0 -16px 14px!important;padding:10px 16px!important;min-height:62px!important;background:#fff!important;border:0!important;border-bottom:1px solid var(--torvo-line)!important;border-radius:0!important;box-shadow:0 2px 8px #20324b0a!important}.top .title{display:none!important}.top .search{flex:1!important}.top .search input{height:40px!important;border:1px solid var(--torvo-line)!important;border-radius:7px!important;background:#f8fafc!important}.panel,.box,.card,.dashboardCard{background:#fff!important;border:1px solid var(--torvo-line)!important;border-radius:9px!important;box-shadow:0 2px 9px #24364f0b!important}.panel{padding:13px!important}.pTitle{border-bottom:1px solid #e8edf3!important;padding-bottom:9px!important}.pTitle b{color:var(--torvo-text)!important}.box{padding:11px!important}.boxTitle{border-left:4px solid var(--torvo-blue)!important;padding-left:8px!important;color:var(--torvo-text)!important}.field input,.field select,.field textarea,.toolbar input,.toolbar select{border:1px solid #d4deea!important;border-radius:6px!important;background:#fff!important;min-height:37px!important}.btn{border-radius:6px!important;font-weight:900!important}.btn.red{background:var(--torvo-red)!important}.btn.blue{background:var(--torvo-blue)!important}table{background:#fff!important;border-collapse:separate!important;border-spacing:0!important}th{background:#f5f7fa!important;color:#40516a!important;font-size:9px!important}td{color:#45566e!important}.modal,.dialog,.popup{border-radius:10px!important}body,.nav,.menuTitle,.pTitle,.boxTitle,.field label,.btn,.mini,th,.tag,.chip,.quickChip,.topBtn,.langBtn{text-transform:uppercase!important}
+.torvo-ref-tabs{display:flex;gap:5px;overflow:auto;margin:0 0 12px;padding:3px;background:#fff;border:1px solid var(--torvo-line);border-radius:8px}.torvo-ref-tab{white-space:nowrap;padding:9px 12px;border:0;border-radius:6px;background:#f4f7fb;color:#4a5b73;font-size:9px;font-weight:900}.torvo-ref-tab.active{background:var(--torvo-red);color:#fff}.section.active{overflow:auto!important;max-height:calc(100vh - 82px)!important;padding-bottom:30px!important}
+@media(max-width:900px){.app{grid-template-columns:190px minmax(0,1fr) 0!important}.main{padding:0 9px 18px!important}.top{margin:0 -9px 10px!important;padding:8px 9px!important}}
+@media(max-width:640px){.app{display:block!important}.left{width:100%!important;position:relative!important}.main{padding:0 7px 16px!important}.top{margin:0 -7px 8px!important}.section.active{max-height:none!important}.grid,.cards{grid-template-columns:1fr!important}}
+</style>
 </head>
 <body>
 <div class="app">
@@ -962,7 +969,7 @@ html,body{background:var(--v20bg)!important}body,.nav,.rnav,.menuTitle,.pTitle,.
 <button class="nav active" onclick="openSection('dashboard',this)">DASHBOARD</button>
 <button class="nav" onclick="openSection('addItem',this)"><span class="navIcon">＋</span> ADD ITEM</button>
 <button class="nav" onclick="openSection('itemmaster',this)">ITEM MASTER <span id="badgeReorderLeft" class="actionBadge">0</span></button>
-<button class="nav" onclick="openSection('suitable',this)">SUITABLE SEARCH</button>
+<button class="nav" onclick="openSection('suitable',this)">MACHINES</button>
 <button class="nav" onclick="openSection('drawings',this)">MACHINE DRAWINGS</button>
 <!-- DAY_WISE_LEFT_V17 -->
 <!-- REPORTS_LEFT_V16 --><button class="nav" onclick="openSection('reports',this)">REPORTS <span class="navIcon">▦</span></button>
@@ -1015,7 +1022,7 @@ html,body{background:var(--v20bg)!important}body,.nav,.rnav,.menuTitle,.pTitle,.
 
 
 <section id="addItem" class="section"><div class="panel">
-<div class="pTitle"><span class="tag red">ADD ITEM</span><b>SELECT ITEM TYPE</b></div>
+<div class="pTitle"><span class="tag red">PRODUCTS</span><b>SELECT ITEM TYPE</b></div>
 <div class="sectionIntro">ONE CLEAN ENTRY POINT FOR MACHINE, SPARE PART AND ACCESSORY.</div>
 <div class="v23ThreeApps">
 <button class="v23BigApp" onclick="openSection('machines',this)"><span class="v30LineIcon" aria-hidden="true"><svg viewBox="0 0 96 72"><path d="M14 31h43l10-9h10v27H67l-10-9H14zM28 31V21h17v10M26 40v12h20V40"/><path d="M77 28h7v15h-7"/></svg></span><b>ADD MACHINE</b><small>MACHINE REFERENCE • BRAND • MODEL</small></button>
@@ -1063,7 +1070,7 @@ Machines are not sold on this portal. Dealer website sales are only for Spare Pa
 </div>
 <div id="v26ItemMasterModeNote" class="v26ModeNote">SELECT AN OPTION ABOVE OR USE THE ITEM TABLE BELOW.</div>
 
-<div class="panel"><div class="pTitle"><span class="tag blue">ITEM MASTER</span><b>COMPLETE INVENTORY MANAGEMENT</b></div><div class="toolbar v26HelpBar"><button class="btn light" onclick="v26Help('itemmaster')">ℹ HELP / INFO</button></div>
+<div class="panel"><div class="pTitle"><span class="tag blue">SPARE PARTS</span><b>COMPLETE INVENTORY MANAGEMENT</b></div><div class="toolbar v26HelpBar"><button class="btn light" onclick="v26Help('itemmaster')">ℹ HELP / INFO</button></div>
 <div class="cards">
 <div class="card" onclick="setFilter('all')"><small>TOTAL</small><strong id="imTotal">0</strong></div>
 <div class="card" onclick="setFilter('in')"><small>IN STOCK</small><strong id="imIn">0</strong></div>
@@ -1098,7 +1105,7 @@ Machines are not sold on this portal. Dealer website sales are only for Spare Pa
 <div id="v27SuitableProductResult" class="v26ModeNote">SELECT OR TYPE A PRODUCT TO CHECK ITS SUITABLE MACHINE MAPPING.</div>
 </div>
 
-<div class="panel"><div class="pTitle"><span class="tag purple">SUITABLE SEARCH</span><b>ADVANCED SPARE PART COMPATIBILITY</b></div><div class="toolbar v26HelpBar"><button class="btn light" onclick="v26Help('suitable')">ℹ HELP / INFO</button></div>
+<div class="panel"><div class="pTitle"><span class="tag purple">MACHINES</span><b>ADVANCED SPARE PART COMPATIBILITY</b></div><div class="toolbar v26HelpBar"><button class="btn light" onclick="v26Help('suitable')">ℹ HELP / INFO</button></div>
 <div class="grid"><div class="field"><label>MACHINE BRAND</label><select id="sBrand" onchange="renderSuitableResults()"></select></div><div class="field"><label>MACHINE TYPE</label><select id="sType" onchange="renderSuitableResults()"></select></div><div class="field"><label>MODEL / ALT MODEL</label><input id="sModel" class="upper" oninput="renderSuitableResults()"></div><div class="field"><label>ITEM / SPARE / REF NO.</label><input id="sPart" class="upper" oninput="renderSuitableResults()"></div><div class="field"><label>SIZE / SPECIFICATION</label><input id="sSpec" class="upper" oninput="renderSuitableResults()"></div><div class="field"><label>MATCH TYPE</label><select id="sMatch" onchange="renderSuitableResults()"><option value="">ALL</option><option>EXACT FIT</option><option>TESTED SUITABLE</option><option>MARKET COMPATIBLE</option><option>NEEDS VERIFICATION</option></select></div></div>
 <div id="suitableResults" class="empty">SEARCH BY MACHINE, MODEL, ITEM, REF NO. OR SPECIFICATION.</div></div></section>
 
@@ -1351,7 +1358,7 @@ Machines are not sold on this portal. Dealer website sales are only for Spare Pa
 <div class="scroll"><table><thead><tr><th>DATE</th><th>TIME</th><th>EVENT</th><th>DETAIL</th></tr></thead><tbody id="v23SessionRows"></tbody></table></div>
 </div></section>
 
-<section id="recycleBin" class="section"><div class="panel"><div class="pTitle"><span class="tag red">RECYCLE BIN</span><b>DELETED RECORDS & RESTORE</b></div><div class="sectionIntro">RECOVER ACCIDENTALLY DELETED RECORDS. PERMANENT DELETE REQUIRES SECURITY CODE 1122.</div><div class="toolbar"><button class="btn light" onclick="v24RenderTrash()">↻ REFRESH</button></div><div class="scroll"><table><thead><tr><th>DELETED AT</th><th>SECTION</th><th>RECORD</th><th>DELETED BY</th><th>ACTION</th></tr></thead><tbody id="v24TrashRows"></tbody></table></div></div></section>
+<section id="recycleBin" class="section"><div class="panel"><div class="pTitle"><span class="tag red">BACKUP & LOGS</span><b>DELETED RECORDS & RESTORE</b></div><div class="sectionIntro">RECOVER ACCIDENTALLY DELETED RECORDS. PERMANENT DELETE REQUIRES SECURITY CODE 1122.</div><div class="toolbar"><button class="btn light" onclick="v24RenderTrash()">↻ REFRESH</button></div><div class="scroll"><table><thead><tr><th>DELETED AT</th><th>SECTION</th><th>RECORD</th><th>DELETED BY</th><th>ACTION</th></tr></thead><tbody id="v24TrashRows"></tbody></table></div></div></section>
 
 <section id="employeeAccess" class="section"><div class="panel">
 <div class="pTitle"><span class="tag red">EMPLOYEE ACCESS</span><b>STAFF LOGIN & PERMISSIONS</b></div>
