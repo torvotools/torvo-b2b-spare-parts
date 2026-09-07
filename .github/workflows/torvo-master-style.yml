@@ -1,21 +1,33 @@
-name: TORVO Admin Exact Reference V21
+name: TORVO Admin Full Reference V22
 on:
   push:
     branches:
-      - main
+      - admin-ui-v22-mobile-shell
     paths:
+      - '.github/torvo_master_style_patch.py'
       - '.github/workflows/torvo-master-style.yml'
 permissions:
   contents: write
 jobs:
-  verify:
+  rebuild:
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v4
         with:
-          ref: main
-      - name: Verify TORVO exact Admin reference V21
+          ref: admin-ui-v22-mobile-shell
+      - uses: actions/setup-python@v5
+        with:
+          python-version: '3.x'
+      - name: Apply V22 full desktop and mobile Admin UI
+        run: python .github/torvo_master_style_patch.py
+      - name: Verify V22 output
         run: |
-          grep -q 'TORVO EXACT ADMIN REFERENCE V21' admin.html
-          grep -q 'torvo-exact-admin-reference-v21' admin.html
-          echo 'V21 ADMIN UI VERIFIED ON MAIN'
+          grep -q 'TORVO ADMIN FULL REFERENCE V22' admin.html
+          grep -q 'torvo-ref-tabs' admin.html
+          grep -q 'spareFormHost' admin.html
+      - name: Commit generated Admin UI
+        run: |
+          git config user.name 'github-actions[bot]'
+          git config user.email '41898282+github-actions[bot]@users.noreply.github.com'
+          git add admin.html
+          if git diff --cached --quiet; then echo 'NO HTML CHANGE'; else git commit -m 'Apply TORVO Admin full reference V22'; git push origin HEAD:admin-ui-v22-mobile-shell; fi
