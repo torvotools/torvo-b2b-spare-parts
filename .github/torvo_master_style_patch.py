@@ -1,38 +1,17 @@
 from pathlib import Path
 p=Path('admin.html')
 s=p.read_text(encoding='utf-8')
-marker='/* TORVO ADMIN MOBILE REFERENCE V22 */'
+marker='/* TORVO ADMIN FULL REFERENCE V22 */'
 if marker not in s:
- css='''<style id="torvo-admin-mobile-reference-v22">/* TORVO ADMIN MOBILE REFERENCE V22 */
-@media(max-width:640px){
- html,body{background:#f5f7fb!important;overflow-x:hidden!important}
- .app{display:block!important;min-height:100vh!important}
- .left{position:sticky!important;top:0!important;z-index:80!important;width:100%!important;height:64px!important;min-height:64px!important;overflow:hidden!important;padding:7px 10px!important;background:#121e2e!important;border:0!important;display:flex!important;align-items:center!important;gap:8px!important}
- .left .logo{font-size:22px!important;padding:6px 8px!important;white-space:nowrap!important}.left .sub,.left .menuTitle{display:none!important}
- .left .nav{display:none!important}
- .left .nav.active{display:flex!important;align-items:center!important;margin-left:auto!important;width:auto!important;min-height:38px!important;padding:8px 12px!important;background:#ef2636!important;color:#fff!important;border-radius:7px!important;box-shadow:none!important;white-space:nowrap!important}
- .main{padding:0 8px 20px!important;width:100%!important;min-width:0!important}
- .top{position:sticky!important;top:64px!important;z-index:70!important;margin:0 -8px 10px!important;padding:8px!important;min-height:54px!important;display:flex!important;gap:6px!important;background:#fff!important;border-bottom:1px solid #dce4ee!important}
- .top .title,.top .owner,.top .verifyBtn,.top .logout,.top .langBtn{display:none!important}
- .top .search{min-width:0!important;flex:1!important}.top .search input{height:38px!important;min-width:0!important;padding-right:72px!important;font-size:11px!important}
- .topBtn{height:38px!important;padding:0 9px!important}.bell button{height:38px!important;width:38px!important}
- .section.active{max-height:none!important;overflow:visible!important;padding-bottom:30px!important}
- .panel{margin-top:8px!important;padding:10px!important;border-radius:9px!important}
- .cards,.grid,.itemGrid,.reportGrid{grid-template-columns:1fr!important}.toolbar{gap:6px!important}.toolbar>*{max-width:100%!important}
- .field input,.field select,.field textarea{min-height:42px!important}.box{padding:10px!important}
- table{min-width:680px!important}.scroll{overflow-x:auto!important;-webkit-overflow-scrolling:touch!important}
- .torvo-ref-tabs{display:flex!important;overflow-x:auto!important;gap:4px!important;margin-bottom:10px!important}.torvo-ref-tab{flex:0 0 auto!important}
-}
-@media(min-width:641px){.left{height:100vh!important;position:sticky!important;top:0!important;overflow:auto!important}}
+ css='''<style id="torvo-admin-full-reference-v22">/* TORVO ADMIN FULL REFERENCE V22 */
+:root{--v22navy:#0f1e2e;--v22red:#ef2636;--v22bg:#f4f7fb;--v22line:#dce4ee;--v22text:#17243a}
+html,body{background:var(--v22bg)!important;overflow-x:hidden!important}.app{display:grid!important;grid-template-columns:238px minmax(0,1fr) 0!important;min-height:100vh!important}.right{display:none!important}.left{height:100vh!important;position:sticky!important;top:0!important;overflow:auto!important;background:var(--v22navy)!important;color:#fff!important;border:0!important;padding:14px 10px!important}.left .logo{font-size:27px!important;color:#fff!important;padding:8px 10px!important}.left .sub{color:#93a4b8!important;border-color:#26394e!important;padding:0 10px 15px!important}.left .menuTitle{display:none!important}.left .nav{background:transparent!important;color:#dce5ef!important;border:0!important;border-radius:7px!important;margin:3px 0!important;padding:11px 12px!important;min-height:40px!important;font-weight:850!important}.left .nav.active{background:var(--v22red)!important;color:#fff!important;box-shadow:0 6px 15px #ef263633!important}.left .nav:hover{background:#1b3047!important}.main{background:var(--v22bg)!important;padding:0 18px 28px!important;min-width:0!important}.top{position:sticky!important;top:0!important;z-index:70!important;margin:0 -18px 16px!important;padding:10px 18px!important;min-height:62px!important;background:#fff!important;border:0!important;border-bottom:1px solid var(--v22line)!important;border-radius:0!important;box-shadow:0 2px 8px #20324b0a!important}.top .title{display:none!important}.top .search{min-width:260px!important;flex:1!important}.top .search input{height:40px!important;border:1px solid var(--v22line)!important;border-radius:7px!important;background:#f8fafc!important}.panel,.box,.card,.dashboardCard{background:#fff!important;border:1px solid var(--v22line)!important;border-radius:9px!important;box-shadow:0 2px 9px #24364f0b!important}.panel{padding:14px!important}.cards{gap:10px!important}.card{min-height:92px!important}.pTitle{border-bottom:1px solid #e7edf4!important;padding-bottom:10px!important}.boxTitle{border-left:4px solid #1677ee!important;padding-left:8px!important}.field input,.field select,.field textarea,.toolbar input,.toolbar select{border:1px solid #d4deea!important;border-radius:6px!important;background:#fff!important;min-height:38px!important}.section.active{overflow:auto!important;max-height:calc(100vh - 78px)!important;padding-bottom:35px!important}.torvo-ref-tabs{display:flex!important;gap:5px!important;overflow:auto!important;margin:0 0 12px!important;padding:4px!important;background:#fff!important;border:1px solid var(--v22line)!important;border-radius:8px!important}.torvo-ref-tab{flex:0 0 auto!important;white-space:nowrap!important;padding:9px 12px!important;border:0!important;border-radius:6px!important;background:#f3f6fa!important;color:#52627a!important;font-size:9px!important;font-weight:900!important}.torvo-ref-tab.active{background:var(--v22red)!important;color:#fff!important}body,.nav,.pTitle,.boxTitle,.field label,.btn,.mini,th,.tag,.chip,.quickChip,.topBtn,.langBtn{text-transform:uppercase!important}
+@media(max-width:900px) and (min-width:641px){.app{grid-template-columns:190px minmax(0,1fr) 0!important}.main{padding:0 10px 20px!important}.top{margin:0 -10px 12px!important;padding:9px 10px!important}}
+@media(max-width:640px){html,body{overflow-x:hidden!important}.app{display:block!important}.left{position:sticky!important;top:0!important;z-index:80!important;width:100%!important;height:62px!important;min-height:62px!important;overflow:hidden!important;padding:7px 9px!important;display:flex!important;align-items:center!important;gap:6px!important}.left .logo{font-size:21px!important;padding:5px 7px!important;white-space:nowrap!important}.left .sub,.left .menuTitle,.left .nav{display:none!important}.left .nav.active{display:flex!important;align-items:center!important;margin-left:auto!important;width:auto!important;min-height:37px!important;padding:8px 11px!important;background:var(--v22red)!important;white-space:nowrap!important;box-shadow:none!important}.main{padding:0 8px 20px!important;width:100%!important}.top{top:62px!important;margin:0 -8px 9px!important;padding:7px 8px!important;min-height:52px!important;gap:5px!important}.top .owner,.top .verifyBtn,.top .logout,.top .langBtn{display:none!important}.top .search{min-width:0!important}.top .search input{height:38px!important;min-width:0!important;padding-right:72px!important;font-size:11px!important}.topBtn{height:38px!important;padding:0 8px!important}.bell button{height:38px!important;width:38px!important}.section.active{max-height:none!important;overflow:visible!important}.panel{padding:10px!important;margin-top:8px!important}.cards,.grid,.itemGrid,.reportGrid{grid-template-columns:1fr!important}.toolbar>*{max-width:100%!important}.field input,.field select,.field textarea{min-height:42px!important}.scroll{overflow-x:auto!important;-webkit-overflow-scrolling:touch!important}table{min-width:680px!important}}
 </style>'''
  s=s.replace('</head>',css+'\n</head>',1)
- # Correct visible labels while preserving all original click handlers and IDs.
- for a,b in {
-  'ADD ITEM':'PRODUCTS','ITEM MASTER':'SPARE PARTS','SUITABLE SEARCH':'MACHINES',
-  'MACHINE DRAWINGS':'ACCESSORIES','MACHINE DRAWING':'ACCESSORIES','MARKET ADD':'DEALERS'
- }.items():
+ for a,b in {'ADD ITEM':'PRODUCTS','ITEM MASTER':'SPARE PARTS','SUITABLE SEARCH':'MACHINES','MACHINE DRAWINGS':'ACCESSORIES','MACHINE DRAWING':'ACCESSORIES','MARKET ADD':'DEALERS'}.items():
   s=s.replace('>'+a+'<','>'+b+'<')
- # Insert approved Add Spare Part tabs statically. Check actual markup, not CSS text.
  if 'id="spareFormHost"' in s and '<div class="torvo-ref-tabs">' not in s:
   tabs='''<div class="torvo-ref-tabs"><button type="button" class="torvo-ref-tab active">BASIC DETAILS</button><button type="button" class="torvo-ref-tab">MACHINE FITMENT</button><button type="button" class="torvo-ref-tab">SUITABLE FOR</button><button type="button" class="torvo-ref-tab">PRICING & STOCK</button><button type="button" class="torvo-ref-tab">IMAGES & DOCUMENTS</button><button type="button" class="torvo-ref-tab">ADDITIONAL INFO</button></div>'''
   pos=s.find('id="spareFormHost"'); end=s.find('>',pos)
