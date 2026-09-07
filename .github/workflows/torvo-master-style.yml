@@ -1,8 +1,8 @@
-name: TORVO Admin Full Reference V22
+name: TORVO Admin Structural V23
 on:
   push:
     branches:
-      - admin-ui-v22-mobile-shell
+      - admin-ui-v23-structural
     paths:
       - '.github/torvo_master_style_patch.py'
       - '.github/workflows/torvo-master-style.yml'
@@ -14,20 +14,23 @@ jobs:
     steps:
       - uses: actions/checkout@v4
         with:
-          ref: admin-ui-v22-mobile-shell
+          ref: admin-ui-v23-structural
       - uses: actions/setup-python@v5
         with:
           python-version: '3.x'
-      - name: Apply V22 full desktop and mobile Admin UI
+      - name: Apply V23 structural Admin rebuild
         run: python .github/torvo_master_style_patch.py
-      - name: Verify V22 output
+      - name: Verify V23 structural output
         run: |
-          grep -q 'TORVO ADMIN FULL REFERENCE V22' admin.html
-          grep -q 'torvo-ref-tabs' admin.html
+          grep -q 'TORVO ADMIN STRUCTURAL V23' admin.html
+          grep -q 'v23DashboardShell' admin.html
+          grep -q 'WELCOME BACK, ADMIN!' admin.html
+          grep -q 'QUICK ACTIONS' admin.html
+          grep -q 'MACHINE FITMENT' admin.html
           grep -q 'spareFormHost' admin.html
-      - name: Commit generated Admin UI
+      - name: Commit generated V23 Admin HTML
         run: |
           git config user.name 'github-actions[bot]'
           git config user.email '41898282+github-actions[bot]@users.noreply.github.com'
           git add admin.html
-          if git diff --cached --quiet; then echo 'NO HTML CHANGE'; else git commit -m 'Apply TORVO Admin full reference V22'; git push origin HEAD:admin-ui-v22-mobile-shell; fi
+          if git diff --cached --quiet; then echo 'NO HTML CHANGE'; else git commit -m 'Apply TORVO Admin structural V23'; git push origin HEAD:admin-ui-v23-structural; fi
