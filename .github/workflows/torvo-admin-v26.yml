@@ -1,0 +1,41 @@
+name: TORVO Admin Structural V26
+on:
+  push:
+    branches:
+      - main
+    paths:
+      - '.github/torvo_admin_v26_structural.py'
+      - '.github/workflows/torvo-admin-v26.yml'
+permissions:
+  contents: write
+jobs:
+  rebuild:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          ref: main
+      - uses: actions/setup-python@v5
+        with:
+          python-version: '3.x'
+      - name: Apply V26 structural Admin rebuild
+        run: python .github/torvo_admin_v26_structural.py
+      - name: Verify V26 generated Admin
+        run: |
+          grep -q 'TORVO ADMIN STRUCTURAL V26' admin.html
+          grep -q 'class="v26menu"' admin.html
+          grep -q 'DASHBOARD' admin.html
+          grep -q 'ADD PRODUCT' admin.html
+          grep -q 'SPARE PARTS' admin.html
+          grep -q 'MACHINES' admin.html
+          grep -q 'ACCESSORIES' admin.html
+          grep -q 'REPORTS' admin.html
+          grep -q 'EMPLOYEES' admin.html
+          grep -q 'CUSTOMER SUPPORT' admin.html
+          grep -q 'v23DashboardShell' admin.html
+      - name: Commit generated V26 Admin HTML
+        run: |
+          git config user.name 'github-actions[bot]'
+          git config user.email '41898282+github-actions[bot]@users.noreply.github.com'
+          git add admin.html
+          if git diff --cached --quiet; then echo 'NO HTML CHANGE'; else git commit -m 'Apply TORVO Admin structural V26'; git push origin HEAD:main; fi
