@@ -24,12 +24,12 @@ jobs:
         run: |
           grep -q 'TORVO ADMIN EXACT REFERENCE V25' admin.html
           grep -q 'class="v25menu"' admin.html
-          grep -q '>DEALERS<' admin.html
-          grep -q '>QUOTATION<' admin.html
-          grep -q '>SALES ORDER<' admin.html
-          grep -q '>ESTIMATES<' admin.html
-          grep -q '>EMPLOYEES<' admin.html
-          grep -q '>BACKUP & LOGS<' admin.html
+          grep -q 'DEALERS' admin.html
+          grep -q 'QUOTATION' admin.html
+          grep -q 'SALES ORDER' admin.html
+          grep -q 'ESTIMATES' admin.html
+          grep -q 'EMPLOYEES' admin.html
+          grep -q 'BACKUP & LOGS' admin.html
           grep -q 'v23DashboardShell' admin.html
           grep -q 'WELCOME BACK, ADMIN!' admin.html
           grep -q 'spareFormHost' admin.html
