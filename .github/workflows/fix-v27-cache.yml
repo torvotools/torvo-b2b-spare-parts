@@ -13,12 +13,13 @@ jobs:
         run: |
           python - <<'PY'
           from pathlib import Path
+          import re
           p=Path('admin-v27-preview.html')
           s=p.read_text()
-          old='<script src="admin-v27-loader.js"></script>'
-          new='<script src="admin-v27-loader.js?v=20260908-99-final"></script>'
-          if old in s:
-              p.write_text(s.replace(old,new,1))
+          stamp='20260909-torvo-red-profile'
+          new=re.sub(r'admin-v27-loader\.js(?:\?v=[^"\']*)?', 'admin-v27-loader.js?v='+stamp, s)
+          if new != s:
+              p.write_text(new)
           PY
       - name: Commit patch if needed
         run: |
