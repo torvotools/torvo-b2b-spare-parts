@@ -10,39 +10,40 @@ jobs:
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v4
-      - name: Finalize V27 search and first render
+      - name: Finalize exact-page restore and Home-style search
         run: |
           python - <<'PY'
           from pathlib import Path
           import os,re
 
-          # Keep the loader and the very first HTML paint on exactly the same search geometry.
           lp=Path('admin-v27-loader.js')
           l=lp.read_text()
-          l=l.replace('width:78%!important;min-width:0!important;max-width:940px!important','width:68%!important;min-width:0!important;max-width:820px!important')
+          # Search: compact Home-style bar, with remaining top space reserved for bell/profile.
+          l=re.sub(r'\.top\{height:60px!important;[^`]*?background:#fff!important\}',
+                   '.top{height:60px!important;padding:4px 14px!important;gap:10px!important;display:flex!important;align-items:center!important;background:#fff!important}',l,count=1)
+          l=re.sub(r'\.searchWrap\{position:relative!important;width:[^}]+\}',
+                   '.searchWrap{position:relative!important;width:min(720px,62%)!important;min-width:520px!important;max-width:720px!important;flex:0 1 720px!important;margin-right:auto!important}',l,count=1)
+          l=l.replace('@media(max-width:760px){.top{grid-template-columns:minmax(500px,1fr) 60px 140px!important}.searchWrap{width:68%!important;min-width:0!important;max-width:820px!important}.profile{width:140px!important;min-width:140px!important}}',
+                      '@media(max-width:760px){.top{min-width:600px!important}.searchWrap{width:68%!important;min-width:420px!important;max-width:680px!important;flex:0 1 680px!important}.profile{width:140px!important;min-width:140px!important}}')
           lp.write_text(l)
 
           p=Path('admin-v27-preview.html')
           s=p.read_text()
+          # First paint must use the same final search geometry; no later jump.
+          s=re.sub(r'\.top\{height:60px;background:#fff;border-bottom:1px solid #e1e6ee;[^}]+\}',
+                   '.top{height:60px;background:#fff;border-bottom:1px solid #e1e6ee;display:flex;align-items:center;gap:10px;padding:4px 14px}',s,count=1)
+          s=re.sub(r'\.searchWrap\{position:relative;width:68%;min-width:0;max-width:820px\}',
+                   '.searchWrap{position:relative;width:min(720px,62%);min-width:520px;max-width:720px;flex:0 1 720px;margin-right:auto}',s,count=1)
 
-          # Base CSS must already equal the final search bar before JS loads; this removes the old-bar flash.
-          s=s.replace('.top{height:66px;background:#fff;border-bottom:1px solid #e1e6ee;display:flex;align-items:center;gap:14px;padding:8px 14px}',
-                      '.top{height:60px;background:#fff;border-bottom:1px solid #e1e6ee;display:grid;grid-template-columns:minmax(540px,1fr) 70px 145px;align-items:center;gap:8px;padding:4px 14px}')
-          s=s.replace('.searchWrap{position:relative;flex:1;min-width:0}',
-                      '.searchWrap{position:relative;width:68%;min-width:0;max-width:820px}')
-          s=s.replace('.search{height:44px;border:1.5px solid #1777ff;border-radius:10px;display:flex;align-items:center;background:#fff}',
-                      '.search{width:100%;height:52px;border:2px solid #d8dbe0;border-radius:15px;display:flex;align-items:center;background:#fff;overflow:hidden;padding-right:7px}')
-          s=s.replace('.search input{flex:1;min-width:0;border:0;outline:0;font-size:13px;padding:0 12px}',
-                      '.search input{height:48px;flex:1;min-width:0;border:0;outline:0;background:#fff;font-size:15px;font-weight:500;padding:0 13px;color:#596675;text-transform:uppercase}')
-          s=s.replace('.sicon{width:42px;height:41px;border:0;background:#fff;display:grid;place-items:center}',
-                      '.sicon{width:36px;height:48px;min-width:36px;border:0;background:transparent;display:grid;place-items:center;padding:0}')
-          s=s.replace('.sicon svg{width:23px;height:23px}', '.sicon svg{width:21px;height:21px}')
-          s=s.replace('placeholder="Search item, spare part, machine, model..."', 'placeholder="SEARCH ITEM NO. / PRODUCT / BRAND / MODEL..."')
+          # Critical refresh fix: base HTML must restore the saved section BEFORE the body can paint.
+          # This prevents Dashboard from appearing for one frame when refreshing another page.
+          guard='<style id="torvo-v27-render-guard">html.torvo-v27-preload body{visibility:hidden!important}</style><script>document.documentElement.classList.add("torvo-v27-preload");setTimeout(function(){document.documentElement.classList.remove("torvo-v27-preload")},1800);</script>'
+          newguard='<style id="torvo-v27-render-guard">html.torvo-v27-preload body{visibility:hidden!important}</style><script>document.documentElement.classList.add("torvo-v27-preload");window.TORVO_V27_BOOT_SECTION=(function(){try{return localStorage.getItem("TORVO_V27_SECTION")||"dashboard"}catch(e){return "dashboard"}})();</script>'
+          s=s.replace(guard,newguard)
 
-          # Preload guard: never show obsolete base UI for a split second during refresh.
-          if 'torvo-v27-preload' not in s:
-              s=s.replace('<title>TORVO B2B ADMIN</title>', '<title>TORVO B2B ADMIN</title><style id="torvo-v27-render-guard">html.torvo-v27-preload body{visibility:hidden!important}</style><script>document.documentElement.classList.add("torvo-v27-preload");setTimeout(function(){document.documentElement.classList.remove("torvo-v27-preload")},1800);</script>')
-              s=s.replace('</body></html>', '<script>document.documentElement.classList.remove("torvo-v27-preload");</script></body></html>')
+          # Replace delayed section restoration with immediate synchronous restoration, then reveal.
+          s=s.replace("setTimeout(function(){show(localStorage.getItem('TORVO_V27_SECTION')||'dashboard')},150)",
+                      "show(window.TORVO_V27_BOOT_SECTION||localStorage.getItem('TORVO_V27_SECTION')||'dashboard');document.documentElement.classList.remove('torvo-v27-preload')")
 
           stamp=os.environ['GITHUB_SHA'][:12]
           s=re.sub(r'admin-v27-loader\.js(?:\?v=[^"\']*)?', 'admin-v27-loader.js?v='+stamp, s)
@@ -54,5 +55,5 @@ jobs:
           git config user.name "github-actions[bot]"
           git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
           git add admin-v27-preview.html admin-v27-loader.js
-          git commit -m "Finalize V27 search bar and first render"
+          git commit -m "Fix exact-page refresh and final Admin search"
           git push
