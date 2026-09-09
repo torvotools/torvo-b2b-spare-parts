@@ -1,0 +1,32 @@
+name: Add temporary Admin Home button
+on:
+  push:
+    paths:
+      - '.github/workflows/add-temporary-admin-home-button.yml'
+permissions:
+  contents: write
+jobs:
+  patch-home:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - name: Add temporary Admin button
+        run: |
+          python3 - <<'PY'
+          from pathlib import Path
+          p=Path('index.html')
+          s=p.read_text()
+          marker='TORVO_TEMP_ADMIN_ACCESS'
+          if marker not in s:
+              block='''\n<!-- TORVO_TEMP_ADMIN_ACCESS -->\n<a href="admin-v27-preview.html#dashboard" aria-label="Open Admin Panel" style="position:fixed;right:14px;bottom:14px;z-index:90;background:#111318;color:#fff;border:2px solid #d71920;border-radius:12px;padding:11px 16px;font:900 12px Arial,Helvetica,sans-serif;text-decoration:none;box-shadow:0 7px 18px rgba(0,0,0,.22);letter-spacing:.4px">ADMIN</a>\n'''
+              s=s.replace('</body>',block+'</body>')
+              p.write_text(s)
+          PY
+      - name: Commit Home button
+        run: |
+          if git diff --quiet; then exit 0; fi
+          git config user.name "github-actions[bot]"
+          git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
+          git add index.html
+          git commit -m "Show temporary Admin button on Home"
+          git push
