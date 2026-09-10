@@ -1,0 +1,46 @@
+export const ROLES = Object.freeze({
+  OWNER:'owner', ADMIN:'admin', SALESMAN:'salesman', ACCOUNTANT:'accountant', STORE_KEEPER:'store_keeper', DEALER:'dealer'
+});
+
+export const MODULES = [
+  {id:'dashboard',label:'Dashboard',roles:['owner','admin','salesman','accountant','store_keeper']},
+  {id:'dealers',label:'Dealer Management',roles:['owner','admin','salesman']},
+  {id:'dealer-requests',label:'Dealer Requests',roles:['owner','admin']},
+  {id:'sales',label:'Sales Workspace',roles:['owner','admin','salesman']},
+  {id:'payments',label:'Payments & Accounts',roles:['owner','admin','accountant']},
+  {id:'machines',label:'Machines',roles:['owner','admin','salesman']},
+  {id:'spare-parts',label:'Spare Parts',roles:['owner','admin','salesman']},
+  {id:'accessories',label:'Accessories',roles:['owner','admin','salesman']},
+  {id:'compatibility',label:'Suitable Spare Parts',roles:['owner','admin','salesman']},
+  {id:'inventory',label:'Inventory Control',roles:['owner','admin','store_keeper']},
+  {id:'dispatch',label:'Store & Dispatch',roles:['owner','admin','store_keeper']},
+  {id:'schemes',label:'Schemes & Rewards',roles:['owner','admin','salesman']},
+  {id:'messages',label:'Requests & Messages',roles:['owner','admin','salesman']},
+  {id:'reports',label:'Reports Center',roles:['owner','admin','accountant']},
+  {id:'users',label:'Users & Roles',roles:['owner','admin']},
+  {id:'audit',label:'Settings & Audit',roles:['owner','admin']}
+];
+
+export const SALES_FLOW = Object.freeze(['query','quotation','sales_order','estimate','payment','delivery']);
+export const PAYMENT_STATUS = Object.freeze(['cash','pending','received']);
+export const DISPATCH_FLOW = Object.freeze(['pick_list','picked','packed','ready_for_dispatch','delivered']);
+
+export const BUSINESS_RULES = Object.freeze({
+  stockDeductionTrigger:'payment_received_and_delivery',
+  stockDeductionOnce:true,
+  estimateDeductsStock:false,
+  pickedDeductsStock:false,
+  packedDeductsStock:false,
+  storeKeeperCanSeeFinancials:false,
+  dealerPricesBeforeQuotation:false,
+  dealerRequiresApproval:true,
+  compatibilityPrivateByDefault:true,
+  sparePartFreeDeliveryMinimum:10000,
+  machineDeliveryCharge:true,
+  accessoryDeliveryCharge:true
+});
+
+export const REPORTS = [
+  'sales','profit','order_vs_estimate','final_estimate_vs_actual','pending_unfulfilled','expense',
+  'inventory','low_reorder','delivery_tracking','dealer_approvals','non_available_requests','messages','schemes','audit'
+];
