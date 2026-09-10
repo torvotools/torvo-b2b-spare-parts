@@ -1,26 +1,90 @@
+-- TORVO V2 centralized feature controls.
+-- Optional modules default ON. Protected security/business invariants cannot be disabled.
 create table if not exists feature_controls(
- feature_key text primary key,
- enabled boolean not null default true,
- protected boolean not null default false,
- description text,
- updated_by uuid references app_users(id),
- updated_at timestamptz not null default now()
+  feature_key text primary key,
+  enabled boolean not null default true,
+  protected boolean not null default false,
+  description text,
+  updated_by uuid references app_users(id),
+  updated_at timestamptz not null default now()
 );
+
 insert into feature_controls(feature_key,enabled,protected,description) values
-('dealer_registration',true,false,'Dealer registration'),('dealer_approval',true,false,'Dealer approval actions'),
-('machines',true,false,'Machine catalog'),('spare_parts',true,false,'Spare part catalog'),('accessories',true,false,'Accessory catalog'),('compatibility',true,false,'Suitable spare parts mapping'),
-('query',true,false,'Dealer queries'),('quotation',true,false,'Quotation workflow'),('sales_order',true,false,'Sales orders'),('estimate',true,false,'Estimates'),('payments',true,false,'Payments'),
-('inventory',true,false,'Inventory'),('dispatch',true,false,'Store and dispatch'),('schemes',true,false,'Schemes'),('rewards',true,false,'Rewards'),('referrals',true,false,'Referrals'),
-('messages',true,false,'Messages'),('notifications',true,false,'Notifications'),('reports',true,false,'Reports'),('uploads',true,false,'Document and image uploads'),
-('role_security',true,true,'Role based access security'),('payment_before_delivery',true,true,'Delivery requires valid payment'),('once_only_stock_deduction',true,true,'Stock deduction can occur once only'),('audit_integrity',true,true,'Security audit integrity')
+('dealer_registration',true,false,'Dealer registration'),
+('dealer_approval',true,false,'Dealer approval actions'),
+('machines',true,false,'Machine catalog'),
+('spare_parts',true,false,'Spare part catalog'),
+('accessories',true,false,'Accessory catalog'),
+('compatibility',true,false,'Suitable spare parts mapping'),
+('query',true,false,'Dealer queries'),
+('quotation',true,false,'Quotation workflow'),
+('sales_order',true,false,'Sales orders'),
+('estimate',true,false,'Estimates'),
+('payments',true,false,'Payments'),
+('inventory',true,false,'Inventory'),
+('dispatch',true,false,'Store and dispatch'),
+('schemes',true,false,'Schemes'),
+('rewards',true,false,'Rewards'),
+('referrals',true,false,'Referrals'),
+('messages',true,false,'Messages'),
+('notifications',true,false,'Notifications'),
+('reports',true,false,'Reports'),
+('uploads',true,false,'Document and image uploads'),
+('role_security',true,true,'Role based access security'),
+('payment_before_delivery',true,true,'Delivery requires valid payment'),
+('once_only_stock_deduction',true,true,'Stock deduction can occur once only'),
+('audit_integrity',true,true,'Security audit integrity')
 on conflict(feature_key) do nothing;
-create or replace function set_feature_control(p_key text,p_enabled boolean,p_actor uuid) returns void language plpgsql security definer set search_path=public as $$
-declare is_protected boolean;
+
+create or replace function set_feature_control(p_key text,p_enabled boolean)
+returns void
+language plpgsql
+security definer
+set search_path=public
+as $$
+declare
+  v_actor app_users%rowtype;
+  v_protected boolean;
 begin
- select protected into is_protected from feature_controls where feature_key=p_key for update;
- if not found then raise exception 'Unknown feature'; end if;
- if is_protected and not p_enabled then raise exception 'Protected business rule cannot be disabled'; end if;
- update feature_controls set enabled=p_enabled,updated_by=p_actor,updated_at=now() where feature_key=p_key;
- insert into audit_log(actor_id,action,entity_type,entity_id,details) values(p_actor,'FEATURE_CONTROL_CHANGED','feature',p_key,jsonb_build_object('enabled',p_enabled));
-end;$$;
-revoke all on function set_feature_control(text,boolean,uuid) from public;
+  if auth.uid() is null then
+    raise exception 'Authentication required';
+  end if;
+
+  select * into v_actor
+  from app_users
+  where auth_user_id=auth.uid() and active=true;
+
+  if not found then
+    raise exception 'Active application user not found';
+  end if;
+
+  -- Central feature configuration is an Owner/Admin responsibility only.
+  if v_actor.role not in ('owner','admin') then
+    raise exception 'Not authorized to change feature controls';
+  end if;
+
+  select protected into v_protected
+  from feature_controls
+  where feature_key=p_key
+  for update;
+
+  if not found then
+    raise exception 'Unknown feature';
+  end if;
+
+  if v_protected and not p_enabled then
+    raise exception 'Protected business rule cannot be disabled';
+  end if;
+
+  update feature_controls
+  set enabled=p_enabled,updated_by=v_actor.id,updated_at=now()
+  where feature_key=p_key;
+
+  insert into audit_log(actor_id,action,entity_type,entity_id,details)
+  values(v_actor.id,'FEATURE_CONTROL_CHANGED','feature',p_key,jsonb_build_object('enabled',p_enabled));
+end;
+$$;
+
+revoke all on function set_feature_control(text,boolean) from public;
+revoke all on function set_feature_control(text,boolean) from anon;
+grant execute on function set_feature_control(text,boolean) to authenticated;
