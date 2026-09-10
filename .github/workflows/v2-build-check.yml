@@ -1,18 +1,42 @@
 name: TORVO V2 Build Check
+
 on:
   push:
     branches: [torvo-v2-build]
+    paths:
+      - 'src/v2/**'
+      - 'v2.html'
+      - 'package.json'
+      - 'supabase/v2-*.sql'
+      - '.github/workflows/v2-build-check.yml'
   pull_request:
     branches: [main]
+    paths:
+      - 'src/v2/**'
+      - 'v2.html'
+      - 'package.json'
+      - 'supabase/v2-*.sql'
+      - '.github/workflows/v2-build-check.yml'
   workflow_dispatch:
+
+permissions:
+  contents: read
+
 jobs:
   build:
     runs-on: ubuntu-latest
     steps:
-      - uses: actions/checkout@v4
-      - uses: actions/setup-node@v4
+      - name: Checkout V2 source
+        uses: actions/checkout@v4
+
+      - name: Setup Node
+        uses: actions/setup-node@v4
         with:
-          node-version: 20
-          cache: npm
-      - run: npm ci
-      - run: npm run build
+          node-version: 22
+
+      # package-lock.json is not yet committed on this branch, so npm ci/cache cannot be used safely.
+      - name: Install dependencies
+        run: npm install --no-audit --no-fund
+
+      - name: Build V2
+        run: npm run build
