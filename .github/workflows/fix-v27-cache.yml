@@ -1,4 +1,4 @@
-name: V27 preview final UI cache bust
+name: V27 preview cache bust
 on:
   push:
     branches: [main]
@@ -10,31 +10,22 @@ jobs:
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v4
-      - name: Apply approved finishing touches and cache-bust
+      - name: Cache-bust loader only
         run: |
           python - <<'PY'
           from pathlib import Path
           import os,re
-          lp=Path('admin-v27-loader.js')
-          s=lp.read_text()
-          s=s.replace('border:2px solid #d8dbe0!important;border-radius:15px!important;display:grid!important;grid-template-columns:minmax(0,1fr) 48px 48px 55px!important;',
-                      'border:2px solid #7f8b99!important;border-radius:15px!important;display:grid!important;grid-template-columns:minmax(0,1fr) 40px 40px 44px!important;')
-          s=s.replace('.top>.bell{margin:0!important;width:42px!important;height:42px!important;justify-self:center!important}',
-                      '.top>.bell{margin:0!important;width:42px!important;height:42px!important;justify-self:center!important}.top>.bell svg{width:29px!important;height:29px!important;fill:none!important;stroke:#111!important;stroke-width:1.7!important;stroke-linecap:round!important;stroke-linejoin:round!important}.top>.bell .badge{right:-2px!important;top:-2px!important;font-size:10px!important;font-weight:900!important;padding:2px 5px!important}')
-          s=s.replace('.filterClear{border:1px solid #d7dee7!important;background:#eef2f6!important}.filterClear svg{fill:#0f2238!important}',
-                      '.filterClear{border:1px solid #0a9d56!important;background:#0a9d56!important}.filterClear svg{fill:#fff!important}')
-          lp.write_text(s)
           p=Path('admin-v27-preview.html')
-          h=p.read_text()
+          s=p.read_text()
           stamp=os.environ['GITHUB_SHA'][:12]
-          h=re.sub(r'admin-v27-loader\.js(?:\?v=[^"\']*)?', 'admin-v27-loader.js?v='+stamp, h)
-          p.write_text(h)
+          s=re.sub(r'admin-v27-loader\.js(?:\?v=[^"\']*)?', 'admin-v27-loader.js?v='+stamp, s)
+          p.write_text(s)
           PY
-      - name: Commit patch if needed
+      - name: Commit cache bust if needed
         run: |
           if git diff --quiet; then exit 0; fi
           git config user.name "github-actions[bot]"
           git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
-          git add admin-v27-preview.html admin-v27-loader.js
-          git commit -m "Set approved Admin search bell and green refresh"
+          git add admin-v27-preview.html
+          git commit -m "Cache-bust V27 loader"
           git push
