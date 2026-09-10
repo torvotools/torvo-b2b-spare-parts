@@ -2,8 +2,7 @@ import{requireBackend}from'./supabase';
 const db=()=>requireBackend(); const fail=e=>{if(e)throw e};
 export const data={
  async list(table,{select='*',order='created_at',ascending=false}={}){const{data,error}=await db().from(table).select(select).order(order,{ascending});fail(error);return data??[]},
- async dealers(){return this.list('dealers')},
- async catalog(type){const{data,error}=await db().from('catalog_items').select('*').eq('item_type',type).order('name');fail(error);return data??[]},
+ async dealers(){return this.list('dealers')}, async catalog(type){const{data,error}=await db().from('catalog_items').select('*').eq('item_type',type).order('name');fail(error);return data??[]},
  async documents(type){const{data,error}=await db().from('sales_documents').select('*,dealers(shop_name,dealer_code),sales_document_lines(*)').eq('doc_type',type).order('created_at',{ascending:false});fail(error);return data??[]},
  async inventory(){const{data,error}=await db().from('inventory').select('*,catalog_items(item_code,name,item_type,brand,model)').order('updated_at',{ascending:false});fail(error);return data??[]},
  async dispatches(){const{data,error}=await db().from('dispatches').select('id,estimate_id,status,tracking_code,delivered_at,stock_deducted_at').order('status');fail(error);return data??[]},
