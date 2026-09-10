@@ -10,7 +10,7 @@ jobs:
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v4
-      - name: Cache-bust and load isolated dashboard polish
+      - name: Cache-bust and load isolated V27 UI patches
         run: |
           python - <<'PY'
           from pathlib import Path
@@ -19,11 +19,12 @@ jobs:
           s=p.read_text()
           stamp=os.environ['GITHUB_SHA'][:12]
           s=re.sub(r'admin-v27-loader\.js(?:\?v=[^"\']*)?', 'admin-v27-loader.js?v='+stamp, s)
-          tag='<script src="admin-v27-dashboard-polish.js?v='+stamp+'"></script>'
-          if 'admin-v27-dashboard-polish.js' in s:
-              s=re.sub(r'<script src="admin-v27-dashboard-polish\.js[^>]*></script>',tag,s)
-          else:
-              s=s.replace('</body>',tag+'\n</body>')
+          for f in ['admin-v27-dashboard-polish.js','admin-v27-sidebar-theme.js']:
+              tag='<script src="'+f+'?v='+stamp+'"></script>'
+              if f in s:
+                  s=re.sub(r'<script src="'+re.escape(f)+r'[^>]*></script>',tag,s)
+              else:
+                  s=s.replace('</body>',tag+'\n</body>')
           p.write_text(s)
           PY
       - name: Commit cache bust if needed
