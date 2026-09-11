@@ -27,12 +27,12 @@ declare a app_users%rowtype;rev numeric:=0;cost numeric:=0;missing bigint:=0;beg
  if not found or a.role<>'owner' then raise exception 'Owner authorization required';end if;
  if p_from is not null and p_to is not null and p_from>=p_to then raise exception 'Invalid report date range';end if;
  with delivered as(
-  select e.id,e.final_payable,e.created_at from sales_documents e join dispatches d on d.estimate_id=e.id where e.doc_type='estimate' and d.status='delivered' and(p_from is null or e.created_at>=p_from) and(p_to is null or e.created_at<p_to)
+  select e.id,e.final_payable,d.delivered_at recognized_at from sales_documents e join dispatches d on d.estimate_id=e.id where e.doc_type='estimate' and d.status='delivered' and d.delivered_at is not null and(p_from is null or d.delivered_at>=p_from) and(p_to is null or d.delivered_at<p_to)
  ),line_cost as(
-  select l.id,l.qty,(select p.purchase_cost from purchase_cost_history p where p.item_id=l.item_id and p.effective_from<=e.created_at order by p.effective_from desc,p.created_at desc limit 1) unit_cost
+  select l.id,l.qty,(select p.purchase_cost from purchase_cost_history p where p.item_id=l.item_id and p.effective_from<=e.recognized_at order by p.effective_from desc,p.created_at desc limit 1) unit_cost
   from sales_document_lines l join delivered e on e.id=l.document_id
  )
  select coalesce((select sum(final_payable) from delivered),0),coalesce((select sum(qty*unit_cost) from line_cost where unit_cost is not null),0),coalesce((select count(*) from line_cost where unit_cost is null),0) into rev,cost,missing;
- return jsonb_build_object('revenue',rev,'cost',cost,'profit',case when missing=0 then rev-cost else null end,'margin_percent',case when missing=0 and rev>0 then round(((rev-cost)*100/rev)::numeric,2) else null end,'missing_cost_lines',missing,'complete',missing=0,'from',p_from,'to',p_to);
+ return jsonb_build_object('revenue',rev,'cost',cost,'profit',case when missing=0 then rev-cost else null end,'margin_percent',case when missing=0 and rev>0 then round(((rev-cost)*100/rev)::numeric,2) else null end,'missing_cost_lines',missing,'complete',missing=0,'recognition_basis','delivery_date','from',p_from,'to',p_to);
 end;$$;
 revoke all on function get_profit_summary(timestamptz,timestamptz) from public,anon;grant execute on function get_profit_summary(timestamptz,timestamptz) to authenticated;
