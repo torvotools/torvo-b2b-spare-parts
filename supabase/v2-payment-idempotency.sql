@@ -5,16 +5,17 @@ create unique index if not exists ux_payments_request_key on payments(request_ke
 
 drop function if exists record_payment(uuid,text,numeric);
 drop function if exists record_payment(uuid,text,numeric,text);
-create or replace function record_payment(p_estimate uuid,p_status text,p_amount numeric,p_request_key text default null) returns uuid language plpgsql security definer set search_path=public as $$
-declare a app_users%rowtype;pid uuid;f numeric;paid numeric;pending numeric;d_status text;k text;
+create or replace function record_payment(p_estimate uuid,p_status text,p_amount numeric,p_request_key text) returns uuid language plpgsql security definer set search_path=public as $$
+declare a app_users%rowtype;pid uuid;f numeric;paid numeric;pending numeric;d_status text;k text;existing_estimate uuid;existing_status text;existing_amount numeric;
 begin
  select * into a from app_users where auth_user_id=auth.uid() and active=true;
  if not found or a.role not in('owner','admin','accountant') then raise exception 'Not authorized';end if;
  if p_status not in('cash','pending','received') or p_amount is null or p_amount<=0 then raise exception 'Payment amount must be greater than zero';end if;
- k:=nullif(trim(p_request_key),'');
- if k is not null then
-  select id into pid from payments where request_key=k;
-  if found then return pid;end if;
+ k:=nullif(trim(p_request_key),'');if k is null then raise exception 'Payment request key is required';end if;
+ select id,estimate_id,status,amount into pid,existing_estimate,existing_status,existing_amount from payments where request_key=k;
+ if found then
+  if existing_estimate=p_estimate and existing_status=p_status and existing_amount=p_amount then return pid;end if;
+  raise exception 'Payment request key conflict';
  end if;
  select final_payable into f from sales_documents where id=p_estimate and doc_type='estimate' for update;
  if not found then raise exception 'Estimate not found';end if;
@@ -27,10 +28,10 @@ begin
  begin
   insert into payments(estimate_id,status,amount,received_at,recorded_by,request_key) values(p_estimate,p_status,p_amount,case when p_status in('cash','received') then now() else null end,a.id,k) returning id into pid;
  exception when unique_violation then
-  if k is null then raise;end if;
-  select id into pid from payments where request_key=k;
+  select id,estimate_id,status,amount into pid,existing_estimate,existing_status,existing_amount from payments where request_key=k;
   if pid is null then raise;end if;
-  return pid;
+  if existing_estimate=p_estimate and existing_status=p_status and existing_amount=p_amount then return pid;end if;
+  raise exception 'Payment request key conflict';
  end;
  insert into audit_log(actor_id,action,entity_type,entity_id,details) values(a.id,'PAYMENT_RECORDED','estimate',p_estimate::text,jsonb_build_object('payment_id',pid,'status',p_status,'amount',p_amount,'final_payable',f,'received_before',paid,'pending_before',pending,'request_key',k));
  return pid;
