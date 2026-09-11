@@ -22,15 +22,19 @@ This file is the authoritative dependency order for a fresh V2 database setup. D
 15. `v2-dealer-machine-spares.sql`
 16. `v2-message-direction.sql`
 17. `v2-sales-catalog-rpcs.sql`
-18. `v2-delivery-rpc.sql`
+18. `v2-catalog-master-values.sql`
+19. `v2-delivery-rpc.sql`
 
 ## Schemes and rewards
-19. `v2-scheme-progress.sql`
-20. `v2-reward-lots.sql`
-21. `v2-reward-reconciliation.sql`
-22. `v2-rewards-rpcs.sql`
-23. `v2-scheme-reward-credit.sql`
-24. `v2-referrals.sql`
+20. `v2-scheme-progress.sql`
+21. `v2-reward-lots.sql`
+22. `v2-reward-reconciliation.sql`
+23. `v2-rewards-rpcs.sql`
+24. `v2-scheme-reward-credit.sql`
+25. `v2-referrals.sql`
+
+### Catalog master protection rule
+`v2-catalog-master-values.sql` provides normalized UPPERCASE Brand/Category/Model masters. Owner/Admin mutations use authorized RPCs. Duplicate normalized names are rejected. Delete requires the operational confirmation code plus authenticated Owner/Admin authorization, and deletion is blocked while the value is referenced by catalog items. Rename synchronizes linked catalog text rather than orphaning existing products. Treat the confirmation code as secondary UX protection, never as a substitute for authentication/RLS.
 
 ### Detailed report rule
 `v2-report-detail-rpc.sql` provides database-authorized detail rows for Sales, Order-vs-Estimate, Outstanding/Aging, Dealer, Product, Inventory, Reorder, Dispatch, Scheme, Missing Range Opportunity and Audit reports. Store Keeper is limited to Inventory/Reorder/Dispatch and never receives sales, payment, purchase-cost or profit rows through this RPC. Audit output is capped to the latest 1000 matching rows per request.
@@ -62,10 +66,11 @@ GitHub/Vite build success does **not** validate PostgreSQL migrations or RPC beh
 4. Retry the same payment request key and confirm it returns the same payment; reuse that key with different data and confirm it is rejected.
 5. Create/receive a reorder and confirm duplicate active reorder protection and inventory movement history.
 6. Test Machine → Spare Parts mapping and confirm internal compatibility stays Owner/Admin-only unless a mapping is explicitly dealer-visible.
-7. Run summary/detail reports as each allowed role and confirm Store Keeper never receives financial/rate/profit data; Profit/Purchase Cost remain Owner-only.
-8. Run `reward_reconciliation_status()` and `assert_reward_lot_migration_ready()` before enabling lot rewards on migrated production data; test FIFO redeem and expiry on staging.
-9. Verify notifications/messages, dealer approval, inactive-user blocking and audit entries for critical actions.
-10. Confirm no service-role key or other privileged secret is present in browser code, GitHub source or public deployment output.
+7. Test Brand/Category/Model add, rename, duplicate rejection, usage count and protected delete before enabling the new master UI.
+8. Run summary/detail reports as each allowed role and confirm Store Keeper never receives financial/rate/profit data; Profit/Purchase Cost remain Owner-only.
+9. Run `reward_reconciliation_status()` and `assert_reward_lot_migration_ready()` before enabling lot rewards on migrated production data; test FIFO redeem and expiry on staging.
+10. Verify notifications/messages, dealer approval, inactive-user blocking and audit entries for critical actions.
+11. Confirm no service-role key or other privileged secret is present in browser code, GitHub source or public deployment output.
 
 Record any staging failure before production migration. Do not point the live domain at V2 and do not replace/merge the existing live version until this gate passes and the Owner explicitly approves cutover.
 
