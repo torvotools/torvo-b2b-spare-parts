@@ -25,13 +25,29 @@ This file is the authoritative dependency order for a fresh V2 database setup. D
 18. `v2-catalog-master-values.sql`
 19. `v2-delivery-rpc.sql`
 
+## Sales team / assisted field operations
+20. `v2-sales-team-mapping.sql`
+21. `v2-sales-team-rpcs.sql`
+22. `v2-salesman-assisted-workflows.sql`
+23. `v2-purchase-requirements.sql`
+24. `v2-purchase-requirement-rpcs.sql`
+
+## Private suitable knowledge rewards
+25. `v2-knowledge-rewards.sql`
+
 ## Schemes and rewards
-20. `v2-scheme-progress.sql`
-21. `v2-reward-lots.sql`
-22. `v2-reward-reconciliation.sql`
-23. `v2-rewards-rpcs.sql`
-24. `v2-scheme-reward-credit.sql`
-25. `v2-referrals.sql`
+26. `v2-scheme-progress.sql`
+27. `v2-reward-lots.sql`
+28. `v2-reward-reconciliation.sql`
+29. `v2-rewards-rpcs.sql`
+30. `v2-scheme-reward-credit.sql`
+31. `v2-referrals.sql`
+
+### Sales team security rule
+`v2-sales-team-rpcs.sql` is the authoritative mutation/scoped-read layer for Salesman area, Dealer ownership and target controls. Owner/Admin assign State → District → City areas, assign/transfer Dealers with audit, and set Monthly/Quarterly/Financial Year targets. Salesman Dealer reads must use the scoped RPC path and must not rely on UI filtering as the security boundary.
+
+### Knowledge reward privacy rule
+`v2-knowledge-rewards.sql` keeps Dealer answers private between Dealers. Dealer-facing challenge/history/point reads use security-definer scoped RPCs; Owner/Admin create challenges and verify answers. Knowledge points are credited only after verification. A verified known-part fitment may be added to TORVO's private Suitable record by Owner/Admin. Mystery-photo challenges do not automatically create a fitment unless a catalog item is linked through a controlled later workflow.
 
 ### Catalog / OEM rule
 `v2-schema.sql` includes the optional `catalog_items.oem_code` field plus a normalized lookup index. `v2-sales-catalog-rpcs.sql` persists TORVO item code and Company/OEM Original Code separately. OEM code is searchable but is intentionally not globally unique because the same manufacturer reference may legitimately appear in more than one catalog context.
@@ -64,7 +80,7 @@ Do not blindly rerun the full list on an existing database. Apply only the new/c
 GitHub/Vite build success does **not** validate PostgreSQL migrations or RPC behavior. Before V2 can be called production-ready, run the applicable SQL above against a separate staging Supabase project and complete all of these checks:
 
 1. Sign in with test users for Owner, Admin, Salesman, Accountant, Store Keeper and Dealer; confirm each role can open only its allowed modules and database rows.
-2. Complete one test sale end-to-end: Dealer Query → Quotation → Dealer Accept → Sales Order → Estimate → Payment → Ready for Dispatch → Delivered.
+2. Complete one test sale end-to-end using the current authoritative flow: Dealer Purchase Order → TORVO Sales Order → Dealer OK → Estimate → Payment → Delivery.
 3. Confirm inventory does **not** deduct at Estimate, Picked or Packed; it deducts exactly once only after valid payment + delivery. Retry delivery and confirm stock cannot deduct twice.
 4. Retry the same payment request key and confirm it returns the same payment; reuse that key with different data and confirm it is rejected.
 5. Create/receive a reorder and confirm duplicate active reorder protection and inventory movement history.
@@ -73,8 +89,10 @@ GitHub/Vite build success does **not** validate PostgreSQL migrations or RPC beh
 8. Create and edit catalog items with both TORVO Item Code and Company/OEM Original Code; confirm both persist independently and Smart Search can find either code.
 9. Run summary/detail reports as each allowed role and confirm Store Keeper never receives financial/rate/profit data; Profit/Purchase Cost remain Owner-only.
 10. Run `reward_reconciliation_status()` and `assert_reward_lot_migration_ready()` before enabling lot rewards on migrated production data; test FIFO redeem and expiry on staging.
-11. Verify notifications/messages, dealer approval, inactive-user blocking and audit entries for critical actions.
-12. Confirm no service-role key or other privileged secret is present in browser code, GitHub source or public deployment output.
+11. Verify Salesman cannot read another Salesman's Dealers; test Dealer transfer, area mapping and targets with audit history.
+12. Verify Knowledge Reward privacy using two Dealer accounts; Dealer A must never receive Dealer B's answer/history. Test reward policy limits and Admin verification before points.
+13. Verify notifications/messages, dealer approval, inactive-user blocking and audit entries for critical actions.
+14. Confirm no service-role key or other privileged secret is present in browser code, GitHub source or public deployment output.
 
 Record any staging failure before production migration. Do not point the live domain at V2 and do not replace/merge the existing live version until this gate passes and the Owner explicitly approves cutover.
 
