@@ -1,0 +1,10 @@
+-- TORVO V2 role-safe dashboard. Returns only metrics appropriate to the authenticated role.
+create or replace function get_dashboard_metrics() returns jsonb language plpgsql stable security definer set search_path=public as $$declare a app_users%rowtype;r jsonb:='{}'::jsonb;begin
+select * into a from app_users where auth_user_id=auth.uid() and active=true;if not found or a.role='dealer' then raise exception 'Internal active user required';end if;
+if a.role in('owner','admin','salesman') then r:=r||jsonb_build_object('queries',(select count(*) from sales_documents where doc_type='query'),'estimates',(select count(*) from sales_documents where doc_type='estimate'));end if;
+if a.role in('owner','admin','salesman') then r:=r||jsonb_build_object('active_dealers',(select count(*) from dealers where status='approved'));end if;
+if a.role in('owner','admin') then r:=r||jsonb_build_object('dealer_requests',(select count(*) from dealers where status='pending'));end if;
+if a.role in('owner','admin','store_keeper') then r:=r||jsonb_build_object('low_stock',(select count(*) from inventory where current_qty<=reorder_level),'dispatch_pending',(select count(*) from dispatches where status<>'delivered'));end if;
+if a.role in('owner','admin','accountant') then r:=r||jsonb_build_object('payment_pending',(select count(*) from sales_documents e where e.doc_type='estimate' and coalesce((select sum(p.amount) from payments p where p.estimate_id=e.id and p.status in('cash','received')),0)<coalesce(e.final_payable,0)),'total_sales',(select coalesce(sum(final_payable),0) from sales_documents where doc_type='estimate'));end if;
+return r;end;$$;
+revoke all on function get_dashboard_metrics() from public,anon;grant execute on function get_dashboard_metrics() to authenticated;
