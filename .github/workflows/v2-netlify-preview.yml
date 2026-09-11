@@ -4,12 +4,6 @@ on:
   workflow_dispatch:
   push:
     branches: [torvo-v2-build]
-    paths:
-      - 'src/v2/**'
-      - 'v2-preview.html'
-      - 'vite.v2-preview.config.js'
-      - 'package.json'
-      - '.github/workflows/v2-netlify-preview.yml'
 
 permissions:
   contents: read
