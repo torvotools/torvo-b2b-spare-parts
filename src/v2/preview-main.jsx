@@ -2,6 +2,7 @@ import React from 'react';
 import { createRoot } from 'react-dom/client';
 import DealerVisualPreview from './components/DealerVisualPreview';
 import './styles.css';
+import './workspace-polish.css';
 
 const root = document.getElementById('torvo-v2-root');
 
