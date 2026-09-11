@@ -20,7 +20,12 @@ create table if not exists catalog_items (
 );
 -- Safe upgrade path for V2 databases created before OEM code support.
 alter table catalog_items add column if not exists oem_code text;
-create index if not exists idx_catalog_oem_code on catalog_items(upper(btrim(oem_code))) where oem_code is not null;
+-- Item code is globally unique after trimming/case normalization. OEM code is searchable but not globally unique.
+create unique index if not exists idx_catalog_item_code_normalized_uq on catalog_items(upper(regexp_replace(btrim(item_code),'\s+',' ','g')));
+create index if not exists idx_catalog_oem_code on catalog_items(upper(regexp_replace(btrim(oem_code),'\s+',' ','g'))) where oem_code is not null;
+create index if not exists idx_catalog_brand on catalog_items(upper(regexp_replace(btrim(brand),'\s+',' ','g'))) where brand is not null;
+create index if not exists idx_catalog_category on catalog_items(upper(regexp_replace(btrim(category),'\s+',' ','g'))) where category is not null;
+create index if not exists idx_catalog_model on catalog_items(upper(regexp_replace(btrim(model),'\s+',' ','g'))) where model is not null;
 create table if not exists item_rates (
  id uuid primary key default gen_random_uuid(), item_id uuid not null references catalog_items(id) on delete restrict,
  rate_group text not null check(rate_group in ('A','B','C')), min_qty numeric not null default 1, selling_rate numeric not null check(selling_rate>=0),
