@@ -1,8 +1,8 @@
 -- TORVO V2 automatic scheme reward credit.
--- Run after v2-rewards-rpcs.sql and v2-operations-rpcs.sql.
+-- Run after v2-reward-lots.sql, v2-rewards-rpcs.sql and v2-operations-rpcs.sql.
 create or replace function credit_achieved_scheme_rewards(p_dealer uuid)
 returns integer language plpgsql security definer set search_path=public as $$
-declare r record;v_count integer:=0;v_expiry timestamptz;begin
+declare r record;v_count integer:=0;v_expiry timestamptz;v_entry uuid;begin
   for r in
     select dsp.dealer_id,dsp.scheme_id,dsp.achieved_slab_id,s.name,ss.points,s.end_date
     from dealer_scheme_progress dsp
@@ -11,11 +11,14 @@ declare r record;v_count integer:=0;v_expiry timestamptz;begin
     join scheme_dealers sd on sd.scheme_id=dsp.scheme_id and sd.dealer_id=dsp.dealer_id
     where dsp.dealer_id=p_dealer and ss.points>0 and s.status in('active','closed')
   loop
-    -- Scheme points expire 90 days after scheme end by default. The source key makes retry/delivery refresh idempotent.
     v_expiry:=(r.end_date::timestamptz + interval '90 days');
+    perform pg_advisory_xact_lock(hashtextextended(r.dealer_id::text,0));
     begin
       insert into reward_ledger(dealer_id,points,reason,expires_at,entry_type,source_type,source_id)
-      values(r.dealer_id,r.points,'Scheme achieved: '||r.name,v_expiry,'earn','scheme_slab',r.achieved_slab_id::text);
+      values(r.dealer_id,r.points,'Scheme achieved: '||r.name,v_expiry,'earn','scheme_slab',r.achieved_slab_id::text)
+      returning id into v_entry;
+      insert into reward_point_lots(dealer_id,earn_entry_id,original_points,remaining_points,expires_at,created_at)
+      values(r.dealer_id,v_entry,r.points,r.points,v_expiry,now());
       v_count:=v_count+1;
     exception when unique_violation then null;
     end;
