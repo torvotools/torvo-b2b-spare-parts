@@ -11,24 +11,28 @@ This file is the authoritative dependency order for a fresh V2 database setup. D
 6. `v2-payment-idempotency.sql`
 7. `v2-operations-rpcs.sql`
 8. `v2-reorder-guard.sql`
-9. `v2-dashboard-rpc.sql`
-10. `v2-report-summary-rpc.sql`
-11. `v2-feature-controls.sql`
+9. `v2-purchase-cost-history.sql`
+10. `v2-dashboard-rpc.sql`
+11. `v2-report-summary-rpc.sql`
+12. `v2-feature-controls.sql`
 
 ## Dealer/catalog operations
-12. `v2-dealer-link.sql`
-13. `v2-dealer-machine-spares.sql`
-14. `v2-message-direction.sql`
-15. `v2-sales-catalog-rpcs.sql`
-16. `v2-delivery-rpc.sql`
+13. `v2-dealer-link.sql`
+14. `v2-dealer-machine-spares.sql`
+15. `v2-message-direction.sql`
+16. `v2-sales-catalog-rpcs.sql`
+17. `v2-delivery-rpc.sql`
 
 ## Schemes and rewards
-17. `v2-scheme-progress.sql`
-18. `v2-reward-lots.sql`
-19. `v2-reward-reconciliation.sql`
-20. `v2-rewards-rpcs.sql`
-21. `v2-scheme-reward-credit.sql`
-22. `v2-referrals.sql`
+18. `v2-scheme-progress.sql`
+19. `v2-reward-lots.sql`
+20. `v2-reward-reconciliation.sql`
+21. `v2-rewards-rpcs.sql`
+22. `v2-scheme-reward-credit.sql`
+23. `v2-referrals.sql`
+
+### Purchase-cost / profit rule
+`v2-purchase-cost-history.sql` stores append-only effective-dated purchase costs through an Owner-only RPC and exposes Owner-only profit summary. Profit remains unavailable when any delivered sales line has no applicable historical purchase cost; the system must not invent a cost or misleading profit.
 
 ### Payment retry rule
 `v2-payment-idempotency.sql` supersedes the base `record_payment` RPC and adds a unique client request key. Retrying the same payment request key returns the existing payment instead of inserting a duplicate. New clients must send `p_request_key`.
