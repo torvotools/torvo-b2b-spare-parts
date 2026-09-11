@@ -14,28 +14,32 @@ This file is the authoritative dependency order for a fresh V2 database setup. D
 9. `v2-purchase-cost-history.sql`
 10. `v2-dashboard-rpc.sql`
 11. `v2-report-summary-rpc.sql`
-12. `v2-feature-controls.sql`
+12. `v2-report-detail-rpc.sql`
+13. `v2-feature-controls.sql`
 
 ## Dealer/catalog operations
-13. `v2-dealer-link.sql`
-14. `v2-dealer-machine-spares.sql`
-15. `v2-message-direction.sql`
-16. `v2-sales-catalog-rpcs.sql`
-17. `v2-delivery-rpc.sql`
+14. `v2-dealer-link.sql`
+15. `v2-dealer-machine-spares.sql`
+16. `v2-message-direction.sql`
+17. `v2-sales-catalog-rpcs.sql`
+18. `v2-delivery-rpc.sql`
 
 ## Schemes and rewards
-18. `v2-scheme-progress.sql`
-19. `v2-reward-lots.sql`
-20. `v2-reward-reconciliation.sql`
-21. `v2-rewards-rpcs.sql`
-22. `v2-scheme-reward-credit.sql`
-23. `v2-referrals.sql`
+19. `v2-scheme-progress.sql`
+20. `v2-reward-lots.sql`
+21. `v2-reward-reconciliation.sql`
+22. `v2-rewards-rpcs.sql`
+23. `v2-scheme-reward-credit.sql`
+24. `v2-referrals.sql`
+
+### Detailed report rule
+`v2-report-detail-rpc.sql` provides database-authorized detail rows for Sales, Inventory, Reorder, Dispatch, Missing Range Opportunity and Audit reports. Store Keeper is limited to Inventory/Reorder/Dispatch and never receives sales, payment, purchase-cost or profit rows through this RPC. Audit output is capped to the latest 1000 matching rows per request.
 
 ### Purchase-cost / profit rule
 `v2-purchase-cost-history.sql` stores append-only effective-dated purchase costs through an Owner-only RPC and exposes Owner-only profit summary. Profit remains unavailable when any delivered sales line has no applicable historical purchase cost; the system must not invent a cost or misleading profit.
 
 ### Payment retry rule
-`v2-payment-idempotency.sql` supersedes the base `record_payment` RPC and adds a unique client request key. Retrying the same payment request key returns the existing payment instead of inserting a duplicate. New clients must send `p_request_key`.
+`v2-payment-idempotency.sql` supersedes the base `record_payment` RPC and requires a unique client request key. Retrying the exact same estimate/status/amount with the same key returns the existing payment; reusing a key for different payment data raises a conflict. New clients must send `p_request_key`.
 
 ### Reorder duplicate rule
 `v2-reorder-guard.sql` supersedes `submit_reorder` and enforces at most one active (`submitted`/`ordered`) reorder per catalog item. On an existing database it intentionally aborts if duplicate active requests already exist so they can be reviewed instead of silently merged or deleted.
