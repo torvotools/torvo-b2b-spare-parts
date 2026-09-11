@@ -1,6 +1,7 @@
 -- TORVO V2 dealer-facing machine spare-parts shopping view.
 -- Internal compatibility tables/notes remain owner/admin only.
 -- Dealer receives only active sellable spare-part identity fields required to send a query.
+-- Only mappings explicitly marked dealer_visible are exposed to dealers.
 create or replace function get_dealer_machine_spares(p_machine uuid)
 returns table(
   id uuid,
@@ -23,7 +24,10 @@ begin
     select distinct on(s.id) s.id,s.item_code,s.name,s.brand,s.category,s.model,s.image_url,m.required_qty
     from machine_spare_mapping m
     join catalog_items s on s.id=m.spare_part_id
-    where m.machine_id=p_machine and s.item_type='spare_part' and s.active=true
+    where m.machine_id=p_machine
+      and m.dealer_visible=true
+      and s.item_type='spare_part'
+      and s.active=true
     order by s.id,case m.fitment_type when 'oem' then 1 when 'compatible' then 2 else 3 end;
 end;$$;
 revoke all on function get_dealer_machine_spares(uuid) from public,anon;
