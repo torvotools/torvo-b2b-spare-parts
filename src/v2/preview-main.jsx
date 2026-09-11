@@ -5,6 +5,7 @@ import AdminVisualPreview from './components/AdminVisualPreview';
 import LoginVisualPreview from './components/LoginVisualPreview';
 import './styles.css';
 import './workspace-polish.css';
+import './login-preview.css';
 import {installGlobalUiFeedback} from './services/uiFeedback.js';
 
 const root = document.getElementById('torvo-v2-root');
