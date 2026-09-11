@@ -1,0 +1,43 @@
+name: TORVO V2 Netlify Preview
+
+on:
+  workflow_dispatch:
+
+permissions:
+  contents: read
+
+jobs:
+  preview-package:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout V2 development branch
+        uses: actions/checkout@v4
+        with:
+          ref: torvo-v2-build
+
+      - name: Setup Node
+        uses: actions/setup-node@v4
+        with:
+          node-version: 22
+
+      - name: Install dependencies
+        run: npm install --no-audit --no-fund
+
+      - name: Build V2
+        run: npm run build
+
+      - name: Verify isolated preview target
+        run: |
+          test "${GITHUB_REF_NAME}" = "torvo-v2-build"
+          test -d dist
+          echo "V2 preview build is ready for torvo-v2-preview Netlify site."
+
+      # Deployment is intentionally not given a GitHub secret here.
+      # The connected Netlify site remains isolated from V27/main.
+      - name: Upload preview build artifact
+        uses: actions/upload-artifact@v4
+        with:
+          name: torvo-v2-netlify-preview
+          path: dist
+          if-no-files-found: error
+          retention-days: 7
