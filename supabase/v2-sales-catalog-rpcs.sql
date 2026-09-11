@@ -2,134 +2,19 @@
 -- Actor identity always comes from auth.uid(); callers never supply actor IDs.
 
 create or replace function upsert_catalog_item(p_item uuid,p_type text,p_code text,p_name text,p_brand text default null,p_category text default null,p_model text default null,p_image_url text default null,p_gst_mode text default null,p_active boolean default true)
-returns uuid language plpgsql security definer set search_path=public as $$
-declare a app_users%rowtype; v_id uuid;
-begin
- select * into a from app_users where auth_user_id=auth.uid() and active=true;
- if not found or a.role not in ('owner','admin') then raise exception 'Not authorized'; end if;
- if p_type not in ('machine','spare_part','accessory') or nullif(trim(p_code),'') is null or nullif(trim(p_name),'') is null then raise exception 'Type, item code and name required'; end if;
- if p_gst_mode is not null and p_gst_mode not in ('included','extra') then raise exception 'Invalid GST mode'; end if;
- if p_item is null then
-  insert into catalog_items(item_type,item_code,name,brand,category,model,image_url,gst_mode,active)
-  values(p_type,upper(trim(p_code)),trim(p_name),nullif(trim(p_brand),''),nullif(trim(p_category),''),nullif(trim(p_model),''),nullif(trim(p_image_url),''),p_gst_mode,p_active) returning id into v_id;
-  insert into inventory(item_id,current_qty,reorder_level) values(v_id,0,0) on conflict(item_id) do nothing;
- else
-  perform 1 from catalog_items where id=p_item for update; if not found then raise exception 'Catalog item not found'; end if;
-  update catalog_items set item_type=p_type,item_code=upper(trim(p_code)),name=trim(p_name),brand=nullif(trim(p_brand),''),category=nullif(trim(p_category),''),model=nullif(trim(p_model),''),image_url=nullif(trim(p_image_url),''),gst_mode=p_gst_mode,active=p_active where id=p_item;
-  v_id:=p_item;
- end if;
- insert into audit_log(actor_id,action,entity_type,entity_id,details) values(a.id,case when p_item is null then 'CATALOG_CREATED' else 'CATALOG_UPDATED' end,'catalog_item',v_id::text,jsonb_build_object('item_type',p_type,'item_code',upper(trim(p_code))));
- return v_id;
-end;$$;
-revoke all on function upsert_catalog_item(uuid,text,text,text,text,text,text,text,text,boolean) from public,anon; grant execute on function upsert_catalog_item(uuid,text,text,text,text,text,text,text,text,boolean) to authenticated;
-
-create or replace function set_item_rate(p_item uuid,p_rate_group text,p_min_qty numeric,p_rate numeric)
-returns uuid language plpgsql security definer set search_path=public as $$
-declare a app_users%rowtype; v_id uuid;
-begin
- select * into a from app_users where auth_user_id=auth.uid() and active=true;
- if not found or a.role not in ('owner','admin') then raise exception 'Not authorized'; end if;
- if p_rate_group not in ('A','B','C') or p_min_qty<=0 or p_rate<0 then raise exception 'Invalid rate'; end if;
- perform 1 from catalog_items where id=p_item; if not found then raise exception 'Catalog item not found'; end if;
- insert into item_rates(item_id,rate_group,min_qty,selling_rate) values(p_item,p_rate_group,p_min_qty,p_rate)
- on conflict(item_id,rate_group,min_qty) do update set selling_rate=excluded.selling_rate returning id into v_id;
- insert into audit_log(actor_id,action,entity_type,entity_id,details) values(a.id,'ITEM_RATE_SET','catalog_item',p_item::text,jsonb_build_object('rate_group',p_rate_group,'min_qty',p_min_qty,'rate',p_rate)); return v_id;
-end;$$;
-revoke all on function set_item_rate(uuid,text,numeric,numeric) from public,anon; grant execute on function set_item_rate(uuid,text,numeric,numeric) to authenticated;
-
-create or replace function set_machine_spare_mapping(p_machine uuid,p_spare_part uuid,p_required_qty numeric default 1,p_fitment_type text default 'compatible',p_dealer_visible boolean default false,p_public_visible boolean default false,p_notes text default null)
-returns uuid language plpgsql security definer set search_path=public as $$
-declare a app_users%rowtype; v_id uuid;
-begin
- select * into a from app_users where auth_user_id=auth.uid() and active=true;
- if not found or a.role not in ('owner','admin') then raise exception 'Not authorized'; end if;
- if p_required_qty<=0 or p_fitment_type not in ('oem','compatible','alternative') then raise exception 'Invalid mapping'; end if;
- if not exists(select 1 from catalog_items where id=p_machine and item_type='machine') then raise exception 'Valid machine required'; end if;
- if not exists(select 1 from catalog_items where id=p_spare_part and item_type='spare_part') then raise exception 'Valid spare part required'; end if;
- insert into machine_spare_mapping(machine_id,spare_part_id,required_qty,fitment_type,dealer_visible,public_visible,notes)
- values(p_machine,p_spare_part,p_required_qty,p_fitment_type,p_dealer_visible,p_public_visible,nullif(trim(p_notes),''))
- on conflict(machine_id,spare_part_id,fitment_type) do update set required_qty=excluded.required_qty,dealer_visible=excluded.dealer_visible,public_visible=excluded.public_visible,notes=excluded.notes returning id into v_id;
- insert into audit_log(actor_id,action,entity_type,entity_id,details) values(a.id,'COMPATIBILITY_SET','compatibility',v_id::text,jsonb_build_object('machine_id',p_machine,'spare_part_id',p_spare_part,'fitment_type',p_fitment_type)); return v_id;
-end;$$;
-revoke all on function set_machine_spare_mapping(uuid,uuid,numeric,text,boolean,boolean,text) from public,anon; grant execute on function set_machine_spare_mapping(uuid,uuid,numeric,text,boolean,boolean,text) to authenticated;
-
-create or replace function create_sales_query(p_dealer uuid,p_lines jsonb)
-returns uuid language plpgsql security definer set search_path=public as $$
-declare a app_users%rowtype; v_dealer uuid; v_doc uuid; x jsonb;
-begin
- select * into a from app_users where auth_user_id=auth.uid() and active=true; if not found then raise exception 'Active user required'; end if;
- if a.role='dealer' then select d.id into v_dealer from dealers d where d.mobile=a.mobile and d.status='approved' limit 1; if v_dealer is null or (p_dealer is not null and p_dealer<>v_dealer) then raise exception 'Dealer not authorized'; end if;
- elsif a.role in ('owner','admin','salesman') then v_dealer:=p_dealer; else raise exception 'Not authorized'; end if;
- if not exists(select 1 from dealers where id=v_dealer and status='approved') then raise exception 'Approved dealer required'; end if;
- if jsonb_typeof(p_lines)<>'array' or jsonb_array_length(p_lines)=0 then raise exception 'At least one query item required'; end if;
- insert into sales_documents(dealer_id,doc_type,status,created_by) values(v_dealer,'query','submitted',a.id) returning id into v_doc;
- for x in select * from jsonb_array_elements(p_lines) loop
-  if coalesce((x->>'qty')::numeric,0)<=0 or not exists(select 1 from catalog_items where id=(x->>'item_id')::uuid and active=true) then raise exception 'Invalid query line'; end if;
-  insert into sales_document_lines(document_id,item_id,qty) values(v_doc,(x->>'item_id')::uuid,(x->>'qty')::numeric);
- end loop;
- insert into audit_log(actor_id,action,entity_type,entity_id,details) values(a.id,'QUERY_CREATED','sales_document',v_doc::text,jsonb_build_object('dealer_id',v_dealer)); return v_doc;
-end;$$;
-revoke all on function create_sales_query(uuid,jsonb) from public,anon; grant execute on function create_sales_query(uuid,jsonb) to authenticated;
-
-create or replace function create_quotation(p_query uuid,p_lines jsonb)
-returns uuid language plpgsql security definer set search_path=public as $$
-declare a app_users%rowtype; q sales_documents%rowtype; v_doc uuid; x jsonb; v_sub numeric:=0; v_qty numeric; v_rate numeric;
-begin
- select * into a from app_users where auth_user_id=auth.uid() and active=true; if not found or a.role not in ('owner','admin','salesman') then raise exception 'Not authorized'; end if;
- select * into q from sales_documents where id=p_query and doc_type='query' for update; if not found then raise exception 'Query not found'; end if;
- if q.status not in ('submitted','quoted') then raise exception 'Query cannot be quoted'; end if;
- if jsonb_typeof(p_lines)<>'array' or jsonb_array_length(p_lines)=0 then raise exception 'Quotation lines required'; end if;
- insert into sales_documents(dealer_id,doc_type,status,parent_id,created_by) values(q.dealer_id,'quotation','sent',q.id,a.id) returning id into v_doc;
- for x in select * from jsonb_array_elements(p_lines) loop
-  v_qty:=(x->>'qty')::numeric; v_rate:=(x->>'rate')::numeric; if v_qty<=0 or v_rate<0 then raise exception 'Invalid quotation line'; end if;
-  if not exists(select 1 from sales_document_lines where document_id=q.id and item_id=(x->>'item_id')::uuid) then raise exception 'Quotation item was not in query'; end if;
-  insert into sales_document_lines(document_id,item_id,qty,rate,amount) values(v_doc,(x->>'item_id')::uuid,v_qty,v_rate,v_qty*v_rate); v_sub:=v_sub+(v_qty*v_rate);
- end loop;
- update sales_documents set subtotal=v_sub,final_payable=v_sub where id=v_doc; update sales_documents set status='quoted' where id=q.id;
- insert into audit_log(actor_id,action,entity_type,entity_id,details) values(a.id,'QUOTATION_SENT','sales_document',v_doc::text,jsonb_build_object('query_id',q.id,'subtotal',v_sub)); return v_doc;
-end;$$;
-revoke all on function create_quotation(uuid,jsonb) from public,anon; grant execute on function create_quotation(uuid,jsonb) to authenticated;
-
-create or replace function accept_quotation(p_quotation uuid)
-returns void language plpgsql security definer set search_path=public as $$
-declare a app_users%rowtype; q sales_documents%rowtype; v_dealer uuid;
-begin
- select * into a from app_users where auth_user_id=auth.uid() and active=true; if not found then raise exception 'Active user required'; end if;
- select * into q from sales_documents where id=p_quotation and doc_type='quotation' for update; if not found or q.status<>'sent' then raise exception 'Open quotation required'; end if;
- if a.role='dealer' then select d.id into v_dealer from dealers d where d.mobile=a.mobile and d.status='approved' limit 1; if v_dealer is null or v_dealer<>q.dealer_id then raise exception 'Not authorized'; end if;
- elsif a.role not in ('owner','admin','salesman') then raise exception 'Not authorized'; end if;
- update sales_documents set status='accepted' where id=q.id;
- insert into audit_log(actor_id,action,entity_type,entity_id,details) values(a.id,'QUOTATION_ACCEPTED','sales_document',q.id::text,'{}'::jsonb);
-end;$$;
-revoke all on function accept_quotation(uuid) from public,anon; grant execute on function accept_quotation(uuid) to authenticated;
-
-create or replace function quotation_to_sales_order(p_quotation uuid)
-returns uuid language plpgsql security definer set search_path=public as $$
-declare a app_users%rowtype; q sales_documents%rowtype; v_doc uuid;
-begin
- select * into a from app_users where auth_user_id=auth.uid() and active=true; if not found or a.role not in ('owner','admin','salesman') then raise exception 'Not authorized'; end if;
- select * into q from sales_documents where id=p_quotation and doc_type='quotation' for update; if not found or q.status<>'accepted' then raise exception 'Accepted quotation required'; end if;
- if exists(select 1 from sales_documents where parent_id=q.id and doc_type='sales_order') then raise exception 'Sales order already exists'; end if;
- insert into sales_documents(dealer_id,doc_type,status,parent_id,subtotal,final_payable,created_by) values(q.dealer_id,'sales_order','confirmed',q.id,q.subtotal,q.subtotal,a.id) returning id into v_doc;
- insert into sales_document_lines(document_id,item_id,qty,rate,amount) select v_doc,item_id,qty,rate,amount from sales_document_lines where document_id=q.id;
- update sales_documents set status='converted' where id=q.id;
- insert into audit_log(actor_id,action,entity_type,entity_id,details) values(a.id,'SALES_ORDER_CREATED','sales_document',v_doc::text,jsonb_build_object('quotation_id',q.id)); return v_doc;
-end;$$;
-revoke all on function quotation_to_sales_order(uuid) from public,anon; grant execute on function quotation_to_sales_order(uuid) to authenticated;
-
-create or replace function sales_order_to_estimate(p_sales_order uuid,p_freight numeric default 0,p_other_charges numeric default 0)
-returns uuid language plpgsql security definer set search_path=public as $$
-declare a app_users%rowtype; s sales_documents%rowtype; v_doc uuid; v_final numeric;
-begin
- select * into a from app_users where auth_user_id=auth.uid() and active=true; if not found or a.role not in ('owner','admin','salesman','accountant') then raise exception 'Not authorized'; end if;
- if p_freight<0 or p_other_charges<0 then raise exception 'Charges cannot be negative'; end if;
- select * into s from sales_documents where id=p_sales_order and doc_type='sales_order' for update; if not found or s.status<>'confirmed' then raise exception 'Confirmed sales order required'; end if;
- if exists(select 1 from sales_documents where parent_id=s.id and doc_type='estimate') then raise exception 'Estimate already exists'; end if;
- v_final:=s.subtotal+p_freight+p_other_charges;
- insert into sales_documents(dealer_id,doc_type,status,parent_id,subtotal,freight,other_charges,final_payable,created_by) values(s.dealer_id,'estimate','final',s.id,s.subtotal,p_freight,p_other_charges,v_final,a.id) returning id into v_doc;
- insert into sales_document_lines(document_id,item_id,qty,rate,amount) select v_doc,item_id,qty,rate,amount from sales_document_lines where document_id=s.id;
- insert into dispatches(estimate_id,status,updated_by) values(v_doc,'pick_list',a.id);
- update sales_documents set status='converted' where id=s.id;
- insert into audit_log(actor_id,action,entity_type,entity_id,details) values(a.id,'ESTIMATE_CREATED','sales_document',v_doc::text,jsonb_build_object('sales_order_id',s.id,'freight',p_freight,'other_charges',p_other_charges,'final_payable',v_final,'stock_deducted',false)); return v_doc;
-end;$$;
-revoke all on function sales_order_to_estimate(uuid,numeric,numeric) from public,anon; grant execute on function sales_order_to_estimate(uuid,numeric,numeric) to authenticated;
+returns uuid language plpgsql security definer set search_path=public as $$declare a app_users%rowtype;v_id uuid;begin select * into a from app_users where auth_user_id=auth.uid() and active=true;if not found or a.role not in('owner','admin') then raise exception 'Not authorized';end if;if p_type not in('machine','spare_part','accessory') or nullif(trim(p_code),'') is null or nullif(trim(p_name),'') is null then raise exception 'Type, item code and name required';end if;if p_gst_mode is not null and p_gst_mode not in('included','extra') then raise exception 'Invalid GST mode';end if;if p_item is null then insert into catalog_items(item_type,item_code,name,brand,category,model,image_url,gst_mode,active) values(p_type,upper(trim(p_code)),trim(p_name),nullif(trim(p_brand),''),nullif(trim(p_category),''),nullif(trim(p_model),''),nullif(trim(p_image_url),''),p_gst_mode,p_active) returning id into v_id;insert into inventory(item_id,current_qty,reorder_level) values(v_id,0,0) on conflict(item_id) do nothing;else perform 1 from catalog_items where id=p_item for update;if not found then raise exception 'Catalog item not found';end if;update catalog_items set item_type=p_type,item_code=upper(trim(p_code)),name=trim(p_name),brand=nullif(trim(p_brand),''),category=nullif(trim(p_category),''),model=nullif(trim(p_model),''),image_url=nullif(trim(p_image_url),''),gst_mode=p_gst_mode,active=p_active where id=p_item;v_id:=p_item;end if;insert into audit_log(actor_id,action,entity_type,entity_id,details) values(a.id,case when p_item is null then 'CATALOG_CREATED' else 'CATALOG_UPDATED' end,'catalog_item',v_id::text,jsonb_build_object('item_type',p_type,'item_code',upper(trim(p_code))));return v_id;end;$$;
+revoke all on function upsert_catalog_item(uuid,text,text,text,text,text,text,text,text,boolean) from public,anon;grant execute on function upsert_catalog_item(uuid,text,text,text,text,text,text,text,text,boolean) to authenticated;
+create or replace function set_item_rate(p_item uuid,p_rate_group text,p_min_qty numeric,p_rate numeric) returns uuid language plpgsql security definer set search_path=public as $$declare a app_users%rowtype;v_id uuid;begin select * into a from app_users where auth_user_id=auth.uid() and active=true;if not found or a.role not in('owner','admin') then raise exception 'Not authorized';end if;if p_rate_group not in('A','B','C') or p_min_qty<=0 or p_rate<0 then raise exception 'Invalid rate';end if;perform 1 from catalog_items where id=p_item;if not found then raise exception 'Catalog item not found';end if;insert into item_rates(item_id,rate_group,min_qty,selling_rate) values(p_item,p_rate_group,p_min_qty,p_rate) on conflict(item_id,rate_group,min_qty) do update set selling_rate=excluded.selling_rate returning id into v_id;insert into audit_log(actor_id,action,entity_type,entity_id,details) values(a.id,'ITEM_RATE_SET','catalog_item',p_item::text,jsonb_build_object('rate_group',p_rate_group,'min_qty',p_min_qty,'rate',p_rate));return v_id;end;$$;
+revoke all on function set_item_rate(uuid,text,numeric,numeric) from public,anon;grant execute on function set_item_rate(uuid,text,numeric,numeric) to authenticated;
+create or replace function set_machine_spare_mapping(p_machine uuid,p_spare_part uuid,p_required_qty numeric default 1,p_fitment_type text default 'compatible',p_dealer_visible boolean default false,p_public_visible boolean default false,p_notes text default null) returns uuid language plpgsql security definer set search_path=public as $$declare a app_users%rowtype;v_id uuid;begin select * into a from app_users where auth_user_id=auth.uid() and active=true;if not found or a.role not in('owner','admin') then raise exception 'Not authorized';end if;if p_required_qty<=0 or p_fitment_type not in('oem','compatible','alternative') then raise exception 'Invalid mapping';end if;if not exists(select 1 from catalog_items where id=p_machine and item_type='machine') then raise exception 'Valid machine required';end if;if not exists(select 1 from catalog_items where id=p_spare_part and item_type='spare_part') then raise exception 'Valid spare part required';end if;insert into machine_spare_mapping(machine_id,spare_part_id,required_qty,fitment_type,dealer_visible,public_visible,notes) values(p_machine,p_spare_part,p_required_qty,p_fitment_type,p_dealer_visible,p_public_visible,nullif(trim(p_notes),'')) on conflict(machine_id,spare_part_id,fitment_type) do update set required_qty=excluded.required_qty,dealer_visible=excluded.dealer_visible,public_visible=excluded.public_visible,notes=excluded.notes returning id into v_id;insert into audit_log(actor_id,action,entity_type,entity_id,details) values(a.id,'COMPATIBILITY_SET','compatibility',v_id::text,jsonb_build_object('machine_id',p_machine,'spare_part_id',p_spare_part,'fitment_type',p_fitment_type));return v_id;end;$$;
+revoke all on function set_machine_spare_mapping(uuid,uuid,numeric,text,boolean,boolean,text) from public,anon;grant execute on function set_machine_spare_mapping(uuid,uuid,numeric,text,boolean,boolean,text) to authenticated;
+create or replace function create_sales_query(p_dealer uuid,p_lines jsonb) returns uuid language plpgsql security definer set search_path=public as $$declare a app_users%rowtype;v_dealer uuid;v_doc uuid;x jsonb;begin select * into a from app_users where auth_user_id=auth.uid() and active=true;if not found then raise exception 'Active user required';end if;if a.role='dealer' then v_dealer:=a.dealer_id;if v_dealer is null or(p_dealer is not null and p_dealer<>v_dealer) then raise exception 'Dealer identity not linked';end if;elsif a.role in('owner','admin','salesman') then v_dealer:=p_dealer;else raise exception 'Not authorized';end if;if not exists(select 1 from dealers where id=v_dealer and status='approved') then raise exception 'Approved dealer required';end if;if jsonb_typeof(p_lines)<>'array' or jsonb_array_length(p_lines)=0 then raise exception 'At least one query item required';end if;insert into sales_documents(dealer_id,doc_type,status,created_by) values(v_dealer,'query','submitted',a.id) returning id into v_doc;for x in select * from jsonb_array_elements(p_lines) loop if coalesce((x->>'qty')::numeric,0)<=0 or not exists(select 1 from catalog_items where id=(x->>'item_id')::uuid and active=true) then raise exception 'Invalid query line';end if;insert into sales_document_lines(document_id,item_id,qty) values(v_doc,(x->>'item_id')::uuid,(x->>'qty')::numeric);end loop;insert into audit_log(actor_id,action,entity_type,entity_id,details) values(a.id,'QUERY_CREATED','sales_document',v_doc::text,jsonb_build_object('dealer_id',v_dealer));return v_doc;end;$$;
+revoke all on function create_sales_query(uuid,jsonb) from public,anon;grant execute on function create_sales_query(uuid,jsonb) to authenticated;
+create or replace function create_quotation(p_query uuid,p_lines jsonb) returns uuid language plpgsql security definer set search_path=public as $$declare a app_users%rowtype;q sales_documents%rowtype;v_doc uuid;x jsonb;v_sub numeric:=0;v_qty numeric;v_rate numeric;begin select * into a from app_users where auth_user_id=auth.uid() and active=true;if not found or a.role not in('owner','admin','salesman') then raise exception 'Not authorized';end if;select * into q from sales_documents where id=p_query and doc_type='query' for update;if not found then raise exception 'Query not found';end if;if q.status not in('submitted','quoted') then raise exception 'Query cannot be quoted';end if;if exists(select 1 from sales_documents where parent_id=q.id and doc_type='quotation' and status in('sent','accepted')) then raise exception 'An open quotation already exists';end if;if jsonb_typeof(p_lines)<>'array' or jsonb_array_length(p_lines)=0 then raise exception 'Quotation lines required';end if;insert into sales_documents(dealer_id,doc_type,status,parent_id,created_by) values(q.dealer_id,'quotation','sent',q.id,a.id) returning id into v_doc;for x in select * from jsonb_array_elements(p_lines) loop v_qty:=(x->>'qty')::numeric;v_rate:=(x->>'rate')::numeric;if v_qty<=0 or v_rate<0 then raise exception 'Invalid quotation line';end if;if not exists(select 1 from sales_document_lines where document_id=q.id and item_id=(x->>'item_id')::uuid) then raise exception 'Quotation item was not in query';end if;insert into sales_document_lines(document_id,item_id,qty,rate,amount) values(v_doc,(x->>'item_id')::uuid,v_qty,v_rate,v_qty*v_rate);v_sub:=v_sub+(v_qty*v_rate);end loop;update sales_documents set subtotal=v_sub,final_payable=v_sub where id=v_doc;update sales_documents set status='quoted' where id=q.id;insert into audit_log(actor_id,action,entity_type,entity_id,details) values(a.id,'QUOTATION_SENT','sales_document',v_doc::text,jsonb_build_object('query_id',q.id,'subtotal',v_sub));return v_doc;end;$$;
+revoke all on function create_quotation(uuid,jsonb) from public,anon;grant execute on function create_quotation(uuid,jsonb) to authenticated;
+create or replace function accept_quotation(p_quotation uuid) returns void language plpgsql security definer set search_path=public as $$declare a app_users%rowtype;q sales_documents%rowtype;begin select * into a from app_users where auth_user_id=auth.uid() and active=true;if not found then raise exception 'Active user required';end if;select * into q from sales_documents where id=p_quotation and doc_type='quotation' for update;if not found or q.status<>'sent' then raise exception 'Open quotation required';end if;if a.role='dealer' then if a.dealer_id is null or a.dealer_id<>q.dealer_id then raise exception 'Not authorized';end if;elsif a.role not in('owner','admin','salesman') then raise exception 'Not authorized';end if;update sales_documents set status='accepted' where id=q.id;insert into audit_log(actor_id,action,entity_type,entity_id,details) values(a.id,'QUOTATION_ACCEPTED','sales_document',q.id::text,'{}'::jsonb);end;$$;
+revoke all on function accept_quotation(uuid) from public,anon;grant execute on function accept_quotation(uuid) to authenticated;
+create or replace function quotation_to_sales_order(p_quotation uuid) returns uuid language plpgsql security definer set search_path=public as $$declare a app_users%rowtype;q sales_documents%rowtype;v_doc uuid;begin select * into a from app_users where auth_user_id=auth.uid() and active=true;if not found or a.role not in('owner','admin','salesman') then raise exception 'Not authorized';end if;select * into q from sales_documents where id=p_quotation and doc_type='quotation' for update;if not found or q.status<>'accepted' then raise exception 'Accepted quotation required';end if;if exists(select 1 from sales_documents where parent_id=q.id and doc_type='sales_order') then raise exception 'Sales order already exists';end if;insert into sales_documents(dealer_id,doc_type,status,parent_id,subtotal,final_payable,created_by) values(q.dealer_id,'sales_order','confirmed',q.id,q.subtotal,q.subtotal,a.id) returning id into v_doc;insert into sales_document_lines(document_id,item_id,qty,rate,amount) select v_doc,item_id,qty,rate,amount from sales_document_lines where document_id=q.id;update sales_documents set status='converted' where id=q.id;insert into audit_log(actor_id,action,entity_type,entity_id,details) values(a.id,'SALES_ORDER_CREATED','sales_document',v_doc::text,jsonb_build_object('quotation_id',q.id));return v_doc;end;$$;
+revoke all on function quotation_to_sales_order(uuid) from public,anon;grant execute on function quotation_to_sales_order(uuid) to authenticated;
+create or replace function sales_order_to_estimate(p_sales_order uuid,p_freight numeric default 0,p_other_charges numeric default 0) returns uuid language plpgsql security definer set search_path=public as $$declare a app_users%rowtype;s sales_documents%rowtype;v_doc uuid;v_final numeric;begin select * into a from app_users where auth_user_id=auth.uid() and active=true;if not found or a.role not in('owner','admin','salesman','accountant') then raise exception 'Not authorized';end if;if p_freight<0 or p_other_charges<0 then raise exception 'Charges cannot be negative';end if;select * into s from sales_documents where id=p_sales_order and doc_type='sales_order' for update;if not found or s.status<>'confirmed' then raise exception 'Confirmed sales order required';end if;if exists(select 1 from sales_documents where parent_id=s.id and doc_type='estimate') then raise exception 'Estimate already exists';end if;v_final:=s.subtotal+p_freight+p_other_charges;insert into sales_documents(dealer_id,doc_type,status,parent_id,subtotal,freight,other_charges,final_payable,created_by) values(s.dealer_id,'estimate','final',s.id,s.subtotal,p_freight,p_other_charges,v_final,a.id) returning id into v_doc;insert into sales_document_lines(document_id,item_id,qty,rate,amount) select v_doc,item_id,qty,rate,amount from sales_document_lines where document_id=s.id;insert into dispatches(estimate_id,status,updated_by) values(v_doc,'pick_list',a.id);update sales_documents set status='converted' where id=s.id;insert into audit_log(actor_id,action,entity_type,entity_id,details) values(a.id,'ESTIMATE_CREATED','sales_document',v_doc::text,jsonb_build_object('sales_order_id',s.id,'freight',p_freight,'other_charges',p_other_charges,'final_payable',v_final,'stock_deducted',false));return v_doc;end;$$;
+revoke all on function sales_order_to_estimate(uuid,numeric,numeric) from public,anon;grant execute on function sales_order_to_estimate(uuid,numeric,numeric) to authenticated;
