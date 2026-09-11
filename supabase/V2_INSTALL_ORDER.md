@@ -10,21 +10,22 @@ This file is the authoritative dependency order for a fresh V2 database setup. D
 5. `v2-business-rpcs.sql`
 6. `v2-operations-rpcs.sql`
 7. `v2-dashboard-rpc.sql`
-8. `v2-feature-controls.sql`
+8. `v2-report-summary-rpc.sql`
+9. `v2-feature-controls.sql`
 
 ## Dealer/catalog operations
-9. `v2-dealer-link.sql`
-10. `v2-dealer-machine-spares.sql`
-11. `v2-message-direction.sql`
-12. `v2-sales-catalog-rpcs.sql`
-13. `v2-delivery-rpc.sql`
+10. `v2-dealer-link.sql`
+11. `v2-dealer-machine-spares.sql`
+12. `v2-message-direction.sql`
+13. `v2-sales-catalog-rpcs.sql`
+14. `v2-delivery-rpc.sql`
 
 ## Schemes and rewards
-14. `v2-scheme-progress.sql`
-15. `v2-reward-lots.sql`
-16. `v2-rewards-rpcs.sql`
-17. `v2-scheme-reward-credit.sql`
-18. `v2-referrals.sql`
+15. `v2-scheme-progress.sql`
+16. `v2-reward-lots.sql`
+17. `v2-rewards-rpcs.sql`
+18. `v2-scheme-reward-credit.sql`
+19. `v2-referrals.sql`
 
 ### Reward dependency rule
 The `reward_ledger` table is created by `v2-extended-schema.sql`; there is no separate reward-ledger migration in this V2 branch. `v2-reward-lots.sql` MUST run after `v2-extended-schema.sql` and before any SQL that creates or spends lot-based reward points. Scheme and referral reward credits depend on `reward_point_lots`.
