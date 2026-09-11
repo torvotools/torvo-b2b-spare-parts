@@ -2,6 +2,13 @@ name: TORVO V2 Netlify Preview
 
 on:
   workflow_dispatch:
+  push:
+    branches: [torvo-v2-build]
+    paths:
+      - 'src/v2/**'
+      - 'v2.html'
+      - 'package.json'
+      - '.github/workflows/v2-netlify-preview.yml'
 
 permissions:
   contents: read
@@ -32,8 +39,6 @@ jobs:
           test -d dist
           echo "V2 preview build is ready for torvo-v2-preview Netlify site."
 
-      # Deployment is intentionally not given a GitHub secret here.
-      # The connected Netlify site remains isolated from V27/main.
       - name: Upload preview build artifact
         uses: actions/upload-artifact@v4
         with:
