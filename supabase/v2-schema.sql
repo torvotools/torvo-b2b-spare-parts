@@ -1,76 +1,37 @@
 -- TORVO V2 core schema. Run on the production Supabase project only after final review.
 create extension if not exists pgcrypto;
 
-create table if not exists app_users (
- id uuid primary key default gen_random_uuid(), auth_user_id uuid unique, full_name text not null,
- mobile text unique, role text not null check(role in ('owner','admin','salesman','accountant','store_keeper','dealer')),
- active boolean not null default true, created_at timestamptz not null default now()
-);
-create table if not exists dealers (
- id uuid primary key default gen_random_uuid(), dealer_code text unique, shop_name text not null, contact_person text not null,
- mobile text not null, whatsapp text, email text, address text, pin_code text, state text, district text, city text,
- visiting_card_url text, rate_group text check(rate_group in ('A','B','C')), status text not null default 'pending'
- check(status in ('pending','approved','hold','rejected','inactive','suspended')), approved_by uuid references app_users(id),
- approved_at timestamptz, created_at timestamptz not null default now()
-);
-create table if not exists catalog_items (
- id uuid primary key default gen_random_uuid(), item_type text not null check(item_type in ('machine','spare_part','accessory')),
- item_code text unique not null, oem_code text, name text not null, brand text, category text, model text, image_url text,
- gst_mode text check(gst_mode in ('included','extra')), active boolean not null default true, created_at timestamptz not null default now()
-);
--- Safe upgrade path for V2 databases created before OEM code support.
+create table if not exists app_users (id uuid primary key default gen_random_uuid(),auth_user_id uuid unique,full_name text not null,mobile text unique,role text not null check(role in ('owner','admin','salesman','accountant','store_keeper','dealer')),active boolean not null default true,created_at timestamptz not null default now());
+create table if not exists dealers (id uuid primary key default gen_random_uuid(),dealer_code text unique,shop_name text not null,contact_person text not null,mobile text not null,whatsapp text,email text,address text,pin_code text,state text,district text,city text,visiting_card_url text,rate_group text check(rate_group in ('A','B','C')),status text not null default 'pending' check(status in ('pending','approved','hold','rejected','inactive','suspended')),approved_by uuid references app_users(id),approved_at timestamptz,created_at timestamptz not null default now());
+create table if not exists catalog_items (id uuid primary key default gen_random_uuid(),item_type text not null check(item_type in ('machine','spare_part','accessory')),item_code text unique not null,oem_code text,name text not null,brand text,category text,model text,image_url text,gst_mode text check(gst_mode in ('included','extra')),active boolean not null default true,created_at timestamptz not null default now());
 alter table catalog_items add column if not exists oem_code text;
--- Item code is globally unique after trimming/case normalization. OEM code is searchable but not globally unique.
 create unique index if not exists idx_catalog_item_code_normalized_uq on catalog_items(upper(regexp_replace(btrim(item_code),'\s+',' ','g')));
 create index if not exists idx_catalog_oem_code on catalog_items(upper(regexp_replace(btrim(oem_code),'\s+',' ','g'))) where oem_code is not null;
 create index if not exists idx_catalog_brand on catalog_items(upper(regexp_replace(btrim(brand),'\s+',' ','g'))) where brand is not null;
 create index if not exists idx_catalog_category on catalog_items(upper(regexp_replace(btrim(category),'\s+',' ','g'))) where category is not null;
 create index if not exists idx_catalog_model on catalog_items(upper(regexp_replace(btrim(model),'\s+',' ','g'))) where model is not null;
-create table if not exists item_rates (
- id uuid primary key default gen_random_uuid(), item_id uuid not null references catalog_items(id) on delete restrict,
- rate_group text not null check(rate_group in ('A','B','C')), min_qty numeric not null default 1, selling_rate numeric not null check(selling_rate>=0),
- unique(item_id,rate_group,min_qty)
-);
-create table if not exists machine_spare_mapping (
- id uuid primary key default gen_random_uuid(), machine_id uuid not null references catalog_items(id) on delete restrict,
- spare_part_id uuid not null references catalog_items(id) on delete restrict, required_qty numeric not null default 1,
- fitment_type text not null default 'compatible' check(fitment_type in ('oem','compatible','alternative')),
- dealer_visible boolean not null default false, public_visible boolean not null default false, notes text,
- unique(machine_id,spare_part_id,fitment_type)
-);
-create table if not exists inventory (
- item_id uuid primary key references catalog_items(id) on delete restrict, current_qty numeric not null default 0,
- reorder_level numeric not null default 0, updated_at timestamptz not null default now()
-);
-create table if not exists sales_documents (
- id uuid primary key default gen_random_uuid(), dealer_id uuid not null references dealers(id) on delete restrict,
- doc_type text not null check(doc_type in ('query','quotation','sales_order','estimate')),
- status text not null default 'draft', parent_id uuid references sales_documents(id), subtotal numeric not null default 0,
- freight numeric not null default 0, other_charges numeric not null default 0, final_payable numeric not null default 0,
- created_by uuid references app_users(id), created_at timestamptz not null default now()
-);
-create table if not exists sales_document_lines (
- id uuid primary key default gen_random_uuid(), document_id uuid not null references sales_documents(id) on delete cascade,
- item_id uuid not null references catalog_items(id) on delete restrict, qty numeric not null check(qty>0), rate numeric, amount numeric
-);
-create table if not exists payments (
- id uuid primary key default gen_random_uuid(), estimate_id uuid not null references sales_documents(id) on delete restrict,
- status text not null check(status in ('cash','pending','received')), amount numeric not null default 0,
- received_at timestamptz, recorded_by uuid references app_users(id), created_at timestamptz not null default now()
-);
-create table if not exists dispatches (
- id uuid primary key default gen_random_uuid(), estimate_id uuid not null unique references sales_documents(id) on delete restrict,
- status text not null default 'pick_list' check(status in('pick_list','picked','packed','ready_for_dispatch','delivered')),
- tracking_code text, delivered_at timestamptz, stock_deducted_at timestamptz, updated_by uuid references app_users(id)
-);
-create table if not exists inventory_movements (
- id uuid primary key default gen_random_uuid(), item_id uuid not null references catalog_items(id), qty_change numeric not null,
- reason text not null, reference_type text, reference_id uuid, created_by uuid references app_users(id), created_at timestamptz not null default now()
-);
-create table if not exists audit_log (
- id bigint generated always as identity primary key, actor_id uuid references app_users(id), action text not null,
- entity_type text not null, entity_id text, details jsonb not null default '{}'::jsonb, created_at timestamptz not null default now()
-);
-
--- Critical invariant: application delivery service must perform payment check + inventory decrement +
--- stock_deducted_at update in one DB transaction/RPC. A non-null stock_deducted_at makes delivery idempotent.
+create table if not exists item_rates (id uuid primary key default gen_random_uuid(),item_id uuid not null references catalog_items(id) on delete restrict,rate_group text not null check(rate_group in ('A','B','C')),min_qty numeric not null default 1,selling_rate numeric not null check(selling_rate>=0),unique(item_id,rate_group,min_qty));
+create table if not exists machine_spare_mapping (id uuid primary key default gen_random_uuid(),machine_id uuid not null references catalog_items(id) on delete restrict,spare_part_id uuid not null references catalog_items(id) on delete restrict,required_qty numeric not null default 1,fitment_type text not null default 'compatible' check(fitment_type in ('oem','compatible','alternative')),dealer_visible boolean not null default false,public_visible boolean not null default false,notes text,unique(machine_id,spare_part_id,fitment_type));
+create table if not exists inventory (item_id uuid primary key references catalog_items(id) on delete restrict,current_qty numeric not null default 0,reorder_level numeric not null default 0,updated_at timestamptz not null default now());
+create table if not exists sales_documents (id uuid primary key default gen_random_uuid(),dealer_id uuid not null references dealers(id) on delete restrict,doc_type text not null check(doc_type in ('query','quotation','sales_order','estimate')),status text not null default 'draft',parent_id uuid references sales_documents(id),subtotal numeric not null default 0,freight numeric not null default 0,other_charges numeric not null default 0,final_payable numeric not null default 0,created_by uuid references app_users(id),created_at timestamptz not null default now());
+create table if not exists sales_document_lines (id uuid primary key default gen_random_uuid(),document_id uuid not null references sales_documents(id) on delete cascade,item_id uuid not null references catalog_items(id) on delete restrict,qty numeric not null check(qty>0),rate numeric,amount numeric);
+-- V2 purchase-order / sales-order controls. Dealer calls the same document Purchase Order; TORVO calls it Sales Order.
+alter table sales_documents add column if not exists root_order_id uuid references sales_documents(id) on delete restrict;
+alter table sales_documents add column if not exists revision_no integer not null default 1;
+alter table sales_documents add column if not exists dealer_modification_limit integer not null default 2;
+alter table sales_documents add column if not exists dealer_modifications_used integer not null default 0;
+alter table sales_documents add column if not exists dealer_ok_revision integer;
+alter table sales_documents add column if not exists dealer_ok_at timestamptz;
+alter table sales_documents add column if not exists estimate_created_at timestamptz;
+alter table sales_documents add column if not exists locked_at timestamptz;
+alter table sales_documents add column if not exists lock_reason text;
+create table if not exists sales_order_revisions (id uuid primary key default gen_random_uuid(),sales_order_id uuid not null references sales_documents(id) on delete restrict,revision_no integer not null,changed_by uuid references app_users(id),actor_role text not null,change_reason text not null,before_data jsonb not null default '{}'::jsonb,after_data jsonb not null default '{}'::jsonb,created_at timestamptz not null default now(),unique(sales_order_id,revision_no));
+create table if not exists sales_modification_requests (id uuid primary key default gen_random_uuid(),sales_order_id uuid not null references sales_documents(id) on delete restrict,dealer_id uuid not null references dealers(id) on delete restrict,reason text not null,status text not null default 'requested' check(status in ('requested','allowed','rejected','used','cancelled')),extra_chances integer not null default 0,decided_by uuid references app_users(id),decided_at timestamptz,created_at timestamptz not null default now());
+create table if not exists payments (id uuid primary key default gen_random_uuid(),estimate_id uuid not null references sales_documents(id) on delete restrict,status text not null check(status in ('cash','pending','received')),amount numeric not null default 0,received_at timestamptz,recorded_by uuid references app_users(id),created_at timestamptz not null default now());
+-- Payment/accounting is TORVO-private. Dealer-facing APIs must never expose this table or accounting entry numbers.
+create table if not exists accounting_balances (id uuid primary key default gen_random_uuid(),estimate_id uuid not null references sales_documents(id) on delete restrict,dealer_id uuid not null references dealers(id) on delete restrict,balance_amount numeric not null check(balance_amount>0),status text not null default 'pending' check(status in ('pending','accounting_entered')),accounting_entry_no text,accounting_entered_at timestamptz,accounting_entered_by uuid references app_users(id),remarks text,created_at timestamptz not null default now(),check((status='pending' and accounting_entry_no is null) or (status='accounting_entered' and nullif(btrim(accounting_entry_no),'') is not null)));
+create index if not exists idx_accounting_balances_pending on accounting_balances(status,created_at desc);
+create table if not exists dispatches (id uuid primary key default gen_random_uuid(),estimate_id uuid not null unique references sales_documents(id) on delete restrict,status text not null default 'pick_list' check(status in('pick_list','picked','packed','ready_for_dispatch','delivered')),tracking_code text,delivered_at timestamptz,stock_deducted_at timestamptz,updated_by uuid references app_users(id));
+create table if not exists inventory_movements (id uuid primary key default gen_random_uuid(),item_id uuid not null references catalog_items(id),qty_change numeric not null,reason text not null,reference_type text,reference_id uuid,created_by uuid references app_users(id),created_at timestamptz not null default now());
+create table if not exists audit_log (id bigint generated always as identity primary key,actor_id uuid references app_users(id),action text not null,entity_type text not null,entity_id text,details jsonb not null default '{}'::jsonb,created_at timestamptz not null default now());
+-- Stock deduction remains an exactly-once audited dispatch/delivery operation; payment/accounting state is not dealer-visible.
