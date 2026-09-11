@@ -33,7 +33,7 @@ This file is the authoritative dependency order for a fresh V2 database setup. D
 24. `v2-referrals.sql`
 
 ### Detailed report rule
-`v2-report-detail-rpc.sql` provides database-authorized detail rows for Sales, Inventory, Reorder, Dispatch, Missing Range Opportunity and Audit reports. Store Keeper is limited to Inventory/Reorder/Dispatch and never receives sales, payment, purchase-cost or profit rows through this RPC. Audit output is capped to the latest 1000 matching rows per request.
+`v2-report-detail-rpc.sql` provides database-authorized detail rows for Sales, Order-vs-Estimate, Outstanding/Aging, Dealer, Product, Inventory, Reorder, Dispatch, Scheme, Missing Range Opportunity and Audit reports. Store Keeper is limited to Inventory/Reorder/Dispatch and never receives sales, payment, purchase-cost or profit rows through this RPC. Audit output is capped to the latest 1000 matching rows per request.
 
 ### Purchase-cost / profit rule
 `v2-purchase-cost-history.sql` stores append-only effective-dated purchase costs through an Owner-only RPC and exposes Owner-only profit summary. Profit remains unavailable when any delivered sales line has no applicable historical purchase cost; the system must not invent a cost or misleading profit.
@@ -52,6 +52,22 @@ The `reward_ledger` table is created by `v2-extended-schema.sql`; there is no se
 
 ### Existing database migration warning
 Do not blindly rerun the full list on an existing database. Apply only the new/changed migrations in dependency order. Historical dealers with redemption/expiry activity require reconciliation before lot-based balances are enabled for production use.
+
+## Mandatory staging release gate
+GitHub/Vite build success does **not** validate PostgreSQL migrations or RPC behavior. Before V2 can be called production-ready, run the applicable SQL above against a separate staging Supabase project and complete all of these checks:
+
+1. Sign in with test users for Owner, Admin, Salesman, Accountant, Store Keeper and Dealer; confirm each role can open only its allowed modules and database rows.
+2. Complete one test sale end-to-end: Dealer Query → Quotation → Dealer Accept → Sales Order → Estimate → Payment → Ready for Dispatch → Delivered.
+3. Confirm inventory does **not** deduct at Estimate, Picked or Packed; it deducts exactly once only after valid payment + delivery. Retry delivery and confirm stock cannot deduct twice.
+4. Retry the same payment request key and confirm it returns the same payment; reuse that key with different data and confirm it is rejected.
+5. Create/receive a reorder and confirm duplicate active reorder protection and inventory movement history.
+6. Test Machine → Spare Parts mapping and confirm internal compatibility stays Owner/Admin-only unless a mapping is explicitly dealer-visible.
+7. Run summary/detail reports as each allowed role and confirm Store Keeper never receives financial/rate/profit data; Profit/Purchase Cost remain Owner-only.
+8. Run `reward_reconciliation_status()` and `assert_reward_lot_migration_ready()` before enabling lot rewards on migrated production data; test FIFO redeem and expiry on staging.
+9. Verify notifications/messages, dealer approval, inactive-user blocking and audit entries for critical actions.
+10. Confirm no service-role key or other privileged secret is present in browser code, GitHub source or public deployment output.
+
+Record any staging failure before production migration. Do not point the live domain at V2 and do not replace/merge the existing live version until this gate passes and the Owner explicitly approves cutover.
 
 ### Production safety
 - Never place a Supabase service-role key in browser code or GitHub source.
