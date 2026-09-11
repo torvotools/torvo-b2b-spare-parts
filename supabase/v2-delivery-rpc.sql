@@ -41,7 +41,8 @@ begin
   end loop;
 
   update dispatches set status='delivered',delivered_at=now(),stock_deducted_at=now(),updated_by=v_actor.id where id=v_dispatch.id;
-  insert into audit_log(actor_id,action,entity_type,entity_id,details) values(v_actor.id,'DELIVER_AND_DEDUCT_STOCK','estimate',p_estimate::text,jsonb_build_object('dispatch_id',v_dispatch.id,'paid_amount',v_paid,'stock_deducted_once',true));
+  perform recalculate_dealer_scheme_progress(v_estimate.dealer_id);
+  insert into audit_log(actor_id,action,entity_type,entity_id,details) values(v_actor.id,'DELIVER_AND_DEDUCT_STOCK','estimate',p_estimate::text,jsonb_build_object('dispatch_id',v_dispatch.id,'paid_amount',v_paid,'stock_deducted_once',true,'scheme_progress_refreshed',true));
 end;$$;
 revoke all on function deliver_estimate(uuid) from public,anon;
 grant execute on function deliver_estimate(uuid) to authenticated;
