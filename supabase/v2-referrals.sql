@@ -1,26 +1,9 @@
 -- TORVO V2 referral program foundation.
+-- Reward credits require v2-reward-lots.sql.
 create table if not exists referral_rules(
- id uuid primary key default gen_random_uuid(),
- name text not null,
- reward_points numeric not null default 0 check(reward_points>=0),
- min_delivered_sales numeric not null default 0 check(min_delivered_sales>=0),
- active boolean not null default true,
- created_by uuid references app_users(id),
- created_at timestamptz not null default now()
-);
+ id uuid primary key default gen_random_uuid(),name text not null,reward_points numeric not null default 0 check(reward_points>=0),min_delivered_sales numeric not null default 0 check(min_delivered_sales>=0),active boolean not null default true,created_by uuid references app_users(id),created_at timestamptz not null default now());
 create table if not exists dealer_referrals(
- id uuid primary key default gen_random_uuid(),
- referrer_dealer_id uuid not null references dealers(id),
- referred_dealer_id uuid not null references dealers(id),
- rule_id uuid not null references referral_rules(id),
- status text not null default 'pending' check(status in('pending','qualified','rewarded','rejected')),
- qualified_at timestamptz,
- rewarded_at timestamptz,
- created_by uuid references app_users(id),
- created_at timestamptz not null default now(),
- check(referrer_dealer_id<>referred_dealer_id),
- unique(referred_dealer_id)
-);
+ id uuid primary key default gen_random_uuid(),referrer_dealer_id uuid not null references dealers(id),referred_dealer_id uuid not null references dealers(id),rule_id uuid not null references referral_rules(id),status text not null default 'pending' check(status in('pending','qualified','rewarded','rejected')),qualified_at timestamptz,rewarded_at timestamptz,created_by uuid references app_users(id),created_at timestamptz not null default now(),check(referrer_dealer_id<>referred_dealer_id),unique(referred_dealer_id));
 create index if not exists idx_referrals_referrer on dealer_referrals(referrer_dealer_id,status);
 alter table referral_rules enable row level security;alter table dealer_referrals enable row level security;
 drop policy if exists referral_rules_read on referral_rules;create policy referral_rules_read on referral_rules for select to authenticated using(current_app_role() in('owner','admin') or(current_app_role()='dealer' and active=true));
@@ -46,7 +29,7 @@ exception when unique_violation then raise exception 'Referred dealer already ha
 revoke all on function create_dealer_referral(uuid,uuid,uuid) from public,anon;grant execute on function create_dealer_referral(uuid,uuid,uuid) to authenticated;
 
 create or replace function evaluate_dealer_referral(p_referral uuid)
-returns text language plpgsql security definer set search_path=public as $$declare a app_users%rowtype;r dealer_referrals%rowtype;rule referral_rules%rowtype;v_sales numeric:=0;begin
+returns text language plpgsql security definer set search_path=public as $$declare a app_users%rowtype;r dealer_referrals%rowtype;rule referral_rules%rowtype;v_sales numeric:=0;v_entry uuid;begin
  select * into a from app_users where auth_user_id=auth.uid() and active=true;if not found or a.role not in('owner','admin') then raise exception 'Not authorized';end if;
  select * into r from dealer_referrals where id=p_referral for update;if not found then raise exception 'Referral not found';end if;if r.status in('rewarded','rejected') then return r.status;end if;
  select * into rule from referral_rules where id=r.rule_id;if not found or rule.active=false then raise exception 'Referral rule inactive';end if;
@@ -54,7 +37,12 @@ returns text language plpgsql security definer set search_path=public as $$decla
  if v_sales<rule.min_delivered_sales then return 'pending';end if;
  update dealer_referrals set status='qualified',qualified_at=coalesce(qualified_at,now()) where id=r.id;
  if rule.reward_points>0 then
-   begin insert into reward_ledger(dealer_id,points,reason,entry_type,source_type,source_id,created_by) values(r.referrer_dealer_id,rule.reward_points,'Referral reward','earn','dealer_referral',r.id::text,a.id);exception when unique_violation then null;end;
+   perform pg_advisory_xact_lock(hashtextextended(r.referrer_dealer_id::text,0));
+   begin
+     insert into reward_ledger(dealer_id,points,reason,entry_type,source_type,source_id,created_by) values(r.referrer_dealer_id,rule.reward_points,'Referral reward','earn','dealer_referral',r.id::text,a.id) returning id into v_entry;
+     insert into reward_point_lots(dealer_id,earn_entry_id,original_points,remaining_points,created_at) values(r.referrer_dealer_id,v_entry,rule.reward_points,rule.reward_points,now());
+   exception when unique_violation then null;
+   end;
  end if;
  update dealer_referrals set status='rewarded',rewarded_at=coalesce(rewarded_at,now()) where id=r.id;
  insert into audit_log(actor_id,action,entity_type,entity_id,details) values(a.id,'REFERRAL_REWARDED','dealer_referral',r.id::text,jsonb_build_object('referrer',r.referrer_dealer_id,'referred',r.referred_dealer_id,'delivered_sales',v_sales,'reward_points',rule.reward_points));return 'rewarded';end;$$;
