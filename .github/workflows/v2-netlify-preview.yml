@@ -34,11 +34,13 @@ jobs:
       - name: Build isolated V2 preview
         run: npx vite build --config vite.v2-preview.config.js
 
-      - name: Verify isolated preview target
+      - name: Normalize preview entry
         run: |
           test "${GITHUB_REF_NAME}" = "torvo-v2-build"
+          test -f dist/v2-preview.html
+          mv dist/v2-preview.html dist/index.html
           test -f dist/index.html
-          echo "Isolated TORVO V2 preview build is ready."
+          echo "Isolated TORVO V2 preview build is ready at site root."
 
       - name: Upload preview build artifact
         uses: actions/upload-artifact@v4
