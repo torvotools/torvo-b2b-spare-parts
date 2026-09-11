@@ -23,15 +23,19 @@ This file is the authoritative dependency order for a fresh V2 database setup. D
 ## Schemes and rewards
 15. `v2-scheme-progress.sql`
 16. `v2-reward-lots.sql`
-17. `v2-rewards-rpcs.sql`
-18. `v2-scheme-reward-credit.sql`
-19. `v2-referrals.sql`
+17. `v2-reward-reconciliation.sql`
+18. `v2-rewards-rpcs.sql`
+19. `v2-scheme-reward-credit.sql`
+20. `v2-referrals.sql`
 
 ### Reward dependency rule
 The `reward_ledger` table is created by `v2-extended-schema.sql`; there is no separate reward-ledger migration in this V2 branch. `v2-reward-lots.sql` MUST run after `v2-extended-schema.sql` and before any SQL that creates or spends lot-based reward points. Scheme and referral reward credits depend on `reward_point_lots`.
 
+### Existing database reward cutover
+`v2-reward-lots.sql` deliberately auto-backfills only dealers whose reward history has no prior redeem/expire entries. `v2-reward-reconciliation.sql` is read-only/guarded migration support: run `reward_reconciliation_status()` as Owner/Admin and resolve every row that is not `LOT_ACCOUNTING_READY`. Then run `assert_reward_lot_migration_ready()` before enabling lot-based rewards in production. The guard intentionally refuses to invent historical FIFO allocations.
+
 ### Existing database migration warning
-Do not blindly rerun the full list on an existing database. Apply only the new/changed migrations in dependency order. `v2-reward-lots.sql` deliberately auto-backfills only dealers whose reward history has no prior redeem/expire entries. Historical dealers with redemption/expiry activity require reconciliation before lot-based balances are enabled for production use.
+Do not blindly rerun the full list on an existing database. Apply only the new/changed migrations in dependency order. Historical dealers with redemption/expiry activity require reconciliation before lot-based balances are enabled for production use.
 
 ### Production safety
 - Never place a Supabase service-role key in browser code or GitHub source.
