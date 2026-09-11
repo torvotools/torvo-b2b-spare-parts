@@ -15,9 +15,12 @@ create table if not exists dealers (
 );
 create table if not exists catalog_items (
  id uuid primary key default gen_random_uuid(), item_type text not null check(item_type in ('machine','spare_part','accessory')),
- item_code text unique not null, name text not null, brand text, category text, model text, image_url text,
+ item_code text unique not null, oem_code text, name text not null, brand text, category text, model text, image_url text,
  gst_mode text check(gst_mode in ('included','extra')), active boolean not null default true, created_at timestamptz not null default now()
 );
+-- Safe upgrade path for V2 databases created before OEM code support.
+alter table catalog_items add column if not exists oem_code text;
+create index if not exists idx_catalog_oem_code on catalog_items(upper(btrim(oem_code))) where oem_code is not null;
 create table if not exists item_rates (
  id uuid primary key default gen_random_uuid(), item_id uuid not null references catalog_items(id) on delete restrict,
  rate_group text not null check(rate_group in ('A','B','C')), min_qty numeric not null default 1, selling_rate numeric not null check(selling_rate>=0),
@@ -52,7 +55,7 @@ create table if not exists payments (
 );
 create table if not exists dispatches (
  id uuid primary key default gen_random_uuid(), estimate_id uuid not null unique references sales_documents(id) on delete restrict,
- status text not null default 'pick_list' check(status in ('pick_list','picked','packed','ready_for_dispatch','delivered')),
+ status text not null default 'pick_list' check(status in('pick_list','picked','packed','ready_for_dispatch','delivered')),
  tracking_code text, delivered_at timestamptz, stock_deducted_at timestamptz, updated_by uuid references app_users(id)
 );
 create table if not exists inventory_movements (
