@@ -20,10 +20,10 @@ Use the repository's `supabase/` V2 migration files in dependency order. Preserv
 4. Purchase Entry, inventory movement, low-stock and Purchase Requirement/fulfilment migrations.
 5. Private Suitable/fitment and role/dealer privacy migrations.
 6. Dashboard/admin/business RPC migrations after their dependent tables/policies exist.
-7. Backup and disaster-recovery group, in this order:
+7. Backup and disaster-recovery group, in this exact order:
    - `v2-backup-control.sql`
    - `v2-backup-channels.sql`
-   - any later trusted-worker/export-manifest backup migration, in its documented dependency order.
+   - `v2-backup-worker-contract.sql`
 8. Later feature migrations such as conversion/repacking, rewards, GST and advanced modules only after their prerequisites are present.
 
 Before executing staging, inventory the actual `supabase/v2-*.sql` files and reconcile every file into this dependency sequence. Never assume a new migration is safe merely because its filename sorts after another file.
@@ -32,7 +32,7 @@ Before executing staging, inventory the actual `supabase/v2-*.sql` files and rec
 
 The release is blocked until all applicable checks pass with real staging sessions/data:
 
-- OWNER, ADMIN, SALESMAN, ACCOUNTANT, STORE KEEPER and DEALER authorization/privacy.
+- OWNER, ADMIN, SALESMAN, ACCOUNTANT, STORE KEEER and DEALER authorization/privacy.
 - Dealer financial privacy and private Suitable/fitment visibility.
 - Dealer catalog/rate server calculation and scalable search/finders.
 - PURCHASE ORDER -> SALES ORDER -> revision -> exact latest DEALER OK -> ESTIMATE flow.
