@@ -16,15 +16,21 @@ Use the repository's `supabase/` V2 migration files in dependency order. Preserv
 
 1. Core V2 schema, role/profile/dealer-link and security foundation migrations.
 2. Catalog/item/product/master-value and dealer catalog/rate/search migrations.
-3. Purchase Order / Sales Order / revision / Dealer OK / Estimate / Add More Items migrations and duplicate-line integrity guards.
+3. Purchase Order / Sales Order foundation, then these integrity migrations in this order:
+   - `v2-sales-order-integrity.sql`
+   - `v2-additional-purchase-order.sql`
+   These enforce duplicate-line protection, exact latest DEALER OK, revision invalidation, ESTIMATE locking and separate linked ADD MORE ITEMS orders.
 4. Purchase Entry, inventory movement, low-stock and Purchase Requirement/fulfilment migrations.
-5. Private Suitable/fitment and role/dealer privacy migrations.
-6. Dashboard/admin/business RPC migrations after their dependent tables/policies exist.
-7. Backup and disaster-recovery group, in this exact order:
+5. After the payment, dispatch and inventory foundation tables/RPCs exist, install:
+   - `v2-delivery-stock-integrity.sql`
+   This is the payment-gated actual-delivery stock finalization layer and must not be installed before its dependent payment/dispatch/inventory objects.
+6. Private Suitable/fitment and role/dealer privacy migrations.
+7. Dashboard/admin/business RPC migrations after their dependent tables/policies exist. If an older RPC has the same signature as an integrity RPC above, the integrity version must remain the final installed definition.
+8. Backup and disaster-recovery group, in this exact order:
    - `v2-backup-control.sql`
    - `v2-backup-channels.sql`
    - `v2-backup-worker-contract.sql`
-8. Later feature migrations such as conversion/repacking, rewards, GST and advanced modules only after their prerequisites are present.
+9. Later feature migrations such as conversion/repacking, rewards, GST and advanced modules only after their prerequisites are present.
 
 Before executing staging, inventory the actual `supabase/v2-*.sql` files and reconcile every file into this dependency sequence. Never assume a new migration is safe merely because its filename sorts after another file.
 
@@ -44,6 +50,8 @@ The release is blocked until all applicable checks pass with real staging sessio
 - Purchase Requirements partial/full fulfilment, exact Dealer allocation and tracking reversal are secure/audited.
 - Payment + actual Delivery deducts stock exactly once. ESTIMATE/PICKED/PACKED never deduct stock.
 - Replayed payment/delivery actions remain idempotent.
+- Delivery cannot finalize with insufficient stock or insufficient required payment.
+- Direct client writes cannot bypass the inventory/finalization integrity path.
 - Dealer fitment suggestions earn ZERO points and remain private between Dealer and TORVO.
 - No secrets/service-role credentials are exposed to browser/client/GitHub.
 
