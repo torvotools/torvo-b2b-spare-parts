@@ -1,0 +1,76 @@
+-- TORVO V2 BACKUP CONTROL — STAGING SECURITY / RECOVERY CHECKLIST
+-- SOURCE-LEVEL TEST CONTRACT. RUN ONLY IN SUPABASE STAGING AFTER THE
+-- AUTHORITATIVE MIGRATION ORDER HAS BEEN INSTALLED.
+--
+-- IMPORTANT: BACKUP_RUNS IS CONTROL/METADATA ONLY. THESE CHECKS MUST NEVER
+-- BE TREATED AS PROOF THAT A DATABASE ARCHIVE EXISTS OR IS RESTORABLE.
+
+begin;
+
+-- 1. SCHEMA / POLICY PRESENCE
+select to_regclass('public.backup_runs') as backup_runs_table;
+
+select policyname, roles, cmd
+from pg_policies
+where schemaname = 'public'
+  and tablename = 'backup_runs'
+order by policyname;
+
+-- 2. FUNCTION CONTRACT
+select n.nspname as schema_name,
+       p.proname as function_name,
+       pg_get_function_identity_arguments(p.oid) as arguments,
+       p.prosecdef as security_definer
+from pg_proc p
+join pg_namespace n on n.oid = p.pronamespace
+where n.nspname = 'public'
+  and p.proname in (
+    'request_backup_run',
+    'get_backup_status',
+    'complete_backup_run',
+    'fail_backup_run'
+  )
+order by p.proname;
+
+-- 3. GRANT REVIEW — ANON MUST NOT RECEIVE BACKUP CONTROL EXECUTION.
+select routine_schema, routine_name, grantee, privilege_type
+from information_schema.routine_privileges
+where routine_schema = 'public'
+  and routine_name in (
+    'request_backup_run',
+    'get_backup_status',
+    'complete_backup_run',
+    'fail_backup_run'
+  )
+order by routine_name, grantee;
+
+-- 4. REQUIRED MANUAL ROLE TESTS (RUN WITH REAL STAGING JWT SESSIONS)
+-- OWNER: REQUEST + READ HISTORY/STATUS = ALLOW.
+-- ADMIN: REQUEST + READ HISTORY/STATUS = ALLOW WHERE POLICY SPECIFIES.
+-- SALESMAN / ACCOUNTANT / STORE KEEPER / DEALER / ANON = DENY.
+-- WORKER COMPLETION MUST REQUIRE THE TRUSTED WORKER CONTRACT; BROWSER USERS
+-- MUST NOT BE ABLE TO MARK A REQUEST VERIFIED/SUCCESSFUL.
+
+-- 5. 24H / 48H STATUS TEST
+-- CREATE CONTROLLED STAGING FIXTURES FOR VERIFIED_AT AT:
+--   < 24 HOURS  -> HEALTHY
+--   >= 24 HOURS -> WARNING
+--   >= 48 HOURS -> CRITICAL
+-- A PENDING/REQUESTED RUN MUST NOT RESET THE VERIFIED-BACKUP AGE.
+
+-- 6. ARTIFACT / RESTORE MANIFEST TEST
+-- A VERIFIED FULL RESTORE POINT MUST HAVE TRUSTED WORKER EVIDENCE FOR:
+-- DATABASE BACKUP + CODE BRANCH + CODE COMMIT + DB/SCHEMA VERSION + CHECKSUM
+-- + RESTORE MANIFEST. SECRETS/SERVICE-ROLE CREDENTIALS MUST NOT BE INCLUDED.
+
+-- 7. FAILURE / IDEMPOTENCY TEST
+-- REPLAYING WORKER COMPLETION MUST NOT CREATE A SECOND VERIFIED ARTIFACT OR
+-- SILENTLY CHANGE THE CHECKSUM/MANIFEST OF AN ALREADY VERIFIED RUN.
+-- FAILED WORK MUST REMAIN FAILED/AUDITABLE AND MUST NOT COUNT AS VERIFIED.
+
+-- 8. RESTORE DRILL GATE
+-- BEFORE PRODUCTION TRUST: RESTORE THE ENCRYPTED STAGING ARTIFACT INTO A
+-- CLEAN STAGING TARGET, VERIFY CHECKSUM + MANIFEST, THEN RUN ROLE/ORDER/STOCK
+-- SECURITY TESTS AGAIN. ONLY THIS DRILL CAN ESTABLISH RESTORABILITY.
+
+rollback;
