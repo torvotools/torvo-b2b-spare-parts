@@ -6,6 +6,31 @@
 create unique index if not exists uq_purchase_supplier_invoice
 on purchase_headers(supplier_id,upper(trim(invoice_no))) where nullif(trim(invoice_no),'') is not null;
 
+create index if not exists idx_catalog_purchase_item_code on catalog_items(lower(item_code));
+create index if not exists idx_catalog_purchase_oem_code on catalog_items(lower(oem_code));
+create index if not exists idx_catalog_purchase_name on catalog_items(lower(name));
+create index if not exists idx_catalog_purchase_brand on catalog_items(lower(brand));
+
+-- Scalable Purchase Item Finder. Owner/Admin only; returns catalog identity fields, never cost history.
+create or replace function search_purchase_catalog(p_search text default null,p_type text default null,p_brand text default null,p_limit integer default 100)
+returns table(id uuid,item_code text,oem_code text,name text,brand text,category text,item_type text)
+language plpgsql stable security definer set search_path=public as $$
+declare a app_users%rowtype;s text:=lower(trim(coalesce(p_search,'')));lim integer:=greatest(1,least(coalesce(p_limit,100),100));begin
+ select * into a from app_users where auth_user_id=auth.uid() and active=true;
+ if not found or a.role not in('owner','admin') then raise exception 'Owner/Admin required'; end if;
+ return query
+ select c.id,c.item_code,c.oem_code,c.name,c.brand,c.category,c.item_type
+ from catalog_items c
+ where c.active=true
+   and (nullif(trim(coalesce(p_type,'')),'') is null or c.item_type=p_type)
+   and (nullif(trim(coalesce(p_brand,'')),'') is null or lower(coalesce(c.brand,''))=lower(trim(p_brand)))
+   and (s='' or lower(coalesce(c.item_code,'')) like '%'||s||'%' or lower(coalesce(c.oem_code,'')) like '%'||s||'%' or lower(coalesce(c.name,'')) like '%'||s||'%' or lower(coalesce(c.brand,'')) like '%'||s||'%' or lower(coalesce(c.category,'')) like '%'||s||'%')
+ order by case when s<>'' and lower(coalesce(c.item_code,''))=s then 0 when s<>'' and lower(coalesce(c.oem_code,''))=s then 1 when s<>'' and lower(coalesce(c.item_code,'')) like s||'%' then 2 when s<>'' and lower(coalesce(c.oem_code,'')) like s||'%' then 3 else 4 end,c.item_code
+ limit lim;
+end;$$;
+revoke all on function search_purchase_catalog(text,text,text,integer) from public,anon;
+grant execute on function search_purchase_catalog(text,text,text,integer) to authenticated;
+
 create or replace function create_purchase_entry(p_supplier uuid,p_invoice_no text,p_invoice_date date,p_lines jsonb,p_note text default null) returns uuid
 language plpgsql security definer set search_path=public as $$
 declare a app_users%rowtype;h uuid;x jsonb;iid uuid;q numeric;rate numeric;total numeric:=0;begin
