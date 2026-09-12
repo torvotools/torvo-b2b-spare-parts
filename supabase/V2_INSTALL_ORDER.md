@@ -36,17 +36,18 @@ This file is the authoritative dependency order for a fresh V2 database setup. D
 27. `v2-purchase-entry-rpcs.sql`
 28. `v2-inventory-purchase-guard.sql`
 29. `v2-purchase-requirement-fulfilment.sql`
+30. `v2-item-movement-center.sql`
 
 ## Private suitable knowledge / Dealer fitment suggestions
-30. `v2-knowledge-rewards.sql`
+31. `v2-knowledge-rewards.sql`
 
 ## Schemes and sales rewards
-31. `v2-scheme-progress.sql`
-32. `v2-reward-lots.sql`
-33. `v2-reward-reconciliation.sql`
-34. `v2-rewards-rpcs.sql`
-35. `v2-scheme-reward-credit.sql`
-36. `v2-referrals.sql`
+32. `v2-scheme-progress.sql`
+33. `v2-reward-lots.sql`
+34. `v2-reward-reconciliation.sql`
+35. `v2-rewards-rpcs.sql`
+36. `v2-scheme-reward-credit.sql`
+37. `v2-referrals.sql`
 
 ### Purchase Entry rule
 `v2-purchase-entry-rpcs.sql` is the authoritative stock-receipt path for supplier Purchase invoices. Only Owner/Admin can create or reverse a Purchase. Supplier + normalized Invoice No is duplicate-protected. Every received line must reference an active catalog item, quantity must be positive and purchase rate cannot be negative. Creating the Purchase adds inventory and an inventory movement in the same database transaction. Purchase entries are immutable; a correction uses a mandatory-reason audited reversal and is rejected if current stock is below the quantity that would be reversed. This module is operational purchase/stock history only and does not create a supplier ledger.
@@ -59,6 +60,9 @@ This file is the authoritative dependency order for a fresh V2 database setup. D
 
 ### Purchase Requirement fulfilment rule
 `v2-purchase-requirement-fulfilment.sql` runs after the Purchase Requirement schema/actions, Item Master linkage and Purchase Entry RPC. Owner/Admin can link an approved/purchasing requirement only to a real non-reversed Purchase containing the exact required catalog item. Linked quantity cannot exceed the Purchase item's unallocated quantity or the requirement's remaining approved quantity. Partial links move the requirement to `partially_purchased`; full approved quantity moves it to `completed`. New-item requirements must first be linked to a real catalog item. Link/reversal actions are audited. Reversing a fulfilment link changes fulfilment tracking only and must never create a second inventory movement or reverse Purchase stock.
+
+### Item Movement / Low Stock privacy rule
+`v2-item-movement-center.sql` runs after Purchase Entry because it reads real Purchase lines plus delivered Sales and inventory movements. Owner may see supplier and Purchase Rate history. Admin may see operational sales/source references but never Purchase Rate through these RPCs. Store Keeper receives stock/movement quantities only and no supplier purchase financials. Reversed Purchases must be excluded from normal Purchase history. Low Stock drilldown is read-only and must never create, receive or adjust inventory.
 
 ### Sales revision / Dealer OK / Add More Items rule
 `v2-sales-revision-rpcs.sql` is the controlled revision layer for the current sales flow. Owner/Admin/authorized Accountant may revise a Sales Order before Estimate; the server recalculates every revised line from the Dealer's current rate group and records revision history. A revision invalidates prior Dealer OK. Authorized staff can mark the exact latest revision as awaiting Dealer OK; a mapped Salesman is restricted to assigned Dealers. Dealer confirmation is accepted only for the Dealer's own Sales Order and exact current revision. Estimate must follow Dealer OK, and direct Sales Order revision is locked after an Estimate exists. Dealer direct modification has a controlled allowance (default 2); after the allowance is exhausted the Dealer must submit an audited modification request and TORVO may grant an extra chance. `Add More Items` never mutates an old/estimated/finalized order: Dealer submits a request, TORVO approves it, then a new Sales Order is created with `add_on_parent_order_id` pointing to the original order. The approved request is linked to exactly one add-on order and then closed. Add-on rates are recalculated server-side from the approved Dealer rate group. WhatsApp delivery must never be recorded as sent until the provider is actually connected and verified.
@@ -116,8 +120,9 @@ GitHub/Vite build success does **not** validate PostgreSQL migrations or RPC beh
 15. Verify Salesman cannot read another Salesman's Dealers; test Dealer transfer, area mapping and targets with audit history.
 16. Using two Dealer accounts, verify Dealer A can never receive Dealer B's fitment suggestion/history. Verify Correct/Partly Correct/Wrong/Duplicate review and Private Suitable promotion. Confirm no fitment submission/review creates TORVO Points or reward-ledger rows.
 17. Verify Purchase Requirement partial fulfilment: link only a Purchase containing the exact required item, reject over-linking beyond Purchase quantity/remaining approved quantity, confirm partial status/remaining quantity, then complete with another Purchase. For a New Item requirement, confirm Owner/Admin must first link exactly one active Item Master record, linkage is audited, silent reassignment is rejected, fulfilment is blocked before the link, and Item Master linking itself creates no stock. Confirm reversed Purchase cannot fulfil a requirement and fulfilment-link reversal changes tracking only, not inventory.
-18. Verify notifications/messages, dealer approval, inactive-user blocking and audit entries for critical actions.
-19. Confirm no service-role key or other privileged secret is present in browser code, GitHub source or public deployment output.
+18. Test Item Movement Center as Owner/Admin/Store Keeper. Confirm reversed Purchases are excluded, Purchase/Sale/other filters return real events, date range works, Owner alone receives supplier + Purchase Rate, Admin does not receive Purchase Rate, and Store Keeper receives no financial fields. Test Low Stock drilldown for Low/Out/All plus Brand/Category/search filters and confirm it is read-only.
+19. Verify notifications/messages, dealer approval, inactive-user blocking and audit entries for critical actions.
+20. Confirm no service-role key or other privileged secret is present in browser code, GitHub source or public deployment output.
 
 Record any staging failure before production migration. Do not point the live domain at V2 and do not replace/merge the existing live version until this gate passes and the Owner explicitly approves cutover.
 
