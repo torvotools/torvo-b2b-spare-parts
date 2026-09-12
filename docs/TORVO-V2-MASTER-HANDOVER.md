@@ -21,11 +21,14 @@ TORVO V2 is a B2B operational portal, not accounting software. Product priority:
 - Query/Quotation is retired from the active V2 API. Historical rows may remain; do not build new workflow on Query/Quotation.
 - Owner/Admin/authorized Accountant may revise a Sales Order before Estimate. Every revision is audited and rates are recalculated server-side from the Dealer's current A/B/C rate group; client-supplied rates are not trusted.
 - Any TORVO revision invalidates previous Dealer OK and requires the Dealer to review/confirm the exact latest revision again.
-- Dealer OK is accepted only for the linked Dealer's own Sales Order, only while status is awaiting Dealer OK, and only when the submitted revision equals the current revision.
+- Dealer may directly modify an eligible pre-Estimate Purchase Order only within the server-controlled modification allowance (default foundation: 2). Each accepted revision is audited and repriced server-side.
+- When direct modification allowance is exhausted, Dealer can submit a Modification Request for TORVO review. Admin approval may grant an additional controlled chance; approval never silently edits rates/items.
 - Estimate creation requires exact latest Dealer OK and is blocked if an Estimate already exists. Creating Estimate locks direct Sales Order revision.
-- Dealer Portal now has latest-revision review and Give Dealer OK UI. SalesWorkspace has active Modify Order, Send for Dealer OK and Create Estimate controls wired to repository RPC calls.
+- ADD MORE ITEMS is a request/approval flow, not an edit to the original document. After TORVO approval, Dealer selects products/qty and creates a separate linked Additional Purchase Order. The original Sales Order/Estimate remains immutable.
+- Approved Add More Items can convert only once. Dealer ownership, approval status and current Dealer Rate Group/quantity pricing are validated server-side; duplicate conversion is blocked.
+- Dealer Portal now mounts the approved Additional Purchase Order panel and premium item-selection/rate-preview modal. Admin SalesWorkspace shows whether an approved Add More Items request is waiting for Dealer action or has produced its linked Additional Sales Order.
+- SalesWorkspace has active Modify Order, Send for Dealer OK, Create Estimate and Dealer Change Request review controls wired to repository/RPC calls.
 - Salesman-assisted order foundation exists and is server-scoped to mapped Dealers/areas. Runtime staging verification remains mandatory.
-- Future enhancement still required: Dealer self-modification allowance/default count, modification-request-after-limit, and linked ADD MORE ITEMS/NEXT ORDER without corrupting prior/final documents.
 
 ## DEALER PAYMENT PRIVACY — FINAL
 - Dealer Portal shows NO payment data: no pending/received/cash/UPI/bank/outstanding/accounting-entry number.
@@ -118,9 +121,9 @@ OWNER full. ADMIN operational/admin. SALESMAN mapped Dealer/order/sales only. AC
 
 ## SQL INSTALL / RELEASE GATE
 - `supabase/V2_INSTALL_ORDER.md` is the authoritative dependency order.
-- Current order includes `v2-sales-revision-rpcs.sql` after sales-team/assisted dependencies and before Purchase Requirements.
+- Current order includes sales-team mapping/RPCs, assisted workflows, `v2-sales-revision-rpcs.sql`, Purchase Requirements and later migrations in documented order.
 - GitHub/Vite success cannot validate PostgreSQL. All applicable migrations/RPCs must be executed against a separate Supabase staging project.
-- Mandatory staging test includes role isolation, exact revision Dealer OK, stale OK rejection, Estimate lock, payment idempotency, once-only stock deduction, catalog master safety, Salesman scoping, Fitment privacy/no-points and secret checks.
+- Mandatory staging tests include role isolation; Dealer direct modification limits; change-request approval; approved Add More Items one-time linked-order conversion; original-document immutability; current server pricing; exact revision Dealer OK; stale OK rejection; Estimate lock; payment idempotency; once-only stock deduction; catalog master safety; Salesman scoping; Fitment privacy/no-points; and secret checks.
 - Never point live domain at V2 or merge/replace V27/main until staging gate passes and Owner explicitly approves.
 
 ## CURRENT BUILD STATUS — 12-09-2026
@@ -130,7 +133,10 @@ ACTUAL SOURCE-CODE IMPLEMENTED in `torvo-v2-build` includes:
 - Premium V2 app shell and role/module structure.
 - Dealer secure rate lookup and Purchase Order submission repository/backend foundation.
 - Dealer Portal quantity-based applicable rate/amount, cart total, Purchase Order submission and latest 30-day Sales Order/Estimate history.
-- Controlled Sales Order revision RPC, exact latest Dealer OK RPC and hardened Estimate boundary.
+- Controlled Sales Order revision RPC, Dealer direct self-modification allowance, Modification Request/Admin review, exact latest Dealer OK RPC and hardened Estimate boundary.
+- Approved Add More Items -> separate linked Additional Purchase Order backend/repository/UI foundation with one-time conversion, Dealer ownership checks and server-side current pricing.
+- Dealer Portal mounted Additional Purchase Order approval panel, premium searchable item/qty/rate-preview modal, retry/loading states and stale-rate-response protection.
+- Admin SalesWorkspace shows approved Add More Items waiting/converted state and linked Additional Sales Order status.
 - SalesWorkspace Modify Order, Send for Dealer OK and Create Estimate controls wired to repository calls.
 - Dealer Portal Review & Give Dealer OK modal showing revision/items/qty/rate/amount/total.
 - Query/Quotation RPC execution revoked from active V2 API; historical data is not deleted.
@@ -140,17 +146,17 @@ ACTUAL SOURCE-CODE IMPLEMENTED in `torvo-v2-build` includes:
 - Premium catalog/master/dealer/inventory/dispatch/report foundations from earlier V2 work.
 
 NOT YET CLAIMED VERIFIED:
-- Supabase staging execution/compile of the migration chain and runtime RPC tests.
+- Supabase staging execution/compile of the migration chain and runtime RPC tests, including the new Add More Items linked-order lifecycle.
+- Actual Vite/Netlify build/deploy of the latest commit; GitHub currently has no CI status check proving the build.
 - Full WhatsApp OTP/provider/secure-link integration.
 - Single-active Dealer session + inactivity PIN/OTP policy runtime flow.
-- Dealer self-modification allowance/request-more-changes/add-on order lifecycle.
 - Purchase fulfilment linkage, Purchase Return/edit atomicity, complete Item Movement Center, Low Stock source drilldown and Stock Conversion/Repacking UI/RPC.
 - Final end-to-end payment -> dispatch/delivery -> exactly-once stock deduction staging proof.
 - Full GST Admin switch/approval UI and remaining advanced modules.
 
 ## IMPORTANT NEXT WORK
-1. Continue source-level dependency/security review for the current sales/payment/delivery chain, then execute the full applicable SQL order in Supabase staging as soon as a staging database connection/action is available.
-2. Implement Dealer self-modification allowance + Request Modification + linked Add More Items/Next Order without changing finalized history.
+1. Execute/verify the applicable SQL migration order against Supabase staging when a staging database action/connection is available; specifically test Dealer isolation and linked Add More Items conversion before release.
+2. Obtain a real Vite/Netlify build result for the latest V2 branch and repair any compile/runtime UI errors found.
 3. Implement Purchase Requirement fulfilment/partial-purchase linkage.
 4. Build Purchase save/edit/return atomic RPCs and purchase-rate-history UI.
 5. Build Item Master complete movement center + Low Stock source/rate drilldown.
