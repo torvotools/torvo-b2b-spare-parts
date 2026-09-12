@@ -26,7 +26,7 @@ TORVO V2 is a B2B operational portal, not accounting software. Product priority:
 - Estimate creation requires exact latest Dealer OK and is blocked if an Estimate already exists. Creating Estimate locks direct Sales Order revision.
 - ADD MORE ITEMS is a request/approval flow, not an edit to the original document. After TORVO approval, Dealer selects products/qty and creates a separate linked Additional Purchase Order. The original Sales Order/Estimate remains immutable.
 - Approved Add More Items can convert only once. Dealer ownership, approval status and current Dealer Rate Group/quantity pricing are validated server-side; duplicate conversion is blocked.
-- Dealer Portal now mounts the approved Additional Purchase Order panel and premium item-selection/rate-preview modal. Admin SalesWorkspace shows whether an approved Add More Items request is waiting for Dealer action or has produced its linked Additional Sales Order.
+- Dealer Portal mounts the approved Additional Purchase Order panel and premium item-selection/rate-preview modal. Admin SalesWorkspace shows whether an approved Add More Items request is waiting for Dealer action or has produced its linked Additional Sales Order.
 - SalesWorkspace has active Modify Order, Send for Dealer OK, Create Estimate and Dealer Change Request review controls wired to repository/RPC calls.
 - Salesman-assisted order foundation exists and is server-scoped to mapped Dealers/areas. Runtime staging verification remains mandatory.
 
@@ -49,24 +49,26 @@ TORVO V2 is a B2B operational portal, not accounting software. Product priority:
 - Only eligible Verified/Partly Correct known-item fitment may be promoted to TORVO PRIVATE Suitable Master.
 - Dealers must never see another Dealer's submissions or TORVO's private cross-compatibility intelligence.
 - `v2-knowledge-rewards.sql` retains a legacy filename for compatibility but now implements Dealer Fitment Suggestions / Private Suitable Knowledge, not knowledge rewards.
-- Migration removes obsolete knowledge-only point columns/ledger from earlier V2 drafts, without touching the separate sales `reward_ledger`.
-- Fitment tables use RLS/direct-access restrictions; Dealer-facing reads/writes use scoped security-definer RPCs. Owner/Admin direct reads are policy-controlled.
 
-## PURCHASE — FINAL DIRECTION
-- Purchase module is stock/rate/source history, NOT supplier accounting/ledger.
-- Basic supplier: Supplier/Party Name, Company, Invoice No, Invoice Date, items, quantity, purchase rate. Optional basic contact/city/GSTIN.
-- Show invoice total only as reference/history. No supplier debit/credit/paid/balance ledger.
-- Duplicate supplier+invoice protection.
-- Item purchase entry should show prior date-wise purchase rates, supplier/party and invoice history in a popup/side panel.
-- Purchase save adds stock through controlled inventory movement.
-- Purchase edit/return must preserve audit and adjust stock safely; no silent overwrite.
+## PURCHASE — CURRENT AUTHORITATIVE FLOW
+- Purchase is stock/rate/source history, NOT supplier accounting/ledger.
+- Owner/Admin Purchase Entry records Supplier, Invoice No/Date, items, qty and Purchase Rate. Supplier + normalized Invoice No is duplicate-protected.
+- Purchase Entry is the single authoritative supplier stock-receipt path. Saving an invoice increases inventory and writes inventory movement in the same controlled backend transaction.
+- Legacy Inventory/Reorder direct stock receipt is retired. Reorder is planning only, preventing duplicate stock receipt.
+- Purchase is immutable. Correction uses audited reversal with mandatory reason and is blocked if current stock cannot safely absorb the reversal.
+- Owner can inspect actual invoice-wise Purchase Rate History. Purchase cost/rate history is not exposed to Salesman/Store Keeper/Dealer.
+- Purchase Entry UI is premium/responsive for mobile and desktop. Runtime staging verification remains mandatory.
 
-## PURCHASE REQUIREMENTS — CURRENT
-- Salesman, Accountant and Store Keeper may submit Purchase Requirements; Owner/Admin can review.
-- Existing item request includes current item/required qty/reason and optional Dealer demand link.
-- New item request supports Brand/Company, Machine Type, Model, Part Name, OEM, Category, demand/remarks/photo and optional Dealer link.
-- Admin review supports Approve/Modify Qty/Hold/Reject/Purchasing foundation. Staff cannot directly add stock from a requirement.
-- Schema/RPC/UI foundation exists. Purchase fulfilment/partial-purchase linkage remains pending.
+## PURCHASE REQUIREMENTS — CURRENT IMPLEMENTATION
+- Salesman, Accountant and Store Keeper may submit Purchase Requirements; Owner/Admin review them.
+- Existing Item request supports item/qty/reason and optional Dealer demand link.
+- New Item request supports Brand/Company, Machine Type, Model, Part Name, OEM, Category, demand/remarks and optional Dealer link.
+- Owner/Admin can Approve/Hold/Reject/Send to Purchasing.
+- New Item requirement must be securely linked to exactly one active Item Master record before Purchase fulfilment. Linking is audited, creates no stock and refuses silent reassignment.
+- Owner/Admin can link a real non-reversed Purchase containing the exact requirement item. Partial fulfilment is supported; full approved quantity completes the requirement.
+- Backend blocks over-linking beyond Purchase quantity or remaining approved requirement. A Purchase already reversed cannot fulfil a requirement.
+- Fulfilment-link reversal is audited and changes requirement tracking only; it never reverses Purchase stock or creates another inventory movement.
+- Staff cannot directly add stock from a Purchase Requirement.
 
 ## ITEM MASTER / MOVEMENT HISTORY — FINAL
 - Clicking an item should open a complete movement center: identity, stock, reorder, purchased/sold, last purchase/sale rate and date-wise movement.
@@ -121,9 +123,8 @@ OWNER full. ADMIN operational/admin. SALESMAN mapped Dealer/order/sales only. AC
 
 ## SQL INSTALL / RELEASE GATE
 - `supabase/V2_INSTALL_ORDER.md` is the authoritative dependency order.
-- Current order includes sales-team mapping/RPCs, assisted workflows, `v2-sales-revision-rpcs.sql`, Purchase Requirements and later migrations in documented order.
 - GitHub/Vite success cannot validate PostgreSQL. All applicable migrations/RPCs must be executed against a separate Supabase staging project.
-- Mandatory staging tests include role isolation; Dealer direct modification limits; change-request approval; approved Add More Items one-time linked-order conversion; original-document immutability; current server pricing; exact revision Dealer OK; stale OK rejection; Estimate lock; payment idempotency; once-only stock deduction; catalog master safety; Salesman scoping; Fitment privacy/no-points; and secret checks.
+- Mandatory staging tests include role isolation; Dealer direct modification limits; change-request approval; approved Add More Items one-time linked-order conversion; original-document immutability; current server pricing; exact revision Dealer OK; stale OK rejection; Estimate lock; payment idempotency; once-only stock deduction; Purchase Entry/reversal; Purchase Requirement Item Master linkage/partial fulfilment; catalog master safety; Salesman scoping; Fitment privacy/no-points; and secret checks.
 - Never point live domain at V2 or merge/replace V27/main until staging gate passes and Owner explicitly approves.
 
 ## CURRENT BUILD STATUS — 12-09-2026
@@ -141,30 +142,30 @@ ACTUAL SOURCE-CODE IMPLEMENTED in `torvo-v2-build` includes:
 - Dealer Portal Review & Give Dealer OK modal showing revision/items/qty/rate/amount/total.
 - Query/Quotation RPC execution revoked from active V2 API; historical data is not deleted.
 - Sales Team mapping/target and Salesman-assisted-order foundation.
-- Purchase Requirement schema/RPC/UI foundation.
+- Purchase Entry secure supplier-invoice stock receipt, duplicate protection, audited reversal, Owner-only invoice-rate history and responsive UI.
+- Inventory/Reorder duplicate stock receipt path retired; reorder remains planning only.
+- Purchase Requirement secure Item Master linkage plus real Purchase partial/full fulfilment and audited fulfilment-link reversal.
 - Dealer Fitment Suggestions/private Suitable Knowledge no-points migration + Dealer/Admin UI foundation.
 - Premium catalog/master/dealer/inventory/dispatch/report foundations from earlier V2 work.
 
 NOT YET CLAIMED VERIFIED:
-- Supabase staging execution/compile of the migration chain and runtime RPC tests, including the new Add More Items linked-order lifecycle.
+- Supabase staging execution/compile of the migration chain and runtime RPC tests.
 - Actual Vite/Netlify build/deploy of the latest commit; GitHub currently has no CI status check proving the build.
 - Full WhatsApp OTP/provider/secure-link integration.
 - Single-active Dealer session + inactivity PIN/OTP policy runtime flow.
-- Purchase fulfilment linkage, Purchase Return/edit atomicity, complete Item Movement Center, Low Stock source drilldown and Stock Conversion/Repacking UI/RPC.
+- Complete Item Movement Center, Low Stock source/rate drilldown and Stock Conversion/Repacking UI/RPC.
 - Final end-to-end payment -> dispatch/delivery -> exactly-once stock deduction staging proof.
 - Full GST Admin switch/approval UI and remaining advanced modules.
 
 ## IMPORTANT NEXT WORK
-1. Execute/verify the applicable SQL migration order against Supabase staging when a staging database action/connection is available; specifically test Dealer isolation and linked Add More Items conversion before release.
-2. Obtain a real Vite/Netlify build result for the latest V2 branch and repair any compile/runtime UI errors found.
-3. Implement Purchase Requirement fulfilment/partial-purchase linkage.
-4. Build Purchase save/edit/return atomic RPCs and purchase-rate-history UI.
-5. Build Item Master complete movement center + Low Stock source/rate drilldown.
-6. Build atomic Stock Conversion/Repacking RPC + premium UI.
-7. Complete sales-only reward reservation/redemption/next-bill adjustment lifecycle.
-8. Complete staged Dealer onboarding WhatsApp OTP/call verification/secure details link.
-9. Complete Admin GST switch/approval queue and remaining role dashboards/workspaces.
-10. Run responsive/UI polish and actual preview verification after each meaningful batch.
+1. Execute/verify the applicable SQL migration order against Supabase staging when a staging database action/connection is available.
+2. Obtain a real Vite/Netlify build result for the latest V2 branch and repair compile/runtime UI errors found.
+3. Build Item Master complete movement center + Low Stock source/rate drilldown.
+4. Build atomic Stock Conversion/Repacking RPC + premium UI.
+5. Complete sales-only reward reservation/redemption/next-bill adjustment lifecycle.
+6. Complete staged Dealer onboarding WhatsApp OTP/call verification/secure details link.
+7. Complete Admin GST switch/approval queue and remaining role dashboards/workspaces.
+8. Run responsive/UI polish and actual preview verification after each meaningful batch.
 
 ## RECOVERY INSTRUCTION FOR A NEW CHAT
 Read this file first, then inspect the latest `torvo-v2-build` branch before changing anything. Treat FINAL/CURRENT AUTHORITATIVE sections above as authoritative over older code/comments/chat assumptions. Continue actual implementation in meaningful batches, fresh-fetching SHAs before writes. Never touch V27/main without explicit final permission.
