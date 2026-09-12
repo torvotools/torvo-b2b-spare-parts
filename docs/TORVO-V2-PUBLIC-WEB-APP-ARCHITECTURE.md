@@ -1,59 +1,103 @@
-# TORVO V2 — PUBLIC WEBSITE + APP ARCHITECTURE
+# TORVO V2 — WEBSITE + ROLE APP + DESKTOP ARCHITECTURE
 
 Approved direction: 12-09-2026
 
-## PURPOSE
-TORVO public website is primarily the public brand, discovery and onboarding surface. Day-to-day approved Dealer business is handled through the TORVO App. TORVO Admin is a separate secure Desktop/Laptop workspace.
+## CORE MODEL
+TORVO has three clearly separated experiences over ONE authoritative backend/database:
+
+1. PUBLIC WEBSITE = discovery, company information, public requirement/inquiry, Dealer registration and support.
+2. TORVO APP = daily operational workspace for approved DEALER, SALESMAN and STORE KEEPER (and any future mobile operational role explicitly authorized by Owner).
+3. SECURE DESKTOP = OWNER / ADMIN and ACCOUNTANT control workspace.
+
+The interfaces are separate. Authoritative business data is not duplicated into separate conflicting databases.
 
 ## PUBLIC WEBSITE
-The public website must clearly explain TORVO, its Machine -> Spare Part -> Accessory range, supported business model, contact/support and why a buyer or Dealer should work with TORVO.
+The website is public and may be viewed by anyone. Existing staff/Dealers are not technically blocked from reading public information, but NO internal daily business work, private rates, orders, accounting, stock-control or Admin controls are performed through the public website.
 
-Public actions:
+Public website purpose:
+- ABOUT TORVO / trust / company information
+- MACHINE -> SPARE PART -> ACCESSORY range discovery
 - SEND REQUIREMENT / BUSINESS INQUIRY
 - BECOME A DEALER / DEALER REGISTRATION
-- DEALER LOGIN / OPEN TORVO APP
 - CONTACT / SUPPORT
+- authorized-role sign-in entry may redirect the user to the correct TORVO experience; the website itself does not become their business workspace.
 
-A new visitor may submit a requirement without Dealer approval. Requirement capture may include name, firm/shop, Mobile/WhatsApp, location, product type, product/model/item details, quantity, notes and photo where supported.
+A new visitor may submit a requirement without Dealer approval. Capture may include name, firm/shop, Mobile/WhatsApp, location, customer/business type, product type, product/model/item details, quantity, notes and photo where supported.
 
 ## VISITOR CLASSIFICATION
-A public inquiry does not automatically become a Dealer account. TORVO verifies the inquiry and classifies the person/business appropriately, including normal Customer/Retail Buyer, Retailer/Prospective Dealer or approved Dealer.
+A public inquiry never automatically becomes a Dealer account. TORVO verifies/classifies the visitor as Customer/Retail Buyer, Retailer/Prospective Dealer or approved Dealer.
 
-Dealer rates, Dealer schemes and private B2B information must never be exposed merely because a public inquiry was submitted.
+Dealer rates, Dealer schemes, private compatibility, internal stock/control data and other B2B-private information are never exposed by public inquiry submission.
 
-## DIRECT CUSTOMER SALE
-A verified non-Dealer Customer may buy directly from TORVO without receiving Dealer App access or Dealer pricing.
+## DIRECT NON-DEALER CUSTOMER SALE
+A verified non-Dealer Customer can buy from TORVO without Dealer App access or Dealer pricing.
 
 Controlled flow:
-PUBLIC REQUIREMENT -> TORVO REVIEW -> AVAILABILITY/FINAL QUOTE -> CUSTOMER CONFIRMATION -> PAYMENT -> DISPATCH/DELIVERY.
+PUBLIC REQUIREMENT -> TORVO REVIEW -> REAL AVAILABILITY + FINAL QUOTE -> CUSTOMER CONFIRMATION -> AUTHORITATIVE PAYMENT CONFIRMATION -> DISPATCH/DELIVERY.
 
-No fake availability, price, payment success or dispatch state may be shown. Final commercial values and payment state must come from authoritative server-side business logic.
+No fake availability, rate, payment success, dispatch or delivery state. Commercial truth remains server-authoritative.
 
-## DEALER FLOW
-DEALER REGISTRATION -> TORVO VERIFICATION -> APPROVAL -> TORVO APP ACCESS.
+## TORVO APP — OPERATIONAL ROLES
+The TORVO App is an authenticated role-based business application, not a public shopping app.
 
-Approved Dealer day-to-day business runs in the TORVO App, including product search, Dealer rates, Purchase Orders, Estimates, controlled additional orders, fulfilment/delivery status, schemes/rewards, missing-product requests, messages and supported notifications.
+### DEALER
+DEALER REGISTRATION -> TORVO VERIFICATION -> APPROVAL -> APP ACCESS.
+Dealer App modules may include Product Search, private Dealer Rates, Purchase Orders, Estimates, Additional Orders, Delivery/Tracking, Schemes/Rewards, Missing Product Requests, Messages and supported notifications.
 
-Dealer login should support a secure long-lived session so normal users are not forced to log in every visit. Logout, session expiry, security events, suspicious/new device, PIN reset or other defined risk conditions may require re-verification. WhatsApp OTP remains the preferred onboarding/re-verification channel when the real provider integration is available.
+### SALESMAN
+Salesman uses the App for only Owner/Admin-authorized field/sales work: mapped Dealers/areas, assisted orders, allowed sales workflows, requests/messages and other permitted operational actions. Salesman must never receive Owner-only profit/cost or Accountant-private controls merely because the App is installed.
 
-## NOTIFICATIONS
-The App should support useful business notifications such as Estimate/approval actions, order status, payment-related business updates where Dealer-visible, dispatch/tracking, delivery, schemes/rewards and relevant new-range announcements. Notifications must be permission-based and must not claim delivery unless the notification provider confirms it.
+### STORE KEEPER
+Store Keeper uses the App for only authorized stock/warehouse operations such as stock lookup where permitted, Pick, Pack, Dispatch/Tracking and related operational tasks. Financial/accounting data remains hidden.
 
-## ADMIN
-Admin is a separate Desktop/Laptop-focused secure workspace. Mobile/tablet presentation may block the full Admin business UI with an ADMIN ACCESS REQUIRES DESKTOP message.
+### ROLE ROUTING
+The same App shell may serve multiple operational roles, but the UI and server permissions are role-specific. Hiding a button is not security. Every sensitive read/write must be authorized server-side.
 
-Device/UI restriction is not a security boundary. Real Admin security remains server-side authentication, role/permission enforcement, protected RPC/API access, secure sessions, audit trails and additional verification for sensitive actions.
+After authenticated identity resolution:
+- DEALER -> DEALER APP WORKSPACE
+- SALESMAN -> SALESMAN APP WORKSPACE
+- STORE KEEPER -> STORE APP WORKSPACE
+- OWNER / ADMIN -> SECURE DESKTOP WORKSPACE
+- ACCOUNTANT -> SECURE DESKTOP ACCOUNTING WORKSPACE
+- unauthorized/inactive/blocked identity -> NO PRIVATE WORKSPACE ACCESS
+
+Do not rely on user-selected role buttons as authorization. Role comes from authoritative identity/profile/permission data.
+
+## SESSION + DEVICE SECURITY
+Operational App users should have secure long-lived sessions for normal daily use. Logout, expiry, revoked access, suspicious/new device, PIN reset or defined security event may require re-verification. WhatsApp OTP remains preferred for onboarding/re-verification when a real provider is integrated and verified.
+
+Role/access changes must take effect server-side even if an old App session exists. Blocked/inactive users must not retain private access.
+
+## SECURE DESKTOP — OWNER / ADMIN + ACCOUNTANT
+OWNER / ADMIN and ACCOUNTANT use the secure Desktop/Laptop workspace rather than the daily operational App.
+
+Owner/Admin controls business configuration, approvals, users/roles, Dealer approvals, catalog/master controls, reports, backup/recovery, audit and other authorized management modules.
+
+Accountant uses only accounting/payment/estimate/financial modules explicitly authorized for ACCOUNTANT. Owner-only confidential cost/profit or other restricted data remains permission-controlled.
+
+Mobile/tablet can show an ADMIN/ACCOUNTING ACCESS REQUIRES DESKTOP gate for these workspaces. Device restriction is UX, not security. Real protection is authentication, server roles/permissions, protected RPC/API, secure sessions, audit and additional verification for sensitive actions.
 
 ## ONE AUTHORITATIVE PLATFORM
-Website, Dealer App and Admin are different interfaces over one authoritative TORVO backend/business platform. Dealer, product, order, inventory, payment and other authoritative business records must not be maintained as conflicting duplicate databases.
+Website, App and Secure Desktop share one authoritative TORVO backend/business platform. Dealer, customer, product, inventory, order, payment and other authoritative records must not be maintained as conflicting duplicates.
 
-Backup/restore remains centrally controlled. GitHub code/migrations plus verified database backups and restore manifests form the disaster-recovery system.
+Centralized backup/restore remains mandatory. GitHub code/migrations + verified database backup + restore manifest form disaster recovery.
+
+## NOTIFICATIONS
+App notifications are role-aware. Dealer may receive Estimate/action, order, dispatch/tracking, delivery, scheme/reward and relevant range notifications. Salesman and Store Keeper receive only operational notifications relevant to their permissions/work queue. Do not send financial/private notifications to unauthorized roles. Never claim provider delivery unless provider confirms it.
 
 ## APP DELIVERY STRATEGY
-Keep the current install-ready PWA/web-app foundation so development and testing are not blocked by app-store packaging. Native Android/iOS packaging can reuse the same backend/security/business rules after the core platform is stable. Approved Dealers should be strongly guided to OPEN/INSTALL TORVO APP for business use; no fake Play Store/App Store links.
+Retain install-ready PWA/web-app foundation for rapid development/testing. Native Android/iOS packaging can reuse the same backend, role model and business logic after core stability. Do not create duplicate native business logic or a second business database. Do not show fake store links.
 
-## PUBLIC WEBSITE DESIGN RULE
-The public homepage must feel like a premium TORVO company website, not an internal software dashboard. It should build trust quickly and make the main actions obvious: SEND REQUIREMENT, BECOME A DEALER and DEALER LOGIN / OPEN APP.
+## DESIGN RULES
+PUBLIC WEBSITE: premium TORVO company identity; easy public discovery and requirement capture.
+TORVO APP: fast mobile-first daily operational UI; role-specific first screen; minimal scrolling; large enough touch/text; offline-tolerant shell for non-critical catalog use where safe; never fake success for server-critical operations.
+SECURE DESKTOP: dense professional cloud-business UI optimized for keyboard/mouse, wide screens, approvals, finance/control and reporting.
 
 ## PRODUCT PRIORITY
-Machine -> Spare Part -> Accessory remains the TORVO product priority. Private fitment/compatibility rules remain protected and are not made public by this architecture.
+MACHINE -> SPARE PART -> ACCESSORY remains TORVO product priority. Private fitment/compatibility remains protected.
+
+## SECURITY PRINCIPLE
+PUBLIC WEBSITE != AUTHORIZATION.
+APP INSTALLATION != AUTHORIZATION.
+DESKTOP DEVICE != AUTHORIZATION.
+SERVER-VERIFIED IDENTITY + ROLE + PERMISSION + BUSINESS RULES = AUTHORIZATION.
