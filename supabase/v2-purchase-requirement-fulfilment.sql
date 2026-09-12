@@ -15,92 +15,40 @@ alter table purchase_requirement_links add column if not exists reversed_by uuid
 create index if not exists idx_purchase_requirement_links_requirement on purchase_requirement_links(requirement_id,linked_at desc);
 create index if not exists idx_purchase_requirement_links_purchase on purchase_requirement_links(purchase_id);
 
-create or replace function link_purchase_to_requirement(
- p_requirement uuid,
- p_purchase uuid,
- p_qty numeric,
- p_note text default null
-) returns numeric
+create or replace function link_purchase_to_requirement(p_requirement uuid,p_purchase uuid,p_qty numeric,p_note text default null) returns numeric
 language plpgsql security definer set search_path=public as $$
-declare
- a app_users%rowtype;
- r purchase_requirements%rowtype;
- approved numeric;
- already numeric;
- remaining numeric;
- link_item uuid;
- purchase_qty numeric;
-begin
+declare a app_users%rowtype;r purchase_requirements%rowtype;approved numeric;already numeric;remaining numeric;link_item uuid;purchase_qty numeric;begin
  select * into a from app_users where auth_user_id=auth.uid() and active=true;
  if not found or a.role not in('owner','admin') then raise exception 'Owner/Admin required'; end if;
  if p_qty is null or p_qty<=0 then raise exception 'Valid linked quantity required'; end if;
-
  select * into r from purchase_requirements where id=p_requirement for update;
  if not found then raise exception 'Requirement not found'; end if;
  if r.status not in('approved','purchasing','partially_purchased') then raise exception 'Requirement is not open for purchase fulfilment'; end if;
- if r.request_type='new_item' then
-   select created_item_id into link_item from purchase_requirement_new_items where requirement_id=r.id;
-   if link_item is null then raise exception 'Create/link the catalog item before fulfilling a new-item requirement'; end if;
- else link_item:=r.existing_item_id;
- end if;
+ if r.request_type='new_item' then select created_item_id into link_item from purchase_requirement_new_items where requirement_id=r.id;if link_item is null then raise exception 'Create/link the catalog item before fulfilling a new-item requirement'; end if;else link_item:=r.existing_item_id;end if;
  if not exists(select 1 from purchase_headers where id=p_purchase) then raise exception 'Purchase not found'; end if;
-
- -- Purchase line must contain the exact requirement item; client cannot claim unrelated purchase quantity.
+ if exists(select 1 from audit_log where entity_type='purchase' and entity_id=p_purchase::text and action='PURCHASE_REVERSED') then raise exception 'Reversed Purchase cannot fulfil a requirement'; end if;
  select coalesce(sum(qty),0) into purchase_qty from purchase_lines where purchase_id=p_purchase and item_id=link_item;
  if purchase_qty<=0 then raise exception 'Selected purchase does not contain the requirement item'; end if;
  select coalesce(sum(linked_qty),0) into already from purchase_requirement_links where purchase_id=p_purchase and item_id=link_item and reversed_at is null;
  if already+p_qty>purchase_qty then raise exception 'Linked quantity exceeds purchased quantity for this item'; end if;
-
- approved:=coalesce(r.approved_qty,r.requested_qty);
- remaining:=greatest(approved-r.purchased_qty,0);
+ approved:=coalesce(r.approved_qty,r.requested_qty);remaining:=greatest(approved-r.purchased_qty,0);
  if remaining<=0 then raise exception 'Requirement is already fully purchased'; end if;
  if p_qty>remaining then raise exception 'Linked quantity exceeds remaining approved requirement'; end if;
  if exists(select 1 from purchase_requirement_links where requirement_id=r.id and purchase_id=p_purchase and reversed_at is null) then raise exception 'This purchase is already linked to the requirement'; end if;
-
- insert into purchase_requirement_links(requirement_id,purchase_id,linked_by,linked_qty,item_id,note)
- values(r.id,p_purchase,a.id,p_qty,link_item,nullif(trim(p_note),''));
- update purchase_requirements set purchased_qty=purchased_qty+p_qty,
-   status=case when purchased_qty+p_qty>=approved then 'completed' else 'partially_purchased' end
- where id=r.id;
-
- -- Dealer demand is fulfilled proportionally/chronologically but never beyond each Dealer's requested quantity.
- with demand as(
-   select id,coalesce(requested_qty,0) requested_qty,fulfilled_qty,
-          greatest(coalesce(requested_qty,0)-fulfilled_qty,0) need
-   from purchase_requirement_dealers where requirement_id=r.id and greatest(coalesce(requested_qty,0)-fulfilled_qty,0)>0 order by id
- ), alloc as(
-   select id,need,greatest(least(need,p_qty-coalesce(sum(need) over(order by id rows between unbounded preceding and 1 preceding),0)),0) give
-   from demand
- )
- update purchase_requirement_dealers d set fulfilled_qty=d.fulfilled_qty+a2.give,
-   stock_arrival_recorded_at=case when a2.give>0 then now() else d.stock_arrival_recorded_at end
- from alloc a2 where d.id=a2.id and a2.give>0;
-
- insert into audit_log(actor_id,action,entity_type,entity_id,details)
- values(a.id,'PURCHASE_REQUIREMENT_PURCHASE_LINKED','purchase_requirement',r.id::text,
- jsonb_build_object('purchase_id',p_purchase,'item_id',link_item,'linked_qty',p_qty,'previous_purchased_qty',r.purchased_qty,'new_purchased_qty',r.purchased_qty+p_qty));
- return r.purchased_qty+p_qty;
+ insert into purchase_requirement_links(requirement_id,purchase_id,linked_by,linked_qty,item_id,note) values(r.id,p_purchase,a.id,p_qty,link_item,nullif(trim(p_note),''));
+ update purchase_requirements set purchased_qty=purchased_qty+p_qty,status=case when purchased_qty+p_qty>=approved then 'completed' else 'partially_purchased' end where id=r.id;
+ with demand as(select id,coalesce(requested_qty,0) requested_qty,fulfilled_qty,greatest(coalesce(requested_qty,0)-fulfilled_qty,0) need from purchase_requirement_dealers where requirement_id=r.id and greatest(coalesce(requested_qty,0)-fulfilled_qty,0)>0 order by id),alloc as(select id,need,greatest(least(need,p_qty-coalesce(sum(need) over(order by id rows between unbounded preceding and 1 preceding),0)),0) give from demand) update purchase_requirement_dealers d set fulfilled_qty=d.fulfilled_qty+a2.give,stock_arrival_recorded_at=case when a2.give>0 then now() else d.stock_arrival_recorded_at end from alloc a2 where d.id=a2.id and a2.give>0;
+ insert into audit_log(actor_id,action,entity_type,entity_id,details) values(a.id,'PURCHASE_REQUIREMENT_PURCHASE_LINKED','purchase_requirement',r.id::text,jsonb_build_object('purchase_id',p_purchase,'item_id',link_item,'linked_qty',p_qty,'previous_purchased_qty',r.purchased_qty,'new_purchased_qty',r.purchased_qty+p_qty));return r.purchased_qty+p_qty;
 end;$$;
-revoke all on function link_purchase_to_requirement(uuid,uuid,numeric,text) from public,anon;
-grant execute on function link_purchase_to_requirement(uuid,uuid,numeric,text) to authenticated;
+revoke all on function link_purchase_to_requirement(uuid,uuid,numeric,text) from public,anon;grant execute on function link_purchase_to_requirement(uuid,uuid,numeric,text) to authenticated;
 
 create or replace function reverse_purchase_requirement_link(p_link uuid,p_reason text) returns void
 language plpgsql security definer set search_path=public as $$
-declare a app_users%rowtype;l purchase_requirement_links%rowtype;r purchase_requirements%rowtype;approved numeric;
-begin
- select * into a from app_users where auth_user_id=auth.uid() and active=true;
- if not found or a.role not in('owner','admin') then raise exception 'Owner/Admin required'; end if;
- if nullif(trim(p_reason),'') is null then raise exception 'Reversal reason required'; end if;
- select * into l from purchase_requirement_links where id=p_link for update;
- if not found then raise exception 'Link not found'; end if;
- if l.reversed_at is not null then raise exception 'Link already reversed'; end if;
- select * into r from purchase_requirements where id=l.requirement_id for update;
- approved:=coalesce(r.approved_qty,r.requested_qty);
+declare a app_users%rowtype;l purchase_requirement_links%rowtype;r purchase_requirements%rowtype;approved numeric;begin
+ select * into a from app_users where auth_user_id=auth.uid() and active=true;if not found or a.role not in('owner','admin') then raise exception 'Owner/Admin required'; end if;if nullif(trim(p_reason),'') is null then raise exception 'Reversal reason required'; end if;
+ select * into l from purchase_requirement_links where id=p_link for update;if not found then raise exception 'Link not found'; end if;if l.reversed_at is not null then raise exception 'Link already reversed'; end if;select * into r from purchase_requirements where id=l.requirement_id for update;approved:=coalesce(r.approved_qty,r.requested_qty);
  update purchase_requirement_links set reversed_at=now(),reversed_by=a.id,note=concat_ws(' | ',note,'REVERSED: '||trim(p_reason)) where id=l.id;
- update purchase_requirements set purchased_qty=greatest(purchased_qty-l.linked_qty,0),
- status=case when greatest(purchased_qty-l.linked_qty,0)<=0 then 'purchasing' when greatest(purchased_qty-l.linked_qty,0)>=approved then 'completed' else 'partially_purchased' end where id=r.id;
- -- Dealer fulfilled_qty is intentionally not silently rewound here; Dealer allocation reversal requires explicit review to avoid changing fulfilled demand incorrectly after stock may have been communicated.
+ update purchase_requirements set purchased_qty=greatest(purchased_qty-l.linked_qty,0),status=case when greatest(purchased_qty-l.linked_qty,0)<=0 then 'purchasing' when greatest(purchased_qty-l.linked_qty,0)>=approved then 'completed' else 'partially_purchased' end where id=r.id;
  insert into audit_log(actor_id,action,entity_type,entity_id,details) values(a.id,'PURCHASE_REQUIREMENT_LINK_REVERSED','purchase_requirement',r.id::text,jsonb_build_object('link_id',l.id,'purchase_id',l.purchase_id,'qty',l.linked_qty,'reason',trim(p_reason)));
 end;$$;
-revoke all on function reverse_purchase_requirement_link(uuid,text) from public,anon;
-grant execute on function reverse_purchase_requirement_link(uuid,text) to authenticated;
+revoke all on function reverse_purchase_requirement_link(uuid,text) from public,anon;grant execute on function reverse_purchase_requirement_link(uuid,text) to authenticated;
