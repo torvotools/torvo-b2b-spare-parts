@@ -1,7 +1,6 @@
--- TORVO V2 Purchase Requirement staging security checklist
+-- TORVO V2 Purchase Requirement staging security/integrity checklist
 -- MANUAL/STAGING ONLY. Do not run destructive setup against production.
--- Purpose: verify role-safe Dealer selection and server-side Dealer validation after installing
--- v2-purchase-requirement-rpcs.sql and v2-purchase-requirement-item-link.sql.
+-- Install through v2-purchase-requirement-receipt-integrity.sql before running receipt-linkage checks.
 
 -- 1. OWNER / ADMIN / ACCOUNTANT / STORE KEEPER
 -- select * from get_purchase_requirement_dealers();
@@ -34,4 +33,48 @@
 -- select * from search_purchase_requirement_items('801',null,null,100);
 -- EXPECT: <=100 active identity-only matches, with exact/prefix item/OEM matches ranked first.
 
--- PASS GATE: all seven checks above must pass before Purchase Requirements are production-ready.
+-- 8. SAVED PURCHASE ENTRY IS NOT YET RECEIVED STOCK
+-- Create a Purchase Entry containing the requirement item, but DO NOT call receive_purchase_stock().
+-- select * from get_requirement_purchase_candidates(<requirement_id>,100);
+-- EXPECT: that Purchase Entry is absent.
+-- select link_purchase_to_requirement(<requirement_id>,<saved_purchase_id>,1,'STAGING TEST');
+-- EXPECT: exception 'Purchase stock has not been received or was reversed'.
+-- EXPECT: purchased_qty, Dealer fulfilled_qty and inventory remain unchanged by the failed link.
+
+-- 9. RECEIVED PURCHASE STOCK CAN FULFIL REQUIREMENT WITHOUT CHANGING INVENTORY AGAIN
+-- Capture inventory.current_qty for the item immediately after receive_purchase_stock(<purchase_id>,<unique_key>).
+-- select link_purchase_to_requirement(<requirement_id>,<purchase_id>,1,'STAGING TEST');
+-- EXPECT: succeeds when approved/remaining quantity permits.
+-- EXPECT: requirement purchased_qty and Dealer allocation advance by linked quantity.
+-- EXPECT: inventory.current_qty is EXACTLY unchanged by requirement linking.
+
+-- 10. DUPLICATE ACTIVE REQUIREMENT/PURCHASE LINK IS BLOCKED
+-- Repeat link_purchase_to_requirement() for the same requirement + Purchase while the first link is active.
+-- EXPECT: rejected; no second active link and no duplicate Dealer allocation.
+-- Also verify uq_purchase_requirement_active_purchase_link exists and prevents concurrent duplicate active rows.
+
+-- 11. PURCHASE REVERSAL IS BLOCKED WHILE REQUIREMENT LINK IS ACTIVE
+-- select reverse_purchase_entry(<purchase_id>,'STAGING ACTIVE LINK TEST');
+-- EXPECT: exception 'Reverse active Purchase Requirement links before reversing Purchase stock'.
+-- EXPECT: inventory and purchase_stock_receipts.reversed_at remain unchanged.
+
+-- 12. SAFE REVERSAL ORDER
+-- select reverse_purchase_requirement_link(<active_link_id>,'STAGING ROLLBACK');
+-- EXPECT: requirement purchased_qty and exact Dealer allocation are rolled back/audited; inventory is unchanged.
+-- Then select reverse_purchase_entry(<purchase_id>,'STAGING ROLLBACK');
+-- EXPECT: succeeds only if current stock can safely cover the received Purchase quantity.
+-- EXPECT: Purchase stock is reversed once and audited.
+
+-- 13. REVERSED PURCHASE IS NOT A FULFILMENT CANDIDATE
+-- select * from get_requirement_purchase_candidates(<requirement_id>,100);
+-- EXPECT: reversed Purchase is absent.
+-- select link_purchase_to_requirement(<requirement_id>,<reversed_purchase_id>,1,'STAGING TEST');
+-- EXPECT: exception 'Purchase stock has not been received or was reversed'.
+
+-- 14. ROLE BOUNDARY
+-- As SALESMAN / ACCOUNTANT / STORE KEEPER / DEALER, call get_requirement_purchase_candidates() and link_purchase_to_requirement().
+-- EXPECT: Owner/Admin required.
+-- Direct browser writes to purchase_stock_receipts, inventory and inventory_movements must remain denied.
+
+-- PASS GATE: all applicable checks above must pass with real staging sessions/data before Purchase Requirements are production-ready.
+-- GitHub source presence alone is NOT runtime verification.
