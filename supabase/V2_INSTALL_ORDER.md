@@ -1,75 +1,82 @@
-# TORVO V2 Supabase install order
+# TORVO V2 — SUPABASE STAGING INSTALL ORDER
 
-This file is the authoritative dependency order for a fresh V2 database setup. Do not run the SQL files alphabetically.
+This file is the authoritative dependency order for TORVO V2 database installation/testing. Do not install migrations alphabetically. Production remains blocked until this chain compiles and the staging gates below pass.
 
-## Core
-1. `v2-schema.sql`
-2. `v2-extended-schema.sql`
-3. `v2-rls.sql`
-4. `v2-dealer-financial-privacy.sql`
-5. `v2-admin-rpcs.sql`
-6. `v2-business-rpcs.sql`
-7. `v2-payment-idempotency.sql`
-8. `v2-operations-rpcs.sql`
-9. `v2-reorder-guard.sql`
-10. `v2-purchase-cost-history.sql`
-11. `v2-dashboard-rpc.sql`
-12. `v2-report-summary-rpc.sql`
-13. `v2-report-detail-rpc.sql`
-14. `v2-feature-controls.sql`
-15. `v2-backup-control.sql`
-16. `v2-backup-channels.sql`
+## SAFETY RULES
 
-## Dealer/catalog operations
-17. `v2-dealer-link.sql`
-18. `v2-dealer-machine-spares.sql`
-19. `v2-message-direction.sql`
-20. `v2-sales-catalog-rpcs.sql`
-21. `v2-dealer-catalog-search.sql`
-22. `v2-catalog-master-values.sql`
-23. `v2-delivery-rpc.sql`
+- Run this only against the dedicated TORVO V2 staging Supabase project first.
+- Never paste service-role keys, provider secrets, passwords, PINs, OTP secrets, database passwords or private tokens into GitHub.
+- Stop on the first SQL error. Fix the dependency/error before continuing.
+- GitHub source presence is not runtime verification.
+- A backup request is not a successful backup. Only trusted-worker completion plus integrity verification may mark a run verified.
 
-## Sales team / assisted field operations
-24. `v2-sales-team-mapping.sql`
-25. `v2-sales-team-rpcs.sql`
-26. `v2-salesman-assisted-workflows.sql`
-27. `v2-sales-revision-rpcs.sql`
-28. `v2-sales-line-integrity.sql`
-29. `v2-purchase-requirements.sql`
-30. `v2-purchase-requirement-rpcs.sql`
-31. `v2-purchase-requirement-item-link.sql`
-32. `v2-purchase-entry-rpcs.sql`
-33. `v2-inventory-purchase-guard.sql`
-34. `v2-purchase-requirement-fulfilment.sql`
-35. `v2-item-movement-center.sql`
+## INSTALL SEQUENCE
 
-## Private suitable knowledge / Dealer fitment suggestions
-36. `v2-knowledge-rewards.sql`
+Use the repository's `supabase/` V2 migration files in dependency order. Preserve any dependency notes inside each migration. The backup/recovery group must be installed after the core role/auth foundation it references and before production release verification:
 
-## Schemes and sales rewards
-37. `v2-scheme-progress.sql`
-38. `v2-reward-lots.sql`
-39. `v2-reward-reconciliation.sql`
-40. `v2-rewards-rpcs.sql`
-41. `v2-scheme-reward-credit.sql`
-42. `v2-referrals.sql`
+1. Core V2 schema, role/profile/dealer-link and security foundation migrations.
+2. Catalog/item/product/master-value and dealer catalog/rate/search migrations.
+3. Purchase Order / Sales Order / revision / Dealer OK / Estimate / Add More Items migrations and duplicate-line integrity guards.
+4. Purchase Entry, inventory movement, low-stock and Purchase Requirement/fulfilment migrations.
+5. Private Suitable/fitment and role/dealer privacy migrations.
+6. Dashboard/admin/business RPC migrations after their dependent tables/policies exist.
+7. Backup and disaster-recovery group, in this order:
+   - `v2-backup-control.sql`
+   - `v2-backup-channels.sql`
+   - any later trusted-worker/export-manifest backup migration, in its documented dependency order.
+8. Later feature migrations such as conversion/repacking, rewards, GST and advanced modules only after their prerequisites are present.
 
-## Critical privacy overrides
-`v2-dealer-financial-privacy.sql` MUST run immediately after base RLS. It removes Dealer direct SELECT access to `payments`. Dealer Portal is intentionally operational: own Sales/Estimate and own delivery/dispatch status may be visible, but payment/accounting/outstanding rows remain internal to Owner/Admin/Accountant. UI hiding is not the security boundary.
+Before executing staging, inventory the actual `supabase/v2-*.sql` files and reconcile every file into this dependency sequence. Never assume a new migration is safe merely because its filename sorts after another file.
 
-## Mandatory release notes
-- `v2-dealer-catalog-search.sql` is the Dealer-safe scalable catalog search path. Dealer UI must never use Purchase catalog RPCs.
-- `v2-sales-line-integrity.sql` enforces one catalog item per Sales/Estimate document at the database boundary.
-- `v2-backup-control.sql` + `v2-backup-channels.sql` create backup control metadata only; trusted backup artifacts require a server worker and verification.
-- GitHub SQL is source-level work until the exact migration chain is executed and tested in staging.
+## MANDATORY STAGING GATE
 
-## Mandatory staging release gate
-Before production, test Owner/Admin/Salesman/Accountant/Store Keeper/Dealer separately. In particular: Dealer A must never read Dealer B documents/change requests; Dealer must not read `payments`, Purchase Rate/supplier/private Suitable data; Dealer catalog search must work only for an active linked approved Dealer; Add More Items must create a separate linked order without mutating the original; stale Dealer OK must fail after revision; duplicate sales lines must fail at DB level; payment+delivery stock deduction must happen exactly once; Purchase receipt/reversal and Purchase Requirement allocation must be transactional; backup requests must remain unverified until a trusted worker verifies the artifact. Record every staging failure before cutover.
+The release is blocked until all applicable checks pass with real staging sessions/data:
 
-## Restore / disaster recovery gate
-A Project Restore package is trusted only after its checksum is verified and `docs/TORVO-V2-RESTORE-GUIDE.md` is successfully followed in a clean staging environment. Secrets/service-role credentials are never stored in the package or repository.
+- OWNER, ADMIN, SALESMAN, ACCOUNTANT, STORE KEEPER and DEALER authorization/privacy.
+- Dealer financial privacy and private Suitable/fitment visibility.
+- Dealer catalog/rate server calculation and scalable search/finders.
+- PURCHASE ORDER -> SALES ORDER -> revision -> exact latest DEALER OK -> ESTIMATE flow.
+- TORVO revision invalidates old DEALER OK; ESTIMATE locks direct revision.
+- ADD MORE ITEMS creates a separate linked additional order and never mutates the original order/Estimate.
+- Duplicate catalog/order item lines are blocked by UI and database integrity.
+- Purchase Entry receives supplier stock exactly once; duplicate Supplier+Invoice is blocked.
+- Purchase correction/reversal is audited and does not duplicate stock.
+- Purchase Requirements partial/full fulfilment, exact Dealer allocation and tracking reversal are secure/audited.
+- Payment + actual Delivery deducts stock exactly once. ESTIMATE/PICKED/PACKED never deduct stock.
+- Replayed payment/delivery actions remain idempotent.
+- Dealer fitment suggestions earn ZERO points and remain private between Dealer and TORVO.
+- No secrets/service-role credentials are exposed to browser/client/GitHub.
 
-## Production safety
-- Never place a Supabase service-role key in browser code or GitHub source.
-- Keep RLS enabled; privileged mutations must use authorized RPC paths.
-- Keep V27/main untouched until V2 staging, responsive UI, security and restore gates pass and Owner explicitly approves cutover.
+Run repository staging checklists under `supabase/tests/` where applicable, including:
+
+- `tests/v2-purchase-requirement-security-checklist.sql`
+- `tests/v2-backup-control-security-checklist.sql`
+
+## BACKUP / DISASTER-RECOVERY RELEASE GATE
+
+Backup Control Center is not production-trusted until all of these are proven in staging:
+
+- OWNER/ADMIN can perform only the backup actions allowed by policy; other roles and ANON are denied.
+- The dashboard status is based on the last VERIFIED backup, not merely the latest request.
+- No VERIFIED backup for >=24 hours produces WARNING; >=48 hours produces CRITICAL.
+- Browser/client code cannot mark a backup verified or fabricate worker completion.
+- Trusted worker records integrity evidence/checksum and the restore manifest.
+- Portable backup artifacts are encrypted and exclude secrets/passwords/service-role credentials.
+- A Full Restore Point records database backup, code branch/commit, database/schema version, checksum and restore manifest.
+- Download/share uses a trusted signed/secure export path; UI never claims Email/WhatsApp delivery until the provider confirms success.
+- Replay/completion is idempotent and failed runs remain auditable.
+- A clean staging restore drill succeeds and checksum/manifest are verified.
+- After restore, critical role/order/payment/stock/privacy tests pass again.
+
+## RELEASE EVIDENCE
+
+For each staging run, retain non-secret evidence of:
+
+- migration set + code branch/commit tested;
+- pass/fail result and first failure if any;
+- role/security test results;
+- exactly-once stock/payment tests;
+- backup checksum/manifest verification status;
+- restore drill date/result.
+
+Do not describe TORVO V2 database, backup, WhatsApp OTP, payment/stock flow or release as runtime-verified until the corresponding staging/runtime evidence actually exists.
