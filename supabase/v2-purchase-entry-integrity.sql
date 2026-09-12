@@ -1,0 +1,115 @@
+-- TORVO V2 PURCHASE ENTRY INTEGRITY HARDENING
+-- Install after v2-purchase-entry-rpcs.sql and inventory movement foundation.
+-- Supplier stock may enter only through Purchase Entry.
+-- Staging runtime verification required before production.
+
+-- A catalog item may appear only once on one Purchase Entry.
+create unique index if not exists uq_purchase_lines_purchase_item
+  on public.purchase_lines(purchase_id,item_id);
+
+-- Explicit finalization ledger protects stock receipt against replay/double receiving.
+create table if not exists public.purchase_stock_receipts (
+  purchase_id uuid primary key references public.purchase_headers(id) on delete restrict,
+  request_key text not null unique,
+  received_by uuid not null references public.app_users(id),
+  received_at timestamptz not null default now(),
+  reversed_at timestamptz,
+  reversed_by uuid references public.app_users(id),
+  reversal_reason text,
+  details jsonb not null default '{}'::jsonb
+);
+alter table public.purchase_stock_receipts enable row level security;
+revoke all on public.purchase_stock_receipts from anon,authenticated;
+
+-- Creation records the Purchase Entry and its lines only. Stock is received exactly once by receive_purchase_stock().
+create or replace function public.create_purchase_entry(
+  p_supplier uuid,p_invoice_no text,p_invoice_date date,p_lines jsonb,p_note text default null
+) returns uuid
+language plpgsql security definer set search_path=public as $$
+declare a app_users%rowtype;h uuid;x jsonb;iid uuid;q numeric;rate numeric;total numeric:=0;
+begin
+ select * into a from app_users where auth_user_id=auth.uid() and active=true;
+ if not found or a.role not in('owner','admin') then raise exception 'Owner/Admin required';end if;
+ if p_supplier is null or not exists(select 1 from suppliers where id=p_supplier and active=true) then raise exception 'Active supplier required';end if;
+ if nullif(trim(p_invoice_no),'') is null then raise exception 'Invoice number required';end if;
+ if p_invoice_date is null or p_invoice_date>current_date then raise exception 'Valid invoice date required';end if;
+ if jsonb_typeof(p_lines)<>'array' or jsonb_array_length(p_lines)=0 then raise exception 'At least one purchase item required';end if;
+ if exists(select 1 from (select x->>'item_id' item_id,count(*) c from jsonb_array_elements(p_lines) x group by x->>'item_id') s where s.item_id is null or s.c>1) then raise exception 'Duplicate or missing purchase item';end if;
+ if exists(select 1 from purchase_headers where supplier_id=p_supplier and upper(trim(invoice_no))=upper(trim(p_invoice_no))) then raise exception 'Duplicate supplier invoice';end if;
+ insert into purchase_headers(supplier_id,invoice_no,invoice_date,total_reference_amount,created_by)
+ values(p_supplier,upper(trim(p_invoice_no)),p_invoice_date,0,a.id) returning id into h;
+ for x in select * from jsonb_array_elements(p_lines) loop
+   begin iid:=(x->>'item_id')::uuid;q:=(x->>'qty')::numeric;rate:=(x->>'purchase_rate')::numeric;exception when others then raise exception 'Invalid purchase line';end;
+   if iid is null or q is null or q<=0 or rate is null or rate<0 then raise exception 'Invalid purchase line';end if;
+   if not exists(select 1 from catalog_items where id=iid and active=true) then raise exception 'Invalid/inactive catalog item';end if;
+   insert into purchase_lines(purchase_id,item_id,qty,purchase_rate) values(h,iid,q,rate);
+   total:=total+(q*rate);
+ end loop;
+ update purchase_headers set total_reference_amount=total where id=h;
+ insert into audit_log(actor_id,action,entity_type,entity_id,details)
+ values(a.id,'PURCHASE_ENTRY_CREATED','purchase',h::text,jsonb_build_object('supplier_id',p_supplier,'invoice_no',upper(trim(p_invoice_no)),'invoice_date',p_invoice_date,'total_amount',total,'stock_received',false,'note',nullif(trim(p_note),'')));
+ return h;
+exception when unique_violation then raise exception 'Duplicate supplier invoice or purchase item';
+end;$$;
+revoke all on function public.create_purchase_entry(uuid,text,date,jsonb,text) from public,anon;
+grant execute on function public.create_purchase_entry(uuid,text,date,jsonb,text) to authenticated;
+
+create or replace function public.receive_purchase_stock(p_purchase uuid,p_request_key text) returns void
+language plpgsql security definer set search_path=public as $$
+declare a app_users%rowtype;h purchase_headers%rowtype;existing purchase_stock_receipts%rowtype;l record;
+begin
+ select * into a from app_users where auth_user_id=auth.uid() and active=true;
+ if not found or a.role not in('owner','admin') then raise exception 'Owner/Admin required';end if;
+ if nullif(trim(p_request_key),'') is null then raise exception 'Receipt request key required';end if;
+ select * into existing from purchase_stock_receipts where request_key=trim(p_request_key);
+ if found then if existing.purchase_id=p_purchase and existing.reversed_at is null then return;end if;raise exception 'Receipt request key already used';end if;
+ select * into existing from purchase_stock_receipts where purchase_id=p_purchase;
+ if found then if existing.reversed_at is null then return;else raise exception 'Reversed Purchase Entry cannot be received again';end if;end if;
+ select * into h from purchase_headers where id=p_purchase for update;
+ if not found then raise exception 'Purchase not found';end if;
+ if not exists(select 1 from purchase_lines where purchase_id=p_purchase) then raise exception 'Purchase lines required';end if;
+ for l in select item_id,sum(qty) qty from purchase_lines where purchase_id=p_purchase group by item_id order by item_id loop
+   insert into inventory(item_id,current_qty,updated_at) values(l.item_id,l.qty,now())
+   on conflict(item_id) do update set current_qty=inventory.current_qty+excluded.current_qty,updated_at=now();
+   insert into inventory_movements(item_id,qty_change,reason,reference_type,reference_id,created_by)
+   values(l.item_id,l.qty,'PURCHASE STOCK RECEIVED','purchase',p_purchase,a.id);
+ end loop;
+ insert into purchase_stock_receipts(purchase_id,request_key,received_by,details)
+ values(p_purchase,trim(p_request_key),a.id,jsonb_build_object('invoice_no',h.invoice_no,'exactly_once',true));
+ insert into audit_log(actor_id,action,entity_type,entity_id,details)
+ values(a.id,'PURCHASE_STOCK_RECEIVED','purchase',p_purchase::text,jsonb_build_object('request_key',trim(p_request_key),'exactly_once',true));
+end;$$;
+revoke all on function public.receive_purchase_stock(uuid,text) from public,anon;
+grant execute on function public.receive_purchase_stock(uuid,text) to authenticated;
+
+-- Reversal is audited and exactly once. It reverses only stock that was actually received.
+create or replace function public.reverse_purchase_entry(p_purchase uuid,p_reason text) returns void
+language plpgsql security definer set search_path=public as $$
+declare a app_users%rowtype;h purchase_headers%rowtype;r purchase_stock_receipts%rowtype;l record;current_stock numeric;
+begin
+ select * into a from app_users where auth_user_id=auth.uid() and active=true;
+ if not found or a.role not in('owner','admin') then raise exception 'Owner/Admin required';end if;
+ if nullif(trim(p_reason),'') is null then raise exception 'Reversal reason required';end if;
+ select * into h from purchase_headers where id=p_purchase for update;if not found then raise exception 'Purchase not found';end if;
+ select * into r from purchase_stock_receipts where purchase_id=p_purchase for update;
+ if not found then raise exception 'Purchase stock was never received';end if;
+ if r.reversed_at is not null then raise exception 'Purchase already reversed';end if;
+ for l in select item_id,sum(qty) qty from purchase_lines where purchase_id=p_purchase group by item_id order by item_id loop
+   select current_qty into current_stock from inventory where item_id=l.item_id for update;
+   if not found or current_stock<l.qty then raise exception 'Cannot reverse: current stock is lower than received Purchase quantity';end if;
+ end loop;
+ for l in select item_id,sum(qty) qty from purchase_lines where purchase_id=p_purchase group by item_id order by item_id loop
+   update inventory set current_qty=current_qty-l.qty,updated_at=now() where item_id=l.item_id;
+   insert into inventory_movements(item_id,qty_change,reason,reference_type,reference_id,created_by)
+   values(l.item_id,-l.qty,'PURCHASE REVERSAL: '||upper(trim(p_reason)),'purchase_reversal',p_purchase,a.id);
+ end loop;
+ update purchase_stock_receipts set reversed_at=now(),reversed_by=a.id,reversal_reason=upper(trim(p_reason)) where purchase_id=p_purchase;
+ insert into audit_log(actor_id,action,entity_type,entity_id,details)
+ values(a.id,'PURCHASE_REVERSED','purchase',p_purchase::text,jsonb_build_object('reason',upper(trim(p_reason)),'invoice_no',h.invoice_no,'stock_reversed_once',true));
+end;$$;
+revoke all on function public.reverse_purchase_entry(uuid,text) from public,anon;
+grant execute on function public.reverse_purchase_entry(uuid,text) to authenticated;
+
+-- Browser roles cannot create shadow supplier receipts by directly writing inventory or receipt ledger.
+revoke insert,update,delete on public.inventory from anon,authenticated;
+revoke insert,update,delete on public.inventory_movements from anon,authenticated;
