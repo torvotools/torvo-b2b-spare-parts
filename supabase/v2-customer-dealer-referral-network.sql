@@ -1,0 +1,140 @@
+-- TORVO V2 CUSTOMER -> DEALER REFERRAL NETWORK
+-- APPROVED MODEL: TORVO DISCOVERS/REFERS CUSTOMER; DEALER HANDLES RETAIL TRANSACTION.
+-- STAGING REVIEW/EXECUTION REQUIRED BEFORE PRODUCTION.
+
+create extension if not exists pgcrypto;
+
+-- Extend the existing Dealer master instead of creating a duplicate Dealer profile table.
+alter table dealers add column if not exists customer_referral_enabled boolean not null default false;
+alter table dealers add column if not exists public_address text;
+alter table dealers add column if not exists public_pin_code text;
+alter table dealers add column if not exists latitude numeric check(latitude is null or(latitude between -90 and 90));
+alter table dealers add column if not exists longitude numeric check(longitude is null or(longitude between -180 and 180));
+alter table dealers add column if not exists map_url text;
+alter table dealers add column if not exists product_sales_available boolean not null default true;
+alter table dealers add column if not exists repair_service_available boolean not null default false;
+alter table dealers add column if not exists authorized_service_center boolean not null default false;
+alter table dealers add column if not exists authorized_service_note text;
+alter table dealers add column if not exists referral_profile_verified_at timestamptz;
+alter table dealers add column if not exists referral_profile_verified_by uuid references app_users(id);
+create index if not exists idx_dealers_public_referral_pin on dealers(public_pin_code) where customer_referral_enabled=true and status='approved';
+
+-- One Customer record per mobile. Keep only useful CRM/contact/consent state.
+create table if not exists customer_contacts(
+ id uuid primary key default gen_random_uuid(),
+ full_name text not null,
+ mobile text not null unique,
+ whatsapp text,
+ pin_code text not null,
+ city text,
+ state text,
+ marketing_opt_in boolean not null default false,
+ marketing_opt_in_at timestamptz,
+ marketing_opt_in_source text,
+ marketing_opt_out_at timestamptz,
+ created_at timestamptz not null default now(),
+ updated_at timestamptz not null default now(),
+ check(marketing_opt_in=false or marketing_opt_in_at is not null)
+);
+create index if not exists idx_customer_contacts_pin on customer_contacts(pin_code);
+
+-- Admin-controlled referral benefit. This is NOT a Dealer selling price and TORVO does not calculate Dealer retail payment.
+create table if not exists referral_benefit_campaigns(
+ id uuid primary key default gen_random_uuid(),
+ name text not null,
+ benefit_type text not null check(benefit_type in('percent','fixed_amount','free_service','free_accessory','other')),
+ benefit_value numeric check(benefit_value is null or benefit_value>=0),
+ benefit_text text,
+ scope text not null default 'all' check(scope in('all','item_type','product')),
+ item_type text check(item_type is null or item_type in('machine','spare_part','accessory')),
+ product_id uuid references catalog_items(id) on delete restrict,
+ active boolean not null default true,
+ starts_at timestamptz,
+ ends_at timestamptz,
+ created_by uuid references app_users(id),
+ created_at timestamptz not null default now(),
+ check((benefit_type in('percent','fixed_amount') and benefit_value is not null) or benefit_type not in('percent','fixed_amount')),
+ check(benefit_type<>'percent' or benefit_value<=100),
+ check((scope='product' and product_id is not null) or scope<>'product'),
+ check((scope='item_type' and item_type is not null) or scope<>'item_type')
+);
+create index if not exists idx_referral_benefit_active on referral_benefit_campaigns(active,starts_at,ends_at);
+
+-- Referral is the proof trail. It does not store Dealer retail rate/payment.
+create table if not exists customer_dealer_referrals(
+ id uuid primary key default gen_random_uuid(),
+ referral_code text not null unique,
+ customer_id uuid not null references customer_contacts(id) on delete restrict,
+ product_id uuid not null references catalog_items(id) on delete restrict,
+ dealer_id uuid references dealers(id) on delete restrict,
+ benefit_campaign_id uuid references referral_benefit_campaigns(id) on delete restrict,
+ customer_pin_code text not null,
+ status text not null default 'created' check(status in('created','dealer_selected','verified_by_dealer','benefit_given','expired','cancelled')),
+ expires_at timestamptz not null,
+ dealer_selected_at timestamptz,
+ verified_at timestamptz,
+ verified_by uuid references app_users(id),
+ benefit_given_at timestamptz,
+ created_at timestamptz not null default now(),
+ check(expires_at>created_at)
+);
+create index if not exists idx_referrals_dealer_status on customer_dealer_referrals(dealer_id,status,created_at desc);
+create index if not exists idx_referrals_customer on customer_dealer_referrals(customer_id,created_at desc);
+create index if not exists idx_referrals_product on customer_dealer_referrals(product_id,created_at desc);
+
+-- Public locator exposes only customer-safe Dealer fields. No A/B/C rates or private Dealer data.
+create or replace function public_find_torvo_dealers(p_pin_code text)
+returns table(dealer_id uuid,shop_name text,address text,pin_code text,map_url text,latitude numeric,longitude numeric,product_sales_available boolean,repair_service_available boolean,authorized_service_center boolean,authorized_service_note text)
+language sql security definer set search_path=public as $$
+ select d.id,d.shop_name,coalesce(nullif(d.public_address,''),d.address),coalesce(nullif(d.public_pin_code,''),d.pin_code),d.map_url,d.latitude,d.longitude,d.product_sales_available,d.repair_service_available,d.authorized_service_center,d.authorized_service_note
+ from dealers d
+ where d.status='approved' and d.customer_referral_enabled=true and d.referral_profile_verified_at is not null
+   and coalesce(nullif(d.public_pin_code,''),d.pin_code)=btrim(p_pin_code)
+ order by d.shop_name;
+$$;
+revoke all on function public_find_torvo_dealers(text) from public;
+grant execute on function public_find_torvo_dealers(text) to anon,authenticated;
+
+-- Dealer verifies a referral only for their own linked Dealer account. Benefit is read from TORVO campaign; no Dealer price is captured.
+create or replace function dealer_verify_customer_referral(p_referral_code text)
+returns table(referral_id uuid,product_id uuid,product_name text,benefit_type text,benefit_value numeric,benefit_text text,status text)
+language plpgsql security definer set search_path=public as $$
+declare v_user app_users%rowtype;v_dealer dealers%rowtype;v_ref customer_dealer_referrals%rowtype;
+begin
+ select * into v_user from app_users where auth_user_id=auth.uid() and active=true;
+ if v_user.id is null or v_user.role<>'dealer' then raise exception 'DEALER ACCESS REQUIRED';end if;
+ select d.* into v_dealer from dealers d where d.mobile=v_user.mobile and d.status='approved';
+ if v_dealer.id is null then raise exception 'APPROVED DEALER LINK REQUIRED';end if;
+ select * into v_ref from customer_dealer_referrals where referral_code=upper(btrim(p_referral_code)) for update;
+ if v_ref.id is null then raise exception 'REFERRAL CODE NOT FOUND';end if;
+ if v_ref.expires_at<=now() then update customer_dealer_referrals set status='expired' where id=v_ref.id;raise exception 'REFERRAL CODE EXPIRED';end if;
+ if v_ref.dealer_id is not null and v_ref.dealer_id<>v_dealer.id then raise exception 'REFERRAL IS ASSIGNED TO ANOTHER DEALER';end if;
+ if v_ref.status in('expired','cancelled') then raise exception 'REFERRAL IS NOT ACTIVE';end if;
+ update customer_dealer_referrals set dealer_id=v_dealer.id,status=case when status='benefit_given' then status else 'verified_by_dealer' end,verified_at=coalesce(verified_at,now()),verified_by=coalesce(verified_by,v_user.id) where id=v_ref.id;
+ return query select r.id,r.product_id,c.name,b.benefit_type,b.benefit_value,b.benefit_text,r.status from customer_dealer_referrals r join catalog_items c on c.id=r.product_id left join referral_benefit_campaigns b on b.id=r.benefit_campaign_id where r.id=v_ref.id;
+end$$;
+revoke all on function dealer_verify_customer_referral(text) from public;
+grant execute on function dealer_verify_customer_referral(text) to authenticated;
+
+-- Dealer confirms the TORVO-defined benefit was given. No selling rate/payment amount is stored.
+create or replace function dealer_confirm_referral_benefit(p_referral_code text)
+returns uuid language plpgsql security definer set search_path=public as $$
+declare v_user app_users%rowtype;v_dealer dealers%rowtype;v_ref customer_dealer_referrals%rowtype;
+begin
+ select * into v_user from app_users where auth_user_id=auth.uid() and active=true;
+ if v_user.id is null or v_user.role<>'dealer' then raise exception 'DEALER ACCESS REQUIRED';end if;
+ select d.* into v_dealer from dealers d where d.mobile=v_user.mobile and d.status='approved';
+ if v_dealer.id is null then raise exception 'APPROVED DEALER LINK REQUIRED';end if;
+ select * into v_ref from customer_dealer_referrals where referral_code=upper(btrim(p_referral_code)) for update;
+ if v_ref.id is null or v_ref.dealer_id<>v_dealer.id or v_ref.status not in('verified_by_dealer','benefit_given') then raise exception 'VERIFIED REFERRAL REQUIRED';end if;
+ update customer_dealer_referrals set status='benefit_given',benefit_given_at=coalesce(benefit_given_at,now()) where id=v_ref.id;
+ return v_ref.id;
+end$$;
+revoke all on function dealer_confirm_referral_benefit(text) from public;
+grant execute on function dealer_confirm_referral_benefit(text) to authenticated;
+
+-- Direct table access stays closed; flows should use authorized RPCs/Admin service paths.
+alter table customer_contacts enable row level security;
+alter table referral_benefit_campaigns enable row level security;
+alter table customer_dealer_referrals enable row level security;
+revoke all on customer_contacts,referral_benefit_campaigns,customer_dealer_referrals from anon,authenticated;
