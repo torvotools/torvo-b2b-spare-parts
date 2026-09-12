@@ -1,4 +1,4 @@
--- TORVO V2 New Item Purchase Requirement → Item Master secure linkage.
+-- TORVO V2 Purchase Requirement Item Master secure finders/linkage.
 -- Requires v2-purchase-requirements.sql and catalog_items.
 -- This does NOT create stock. Purchase Entry remains the only supplier stock-receipt path.
 -- STAGING TEST REQUIRED BEFORE PRODUCTION.
@@ -15,6 +15,19 @@ declare a app_users%rowtype;s text:=lower(trim(coalesce(p_search,'')));lim integ
 end;$$;
 revoke all on function search_requirement_catalog(text,text,text,integer) from public,anon;
 grant execute on function search_requirement_catalog(text,text,text,integer) to authenticated;
+
+-- Role-safe finder used when authorized staff submit an EXISTING ITEM Purchase Requirement.
+-- Salesman/Accountant/Store Keeper need item identity to report demand, but never rates, cost, supplier or stock financials.
+create or replace function search_purchase_requirement_items(p_search text default null,p_type text default null,p_brand text default null,p_limit integer default 100)
+returns table(id uuid,item_code text,oem_code text,name text,brand text,category text,item_type text)
+language plpgsql stable security definer set search_path=public as $$
+declare a app_users%rowtype;s text:=lower(trim(coalesce(p_search,'')));lim integer:=greatest(1,least(coalesce(p_limit,100),100));begin
+ select * into a from app_users where auth_user_id=auth.uid() and active=true;
+ if not found or a.role not in('owner','admin','salesman','accountant','store_keeper') then raise exception 'Authorized staff required'; end if;
+ return query select c.id,c.item_code,c.oem_code,c.name,c.brand,c.category,c.item_type from catalog_items c where c.active=true and (nullif(trim(coalesce(p_type,'')),'') is null or c.item_type=p_type) and (nullif(trim(coalesce(p_brand,'')),'') is null or lower(coalesce(c.brand,''))=lower(trim(p_brand))) and (s='' or lower(coalesce(c.item_code,'')) like '%'||s||'%' or lower(coalesce(c.oem_code,'')) like '%'||s||'%' or lower(coalesce(c.name,'')) like '%'||s||'%' or lower(coalesce(c.brand,'')) like '%'||s||'%' or lower(coalesce(c.category,'')) like '%'||s||'%') order by case when s<>'' and lower(coalesce(c.item_code,''))=s then 0 when s<>'' and lower(coalesce(c.oem_code,''))=s then 1 when s<>'' and lower(coalesce(c.item_code,'')) like s||'%' then 2 when s<>'' and lower(coalesce(c.oem_code,'')) like s||'%' then 3 else 4 end,c.item_code limit lim;
+end;$$;
+revoke all on function search_purchase_requirement_items(text,text,text,integer) from public,anon;
+grant execute on function search_purchase_requirement_items(text,text,text,integer) to authenticated;
 
 create or replace function link_new_item_requirement_to_catalog(p_requirement uuid,p_item uuid,p_note text default null) returns void
 language plpgsql security definer set search_path=public as $$
