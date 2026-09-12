@@ -20,11 +20,16 @@ Use the repository's `supabase/` V2 migration files in dependency order. Preserv
    - `v2-sales-order-integrity.sql`
    - `v2-additional-purchase-order.sql`
    These enforce duplicate-line protection, exact latest DEALER OK, revision invalidation, ESTIMATE locking and separate linked ADD MORE ITEMS orders.
-4. Purchase Entry, inventory movement, low-stock and Purchase Requirement/fulfilment foundation migrations. For Purchase Entry, keep the final integrity definition in this order after its dependent tables/RPCs exist:
+4. Purchase Entry, inventory movement, low-stock and Purchase Requirement/fulfilment foundation migrations. For Purchase Entry and Purchase Requirement stock linkage, keep the final integrity definitions in this order after their dependent tables/RPCs exist:
    - `v2-purchase-entry-rpcs.sql`
    - `v2-inventory-purchase-guard.sql`
    - `v2-purchase-entry-integrity.sql`
-   The integrity migration makes Purchase creation non-receiving, then RECEIVE PURCHASE STOCK performs the exactly-once stock receipt. It also blocks duplicate item lines, receipt replay, unsafe re-receipt after reversal and direct browser inventory writes.
+   - `v2-purchase-requirements.sql`
+   - `v2-purchase-requirement-rpcs.sql`
+   - `v2-purchase-requirement-item-link.sql`
+   - `v2-purchase-requirement-fulfilment.sql`
+   - `v2-purchase-requirement-receipt-integrity.sql`
+   The Purchase Entry integrity migration makes Purchase creation non-receiving, then RECEIVE PURCHASE STOCK performs the exactly-once stock receipt. The final Purchase Requirement receipt-integrity layer permits fulfilment only from a non-reversed received Purchase stock receipt, prevents concurrent active duplicate links, and blocks Purchase stock reversal while an active requirement allocation still depends on it. Requirement linkage/allocation itself never changes inventory.
 5. After the payment, dispatch and inventory foundation tables/RPCs exist, install:
    - `v2-delivery-stock-integrity.sql`
    This is the payment-gated actual-delivery stock finalization layer and must not be installed before its dependent payment/dispatch/inventory objects.
@@ -53,6 +58,8 @@ The release is blocked until all applicable checks pass with real staging sessio
 - Duplicate Supplier+Invoice and duplicate Purchase item lines are blocked.
 - Purchase correction/reversal is audited, exactly once and does not duplicate/re-receive stock.
 - Purchase Requirements partial/full fulfilment, exact Dealer allocation and tracking reversal are secure/audited.
+- Purchase Requirement fulfilment rejects saved-but-not-received Purchase Entries and reversed stock receipts.
+- Purchase stock reversal is blocked until active Purchase Requirement links are reversed first.
 - Payment + actual Delivery deducts stock exactly once. ESTIMATE/PICKED/PACKED never deduct stock.
 - Replayed payment/delivery actions remain idempotent.
 - Delivery cannot finalize with insufficient stock or insufficient required payment.
