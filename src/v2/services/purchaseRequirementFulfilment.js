@@ -1,7 +1,8 @@
 import{requireBackend}from'./supabase';
 const db=()=>requireBackend();
 const fail=e=>{if(e)throw e};
-export async function purchaseRequirementPurchases(){const{data,error}=await db().from('purchase_headers').select('id,invoice_no,invoice_date,suppliers(supplier_name,company_name),purchase_lines(item_id,qty,purchase_rate,catalog_items(item_code,name,brand))').order('invoice_date',{ascending:false});fail(error);return data??[]}
+// Requirement fulfilment is operational quantity linkage only. Do not expose Purchase Rate here.
+export async function purchaseRequirementPurchases(){const{data,error}=await db().from('purchase_headers').select('id,invoice_no,invoice_date,suppliers(supplier_name,company_name),purchase_lines(item_id,qty,catalog_items(item_code,name,brand))').order('invoice_date',{ascending:false});fail(error);return data??[]}
 export async function purchaseRequirementLinks(requirementId){const{data,error}=await db().from('purchase_requirement_links').select('id,requirement_id,purchase_id,linked_qty,item_id,note,linked_at,reversed_at,purchase_headers(invoice_no,invoice_date,suppliers(supplier_name,company_name))').eq('requirement_id',requirementId).order('linked_at',{ascending:false});fail(error);return data??[]}
 export async function linkPurchaseToRequirement(requirementId,purchaseId,qty,note=''){if(!requirementId||!purchaseId)throw new Error('Requirement and Purchase are required');if(!Number(qty)||Number(qty)<=0)throw new Error('Valid linked quantity required');const{data,error}=await db().rpc('link_purchase_to_requirement',{p_requirement:requirementId,p_purchase:purchaseId,p_qty:Number(qty),p_note:String(note||'').trim()||null});fail(error);return Number(data||0)}
 export async function reversePurchaseRequirementLink(linkId,reason){if(!String(reason||'').trim())throw new Error('Reversal reason required');const{error}=await db().rpc('reverse_purchase_requirement_link',{p_link:linkId,p_reason:String(reason).trim()});fail(error)}
