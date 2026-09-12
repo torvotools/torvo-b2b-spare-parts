@@ -12,34 +12,56 @@ This file is the authoritative dependency order for TORVO V2 database installati
 
 ## INSTALL SEQUENCE
 
-Use the repository's `supabase/` V2 migration files in dependency order. Preserve any dependency notes inside each migration. The backup/recovery group must be installed after the core role/auth foundation it references and before production release verification:
+Use the repository's `supabase/` V2 migration files in dependency order. Preserve dependency notes inside each migration.
 
-1. Core V2 schema, role/profile/dealer-link and security foundation migrations.
-2. Catalog/item/product/master-value and dealer catalog/rate/search migrations.
-3. Purchase Order / Sales Order foundation, then these integrity migrations in this order:
+1. Core foundation:
+   - `v2-schema.sql`
+   - role/profile/dealer-link and base RLS/security migrations that depend on the schema.
+
+2. Catalog foundation:
+   - catalog/item/product/master-value migrations;
+   - dealer catalog/rate/search migrations;
+   - sales catalog RPCs only after their catalog/rate tables exist.
+
+3. Purchase Order / Sales Order foundation and final integrity definitions:
+   - sales/order foundation RPCs and team mapping prerequisites;
    - `v2-sales-order-integrity.sql`
    - `v2-additional-purchase-order.sql`
-   These enforce duplicate-line protection, exact latest DEALER OK, revision invalidation, ESTIMATE locking and separate linked ADD MORE ITEMS orders.
-4. Purchase Entry, inventory movement, low-stock and Purchase Requirement/fulfilment foundation migrations. For Purchase Entry and Purchase Requirement stock linkage, keep the final integrity definitions in this order after their dependent tables/RPCs exist:
+   These enforce duplicate-line protection, exact latest DEALER OK, revision invalidation, ESTIMATE locking and separate linked ADD MORE ITEMS orders. Any older same-signature RPC must be installed before these final definitions.
+
+4. Purchase Entry and canonical inventory movement chain:
+   - inventory / `inventory_movements` foundation from the core schema and operational migrations;
    - `v2-purchase-entry-rpcs.sql`
    - `v2-inventory-purchase-guard.sql`
    - `v2-purchase-entry-integrity.sql`
+   Purchase Entry creation does not receive stock. `RECEIVE PURCHASE STOCK` is the single supplier stock-receipt action, writes inventory and the canonical `inventory_movements` ledger exactly once, and duplicate Supplier+Invoice / duplicate item lines are blocked.
+
+5. Purchase Requirement chain, after Purchase Entry integrity exists:
    - `v2-purchase-requirements.sql`
    - `v2-purchase-requirement-rpcs.sql`
    - `v2-purchase-requirement-item-link.sql`
    - `v2-purchase-requirement-fulfilment.sql`
    - `v2-purchase-requirement-receipt-integrity.sql`
-   The Purchase Entry integrity migration makes Purchase creation non-receiving, then RECEIVE PURCHASE STOCK performs the exactly-once stock receipt. The final Purchase Requirement receipt-integrity layer permits fulfilment only from a non-reversed received Purchase stock receipt, prevents concurrent active duplicate links, and blocks Purchase stock reversal while an active requirement allocation still depends on it. Requirement linkage/allocation itself never changes inventory.
-5. After the payment, dispatch and inventory foundation tables/RPCs exist, install:
-   - `v2-delivery-stock-integrity.sql`
-   This is the payment-gated actual-delivery stock finalization layer and must not be installed before its dependent payment/dispatch/inventory objects.
-6. Private Suitable/fitment and role/dealer privacy migrations.
-7. Dashboard/admin/business RPC migrations after their dependent tables/policies exist. If an older RPC has the same signature as an integrity RPC above, the integrity version must remain the final installed definition.
-8. Backup and disaster-recovery group, in this exact order:
+   Requirement fulfilment may use only a non-reversed Purchase stock receipt. Requirement linkage/allocation never changes inventory. Active requirement allocations block Purchase stock reversal until those links are reversed through the audited requirement flow.
+
+6. Payment / dispatch / actual Delivery chain, after payment, dispatch, inventory and `inventory_movements` objects exist:
+   - payment idempotency/foundation migrations;
+   - dispatch/delivery foundation migrations including `v2-delivery-rpc.sql` if required by the existing environment;
+   - `v2-delivery-stock-integrity.sql` LAST for these signatures.
+   `v2-delivery-stock-integrity.sql` is the final outbound-sales stock definition. It uses the same canonical `inventory_movements` ledger as Purchase Entry, makes actual Delivery the only sales stock-deduction point, and converts legacy `deliver_estimate(uuid)` into a wrapper around `finalize_actual_delivery(...)`. Do not reinstall an older `deliver_estimate` or `record_payment` definition after it.
+
+7. Inventory movement center, low-stock/reorder, Purchase Cost History and operational views/RPCs after the canonical Purchase/Delivery write paths above. Read/reporting modules must not introduce another inventory write path.
+
+8. Private Suitable/fitment and role/dealer privacy migrations.
+
+9. Dashboard/admin/business/reporting RPC migrations after their dependent tables/policies exist. IMPORTANT: if these files contain an older same-signature `record_payment`, `deliver_estimate`, Purchase Entry or Purchase Requirement RPC, install that older foundation before the corresponding integrity layer above or skip the superseded definition. Integrity definitions must remain final.
+
+10. Backup and disaster-recovery group, in this exact order:
    - `v2-backup-control.sql`
    - `v2-backup-channels.sql`
    - `v2-backup-worker-contract.sql`
-9. Later feature migrations such as conversion/repacking, rewards, GST and advanced modules only after their prerequisites are present.
+
+11. Later feature migrations such as conversion/repacking, rewards, GST and advanced modules only after their prerequisites are present.
 
 Before executing staging, inventory the actual `supabase/v2-*.sql` files and reconcile every file into this dependency sequence. Never assume a new migration is safe merely because its filename sorts after another file.
 
@@ -60,10 +82,13 @@ The release is blocked until all applicable checks pass with real staging sessio
 - Purchase Requirements partial/full fulfilment, exact Dealer allocation and tracking reversal are secure/audited.
 - Purchase Requirement fulfilment rejects saved-but-not-received Purchase Entries and reversed stock receipts.
 - Purchase stock reversal is blocked until active Purchase Requirement links are reversed first.
-- Payment + actual Delivery deducts stock exactly once. ESTIMATE/PICKED/PACKED never deduct stock.
-- Replayed payment/delivery actions remain idempotent.
+- Purchase receipt and actual Delivery both write the canonical `inventory_movements` ledger; no parallel sales stock ledger exists.
+- Payment + actual Delivery deducts stock exactly once. ESTIMATE/PICKED/PACKED/READY never deduct stock.
+- Same payment request replay returns the original payment; conflicting request-key payload is rejected.
+- Same Delivery request replay is safe; a different request key cannot finalize an already-finalized Estimate.
 - Delivery cannot finalize with insufficient stock or insufficient required payment.
-- Direct client writes cannot bypass the inventory/finalization integrity path.
+- Legacy `deliver_estimate(uuid)` cannot create a second stock-deduction path.
+- Direct client writes cannot bypass inventory, inventory movement, Purchase receipt or Delivery finalization integrity.
 - Dealer fitment suggestions earn ZERO points and remain private between Dealer and TORVO.
 - No secrets/service-role credentials are exposed to browser/client/GitHub.
 
@@ -71,6 +96,7 @@ Run repository staging checklists under `supabase/tests/` where applicable, incl
 
 - `tests/v2-purchase-entry-security-checklist.sql`
 - `tests/v2-purchase-requirement-security-checklist.sql`
+- `tests/v2-sales-delivery-integrity-checklist.sql`
 - `tests/v2-backup-control-security-checklist.sql`
 
 ## BACKUP / DISASTER-RECOVERY RELEASE GATE
@@ -96,7 +122,7 @@ For each staging run, retain non-secret evidence of:
 - migration set + code branch/commit tested;
 - pass/fail result and first failure if any;
 - role/security test results;
-- exactly-once stock/payment tests;
+- exactly-once Purchase receipt, payment and Delivery stock tests;
 - backup checksum/manifest verification status;
 - restore drill date/result.
 
