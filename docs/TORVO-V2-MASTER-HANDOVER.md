@@ -82,5 +82,12 @@ Still within 20-40% Dealer + Sales milestone until materially implemented AND ru
 6. Complete WhatsApp onboarding/security/session runtime.
 7. Final responsive premium UI QA + disaster recovery restore drill.
 
+## LATEST COMPLETED SOURCE BATCH — 12-09-2026
+- Wired backup/recovery into the authoritative staging install/release gate.
+- Added backup role/security, verified-age, idempotency, integrity and restore-drill staging checklist.
+- Defined trusted backup worker boundary, encryption/checksum and Full Restore Point manifest contract.
+- Reconfirmed English business-facing UI text UPPERCASE rule with case-sensitive exceptions.
+- Runtime Supabase execution/restore verification is still pending; source work is not represented as runtime proof.
+
 ## NEW CHAT RECOVERY INSTRUCTION
 In a new chat, tell ChatGPT: `Continue TORVO V2 from docs/TORVO-V2-MASTER-HANDOVER.md on branch torvo-v2-build. Inspect current GitHub first. Never touch V27/main. Continue actual work in large safe batches and keep reports short.` This file plus current repository state is authoritative over old chat assumptions.
