@@ -1,10 +1,2 @@
-import React from'react';
-import DealerPortal from'./DealerPortal';
-import DealerApprovedAddOnOrders from'./DealerApprovedAddOnOrders';
-
-export default function DealerPortalMounted({user}){
- return <>
-  <DealerPortal user={user}/>
-  {user?.dealer_id&&<DealerApprovedAddOnOrders/>}
- </>;
-}
+import React,{useState}from'react';import{ShoppingCart,QrCode,Wrench}from'lucide-react';import DealerPortal from'./DealerPortal';import DealerApprovedAddOnOrders from'./DealerApprovedAddOnOrders';import DealerReferralWorkspace from'./DealerReferralWorkspace';import DealerRepairWorkspace from'./DealerRepairWorkspace';
+export default function DealerPortalMounted({user}){const[mode,setMode]=useState('business');if(!user?.dealer_id)return <DealerPortal user={user}/>;return <><div className="workspaceTabs quickActions"><button className={mode==='business'?'active':''} onClick={()=>setMode('business')}><ShoppingCart size={15}/>DEALER BUSINESS</button><button className={mode==='referral'?'active':''} onClick={()=>setMode('referral')}><QrCode size={15}/>CUSTOMER REFERRAL</button><button className={mode==='repair'?'active':''} onClick={()=>setMode('repair')}><Wrench size={15}/>REPAIR & SERVICE</button></div>{mode==='business'&&<><DealerPortal user={user}/><DealerApprovedAddOnOrders/></>}{mode==='referral'&&<DealerReferralWorkspace/>}{mode==='repair'&&<DealerRepairWorkspace/>}</>}
