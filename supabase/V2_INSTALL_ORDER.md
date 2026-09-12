@@ -33,21 +33,25 @@ This file is the authoritative dependency order for a fresh V2 database setup. D
 24. `v2-purchase-requirements.sql`
 25. `v2-purchase-requirement-rpcs.sql`
 26. `v2-purchase-entry-rpcs.sql`
-27. `v2-purchase-requirement-fulfilment.sql`
+27. `v2-inventory-purchase-guard.sql`
+28. `v2-purchase-requirement-fulfilment.sql`
 
 ## Private suitable knowledge / Dealer fitment suggestions
-28. `v2-knowledge-rewards.sql`
+29. `v2-knowledge-rewards.sql`
 
 ## Schemes and sales rewards
-29. `v2-scheme-progress.sql`
-30. `v2-reward-lots.sql`
-31. `v2-reward-reconciliation.sql`
-32. `v2-rewards-rpcs.sql`
-33. `v2-scheme-reward-credit.sql`
-34. `v2-referrals.sql`
+30. `v2-scheme-progress.sql`
+31. `v2-reward-lots.sql`
+32. `v2-reward-reconciliation.sql`
+33. `v2-rewards-rpcs.sql`
+34. `v2-scheme-reward-credit.sql`
+35. `v2-referrals.sql`
 
 ### Purchase Entry rule
 `v2-purchase-entry-rpcs.sql` is the authoritative stock-receipt path for supplier Purchase invoices. Only Owner/Admin can create or reverse a Purchase. Supplier + normalized Invoice No is duplicate-protected. Every received line must reference an active catalog item, quantity must be positive and purchase rate cannot be negative. Creating the Purchase adds inventory and an inventory movement in the same database transaction. Purchase entries are immutable; a correction uses a mandatory-reason audited reversal and is rejected if current stock is below the quantity that would be reversed. This module is operational purchase/stock history only and does not create a supplier ledger.
+
+### Inventory / Purchase single-receipt rule
+`v2-inventory-purchase-guard.sql` MUST run after `v2-purchase-entry-rpcs.sql`. It retires the legacy `receive_reorder` stock-increase path so a supplier receipt cannot be added once from Inventory/Reorder and again from Purchase Entry. Reorder remains demand/order planning only. Store Keeper may see operational reorder quantities/status but must not receive supplier stock or see supplier purchase rates/invoice financials. Owner/Admin receive the supplier invoice through Purchase Entry; requirement/reorder fulfilment is then linked without creating a second inventory movement.
 
 ### Purchase Requirement fulfilment rule
 `v2-purchase-requirement-fulfilment.sql` runs after the Purchase Requirement schema/actions and Purchase Entry RPC. Owner/Admin can link an approved/purchasing requirement only to a real Purchase containing the exact required catalog item. Linked quantity cannot exceed the Purchase item's unallocated quantity or the requirement's remaining approved quantity. Partial links move the requirement to `partially_purchased`; full approved quantity moves it to `completed`. New-item requirements must first be linked to a real catalog item. Link/reversal actions are audited. This is requirement fulfilment tracking only; it must not create duplicate inventory movement because stock arrival remains controlled by the Purchase workflow.
@@ -98,7 +102,7 @@ GitHub/Vite build success does **not** validate PostgreSQL migrations or RPC beh
 5. Confirm Dealer A cannot submit/consume a change request belonging to Dealer B, cannot create an add-on against Dealer B's parent order, and cannot read Dealer B's change requests.
 6. Confirm inventory does **not** deduct at Estimate, Picked or Packed; it deducts exactly once only after valid payment + delivery. Retry delivery and confirm stock cannot deduct twice.
 7. Retry the same payment request key and confirm it returns the same payment; reuse that key with different data and confirm it is rejected.
-8. Create/receive a reorder and confirm duplicate active reorder protection and inventory movement history.
+8. Create a reorder and confirm duplicate active reorder protection. Confirm Store Keeper cannot directly receive supplier stock from the reorder; the legacy receive RPC must reject. Record the actual supplier invoice through Owner/Admin Purchase Entry and confirm inventory increases exactly once.
 9. Create a Purchase as Owner/Admin and verify the exact quantities increase stock once and inventory movements are written. Retry the same Supplier + Invoice No and confirm duplicate rejection. Attempt Purchase Entry as Salesman/Accountant/Store Keeper and confirm denial. Reverse a Purchase with sufficient stock and verify stock decreases once plus audit history remains; then verify reversal is rejected when stock is insufficient or the same Purchase was already reversed.
 10. Test Machine → Spare Parts mapping and confirm internal compatibility stays Owner/Admin-only unless a mapping is explicitly dealer-visible.
 11. Test Brand/Category/Model add and duplicate rejection with case/extra-space variants. Confirm usage count, used-master rename block and Active/Inactive. Confirm `1122` Delete moves an unused value to Trash, normal dropdowns exclude Trash, Restore works, duplicate-collision Restore is rejected, linked values cannot be trashed, and Permanent Delete works only from Trash after `1122` plus a fresh usage check.
