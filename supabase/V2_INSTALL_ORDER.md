@@ -32,20 +32,21 @@ This file is the authoritative dependency order for a fresh V2 database setup. D
 23. `v2-sales-revision-rpcs.sql`
 24. `v2-purchase-requirements.sql`
 25. `v2-purchase-requirement-rpcs.sql`
-26. `v2-purchase-entry-rpcs.sql`
-27. `v2-inventory-purchase-guard.sql`
-28. `v2-purchase-requirement-fulfilment.sql`
+26. `v2-purchase-requirement-item-link.sql`
+27. `v2-purchase-entry-rpcs.sql`
+28. `v2-inventory-purchase-guard.sql`
+29. `v2-purchase-requirement-fulfilment.sql`
 
 ## Private suitable knowledge / Dealer fitment suggestions
-29. `v2-knowledge-rewards.sql`
+30. `v2-knowledge-rewards.sql`
 
 ## Schemes and sales rewards
-30. `v2-scheme-progress.sql`
-31. `v2-reward-lots.sql`
-32. `v2-reward-reconciliation.sql`
-33. `v2-rewards-rpcs.sql`
-34. `v2-scheme-reward-credit.sql`
-35. `v2-referrals.sql`
+31. `v2-scheme-progress.sql`
+32. `v2-reward-lots.sql`
+33. `v2-reward-reconciliation.sql`
+34. `v2-rewards-rpcs.sql`
+35. `v2-scheme-reward-credit.sql`
+36. `v2-referrals.sql`
 
 ### Purchase Entry rule
 `v2-purchase-entry-rpcs.sql` is the authoritative stock-receipt path for supplier Purchase invoices. Only Owner/Admin can create or reverse a Purchase. Supplier + normalized Invoice No is duplicate-protected. Every received line must reference an active catalog item, quantity must be positive and purchase rate cannot be negative. Creating the Purchase adds inventory and an inventory movement in the same database transaction. Purchase entries are immutable; a correction uses a mandatory-reason audited reversal and is rejected if current stock is below the quantity that would be reversed. This module is operational purchase/stock history only and does not create a supplier ledger.
@@ -53,8 +54,11 @@ This file is the authoritative dependency order for a fresh V2 database setup. D
 ### Inventory / Purchase single-receipt rule
 `v2-inventory-purchase-guard.sql` MUST run after `v2-purchase-entry-rpcs.sql`. It retires the legacy `receive_reorder` stock-increase path so a supplier receipt cannot be added once from Inventory/Reorder and again from Purchase Entry. Reorder remains demand/order planning only. Store Keeper may see operational reorder quantities/status but must not receive supplier stock or see supplier purchase rates/invoice financials. Owner/Admin receive the supplier invoice through Purchase Entry; requirement/reorder fulfilment is then linked without creating a second inventory movement.
 
+### Purchase Requirement Item Master rule
+`v2-purchase-requirement-item-link.sql` gives Owner/Admin a controlled audited action to link a New Item requirement to one active Item Master record. It never creates stock and refuses silent reassignment once linked. New Item Purchase fulfilment remains blocked until this link exists.
+
 ### Purchase Requirement fulfilment rule
-`v2-purchase-requirement-fulfilment.sql` runs after the Purchase Requirement schema/actions and Purchase Entry RPC. Owner/Admin can link an approved/purchasing requirement only to a real Purchase containing the exact required catalog item. Linked quantity cannot exceed the Purchase item's unallocated quantity or the requirement's remaining approved quantity. Partial links move the requirement to `partially_purchased`; full approved quantity moves it to `completed`. New-item requirements must first be linked to a real catalog item. Link/reversal actions are audited. This is requirement fulfilment tracking only; it must not create duplicate inventory movement because stock arrival remains controlled by the Purchase workflow.
+`v2-purchase-requirement-fulfilment.sql` runs after the Purchase Requirement schema/actions, Item Master linkage and Purchase Entry RPC. Owner/Admin can link an approved/purchasing requirement only to a real non-reversed Purchase containing the exact required catalog item. Linked quantity cannot exceed the Purchase item's unallocated quantity or the requirement's remaining approved quantity. Partial links move the requirement to `partially_purchased`; full approved quantity moves it to `completed`. New-item requirements must first be linked to a real catalog item. Link/reversal actions are audited. Reversing a fulfilment link changes fulfilment tracking only and must never create a second inventory movement or reverse Purchase stock.
 
 ### Sales revision / Dealer OK / Add More Items rule
 `v2-sales-revision-rpcs.sql` is the controlled revision layer for the current sales flow. Owner/Admin/authorized Accountant may revise a Sales Order before Estimate; the server recalculates every revised line from the Dealer's current rate group and records revision history. A revision invalidates prior Dealer OK. Authorized staff can mark the exact latest revision as awaiting Dealer OK; a mapped Salesman is restricted to assigned Dealers. Dealer confirmation is accepted only for the Dealer's own Sales Order and exact current revision. Estimate must follow Dealer OK, and direct Sales Order revision is locked after an Estimate exists. Dealer direct modification has a controlled allowance (default 2); after the allowance is exhausted the Dealer must submit an audited modification request and TORVO may grant an extra chance. `Add More Items` never mutates an old/estimated/finalized order: Dealer submits a request, TORVO approves it, then a new Sales Order is created with `add_on_parent_order_id` pointing to the original order. The approved request is linked to exactly one add-on order and then closed. Add-on rates are recalculated server-side from the approved Dealer rate group. WhatsApp delivery must never be recorded as sent until the provider is actually connected and verified.
@@ -111,7 +115,7 @@ GitHub/Vite build success does **not** validate PostgreSQL migrations or RPC beh
 14. Run `reward_reconciliation_status()` and `assert_reward_lot_migration_ready()` before enabling lot rewards on migrated production data; test FIFO redeem and expiry on staging.
 15. Verify Salesman cannot read another Salesman's Dealers; test Dealer transfer, area mapping and targets with audit history.
 16. Using two Dealer accounts, verify Dealer A can never receive Dealer B's fitment suggestion/history. Verify Correct/Partly Correct/Wrong/Duplicate review and Private Suitable promotion. Confirm no fitment submission/review creates TORVO Points or reward-ledger rows.
-17. Verify Purchase Requirement partial fulfilment: link only a Purchase containing the exact required item, reject over-linking beyond Purchase quantity/remaining approved quantity, confirm partial status/remaining quantity, then complete with another Purchase. Confirm a new-item requirement cannot be fulfilled before its Item Master link exists and retry/duplicate linking is blocked.
+17. Verify Purchase Requirement partial fulfilment: link only a Purchase containing the exact required item, reject over-linking beyond Purchase quantity/remaining approved quantity, confirm partial status/remaining quantity, then complete with another Purchase. For a New Item requirement, confirm Owner/Admin must first link exactly one active Item Master record, linkage is audited, silent reassignment is rejected, fulfilment is blocked before the link, and Item Master linking itself creates no stock. Confirm reversed Purchase cannot fulfil a requirement and fulfilment-link reversal changes tracking only, not inventory.
 18. Verify notifications/messages, dealer approval, inactive-user blocking and audit entries for critical actions.
 19. Confirm no service-role key or other privileged secret is present in browser code, GitHub source or public deployment output.
 
