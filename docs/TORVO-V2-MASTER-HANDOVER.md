@@ -29,6 +29,9 @@ Purchase Entry is the single supplier stock-receipt path. Owner/Admin enter Supp
 ## UI
 Premium contemporary app-style TORVO design, mobile-first but fully responsive tablet/laptop/desktop/large monitor. Strong search/filter, especially Spare Parts. Popup-first Add/Edit/Approve/Hold/Send actions. TORVO red accent with coherent palette. Buttons should be wired UI -> logic -> authorized RPC -> DB -> success/error wherever backend exists. No horizontal mobile overflow. App-ready/PWA foundation exists; native Play Store/App Store packaging comes after core system is stable so business logic is not duplicated.
 
+### ENGLISH DISPLAY CASE RULE
+English business-facing UI text is UPPERCASE across TORVO V2. Case-sensitive or protocol/identity values are exceptions and must retain their required case, including EMAIL values, PASSWORD/PIN values, URL/WEBSITE values, technical IDs, tokens/keys and similar machine-sensitive identifiers.
+
 ## BACKUP & DISASTER RECOVERY — AUTHORITATIVE
 - Backup is a core Admin/Owner function, not an afterthought.
 - Admin panel must prominently warn when there has been no VERIFIED backup within 24 hours; >=48 hours is critical.
@@ -39,7 +42,9 @@ Premium contemporary app-style TORVO design, mobile-first but fully responsive t
 - Full Restore Point must carry database backup + code branch/commit + database/schema version + checksum + restore manifest so a destroyed environment can be rebuilt from a known point.
 - Desktop/mobile download and Email/WhatsApp share/export are desired Admin actions, but must use a trusted signed/secure export path. Never claim Email/WhatsApp sent until provider integration succeeds.
 - GitHub code/migrations + verified DB backup + restore manifest together form disaster recovery. Restore must be staging-tested before being trusted.
-- Current source foundation: `supabase/v2-backup-control.sql`, `src/v2/config/backupPolicy.js`, `src/v2/services/backupService.js`, `src/v2/components/BackupControlCenter.jsx`, `src/v2/backup-ui.css`; Backup module is Owner/Admin-only.
+- Current source foundation: `supabase/v2-backup-control.sql`, `supabase/v2-backup-channels.sql`, `src/v2/config/backupPolicy.js`, `src/v2/services/backupService.js`, `src/v2/components/BackupControlCenter.jsx`, `src/v2/backup-ui.css`; Backup module is Owner/Admin-only.
+- Staging contract/checklist: `supabase/tests/v2-backup-control-security-checklist.sql`.
+- Trusted worker/restore manifest contract: `docs/TORVO-V2-BACKUP-WORKER-CONTRACT.md`.
 
 ## WHATSAPP / OTP
 Dealer onboarding preference: WhatsApp OTP. TORVO support currently 7027751533, Admin-changeable. Automatic WhatsApp sending requires real provider/API + testing; prepared links/messages are not delivery proof.
@@ -66,11 +71,11 @@ Still within 20-40% Dealer + Sales milestone until materially implemented AND ru
 - Backup trusted worker/storage, encrypted artifact download/share and actual restore drill remain to implement/test.
 
 ## SQL INSTALL
-`supabase/V2_INSTALL_ORDER.md` is authoritative. Never run migrations alphabetically. Mandatory staging gate must test every role, sales revision/Dealer OK/Add More Items, duplicate line guard, Purchase/reversal, Purchase Requirements, Item Movement/Low Stock privacy, payment idempotency, stock exactly-once, fitment privacy/no-points, and secret checks. Add backup migration to the dependency order before production and test Owner/Admin access, 24h status, worker verification and restore drill.
+`supabase/V2_INSTALL_ORDER.md` is authoritative. Never run migrations alphabetically. Backup migration dependency wiring and staging backup security/restore gates are now documented. Mandatory staging gate must test every role, sales revision/Dealer OK/Add More Items, duplicate line guard, Purchase/reversal, Purchase Requirements, Item Movement/Low Stock privacy, payment idempotency, stock exactly-once, fitment privacy/no-points, secret checks, backup role access, verified-age status, trusted-worker integrity and restore drill.
 
 ## NEXT DEVELOPMENT PRIORITIES
-1. Finish Backup migration install-order wiring + Admin dashboard 24h warning/notification and trusted worker contract/export manifest.
-2. Continue Dealer/Sales milestone core blockers and runtime-safe scalable finders.
+1. Continue Dealer/Sales milestone core blockers and runtime-safe scalable finders.
+2. Implement the trusted backup worker/storage/export path when a server/runtime target is available; keep browser non-authoritative.
 3. Staging SQL compile/test when staging action becomes available.
 4. Verify actual Vite/Netlify build and repair runtime UI errors.
 5. Complete Stock Conversion/Repacking + remaining advanced modules.
