@@ -4,6 +4,7 @@ import App from './App.jsx';
 import './styles.css';
 import './workspace-polish.css';
 import './app-install-ui.css';
+import './backup-ui.css';
 import {installGlobalUiFeedback} from './services/uiFeedback.js';
 import {installAppFoundation} from './services/appInstall.js';
 const root=document.getElementById('torvo-v2-root');
