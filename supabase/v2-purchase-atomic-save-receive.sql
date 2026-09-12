@@ -1,0 +1,24 @@
+-- TORVO V2 ATOMIC PURCHASE SAVE + RECEIVE
+-- One PostgreSQL transaction: header + lines + stock + canonical movements + receipt ledger.
+-- Any failure rolls the whole operation back. Install after v2-purchase-entry-integrity.sql.
+create table if not exists public.purchase_save_requests(request_key text primary key,purchase_id uuid not null unique references public.purchase_headers(id) on delete restrict,payload_hash text not null,created_by uuid not null references public.app_users(id),created_at timestamptz not null default now());
+alter table public.purchase_save_requests enable row level security;revoke all on public.purchase_save_requests from anon,authenticated;
+create or replace function public.save_and_receive_purchase_entry(p_supplier uuid,p_invoice_no text,p_invoice_date date,p_lines jsonb,p_note text default null,p_request_key text default null)
+returns uuid language plpgsql security definer set search_path=public as $$
+declare a app_users%rowtype;h uuid;x jsonb;iid uuid;q numeric;rate numeric;total numeric:=0;ph text;old purchase_save_requests%rowtype;l record;
+begin
+ select * into a from app_users where auth_user_id=auth.uid() and active=true;if not found or a.role not in('owner','admin') then raise exception 'Owner/Admin required';end if;
+ if nullif(trim(p_request_key),'') is null then raise exception 'Save request key required';end if;if p_supplier is null or not exists(select 1 from suppliers where id=p_supplier and active=true) then raise exception 'Active supplier required';end if;if nullif(trim(p_invoice_no),'') is null then raise exception 'Invoice number required';end if;if p_invoice_date is null or p_invoice_date>current_date then raise exception 'Valid invoice date required';end if;if jsonb_typeof(p_lines)<>'array' or jsonb_array_length(p_lines)=0 then raise exception 'At least one purchase item required';end if;
+ ph:=md5(jsonb_build_object('supplier',p_supplier,'invoice',upper(trim(p_invoice_no)),'date',p_invoice_date,'lines',p_lines,'note',coalesce(trim(p_note),''))::text);
+ select * into old from purchase_save_requests where request_key=trim(p_request_key) for update;if found then if old.payload_hash=ph then return old.purchase_id;else raise exception 'Save request key already used with different Purchase data';end if;end if;
+ if exists(select 1 from(select e->>'item_id' item_id,count(*)c from jsonb_array_elements(p_lines)e group by e->>'item_id')s where s.item_id is null or c>1) then raise exception 'Duplicate or missing purchase item';end if;
+ if exists(select 1 from purchase_headers where supplier_id=p_supplier and upper(trim(invoice_no))=upper(trim(p_invoice_no))) then raise exception 'Duplicate supplier invoice';end if;
+ insert into purchase_headers(supplier_id,invoice_no,invoice_date,total_reference_amount,created_by)values(p_supplier,upper(trim(p_invoice_no)),p_invoice_date,0,a.id)returning id into h;
+ for x in select * from jsonb_array_elements(p_lines) loop begin iid:=(x->>'item_id')::uuid;q:=(x->>'qty')::numeric;rate:=(x->>'purchase_rate')::numeric;exception when others then raise exception 'Invalid purchase line';end;if iid is null or q<=0 or rate<0 or not exists(select 1 from catalog_items where id=iid and active=true) then raise exception 'Invalid purchase line/item';end if;insert into purchase_lines(purchase_id,item_id,qty,purchase_rate)values(h,iid,q,rate);total:=total+q*rate;end loop;
+ update purchase_headers set total_reference_amount=total where id=h;
+ for l in select item_id,sum(qty)qty from purchase_lines where purchase_id=h group by item_id order by item_id loop insert into inventory(item_id,current_qty,updated_at)values(l.item_id,l.qty,now())on conflict(item_id)do update set current_qty=inventory.current_qty+excluded.current_qty,updated_at=now();insert into inventory_movements(item_id,qty_change,reason,reference_type,reference_id,created_by)values(l.item_id,l.qty,'PURCHASE STOCK RECEIVED','purchase',h,a.id);end loop;
+ insert into purchase_stock_receipts(purchase_id,request_key,received_by,details)values(h,trim(p_request_key),a.id,jsonb_build_object('invoice_no',upper(trim(p_invoice_no)),'atomic_save_receive',true,'exactly_once',true));
+ insert into purchase_save_requests(request_key,purchase_id,payload_hash,created_by)values(trim(p_request_key),h,ph,a.id);
+ insert into audit_log(actor_id,action,entity_type,entity_id,details)values(a.id,'PURCHASE_SAVED_AND_RECEIVED','purchase',h::text,jsonb_build_object('supplier_id',p_supplier,'invoice_no',upper(trim(p_invoice_no)),'invoice_date',p_invoice_date,'total_amount',total,'request_key',trim(p_request_key),'atomic',true));return h;
+exception when unique_violation then raise exception 'Duplicate supplier invoice, item or request key';end;$$;
+revoke all on function public.save_and_receive_purchase_entry(uuid,text,date,jsonb,text,text) from public,anon;grant execute on function public.save_and_receive_purchase_entry(uuid,text,date,jsonb,text,text) to authenticated;
