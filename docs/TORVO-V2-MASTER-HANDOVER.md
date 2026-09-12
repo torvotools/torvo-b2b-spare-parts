@@ -4,168 +4,78 @@ Last updated: 12-09-2026
 Authoritative repository: torvotools/torvo-b2b-spare-parts
 Development branch: torvo-v2-build
 
+## START HERE IN EVERY NEW CHAT
+Continue actual development from `torvo-v2-build`. Fetch current repository state before changing anything. V27/main is old/live and MUST remain untouched. Do not merge/replace main without full verification plus explicit Owner permission. Work in large compatible batches where safe; do not inflate task counts with cosmetic micro-edits. Keep progress reports compact to preserve chat space. Premium modern responsive UI is non-negotiable across Home/Login/Admin/Salesman/Accountant/Store Keeper/Dealer.
+
 ## NON-NEGOTIABLE SAFETY
-- V27/main is old/live and must remain untouched while V2 is developed.
-- Never merge/replace main without final verification and explicit owner permission.
-- Remote torvo-v2-build is the code source of truth. Fetch current SHA before every write.
-- No fake data, fake WhatsApp sent states, fake prices, fake availability, secrets or insecure shortcuts.
-- SQL committed to GitHub is NOT considered Supabase-runtime verified until actually executed/tested in staging.
+- Remote `torvo-v2-build` is source of truth; fresh-fetch SHA before every write.
+- No fake data/counts/rates/availability/WhatsApp sent states, secrets, insecure shortcuts or client-trusted financial rules.
+- GitHub SQL is NOT runtime verified until executed/tested in Supabase staging.
+- Stock deduction: payment requirement + actual delivery, exactly once. Estimate/Picked/Packed never deduct stock.
+- Dealer/private fitment and role financial privacy must remain server-enforced.
 
-## FINAL BUSINESS DIRECTION
-TORVO V2 is a B2B operational portal, not accounting software. Product priority: Machine -> Spare Part -> Accessory. Registered/approved dealers only.
+## BUSINESS DIRECTION
+TORVO V2 is a B2B operational portal, not accounting software. Product priority: Machine -> Spare Part -> Accessory. Approved Dealers only. Dealer-facing order name is PURCHASE ORDER; TORVO internal equivalent is SALES ORDER.
 
-## DEALER SALES FLOW — CURRENT AUTHORITATIVE RULE
-- Dealer sees server-calculated applicable rate and amount before submitting.
-- Dealer-facing name: PURCHASE ORDER. TORVO internal name for the same business document: SALES ORDER.
-- Active flow is Purchase Order -> TORVO Sales Order -> controlled revision if required -> latest Dealer OK -> Estimate -> internal payment/fulfilment -> delivery.
-- Query/Quotation is retired from the active V2 API. Historical rows may remain; do not build new workflow on Query/Quotation.
-- Owner/Admin/authorized Accountant may revise a Sales Order before Estimate. Every revision is audited and rates are recalculated server-side from the Dealer's current A/B/C rate group; client-supplied rates are not trusted.
-- Any TORVO revision invalidates previous Dealer OK and requires the Dealer to review/confirm the exact latest revision again.
-- Dealer may directly modify an eligible pre-Estimate Purchase Order only within the server-controlled modification allowance (default foundation: 2). Each accepted revision is audited and repriced server-side.
-- When direct modification allowance is exhausted, Dealer can submit a Modification Request for TORVO review. Admin approval may grant an additional controlled chance; approval never silently edits rates/items.
-- Estimate creation requires exact latest Dealer OK and is blocked if an Estimate already exists. Creating Estimate locks direct Sales Order revision.
-- ADD MORE ITEMS is a request/approval flow, not an edit to the original document. After TORVO approval, Dealer selects products/qty and creates a separate linked Additional Purchase Order. The original Sales Order/Estimate remains immutable.
-- Approved Add More Items can convert only once. Dealer ownership, approval status and current Dealer Rate Group/quantity pricing are validated server-side; duplicate conversion is blocked.
-- Dealer Portal mounts the approved Additional Purchase Order panel and premium item-selection/rate-preview modal. Admin SalesWorkspace shows whether an approved Add More Items request is waiting for Dealer action or has produced its linked Additional Sales Order.
-- SalesWorkspace has active Modify Order, Send for Dealer OK, Create Estimate and Dealer Change Request review controls wired to repository/RPC calls.
-- Salesman-assisted order foundation exists and is server-scoped to mapped Dealers/areas. Runtime staging verification remains mandatory.
+## SALES FLOW
+Purchase Order -> Sales Order -> controlled revision -> exact latest Dealer OK -> Estimate -> internal payment/fulfilment -> Delivery. Dealer rates are server-calculated. Direct Dealer modification has a controlled allowance; after exhaustion use audited request/review. TORVO revision invalidates old Dealer OK. Estimate locks direct revision. ADD MORE ITEMS creates a separate linked Additional Purchase Order after TORVO approval and never mutates the original order/Estimate. Duplicate catalog item lines are blocked in UI and by database integrity migration.
 
-## DEALER PAYMENT PRIVACY — FINAL
-- Dealer Portal shows NO payment data: no pending/received/cash/UPI/bank/outstanding/accounting-entry number.
-- Payment communication/transaction happens outside portal via WhatsApp/offline/accounting process.
-- TORVO Owner/Admin/Accountant may internally note payment information.
-- Outstanding/balance is TORVO-private. External accounting entry number may be stored internally with actor/time/audit; this does not mean Dealer paid.
-- Payment changes must remain auditable. Payment idempotency migration requires a unique request key.
+## DEALER PRIVACY
+Dealer Portal shows no internal payment/outstanding/accounting data. Normal Dealer history is latest 30 days. Private Suitable/cross-compatibility remains TORVO-private unless explicitly shared. Dealer fitment suggestions earn ZERO points and are private between Dealer and TORVO.
 
-## DEALER HISTORY — FINAL
-- Dealer Portal normal order/estimate/delivery history displays latest 30 days only.
-- Older records remain in TORVO database/audit and are hidden only from normal Dealer view.
-- Dealer gets CONTACT WHATSAPP FOR ACCOUNT DETAILS, opening a prepared request to TORVO support. Automatic WhatsApp sent state is prohibited until provider integration is verified.
+## PURCHASE / INVENTORY
+Purchase Entry is the single supplier stock-receipt path. Owner/Admin enter Supplier + Invoice + items/qty/rate; duplicate Supplier+Invoice blocked. Save adds inventory exactly once and writes movement. Purchase correction uses audited reversal. Reorder/Purchase Requirement never independently receives the same supplier stock. Purchase Rate History/Cost is Owner-only after save. Purchase Requirements support staff submission, Admin review, secure Item Master linking, partial/full Purchase fulfilment, exact Dealer allocation tracking and audited tracking reversal without stock duplication.
 
-## DEALER FITMENT SUGGESTIONS / PRIVATE SUITABLE KNOWLEDGE — FINAL
-- Dealer may suggest that a TORVO Spare Part fits another Machine/Model or respond to a TORVO fitment request.
-- This feature earns ZERO TORVO Points. TORVO Points are only from eligible actual sales/final paid billing under the separate sales reward system.
-- Owner/Admin review each suggestion as Correct/Verified, Partly Correct, Wrong/Rejected or Duplicate.
-- Only eligible Verified/Partly Correct known-item fitment may be promoted to TORVO PRIVATE Suitable Master.
-- Dealers must never see another Dealer's submissions or TORVO's private cross-compatibility intelligence.
-- `v2-knowledge-rewards.sql` retains a legacy filename for compatibility but now implements Dealer Fitment Suggestions / Private Suitable Knowledge, not knowledge rewards.
+## UI
+Premium contemporary app-style TORVO design, mobile-first but fully responsive tablet/laptop/desktop/large monitor. Strong search/filter, especially Spare Parts. Popup-first Add/Edit/Approve/Hold/Send actions. TORVO red accent with coherent palette. Buttons should be wired UI -> logic -> authorized RPC -> DB -> success/error wherever backend exists. No horizontal mobile overflow. App-ready/PWA foundation exists; native Play Store/App Store packaging comes after core system is stable so business logic is not duplicated.
 
-## PURCHASE — CURRENT AUTHORITATIVE FLOW
-- Purchase is stock/rate/source history, NOT supplier accounting/ledger.
-- Owner/Admin Purchase Entry records Supplier, Invoice No/Date, items, qty and Purchase Rate. Supplier + normalized Invoice No is duplicate-protected.
-- Purchase Entry is the single authoritative supplier stock-receipt path. Saving an invoice increases inventory and writes inventory movement in the same controlled backend transaction.
-- Legacy Inventory/Reorder direct stock receipt is retired. Reorder is planning only, preventing duplicate stock receipt.
-- Purchase is immutable. Correction uses audited reversal with mandatory reason and is blocked if current stock cannot safely absorb the reversal.
-- Owner can inspect actual invoice-wise Purchase Rate History. Purchase cost/rate history is not exposed to Salesman/Store Keeper/Dealer.
-- Purchase Entry UI is premium/responsive for mobile and desktop. Runtime staging verification remains mandatory.
+## BACKUP & DISASTER RECOVERY — AUTHORITATIVE
+- Backup is a core Admin/Owner function, not an afterthought.
+- Admin panel must prominently warn when there has been no VERIFIED backup within 24 hours; >=48 hours is critical.
+- Backup Control Center supports Database Backup, Full Restore Point and Configuration Export requests plus history/status.
+- `backup_runs` is metadata/control only. Actual database dump/archive creation must run in a trusted server/backup worker, NEVER browser JS.
+- A request is not success. Only worker completion + integrity verification may mark it verified.
+- Portable backup must be encrypted; secrets/passwords/service-role credentials are excluded from backup artifacts and GitHub.
+- Full Restore Point must carry database backup + code branch/commit + database/schema version + checksum + restore manifest so a destroyed environment can be rebuilt from a known point.
+- Desktop/mobile download and Email/WhatsApp share/export are desired Admin actions, but must use a trusted signed/secure export path. Never claim Email/WhatsApp sent until provider integration succeeds.
+- GitHub code/migrations + verified DB backup + restore manifest together form disaster recovery. Restore must be staging-tested before being trusted.
+- Current source foundation: `supabase/v2-backup-control.sql`, `src/v2/config/backupPolicy.js`, `src/v2/services/backupService.js`, `src/v2/components/BackupControlCenter.jsx`, `src/v2/backup-ui.css`; Backup module is Owner/Admin-only.
 
-## PURCHASE REQUIREMENTS — CURRENT IMPLEMENTATION
-- Salesman, Accountant and Store Keeper may submit Purchase Requirements; Owner/Admin review them.
-- Existing Item request supports item/qty/reason and optional Dealer demand link.
-- New Item request supports Brand/Company, Machine Type, Model, Part Name, OEM, Category, demand/remarks and optional Dealer link.
-- Owner/Admin can Approve/Hold/Reject/Send to Purchasing.
-- New Item requirement must be securely linked to exactly one active Item Master record before Purchase fulfilment. Linking is audited, creates no stock and refuses silent reassignment.
-- Owner/Admin can link a real non-reversed Purchase containing the exact requirement item. Partial fulfilment is supported; full approved quantity completes the requirement.
-- Backend blocks over-linking beyond Purchase quantity or remaining approved requirement. A Purchase already reversed cannot fulfil a requirement.
-- Fulfilment-link reversal is audited and changes requirement tracking only; it never reverses Purchase stock or creates another inventory movement.
-- Staff cannot directly add stock from a Purchase Requirement.
-
-## ITEM MASTER / MOVEMENT HISTORY — FINAL
-- Clicking an item should open a complete movement center: identity, stock, reorder, purchased/sold, last purchase/sale rate and date-wise movement.
-- Filters include date, purchase/sale/all, supplier, Dealer, brand, category, model, invoice and rate ranges. Print/PDF/Excel should respect active filters.
-- Movement history derives from real records, not duplicated fake history.
-
-## LOW STOCK — FINAL
-- Low/out-of-stock view shows current qty/reorder level plus previous source, purchase rates and dates.
-- Filter by brand/category/supplier and allow controlled reorder/purchase action.
-
-## STOCK CONVERSION / REPACKING — FINAL
-- TORVO may buy stock under another source/brand and convert/repack part to TORVO.
-- Preserve original source, supplier, invoice, purchase rate, conversion qty/date/actor and target TORVO item.
-- Conversion must atomically decrement source and increment target exactly once with audit and controlled reversal.
-
-## REWARDS — FINAL DIRECTION
-- TORVO Points are sales-only. Fitment/knowledge suggestions never earn points.
-- Financial-year scheme defaults: Apr-Jun, Jul-Sep, Oct-Dec, Jan-Mar unless Owner changes rules.
-- Wallet should support current/carry-forward/current-quarter/available/next reward progress.
-- Redemption lifecycle must reserve points first, prevent double-use, and keep earned/redemption history separate.
-- Do not claim automated third-party voucher issuance without a real provider/API or TORVO-controlled code.
-
-## WHATSAPP
-- Dealer registration OTP preference is WhatsApp OTP.
-- Deal/order events should support SEND WHATSAPP and SEND WHATSAPP + SECURE LINK where relevant.
-- Current Sales Order Dealer-OK action records `prepared_not_sent`, not a fake delivery state.
-- Actual automatic sending requires approved provider/API and testing.
-- TORVO support number currently 7027751533 and should be Admin-changeable.
+## WHATSAPP / OTP
+Dealer onboarding preference: WhatsApp OTP. TORVO support currently 7027751533, Admin-changeable. Automatic WhatsApp sending requires real provider/API + testing; prepared links/messages are not delivery proof.
 
 ## DELIVERY
-- Delivery charges apply to Accessories and Machines.
-- Spare Parts delivery free only when spare-parts purchase value is at least Rs 10,000.
-- Stock deduction must happen exactly once at the final approved delivery/fulfilment operation after required payment state; never at Estimate creation merely because payment was noted.
+Machines/Accessories delivery charge applies. Spare Parts delivery free only when spare-parts subtotal >= Rs 10,000. Delivery rules should be Admin-controlled/audited where designed.
 
-## UI — NON-NEGOTIABLE
-- Premium modern app-style TORVO UI is required across Home, Login, Admin, Salesman, Accountant, Store Keeper and Dealer screens.
-- Mobile-first, responsive across mobile/tablet/laptop/desktop/large screens; no tiny/huge/overflow layouts.
-- Strong filters/search are a priority, especially Spare Parts. Search supports item code/OEM/name/brand/category/model/type and controlled compatibility contexts.
-- Popup-first for practical Add/Edit/Approve/Hold/Rate Change/Send Link actions.
-- TORVO red accent with coherent premium palette; no fake figures/counts/badges.
-- Buttons should be wired through UI -> business logic -> authorized backend/RPC -> database -> success/error state wherever the backend is available; avoid knowingly leaving core buttons as decorative placeholders.
+## ROLES
+OWNER full. ADMIN operational/admin but not Owner-only confidential cost/profit. SALESMAN mapped Dealer/area/order/sales. ACCOUNTANT internal estimate/payment/accounting + authorized flows. STORE KEEPER stock/pick/pack/dispatch with no financials. DEALER approved linked portal. Compatibility/private Suitable Owner/Admin. Purchase Cost/Profit Owner-only.
 
-## SECURITY / ROLES
-OWNER full. ADMIN operational/admin. SALESMAN mapped Dealer/order/sales only. ACCOUNTANT internal estimate/payment/accounting work and authorized internal order modification. STORE KEEPER stock/pick/pack/dispatch without sensitive rates/profit. DEALER approved linked portal only. Compatibility/private Suitable Owner/Admin. Purchase Cost/Profit Owner-only unless explicitly changed.
+## APP STATUS
+Install-ready web-app foundation exists: manifest, service worker, install bridge and honest device-supported INSTALL TORVO control in Dealer/staff shells. It is not yet a published Android APK/Play Store/iPhone App Store app. Do not show fake store links. Reuse the same backend/security/business logic when native packaging is added.
 
-## SALES TEAM — CURRENT IMPLEMENTATION
-- Salesman area mappings, Dealer mappings and Monthly/Quarterly/FY targets have schema/RPC foundation.
-- Owner/Admin Sales Team workspace supports area mapping, Dealer assignment/transfer and target setup.
-- Salesman dashboard supports My Dealers, My Areas, target progress, assisted Dealer Order and Purchase Requirement entry.
-- Server-side Salesman Dealer scoping is required; UI filtering is never the security boundary.
-- Runtime staging compilation/data tests are still pending.
+## CURRENT MILESTONE
+Still within 20-40% Dealer + Sales milestone until materially implemented AND runtime-verified. Do not fake percentage. Source-level work includes premium role shell; Dealer rates/cart/PO/history; Sales revisions/Dealer OK/Estimate; change requests/Add More Items linked orders; scalable Sales/Dealer item finders; Salesman mapping/assisted foundation; Purchase Entry; Purchase Requirements fulfilment; Item Movement/Low Stock foundation; fitment/private Suitable foundation; app-ready foundation; and Backup & Recovery control foundation.
 
-## SQL INSTALL / RELEASE GATE
-- `supabase/V2_INSTALL_ORDER.md` is the authoritative dependency order.
-- GitHub/Vite success cannot validate PostgreSQL. All applicable migrations/RPCs must be executed against a separate Supabase staging project.
-- Mandatory staging tests include role isolation; Dealer direct modification limits; change-request approval; approved Add More Items one-time linked-order conversion; original-document immutability; current server pricing; exact revision Dealer OK; stale OK rejection; Estimate lock; payment idempotency; once-only stock deduction; Purchase Entry/reversal; Purchase Requirement Item Master linkage/partial fulfilment; catalog master safety; Salesman scoping; Fitment privacy/no-points; and secret checks.
-- Never point live domain at V2 or merge/replace V27/main until staging gate passes and Owner explicitly approves.
+## MAJOR RUNTIME/RELEASE BLOCKERS
+- Supabase migration chain has not been fully compiled/executed in staging.
+- Latest Vite/Netlify branch build/runtime is not verified by a reliable CI/deploy result.
+- WhatsApp OTP/provider/secure-link not fully integrated.
+- Single-active Dealer session + inactivity PIN/OTP runtime flow pending.
+- End-to-end payment -> delivery -> exactly-once stock deduction proof pending.
+- Stock Conversion/Repacking, remaining rewards/GST/advanced modules and final responsive QA remain.
+- Backup trusted worker/storage, encrypted artifact download/share and actual restore drill remain to implement/test.
 
-## CURRENT BUILD STATUS — 12-09-2026
-Project remains in the 20-40% Dealer + Sales milestone. Do not call 40% complete until this milestone is materially implemented and runtime-verified.
+## SQL INSTALL
+`supabase/V2_INSTALL_ORDER.md` is authoritative. Never run migrations alphabetically. Mandatory staging gate must test every role, sales revision/Dealer OK/Add More Items, duplicate line guard, Purchase/reversal, Purchase Requirements, Item Movement/Low Stock privacy, payment idempotency, stock exactly-once, fitment privacy/no-points, and secret checks. Add backup migration to the dependency order before production and test Owner/Admin access, 24h status, worker verification and restore drill.
 
-ACTUAL SOURCE-CODE IMPLEMENTED in `torvo-v2-build` includes:
-- Premium V2 app shell and role/module structure.
-- Dealer secure rate lookup and Purchase Order submission repository/backend foundation.
-- Dealer Portal quantity-based applicable rate/amount, cart total, Purchase Order submission and latest 30-day Sales Order/Estimate history.
-- Controlled Sales Order revision RPC, Dealer direct self-modification allowance, Modification Request/Admin review, exact latest Dealer OK RPC and hardened Estimate boundary.
-- Approved Add More Items -> separate linked Additional Purchase Order backend/repository/UI foundation with one-time conversion, Dealer ownership checks and server-side current pricing.
-- Dealer Portal mounted Additional Purchase Order approval panel, premium searchable item/qty/rate-preview modal, retry/loading states and stale-rate-response protection.
-- Admin SalesWorkspace shows approved Add More Items waiting/converted state and linked Additional Sales Order status.
-- SalesWorkspace Modify Order, Send for Dealer OK and Create Estimate controls wired to repository calls.
-- Dealer Portal Review & Give Dealer OK modal showing revision/items/qty/rate/amount/total.
-- Query/Quotation RPC execution revoked from active V2 API; historical data is not deleted.
-- Sales Team mapping/target and Salesman-assisted-order foundation.
-- Purchase Entry secure supplier-invoice stock receipt, duplicate protection, audited reversal, Owner-only invoice-rate history and responsive UI.
-- Inventory/Reorder duplicate stock receipt path retired; reorder remains planning only.
-- Purchase Requirement secure Item Master linkage plus real Purchase partial/full fulfilment and audited fulfilment-link reversal.
-- Dealer Fitment Suggestions/private Suitable Knowledge no-points migration + Dealer/Admin UI foundation.
-- Premium catalog/master/dealer/inventory/dispatch/report foundations from earlier V2 work.
+## NEXT DEVELOPMENT PRIORITIES
+1. Finish Backup migration install-order wiring + Admin dashboard 24h warning/notification and trusted worker contract/export manifest.
+2. Continue Dealer/Sales milestone core blockers and runtime-safe scalable finders.
+3. Staging SQL compile/test when staging action becomes available.
+4. Verify actual Vite/Netlify build and repair runtime UI errors.
+5. Complete Stock Conversion/Repacking + remaining advanced modules.
+6. Complete WhatsApp onboarding/security/session runtime.
+7. Final responsive premium UI QA + disaster recovery restore drill.
 
-NOT YET CLAIMED VERIFIED:
-- Supabase staging execution/compile of the migration chain and runtime RPC tests.
-- Actual Vite/Netlify build/deploy of the latest commit; GitHub currently has no CI status check proving the build.
-- Full WhatsApp OTP/provider/secure-link integration.
-- Single-active Dealer session + inactivity PIN/OTP policy runtime flow.
-- Complete Item Movement Center, Low Stock source/rate drilldown and Stock Conversion/Repacking UI/RPC.
-- Final end-to-end payment -> dispatch/delivery -> exactly-once stock deduction staging proof.
-- Full GST Admin switch/approval UI and remaining advanced modules.
-
-## IMPORTANT NEXT WORK
-1. Execute/verify the applicable SQL migration order against Supabase staging when a staging database action/connection is available.
-2. Obtain a real Vite/Netlify build result for the latest V2 branch and repair compile/runtime UI errors found.
-3. Build Item Master complete movement center + Low Stock source/rate drilldown.
-4. Build atomic Stock Conversion/Repacking RPC + premium UI.
-5. Complete sales-only reward reservation/redemption/next-bill adjustment lifecycle.
-6. Complete staged Dealer onboarding WhatsApp OTP/call verification/secure details link.
-7. Complete Admin GST switch/approval queue and remaining role dashboards/workspaces.
-8. Run responsive/UI polish and actual preview verification after each meaningful batch.
-
-## RECOVERY INSTRUCTION FOR A NEW CHAT
-Read this file first, then inspect the latest `torvo-v2-build` branch before changing anything. Treat FINAL/CURRENT AUTHORITATIVE sections above as authoritative over older code/comments/chat assumptions. Continue actual implementation in meaningful batches, fresh-fetching SHAs before writes. Never touch V27/main without explicit final permission.
+## NEW CHAT RECOVERY INSTRUCTION
+In a new chat, tell ChatGPT: `Continue TORVO V2 from docs/TORVO-V2-MASTER-HANDOVER.md on branch torvo-v2-build. Inspect current GitHub first. Never touch V27/main. Continue actual work in large safe batches and keep reports short.` This file plus current repository state is authoritative over old chat assumptions.
