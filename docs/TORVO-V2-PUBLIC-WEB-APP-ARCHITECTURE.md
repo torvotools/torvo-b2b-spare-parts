@@ -26,19 +26,26 @@ Public website purpose:
 
 A visitor may submit a requirement without Dealer approval. Capture may include name, firm/shop, Mobile/WhatsApp, location, customer/business type, product type, product/model/item details, quantity, notes and photo where supported.
 
-## PUBLIC CUSTOMER PRICE VS DEALER PRICE
+## PUBLIC CUSTOMER PRICE VS DEALER PRICE — FINAL COMMERCIAL RULE
 Public Customer pricing and Dealer pricing are separate commercial channels.
 
+PUBLIC E-COMMERCE CUSTOMER RATE IS THE HIGHER RETAIL SELLING RATE. It must remain commercially above the applicable Dealer selling rate for the same comparable item/quantity/tax basis unless Owner/Admin explicitly changes the commercial policy in the future.
+
 PUBLIC CUSTOMER:
-- sees only the public/retail selling price authorized for the website;
-- never receives Dealer Rate A/B/C merely by creating an account or sending a query;
-- never receives Dealer-only quantity slabs, private schemes/rewards or private B2B commercial data unless a future explicit business rule says otherwise.
+- sees only the HIGH public/retail selling price authorized for the website;
+- never receives Dealer Rate A/B/C merely by creating an account, buying online or sending a query;
+- never receives Dealer-only quantity slabs, private schemes/rewards or private B2B commercial data;
+- public promotions/discounts, if introduced later, must be validated server-side and must not accidentally undercut the protected Dealer price floor without explicit Owner authorization.
 
 DEALER:
 - sees only their authorized Dealer pricing in the TORVO App after Dealer approval;
-- Dealer Rate A/B/C, quantity pricing and schemes remain server-authoritative and private.
+- Dealer Rate A/B/C, quantity pricing and schemes remain server-authoritative and private;
+- public retail price may be visible publicly because the website is public, but it never replaces the Dealer's assigned private commercial rate inside the App.
 
-The browser/client must not be trusted to choose which price channel applies. Server-side identity/channel/business rules determine the final payable price.
+The browser/client must not be trusted to choose price channel, discount, rate class or final payable amount. Server-side identity/channel/business rules determine the final payable price.
+
+### PRICE SAFETY RULE
+For the same comparable product and quantity basis, the checkout pricing service must validate the active PUBLIC CUSTOMER RATE against the applicable protected Dealer price floor before accepting a public checkout. If pricing configuration violates the protected commercial rule, checkout must fail safely for Admin correction rather than silently sell at an unintended low public price. No fake fallback price is permitted.
 
 ## PUBLIC RETAIL E-COMMERCE FLOW — PREPAID
 Normal online Customer sale flow:
@@ -64,7 +71,7 @@ Dealer rates, Dealer schemes, private compatibility, internal stock/control data
 
 ## QUERY-TO-SALE FLOW
 A Customer who cannot find the product or prefers an inquiry may use:
-PUBLIC REQUIREMENT -> TORVO REVIEW -> REAL AVAILABILITY + CUSTOMER FINAL QUOTE -> CUSTOMER CONFIRMATION -> AUTHORITATIVE PAYMENT -> DISPATCH/DELIVERY.
+PUBLIC REQUIREMENT -> TORVO REVIEW -> REAL AVAILABILITY + HIGH CUSTOMER RETAIL QUOTE -> CUSTOMER CONFIRMATION -> AUTHORITATIVE PAYMENT -> DISPATCH/DELIVERY.
 
 The quote uses Customer commercial rules, not Dealer pricing. No fake availability, rate, payment success or delivery state.
 
