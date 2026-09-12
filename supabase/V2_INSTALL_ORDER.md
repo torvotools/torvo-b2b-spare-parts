@@ -15,7 +15,7 @@ Authoritative dependency order. Never install migrations alphabetically and neve
 5. PURCHASE REQUIREMENTS: `v2-purchase-requirements.sql` -> `v2-purchase-requirement-rpcs.sql` -> `v2-purchase-requirement-item-link.sql` -> `v2-purchase-requirement-fulfilment.sql` -> `v2-purchase-requirement-receipt-integrity.sql`.
 6. PAYMENT / DELIVERY: payment/dispatch foundations -> `v2-delivery-stock-integrity.sql`. Actual Delivery is the only outbound sales stock deduction point.
 7. RETURNS BASE: `v2-sales-purchase-returns.sql` after Delivery + received Purchase integrity.
-8. CENTRAL MAKER-CHECKER: `v2-maker-checker-approval.sql` -> `v2-maker-checker-payment-gate.sql` -> `v2-payment-approval-final-boundary.sql` -> `v2-approval-permission-read.sql` -> `v2-purchase-approval-final-boundary.sql` -> `v2-return-approval-gate.sql`. Payment direct posting and Admin Purchase/Return stock effects are gated at final server boundaries.
+8. CENTRAL MAKER-CHECKER: `v2-maker-checker-approval.sql` -> `v2-maker-checker-payment-gate.sql` -> `v2-payment-approval-final-boundary.sql` -> `v2-approval-permission-read.sql` -> `v2-purchase-approval-final-boundary.sql` -> `v2-return-approval-gate.sql` -> `v2-return-approval-checker-fix.sql`. Payment direct posting and Admin Purchase/Return stock effects are gated at final server boundaries. The final Return patch allows an explicitly authorized ACCOUNTANT/ADMIN checker to apply the approved return atomically without weakening OWNER/ADMIN-only direct Return RPCs.
 9. Inventory movement center, low-stock/reorder, Purchase Cost History/reporting read layers.
 10. Private Suitable/fitment and Dealer/role privacy.
 11. Dashboard/admin/business/reporting RPCs. Older overlapping transaction RPCs must be installed BEFORE final integrity layers or skipped.
@@ -32,7 +32,7 @@ Authoritative dependency order. Never install migrations alphabetically and neve
 - ESTIMATE/PICKED/PACKED/READY never deduct; full required payment + Actual Delivery deduct exactly once.
 - Payment: OWNER direct allowed; ADMIN/ACCOUNTANT direct posting rejected; submit creates no payment; APPROVE creates exactly one; REJECT none; internal payment effect has no PUBLIC/anon/authenticated EXECUTE.
 - Maker-checker: Owner can grant chosen active Admin/Accountant; unauthorized denied; self-approval default denied; explicit self-approval permission works; decided request cannot decide twice.
-- ADMIN Sales/Purchase Return submit creates pending approval and ZERO stock effect; APPROVE applies canonical return exactly once; REJECT none. OWNER direct return remains allowed.
+- ADMIN Sales/Purchase Return submit creates pending approval and ZERO stock effect; APPROVE by OWNER or explicitly-authorized ADMIN/ACCOUNTANT applies return exactly once; REJECT none. OWNER direct return remains allowed. Direct ACCOUNTANT Return remains denied.
 - Sales Return cannot exceed actually delivered less prior completed returns; Purchase Return cannot exceed received less prior completed returns, cannot drive stock negative, and active Purchase Requirement link blocks it.
 - Canonical `inventory_movements` reconciles Purchase receipt + Delivery + Sales Return + Purchase Return.
 - No direct client write bypass and no secret exposure.
