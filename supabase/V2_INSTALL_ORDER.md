@@ -32,7 +32,7 @@ Before executing staging, inventory the actual `supabase/v2-*.sql` files and rec
 
 The release is blocked until all applicable checks pass with real staging sessions/data:
 
-- OWNER, ADMIN, SALESMAN, ACCOUNTANT, STORE KEEER and DEALER authorization/privacy.
+- OWNER, ADMIN, SALESMAN, ACCOUNTANT, STORE KEEPER and DEALER authorization/privacy.
 - Dealer financial privacy and private Suitable/fitment visibility.
 - Dealer catalog/rate server calculation and scalable search/finders.
 - PURCHASE ORDER -> SALES ORDER -> revision -> exact latest DEALER OK -> ESTIMATE flow.
