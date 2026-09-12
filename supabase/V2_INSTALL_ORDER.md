@@ -44,8 +44,8 @@ This file is the authoritative dependency order for a fresh V2 database setup. D
 31. `v2-scheme-reward-credit.sql`
 32. `v2-referrals.sql`
 
-### Sales revision / Dealer OK rule
-`v2-sales-revision-rpcs.sql` is the controlled revision layer for the current sales flow. Owner/Admin/authorized Accountant may revise a Sales Order before Estimate; the server recalculates every revised line from the Dealer's current rate group and records revision history. A revision invalidates prior Dealer OK. Authorized staff can mark the exact latest revision as awaiting Dealer OK; a mapped Salesman is restricted to assigned Dealers. Dealer confirmation is accepted only for the Dealer's own Sales Order and exact current revision. Estimate must follow Dealer OK, and direct Sales Order revision is locked after an Estimate exists. WhatsApp delivery must never be recorded as sent until the provider is actually connected and verified.
+### Sales revision / Dealer OK / Add More Items rule
+`v2-sales-revision-rpcs.sql` is the controlled revision layer for the current sales flow. Owner/Admin/authorized Accountant may revise a Sales Order before Estimate; the server recalculates every revised line from the Dealer's current rate group and records revision history. A revision invalidates prior Dealer OK. Authorized staff can mark the exact latest revision as awaiting Dealer OK; a mapped Salesman is restricted to assigned Dealers. Dealer confirmation is accepted only for the Dealer's own Sales Order and exact current revision. Estimate must follow Dealer OK, and direct Sales Order revision is locked after an Estimate exists. Dealer direct modification has a controlled allowance (default 2); after the allowance is exhausted the Dealer must submit an audited modification request and TORVO may grant an extra chance. `Add More Items` never mutates an old/estimated/finalized order: Dealer submits a request, TORVO approves it, then a new Sales Order is created with `add_on_parent_order_id` pointing to the original order. The approved request is linked to exactly one add-on order and then closed. Add-on rates are recalculated server-side from the approved Dealer rate group. WhatsApp delivery must never be recorded as sent until the provider is actually connected and verified.
 
 ### Sales team security rule
 `v2-sales-team-rpcs.sql` is the authoritative mutation/scoped-read layer for Salesman area, Dealer ownership and target controls. Owner/Admin assign State → District → City areas, assign/transfer Dealers with audit, and set Monthly/Quarterly/Financial Year targets. Salesman Dealer reads must use the scoped RPC path and must not rely on UI filtering as the security boundary.
@@ -84,19 +84,22 @@ Do not blindly rerun the full list on an existing database. Apply only the new/c
 GitHub/Vite build success does **not** validate PostgreSQL migrations or RPC behavior. Before V2 can be called production-ready, run the applicable SQL above against a separate staging Supabase project and complete all of these checks:
 
 1. Sign in with test users for Owner, Admin, Salesman, Accountant, Store Keeper and Dealer; confirm each role can open only its allowed modules and database rows.
-2. Complete one test sale end-to-end: Dealer Purchase Order → TORVO Sales Order → Admin/authorized revision → Send latest revision for Dealer OK → Dealer reviews exact items/qty/rates/total → Dealer OK → Estimate → Payment → Delivery. Confirm stale Dealer OK is rejected after any new revision and direct revision is blocked after Estimate.
-3. Confirm inventory does **not** deduct at Estimate, Picked or Packed; it deducts exactly once only after valid payment + delivery. Retry delivery and confirm stock cannot deduct twice.
-4. Retry the same payment request key and confirm it returns the same payment; reuse that key with different data and confirm it is rejected.
-5. Create/receive a reorder and confirm duplicate active reorder protection and inventory movement history.
-6. Test Machine → Spare Parts mapping and confirm internal compatibility stays Owner/Admin-only unless a mapping is explicitly dealer-visible.
-7. Test Brand/Category/Model add and duplicate rejection with case/extra-space variants. Confirm usage count, used-master rename block and Active/Inactive. Confirm `1122` Delete moves an unused value to Trash, normal dropdowns exclude Trash, Restore works, duplicate-collision Restore is rejected, linked values cannot be trashed, and Permanent Delete works only from Trash after `1122` plus a fresh usage check.
-8. Create and edit catalog items with both TORVO Item Code and Company/OEM Original Code; confirm both persist independently and Smart Search can find either code.
-9. Run summary/detail reports as each allowed role and confirm Store Keeper never receives financial/rate/profit data; Profit/Purchase Cost remain Owner-only.
-10. Run `reward_reconciliation_status()` and `assert_reward_lot_migration_ready()` before enabling lot rewards on migrated production data; test FIFO redeem and expiry on staging.
-11. Verify Salesman cannot read another Salesman's Dealers; test Dealer transfer, area mapping and targets with audit history.
-12. Using two Dealer accounts, verify Dealer A can never receive Dealer B's fitment suggestion/history. Verify Correct/Partly Correct/Wrong/Duplicate review and Private Suitable promotion. Confirm no fitment submission/review creates TORVO Points or reward-ledger rows.
-13. Verify notifications/messages, dealer approval, inactive-user blocking and audit entries for critical actions.
-14. Confirm no service-role key or other privileged secret is present in browser code, GitHub source or public deployment output.
+2. Complete one test sale end-to-end: Dealer Purchase Order → TORVO Sales Order → Dealer direct modification within allowance → TORVO revision if needed → Send latest revision for Dealer OK → Dealer reviews exact items/qty/rates/total → Dealer OK → Estimate → Payment → Delivery. Confirm stale Dealer OK is rejected after any new revision and direct revision is blocked after Estimate.
+3. Exhaust the Dealer's default direct-modification allowance. Confirm the next direct change is rejected, an audited Modification Request can be submitted, duplicate pending request is rejected, TORVO can approve/reject it, and an approved extra chance increases the allowance by exactly one.
+4. Test Add More Items on an order that already has an Estimate: request it as Dealer, approve as TORVO, create the add-on with new item quantities, and confirm a NEW Sales Order is created with `add_on_parent_order_id` pointing to the original. Confirm the original Sales Order/Estimate lines and totals do not change, rates are server-calculated, the request closes, and retrying the same request cannot create a second add-on order.
+5. Confirm Dealer A cannot submit/consume a change request belonging to Dealer B, cannot create an add-on against Dealer B's parent order, and cannot read Dealer B's change requests.
+6. Confirm inventory does **not** deduct at Estimate, Picked or Packed; it deducts exactly once only after valid payment + delivery. Retry delivery and confirm stock cannot deduct twice.
+7. Retry the same payment request key and confirm it returns the same payment; reuse that key with different data and confirm it is rejected.
+8. Create/receive a reorder and confirm duplicate active reorder protection and inventory movement history.
+9. Test Machine → Spare Parts mapping and confirm internal compatibility stays Owner/Admin-only unless a mapping is explicitly dealer-visible.
+10. Test Brand/Category/Model add and duplicate rejection with case/extra-space variants. Confirm usage count, used-master rename block and Active/Inactive. Confirm `1122` Delete moves an unused value to Trash, normal dropdowns exclude Trash, Restore works, duplicate-collision Restore is rejected, linked values cannot be trashed, and Permanent Delete works only from Trash after `1122` plus a fresh usage check.
+11. Create and edit catalog items with both TORVO Item Code and Company/OEM Original Code; confirm both persist independently and Smart Search can find either code.
+12. Run summary/detail reports as each allowed role and confirm Store Keeper never receives financial/rate/profit data; Profit/Purchase Cost remain Owner-only.
+13. Run `reward_reconciliation_status()` and `assert_reward_lot_migration_ready()` before enabling lot rewards on migrated production data; test FIFO redeem and expiry on staging.
+14. Verify Salesman cannot read another Salesman's Dealers; test Dealer transfer, area mapping and targets with audit history.
+15. Using two Dealer accounts, verify Dealer A can never receive Dealer B's fitment suggestion/history. Verify Correct/Partly Correct/Wrong/Duplicate review and Private Suitable promotion. Confirm no fitment submission/review creates TORVO Points or reward-ledger rows.
+16. Verify notifications/messages, dealer approval, inactive-user blocking and audit entries for critical actions.
+17. Confirm no service-role key or other privileged secret is present in browser code, GitHub source or public deployment output.
 
 Record any staging failure before production migration. Do not point the live domain at V2 and do not replace/merge the existing live version until this gate passes and the Owner explicitly approves cutover.
 
