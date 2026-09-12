@@ -30,24 +30,25 @@ This file is the authoritative dependency order for a fresh V2 database setup. D
 21. `v2-sales-team-rpcs.sql`
 22. `v2-salesman-assisted-workflows.sql`
 23. `v2-sales-revision-rpcs.sql`
-24. `v2-purchase-requirements.sql`
-25. `v2-purchase-requirement-rpcs.sql`
-26. `v2-purchase-requirement-item-link.sql`
-27. `v2-purchase-entry-rpcs.sql`
-28. `v2-inventory-purchase-guard.sql`
-29. `v2-purchase-requirement-fulfilment.sql`
-30. `v2-item-movement-center.sql`
+24. `v2-sales-line-integrity.sql`
+25. `v2-purchase-requirements.sql`
+26. `v2-purchase-requirement-rpcs.sql`
+27. `v2-purchase-requirement-item-link.sql`
+28. `v2-purchase-entry-rpcs.sql`
+29. `v2-inventory-purchase-guard.sql`
+30. `v2-purchase-requirement-fulfilment.sql`
+31. `v2-item-movement-center.sql`
 
 ## Private suitable knowledge / Dealer fitment suggestions
-31. `v2-knowledge-rewards.sql`
+32. `v2-knowledge-rewards.sql`
 
 ## Schemes and sales rewards
-32. `v2-scheme-progress.sql`
-33. `v2-reward-lots.sql`
-34. `v2-reward-reconciliation.sql`
-35. `v2-rewards-rpcs.sql`
-36. `v2-scheme-reward-credit.sql`
-37. `v2-referrals.sql`
+33. `v2-scheme-progress.sql`
+34. `v2-reward-lots.sql`
+35. `v2-reward-reconciliation.sql`
+36. `v2-rewards-rpcs.sql`
+37. `v2-scheme-reward-credit.sql`
+38. `v2-referrals.sql`
 
 ### Purchase Entry rule
 `v2-purchase-entry-rpcs.sql` is the authoritative stock-receipt path for supplier Purchase invoices. Only Owner/Admin can create or reverse a Purchase. Supplier + normalized Invoice No is duplicate-protected. Every received line must reference an active catalog item, quantity must be positive and purchase rate cannot be negative. Creating the Purchase adds inventory and an inventory movement in the same database transaction. Purchase entries are immutable; a correction uses a mandatory-reason audited reversal and is rejected if current stock is below the quantity that would be reversed. This module is operational purchase/stock history only and does not create a supplier ledger.
@@ -66,6 +67,9 @@ This file is the authoritative dependency order for a fresh V2 database setup. D
 
 ### Sales revision / Dealer OK / Add More Items rule
 `v2-sales-revision-rpcs.sql` is the controlled revision layer for the current sales flow. Owner/Admin/authorized Accountant may revise a Sales Order before Estimate; the server recalculates every revised line from the Dealer's current rate group and records revision history. A revision invalidates prior Dealer OK. Authorized staff can mark the exact latest revision as awaiting Dealer OK; a mapped Salesman is restricted to assigned Dealers. Dealer confirmation is accepted only for the Dealer's own Sales Order and exact current revision. Estimate must follow Dealer OK, and direct Sales Order revision is locked after an Estimate exists. Dealer direct modification has a controlled allowance (default 2); after the allowance is exhausted the Dealer must submit an audited modification request and TORVO may grant an extra chance. `Add More Items` never mutates an old/estimated/finalized order: Dealer submits a request, TORVO approves it, then a new Sales Order is created with `add_on_parent_order_id` pointing to the original order. The approved request is linked to exactly one add-on order and then closed. Add-on rates are recalculated server-side from the approved Dealer rate group. WhatsApp delivery must never be recorded as sent until the provider is actually connected and verified.
+
+### Sales document line integrity rule
+`v2-sales-line-integrity.sql` runs immediately after the Sales revision layer and enforces one catalog item per Sales/Estimate document at the database boundary. Frontend duplicate prevention is only UX; this database guard is authoritative. On an existing database the migration intentionally aborts if historical duplicate lines already exist so financial history can be reviewed instead of silently merged or deleted.
 
 ### Sales team security rule
 `v2-sales-team-rpcs.sql` is the authoritative mutation/scoped-read layer for Salesman area, Dealer ownership and target controls. Owner/Admin assign State → District → City areas, assign/transfer Dealers with audit, and set Monthly/Quarterly/Financial Year targets. Salesman Dealer reads must use the scoped RPC path and must not rely on UI filtering as the security boundary.
@@ -86,7 +90,7 @@ This file is the authoritative dependency order for a fresh V2 database setup. D
 `v2-purchase-cost-history.sql` stores append-only effective-dated purchase costs through an Owner-only RPC and exposes Owner-only profit summary. Profit remains unavailable when any delivered sales line has no applicable historical purchase cost; the system must not invent a cost or misleading profit.
 
 ### Payment retry rule
-`v2-payment-idempotency.sql` supersedes the base `record_payment` RPC and requires a unique client request key. Retrying the exact same estimate/status/amount with the same key returns the existing payment; reusing a key for different payment data raises a conflict. New clients must send `p_request_key`.
+`v2-payment-idempotency.sql` supersedes the base `record_payment` RPC and requires a unique client request key. Retrying the exact same estimate/status/amount with the same key returns the existing payment; reusing a key for different payment data and confirm it is rejected. New clients must send `p_request_key`.
 
 ### Reorder duplicate rule
 `v2-reorder-guard.sql` supersedes `submit_reorder` and enforces at most one active (`submitted`/`ordered`) reorder per catalog item. On an existing database it intentionally aborts if duplicate active requests already exist so they can be reviewed instead of silently merged or deleted.
@@ -104,7 +108,7 @@ Do not blindly rerun the full list on an existing database. Apply only the new/c
 GitHub/Vite build success does **not** validate PostgreSQL migrations or RPC behavior. Before V2 can be called production-ready, run the applicable SQL above against a separate staging Supabase project and complete all of these checks:
 
 1. Sign in with test users for Owner, Admin, Salesman, Accountant, Store Keeper and Dealer; confirm each role can open only its allowed modules and database rows.
-2. Complete one test sale end-to-end: Dealer Purchase Order → TORVO Sales Order → Dealer direct modification within allowance → TORVO revision if needed → Send latest revision for Dealer OK → Dealer reviews exact items/qty/rates/total → Dealer OK → Estimate → Payment → Delivery. Confirm stale Dealer OK is rejected after any new revision and direct revision is blocked after Estimate.
+2. Complete one test sale end-to-end: Dealer Purchase Order → TORVO Sales Order → Dealer direct modification within allowance → TORVO revision if needed → Send latest revision for Dealer OK → Dealer reviews exact items/qty/rates/total → Dealer OK → Estimate → Payment → Delivery. Confirm stale Dealer OK is rejected after any new revision and direct revision is blocked after Estimate. Confirm duplicate catalog items in the same Sales/Estimate document are rejected at the database boundary as well as the UI.
 3. Exhaust the Dealer's default direct-modification allowance. Confirm the next direct change is rejected, an audited Modification Request can be submitted, duplicate pending request is rejected, TORVO can approve/reject it, and an approved extra chance increases the allowance by exactly one.
 4. Test Add More Items on an order that already has an Estimate: request it as Dealer, approve as TORVO, create the add-on with new item quantities, and confirm a NEW Sales Order is created with `add_on_parent_order_id` pointing to the original. Confirm the original Sales Order/Estimate lines and totals do not change, rates are server-calculated, the request closes, and retrying the same request cannot create a second add-on order.
 5. Confirm Dealer A cannot submit/consume a change request belonging to Dealer B, cannot create an add-on against Dealer B's parent order, and cannot read Dealer B's change requests.
