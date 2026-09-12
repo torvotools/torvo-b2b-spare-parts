@@ -1,6 +1,6 @@
 -- TORVO V2 inventory/purchase safety cutover.
--- Prevents the legacy reorder receive RPC from creating stock outside Purchase Entry.
--- Reorder remains a demand/order-planning workflow. Supplier invoice receipt is authoritative.
+-- Prevents supplier stock from entering outside Purchase Entry.
+-- Reorder remains planning. Manual adjustment is correction-only and cannot impersonate supplier receipt.
 -- STAGING TEST REQUIRED BEFORE PRODUCTION.
 
 create or replace function receive_reorder(p_reorder uuid,p_received_qty numeric) returns numeric
@@ -15,6 +15,30 @@ declare a app_users%rowtype;r stock_reorder_requests%rowtype;begin
 end;$$;
 revoke all on function receive_reorder(uuid,numeric) from public,anon;
 grant execute on function receive_reorder(uuid,numeric) to authenticated;
+
+-- Supersedes the legacy operations RPC. Manual stock adjustment is now Owner/Admin only.
+-- Positive correction requires explicit acknowledgement and is deliberately capped so this path cannot become a shadow Purchase Entry.
+create or replace function adjust_inventory(p_item uuid,p_qty_change numeric,p_reason text) returns numeric
+language plpgsql security definer set search_path=public as $$
+declare a app_users%rowtype;v numeric;reason text;begin
+ select * into a from app_users where auth_user_id=auth.uid() and active=true;
+ if not found or a.role not in('owner','admin') then raise exception 'Owner/Admin required for manual stock correction'; end if;
+ reason:=nullif(trim(p_reason),'');
+ if p_qty_change is null or p_qty_change=0 or reason is null then raise exception 'Quantity change and reason required'; end if;
+ if abs(p_qty_change)>100 then raise exception 'Large stock correction blocked. Verify physical stock and use the correct Purchase/transaction workflow.'; end if;
+ if p_qty_change>0 and position('[NON-PURCHASE CORRECTION]' in upper(reason))=0 then raise exception 'Positive manual correction requires explicit NON-PURCHASE CORRECTION acknowledgement'; end if;
+ if p_qty_change>0 and (upper(reason) like '%SUPPLIER%' or upper(reason) like '%PURCHASE%' or upper(reason) like '%INVOICE%' or upper(reason) like '%RECEIPT%' or upper(reason) like '%REORDER%') then raise exception 'Supplier/Purchase receipt cannot use manual adjustment. Use Purchase Entry.'; end if;
+ perform 1 from inventory where item_id=p_item for update;
+ if not found then raise exception 'Inventory item not found'; end if;
+ select current_qty+p_qty_change into v from inventory where item_id=p_item;
+ if v<0 then raise exception 'Stock cannot become negative'; end if;
+ update inventory set current_qty=v,updated_at=now() where item_id=p_item;
+ insert into inventory_movements(item_id,qty_change,reason,reference_type,created_by) values(p_item,p_qty_change,reason,'manual_correction',a.id);
+ insert into audit_log(actor_id,action,entity_type,entity_id,details) values(a.id,'INVENTORY_MANUAL_CORRECTION','catalog_item',p_item::text,jsonb_build_object('qty_change',p_qty_change,'reason',reason,'new_qty',v,'purchase_receipt',false));
+ return v;
+end;$$;
+revoke all on function adjust_inventory(uuid,numeric,text) from public,anon;
+grant execute on function adjust_inventory(uuid,numeric,text) to authenticated;
 
 -- Explicit read helper for Store/Owner/Admin. No purchase rate, supplier invoice total or financial fields are returned.
 create or replace function get_inventory_reorder_queue() returns table(
