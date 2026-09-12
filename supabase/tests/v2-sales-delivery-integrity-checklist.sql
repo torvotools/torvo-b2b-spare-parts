@@ -4,7 +4,8 @@
 
 -- 1) OBJECT / CONSTRAINT PRESENCE
 select to_regclass('public.additional_purchase_order_links') as additional_po_links,
-       to_regclass('public.stock_movements') as stock_movements,
+       to_regclass('public.inventory') as inventory,
+       to_regclass('public.inventory_movements') as canonical_inventory_movements,
        to_regclass('public.delivery_stock_finalizations') as delivery_finalizations;
 
 select indexname from pg_indexes
@@ -24,20 +25,27 @@ where n.nspname='public' and p.proname in(
  'decide_additional_purchase_order',
  'get_dealer_order_history_30d',
  'record_payment',
- 'finalize_actual_delivery'
+ 'finalize_actual_delivery',
+ 'deliver_estimate'
 ) order by p.proname;
 
 -- 3) DIRECT WRITE GRANTS MUST NOT BYPASS STOCK FINALIZATION
 select table_name,privilege_type,grantee
 from information_schema.role_table_grants
 where table_schema='public'
-  and table_name in('inventory','stock_movements','delivery_stock_finalizations','additional_purchase_order_links')
+  and table_name in('inventory','inventory_movements','delivery_stock_finalizations','additional_purchase_order_links')
   and grantee in('anon','authenticated')
   and privilege_type in('INSERT','UPDATE','DELETE')
 order by table_name,grantee,privilege_type;
 -- Expected: no bypassing write grants. Investigate every returned row.
 
--- 4) RUNTIME ROLE TESTS (perform with real staging sessions)
+-- 4) VERIFY THERE IS NO PARALLEL SALES STOCK LEDGER
+-- inventory_movements is the canonical Purchase + Delivery stock movement ledger.
+select to_regclass('public.stock_movements') as legacy_parallel_stock_movements;
+-- Expected for the final V2 design: NULL, unless an older staging database still has a legacy table.
+-- If non-NULL, inspect it and migrate/remove the obsolete write path before release.
+
+-- 5) RUNTIME ROLE TESTS (perform with real staging sessions)
 -- DEALER: can confirm only own latest exact Sales Order revision.
 -- DEALER: stale revision confirmation fails after TORVO revision.
 -- DEALER: cannot read internal payment/outstanding/purchase-cost data.
@@ -45,34 +53,48 @@ order by table_name,grantee,privilege_type;
 -- OWNER/ADMIN/SALESMAN: revision invalidates prior DEALER OK.
 -- ACCOUNTANT/OWNER/ADMIN: Estimate conversion fails without latest exact DEALER OK.
 -- Estimate conversion locks original Sales Order against direct revision.
--- ADD MORE ITEMS creates a separate linked Sales Order; original order/Estimate row+lines remain byte-for-byte unchanged.
+-- ADD MORE ITEMS creates a separate linked Sales Order; original order/Estimate row+lines remain unchanged.
 -- Additional order remains pending until OWNER/ADMIN approval.
 
--- 5) DUPLICATE-LINE TEST
+-- 6) DUPLICATE-LINE TEST
 -- Attempt two sales_document_lines with same (document_id,item_id).
 -- Expected: unique constraint failure; update quantity on existing line instead.
 
--- 6) PAYMENT IDEMPOTENCY TEST
+-- 7) PAYMENT IDEMPOTENCY TEST
 -- Call record_payment twice with identical estimate/status/amount/request_key.
 -- Expected: same payment id; payment total changes only once.
 -- Reuse same request_key with different amount/estimate/status.
 -- Expected: rejection.
 
--- 7) DELIVERY / STOCK EXACTLY-ONCE TEST
--- Capture inventory quantities and stock_movements count before delivery.
+-- 8) DELIVERY / STOCK EXACTLY-ONCE TEST
+-- Capture inventory quantities and inventory_movements count before delivery.
 -- Attempt finalize_actual_delivery before required payment: must fail and stock must be unchanged.
 -- Attempt while dispatch status is PICKED/PACKED (or otherwise not ready): must fail and stock must be unchanged.
 -- Attempt with insufficient stock: entire transaction must fail; no item may be partially deducted.
 -- With full required payment + ready/dispatched state + sufficient stock, finalize delivery once.
--- Expected: each item deducted exactly ordered quantity, one delivery_out movement/item, finalization ledger row created, estimate/dispatch delivered.
+-- Expected: each item deducted exactly ordered quantity, one negative ACTUAL DELIVERY inventory_movements row/item,
+-- finalization ledger row created, Estimate/dispatch marked delivered.
 -- Replay same request_key: expected no further stock movement.
--- Replay different request_key for same estimate: expected no further stock movement.
+-- Replay different request_key for same Estimate: expected rejection/no further stock movement.
 
--- 8) AUDIT TEST
+-- 9) LEGACY DELIVERY COMPATIBILITY TEST
+-- Call deliver_estimate(uuid) only on a separate fully-paid READY staging Estimate.
+-- Expected: it delegates to finalize_actual_delivery and creates the same finalization marker/canonical movement rows.
+-- Calling deliver_estimate again must not deduct stock again.
+-- Inspect pg_proc after full migration install and ensure no later migration replaced this wrapper with an older direct-deduction implementation.
+
+-- 10) PURCHASE -> DELIVERY LEDGER CONTINUITY
+-- For one staging item:
+-- A) RECEIVE PURCHASE STOCK once and verify positive inventory_movements entry.
+-- B) Deliver a paid/ready Estimate and verify negative ACTUAL DELIVERY entry.
+-- C) Reconcile current inventory quantity to opening + all canonical inventory_movements changes.
+-- Expected: no hidden/parallel stock mutation.
+
+-- 11) AUDIT TEST
 -- Confirm SALES_ORDER_REVISED, DEALER_OK, ESTIMATE_CREATED,
 -- ADDITIONAL_PURCHASE_ORDER_REQUESTED/APPROVED/REJECTED,
 -- INTERNAL_PAYMENT_NOTED and ACTUAL_DELIVERY_FINALIZED events are present as applicable.
 
--- 9) RELEASE RULE
+-- 12) RELEASE RULE
 -- Do not mark payment/delivery/stock flow runtime verified until all applicable tests above pass
 -- against the same staging migration set and code commit, with non-secret evidence retained.
