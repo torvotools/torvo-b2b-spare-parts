@@ -4,7 +4,7 @@ import DealerVisualPreview from './components/DealerVisualPreview';
 import AdminVisualPreview from './components/AdminVisualPreview';
 import LoginVisualPreview from './components/LoginVisualPreview';
 import DealerRegistrationPreview from './components/DealerRegistrationPreview';
-import './styles.css';import'./workspace-polish.css';import'./login-preview.css';import'./dealer-mobile-fix.css';import'./premium-ui.css';
+import './styles.css';import'./workspace-polish.css';import'./login-preview.css';import'./dealer-mobile-fix.css';import'./premium-ui.css';import'./compact-cloud-ui.css';
 import {installGlobalUiFeedback} from './services/uiFeedback.js';
 const root=document.getElementById('torvo-v2-root');if(!root)throw new Error('TORVO V2 preview root not found');
 const visual=new URLSearchParams(window.location.search).get('visual')?.toLowerCase()||'home';
