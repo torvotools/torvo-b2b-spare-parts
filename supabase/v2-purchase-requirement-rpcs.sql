@@ -1,5 +1,24 @@
 -- TORVO V2 purchase requirement secure actions. Requires v2-purchase-requirements.sql.
 
+-- Role-safe Dealer selector for Purchase Requirements.
+-- Salesman receives only mapped Dealers. Other authorized staff receive active/approved Dealers.
+-- No rate group, private financials or unrelated Dealer fields leave this RPC.
+create or replace function get_purchase_requirement_dealers()
+returns table(id uuid,dealer_code text,shop_name text)
+language plpgsql stable security definer set search_path=public as $$
+declare a app_users%rowtype;begin
+ select * into a from app_users where auth_user_id=auth.uid() and active=true;
+ if not found or a.role not in('salesman','accountant','store_keeper','owner','admin') then raise exception 'Not authorized'; end if;
+ return query
+ select d.id,d.dealer_code,d.shop_name
+ from dealers d
+ where d.status='approved'
+   and (a.role<>'salesman' or salesman_can_access_dealer(a.id,d.id))
+ order by d.shop_name,d.dealer_code;
+end;$$;
+revoke all on function get_purchase_requirement_dealers() from public,anon;
+grant execute on function get_purchase_requirement_dealers() to authenticated;
+
 create or replace function submit_purchase_requirement(p_item uuid,p_qty numeric,p_reason_type text,p_reason text,p_dealer uuid default null) returns uuid language plpgsql security definer set search_path=public as $$
 declare a app_users%rowtype;rid uuid;
 begin
@@ -8,6 +27,7 @@ begin
  if p_qty is null or p_qty<=0 then raise exception 'Valid required quantity required'; end if;
  if p_reason_type not in('out_of_stock','low_stock','fast_moving','more_qty_required','dealer_demand','other') then raise exception 'Invalid reason type'; end if;
  if not exists(select 1 from catalog_items where id=p_item and active=true) then raise exception 'Item not found'; end if;
+ if p_dealer is not null and not exists(select 1 from dealers where id=p_dealer and status='approved') then raise exception 'Approved Dealer required'; end if;
  if a.role='salesman' and p_dealer is not null and not salesman_can_access_dealer(a.id,p_dealer) then raise exception 'Dealer is not mapped to this salesman'; end if;
  insert into purchase_requirements(request_type,existing_item_id,requested_qty,reason_type,reason,requested_by) values('existing_item',p_item,p_qty,p_reason_type,nullif(trim(p_reason),''),a.id) returning id into rid;
  if p_dealer is not null then insert into purchase_requirement_dealers(requirement_id,dealer_id,requested_qty,note) values(rid,p_dealer,p_qty,nullif(trim(p_reason),'')); end if;
@@ -22,6 +42,7 @@ begin
  select * into a from app_users where auth_user_id=auth.uid() and active=true;
  if not found or a.role not in('salesman','accountant','store_keeper','owner','admin') then raise exception 'Not authorized'; end if;
  if p_qty is null or p_qty<=0 or nullif(trim(p_brand),'') is null or nullif(trim(p_item_name),'') is null then raise exception 'Brand, item name and quantity required'; end if;
+ if p_dealer is not null and not exists(select 1 from dealers where id=p_dealer and status='approved') then raise exception 'Approved Dealer required'; end if;
  if a.role='salesman' and p_dealer is not null and not salesman_can_access_dealer(a.id,p_dealer) then raise exception 'Dealer is not mapped to this salesman'; end if;
  insert into purchase_requirements(request_type,requested_qty,reason_type,reason,requested_by) values('new_item',p_qty,'new_item_required',nullif(trim(p_market_note),''),a.id) returning id into rid;
  insert into purchase_requirement_new_items(requirement_id,company_brand,machine_type,model_no,item_part_name,oem_part_no,category,expected_market_demand,photo_url,market_note) values(rid,upper(trim(p_brand)),nullif(upper(trim(p_machine_type)),''),nullif(upper(trim(p_model)),''),upper(trim(p_item_name)),nullif(upper(trim(p_oem)),''),nullif(upper(trim(p_category)),''),nullif(trim(p_demand),''),nullif(trim(p_photo_url),''),nullif(trim(p_market_note),''));
