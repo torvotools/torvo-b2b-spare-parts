@@ -7,6 +7,7 @@ import DealerRegistrationPreview from './components/DealerRegistrationPreview';
 import './styles.css';
 import './workspace-polish.css';
 import './login-preview.css';
+import './dealer-mobile-fix.css';
 import {installGlobalUiFeedback} from './services/uiFeedback.js';
 
 const root = document.getElementById('torvo-v2-root');
