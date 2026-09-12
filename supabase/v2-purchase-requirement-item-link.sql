@@ -11,6 +11,8 @@ language plpgsql stable security definer set search_path=public as $$
 declare a app_users%rowtype;s text:=lower(trim(coalesce(p_search,'')));lim integer:=greatest(1,least(coalesce(p_limit,100),100));begin
  select * into a from app_users where auth_user_id=auth.uid() and active=true;
  if not found or a.role not in('owner','admin') then raise exception 'Owner/Admin required'; end if;
+ -- Do not dump the catalog on an empty query. A type/brand filter may intentionally browse a bounded set.
+ if s='' and nullif(trim(coalesce(p_type,'')),'') is null and nullif(trim(coalesce(p_brand,'')),'') is null then return; end if;
  return query select c.id,c.item_code,c.oem_code,c.name,c.brand,c.category,c.item_type from catalog_items c where c.active=true and (nullif(trim(coalesce(p_type,'')),'') is null or c.item_type=p_type) and (nullif(trim(coalesce(p_brand,'')),'') is null or lower(coalesce(c.brand,''))=lower(trim(p_brand))) and (s='' or lower(coalesce(c.item_code,'')) like '%'||s||'%' or lower(coalesce(c.oem_code,'')) like '%'||s||'%' or lower(coalesce(c.name,'')) like '%'||s||'%' or lower(coalesce(c.brand,'')) like '%'||s||'%' or lower(coalesce(c.category,'')) like '%'||s||'%') order by case when s<>'' and lower(coalesce(c.item_code,''))=s then 0 when s<>'' and lower(coalesce(c.oem_code,''))=s then 1 when s<>'' and lower(coalesce(c.item_code,'')) like s||'%' then 2 when s<>'' and lower(coalesce(c.oem_code,'')) like s||'%' then 3 else 4 end,c.item_code limit lim;
 end;$$;
 revoke all on function search_requirement_catalog(text,text,text,integer) from public,anon;
@@ -24,6 +26,8 @@ language plpgsql stable security definer set search_path=public as $$
 declare a app_users%rowtype;s text:=lower(trim(coalesce(p_search,'')));lim integer:=greatest(1,least(coalesce(p_limit,100),100));begin
  select * into a from app_users where auth_user_id=auth.uid() and active=true;
  if not found or a.role not in('owner','admin','salesman','accountant','store_keeper') then raise exception 'Authorized staff required'; end if;
+ -- Empty search without a narrowing filter returns no rows: this remains fast when TORVO has thousands of items.
+ if s='' and nullif(trim(coalesce(p_type,'')),'') is null and nullif(trim(coalesce(p_brand,'')),'') is null then return; end if;
  return query select c.id,c.item_code,c.oem_code,c.name,c.brand,c.category,c.item_type from catalog_items c where c.active=true and (nullif(trim(coalesce(p_type,'')),'') is null or c.item_type=p_type) and (nullif(trim(coalesce(p_brand,'')),'') is null or lower(coalesce(c.brand,''))=lower(trim(p_brand))) and (s='' or lower(coalesce(c.item_code,'')) like '%'||s||'%' or lower(coalesce(c.oem_code,'')) like '%'||s||'%' or lower(coalesce(c.name,'')) like '%'||s||'%' or lower(coalesce(c.brand,'')) like '%'||s||'%' or lower(coalesce(c.category,'')) like '%'||s||'%') order by case when s<>'' and lower(coalesce(c.item_code,''))=s then 0 when s<>'' and lower(coalesce(c.oem_code,''))=s then 1 when s<>'' and lower(coalesce(c.item_code,'')) like s||'%' then 2 when s<>'' and lower(coalesce(c.oem_code,'')) like s||'%' then 3 else 4 end,c.item_code limit lim;
 end;$$;
 revoke all on function search_purchase_requirement_items(text,text,text,integer) from public,anon;
