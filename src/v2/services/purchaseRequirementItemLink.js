@@ -1,4 +1,5 @@
 import{requireBackend}from'./supabase';
 const db=()=>requireBackend();
 export async function searchRequirementCatalog(search='',type='',brand='',limit=100){const{data,error}=await db().rpc('search_requirement_catalog',{p_search:String(search||'').trim()||null,p_type:type||null,p_brand:String(brand||'').trim()||null,p_limit:limit});if(error)throw error;return data??[]}
+export async function searchPurchaseRequirementItems(search='',type='',brand='',limit=100){const{data,error}=await db().rpc('search_purchase_requirement_items',{p_search:String(search||'').trim()||null,p_type:type||null,p_brand:String(brand||'').trim()||null,p_limit:limit});if(error)throw error;return data??[]}
 export async function linkRequirementItem(requirementId,itemId,note=''){if(!requirementId||!itemId)throw new Error('Requirement and Item are required');const{error}=await db().rpc('link_new_item_requirement_to_catalog',{p_requirement:requirementId,p_item:itemId,p_note:String(note||'').trim()||null});if(error)throw error}
