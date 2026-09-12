@@ -1,5 +1,22 @@
-import React,{useEffect,useState}from'react';
+import React,{useCallback,useEffect,useState}from'react';
+import{AlertCircle,RefreshCw}from'lucide-react';
 import DealerPortal from'./DealerPortal';
 import DealerApprovedAddOnOrders from'./DealerApprovedAddOnOrders';
 import{data}from'../services/repository';
-export default function DealerPortalMounted({user}){const[catalog,setCatalog]=useState([]);useEffect(()=>{let live=true;Promise.all(['machine','spare_part','accessory'].map(x=>data.catalog(x))).then(x=>live&&setCatalog(x.flat().filter(i=>i.active!==false))).catch(()=>{});return()=>{live=false}},[]);return <><DealerPortal user={user}/>{user?.dealer_id&&<DealerApprovedAddOnOrders catalog={catalog}/>}</>}
+
+export default function DealerPortalMounted({user}){
+ const[catalog,setCatalog]=useState([]),[catalogLoading,setCatalogLoading]=useState(true),[catalogError,setCatalogError]=useState('');
+ const loadCatalog=useCallback(async()=>{
+  setCatalogLoading(true);setCatalogError('');
+  try{
+   const groups=await Promise.all(['machine','spare_part','accessory'].map(type=>data.catalog(type)));
+   setCatalog(groups.flat().filter(item=>item.active!==false));
+  }catch(e){setCatalog([]);setCatalogError(e?.message||'Catalog could not be loaded.');}
+  finally{setCatalogLoading(false)}
+ },[]);
+ useEffect(()=>{loadCatalog()},[loadCatalog]);
+ return <>
+  <DealerPortal user={user}/>
+  {user?.dealer_id&&<DealerApprovedAddOnOrders catalog={catalog} catalogLoading={catalogLoading} catalogError={catalogError} onRetryCatalog={loadCatalog}/>} 
+ </>;
+}
