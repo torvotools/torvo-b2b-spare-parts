@@ -1,21 +1,19 @@
 -- TORVO V2 PUBLIC RETAIL PRICING FOUNDATION
 -- PUBLIC E-COMMERCE PRICE IS A SEPARATE, HIGHER RETAIL CHANNEL.
+-- AUTHORITATIVE DEALER RATES LIVE IN item_rates(item_id, rate_group, min_qty, selling_rate).
 -- DEALER RATES REMAIN PRIVATE. CLIENT-SENT PRICES ARE NEVER AUTHORITATIVE.
 
 begin;
 
 create table if not exists public.v2_public_retail_prices (
-  product_id uuid primary key,
+  product_id uuid primary key references public.catalog_items(id) on delete restrict,
   retail_price numeric(14,2) not null check (retail_price >= 0),
   is_enabled boolean not null default false,
   updated_at timestamptz not null default now(),
-  updated_by uuid null
+  updated_by uuid null references public.app_users(id) on delete set null
 );
 
 alter table public.v2_public_retail_prices enable row level security;
-
--- No direct anonymous/authenticated writes. Public reads must go through an approved
--- catalog/RPC boundary so private Dealer pricing cannot be joined/exposed accidentally.
 revoke all on table public.v2_public_retail_prices from anon, authenticated;
 
 create or replace function public.v2_public_retail_price(p_product_id uuid)
@@ -26,30 +24,41 @@ set search_path = public
 as $$
 declare
   v_public numeric(14,2);
-  v_dealer_floor numeric(14,2);
+  v_highest_dealer numeric(14,2);
 begin
-  select retail_price into v_public
-  from public.v2_public_retail_prices
-  where product_id = p_product_id and is_enabled = true;
+  if p_product_id is null then
+    raise exception 'PRODUCT IS REQUIRED';
+  end if;
+
+  if not exists(select 1 from public.catalog_items c where c.id=p_product_id and c.active=true) then
+    raise exception 'ACTIVE PRODUCT NOT FOUND';
+  end if;
+
+  select p.retail_price
+    into v_public
+  from public.v2_public_retail_prices p
+  where p.product_id=p_product_id and p.is_enabled=true;
 
   if v_public is null then
     raise exception 'PUBLIC RETAIL SALE IS NOT ENABLED FOR THIS PRODUCT';
   end if;
 
-  -- Existing TORVO product schemas have evolved across migrations. Resolve the protected
-  -- Dealer floor only when a known Dealer-rate column set exists. Deployment must verify
-  -- this branch against staging before enabling live public checkout.
-  if to_regclass('public.products') is not null then
-    begin
-      execute 'select least(rate_a,rate_b,rate_c) from public.products where id=$1'
-        into v_dealer_floor using p_product_id;
-    exception when undefined_column then
-      v_dealer_floor := null;
-    end;
+  -- Public retail must remain above EVERY configured Dealer selling rate/slab.
+  -- MAX is intentional: comparing only with the cheapest Dealer rate would allow
+  -- public checkout to undercut another applicable Dealer rate.
+  select max(r.selling_rate)
+    into v_highest_dealer
+  from public.item_rates r
+  where r.item_id=p_product_id;
+
+  -- Fail closed. A product without authoritative Dealer pricing cannot be enabled
+  -- for public checkout until TORVO completes its commercial configuration.
+  if v_highest_dealer is null then
+    raise exception 'PUBLIC RETAIL CHECKOUT BLOCKED: DEALER PRICING IS NOT CONFIGURED';
   end if;
 
-  if v_dealer_floor is not null and v_public <= v_dealer_floor then
-    raise exception 'PUBLIC RETAIL PRICE VIOLATES PROTECTED DEALER PRICE RULE';
+  if v_public <= v_highest_dealer then
+    raise exception 'PUBLIC RETAIL PRICE MUST BE ABOVE ALL CONFIGURED DEALER RATES';
   end if;
 
   return v_public;
@@ -62,6 +71,6 @@ grant execute on function public.v2_public_retail_price(uuid) to anon, authentic
 comment on table public.v2_public_retail_prices is
 'TORVO public e-commerce retail price channel. Separate from private Dealer Rate A/B/C.';
 comment on function public.v2_public_retail_price(uuid) is
-'Returns enabled public retail price through a controlled boundary and rejects a detected protected Dealer-price violation.';
+'Returns only an enabled high public retail price after validating it is above every authoritative item_rates Dealer selling rate. Dealer rates are never returned.';
 
 commit;
