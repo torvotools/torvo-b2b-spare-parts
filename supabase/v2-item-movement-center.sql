@@ -1,5 +1,6 @@
 -- TORVO V2 Item Movement Center + Low Stock source drilldown.
--- Real purchase/sales/inventory records only; no duplicated fake history.
+-- Canonical inventory_movements fields: qty_change, reason, reference_type, reference_id, created_at.
+-- Real purchase/sales/inventory records only; no duplicated Purchase or Sale history.
 -- Purchase rates and supplier details are Owner-only. Store Keeper never receives financial fields.
 -- STAGING TEST REQUIRED BEFORE PRODUCTION.
 
@@ -14,6 +15,7 @@ declare a app_users%rowtype;c catalog_items%rowtype;i inventory%rowtype;lim inte
  select * into c from catalog_items where id=p_item;if not found then raise exception 'Item not found';end if;
  select * into i from inventory where item_id=p_item;
  with events as(
+   -- Purchase invoice is authoritative for Purchase history. Do not duplicate its inventory movement here.
    select h.created_at event_at,'purchase'::text kind,'PURCHASE'::text movement_type,l.qty qty_change,h.invoice_no::text reference_no,
      case when a.role='owner' then s.supplier_name else null end party,
      case when a.role='owner' then l.purchase_rate else null end rate,
@@ -21,6 +23,7 @@ declare a app_users%rowtype;c catalog_items%rowtype;i inventory%rowtype;lim inte
    from purchase_lines l join purchase_headers h on h.id=l.purchase_id left join suppliers s on s.id=h.supplier_id
    where l.item_id=p_item and not exists(select 1 from audit_log al where al.entity_type='purchase' and al.entity_id=h.id::text and al.action='PURCHASE_REVERSED')
    union all
+   -- Delivered Estimate is authoritative for Sale history. Do not duplicate delivery stock movement here.
    select coalesce(dp.delivered_at,e.created_at),'sale','SALE',-sl.qty,coalesce(e.final_sale_serial::text,e.id::text),
      case when a.role in('owner','admin') then d.shop_name else null end,
      case when a.role in('owner','admin') then sl.rate else null end,
@@ -28,10 +31,12 @@ declare a app_users%rowtype;c catalog_items%rowtype;i inventory%rowtype;lim inte
    from sales_document_lines sl join sales_documents e on e.id=sl.document_id join dispatches dp on dp.estimate_id=e.id and dp.status='delivered' left join dealers d on d.id=e.dealer_id
    where sl.item_id=p_item and e.doc_type='estimate'
    union all
-   select m.created_at,'movement',m.movement_type,m.qty,
+   -- Other stock events only. Purchase/delivery references are represented above by their authoritative business documents.
+   select m.created_at,'movement',upper(replace(coalesce(m.reference_type,'movement'),'_',' ')),m.qty_change,
      case when m.reference_id is null then null else m.reference_id::text end,
-     m.note,null::numeric,null::numeric,m.reference_id
-   from inventory_movements m where m.item_id=p_item and m.movement_type not in('purchase')
+     m.reason,null::numeric,null::numeric,m.reference_id
+   from inventory_movements m
+   where m.item_id=p_item and coalesce(m.reference_type,'') not in('purchase','estimate','delivery','dispatch')
  ),filtered as(select * from events where(p_from is null or event_at>=p_from) and(p_to is null or event_at<p_to) and(p_kind='all' or kind=p_kind) order by event_at desc limit lim),summary as(select coalesce(sum(case when kind='purchase' and qty_change>0 then qty_change else 0 end),0) purchased_qty,coalesce(sum(case when kind='sale' and qty_change<0 then -qty_change else 0 end),0) sold_qty,max(event_at) last_movement_at from events)
  select jsonb_build_object('item',jsonb_build_object('id',c.id,'item_code',c.item_code,'oem_code',c.oem_code,'name',c.name,'item_type',c.item_type,'brand',c.brand,'category',c.category,'model',c.model,'active',c.active),'stock',jsonb_build_object('current_qty',coalesce(i.current_qty,0),'reorder_level',coalesce(i.reorder_level,0),'updated_at',i.updated_at),'summary',(select to_jsonb(summary) from summary),'events',coalesce((select jsonb_agg(to_jsonb(filtered) order by event_at desc) from filtered),'[]'::jsonb),'financial_visibility',case when a.role='owner' then 'owner_purchase_and_sales' when a.role='admin' then 'sales_only' else 'none' end) into result;
  return result;
@@ -39,7 +44,6 @@ end;$$;
 revoke all on function get_item_movement_center(uuid,timestamptz,timestamptz,text,integer) from public,anon;
 grant execute on function get_item_movement_center(uuid,timestamptz,timestamptz,text,integer) to authenticated;
 
--- Low-stock operational drilldown. Owner sees supplier/rate; Admin sees source invoice without cost; Store Keeper sees stock/reorder only.
 create or replace function get_low_stock_drilldown(p_search text default null,p_state text default 'low',p_brand text default null,p_category text default null,p_limit integer default 250)
 returns jsonb language plpgsql stable security definer set search_path=public as $$
 declare a app_users%rowtype;s text:=lower(trim(coalesce(p_search,'')));lim integer:=greatest(1,least(coalesce(p_limit,250),1000));r jsonb;begin
