@@ -1,0 +1,2 @@
+import{supabase,backendConfigured}from'./supabase';
+export const dealerCatalogService={async search(search='',type='',brand='',limit=60){if(!backendConfigured)throw new Error('Backend is not configured');const{data,error}=await supabase.rpc('search_dealer_catalog',{p_search:search||null,p_type:type||null,p_brand:brand||null,p_limit:Math.min(Math.max(Number(limit)||60,1),60)});if(error)throw error;return data||[]}};
