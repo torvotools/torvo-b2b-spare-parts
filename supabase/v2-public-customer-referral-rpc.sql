@@ -20,3 +20,31 @@ create or replace function public_customer_catalog(p_search text default null,p_
 returns table(id uuid,item_code text,name text,item_type text,brand text,category text,model text,image_url text)
 language sql security definer set search_path=public as $$select c.id,c.item_code,c.name,c.item_type,c.brand,c.category,c.model,c.image_url from catalog_items c where c.active=true and (nullif(btrim(p_search),'') is null or concat_ws(' ',c.item_code,c.name,c.brand,c.category,c.model) ilike '%'||btrim(p_search)||'%') order by c.name limit greatest(1,least(coalesce(p_limit,60),100))$$;
 revoke all on function public_customer_catalog(text,integer) from public;grant execute on function public_customer_catalog(text,integer) to anon,authenticated;
+
+-- ADVANCED CUSTOMER DISCOVERY: NO RATE OR PRIVATE INVENTORY VALUE IS RETURNED.
+create or replace function public_customer_catalog_filtered(p_search text default null,p_item_type text default null,p_brand text default null,p_category text default null,p_model text default null,p_sort text default 'RELEVANT',p_limit integer default 60)
+returns table(id uuid,item_code text,name text,item_type text,brand text,category text,model text,image_url text,available boolean)
+language sql security definer set search_path=public as $$
+ select c.id,c.item_code,c.name,c.item_type,c.brand,c.category,c.model,c.image_url,coalesce(i.current_qty,0)>0
+ from catalog_items c left join inventory i on i.item_id=c.id
+ where c.active=true
+ and (nullif(btrim(p_search),'') is null or concat_ws(' ',c.item_code,c.name,c.brand,c.category,c.model) ilike '%'||btrim(p_search)||'%')
+ and (nullif(btrim(p_item_type),'') is null or c.item_type=lower(btrim(p_item_type)))
+ and (nullif(btrim(p_brand),'') is null or upper(c.brand)=upper(btrim(p_brand)))
+ and (nullif(btrim(p_category),'') is null or upper(c.category)=upper(btrim(p_category)))
+ and (nullif(btrim(p_model),'') is null or upper(c.model)=upper(btrim(p_model)))
+ order by case when upper(p_sort)='AVAILABLE' and coalesce(i.current_qty,0)>0 then 0 else 1 end,
+ case when upper(p_sort)='NEWEST' then c.created_at end desc nulls last,c.name
+ limit greatest(1,least(coalesce(p_limit,60),100));
+$$;
+revoke all on function public_customer_catalog_filtered(text,text,text,text,text,text,integer) from public;grant execute on function public_customer_catalog_filtered(text,text,text,text,text,text,integer) to anon,authenticated;
+
+create or replace function public_customer_filter_options(p_item_type text default null)
+returns table(filter_name text,filter_value text)
+language sql security definer set search_path=public as $$
+ select 'BRAND',brand from(select distinct upper(btrim(brand)) brand from catalog_items where active=true and nullif(btrim(brand),'') is not null and (nullif(btrim(p_item_type),'') is null or item_type=lower(btrim(p_item_type))))x
+ union all select 'CATEGORY',category from(select distinct upper(btrim(category)) category from catalog_items where active=true and nullif(btrim(category),'') is not null and (nullif(btrim(p_item_type),'') is null or item_type=lower(btrim(p_item_type))))x
+ union all select 'MODEL',model from(select distinct upper(btrim(model)) model from catalog_items where active=true and nullif(btrim(model),'') is not null and (nullif(btrim(p_item_type),'') is null or item_type=lower(btrim(p_item_type))))x
+ order by 1,2;
+$$;
+revoke all on function public_customer_filter_options(text) from public;grant execute on function public_customer_filter_options(text) to anon,authenticated;
