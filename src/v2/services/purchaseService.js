@@ -1,7 +1,7 @@
 import { supabase } from './supabase';
 const ok=r=>{if(r.error)throw r.error;return r.data||[]};
 export const purchaseService={
- async suppliers(){return ok(await supabase.from('suppliers').select('id,name,phone,gst_no,active').eq('active',true).order('name'))},
+ async suppliers(){return ok(await supabase.rpc('get_purchase_suppliers'))},
  async catalog(search='',type='',brand='',limit=100){const r=await supabase.rpc('search_purchase_catalog',{p_search:search||null,p_type:type||null,p_brand:brand||null,p_limit:limit});if(r.error)throw r.error;return r.data||[]},
  async purchases(search=''){const rows=ok(await supabase.rpc('get_purchase_entries',{p_search:search||null,p_limit:250}));return rows.map(x=>({...x,suppliers:{name:x.supplier_name},reversal:x.reversed_at?{created_at:x.reversed_at,details:{reason:x.reversal_reason}}:null}))},
  async purchaseLines(purchaseId){const rows=ok(await supabase.rpc('get_purchase_entry_lines',{p_purchase:purchaseId}));return rows.map(x=>({...x,catalog_items:{item_code:x.item_code,oem_code:x.oem_code,name:x.item_name,brand:x.brand}}))},
