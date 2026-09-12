@@ -20,7 +20,11 @@ Use the repository's `supabase/` V2 migration files in dependency order. Preserv
    - `v2-sales-order-integrity.sql`
    - `v2-additional-purchase-order.sql`
    These enforce duplicate-line protection, exact latest DEALER OK, revision invalidation, ESTIMATE locking and separate linked ADD MORE ITEMS orders.
-4. Purchase Entry, inventory movement, low-stock and Purchase Requirement/fulfilment migrations.
+4. Purchase Entry, inventory movement, low-stock and Purchase Requirement/fulfilment foundation migrations. For Purchase Entry, keep the final integrity definition in this order after its dependent tables/RPCs exist:
+   - `v2-purchase-entry-rpcs.sql`
+   - `v2-inventory-purchase-guard.sql`
+   - `v2-purchase-entry-integrity.sql`
+   The integrity migration makes Purchase creation non-receiving, then RECEIVE PURCHASE STOCK performs the exactly-once stock receipt. It also blocks duplicate item lines, receipt replay, unsafe re-receipt after reversal and direct browser inventory writes.
 5. After the payment, dispatch and inventory foundation tables/RPCs exist, install:
    - `v2-delivery-stock-integrity.sql`
    This is the payment-gated actual-delivery stock finalization layer and must not be installed before its dependent payment/dispatch/inventory objects.
@@ -45,8 +49,9 @@ The release is blocked until all applicable checks pass with real staging sessio
 - TORVO revision invalidates old DEALER OK; ESTIMATE locks direct revision.
 - ADD MORE ITEMS creates a separate linked additional order and never mutates the original order/Estimate.
 - Duplicate catalog/order item lines are blocked by UI and database integrity.
-- Purchase Entry receives supplier stock exactly once; duplicate Supplier+Invoice is blocked.
-- Purchase correction/reversal is audited and does not duplicate stock.
+- Purchase Entry creation alone does not change inventory; explicit stock receipt receives supplier stock exactly once.
+- Duplicate Supplier+Invoice and duplicate Purchase item lines are blocked.
+- Purchase correction/reversal is audited, exactly once and does not duplicate/re-receive stock.
 - Purchase Requirements partial/full fulfilment, exact Dealer allocation and tracking reversal are secure/audited.
 - Payment + actual Delivery deducts stock exactly once. ESTIMATE/PICKED/PACKED never deduct stock.
 - Replayed payment/delivery actions remain idempotent.
@@ -57,6 +62,7 @@ The release is blocked until all applicable checks pass with real staging sessio
 
 Run repository staging checklists under `supabase/tests/` where applicable, including:
 
+- `tests/v2-purchase-entry-security-checklist.sql`
 - `tests/v2-purchase-requirement-security-checklist.sql`
 - `tests/v2-backup-control-security-checklist.sql`
 
