@@ -16,39 +16,48 @@ This file is the authoritative dependency order for a fresh V2 database setup. D
 11. `v2-report-summary-rpc.sql`
 12. `v2-report-detail-rpc.sql`
 13. `v2-feature-controls.sql`
+14. `v2-backup-control.sql`
+15. `v2-backup-channels.sql`
 
 ## Dealer/catalog operations
-14. `v2-dealer-link.sql`
-15. `v2-dealer-machine-spares.sql`
-16. `v2-message-direction.sql`
-17. `v2-sales-catalog-rpcs.sql`
-18. `v2-catalog-master-values.sql`
-19. `v2-delivery-rpc.sql`
+16. `v2-dealer-link.sql`
+17. `v2-dealer-machine-spares.sql`
+18. `v2-message-direction.sql`
+19. `v2-sales-catalog-rpcs.sql`
+20. `v2-dealer-catalog-search.sql`
+21. `v2-catalog-master-values.sql`
+22. `v2-delivery-rpc.sql`
 
 ## Sales team / assisted field operations
-20. `v2-sales-team-mapping.sql`
-21. `v2-sales-team-rpcs.sql`
-22. `v2-salesman-assisted-workflows.sql`
-23. `v2-sales-revision-rpcs.sql`
-24. `v2-sales-line-integrity.sql`
-25. `v2-purchase-requirements.sql`
-26. `v2-purchase-requirement-rpcs.sql`
-27. `v2-purchase-requirement-item-link.sql`
-28. `v2-purchase-entry-rpcs.sql`
-29. `v2-inventory-purchase-guard.sql`
-30. `v2-purchase-requirement-fulfilment.sql`
-31. `v2-item-movement-center.sql`
+23. `v2-sales-team-mapping.sql`
+24. `v2-sales-team-rpcs.sql`
+25. `v2-salesman-assisted-workflows.sql`
+26. `v2-sales-revision-rpcs.sql`
+27. `v2-sales-line-integrity.sql`
+28. `v2-purchase-requirements.sql`
+29. `v2-purchase-requirement-rpcs.sql`
+30. `v2-purchase-requirement-item-link.sql`
+31. `v2-purchase-entry-rpcs.sql`
+32. `v2-inventory-purchase-guard.sql`
+33. `v2-purchase-requirement-fulfilment.sql`
+34. `v2-item-movement-center.sql`
 
 ## Private suitable knowledge / Dealer fitment suggestions
-32. `v2-knowledge-rewards.sql`
+35. `v2-knowledge-rewards.sql`
 
 ## Schemes and sales rewards
-33. `v2-scheme-progress.sql`
-34. `v2-reward-lots.sql`
-35. `v2-reward-reconciliation.sql`
-36. `v2-rewards-rpcs.sql`
-37. `v2-scheme-reward-credit.sql`
-38. `v2-referrals.sql`
+36. `v2-scheme-progress.sql`
+37. `v2-reward-lots.sql`
+38. `v2-reward-reconciliation.sql`
+39. `v2-rewards-rpcs.sql`
+40. `v2-scheme-reward-credit.sql`
+41. `v2-referrals.sql`
+
+### Backup / disaster recovery rule
+`v2-backup-control.sql` creates the audited backup request/status registry. `v2-backup-channels.sql` runs immediately after it and separates Admin Close/Shutdown, 24-Hour Daily and Project Restore backup channels plus their Admin-controlled email destinations. Browser code never creates a trusted database dump and never marks a request verified. A trusted server/backup worker must create the encrypted artifact, calculate/verify its checksum and record completion. Project Restore packages must include exact code branch/commit, database/schema version and the `docs/TORVO-V2-RESTORE-GUIDE.md` START-HERE instructions; secrets/passwords/service-role credentials are excluded. A backup is not trusted until a restore drill succeeds in staging.
+
+### Dealer-safe catalog search rule
+`v2-dealer-catalog-search.sql` runs after Dealer linking and catalog foundations. Dealer Portal/Add More Items must use `search_dealer_catalog`, never Purchase catalog RPCs. The RPC requires an active linked approved Dealer and returns only Dealer-safe active item identity/catalog fields plus current stock quantity; it never returns Purchase Rate/cost, supplier, internal notes, private Suitable/cross-compatibility or another Dealer's data. Search is capped at 60 rows and supports Item Code/OEM/Name/Brand/Category/Model plus Type/Brand filters.
 
 ### Purchase Entry rule
 `v2-purchase-entry-rpcs.sql` is the authoritative stock-receipt path for supplier Purchase invoices. Only Owner/Admin can create or reverse a Purchase. Supplier + normalized Invoice No is duplicate-protected. Every received line must reference an active catalog item, quantity must be positive and purchase rate cannot be negative. Creating the Purchase adds inventory and an inventory movement in the same database transaction. Purchase entries are immutable; a correction uses a mandatory-reason audited reversal and is rejected if current stock is below the quantity that would be reversed. This module is operational purchase/stock history only and does not create a supplier ledger.
@@ -90,7 +99,7 @@ This file is the authoritative dependency order for a fresh V2 database setup. D
 `v2-purchase-cost-history.sql` stores append-only effective-dated purchase costs through an Owner-only RPC and exposes Owner-only profit summary. Profit remains unavailable when any delivered sales line has no applicable historical purchase cost; the system must not invent a cost or misleading profit.
 
 ### Payment retry rule
-`v2-payment-idempotency.sql` supersedes the base `record_payment` RPC and requires a unique client request key. Retrying the exact same estimate/status/amount with the same key returns the existing payment; reusing a key for different payment data and confirm it is rejected. New clients must send `p_request_key`.
+`v2-payment-idempotency.sql` supersedes the base `record_payment` RPC and requires a unique client request key. Retrying the exact same estimate/status/amount with the same key returns the existing payment; reusing a key for different payment data is rejected. New clients must send `p_request_key`.
 
 ### Reorder duplicate rule
 `v2-reorder-guard.sql` supersedes `submit_reorder` and enforces at most one active (`submitted`/`ordered`) reorder per catalog item. On an existing database it intentionally aborts if duplicate active requests already exist so they can be reviewed instead of silently merged or deleted.
@@ -110,7 +119,7 @@ GitHub/Vite build success does **not** validate PostgreSQL migrations or RPC beh
 1. Sign in with test users for Owner, Admin, Salesman, Accountant, Store Keeper and Dealer; confirm each role can open only its allowed modules and database rows.
 2. Complete one test sale end-to-end: Dealer Purchase Order → TORVO Sales Order → Dealer direct modification within allowance → TORVO revision if needed → Send latest revision for Dealer OK → Dealer reviews exact items/qty/rates/total → Dealer OK → Estimate → Payment → Delivery. Confirm stale Dealer OK is rejected after any new revision and direct revision is blocked after Estimate. Confirm duplicate catalog items in the same Sales/Estimate document are rejected at the database boundary as well as the UI.
 3. Exhaust the Dealer's default direct-modification allowance. Confirm the next direct change is rejected, an audited Modification Request can be submitted, duplicate pending request is rejected, TORVO can approve/reject it, and an approved extra chance increases the allowance by exactly one.
-4. Test Add More Items on an order that already has an Estimate: request it as Dealer, approve as TORVO, create the add-on with new item quantities, and confirm a NEW Sales Order is created with `add_on_parent_order_id` pointing to the original. Confirm the original Sales Order/Estimate lines and totals do not change, rates are server-calculated, the request closes, and retrying the same request cannot create a second add-on order.
+4. Test Add More Items on an order that already has an Estimate: request it as Dealer, approve as TORVO, create the add-on with new item quantities, and confirm a NEW Sales Order is created with `add_on_parent_order_id` pointing to the original. Confirm the original Sales Order/Estimate lines and totals do not change, rates are server-calculated, the request closes, and retrying the same request cannot create a second add-on order. Use Dealer Add More Items finder and confirm it works through `search_dealer_catalog`; Dealer must not be able to execute/read Purchase catalog rate/supplier data, private Suitable mapping or another Dealer's data through this flow.
 5. Confirm Dealer A cannot submit/consume a change request belonging to Dealer B, cannot create an add-on against Dealer B's parent order, and cannot read Dealer B's change requests.
 6. Confirm inventory does **not** deduct at Estimate, Picked or Packed; it deducts exactly once only after valid payment + delivery. Retry delivery and confirm stock cannot deduct twice.
 7. Retry the same payment request key and confirm it returns the same payment; reuse that key with different data and confirm it is rejected.
@@ -125,8 +134,9 @@ GitHub/Vite build success does **not** validate PostgreSQL migrations or RPC beh
 16. Using two Dealer accounts, verify Dealer A can never receive Dealer B's fitment suggestion/history. Verify Correct/Partly Correct/Wrong/Duplicate review and Private Suitable promotion. Confirm no fitment submission/review creates TORVO Points or reward-ledger rows.
 17. Verify Purchase Requirement partial fulfilment: use the server-side Existing Item finder as Salesman/Accountant/Store Keeper and confirm it exposes identity fields only. Link only a Purchase containing the exact required item, reject over-linking beyond Purchase quantity/remaining approved quantity, and run two concurrent allocation attempts against the same Purchase item to confirm the row lock prevents over-allocation. Confirm partial status/remaining quantity, then complete with another Purchase. For Dealer-linked demand, confirm each fulfilment link records exact Dealer allocations and reversing that link rolls back those exact rows only. For a New Item requirement, confirm Owner/Admin must first link exactly one active Item Master record, linkage is audited, silent reassignment is rejected, fulfilment is blocked before the link, and Item Master linking itself creates no stock. Confirm reversed Purchase cannot fulfil a requirement and fulfilment-link reversal changes tracking only, not inventory.
 18. Test Item Movement Center as Owner/Admin/Store Keeper. Confirm reversed Purchases are excluded, Purchase/Sale/other filters return real events, date range works, Owner alone receives supplier + Purchase Rate, Admin does not receive Purchase Rate/supplier, and Store Keeper receives no Purchase invoice/date/supplier/rate fields. Test Low Stock Low/Out/All + Brand/Category/search. As Owner, test Supplier filter and verify it matches the latest non-reversed Purchase source. Confirm Admin/Store Keeper cannot invoke supplier filtering server-side and Store Keeper receives stock-only fields.
-19. Verify notifications/messages, dealer approval, inactive-user blocking and audit entries for critical actions.
-20. Confirm no service-role key or other privileged secret is present in browser code, GitHub source or public deployment output.
+19. Test Backup & Recovery as Owner/Admin: save two distinct Shutdown and 24-Hour email destinations plus optional Project Restore email; request each channel and confirm audit/history separation. Confirm non-Owner/Admin denial. Confirm a request remains unverified until trusted worker completion/checksum. Register a project change, create its Project Restore request exactly once, verify the package includes the START-HERE guide and excludes secrets, then restore it into staging and run the recovery checks before trusting it. Confirm Admin shows backup due after the configured 24-hour window and critical after 48 hours.
+20. Verify notifications/messages, dealer approval, inactive-user blocking and audit entries for critical actions.
+21. Confirm no service-role key or other privileged secret is present in browser code, GitHub source or public deployment output.
 
 Record any staging failure before production migration. Do not point the live domain at V2 and do not replace/merge the existing live version until this gate passes and the Owner explicitly approves cutover.
 
