@@ -3,6 +3,6 @@
   "appName": "TORVO TOOLS",
   "webDir": "dist",
   "server": {"androidScheme": "https"},
-  "android": {"allowMixedContent": false},
-  "plugins": {"SplashScreen": {"launchShowDuration": 1200,"backgroundColor":"#ffffff","showSpinner":false}}
+  "android": {"allowMixedContent": false,"backgroundColor":"#f5f6f8"},
+  "plugins": {"SplashScreen": {"launchShowDuration": 900,"backgroundColor":"#ffffff","showSpinner":false}}
 }
