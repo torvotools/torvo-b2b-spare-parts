@@ -12,8 +12,9 @@ import './dealer-addon-ui.css';
 import './login-ui.css';
 import {installGlobalUiFeedback} from './services/uiFeedback.js';
 import {installAppFoundation} from './services/appInstall.js';
-import {forceSignOut} from './services/auth.js';
+import {forceSignOut,currentAppUser} from './services/auth.js';
 const root=document.getElementById('torvo-v2-root');
 if(!root) throw new Error('TORVO V2 root element is missing');
-function V2Root(){const[backupClose,setBackupClose]=useState(false);useEffect(()=>{const stopFeedback=installGlobalUiFeedback();const stopInstall=installAppFoundation();const open=()=>setBackupClose(true);window.addEventListener('torvo:backup-close',open);return()=>{stopFeedback?.();stopInstall?.();window.removeEventListener('torvo:backup-close',open)}},[]);const finish=async()=>{await forceSignOut();setBackupClose(false)};const params=new URLSearchParams(location.search),login=params.get('login')==='1';return <>{login?<BusinessLogin/>:<App/>}<BackupCloseModal open={backupClose} onCancel={()=>setBackupClose(false)} onSignOut={finish}/></>}
+const isNativeAndroid=()=>window?.Capacitor?.isNativePlatform?.()===true||window?.Capacitor?.getPlatform?.()==='android';
+function V2Root(){const[backupClose,setBackupClose]=useState(false),[nativeReady,setNativeReady]=useState(!isNativeAndroid()),[nativeSignedIn,setNativeSignedIn]=useState(false);useEffect(()=>{const stopFeedback=installGlobalUiFeedback();const stopInstall=installAppFoundation();const open=()=>setBackupClose(true);window.addEventListener('torvo:backup-close',open);if(isNativeAndroid())currentAppUser().then(u=>setNativeSignedIn(Boolean(u?.active))).catch(()=>setNativeSignedIn(false)).finally(()=>setNativeReady(true));return()=>{stopFeedback?.();stopInstall?.();window.removeEventListener('torvo:backup-close',open)}},[]);const finish=async()=>{await forceSignOut();setBackupClose(false)};const params=new URLSearchParams(location.search),webLogin=params.get('login')==='1',nativeLogin=isNativeAndroid()&&nativeReady&&!nativeSignedIn;return <>{!nativeReady?null:(webLogin||nativeLogin)?<BusinessLogin/>:<App/>}<BackupCloseModal open={backupClose} onCancel={()=>setBackupClose(false)} onSignOut={finish}/></>}
 createRoot(root).render(<React.StrictMode><V2Root/></React.StrictMode>);
