@@ -57,9 +57,14 @@ declare
   n bigint;
   report jsonb := '{}'::jsonb;
 begin
+  -- Supabase auth.uid() is the Auth identity. app_users.id is TORVO's internal user ID.
+  -- Always authorize through app_users.auth_user_id; comparing app_users.id to auth.uid()
+  -- would incorrectly reject a valid OWNER (or accidentally couple unrelated UUID domains).
   if not exists (
     select 1 from public.app_users u
-    where u.id = auth.uid() and upper(coalesce(u.role,'')) = 'OWNER' and coalesce(u.active,true)
+    where u.auth_user_id = auth.uid()
+      and lower(coalesce(u.role,'')) = 'owner'
+      and coalesce(u.active,true)
   ) then
     raise exception 'OWNER ONLY';
   end if;
