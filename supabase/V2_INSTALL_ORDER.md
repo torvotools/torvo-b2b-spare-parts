@@ -9,6 +9,7 @@ Authoritative dependency order. Never install migrations alphabetically and neve
 - WEBSITE, ONE APP AND SECURE DESKTOP USE ONE AUTHORITATIVE BACKEND; DO NOT CREATE DUPLICATE BUSINESS TABLES PER INTERFACE.
 - ADMIN PANEL IS THE DAILY BUSINESS CONTROL CENTER. APP/WEBSITE READ CENTRAL SETTINGS.
 - AI PRODUCT CONTENT IS ASSISTED DRAFT ONLY; ADMIN APPROVES CONTENT. AI NEVER AUTHORIZES COMPATIBILITY, OEM CLAIM, RATE OR STOCK.
+- PUBLIC PRODUCT SHOWCASE READS THE SAME CENTRAL PRODUCT MASTER; ONLY ACTIVE + PUBLIC-VISIBLE + ADMIN-APPROVED CONTENT MAY APPEAR.
 
 ## SAFETY
 - Dedicated V2 staging first; stop on first SQL error.
@@ -32,12 +33,13 @@ Authoritative dependency order. Never install migrations alphabetically and neve
 12. REFERRAL TO B2B: `v2-referral-to-b2b-order-conversion.sql` after Sales Order + Dealer rate + inventory dependencies.
 13. FIELD/STORE ROLE BOUNDARIES: `v2-salesman-field-network.sql` -> `v2-store-keeper-boundary.sql` after Dealer/referral/repair and dispatch dependencies.
 14. CENTRAL ADMIN CONTROL: `v2-admin-central-control.sql` after delivery settings, portal settings, tax settings, app users and audit log exist.
-15. PRODUCT DIGITAL CONTENT: `v2-product-digital-content.sql` after catalog items/app users/audit log.
+15. PRODUCT DIGITAL CONTENT: `v2-product-digital-content.sql` after catalog items/app users/audit log -> `v2-public-product-showcase.sql` after approved digital-content fields exist. Product publication remains a separate Admin/Owner-controlled action.
 16. PRODUCT/DRAFT MEDIA: `v2-media-storage.sql` after `app_users`. Product media is public-read catalog media; only active OWNER/ADMIN can write/delete. Customer repair media must use a separate PRIVATE bucket/policy.
 17. AUTH: `v2-staff-whatsapp-auth.sql` after `app_users` + Supabase Auth foundations -> `v2-dealer-pin-auth.sql` after `dealers` -> `v2-business-login-routing.sql`. Staff roles OWNER/ADMIN/ACCOUNTANT/SALESMAN/STORE KEEPER use verified WhatsApp OTP with bounded staff sessions. Dealer uses separate hashed 4-DIGIT PIN credentials with lockout and verified recovery. The public routing RPC returns only the login method, never role/user/dealer/private profile data. Actual OTP/PIN verification and authenticated identity/session establishment must remain trusted server-side.
 18. SECURE DESKTOP: audit `v2-secure-desktop-verification.sql` against `v2-staff-whatsapp-auth.sql` before enabling. Do not operate two competing privileged-login/session systems in production. Keep only the additional desktop-sensitive verification boundary that remains necessary after consolidation.
 19. BACKUP: `v2-backup-control.sql` -> `v2-backup-channels.sql` -> `v2-backup-worker-contract.sql`.
-20. Dashboard/admin/business/reporting RPCs and later conversion/repacking/rewards/GST modules after prerequisites. Older overlapping transaction RPCs install before final integrity layers or are skipped after dependency audit.
+20. DEMO RESET: install the OWNER-only demo/fresh-production reset foundation only after backup/audit dependencies. It must support dry-run/reporting and preserve approved masters/configuration unless explicitly scoped. Never expose a generic client-side DELETE ALL path.
+21. Dashboard/admin/business/reporting RPCs and later conversion/repacking/rewards/GST modules after prerequisites. Older overlapping transaction RPCs install before final integrity layers or are skipped after dependency audit.
 
 ## RETIRED / DO NOT ENABLE IN LOCKED PRODUCTION MODEL
 - `v2-public-retail-pricing-foundation.sql`
@@ -53,6 +55,8 @@ These are historical development migrations from an earlier public-retail direct
 - Public Dealer registration creates only PENDING status; it cannot self-approve, assign rate group, grant app access or elevate role.
 - Public Website/Customer App cannot read Dealer Rate A/B/C, Dealer schemes, private fitment, purchase cost, private inventory internals or privileged Customer data.
 - Public catalog has no TORVO selling price/checkout/payment. Referral does not become TORVO direct retail.
+- Public product showcase exposes only active + explicitly public-visible + Admin-approved content and safe catalog identity fields; no private rate/cost/stock fields.
+- Unapproved AI/manual draft content must never become public merely because an image or catalog item exists.
 - Nearby Dealer search returns exact PIN or verified service area only; no fake KM/distance/local-stock claims.
 - Public compatibility shows only Admin-verified PUBLIC VISIBLE mappings.
 - Repair Customer contact/media remains protected; full contact is not broadcast to unassigned Dealers.
@@ -71,9 +75,10 @@ These are historical development migrations from an earlier public-retail direct
 - Central Admin settings changes require authorized Admin/Owner and audit reason; Customer App/Website read the same current backend values.
 - Product AI draft cannot publish itself; only authorized Admin/Owner approval updates approved product content.
 - Product Draft/Item photo upload is OWNER/ADMIN write-only and file type/size constrained; Customer repair media uses a separate PRIVATE bucket/policy before live enablement.
+- Demo reset dry-run must enumerate affected demo transactions before execution; execution requires OWNER authority, backup prerequisite, explicit confirmation and audit evidence. Approved product/master/rate/config setup must remain unless deliberately included.
 - No direct client write bypass and no secret exposure.
 
-Run staging checklists: `tests/v2-purchase-entry-security-checklist.sql`, `tests/v2-purchase-requirement-security-checklist.sql`, `tests/v2-sales-delivery-integrity-checklist.sql`, `tests/v2-maker-checker-approval-checklist.sql`, `tests/v2-backup-control-security-checklist.sql`. Add dedicated referral/privacy/role-routing/staff-auth/dealer-PIN tests before production enablement.
+Run staging checklists: `tests/v2-purchase-entry-security-checklist.sql`, `tests/v2-purchase-requirement-security-checklist.sql`, `tests/v2-sales-delivery-integrity-checklist.sql`, `tests/v2-maker-checker-approval-checklist.sql`, `tests/v2-backup-control-security-checklist.sql`. Add dedicated referral/privacy/role-routing/staff-auth/dealer-PIN/product-showcase/demo-reset tests before production enablement.
 
 ## CLEAN PRODUCTION RULE
 Development preview/test/migration artifacts may exist while building, but final production must not carry unnecessary duplicate business logic/data structures. Before release, perform dependency-aware code/database cleanup. Never delete an old table/function/file merely because its name looks unused; prove dependencies and preserve migration/audit history needed for recovery.
@@ -89,4 +94,4 @@ Development preview/test/migration artifacts may exist while building, but final
 - Supabase remains the preferred unified DB/Auth/Storage/backend platform; add another provider only when the capability genuinely requires it.
 
 ## RELEASE EVIDENCE
-Retain migration branch/commit, role/security results, referral privacy/idempotency evidence, staff-auth/dealer-PIN security evidence, exactly-once Purchase/payment/Delivery/Return evidence, approval evidence, backup checksum/manifest, clean restore drill, exact web build/deploy SHA, Android build artifact and real-device install result. No runtime-verified/final-live claim without this evidence.
+Retain migration branch/commit, role/security results, referral privacy/idempotency evidence, staff-auth/dealer-PIN security evidence, product-showcase publication/privacy evidence, demo-reset dry-run/backup/audit evidence, exactly-once Purchase/payment/Delivery/Return evidence, approval evidence, backup checksum/manifest, clean restore drill, exact web build/deploy SHA, Android build artifact and real-device install result. No runtime-verified/final-live claim without this evidence.
