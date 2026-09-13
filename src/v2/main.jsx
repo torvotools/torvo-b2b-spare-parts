@@ -9,6 +9,7 @@ import './app-install-ui.css';
 import './backup-ui.css';
 import './backup-close-ui.css';
 import './dealer-addon-ui.css';
+import './login-ui.css';
 import {installGlobalUiFeedback} from './services/uiFeedback.js';
 import {installAppFoundation} from './services/appInstall.js';
 import {forceSignOut} from './services/auth.js';
