@@ -1,0 +1,9 @@
+import{requireBackend}from'./supabase';
+const digits=v=>String(v||'').replace(/\D/g,'').slice(-10);
+const STAFF=new Set(['owner','admin','accountant','salesman','store_keeper']);
+export async function identifyLoginRole(mobile){const client=requireBackend();const m=digits(mobile);if(m.length!==10)throw new Error('ENTER A VALID 10-DIGIT MOBILE NUMBER.');const{data,error}=await client.rpc('public_login_route',{p_mobile:m});if(error)throw error;return data;}
+export async function requestStaffOtp(mobile){const client=requireBackend();const m=digits(mobile);const{data,error}=await client.functions.invoke('staff-whatsapp-otp-request',{body:{mobile:m}});if(error)throw error;return data}
+export async function verifyStaffOtp(mobile,otp,deviceId){const client=requireBackend();const{data,error}=await client.functions.invoke('staff-whatsapp-otp-verify',{body:{mobile:digits(mobile),otp:String(otp||'').replace(/\D/g,'').slice(0,6),device_id:deviceId}});if(error)throw error;return data}
+export async function verifyEmergencyCode(mobile,code,deviceId){const client=requireBackend();const{data,error}=await client.functions.invoke('staff-emergency-login',{body:{mobile:digits(mobile),code:String(code||'').replace(/\D/g,'').slice(0,10),device_id:deviceId}});if(error)throw error;return data}
+export function isStaffRole(role){return STAFF.has(role)}
+export function deviceId(){let id=localStorage.getItem('torvo_device_id');if(!id){id=crypto.randomUUID();localStorage.setItem('torvo_device_id',id)}return id}
