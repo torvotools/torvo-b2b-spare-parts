@@ -1,7 +1,7 @@
 {
   "appId": "com.torvotools.app",
   "appName": "TORVO TOOLS",
-  "webDir": "dist",
+  "webDir": "dist-app",
   "server": {"androidScheme": "https"},
   "android": {"allowMixedContent": false,"backgroundColor":"#f5f6f8"},
   "plugins": {"SplashScreen": {"launchShowDuration": 900,"backgroundColor":"#ffffff","showSpinner":false}}
