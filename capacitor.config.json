@@ -1,6 +1,6 @@
 {
-  "appId": "com.torvotools.app",
-  "appName": "TORVO TOOLS",
+  "appId": "com.torvotools.v2test",
+  "appName": "TORVO V2 TEST",
   "webDir": "dist-app",
   "server": {"androidScheme": "https"},
   "android": {"allowMixedContent": false,"backgroundColor":"#f5f6f8"},
