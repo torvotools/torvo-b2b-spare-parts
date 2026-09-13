@@ -4,7 +4,8 @@ Authoritative dependency order. Never install migrations alphabetically and neve
 
 ## LOCKED BUSINESS ARCHITECTURE
 - PUBLIC CUSTOMER HAS NO TORVO RETAIL PRICE, CHECKOUT, COD, PAYMENT OR PUBLIC RETURN FLOW.
-- CUSTOMER DISCOVERS PRODUCT -> FINDS APPROVED DEALER -> TORVO REFERRAL -> CUSTOMER AND DEALER FINALIZE RETAIL RATE/PAYMENT/DELIVERY.
+- CUSTOMER DISCOVERS ONE OR MORE PRODUCTS -> PRICE-FREE ENQUIRY CART -> CUSTOMER/AREA DETAILS -> APPROVED DEALERS -> TORVO REFERRAL -> CUSTOMER AND DEALER FINALIZE RETAIL RATE/PAYMENT/DELIVERY.
+- CUSTOMER ENQUIRY + DEALER CONTACT EVENTS ARE MEASURABLE FOR ADMIN. A CALL/WHATSAPP CLICK IS NOT A SALE; ONLY AN AUTHORIZED CONFIRMATION MAY BECOME `CONFIRMED_CONVERSION`.
 - DEALER PROCUREMENT REMAINS PRIVATE B2B WITH A/B/C RATE GROUPS.
 - WEBSITE, ONE APP AND SECURE DESKTOP USE ONE AUTHORITATIVE BACKEND; DO NOT CREATE DUPLICATE BUSINESS TABLES PER INTERFACE.
 - ADMIN PANEL IS THE DAILY BUSINESS CONTROL CENTER. APP/WEBSITE READ CENTRAL SETTINGS.
@@ -29,59 +30,46 @@ Authoritative dependency order. Never install migrations alphabetically and neve
 8. CENTRAL MAKER-CHECKER: `v2-maker-checker-approval.sql` -> `v2-maker-checker-payment-gate.sql` -> `v2-payment-approval-final-boundary.sql` -> `v2-approval-permission-read.sql` -> `v2-purchase-approval-final-boundary.sql` -> `v2-return-approval-gate.sql` -> `v2-return-approval-checker-fix.sql`.
 9. Inventory movement center, low-stock/reorder, Purchase Cost History/reporting read layers.
 10. Private Suitable/fitment and Dealer/role privacy.
-11. CUSTOMER/DEALER NETWORK: `v2-customer-dealer-referral-network.sql` -> `v2-referral-repair-routing.sql` -> `v2-validated-dealer-service-areas.sql` -> `v2-public-customer-referral-rpc.sql` -> `v2-public-repair-request-rpc.sql` -> `v2-public-dealer-registration.sql`. Public Dealer registration creates PENDING only; Admin approval remains authoritative.
+11. CUSTOMER/DEALER NETWORK: `v2-customer-dealer-referral-network.sql` -> `v2-referral-repair-routing.sql` -> `v2-validated-dealer-service-areas.sql` -> `v2-public-customer-referral-rpc.sql` -> `v2-public-repair-request-rpc.sql` -> `v2-public-dealer-registration.sql` -> `v2-customer-demand-dealer-referral-analytics.sql`. Public Dealer registration creates PENDING only; Customer enquiry stores multiple selected products; Admin referral analytics distinguish contact events from confirmed conversion.
 12. REFERRAL TO B2B: `v2-referral-to-b2b-order-conversion.sql` after Sales Order + Dealer rate + inventory dependencies.
 13. FIELD/STORE ROLE BOUNDARIES: `v2-salesman-field-network.sql` -> `v2-store-keeper-boundary.sql` after Dealer/referral/repair and dispatch dependencies.
 14. CENTRAL ADMIN CONTROL: `v2-admin-central-control.sql` after delivery settings, portal settings, tax settings, app users and audit log exist.
 15. PRODUCT DIGITAL CONTENT: `v2-product-digital-content.sql` after catalog items/app users/audit log -> `v2-public-product-showcase.sql` after approved digital-content fields exist. Product publication remains a separate Admin/Owner-controlled action.
 16. PRODUCT/DRAFT MEDIA: `v2-media-storage.sql` after `app_users`. Product media is public-read catalog media; only active OWNER/ADMIN can write/delete. Customer repair media must use a separate PRIVATE bucket/policy.
 17. AUTH: `v2-staff-whatsapp-auth.sql` after `app_users` + Supabase Auth foundations -> `v2-dealer-pin-auth.sql` after `dealers` -> `v2-business-login-routing.sql`. Staff roles OWNER/ADMIN/ACCOUNTANT/SALESMAN/STORE KEEPER use verified WhatsApp OTP with bounded staff sessions. Dealer uses separate hashed 4-DIGIT PIN credentials with lockout and verified recovery. The public routing RPC returns only the login method, never role/user/dealer/private profile data. Actual OTP/PIN verification and authenticated identity/session establishment must remain trusted server-side.
-18. SECURE DESKTOP: audit `v2-secure-desktop-verification.sql` against `v2-staff-whatsapp-auth.sql` before enabling. Do not operate two competing privileged-login/session systems in production. Keep only the additional desktop-sensitive verification boundary that remains necessary after consolidation.
+18. SECURE DESKTOP: audit `v2-secure-desktop-verification.sql` against `v2-staff-whatsapp-auth.sql` before enabling. Do not operate two competing privileged-login/session systems in production.
 19. BACKUP: `v2-backup-control.sql` -> `v2-backup-channels.sql` -> `v2-backup-worker-contract.sql`.
-20. DEMO RESET: install the OWNER-only demo/fresh-production reset foundation only after backup/audit dependencies. It must support dry-run/reporting and preserve approved masters/configuration unless explicitly scoped. Never expose a generic client-side DELETE ALL path.
-21. Dashboard/admin/business/reporting RPCs and later conversion/repacking/rewards/GST modules after prerequisites. Older overlapping transaction RPCs install before final integrity layers or are skipped after dependency audit.
+20. DEMO RESET: install the OWNER-only demo/fresh-production reset foundation only after backup/audit dependencies.
+21. Dashboard/admin/business/reporting RPCs and later conversion/repacking/rewards/GST modules after prerequisites.
 
 ## RETIRED / DO NOT ENABLE IN LOCKED PRODUCTION MODEL
 - `v2-public-retail-pricing-foundation.sql`
 - `v2-public-checkout-payment-modes.sql`
-These are historical development migrations from an earlier public-retail direction. Do not install/enable their public retail behavior in the locked Dealer-referral production architecture.
 
 ## MANDATORY STAGING GATE
 - Role authorization/privacy for OWNER, ADMIN, SALESMAN, ACCOUNTANT, STORE KEEPER, DEALER and PUBLIC CUSTOMER boundaries.
-- Public login routing may return only `staff_whatsapp_otp`, `dealer_pin` or `not_authorized`; it must not expose role, IDs, names, rate group or profile data.
-- Staff OTP cannot be accepted until the external WhatsApp provider/server has actually verified it. Emergency access cannot create a browser-side auth bypass. Staff session expires no later than 30 days and explicit logout/revocation invalidates access.
-- Dealer PIN is exactly 4 digits but stored only as a strong hash; plaintext PIN never persists. Only APPROVED Dealers may set/use it. Five failed attempts trigger temporary lockout. PIN reset requires a short-lived verified WhatsApp/Admin recovery challenge. PIN verification itself must not create an unauthenticated browser bypass; real Dealer identity/session is server-established and existing Dealer session rules remain authoritative.
-- ONE APP routes by authoritative authenticated role. Admin Mobile remains limited; full Admin and Accountant stay Desktop/Laptop as defined.
-- Public Dealer registration creates only PENDING status; it cannot self-approve, assign rate group, grant app access or elevate role.
 - Public Website/Customer App cannot read Dealer Rate A/B/C, Dealer schemes, private fitment, purchase cost, private inventory internals or privileged Customer data.
-- Public catalog has no TORVO selling price/checkout/payment. Referral does not become TORVO direct retail.
-- Public product showcase exposes only active + explicitly public-visible + Admin-approved content and safe catalog identity fields; no private rate/cost/stock fields.
-- Unapproved AI/manual draft content must never become public merely because an image or catalog item exists.
+- Public catalog has no TORVO selling price/checkout/payment.
+- Customer enquiry can contain multiple approved products and stores only necessary contact/area/consent data.
+- Public Dealer referral tracking accepts only PROFILE_VIEW, DEALER_SELECTED, CALL_CLICK, WHATSAPP_CLICK and DIRECTIONS_CLICK. Public caller can never write CONFIRMED_CONVERSION.
+- Admin Dealer Referral Performance is OWNER/ADMIN only and reports referrals/contact attempts separately from confirmed conversions.
 - Nearby Dealer search returns exact PIN or verified service area only; no fake KM/distance/local-stock claims.
 - Public compatibility shows only Admin-verified PUBLIC VISIBLE mappings.
-- Repair Customer contact/media remains protected; full contact is not broadcast to unassigned Dealers.
-- Referral code creation/verification/redemption is idempotent and auditable; Customer benefit does not expose/store Dealer retail price.
+- Public Dealer registration creates only PENDING status and cannot self-approve.
+- Staff OTP cannot be accepted until the external WhatsApp provider/server has actually verified it. Emergency access cannot create a browser-side auth bypass.
+- Dealer PIN is exactly 4 digits but stored only as a strong hash; plaintext PIN never persists.
+- ONE APP routes by authoritative authenticated role. Admin Mobile remains limited; full Admin and Accountant stay Desktop/Laptop.
+- Public product showcase exposes only active + explicitly public-visible + Admin-approved content and safe catalog identity fields.
 - Referral -> ORDER FROM TORVO creates at most one linked B2B Sales Order and uses authenticated Dealer + private rate group server-side.
-- PURCHASE ORDER -> SALES ORDER -> latest DEALER OK -> ESTIMATE; revision invalidates old OK; ADD MORE ITEMS separate.
-- OWNER atomic Purchase SAVE & RECEIVE commits header/lines/receipt/movements/stock together; injected failure leaves none; exact retry idempotent.
-- ADMIN Purchase submit creates PENDING APPROVAL and ZERO stock/header/receipt effect; approval applies exactly once; rejection applies none.
-- Purchase Requirement links only received/unreversed stock and never duplicates inventory.
-- ESTIMATE/PICKED/PACKED/READY never deduct; authoritative payment requirement + Actual Delivery deduct exactly once under applicable stock rule.
-- Payment: OWNER direct allowed; ADMIN/ACCOUNTANT direct posting rejected; submit creates no payment; APPROVE creates exactly one; REJECT none.
-- Maker-checker: Owner can grant chosen active Admin/Accountant; unauthorized denied; self-approval default denied; explicit self-approval permission works; decided request cannot decide twice.
-- ADMIN Sales/Purchase Return submit creates pending approval and ZERO stock effect; APPROVE by OWNER or explicitly-authorized ADMIN/ACCOUNTANT applies return exactly once; REJECT none.
-- Sales Return cannot exceed actually delivered less prior completed returns; Purchase Return cannot exceed received less prior completed returns, cannot drive stock negative, and active Purchase Requirement link blocks it.
-- Canonical `inventory_movements` reconciles Purchase receipt + Delivery + authorized Return effects.
-- Central Admin settings changes require authorized Admin/Owner and audit reason; Customer App/Website read the same current backend values.
+- Purchase/payment/Delivery/Return integrity and maker-checker boundaries remain exactly as defined by their final integrity migrations.
 - Product AI draft cannot publish itself; only authorized Admin/Owner approval updates approved product content.
-- Product Draft/Item photo upload is OWNER/ADMIN write-only and file type/size constrained; Customer repair media uses a separate PRIVATE bucket/policy before live enablement.
-- Demo reset dry-run must enumerate affected demo transactions before execution; execution requires OWNER authority, backup prerequisite, explicit confirmation and audit evidence. Approved product/master/rate/config setup must remain unless deliberately included.
+- Demo reset must be OWNER-only, backup-first, dry-run/reportable and auditable.
 - No direct client write bypass and no secret exposure.
 
-Run staging checklists: `tests/v2-purchase-entry-security-checklist.sql`, `tests/v2-purchase-requirement-security-checklist.sql`, `tests/v2-sales-delivery-integrity-checklist.sql`, `tests/v2-maker-checker-approval-checklist.sql`, `tests/v2-backup-control-security-checklist.sql`. Add dedicated referral/privacy/role-routing/staff-auth/dealer-PIN/product-showcase/demo-reset tests before production enablement.
+Run staging checklists already in `tests/` and add dedicated customer-enquiry/referral-analytics/privacy tests before production enablement.
 
 ## CLEAN PRODUCTION RULE
-Development preview/test/migration artifacts may exist while building, but final production must not carry unnecessary duplicate business logic/data structures. Before release, perform dependency-aware code/database cleanup. Never delete an old table/function/file merely because its name looks unused; prove dependencies and preserve migration/audit history needed for recovery.
+Development preview/test/migration artifacts may exist while building, but final production must not carry unnecessary duplicate business logic/data structures. Before release, perform dependency-aware code/database cleanup.
 
 ## ANDROID / LIVE RELEASE GATE
 - GitHub `TORVO V2 Build Check` must pass on the exact release SHA.
@@ -91,7 +79,7 @@ Development preview/test/migration artifacts may exist while building, but final
 - WhatsApp OTP requires an approved WhatsApp provider/API and server-side credentials before production staff OTP or Dealer PIN recovery is enabled.
 - AI PHOTO -> PRODUCT DETAIL requires an approved vision-capable AI API/server worker.
 - Custom domain/DNS must point to the verified production deployment only after final real-use testing.
-- Supabase remains the preferred unified DB/Auth/Storage/backend platform; add another provider only when the capability genuinely requires it.
+- Supabase remains the preferred unified DB/Auth/Storage/backend platform; add another provider only when genuinely required.
 
 ## RELEASE EVIDENCE
-Retain migration branch/commit, role/security results, referral privacy/idempotency evidence, staff-auth/dealer-PIN security evidence, product-showcase publication/privacy evidence, demo-reset dry-run/backup/audit evidence, exactly-once Purchase/payment/Delivery/Return evidence, approval evidence, backup checksum/manifest, clean restore drill, exact web build/deploy SHA, Android build artifact and real-device install result. No runtime-verified/final-live claim without this evidence.
+Retain migration branch/commit, role/security results, referral privacy/idempotency evidence, exact web build/deploy SHA, Android build artifact and real-device install result. No runtime-verified/final-live claim without this evidence.
