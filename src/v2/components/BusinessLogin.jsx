@@ -1,21 +1,15 @@
 import React,{useEffect,useState}from'react';
-import{ArrowRight,LockKeyhole,Smartphone}from'lucide-react';
+import{ArrowLeft,ArrowRight,KeyRound,LockKeyhole,MessageCircle,Smartphone}from'lucide-react';
 import{currentAppUser}from'../services/auth';
+import{deviceId,identifyLoginRole,requestStaffOtp,verifyEmergencyCode,verifyStaffOtp}from'../services/staffAuth';
 const digits=v=>String(v||'').replace(/\D/g,'').slice(-10);
 export default function BusinessLogin(){
- const[mobile,setMobile]=useState(''),[pin,setPin]=useState(''),[busy,setBusy]=useState(false),[err,setErr]=useState('');
+ const[mobile,setMobile]=useState(''),[mode,setMode]=useState('mobile'),[code,setCode]=useState(''),[busy,setBusy]=useState(false),[err,setErr]=useState('');
  useEffect(()=>{currentAppUser().then(u=>{if(u?.active)location.replace('/v2.html')}).catch(()=>{})},[]);
- const submit=async e=>{e.preventDefault();setErr('');if(digits(mobile).length!==10)return setErr('ENTER A VALID 10-DIGIT MOBILE NUMBER.');if(!/^\d{4}$/.test(pin))return setErr('ENTER YOUR 4-DIGIT PIN.');setBusy(true);/* PIN verification stays server-side; never compare credentials in the client. */setBusy(false);setErr('LOGIN SERVICE IS NOT CONNECTED YET.');};
- return <main className="loginPage"><section className="loginCard">
-  <header className="loginBrand"><div className="mark">T</div><div><strong>TORVO</strong><span>TOOLS PRIVATE LIMITED</span></div></header>
-  <div className="loginIntro"><span className="eyebrow">SECURE BUSINESS ACCESS</span><h1>LOGIN</h1><p>ENTER YOUR REGISTERED MOBILE NUMBER AND PIN.</p></div>
-  <form onSubmit={submit}>
-   <label>MOBILE NUMBER<div className="loginInput"><Smartphone size={18}/><span className="country">+91</span><input autoFocus inputMode="numeric" autoComplete="tel" value={mobile} onChange={e=>setMobile(digits(e.target.value))} placeholder="10-DIGIT MOBILE NUMBER"/></div></label>
-   <label>4-DIGIT PIN<div className="loginInput"><LockKeyhole size={18}/><input inputMode="numeric" type="password" autoComplete="current-password" maxLength="4" value={pin} onChange={e=>setPin(e.target.value.replace(/\D/g,'').slice(0,4))} placeholder="ENTER PIN"/></div></label>
-   {err&&<div className="inlineError" role="alert">{err}</div>}
-   <button className="primary loginContinue" disabled={busy}>{busy?'CHECKING…':'CONTINUE'} <ArrowRight size={17}/></button>
-  </form>
-  <button type="button" className="loginHelp">FORGOT PIN?</button>
-  <p className="loginFoot">ONE LOGIN FOR DEALER, SALESMAN, STORE KEEPER AND AUTHORIZED TORVO STAFF.</p>
- </section></main>
-}
+ const start=async e=>{e?.preventDefault();setErr('');if(digits(mobile).length!==10)return setErr('ENTER A VALID 10-DIGIT MOBILE NUMBER.');setBusy(true);try{const route=await identifyLoginRole(mobile);if(route?.login_method==='dealer_pin'){setMode('dealer_pin');return}if(route?.login_method!=='staff_whatsapp_otp')throw new Error('THIS NUMBER IS NOT AUTHORIZED FOR BUSINESS LOGIN.');await requestStaffOtp(mobile);setMode('staff_otp')}catch(x){setErr(x.message||'LOGIN SERVICE IS NOT AVAILABLE.')}finally{setBusy(false)}};
+ const finish=async e=>{e.preventDefault();setErr('');setBusy(true);try{if(mode==='dealer_pin')throw new Error('DEALER PIN SERVICE CONNECTION IS PENDING.');const result=mode==='emergency'?await verifyEmergencyCode(mobile,code,deviceId()):await verifyStaffOtp(mobile,code,deviceId());if(!result?.ok)throw new Error(result?.message||'VERIFICATION FAILED.');location.replace('/v2.html')}catch(x){setErr(x.message||'VERIFICATION FAILED.')}finally{setBusy(false)}};
+ const back=()=>{setCode('');setErr('');setMode('mobile')};
+ return <main className="loginPage"><section className="loginCard"><header className="loginBrand"><div className="mark">T</div><div><strong>TORVO</strong><span>TOOLS PRIVATE LIMITED</span></div></header>
+ <div className="loginIntro"><span className="eyebrow">SECURE BUSINESS ACCESS</span><h1>{mode==='staff_otp'?'WHATSAPP OTP':mode==='emergency'?'EMERGENCY ACCESS':'LOGIN'}</h1><p>{mode==='mobile'?'ENTER YOUR REGISTERED MOBILE NUMBER. STAFF LOGIN USES WHATSAPP OTP.':mode==='staff_otp'?'ENTER THE OTP SENT TO YOUR REGISTERED WHATSAPP NUMBER.':mode==='emergency'?'ENTER THE TEMPORARY CODE ISSUED BY ADMIN.':'ENTER YOUR DEALER 4-DIGIT PIN.'}</p></div>
+ {mode==='mobile'?<form onSubmit={start}><label>MOBILE NUMBER<div className="loginInput"><Smartphone size={18}/><span className="country">+91</span><input autoFocus inputMode="numeric" value={mobile} onChange={e=>setMobile(digits(e.target.value))} placeholder="10-DIGIT MOBILE NUMBER"/></div></label>{err&&<div className="inlineError">{err}</div>}<button className="primary loginContinue" disabled={busy}>{busy?'CHECKING…':'CONTINUE'} <ArrowRight size={17}/></button></form>:<form onSubmit={finish}><label>{mode==='staff_otp'?'6-DIGIT WHATSAPP OTP':mode==='emergency'?'TEMPORARY ACCESS CODE':'4-DIGIT PIN'}<div className="loginInput">{mode==='staff_otp'?<MessageCircle size={18}/>:mode==='emergency'?<KeyRound size={18}/>:<LockKeyhole size={18}/>}<input autoFocus inputMode="numeric" type="password" maxLength={mode==='dealer_pin'?4:10} value={code} onChange={e=>setCode(e.target.value.replace(/\D/g,'').slice(0,mode==='dealer_pin'?4:10))} placeholder={mode==='staff_otp'?'ENTER OTP':mode==='emergency'?'ENTER ADMIN CODE':'ENTER PIN'}/></div></label>{err&&<div className="inlineError">{err}</div>}<button className="primary loginContinue" disabled={busy}>{busy?'VERIFYING…':'VERIFY & LOGIN'} <ArrowRight size={17}/></button><button type="button" className="loginHelp" onClick={back}><ArrowLeft size={13}/> CHANGE MOBILE NUMBER</button>{mode==='staff_otp'&&<button type="button" className="loginHelp" onClick={()=>{setCode('');setErr('');setMode('emergency')}}>WHATSAPP NOT AVAILABLE? USE ADMIN CODE</button>}</form>}
+ <p className="loginFoot">STAFF SESSION EXPIRES AFTER 30 DAYS. DEALER LOGIN POLICY REMAINS SEPARATE.</p></section></main>}
