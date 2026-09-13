@@ -1,0 +1,59 @@
+name: TORVO V2 Cloudflare Preview
+
+on:
+  push:
+    branches: [torvo-v2-build]
+  workflow_dispatch:
+
+concurrency:
+  group: torvo-v2-cloudflare-preview
+  cancel-in-progress: true
+
+permissions:
+  contents: read
+
+jobs:
+  deploy:
+    runs-on: ubuntu-latest
+    timeout-minutes: 15
+    steps:
+      - name: CHECKOUT TORVO V2 BUILD
+        uses: actions/checkout@v4
+        with:
+          ref: torvo-v2-build
+
+      - name: SETUP NODE
+        uses: actions/setup-node@v4
+        with:
+          node-version: 20
+          cache: npm
+
+      - name: INSTALL
+        run: npm ci
+
+      - name: BUILD V2
+        run: npm run build
+
+      - name: VERIFY CLOUDFLARE CREDENTIALS
+        env:
+          CLOUDFLARE_API_TOKEN: ${{ secrets.CLOUDFLARE_API_TOKEN }}
+          CLOUDFLARE_ACCOUNT_ID: ${{ secrets.CLOUDFLARE_ACCOUNT_ID }}
+        run: |
+          test -n "$CLOUDFLARE_API_TOKEN" || (echo "MISSING CLOUDFLARE_API_TOKEN" && exit 1)
+          test -n "$CLOUDFLARE_ACCOUNT_ID" || (echo "MISSING CLOUDFLARE_ACCOUNT_ID" && exit 1)
+
+      - name: DEPLOY EXACT V2 COMMIT
+        id: deploy
+        env:
+          CLOUDFLARE_API_TOKEN: ${{ secrets.CLOUDFLARE_API_TOKEN }}
+          CLOUDFLARE_ACCOUNT_ID: ${{ secrets.CLOUDFLARE_ACCOUNT_ID }}
+        run: |
+          npx wrangler deploy --config wrangler.jsonc
+          echo "DEPLOYED_SHA=${GITHUB_SHA}" >> "$GITHUB_OUTPUT"
+
+      - name: DEPLOYMENT EVIDENCE
+        run: |
+          echo "TORVO V2 CLOUDFLARE DEPLOY COMPLETE"
+          echo "BRANCH=${GITHUB_REF_NAME}"
+          echo "SHA=${GITHUB_SHA}"
+          echo "WORKER=https://torvo-b2b-spare-parts.torvotools.workers.dev"
