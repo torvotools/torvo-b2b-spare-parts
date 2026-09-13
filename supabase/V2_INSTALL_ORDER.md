@@ -34,7 +34,7 @@ Authoritative dependency order. Never install migrations alphabetically and neve
 14. CENTRAL ADMIN CONTROL: `v2-admin-central-control.sql` after delivery settings, portal settings, tax settings, app users and audit log exist.
 15. PRODUCT DIGITAL CONTENT: `v2-product-digital-content.sql` after catalog items/app users/audit log.
 16. PRODUCT/DRAFT MEDIA: `v2-media-storage.sql` after `app_users`. Product media is public-read catalog media; only active OWNER/ADMIN can write/delete. Customer repair media must use a separate PRIVATE bucket/policy.
-17. STAFF AUTH: `v2-staff-whatsapp-auth.sql` after `app_users` + Supabase Auth foundations. Staff roles OWNER/ADMIN/ACCOUNTANT/SALESMAN/STORE KEEPER use verified WhatsApp OTP with bounded staff sessions; emergency codes are temporary, one-use, hashed and Admin-generated. Dealer auth remains separate. Actual OTP verification/delivery must be trusted server/provider-side; browser code cannot mint a verified staff session.
+17. STAFF AUTH: `v2-staff-whatsapp-auth.sql` after `app_users` + Supabase Auth foundations -> `v2-business-login-routing.sql`. Staff roles OWNER/ADMIN/ACCOUNTANT/SALESMAN/STORE KEEPER use verified WhatsApp OTP with bounded staff sessions; Dealer is routed to its separate PIN flow. The public routing RPC returns only the login method, never role/user/dealer/private profile data. Emergency codes are temporary, one-use, hashed and Admin-generated. Actual OTP verification/delivery must be trusted server/provider-side; browser code cannot mint a verified staff session.
 18. SECURE DESKTOP: audit `v2-secure-desktop-verification.sql` against `v2-staff-whatsapp-auth.sql` before enabling. Do not operate two competing privileged-login/session systems in production. Keep only the additional desktop-sensitive verification boundary that remains necessary after consolidation.
 19. BACKUP: `v2-backup-control.sql` -> `v2-backup-channels.sql` -> `v2-backup-worker-contract.sql`.
 20. Dashboard/admin/business/reporting RPCs and later conversion/repacking/rewards/GST modules after prerequisites. Older overlapping transaction RPCs install before final integrity layers or are skipped after dependency audit.
@@ -46,6 +46,7 @@ These are historical development migrations from an earlier public-retail direct
 
 ## MANDATORY STAGING GATE
 - Role authorization/privacy for OWNER, ADMIN, SALESMAN, ACCOUNTANT, STORE KEEPER, DEALER and PUBLIC CUSTOMER boundaries.
+- Public login routing may return only `staff_whatsapp_otp`, `dealer_pin` or `not_authorized`; it must not expose role, IDs, names, rate group or profile data.
 - Staff OTP cannot be accepted until the external WhatsApp provider/server has actually verified it. Emergency access cannot create a browser-side auth bypass. Staff session expires no later than 30 days and explicit logout/revocation invalidates access.
 - ONE APP routes by authoritative authenticated role. Admin Mobile remains limited; full Admin and Accountant stay Desktop/Laptop as defined.
 - Public Dealer registration creates only PENDING status; it cannot self-approve, assign rate group, grant app access or elevate role.
