@@ -1,0 +1,92 @@
+-- TORVO V2 STAFF AUTH FOUNDATION
+-- NORMAL STAFF LOGIN: WHATSAPP OTP. DEALER AUTH REMAINS SEPARATE.
+-- APPLY TO STAGING FIRST. OTP DELIVERY MUST BE PERFORMED BY A TRUSTED SERVER/WHATSAPP PROVIDER.
+
+create table if not exists staff_auth_sessions(
+ id uuid primary key default gen_random_uuid(),
+ app_user_id uuid not null references app_users(id) on delete cascade,
+ auth_user_id uuid not null,
+ login_method text not null check(login_method in('whatsapp_otp','admin_emergency_code')),
+ device_id text not null,
+ created_at timestamptz not null default now(),
+ expires_at timestamptz not null,
+ revoked_at timestamptz,
+ revoked_by uuid references app_users(id),
+ last_seen_at timestamptz not null default now()
+);
+create index if not exists idx_staff_auth_session_user on staff_auth_sessions(app_user_id,expires_at desc);
+
+create table if not exists staff_emergency_login_codes(
+ id uuid primary key default gen_random_uuid(),
+ app_user_id uuid not null references app_users(id) on delete cascade,
+ code_hash text not null,
+ created_by uuid not null references app_users(id),
+ reason text not null,
+ expires_at timestamptz not null,
+ used_at timestamptz,
+ revoked_at timestamptz,
+ created_at timestamptz not null default now()
+);
+create index if not exists idx_staff_emergency_code_user on staff_emergency_login_codes(app_user_id,expires_at desc);
+
+alter table staff_auth_sessions enable row level security;
+alter table staff_emergency_login_codes enable row level security;
+
+create or replace function torvo_is_staff_role(p_role text) returns boolean language sql immutable as $$
+ select p_role in('owner','admin','accountant','salesman','store_keeper')
+$$;
+
+-- Trusted backend calls this AFTER successful WhatsApp OTP verification.
+-- Never call it merely because the browser/app says OTP was correct.
+create or replace function staff_create_verified_session(p_auth_user_id uuid,p_device_id text,p_login_method text default 'whatsapp_otp')
+returns uuid language plpgsql security definer set search_path=public as $$
+declare v app_users%rowtype; sid uuid;
+begin
+ select * into v from app_users where auth_user_id=p_auth_user_id and active=true;
+ if v.id is null or not torvo_is_staff_role(v.role) then raise exception 'STAFF_ACCESS_DENIED'; end if;
+ if p_login_method not in('whatsapp_otp','admin_emergency_code') then raise exception 'INVALID_LOGIN_METHOD'; end if;
+ insert into staff_auth_sessions(app_user_id,auth_user_id,login_method,device_id,expires_at)
+ values(v.id,p_auth_user_id,p_login_method,left(coalesce(nullif(btrim(p_device_id),''),'UNKNOWN'),180),now()+interval '30 days') returning id into sid;
+ return sid;
+end $$;
+
+create or replace function staff_session_valid(p_session_id uuid,p_auth_user_id uuid,p_device_id text)
+returns boolean language sql security definer set search_path=public as $$
+ select exists(select 1 from staff_auth_sessions s join app_users u on u.id=s.app_user_id
+ where s.id=p_session_id and s.auth_user_id=p_auth_user_id and s.device_id=p_device_id
+ and s.revoked_at is null and s.expires_at>now() and u.active=true and torvo_is_staff_role(u.role))
+$$;
+
+create or replace function admin_create_staff_emergency_code(p_staff_user_id uuid,p_code text,p_reason text,p_minutes integer default 30)
+returns uuid language plpgsql security definer set search_path=public as $$
+declare actor app_users%rowtype; target app_users%rowtype; rid uuid;
+begin
+ select * into actor from app_users where auth_user_id=auth.uid() and active=true;
+ if actor.id is null or actor.role not in('owner','admin') then raise exception 'ADMIN_REQUIRED'; end if;
+ select * into target from app_users where id=p_staff_user_id and active=true;
+ if target.id is null or not torvo_is_staff_role(target.role) then raise exception 'ACTIVE_STAFF_REQUIRED'; end if;
+ if p_code !~ '^[0-9]{6,10}$' then raise exception 'CODE_MUST_BE_6_TO_10_DIGITS'; end if;
+ if p_minutes<5 or p_minutes>60 then raise exception 'EXPIRY_MUST_BE_5_TO_60_MINUTES'; end if;
+ update staff_emergency_login_codes set revoked_at=now() where app_user_id=target.id and used_at is null and revoked_at is null;
+ insert into staff_emergency_login_codes(app_user_id,code_hash,created_by,reason,expires_at)
+ values(target.id,crypt(p_code,gen_salt('bf')),actor.id,upper(btrim(p_reason)),now()+make_interval(mins=>p_minutes)) returning id into rid;
+ return rid;
+end $$;
+
+create or replace function staff_verify_emergency_code(p_mobile text,p_code text)
+returns uuid language plpgsql security definer set search_path=public as $$
+declare target app_users%rowtype; c staff_emergency_login_codes%rowtype;
+begin
+ select * into target from app_users where regexp_replace(coalesce(mobile,''),'\D','','g')=regexp_replace(coalesce(p_mobile,''),'\D','','g') and active=true;
+ if target.id is null or not torvo_is_staff_role(target.role) then raise exception 'STAFF_ACCESS_DENIED'; end if;
+ select * into c from staff_emergency_login_codes where app_user_id=target.id and used_at is null and revoked_at is null and expires_at>now() order by created_at desc limit 1 for update;
+ if c.id is null or crypt(p_code,c.code_hash)<>c.code_hash then raise exception 'INVALID_OR_EXPIRED_CODE'; end if;
+ update staff_emergency_login_codes set used_at=now() where id=c.id;
+ return target.auth_user_id;
+end $$;
+
+revoke all on function staff_create_verified_session(uuid,text,text) from public,anon,authenticated;
+revoke all on function admin_create_staff_emergency_code(uuid,text,text,integer) from public,anon;
+revoke all on function staff_verify_emergency_code(text,text) from public,anon,authenticated;
+grant execute on function admin_create_staff_emergency_code(uuid,text,text,integer) to authenticated;
+-- staff_create_verified_session + staff_verify_emergency_code are trusted-server only.
