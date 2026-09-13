@@ -36,16 +36,19 @@ jobs:
         run: |
           test -f dist-app/v2.html
           grep -q 'torvo-v2-root' dist-app/v2.html
-          test ! -f dist-app/index.html
+          cp dist-app/v2.html dist-app/index.html
+          test -f dist-app/index.html
+          grep -q 'torvo-v2-root' dist-app/index.html
       - name: CREATE ANDROID PROJECT
         run: npx cap add android
       - name: SYNC ONE APP
         run: npx cap sync android
       - name: VERIFY ANDROID ASSET
         run: |
+          test -f android/app/src/main/assets/public/index.html
+          grep -q 'torvo-v2-root' android/app/src/main/assets/public/index.html
           test -f android/app/src/main/assets/public/v2.html
           grep -q 'torvo-v2-root' android/app/src/main/assets/public/v2.html
-          test ! -f android/app/src/main/assets/public/index.html
       - name: BUILD DEBUG APK
         working-directory: android
         run: ./gradlew assembleDebug
