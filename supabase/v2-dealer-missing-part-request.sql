@@ -1,5 +1,5 @@
 -- TORVO V2 secure Dealer Missing Spare Part request creation.
--- Install after v2-schema.sql and authenticated Dealer identity/link foundations.
+-- Install after v2-schema.sql and authenticated Dealer identity foundations.
 -- Photo upload remains separate/private media work; this RPC accepts only an already-approved URL.
 
 create or replace function public.dealer_create_missing_part_request(
@@ -35,21 +35,13 @@ begin
     raise exception 'ACTIVE DEALER LOGIN REQUIRED';
   end if;
 
+  -- Core V2 identity stores the Dealer login mobile on app_users; resolve the Dealer server-side.
+  -- Never accept dealer_id from the browser.
   select d.* into v_dealer
   from dealers d
-  where d.id = (
-    select dealer_id from app_users where id = v_user.id
-  )
+  where regexp_replace(coalesce(d.mobile,''),'\D','','g') = regexp_replace(coalesce(v_user.mobile,''),'\D','','g')
+  order by d.created_at desc
   limit 1;
-
-  if not found then
-    -- Compatibility fallback for deployments where Dealer linkage is held by the canonical mobile.
-    select d.* into v_dealer
-    from dealers d
-    where d.mobile = v_user.mobile
-    order by d.created_at desc
-    limit 1;
-  end if;
 
   if not found or v_dealer.status <> 'approved' then
     raise exception 'APPROVED DEALER LINK REQUIRED';
