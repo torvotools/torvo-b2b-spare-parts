@@ -33,9 +33,10 @@ Authoritative dependency order. Never install migrations alphabetically and neve
 13. FIELD/STORE ROLE BOUNDARIES: `v2-salesman-field-network.sql` -> `v2-store-keeper-boundary.sql` after Dealer/referral/repair and dispatch dependencies.
 14. CENTRAL ADMIN CONTROL: `v2-admin-central-control.sql` after delivery settings, portal settings, tax settings, app users and audit log exist.
 15. PRODUCT DIGITAL CONTENT: `v2-product-digital-content.sql` after catalog items/app users/audit log. AI provider worker is external/server-side; provider secrets never enter browser/database content rows.
-16. SECURE DESKTOP: `v2-secure-desktop-verification.sql` after app user/auth foundations. Production provider delivery/session hardening is mandatory before privileged live use.
-17. BACKUP: `v2-backup-control.sql` -> `v2-backup-channels.sql` -> `v2-backup-worker-contract.sql`.
-18. Dashboard/admin/business/reporting RPCs and later conversion/repacking/rewards/GST modules after prerequisites. Older overlapping transaction RPCs install before final integrity layers or are skipped after dependency audit.
+16. PRODUCT/DRAFT MEDIA: `v2-media-storage.sql` after `app_users`. Use the same Supabase project/storage. Product media is public-read catalog media; only active OWNER/ADMIN can write/delete. Never reuse this public bucket for private Customer repair media.
+17. SECURE DESKTOP: `v2-secure-desktop-verification.sql` after app user/auth foundations. Production provider delivery/session hardening is mandatory before privileged live use.
+18. BACKUP: `v2-backup-control.sql` -> `v2-backup-channels.sql` -> `v2-backup-worker-contract.sql`.
+19. Dashboard/admin/business/reporting RPCs and later conversion/repacking/rewards/GST modules after prerequisites. Older overlapping transaction RPCs install before final integrity layers or are skipped after dependency audit.
 
 ## RETIRED / DO NOT ENABLE IN LOCKED PRODUCTION MODEL
 - `v2-public-retail-pricing-foundation.sql`
@@ -64,6 +65,7 @@ These are historical development migrations from an earlier public-retail direct
 - Canonical `inventory_movements` reconciles Purchase receipt + Delivery + authorized Return effects.
 - Central Admin settings changes require authorized Admin/Owner and audit reason; Customer App/Website read the same current backend values.
 - Product AI draft cannot publish itself; only authorized Admin/Owner approval updates approved product content.
+- Product Draft/Item photo upload is OWNER/ADMIN write-only and file type/size constrained; Customer repair media uses a separate PRIVATE bucket/policy before live enablement.
 - No direct client write bypass and no secret exposure.
 
 Run staging checklists: `tests/v2-purchase-entry-security-checklist.sql`, `tests/v2-purchase-requirement-security-checklist.sql`, `tests/v2-sales-delivery-integrity-checklist.sql`, `tests/v2-maker-checker-approval-checklist.sql`, `tests/v2-backup-control-security-checklist.sql`. Add dedicated referral/privacy/role-routing tests before production enablement.
@@ -71,5 +73,15 @@ Run staging checklists: `tests/v2-purchase-entry-security-checklist.sql`, `tests
 ## CLEAN PRODUCTION RULE
 Development preview/test/migration artifacts may exist while building, but final production must not carry unnecessary duplicate business logic/data structures. Before release, perform dependency-aware code/database cleanup. Never delete an old table/function/file merely because its name looks unused; prove dependencies and preserve migration/audit history needed for recovery.
 
+## ANDROID / LIVE RELEASE GATE
+- GitHub `TORVO V2 Build Check` must pass on the exact release SHA.
+- `TORVO V2 Android APK` must pass and its APK artifact must install/open on a real Android device before calling the App production-ready.
+- Debug APK is TEST ONLY. Public release requires a private production signing key and a signed release AAB/APK; never commit signing keys/passwords to GitHub.
+- Google Play publication requires the TORVO Google Play Developer account. This is an external account action, not a code/database dependency.
+- WhatsApp OTP requires an approved WhatsApp provider/API and server-side credentials before production login OTP is enabled. Do not place provider secrets in browser code.
+- AI PHOTO -> PRODUCT DETAIL requires an approved vision-capable AI API/server worker. Until connected, AI requests remain drafts/queued and never fake completed content.
+- Custom domain/DNS must point to the verified production deployment only after final real-use testing.
+- Supabase remains the preferred unified DB/Auth/Storage/backend platform; add another provider only when the capability genuinely requires it.
+
 ## RELEASE EVIDENCE
-Retain migration branch/commit, role/security results, referral privacy/idempotency evidence, exactly-once Purchase/payment/Delivery/Return evidence, approval evidence, backup checksum/manifest and clean restore drill. No runtime-verified claim without this evidence.
+Retain migration branch/commit, role/security results, referral privacy/idempotency evidence, exactly-once Purchase/payment/Delivery/Return evidence, approval evidence, backup checksum/manifest, clean restore drill, exact web build/deploy SHA, Android build artifact and real-device install result. No runtime-verified/final-live claim without this evidence.
