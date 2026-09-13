@@ -32,6 +32,13 @@ jobs:
         run: npm install --no-audit --no-fund
       - name: BUILD NATIVE APP
         run: npm run build:app
+      - name: VERIFY COMPILED LOGIN UI
+        run: |
+          grep -R -q 'SECURE BUSINESS ACCESS' dist-app/assets
+          grep -R -q 'ENTER YOUR REGISTERED MOBILE NUMBER AND PIN' dist-app/assets
+          grep -R -q 'FORGOT PIN?' dist-app/assets
+          if grep -R -q 'ONE LOGIN FOR AUTHORIZED TORVO USERS' dist-app/assets; then echo 'OLD LOGIN UI FOUND IN COMPILED APP'; exit 1; fi
+          if grep -R -q 'ROLE AND PERMISSION ARE VERIFIED BY THE TORVO BACKEND' dist-app/assets; then echo 'OLD TECHNICAL LOGIN COPY FOUND'; exit 1; fi
       - name: VERIFY NATIVE ENTRY
         run: |
           test -f dist-app/v2.html
@@ -43,6 +50,11 @@ jobs:
         run: npx cap add android
       - name: SYNC ONE APP
         run: npx cap sync android
+      - name: VERIFY ANDROID COMPILED LOGIN
+        run: |
+          grep -R -q 'SECURE BUSINESS ACCESS' android/app/src/main/assets/public/assets
+          grep -R -q 'FORGOT PIN?' android/app/src/main/assets/public/assets
+          if grep -R -q 'ONE LOGIN FOR AUTHORIZED TORVO USERS' android/app/src/main/assets/public/assets; then echo 'OLD LOGIN UI COPIED TO ANDROID'; exit 1; fi
       - name: VERIFY ANDROID ASSET
         run: |
           test -f android/app/src/main/assets/public/index.html
