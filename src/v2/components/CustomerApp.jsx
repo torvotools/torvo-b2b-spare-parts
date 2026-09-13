@@ -1,2 +1,104 @@
-import React,{useEffect,useState}from'react';import{Headphones,MapPin,QrCode,Wrench,X,Phone,CheckCircle2}from'lucide-react';import{requireBackend}from'../services/supabase';import ProductDiscovery from'./ProductDiscovery';const db=()=>requireBackend(),U=v=>String(v||'').toUpperCase();
-export default function CustomerApp(){const[settings,setSettings]=useState({support_mobile:'7027751533',whatsapp_mobile:'7027751533',referral_enabled:true,repair_service_enabled:true,customer_catalog_enabled:true}),[selected,setSelected]=useState(null),[pin,setPin]=useState(''),[dealers,setDealers]=useState([]),[dealer,setDealer]=useState(null),[form,setForm]=useState({name:'',mobile:'',marketing:false}),[repair,setRepair]=useState({name:'',mobile:'',pin:'',brand:'',model:'',problem:'',marketing:false}),[repairResult,setRepairResult]=useState(null),[ref,setRef]=useState(null),[busy,setBusy]=useState(false),[err,setErr]=useState(''),[open,setOpen]=useState('');useEffect(()=>{db().rpc('public_business_settings').then(({data})=>{const x=Array.isArray(data)?data[0]:data;if(x)setSettings(x)})},[]);const find=async()=>{if(!/^\d{6}$/.test(pin))return setErr('VALID 6 DIGIT PIN CODE REQUIRED');setBusy(true);setErr('');const{data,error}=await db().rpc('public_find_torvo_dealers_expanded',{p_pin_code:pin,p_repair_only:false,p_limit:12});setBusy(false);if(error)setErr(U(error.message));else{setDealers(data||[]);setOpen('dealers')}};const createReferral=async e=>{e.preventDefault();if(!settings.referral_enabled)return setErr('TORVO CUSTOMER REFERRAL IS CURRENTLY PAUSED');if(!selected)return setErr('SELECT PRODUCT FIRST');setBusy(true);const{data,error}=await db().rpc('public_create_customer_referral',{p_full_name:form.name,p_mobile:form.mobile,p_pin_code:pin,p_product_id:selected.id,p_dealer_id:dealer?.dealer_id||null,p_marketing_opt_in:form.marketing});setBusy(false);if(error)setErr(U(error.message));else{setRef(Array.isArray(data)?data[0]:data);setOpen('referral')}};const submitRepair=async e=>{e.preventDefault();if(!settings.repair_service_enabled)return setErr('TORVO REPAIR & SERVICE REQUESTS ARE CURRENTLY PAUSED');setBusy(true);setErr('');const{data,error}=await db().rpc('public_create_repair_request',{p_full_name:repair.name,p_mobile:repair.mobile,p_pin_code:repair.pin,p_brand:repair.brand||null,p_model_number:repair.model||null,p_problem_description:repair.problem,p_marketing_opt_in:repair.marketing});setBusy(false);if(error)setErr(U(error.message));else{setRepairResult(Array.isArray(data)?data[0]:data);setOpen('repairDone')}};const support=settings.support_mobile||'7027751533';return <section className="panel workspace"><header><div><span className="eyebrow">TORVO CUSTOMER APP</span><h3>SEARCH · FILTER · FIND DEALER</h3><p>FAST SPARE PART DISCOVERY WITHOUT PUBLIC SELLING PRICE. RETAIL PRICE, PAYMENT AND DELIVERY STAY BETWEEN CUSTOMER AND DEALER.</p></div></header>{err&&<div className="inlineError">{err}</div>}{settings.customer_catalog_enabled?<ProductDiscovery selectedId={selected?.id} onSelect={setSelected}/>:<div className="modalNotice">CUSTOMER CATALOG IS CURRENTLY PAUSED BY TORVO.</div>}{selected&&settings.customer_catalog_enabled&&<section className="panel"><header><div><span className="eyebrow">SELECTED PRODUCT</span><h3>{selected.item_code} · {selected.name}</h3><p>{[selected.brand,selected.category,selected.model].filter(Boolean).join(' · ')}</p></div></header><div className="workFilters"><label><MapPin size={16}/><input inputMode="numeric" maxLength="6" value={pin} onChange={e=>setPin(e.target.value.replace(/\D/g,'').slice(0,6))} placeholder="6 DIGIT PIN CODE"/></label><button className="primary" disabled={busy} onClick={find}>FIND NEARBY DEALER</button></div></section>}{open==='dealers'&&<div className="modalLayer"><section className="dealerActionModal"><header><div><span className="eyebrow">APPROVED TORVO NETWORK</span><h3>DEALERS SERVING PIN {pin}</h3></div><button className="iconBtn" onClick={()=>setOpen('')}><X/></button></header><div className="requestList">{dealers.length===0?<div className="empty"><MapPin/><h3>NO VERIFIED DEALER COVERAGE</h3><p>CONTACT TORVO CUSTOMER CARE FOR HELP.</p><a href={`tel:${support}`}><Phone size={15}/> CALL {support}</a></div>:dealers.map(d=><article key={d.dealer_id}><div><strong>{d.shop_name}</strong><span>{d.address}</span><small>{d.match_type==='EXACT_PIN'?'SAME PIN':'VERIFIED SERVICE AREA'} · {d.product_sales_available?'PRODUCT SALES':''}{d.repair_service_available?' · REPAIR & SERVICE':''}{d.authorized_service_center?' · AUTHORIZED SERVICE CENTER':''}</small></div><div className="rowActions"><button onClick={()=>{setDealer(d);setOpen('details')}}>SELECT DEALER</button>{d.map_url&&<a href={d.map_url} target="_blank" rel="noreferrer">DIRECTIONS</a>}</div></article>)}</div></section></div>}{open==='details'&&dealer&&<div className="modalLayer"><form className="dealerActionModal" onSubmit={createReferral}><header><div><span className="eyebrow">TORVO REFERRAL</span><h3>{dealer.shop_name}</h3><p>GET A TORVO CODE FOR THE SELECTED PRODUCT.</p></div><button type="button" className="iconBtn" onClick={()=>setOpen('')}><X/></button></header>{settings.referral_enabled?<><div className="modalForm"><label>NAME<input value={form.name} onChange={e=>setForm({...form,name:e.target.value})} required/></label><label>MOBILE / WHATSAPP<input inputMode="numeric" value={form.mobile} onChange={e=>setForm({...form,mobile:e.target.value.replace(/\D/g,'').slice(0,10))} required/></label><label className="checkRow"><input type="checkbox" checked={form.marketing} onChange={e=>setForm({...form,marketing:e.target.checked})}/> RECEIVE TORVO PRODUCT / OFFER UPDATES ON WHATSAPP</label><div className="modalNotice">MARKETING CONSENT IS OPTIONAL AND SEPARATE FROM THIS REFERRAL.</div></div><footer><button type="button" onClick={()=>setOpen('')}>CANCEL</button><button className="primary" disabled={busy}>{busy?'CREATING…':'GET TORVO REFERRAL CODE'}</button></footer></>:<div className="modalNotice">CUSTOMER REFERRAL IS CURRENTLY PAUSED BY TORVO.</div>}</form></div>}{open==='referral'&&ref&&<div className="modalLayer"><section className="dealerActionModal"><header><div><span className="eyebrow">TORVO CUSTOMER REFERRAL</span><h3>{ref.referral_code}</h3></div><QrCode size={30}/></header><div className="modalNotice">SHOW THIS TORVO REFERRAL CODE TO THE DEALER TO GET THE APPLICABLE TORVO CUSTOMER BENEFIT.</div>{ref.benefit_type&&<div className="inlineSuccess">BENEFIT: {U(ref.benefit_type).replaceAll('_',' ')} {ref.benefit_value??''} {U(ref.benefit_text)}</div>}<footer><button className="primary" onClick={()=>setOpen('')}>CLOSE</button></footer></section></div>}{settings.repair_service_enabled&&<section className="panel"><header><div><span className="eyebrow">SERVICE NETWORK</span><h3>MACHINE REPAIR & SERVICE</h3><p>SEND THE REQUIREMENT TO TORVO. IT WILL BE ROUTED ONLY TO APPROVED REPAIR DEALERS.</p></div><Wrench/></header><button className="primary" onClick={()=>{setErr('');setOpen('repair')}}>SEND REPAIR REQUIREMENT</button></section>}{open==='repair'&&<div className="modalLayer"><form className="dealerActionModal" onSubmit={submitRepair}><header><div><span className="eyebrow">REPAIR REQUEST</span><h3>TELL US THE MACHINE PROBLEM</h3></div><button type="button" className="iconBtn" onClick={()=>setOpen('')}><X/></button></header><div className="modalForm"><label>NAME<input value={repair.name} onChange={e=>setRepair({...repair,name:e.target.value})} required/></label><label>MOBILE / WHATSAPP<input inputMode="numeric" value={repair.mobile} onChange={e=>setRepair({...repair,mobile:e.target.value.replace(/\D/g,'').slice(0,10))} required/></label><label>PIN CODE<input inputMode="numeric" maxLength="6" value={repair.pin} onChange={e=>setRepair({...repair,pin:e.target.value.replace(/\D/g,'').slice(0,6))} required/></label><label>BRAND<input value={repair.brand} onChange={e=>setRepair({...repair,brand:e.target.value})}/></label><label>MODEL NUMBER<input value={repair.model} onChange={e=>setRepair({...repair,model:e.target.value})}/></label><label>PROBLEM DESCRIPTION<textarea value={repair.problem} onChange={e=>setRepair({...repair,problem:e.target.value})} required/></label><label className="checkRow"><input type="checkbox" checked={repair.marketing} onChange={e=>setRepair({...repair,marketing:e.target.checked})}/> RECEIVE TORVO PRODUCT / OFFER UPDATES ON WHATSAPP</label><div className="modalNotice">PHOTO / VIDEO SECURE UPLOAD WILL BE ENABLED ONLY WITH PRIVATE STORAGE POLICY. NO FAKE UPLOAD IS SHOWN.</div></div><footer><button type="button" onClick={()=>setOpen('')}>CANCEL</button><button className="primary" disabled={busy}>{busy?'SENDING…':'SUBMIT REPAIR REQUEST'}</button></footer></form></div>}{open==='repairDone'&&repairResult&&<div className="modalLayer"><section className="dealerActionModal"><header><div><span className="eyebrow">REPAIR REQUEST RECEIVED</span><h3>TORVO WILL ROUTE YOUR REQUIREMENT</h3></div><CheckCircle2 size={28}/></header><div className="inlineSuccess">REQUEST ID: {String(repairResult.requirement_id).slice(0,8).toUpperCase()}</div><div className="modalNotice">CUSTOMER CONTACT REMAINS PRIVATE UNTIL THE APPROVED ROUTING FLOW ALLOWS IT.</div><footer><button className="primary" onClick={()=>setOpen('')}>CLOSE</button></footer></section></div>}<div className="modalNotice"><Headphones size={16}/> TORVO SUPPORT: {support} · CUSTOMER RETAIL TRANSACTION REMAINS BETWEEN CUSTOMER AND DEALER.</div></section>}
+import React,{useEffect,useState}from'react';
+import{Headphones,MapPin,QrCode,Wrench,X,Phone,CheckCircle2}from'lucide-react';
+import{requireBackend}from'../services/supabase';
+import ProductDiscovery from'./ProductDiscovery';
+
+const db=()=>requireBackend();
+const U=v=>String(v||'').toUpperCase();
+
+export default function CustomerApp(){
+  const[settings,setSettings]=useState({support_mobile:'7027751533',whatsapp_mobile:'7027751533',referral_enabled:true,repair_service_enabled:true,customer_catalog_enabled:true});
+  const[selected,setSelected]=useState(null);
+  const[pin,setPin]=useState('');
+  const[dealers,setDealers]=useState([]);
+  const[dealer,setDealer]=useState(null);
+  const[form,setForm]=useState({name:'',mobile:'',marketing:false});
+  const[repair,setRepair]=useState({name:'',mobile:'',pin:'',brand:'',model:'',problem:'',marketing:false});
+  const[repairResult,setRepairResult]=useState(null);
+  const[ref,setRef]=useState(null);
+  const[busy,setBusy]=useState(false);
+  const[err,setErr]=useState('');
+  const[open,setOpen]=useState('');
+
+  useEffect(()=>{
+    db().rpc('public_business_settings').then(({data})=>{
+      const x=Array.isArray(data)?data[0]:data;
+      if(x)setSettings(x);
+    });
+  },[]);
+
+  const find=async()=>{
+    if(!/^\d{6}$/.test(pin)){setErr('VALID 6 DIGIT PIN CODE REQUIRED');return;}
+    setBusy(true);setErr('');
+    const{data,error}=await db().rpc('public_find_torvo_dealers_expanded',{p_pin_code:pin,p_repair_only:false,p_limit:12});
+    setBusy(false);
+    if(error)setErr(U(error.message));
+    else{setDealers(data||[]);setOpen('dealers');}
+  };
+
+  const createReferral=async e=>{
+    e.preventDefault();
+    if(!settings.referral_enabled){setErr('TORVO CUSTOMER REFERRAL IS CURRENTLY PAUSED');return;}
+    if(!selected){setErr('SELECT PRODUCT FIRST');return;}
+    setBusy(true);setErr('');
+    const{data,error}=await db().rpc('public_create_customer_referral',{p_full_name:form.name,p_mobile:form.mobile,p_pin_code:pin,p_product_id:selected.id,p_dealer_id:dealer?.dealer_id||null,p_marketing_opt_in:form.marketing});
+    setBusy(false);
+    if(error)setErr(U(error.message));
+    else{setRef(Array.isArray(data)?data[0]:data);setOpen('referral');}
+  };
+
+  const submitRepair=async e=>{
+    e.preventDefault();
+    if(!settings.repair_service_enabled){setErr('TORVO REPAIR & SERVICE REQUESTS ARE CURRENTLY PAUSED');return;}
+    setBusy(true);setErr('');
+    const{data,error}=await db().rpc('public_create_repair_request',{p_full_name:repair.name,p_mobile:repair.mobile,p_pin_code:repair.pin,p_brand:repair.brand||null,p_model_number:repair.model||null,p_problem_description:repair.problem,p_marketing_opt_in:repair.marketing});
+    setBusy(false);
+    if(error)setErr(U(error.message));
+    else{setRepairResult(Array.isArray(data)?data[0]:data);setOpen('repairDone');}
+  };
+
+  const support=settings.support_mobile||'7027751533';
+
+  return <section className="panel workspace">
+    <header><div><span className="eyebrow">TORVO CUSTOMER APP</span><h3>SEARCH · FILTER · FIND DEALER</h3><p>FAST SPARE PART DISCOVERY WITHOUT PUBLIC SELLING PRICE. RETAIL PRICE, PAYMENT AND DELIVERY STAY BETWEEN CUSTOMER AND DEALER.</p></div></header>
+    {err&&<div className="inlineError">{err}</div>}
+    {settings.customer_catalog_enabled?<ProductDiscovery selectedId={selected?.id} onSelect={setSelected}/>:<div className="modalNotice">CUSTOMER CATALOG IS CURRENTLY PAUSED BY TORVO.</div>}
+
+    {selected&&settings.customer_catalog_enabled&&<section className="panel">
+      <header><div><span className="eyebrow">SELECTED PRODUCT</span><h3>{selected.item_code} · {selected.name}</h3><p>{[selected.brand,selected.category,selected.model].filter(Boolean).join(' · ')}</p></div></header>
+      <div className="workFilters"><label><MapPin size={16}/><input inputMode="numeric" maxLength="6" value={pin} onChange={e=>setPin(e.target.value.replace(/\D/g,'').slice(0,6))} placeholder="6 DIGIT PIN CODE"/></label><button className="primary" disabled={busy} onClick={find}>FIND NEARBY DEALER</button></div>
+    </section>}
+
+    {open==='dealers'&&<div className="modalLayer"><section className="dealerActionModal">
+      <header><div><span className="eyebrow">APPROVED TORVO NETWORK</span><h3>DEALERS SERVING PIN {pin}</h3></div><button className="iconBtn" onClick={()=>setOpen('')}><X/></button></header>
+      <div className="requestList">{dealers.length===0?<div className="empty"><MapPin/><h3>NO VERIFIED DEALER COVERAGE</h3><p>CONTACT TORVO CUSTOMER CARE FOR HELP.</p><a href={`tel:${support}`}><Phone size={15}/> CALL {support}</a></div>:dealers.map(d=><article key={d.dealer_id}><div><strong>{d.shop_name}</strong><span>{d.address}</span><small>{d.match_type==='EXACT_PIN'?'SAME PIN':'VERIFIED SERVICE AREA'} · {d.product_sales_available?'PRODUCT SALES':''}{d.repair_service_available?' · REPAIR & SERVICE':''}{d.authorized_service_center?' · AUTHORIZED SERVICE CENTER':''}</small></div><div className="rowActions"><button onClick={()=>{setDealer(d);setOpen('details');}}>SELECT DEALER</button>{d.map_url&&<a href={d.map_url} target="_blank" rel="noreferrer">DIRECTIONS</a>}</div></article>)}</div>
+    </section></div>}
+
+    {open==='details'&&dealer&&<div className="modalLayer"><form className="dealerActionModal" onSubmit={createReferral}>
+      <header><div><span className="eyebrow">TORVO REFERRAL</span><h3>{dealer.shop_name}</h3><p>GET A TORVO CODE FOR THE SELECTED PRODUCT.</p></div><button type="button" className="iconBtn" onClick={()=>setOpen('')}><X/></button></header>
+      {settings.referral_enabled?<><div className="modalForm"><label>NAME<input value={form.name} onChange={e=>setForm({...form,name:e.target.value})} required/></label><label>MOBILE / WHATSAPP<input inputMode="numeric" value={form.mobile} onChange={e=>setForm({...form,mobile:e.target.value.replace(/\D/g,'').slice(0,10))} required/></label><label className="checkRow"><input type="checkbox" checked={form.marketing} onChange={e=>setForm({...form,marketing:e.target.checked})}/> RECEIVE TORVO PRODUCT / OFFER UPDATES ON WHATSAPP</label><div className="modalNotice">MARKETING CONSENT IS OPTIONAL AND SEPARATE FROM THIS REFERRAL.</div></div><footer><button type="button" onClick={()=>setOpen('')}>CANCEL</button><button className="primary" disabled={busy}>{busy?'CREATING…':'GET TORVO REFERRAL CODE'}</button></footer></>:<div className="modalNotice">CUSTOMER REFERRAL IS CURRENTLY PAUSED BY TORVO.</div>}
+    </form></div>}
+
+    {open==='referral'&&ref&&<div className="modalLayer"><section className="dealerActionModal">
+      <header><div><span className="eyebrow">TORVO CUSTOMER REFERRAL</span><h3>{ref.referral_code}</h3></div><QrCode size={30}/></header>
+      <div className="modalNotice">SHOW THIS TORVO REFERRAL CODE TO THE DEALER TO GET THE APPLICABLE TORVO CUSTOMER BENEFIT.</div>
+      {ref.benefit_type&&<div className="inlineSuccess">BENEFIT: {U(ref.benefit_type).replaceAll('_',' ')} {ref.benefit_value??''} {U(ref.benefit_text)}</div>}
+      <footer><button className="primary" onClick={()=>setOpen('')}>CLOSE</button></footer>
+    </section></div>}
+
+    {settings.repair_service_enabled&&<section className="panel"><header><div><span className="eyebrow">SERVICE NETWORK</span><h3>MACHINE REPAIR & SERVICE</h3><p>SEND THE REQUIREMENT TO TORVO. IT WILL BE ROUTED ONLY TO APPROVED REPAIR DEALERS.</p></div><Wrench/></header><button className="primary" onClick={()=>{setErr('');setOpen('repair');}}>SEND REPAIR REQUIREMENT</button></section>}
+
+    {open==='repair'&&<div className="modalLayer"><form className="dealerActionModal" onSubmit={submitRepair}>
+      <header><div><span className="eyebrow">REPAIR REQUEST</span><h3>TELL US THE MACHINE PROBLEM</h3></div><button type="button" className="iconBtn" onClick={()=>setOpen('')}><X/></button></header>
+      <div className="modalForm"><label>NAME<input value={repair.name} onChange={e=>setRepair({...repair,name:e.target.value})} required/></label><label>MOBILE / WHATSAPP<input inputMode="numeric" value={repair.mobile} onChange={e=>setRepair({...repair,mobile:e.target.value.replace(/\D/g,'').slice(0,10))} required/></label><label>PIN CODE<input inputMode="numeric" maxLength="6" value={repair.pin} onChange={e=>setRepair({...repair,pin:e.target.value.replace(/\D/g,'').slice(0,6))} required/></label><label>BRAND<input value={repair.brand} onChange={e=>setRepair({...repair,brand:e.target.value})}/></label><label>MODEL NUMBER<input value={repair.model} onChange={e=>setRepair({...repair,model:e.target.value})}/></label><label>PROBLEM DESCRIPTION<textarea value={repair.problem} onChange={e=>setRepair({...repair,problem:e.target.value})} required/></label><label className="checkRow"><input type="checkbox" checked={repair.marketing} onChange={e=>setRepair({...repair,marketing:e.target.checked})}/> RECEIVE TORVO PRODUCT / OFFER UPDATES ON WHATSAPP</label><div className="modalNotice">PHOTO / VIDEO SECURE UPLOAD WILL BE ENABLED ONLY WITH PRIVATE STORAGE POLICY. NO FAKE UPLOAD IS SHOWN.</div></div>
+      <footer><button type="button" onClick={()=>setOpen('')}>CANCEL</button><button className="primary" disabled={busy}>{busy?'SENDING…':'SUBMIT REPAIR REQUEST'}</button></footer>
+    </form></div>}
+
+    {open==='repairDone'&&repairResult&&<div className="modalLayer"><section className="dealerActionModal">
+      <header><div><span className="eyebrow">REPAIR REQUEST RECEIVED</span><h3>TORVO WILL ROUTE YOUR REQUIREMENT</h3></div><CheckCircle2 size={28}/></header>
+      <div className="inlineSuccess">REQUEST ID: {String(repairResult.requirement_id).slice(0,8).toUpperCase()}</div><div className="modalNotice">CUSTOMER CONTACT REMAINS PRIVATE UNTIL THE APPROVED ROUTING FLOW ALLOWS IT.</div><footer><button className="primary" onClick={()=>setOpen('')}>CLOSE</button></footer>
+    </section></div>}
+
+    <div className="modalNotice"><Headphones size={16}/> TORVO SUPPORT: {support} · CUSTOMER RETAIL TRANSACTION REMAINS BETWEEN CUSTOMER AND DEALER.</div>
+  </section>;
+}
