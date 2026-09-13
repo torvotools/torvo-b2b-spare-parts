@@ -8,6 +8,7 @@ on:
       - 'src/v2/**'
       - 'public/**'
       - 'v2.html'
+      - 'vite.app.config.js'
       - 'package.json'
       - 'capacitor.config.json'
       - '.github/workflows/v2-android-apk.yml'
@@ -29,8 +30,10 @@ jobs:
           java-version: '21'
       - name: INSTALL
         run: npm install --no-audit --no-fund
-      - name: BUILD WEB
-        run: npm run build
+      - name: BUILD NATIVE APP
+        run: npm run build:app
+      - name: VERIFY NATIVE ENTRY
+        run: test -f dist-app/v2.html && grep -q 'torvo-v2-root' dist-app/v2.html
       - name: CREATE ANDROID PROJECT
         run: npx cap add android
       - name: SYNC ONE APP
