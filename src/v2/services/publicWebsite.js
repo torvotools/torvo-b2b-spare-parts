@@ -1,6 +1,7 @@
 import{requireBackend}from'./supabase';
 const db=()=>requireBackend();
 export async function searchProducts(search){const{data,error}=await db().rpc('public_customer_catalog',{p_search:String(search||'').trim()||null,p_limit:20});if(error)throw error;return data||[]}
+export async function loadProductShowcase(limit=12){const{data,error}=await db().rpc('public_product_showcase',{p_limit:Math.max(1,Math.min(Number(limit)||12,30))});if(error)throw error;return data||[]}
 export async function findDealers(pin,repairOnly=false){const{data,error}=await db().rpc('public_find_torvo_dealers_expanded',{p_pin_code:String(pin||'').trim(),p_repair_only:repairOnly,p_limit:12});if(error)throw error;return data||[]}
 export async function createReferral({name,mobile,pin,productId,dealerId=null,marketing=false}){const{data,error}=await db().rpc('public_create_customer_referral',{p_full_name:name,p_mobile:mobile,p_pin_code:pin,p_product_id:productId,p_dealer_id:dealerId,p_marketing_opt_in:marketing});if(error)throw error;return Array.isArray(data)?data[0]:data}
 export async function createRepair({name,mobile,pin,brand,model,problem,marketing=false}){const{data,error}=await db().rpc('public_create_repair_request',{p_full_name:name,p_mobile:mobile,p_pin_code:pin,p_brand:brand||null,p_model_number:model||null,p_problem_description:problem,p_marketing_opt_in:marketing});if(error)throw error;return Array.isArray(data)?data[0]:data}
