@@ -12,6 +12,7 @@ import './dealer-addon-ui.css';
 import './login-ui.css';
 import './public-mobile-fix.css';
 import './public-product-showcase.css';
+import './smart-search-ui.css';
 import {installGlobalUiFeedback} from './services/uiFeedback.js';
 import {installAppFoundation} from './services/appInstall.js';
 import {forceSignOut,currentAppUser} from './services/auth.js';
