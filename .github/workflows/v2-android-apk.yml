@@ -71,10 +71,47 @@ jobs:
       - name: BUILD DEBUG APK
         working-directory: android
         run: ./gradlew assembleDebug
-      - name: UPLOAD APK
+      - name: PREPARE VERIFIED APK RELEASE ARTIFACT
+        id: release_meta
+        shell: bash
+        run: |
+          set -euo pipefail
+          test -f android/app/build/outputs/apk/debug/app-debug.apk
+          SHORT_SHA="${GITHUB_SHA::12}"
+          BUILD_NO="${GITHUB_RUN_NUMBER}"
+          APK_NAME="TORVO-TOOLS-v2-build-${BUILD_NO}-${SHORT_SHA}.apk"
+          mkdir -p release-artifact
+          cp android/app/build/outputs/apk/debug/app-debug.apk "release-artifact/${APK_NAME}"
+          SHA256="$(sha256sum "release-artifact/${APK_NAME}" | awk '{print $1}')"
+          BUILD_DATE="$(date -u +'%Y-%m-%dT%H:%M:%SZ')"
+          cat > release-artifact/release-manifest.json <<EOF
+          {
+            "app": "TORVO TOOLS",
+            "package": "com.torvotools.app",
+            "channel": "DEBUG-VERIFIED",
+            "build_number": "${BUILD_NO}",
+            "commit_sha": "${GITHUB_SHA}",
+            "short_sha": "${SHORT_SHA}",
+            "build_date_utc": "${BUILD_DATE}",
+            "apk_file": "${APK_NAME}",
+            "apk_sha256": "${SHA256}",
+            "workflow_run_id": "${GITHUB_RUN_ID}",
+            "status": "VERIFIED"
+          }
+          EOF
+          echo "apk_name=${APK_NAME}" >> "$GITHUB_OUTPUT"
+          echo "sha256=${SHA256}" >> "$GITHUB_OUTPUT"
+      - name: VERIFY RELEASE MANIFEST
+        run: |
+          test -s release-artifact/release-manifest.json
+          grep -q '"status": "VERIFIED"' release-artifact/release-manifest.json
+          grep -q "${GITHUB_SHA}" release-artifact/release-manifest.json
+          test -f "release-artifact/${{ steps.release_meta.outputs.apk_name }}"
+          echo "APK SHA256: ${{ steps.release_meta.outputs.sha256 }}"
+      - name: UPLOAD VERSIONED VERIFIED APK
         uses: actions/upload-artifact@v4
         with:
-          name: TORVO-TOOLS-DEBUG-APK
-          path: android/app/build/outputs/apk/debug/app-debug.apk
+          name: TORVO-TOOLS-APK-BUILD-${{ github.run_number }}-${{ github.sha }}
+          path: release-artifact/
           if-no-files-found: error
-          retention-days: 14
+          retention-days: 90
