@@ -34,7 +34,7 @@ Authoritative dependency order. Never install migrations alphabetically and neve
 14. CENTRAL ADMIN CONTROL: `v2-admin-central-control.sql` after delivery settings, portal settings, tax settings, app users and audit log exist.
 15. PRODUCT DIGITAL CONTENT: `v2-product-digital-content.sql` after catalog items/app users/audit log.
 16. PRODUCT/DRAFT MEDIA: `v2-media-storage.sql` after `app_users`. Product media is public-read catalog media; only active OWNER/ADMIN can write/delete. Customer repair media must use a separate PRIVATE bucket/policy.
-17. STAFF AUTH: `v2-staff-whatsapp-auth.sql` after `app_users` + Supabase Auth foundations -> `v2-business-login-routing.sql`. Staff roles OWNER/ADMIN/ACCOUNTANT/SALESMAN/STORE KEEPER use verified WhatsApp OTP with bounded staff sessions; Dealer is routed to its separate PIN flow. The public routing RPC returns only the login method, never role/user/dealer/private profile data. Emergency codes are temporary, one-use, hashed and Admin-generated. Actual OTP verification/delivery must be trusted server/provider-side; browser code cannot mint a verified staff session.
+17. AUTH: `v2-staff-whatsapp-auth.sql` after `app_users` + Supabase Auth foundations -> `v2-dealer-pin-auth.sql` after `dealers` -> `v2-business-login-routing.sql`. Staff roles OWNER/ADMIN/ACCOUNTANT/SALESMAN/STORE KEEPER use verified WhatsApp OTP with bounded staff sessions. Dealer uses separate hashed 4-DIGIT PIN credentials with lockout and verified recovery. The public routing RPC returns only the login method, never role/user/dealer/private profile data. Actual OTP/PIN verification and authenticated identity/session establishment must remain trusted server-side.
 18. SECURE DESKTOP: audit `v2-secure-desktop-verification.sql` against `v2-staff-whatsapp-auth.sql` before enabling. Do not operate two competing privileged-login/session systems in production. Keep only the additional desktop-sensitive verification boundary that remains necessary after consolidation.
 19. BACKUP: `v2-backup-control.sql` -> `v2-backup-channels.sql` -> `v2-backup-worker-contract.sql`.
 20. Dashboard/admin/business/reporting RPCs and later conversion/repacking/rewards/GST modules after prerequisites. Older overlapping transaction RPCs install before final integrity layers or are skipped after dependency audit.
@@ -48,6 +48,7 @@ These are historical development migrations from an earlier public-retail direct
 - Role authorization/privacy for OWNER, ADMIN, SALESMAN, ACCOUNTANT, STORE KEEPER, DEALER and PUBLIC CUSTOMER boundaries.
 - Public login routing may return only `staff_whatsapp_otp`, `dealer_pin` or `not_authorized`; it must not expose role, IDs, names, rate group or profile data.
 - Staff OTP cannot be accepted until the external WhatsApp provider/server has actually verified it. Emergency access cannot create a browser-side auth bypass. Staff session expires no later than 30 days and explicit logout/revocation invalidates access.
+- Dealer PIN is exactly 4 digits but stored only as a strong hash; plaintext PIN never persists. Only APPROVED Dealers may set/use it. Five failed attempts trigger temporary lockout. PIN reset requires a short-lived verified WhatsApp/Admin recovery challenge. PIN verification itself must not create an unauthenticated browser bypass; real Dealer identity/session is server-established and existing Dealer session rules remain authoritative.
 - ONE APP routes by authoritative authenticated role. Admin Mobile remains limited; full Admin and Accountant stay Desktop/Laptop as defined.
 - Public Dealer registration creates only PENDING status; it cannot self-approve, assign rate group, grant app access or elevate role.
 - Public Website/Customer App cannot read Dealer Rate A/B/C, Dealer schemes, private fitment, purchase cost, private inventory internals or privileged Customer data.
@@ -72,7 +73,7 @@ These are historical development migrations from an earlier public-retail direct
 - Product Draft/Item photo upload is OWNER/ADMIN write-only and file type/size constrained; Customer repair media uses a separate PRIVATE bucket/policy before live enablement.
 - No direct client write bypass and no secret exposure.
 
-Run staging checklists: `tests/v2-purchase-entry-security-checklist.sql`, `tests/v2-purchase-requirement-security-checklist.sql`, `tests/v2-sales-delivery-integrity-checklist.sql`, `tests/v2-maker-checker-approval-checklist.sql`, `tests/v2-backup-control-security-checklist.sql`. Add dedicated referral/privacy/role-routing/staff-auth tests before production enablement.
+Run staging checklists: `tests/v2-purchase-entry-security-checklist.sql`, `tests/v2-purchase-requirement-security-checklist.sql`, `tests/v2-sales-delivery-integrity-checklist.sql`, `tests/v2-maker-checker-approval-checklist.sql`, `tests/v2-backup-control-security-checklist.sql`. Add dedicated referral/privacy/role-routing/staff-auth/dealer-PIN tests before production enablement.
 
 ## CLEAN PRODUCTION RULE
 Development preview/test/migration artifacts may exist while building, but final production must not carry unnecessary duplicate business logic/data structures. Before release, perform dependency-aware code/database cleanup. Never delete an old table/function/file merely because its name looks unused; prove dependencies and preserve migration/audit history needed for recovery.
@@ -82,10 +83,10 @@ Development preview/test/migration artifacts may exist while building, but final
 - `TORVO V2 Android APK` must pass and its APK artifact must install/open on a real Android device before calling the App production-ready.
 - Debug APK is TEST ONLY. Public release requires a private production signing key and a signed release AAB/APK; never commit signing keys/passwords to GitHub.
 - Google Play publication requires the TORVO Google Play Developer account.
-- WhatsApp OTP requires an approved WhatsApp provider/API and server-side credentials before production staff OTP is enabled.
+- WhatsApp OTP requires an approved WhatsApp provider/API and server-side credentials before production staff OTP or Dealer PIN recovery is enabled.
 - AI PHOTO -> PRODUCT DETAIL requires an approved vision-capable AI API/server worker.
 - Custom domain/DNS must point to the verified production deployment only after final real-use testing.
 - Supabase remains the preferred unified DB/Auth/Storage/backend platform; add another provider only when the capability genuinely requires it.
 
 ## RELEASE EVIDENCE
-Retain migration branch/commit, role/security results, referral privacy/idempotency evidence, exactly-once Purchase/payment/Delivery/Return evidence, approval evidence, backup checksum/manifest, clean restore drill, exact web build/deploy SHA, Android build artifact and real-device install result. No runtime-verified/final-live claim without this evidence.
+Retain migration branch/commit, role/security results, referral privacy/idempotency evidence, staff-auth/dealer-PIN security evidence, exactly-once Purchase/payment/Delivery/Return evidence, approval evidence, backup checksum/manifest, clean restore drill, exact web build/deploy SHA, Android build artifact and real-device install result. No runtime-verified/final-live claim without this evidence.
