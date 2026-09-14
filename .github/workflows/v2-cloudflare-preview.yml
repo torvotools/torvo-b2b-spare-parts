@@ -39,6 +39,8 @@ jobs:
         run: npm run verify:v2-release-gates
       - name: VERIFY RUNTIME READINESS CONTRACT
         run: npm run verify:v2-runtime
+      - name: VERIFY DEPLOYMENT CONTRACT
+        run: npm run verify:v2-deploy
       - name: BUILD EXACT V2 COMMIT
         env:
           VITE_BUILD_SHA: ${{ github.sha }}
@@ -71,14 +73,17 @@ jobs:
             LIVE_SHA="$(printf '%s' "$LIVE_SHA" | tr -d '\r\n[:space:]')"
             if [ "$LIVE_SHA" = "$EXPECTED_SHA" ]; then
               echo "VERIFIED LIVE TORVO V2 SHA: $LIVE_SHA"
-              exit 0
+              break
             fi
             echo "LIVE SHA NOT READY (ATTEMPT ${ATTEMPT}/12): ${LIVE_SHA:-EMPTY}"
             sleep 5
           done
-          echo "EXPECTED LIVE SHA: $EXPECTED_SHA"
-          echo "LAST LIVE SHA: ${LIVE_SHA:-EMPTY}"
-          exit 1
+          test "$LIVE_SHA" = "$EXPECTED_SHA"
+          HEADERS="$(curl --fail --silent --show-error -I "https://torvo-b2b-spare-parts.torvotools.workers.dev/torvo-build-sha.txt?verify=${GITHUB_RUN_ID}")"
+          printf '%s\n' "$HEADERS" | grep -qi '^cache-control:.*no-store'
+          printf '%s\n' "$HEADERS" | grep -qi '^x-torvo-v2:.*ACTIVE'
+          MANIFEST="$(curl --fail --silent --show-error "https://torvo-b2b-spare-parts.torvotools.workers.dev/torvo-build-manifest.json?verify=${GITHUB_RUN_ID}")"
+          printf '%s' "$MANIFEST" | grep -q "${EXPECTED_SHA}"
       - name: DEPLOYMENT EVIDENCE
         run: |
           echo "### TORVO V2 CLOUDFLARE PREVIEW" >> "$GITHUB_STEP_SUMMARY"
@@ -86,4 +91,5 @@ jobs:
           echo "- EXACT SHA: ${GITHUB_SHA}" >> "$GITHUB_STEP_SUMMARY"
           echo "- FULL V2 GATES: PASSED" >> "$GITHUB_STEP_SUMMARY"
           echo "- LIVE SHA VERIFIED: YES" >> "$GITHUB_STEP_SUMMARY"
+          echo "- CACHE-SAFE EVIDENCE: YES" >> "$GITHUB_STEP_SUMMARY"
           echo "- WORKER: https://torvo-b2b-spare-parts.torvotools.workers.dev" >> "$GITHUB_STEP_SUMMARY"
