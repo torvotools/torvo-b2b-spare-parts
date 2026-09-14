@@ -9,8 +9,7 @@ import{reviseDealerPurchaseOrder,requestDealerSalesOrderChange,loadApprovedAddit
 const documents=async type=>{const rows=await loadDealerOrderHistory();return rows.filter(x=>x.doc_type===type)};
 const catalog=async type=>{const rows=await loadDealerWorkspaceCatalog();return rows.filter(x=>x.item_type===type)};
 export const secureDealerLegacy={
- documents,
- catalog,
+ documents,catalog,
  dealerMachineSpares:loadDealerMachineSpares,
  dealerItemRate,
  submitPurchaseOrder:submitDealerPurchaseOrder,
@@ -21,4 +20,5 @@ export const secureDealerLegacy={
  dealerCreateAddOnOrder:createApprovedAdditionalOrder,
  dealerOrderHistory:loadDealerOrderHistory
 };
+export const data=secureDealerLegacy;
 export const dealerPrivateActions=Object.freeze(Object.keys(secureDealerLegacy));
