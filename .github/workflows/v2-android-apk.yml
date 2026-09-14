@@ -4,6 +4,17 @@ on:
   workflow_dispatch:
   push:
     branches: [torvo-v2-build]
+    paths:
+      - 'src/v2/**'
+      - 'v2.html'
+      - 'package.json'
+      - 'package-lock.json'
+      - 'capacitor.config.json'
+      - 'scripts/**'
+      - 'docs/TORVO-V2-RELEASE-GATES.md'
+      - 'supabase/v2-*.sql'
+      - 'supabase/V2_INSTALL_ORDER.md'
+      - '.github/workflows/v2-android-apk.yml'
 
 permissions:
   contents: write
