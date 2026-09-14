@@ -151,6 +151,7 @@ revoke all on function public_create_repair_request(text,text,text,text,text,tex
 grant execute on function public_create_repair_request(text,text,text,text,text,text,boolean) to anon,authenticated;
 
 -- Stable public settings facade. Values are intentionally non-sensitive and sourced from Admin-managed settings.
+-- Customer/support and business WhatsApp channels stay independent so Admin can change either without a code deployment.
 create or replace function public_business_settings() returns table(
   support_mobile text,
   whatsapp_mobile text,
@@ -166,8 +167,8 @@ create or replace function public_business_settings() returns table(
     where setting_key='feature_switches' and active=true
   )
   select
-    coalesce(nullif(w.setting_value->>'customer_number',''),'7027751533')::text,
-    coalesce(nullif(w.setting_value->>'customer_number',''),'7027751533')::text,
+    case when coalesce((w.setting_value->>'customer_active')::boolean,true) then coalesce(nullif(w.setting_value->>'customer_number',''),'7027751533') else '7027751533' end::text,
+    case when coalesce((w.setting_value->>'business_active')::boolean,true) then coalesce(nullif(w.setting_value->>'business_number',''),nullif(w.setting_value->>'customer_number',''),'7027751533') else coalesce(nullif(w.setting_value->>'customer_number',''),'7027751533') end::text,
     coalesce((f.setting_value->>'customer_referral')::boolean,true),
     coalesce((f.setting_value->>'repair_service')::boolean,true),
     coalesce((f.setting_value->>'customer_catalog')::boolean,true)
