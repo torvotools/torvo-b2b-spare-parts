@@ -40,12 +40,13 @@ Authoritative dependency order. Never install migrations alphabetically and neve
 16. PRODUCT/DRAFT MEDIA after app_users.
 17. AUTH: `v2-staff-whatsapp-auth.sql` -> `v2-admin-issued-staff-access.sql` -> `v2-dealer-pin-auth.sql` -> `v2-auth-worker-runtime-grants.sql` -> `v2-business-login-routing.sql`.
 18. FINAL DEALER DEVICE BOUNDARIES after auth assertion exists: `v2-dealer-catalog-search.sql` -> `v2-dealer-machine-spares.sql` -> `v2-dealer-missing-part-request.sql` -> `v2-customer-dealer-referral-network.sql` -> `v2-referral-to-b2b-order-conversion.sql` -> `v2-dealer-knowledge-device-bound.sql` -> `v2-dealer-order-device-bound.sql` -> `v2-dealer-procurement-device-bound.sql` -> `v2-dealer-workspace-device-bound.sql` -> `v2-dealer-final-actions-device-bound.sql`.
-19. DEPLOY AUTH EDGE FUNCTIONS only after DB auth boundary: `_shared/torvo-auth.ts`, `dealer-pin-login`, `dealer-session-valid`, `dealer-session-revoke`, `staff-one-time-login`.
-20. SECURE DESKTOP verification against Accountant desktop/device boundary.
-21. BACKUP control -> channels -> worker contract.
-22. APP RELEASE CENTER: `v2-app-release-center.sql`; release metadata writes remain CI/trusted-worker only and Owner/Admin can read verified release status.
-23. APP NOTIFICATIONS: `v2-role-push-notifications.sql` after `app_users`; Owner/Admin may publish role-targeted messages to DEALER, SALESMAN, STORE KEEPER or ACCOUNTANT.
-24. DEMO RESET after backup/audit dependencies; Dashboard/admin/business/reporting and later modules after prerequisites.
+19. DEALER TARGET REWARDS: `v2-dealer-target-rewards.sql` after approved Dealer/app_users/audit foundations. Target slabs are Owner/Admin-controlled; annual scheme year starts in April; points are earned from target slabs, never from fitment suggestions.
+20. DEPLOY AUTH EDGE FUNCTIONS only after DB auth boundary: `_shared/torvo-auth.ts`, `dealer-pin-login`, `dealer-session-valid`, `dealer-session-revoke`, `staff-one-time-login`.
+21. SECURE DESKTOP verification against Accountant desktop/device boundary.
+22. BACKUP control -> channels -> worker contract.
+23. APP RELEASE CENTER: `v2-app-release-center.sql`; release metadata writes remain CI/trusted-worker only and Owner/Admin can read verified release status.
+24. APP NOTIFICATIONS: `v2-role-push-notifications.sql` after `app_users`; Owner/Admin may publish role-targeted messages to DEALER, SALESMAN, STORE KEEPER or ACCOUNTANT.
+25. DEMO RESET after backup/audit dependencies; Dashboard/admin/business/reporting and later modules after prerequisites.
 
 ## ADMIN-MANAGED CONFIGURATION GATE
 - OWNER/ADMIN may change supported public website text/notices, official social links, app notices, marketing defaults, PRODUCT PROMOTIONS, POPULAR/FEATURED ITEMS, APP DOWNLOAD LINKS and safe feature switches from backend-driven controls without a source-code deployment.
