@@ -1,2 +1,2 @@
-import{supabase,backendConfigured}from'./supabase';
-export const dealerCatalogService={async search(search='',type='',brand='',limit=60){if(!backendConfigured)throw new Error('Backend is not configured');const{data,error}=await supabase.rpc('search_dealer_catalog',{p_search:search||null,p_type:type||null,p_brand:brand||null,p_limit:Math.min(Math.max(Number(limit)||60,1),60)});if(error)throw error;return data||[]}};
+import{requireBackend}from'./supabase';import{assertDealerSession}from'./dealerSession';
+export const dealerCatalogService={async search(search='',type='',brand='',limit=60){const proof=await assertDealerSession();const{data,error}=await requireBackend().rpc('search_dealer_catalog',{p_device_id:proof.deviceId,p_session_token:proof.token,p_search:search||null,p_type:type||null,p_brand:brand||null,p_limit:Math.min(Math.max(Number(limit)||60,1),60)});if(error)throw error;await assertDealerSession();return data||[]}};
