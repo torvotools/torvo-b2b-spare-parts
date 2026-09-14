@@ -29,14 +29,14 @@ Authoritative dependency order. Never install migrations alphabetically and neve
 7. RETURNS BASE: `v2-sales-purchase-returns.sql` after Delivery + received Purchase integrity.
 8. CENTRAL MAKER-CHECKER: `v2-maker-checker-approval.sql` -> `v2-maker-checker-payment-gate.sql` -> `v2-payment-approval-final-boundary.sql` -> `v2-approval-permission-read.sql` -> `v2-purchase-approval-final-boundary.sql` -> `v2-return-approval-gate.sql` -> `v2-return-approval-checker-fix.sql`.
 9. Inventory movement center, low-stock/reorder, Purchase Cost History/reporting read layers.
-10. Private Suitable/fitment and Dealer/role privacy -> `v2-dealer-missing-part-request.sql` after `missing_part_requests`, `app_users` and approved Dealer identity foundations exist. Dealer identity is resolved server-side; secure photo storage remains a separate media dependency.
-11. CUSTOMER/DEALER NETWORK: `v2-customer-dealer-referral-network.sql` -> `v2-referral-repair-routing.sql` -> `v2-validated-dealer-service-areas.sql` -> `v2-public-customer-referral-rpc.sql` -> `v2-public-repair-request-rpc.sql` -> `v2-public-dealer-registration.sql` -> `v2-customer-demand-dealer-referral-analytics.sql` -> `v2-customer-support-opportunity-center.sql` -> `v2-customer-support-admin-workflow.sql`. Public Dealer registration creates PENDING only; Customer enquiry stores multiple selected products; public product requirements/complaints create protected records; only active OWNER/ADMIN may change support workflow state or link a requirement to a real catalog product.
+10. Private Suitable/fitment and Dealer/role privacy foundations. Do not install Dealer Missing Part RPC yet if it relies on authenticated Dealer identity.
+11. CUSTOMER/DEALER NETWORK: `v2-customer-dealer-referral-network.sql` -> `v2-referral-repair-routing.sql` -> `v2-validated-dealer-service-areas.sql` -> `v2-public-customer-referral-rpc.sql` -> `v2-public-repair-request-rpc.sql` -> `v2-public-dealer-registration.sql` -> `v2-customer-demand-dealer-referral-analytics.sql` -> `v2-customer-support-opportunity-center.sql` -> `v2-customer-support-admin-workflow.sql`.
 12. REFERRAL TO B2B: `v2-referral-to-b2b-order-conversion.sql` after Sales Order + Dealer rate + inventory dependencies.
 13. FIELD/STORE ROLE BOUNDARIES: `v2-salesman-field-network.sql` -> `v2-store-keeper-boundary.sql` after Dealer/referral/repair and dispatch dependencies.
 14. CENTRAL ADMIN CONTROL: `v2-admin-central-control.sql` after delivery settings, portal settings, tax settings, app users and audit log exist.
-15. PRODUCT DIGITAL CONTENT: `v2-product-digital-content.sql` after catalog items/app_users/audit log -> `v2-public-product-showcase.sql` after approved digital-content fields exist. Product publication remains a separate Admin/Owner-controlled action.
-16. PRODUCT/DRAFT MEDIA: `v2-media-storage.sql` after `app_users`. Product media is public-read catalog media; only active OWNER/ADMIN can write/delete. Customer repair media must use a separate PRIVATE bucket/policy.
-17. AUTH: `v2-staff-whatsapp-auth.sql` after `app_users` + Supabase Auth foundations -> `v2-dealer-pin-auth.sql` after `dealers` -> `v2-business-login-routing.sql`. Staff roles OWNER/ADMIN/ACCOUNTANT/SALESMAN/STORE KEEPER use verified WhatsApp OTP with bounded staff sessions. Dealer uses separate hashed 4-DIGIT PIN credentials with lockout and verified recovery. The public routing RPC returns only the login method, never role/user/dealer/private profile data. Actual OTP/PIN verification and authenticated identity/session establishment must remain trusted server-side.
+15. PRODUCT DIGITAL CONTENT: `v2-product-digital-content.sql` after catalog items/app_users/audit log -> `v2-public-product-showcase.sql` after approved digital-content fields exist.
+16. PRODUCT/DRAFT MEDIA: `v2-media-storage.sql` after `app_users`. Product media is public-read catalog media; customer/dealer private media must use separate PRIVATE storage/policy.
+17. AUTH: `v2-staff-whatsapp-auth.sql` after `app_users` + Supabase Auth foundations -> `v2-dealer-pin-auth.sql` after `dealers` -> `v2-business-login-routing.sql` -> `v2-dealer-missing-part-request.sql` after authenticated Dealer identity is established. Missing-part identity is server-derived; secure photo storage remains a separate private-media dependency.
 18. SECURE DESKTOP: audit `v2-secure-desktop-verification.sql` against `v2-staff-whatsapp-auth.sql` before enabling. Do not operate two competing privileged-login/session systems in production.
 19. BACKUP: `v2-backup-control.sql` -> `v2-backup-channels.sql` -> `v2-backup-worker-contract.sql`.
 20. DEMO RESET: install the OWNER-only demo/fresh-production reset foundation only after backup/audit dependencies.
@@ -65,6 +65,7 @@ Authoritative dependency order. Never install migrations alphabetically and neve
 - Purchase/payment/Delivery/Return integrity and maker-checker boundaries remain exactly as defined by their final integrity migrations.
 - Product AI draft cannot publish itself; only authorized Admin/Owner approval updates approved product content.
 - Demo reset must be OWNER-only, backup-first, dry-run/reportable and auditable.
+- Dealer Missing Part creation rejects unapproved dealers, non-integer/out-of-range quantity, oversized fields and photo URLs until private media is connected; Dealer history is self-only.
 - No direct client write bypass and no secret exposure.
 
 Run staging checklists already in `tests/` and add dedicated customer-enquiry/referral-analytics/privacy tests before production enablement.
