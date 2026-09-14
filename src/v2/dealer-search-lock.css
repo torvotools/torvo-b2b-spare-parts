@@ -1,9 +1,13 @@
 /* TORVO V2 FINAL DEALER SEARCH LOCK
-   Latest approved mobile-first flow uses the single SmartSearch surface.
-   Legacy chained ALL PRODUCTS / BRAND / CATEGORY / MODEL selects remain
-   structurally dormant for rollback safety but are never shown to dealers. */
+   Approved mobile-first flow uses the single SmartSearch surface.
+   Legacy chained product / brand / category / model selects stay structurally
+   dormant for rollback safety and are never shown to dealers. */
 .dealerPortal .productFinder .catalogFilters>span,
 .dealerPortal .productFinder .catalogFilters>select{display:none!important}
-.dealerPortal .productFinder .catalogFilters{display:flex;justify-content:flex-end;align-items:center;gap:8px;min-height:30px;margin-top:6px}
+.dealerPortal .productFinder .catalogFilters{display:flex;justify-content:flex-end;align-items:center;gap:6px;min-height:26px;margin-top:4px}
 .dealerPortal .productFinder .catalogFilters>b{margin-left:auto}
-@media(max-width:720px){.dealerPortal .productFinder .catalogFilters{padding-inline:2px}.dealerPortal .smartSearchWrap{width:100%;max-width:100%}.dealerPortal .smartSearch{width:100%}}
+.dealerPortal .smartSearchWrap{width:100%;max-width:100%}
+.dealerPortal .smartSearch{width:100%}
+.dealerPortal .smartSearch .smartSearchInput{min-width:0}
+@media(max-width:820px){.dealerPortal .productFinder .catalogFilters{padding-inline:0;gap:4px;min-height:22px;margin-top:2px}.dealerPortal .smartSearchWrap,.dealerPortal .smartSearch{width:100%;max-width:100%}}
+@media(max-width:480px){.dealerPortal .productFinder .catalogFilters{min-height:18px}.dealerPortal .smartSearchWrap{margin-inline:0}}
