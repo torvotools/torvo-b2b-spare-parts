@@ -21,3 +21,9 @@ export async function createDealerMissingPartRequest({machineBrand='',machineMod
   if(error)throw error;
   return data;
 }
+
+export async function dealerMissingPartRequests(){
+  const{data,error}=await requireBackend().rpc('dealer_my_missing_part_requests');
+  if(error)throw error;
+  return Array.isArray(data)?data:[];
+}
