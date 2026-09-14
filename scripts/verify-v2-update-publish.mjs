@@ -1,6 +1,6 @@
 import fs from'node:fs';
 const read=p=>fs.readFileSync(p,'utf8');
-const svc=read('src/v2/services/appRelease.js'),sql=read('supabase/v2-app-release-center.sql'),cap=JSON.parse(read('capacitor.config.json'));
+const svc=read('src/v2/services/appRelease.js'),sql=read('supabase/v2-app-release-center.sql'),cap=JSON.parse(read('capacitor.config.json')),doc=read('docs/TORVO-ANDROID-UPDATE-PUBLISHING.md');
 const fail=m=>{console.error(`FAIL ${m}`);process.exitCode=1};
 if(cap.appId!=='com.torvotools.app')fail('ANDROID PACKAGE CHANGED');
 if(!sql.includes('public_android_app_update()'))fail('PUBLIC UPDATE RPC MISSING');
@@ -9,4 +9,7 @@ if(!sql.includes('r.production_signed=true'))fail('PRODUCTION SIGNATURE REQUIRED
 if(!sql.includes("r.artifact_sha256~'^[0-9a-f]{64}$'"))fail('SHA256 REQUIRED');
 if(!svc.includes('loadPublicAndroidUpdate'))fail('PUBLIC UPDATE CLIENT MISSING');
 if(!svc.includes('latestProductionAndroidRelease'))fail('PRODUCTION UPDATE SELECTOR MISSING');
+if(!doc.includes('must be a durable HTTPS URL'))fail('DURABLE URL POLICY MISSING');
+if(!doc.includes('must never be stored as the production update URL'))fail('TEMPORARY URL REJECTION POLICY MISSING');
+if(!doc.includes('signing keys must be provided as protected deployment secrets'))fail('SIGNING SECRET POLICY MISSING');
 if(process.exitCode)process.exit(process.exitCode);console.log('TORVO ANDROID UPDATE PUBLISH CONTRACT VERIFIED');
