@@ -8,18 +8,17 @@ Authoritative dependency order. Never install migrations alphabetically and neve
 - DEALER PROCUREMENT REMAINS PRIVATE B2B WITH A/B/C RATE GROUPS.
 - WEBSITE, ONE APP AND SECURE DESKTOP USE ONE AUTHORITATIVE BACKEND.
 - ONE DEALER ACCOUNT MAY HAVE ONLY ONE ACTIVE APP DEVICE SESSION AT A TIME.
-- SALESMAN / STORE KEEPER / ACCOUNTANT DO NOT REQUIRE A MOBILE NUMBER FOR NORMAL LOGIN. ADMIN ASSIGNS USERNAME + EMPLOYEE NAME + ONE-TIME PASSWORD.
-- SALESMAN / STORE KEEPER PASSWORD IS CONSUMED ON FIRST SUCCESSFUL LOGIN; THE APPROVED MOBILE APP SESSION MAY CONTINUE UNTIL LOGOUT/REVOKE. AFTER LOGOUT/REINSTALL/DEVICE CHANGE A NEW ADMIN-ISSUED PASSWORD IS REQUIRED.
-- ACCOUNTANT IS DESKTOP-ONLY AND REQUIRES AN ADMIN-ISSUED ONE-TIME PASSWORD FOR EACH NEW LOGIN SESSION.
-- STAFF PASSWORD SHARING ALONE MUST NEVER AUTHORIZE ANOTHER DEVICE. NEW STAFF DEVICE REQUIRES OWNER/ADMIN DEVICE APPROVAL; APPROVING A REPLACEMENT DEVICE REVOKES THE PREVIOUS DEVICE.
-- OWNER/ADMIN RECOVERY REMAINS SEPARATE FROM EMPLOYEE ONE-TIME ACCESS.
-- MASTER SALESMAN IS AN EXPLICIT SERVER-SIDE GRANT. MASTER MAY SEE ALL APPROVED DEALERS; NORMAL SALESMAN REMAINS LIMITED TO ACTIVE DEALER MAPPINGS.
+- SALESMAN / STORE KEEPER / ACCOUNTANT NORMAL LOGIN = ADMIN USERNAME + ONE-TIME PASSWORD; NO EMPLOYEE MOBILE REQUIRED.
+- SALESMAN / STORE KEEPER PASSWORD IS CONSUMED ON FIRST LOGIN; APPROVED APP SESSION CONTINUES UNTIL LOGOUT/REVOKE. NEXT LOGIN NEEDS A NEW ADMIN PASSWORD.
+- ACCOUNTANT IS DESKTOP-ONLY AND NEEDS A NEW ADMIN-ISSUED ONE-TIME PASSWORD FOR EACH NEW LOGIN SESSION.
+- NEW STAFF DEVICE REQUIRES OWNER/ADMIN APPROVAL; REPLACEMENT DEVICE REVOKES PREVIOUS DEVICE.
+- MASTER SALESMAN IS EXPLICIT SERVER-SIDE GRANT; NORMAL SALESMAN IS MAPPED-ONLY.
 
 ## SAFETY
 - Dedicated V2 staging first; stop on first SQL error.
 - No service-role keys, provider secrets, plaintext passwords, PINs, OTP secrets or private tokens in GitHub/browser code.
+- `SUPABASE_SERVICE_ROLE_KEY` exists only as a Supabase Edge Function secret/environment variable.
 - Server derives authenticated role/user/dealer identity; never trust browser-supplied role/dealer identity.
-- Staff temporary passwords are stored only as hashes and are atomically consumed on first successful login.
 
 ## INSTALL SEQUENCE
 1. CORE: `v2-schema.sql`, role/profile/dealer-link and base RLS/security dependencies.
@@ -34,41 +33,44 @@ Authoritative dependency order. Never install migrations alphabetically and neve
 10. Private Suitable/fitment and Dealer/role privacy foundations.
 11. CUSTOMER/DEALER NETWORK BASE and public referral/repair/registration/service-area/support foundations.
 12. REFERRAL TO B2B BASE DEPENDENCIES.
-13. FIELD/STORE ROLE BOUNDARIES: salesman field network -> dealer-salesman mapping foundation -> `v2-master-salesman-access.sql` -> store keeper boundary.
-14. CENTRAL ADMIN CONTROL after delivery/settings/app users/audit dependencies.
+13. FIELD/STORE: salesman field network -> dealer-salesman mapping -> `v2-master-salesman-access.sql` -> store keeper boundary.
+14. CENTRAL ADMIN CONTROL.
 15. PRODUCT DIGITAL CONTENT and public showcase.
 16. PRODUCT/DRAFT MEDIA after app_users.
-17. AUTH FOUNDATION: `v2-staff-whatsapp-auth.sql` (OWNER/ADMIN recovery/legacy transition only) -> `v2-admin-issued-staff-access.sql` -> `v2-dealer-pin-auth.sql` -> `v2-business-login-routing.sql` -> final Dealer device-bound migrations.
-18. SECURE DESKTOP: audit `v2-secure-desktop-verification.sql` against Admin-issued Accountant desktop/device boundary before enabling.
-19. BACKUP control -> channels -> worker contract.
-20. DEMO RESET after backup/audit dependencies.
-21. Dashboard/admin/business/reporting and later modules after prerequisites.
+17. AUTH: `v2-staff-whatsapp-auth.sql` -> `v2-admin-issued-staff-access.sql` -> `v2-dealer-pin-auth.sql` -> `v2-auth-worker-runtime-grants.sql` -> `v2-business-login-routing.sql` -> final Dealer device-bound migrations.
+18. DEPLOY AUTH EDGE FUNCTIONS only after step 17: `_shared/torvo-auth.ts`, `dealer-pin-login`, `dealer-session-valid`, `dealer-session-revoke`, `staff-one-time-login`. Configure `SUPABASE_URL`, `SUPABASE_ANON_KEY`, `SUPABASE_SERVICE_ROLE_KEY` as server secrets; never VITE/browser variables.
+19. SECURE DESKTOP: audit `v2-secure-desktop-verification.sql` against Accountant desktop/device boundary.
+20. BACKUP control -> channels -> worker contract.
+21. DEMO RESET after backup/audit dependencies.
+22. Dashboard/admin/business/reporting and later modules after prerequisites.
+
+## MANDATORY AUTH WORKER GATE
+- Dealer login worker verifies PIN server-side, starts one active device session, then creates/rotates real Supabase Auth credentials and returns only the resulting session + Dealer device token.
+- Dealer session-valid verifies the bearer Auth user and Dealer device token server-side.
+- Dealer session-revoke derives Dealer from bearer Auth identity and revokes current Dealer sessions; browser never supplies dealer_id.
+- Staff one-time worker consumes the password only after approved device verification, establishes real Auth session, then creates `admin_one_time_password` staff session.
+- Service-role key must never be returned, logged, stored in client bundle or committed.
 
 ## MANDATORY STAFF ACCESS GATE
 - `SM@01`-style username is Admin-managed and independent of employee mobile number.
 - Employee name can be changed by Owner/Admin.
 - Only one current unused one-time password; issuing another revokes previous.
-- First successful password verification consumes it; replay fails.
-- SALESMAN/STORE KEEPER = Admin-approved `mobile_app`; ACCOUNTANT = Admin-approved `desktop`.
-- Replacement-device approval revokes previous device.
-- Logout/revocation means next login needs a fresh Admin-issued one-time password.
-- Trusted server establishes real Supabase Auth identity only after password + device verification.
+- SALESMAN/STORE KEEPER = approved `mobile_app`; ACCOUNTANT = approved `desktop`.
+- Logout/revocation means next login needs a fresh Admin-issued password.
 - MASTER SALESMAN grant/revoke is Owner/Admin controlled and audited server-side.
-- MASTER SALESMAN all-dealer visibility comes only from `salesman_visible_dealers()`; normal salesman receives only active mapped dealers.
 
-## RETIRED / DO NOT ENABLE IN LOCKED PRODUCTION MODEL
+## RETIRED / DO NOT ENABLE
 - `v2-public-retail-pricing-foundation.sql`
 - `v2-public-checkout-payment-modes.sql`
 
 ## MANDATORY GENERAL STAGING GATE
 - Role authorization/privacy for OWNER, ADMIN, SALESMAN, ACCOUNTANT, STORE KEEPER, DEALER and PUBLIC CUSTOMER.
-- Public Website/Customer App cannot read Dealer Rate A/B/C, private fitment, purchase cost or privileged Customer data.
+- Public cannot read Dealer Rate A/B/C, private fitment, purchase cost or privileged Customer data.
 - Public catalog has no TORVO selling price/checkout/payment.
-- Staff credentials cannot create a browser-side auth bypass.
-- Dealer PIN is hashed and one active Dealer device rule is enforced server-side.
+- Dealer PIN is hashed and one active Dealer device rule is server-enforced.
 - Dealer private RPCs require current active Dealer device proof.
 - ONE APP routes by authoritative authenticated role.
-- Purchase/payment/Delivery/Return integrity and maker-checker boundaries remain final authority.
+- Purchase/payment/Delivery/Return integrity and maker-checker remain final authority.
 
 ## CLEAN PRODUCTION RULE
 Development artifacts may exist while building, but final production must not carry unnecessary duplicate business logic/data structures.
@@ -77,7 +79,7 @@ Development artifacts may exist while building, but final production must not ca
 - Exact release SHA Build Check must pass.
 - Android artifact must install/open on a real Android device before production-ready claim.
 - Debug APK is TEST ONLY; public release requires private signing and signed AAB/APK.
-- External WhatsApp provider is still required for OWNER/ADMIN recovery or explicitly retained WhatsApp flow.
+- External WhatsApp provider remains required for OWNER/ADMIN recovery or explicitly retained WhatsApp flow.
 - Custom domain/DNS only after final verified production deployment.
 
 ## RELEASE EVIDENCE
