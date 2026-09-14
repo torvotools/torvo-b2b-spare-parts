@@ -1,6 +1,6 @@
 import{readFile}from'node:fs/promises';
-const [normalize,wrangler,worker,workflow]=await Promise.all([
-  readFile('scripts/normalize-v2-build.mjs','utf8'),readFile('wrangler.jsonc','utf8'),readFile('src/v2/cloudflare-worker.js','utf8'),readFile('.github/workflows/v2-cloudflare-preview.yml','utf8')
+const [normalize,wrangler,worker,workflow,releaseGates]=await Promise.all([
+  readFile('scripts/normalize-v2-build.mjs','utf8'),readFile('wrangler.jsonc','utf8'),readFile('src/v2/cloudflare-worker.js','utf8'),readFile('.github/workflows/v2-cloudflare-preview.yml','utf8'),readFile('docs/TORVO-V2-RELEASE-GATES.md','utf8')
 ]);
 const gates=[
  ['GIT SHA FALLBACK',normalize.includes("git('rev-parse','HEAD')")],
@@ -10,11 +10,13 @@ const gates=[
  ['NO STORE EVIDENCE',worker.includes("Cache-Control',NO_STORE")&&worker.includes("X-Torvo-V2','ACTIVE")],
  ['HEAD RESPONSE SAFE',worker.includes("request.method==='HEAD'?null:response.body")],
  ['CACHE BYPASS MARKER',worker.includes("X-Torvo-Cache','BYPASS")],
+ ['DEPLOY PREFLIGHT REQUIRED',workflow.includes('npm run verify:v2-preflight')],
  ['LIVE SHA VERIFY',workflow.includes('VERIFY LIVE WORKER EXACT SHA')&&workflow.includes('EXPECTED_SHA')],
  ['EXTERNAL CONFIG DETECTED',workflow.includes('DETECT EXTERNAL DEPLOY CONFIG')&&workflow.includes('MISSING VITE_SUPABASE_URL')&&workflow.includes('MISSING VITE_SUPABASE_ANON_KEY')&&workflow.includes('MISSING CLOUDFLARE_API_TOKEN')&&workflow.includes('MISSING CLOUDFLARE_ACCOUNT_ID')],
  ['BACKEND CONFIG PASSED TO BUILD',workflow.includes('BUILD EXACT V2 COMMIT')&&workflow.includes('VITE_SUPABASE_URL: ${{ secrets.VITE_SUPABASE_URL }}')&&workflow.includes('VITE_SUPABASE_ANON_KEY: ${{ secrets.VITE_SUPABASE_ANON_KEY }}')],
  ['LIVE DEPLOY FAILS CLOSED',workflow.includes("if: steps.deploy_config.outputs.ready == 'true'")&&workflow.includes('DEPLOY EXACT V2 COMMIT')&&workflow.includes('VERIFY LIVE WORKER EXACT SHA')],
- ['MISSING CONFIG REPORTED NOT MASKED',workflow.includes('CODE VERIFIED; LIVE DEPLOY WAITING FOR REPOSITORY CONFIG')&&workflow.includes('LIVE DEPLOY: WAITING FOR SUPABASE/CLOUDFLARE REPOSITORY CONFIG')]
+ ['MISSING CONFIG REPORTED NOT MASKED',workflow.includes('CODE VERIFIED; LIVE DEPLOY WAITING FOR REPOSITORY CONFIG')&&workflow.includes('LIVE DEPLOY: WAITING FOR SUPABASE/CLOUDFLARE REPOSITORY CONFIG')],
+ ['DOMAIN CUTOVER REQUIRES ACCEPTANCE',releaseGates.includes('DO NOT SWITCH `torvotools.com` UNTIL STAGING')&&releaseGates.includes('BACKUP/RESTORE')&&releaseGates.includes('OWNER ACCEPTANCE')],
+ ['DOMAIN DNS EXTERNAL DEPENDENCY',releaseGates.includes('DOMAIN/DNS')&&releaseGates.includes('FINAL DEPLOYMENT DEPENDENCIES')]
 ];
-let failed=false;for(const[name,ok]of gates){console.log(`${ok?'PASS':'FAIL'} ${name}`);if(!ok)failed=true;}
-if(failed)process.exit(1);console.log(`TORVO V2 DEPLOY CONTRACT VERIFIED (${gates.length} GATES)`);
+let failed=false;for(const[name,ok]of gates){console.log(`${ok?'PASS':'FAIL'} ${name}`);if(!ok)failed=true;}if(failed)process.exit(1);console.log(`TORVO V2 DEPLOY CONTRACT VERIFIED (${gates.length} GATES)`);
