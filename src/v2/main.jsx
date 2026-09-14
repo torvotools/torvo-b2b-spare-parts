@@ -15,6 +15,7 @@ import './app-install-ui.css';
 import './backup-ui.css';
 import './backup-close-ui.css';
 import './dealer-addon-ui.css';
+import './dealer-rewards-ui.css';
 import './login-ui.css';
 import './public-mobile-fix.css';
 import './public-product-showcase.css';
