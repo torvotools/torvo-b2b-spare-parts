@@ -23,6 +23,7 @@ import './public-product-showcase.css';
 import './smart-search-ui.css';
 import './public-catalog-browser.css';
 import './smart-product-filters.css';
+import './dealer-search-lock.css';
 import {installGlobalUiFeedback} from './services/uiFeedback.js';
 import {installAppFoundation} from './services/appInstall.js';
 import {forceSignOut,currentAppUser} from './services/auth.js';
