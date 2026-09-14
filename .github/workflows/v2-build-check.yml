@@ -16,6 +16,7 @@ on:
       - '.github/workflows/v2-build-check.yml'
       - '.github/workflows/v2-netlify-preview.yml'
       - '.github/workflows/v2-cloudflare-preview.yml'
+      - '.github/workflows/v2-android-apk.yml'
   pull_request:
     branches: [main]
     paths:
@@ -31,12 +32,14 @@ on:
       - '.github/workflows/v2-build-check.yml'
       - '.github/workflows/v2-netlify-preview.yml'
       - '.github/workflows/v2-cloudflare-preview.yml'
+      - '.github/workflows/v2-android-apk.yml'
   workflow_dispatch:
 permissions:
   contents: read
 jobs:
   build:
     runs-on: ubuntu-latest
+    timeout-minutes: 15
     steps:
       - name: Checkout exact V2 source
         uses: actions/checkout@v4
