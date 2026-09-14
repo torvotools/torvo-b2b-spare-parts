@@ -11,8 +11,10 @@ const gates=[
  ['HEAD RESPONSE SAFE',worker.includes("request.method==='HEAD'?null:response.body")],
  ['CACHE BYPASS MARKER',worker.includes("X-Torvo-Cache','BYPASS")],
  ['LIVE SHA VERIFY',workflow.includes('VERIFY LIVE WORKER EXACT SHA')&&workflow.includes('EXPECTED_SHA')],
- ['PREVIEW BACKEND CONFIG REQUIRED',workflow.includes('VERIFY PREVIEW BACKEND CONFIG')&&workflow.includes('secrets.VITE_SUPABASE_URL')&&workflow.includes('secrets.VITE_SUPABASE_ANON_KEY')],
- ['BACKEND CONFIG PASSED TO BUILD',workflow.includes('BUILD EXACT V2 COMMIT')&&workflow.includes('VITE_SUPABASE_URL: ${{ secrets.VITE_SUPABASE_URL }}')&&workflow.includes('VITE_SUPABASE_ANON_KEY: ${{ secrets.VITE_SUPABASE_ANON_KEY }}')]
+ ['EXTERNAL CONFIG DETECTED',workflow.includes('DETECT EXTERNAL DEPLOY CONFIG')&&workflow.includes('MISSING VITE_SUPABASE_URL')&&workflow.includes('MISSING VITE_SUPABASE_ANON_KEY')&&workflow.includes('MISSING CLOUDFLARE_API_TOKEN')&&workflow.includes('MISSING CLOUDFLARE_ACCOUNT_ID')],
+ ['BACKEND CONFIG PASSED TO BUILD',workflow.includes('BUILD EXACT V2 COMMIT')&&workflow.includes('VITE_SUPABASE_URL: ${{ secrets.VITE_SUPABASE_URL }}')&&workflow.includes('VITE_SUPABASE_ANON_KEY: ${{ secrets.VITE_SUPABASE_ANON_KEY }}')],
+ ['LIVE DEPLOY FAILS CLOSED',workflow.includes("if: steps.deploy_config.outputs.ready == 'true'")&&workflow.includes('DEPLOY EXACT V2 COMMIT')&&workflow.includes('VERIFY LIVE WORKER EXACT SHA')],
+ ['MISSING CONFIG REPORTED NOT MASKED',workflow.includes('CODE VERIFIED; LIVE DEPLOY WAITING FOR REPOSITORY CONFIG')&&workflow.includes('LIVE DEPLOY: WAITING FOR SUPABASE/CLOUDFLARE REPOSITORY CONFIG')]
 ];
 let failed=false;for(const[name,ok]of gates){console.log(`${ok?'PASS':'FAIL'} ${name}`);if(!ok)failed=true;}
 if(failed)process.exit(1);console.log(`TORVO V2 DEPLOY CONTRACT VERIFIED (${gates.length} GATES)`);
