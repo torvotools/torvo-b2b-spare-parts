@@ -39,7 +39,7 @@ Authoritative dependency order. Never install migrations alphabetically and neve
 15. PRODUCT DIGITAL CONTENT and public showcase -> `v2-product-promotion-popularity.sql` -> `v2-product-promotions.sql` -> `v2-product-promotion-analytics.sql`. Promotions may target WEBSITE, DEALER APP or BOTH; Popular Items are ranked by Admin feature/rank then available popularity signals. Inactive products are excluded. Promotion analytics records privacy-safe idempotent VIEW -> CLICK -> ENQUIRY -> DEALER_ORDER funnel events; Owner/Admin analytics reads only aggregated counts.
 16. PRODUCT/DRAFT MEDIA after app_users.
 17. AUTH: `v2-staff-whatsapp-auth.sql` -> `v2-admin-issued-staff-access.sql` -> `v2-dealer-pin-auth.sql` -> `v2-auth-worker-runtime-grants.sql` -> `v2-business-login-routing.sql`.
-18. FINAL DEALER DEVICE BOUNDARIES after auth assertion exists: `v2-dealer-catalog-search.sql` -> `v2-dealer-machine-spares.sql` -> `v2-dealer-missing-part-request.sql` -> `v2-referral-to-b2b-order-conversion.sql` -> `v2-dealer-knowledge-device-bound.sql` -> `v2-dealer-order-device-bound.sql` -> `v2-dealer-procurement-device-bound.sql` -> `v2-dealer-workspace-device-bound.sql` -> `v2-dealer-final-actions-device-bound.sql`. The customer/dealer referral network base from Step 11 is a prerequisite here and MUST NOT be re-run.
+18. FINAL DEALER DEVICE BOUNDARIES after auth assertion exists: `v2-dealer-catalog-search.sql` -> `v2-dealer-machine-spares.sql` -> `v2-dealer-missing-part-request.sql` -> `v2-referral-to-b2b-order-conversion.sql` -> `v2-dealer-knowledge-device-bound.sql` -> `v2-dealer-order-device-bound.sql` -> `v2-dealer-procurement-device-bound.sql` -> `v2-dealer-workspace-device-bound.sql` -> `v2-dealer-final-actions-device-bound.sql` -> `v2-customer-repair-device-bound.sql`. The customer/dealer referral network base from Step 11 and customer public runtime contract from Step 14 are prerequisites here and MUST NOT be re-run. Repair inbox/read/update becomes device-bound here and legacy no-device repair signatures are dropped.
 19. DEALER TARGET REWARDS: `v2-dealer-target-rewards.sql` -> `v2-dealer-target-reward-settlement.sql` after approved Dealer/app_users/audit and delivered Sales Order foundations. Target slabs are Owner/Admin-controlled; annual scheme year is APRIL-MARCH; only authoritative DELIVERED sales value qualifies; each achieved slab settles once through a unique settlement record; claim cancellation reverses a debit once; points are never earned from fitment suggestions or arbitrary per-invoice billing.
 20. DEPLOY AUTH EDGE FUNCTIONS only after DB auth boundary: `_shared/torvo-auth.ts`, `dealer-pin-login`, `dealer-session-valid`, `dealer-session-revoke`, `staff-one-time-login`.
 21. SECURE DESKTOP verification against Accountant desktop/device boundary.
@@ -61,10 +61,10 @@ Authoritative dependency order. Never install migrations alphabetically and neve
 - Dealer item-rate resolution and Purchase Order submission require current device proof server-side; browser cannot select another Dealer/rate group.
 - Private Dealer workspace catalog reads require current device proof; revoked old mobile must not keep browsing the private ordering workspace.
 - Purchase Order quantities are integer 1..9999 and duplicate catalog item lines fail.
-- Machine-spare, fitment, referral, missing-part and protected order actions require current device proof.
+- Machine-spare, fitment, referral, missing-part, repair inbox/update and protected order actions require current device proof.
 - Sales Order confirmation, revision, modification request, approved Add More Items read/create, Additional Purchase Order request and 30-day order history require current device proof.
 - Dealer business UI must call the dedicated device-proof services; direct legacy repository RPC shortcuts are release blockers.
-- Build/App/Android verification must fail if legacy no-device machine-spare, rate or Purchase Order client calls return.
+- Build/App/Android verification must fail if legacy no-device machine-spare, rate, Purchase Order or repair client calls return.
 - Legacy no-device signatures must be absent after final migrations.
 - Revoked old mobile must fail every protected Dealer mutation/read even while its Supabase Auth token has not yet expired.
 
