@@ -2,6 +2,7 @@ import fs from 'node:fs';
 const read=p=>fs.readFileSync(p,'utf8');
 const runtime=read('supabase/v2-customer-public-runtime-contract.sql');
 const managed=read('supabase/v2-admin-managed-experience.sql');
+const network=read('supabase/v2-customer-dealer-referral-network.sql');
 const order=read('supabase/V2_INSTALL_ORDER.md');
 const checks=[
  ['REPAIR REQUIREMENTS TABLE',/create table if not exists customer_repair_requirements/i.test(runtime)],
@@ -22,6 +23,8 @@ const checks=[
  ['DEALER REPAIR FINAL LOCK',/REPAIR REQUIREMENT ALREADY FINAL/.test(runtime)],
  ['DEALER REPAIR AUDIT',/REPAIR_REQUIREMENT_ACCEPTED/.test(runtime)&&/REPAIR_REQUIREMENT_CLOSED/.test(runtime)],
  ['DEALER REPAIR AUTH ONLY',/revoke all on function dealer_repair_requirements\(text,integer\),dealer_update_repair_requirement\(uuid,text\) from public,anon/i.test(runtime)&&/grant execute on function dealer_repair_requirements\(text,integer\),dealer_update_repair_requirement\(uuid,text\) to authenticated/i.test(runtime)],
+ ['DEALER DEVICE SESSION FOUNDATION',/dealer_assert_my_device_session\(p_device_id,p_session_token\)/.test(network)],
+ ['DEALER REPAIR DEVICE GAP VISIBLE',!/dealer_assert_my_device_session\(p_device_id,p_session_token\)/.test(runtime)],
  ['PUBLIC REFERRAL RPC',/create or replace function public_create_customer_referral/i.test(runtime)],
  ['REFERRAL CONSENT AUDIT',/customer_marketing_consent_events/i.test(runtime)&&/public_create_customer_referral/i.test(runtime)],
  ['PUBLIC BUSINESS SETTINGS',/create or replace function public_business_settings/i.test(runtime)],
