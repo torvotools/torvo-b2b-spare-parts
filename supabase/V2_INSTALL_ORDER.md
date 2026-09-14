@@ -35,7 +35,7 @@ Authoritative dependency order. Never install migrations alphabetically and neve
 11. CUSTOMER/DEALER NETWORK BASE and public referral/repair/registration/service-area/support foundations. After `v2-public-dealer-registration.sql`, install `v2-accountant-dealer-verification.sql`, then after `v2-business-rpcs.sql` install `v2-dealer-final-approval-accountant-gate.sql`. This final override prevents Owner/Admin approval until Accountant has submitted the application.
 12. REFERRAL TO B2B BASE DEPENDENCIES.
 13. FIELD/STORE: salesman field network -> dealer-salesman mapping -> `v2-master-salesman-access.sql` -> store keeper boundary.
-14. CENTRAL ADMIN CONTROL -> `v2-accountant-workspace-buttons.sql` after `app_users`; Owner/Admin manages Accountant sidebar buttons, Accountant reads enabled buttons only.
+14. CENTRAL ADMIN CONTROL -> `v2-accountant-workspace-buttons.sql` after `app_users`; only active OWNER/ADMIN/ACCOUNTANT may read enabled Accountant workspaces. Only OWNER/ADMIN may create, edit, reorder or disable them. The seeded six accounting sections remain the default set.
 15. PRODUCT DIGITAL CONTENT and public showcase.
 16. PRODUCT/DRAFT MEDIA after app_users.
 17. AUTH: `v2-staff-whatsapp-auth.sql` -> `v2-admin-issued-staff-access.sql` -> `v2-dealer-pin-auth.sql` -> `v2-auth-worker-runtime-grants.sql` -> `v2-business-login-routing.sql`.
@@ -63,7 +63,8 @@ Authoritative dependency order. Never install migrations alphabetically and neve
 - SALESMAN/STORE KEEPER = approved `mobile_app`; ACCOUNTANT = approved `desktop`.
 - Logout/revocation means next login needs a fresh Admin-issued password.
 - MASTER SALESMAN grant/revoke is Owner/Admin controlled and audited server-side.
-- ACCOUNTANT SIDEBAR WORKSPACES ARE OWNER/ADMIN-MANAGED; ACCOUNTANT CAN READ ENABLED WORKSPACES BUT CANNOT CREATE, REORDER, ENABLE OR DISABLE THEM.
+- ACCOUNTANT SIDEBAR WORKSPACES ARE OWNER/ADMIN-MANAGED; ACCOUNTANT CAN READ ENABLED WORKSPACES BUT CANNOT CREATE, REORDER, ENABLE OR DISABLE THEM. NON-ACCOUNTING STAFF CANNOT READ THIS WORKSPACE CONFIG.
+- DISABLING AN ACCOUNTANT WORKSPACE IS SOFT-DISABLE ONLY; IT DOES NOT DELETE ACCOUNTING DATA OR CHANGE THE SIX SEEDED DEFAULT BUSINESS DEFINITIONS.
 - ACCOUNTANT HAS A NOTIFICATION BELL AND NEW DEALER VERIFICATION QUEUE. ACCOUNTANT MAY EDIT UNAPPROVED APPLICATION DETAILS, REJECT WITH REASON, OR SUBMIT VERIFIED APPLICATION TO ADMIN; FINAL DEALER CODE/RATE/APPROVAL REMAINS OWNER/ADMIN ONLY.
 - ACCOUNTANT MAY READ STOCK / NO STOCK AND SUBMIT REQUIRED QUANTITY; THIS DOES NOT RECEIVE OR ADJUST STOCK. ALL STAFF REQUIREMENTS FLOW TO OWNER/ADMIN PURCHASE REQUIREMENTS.
 
