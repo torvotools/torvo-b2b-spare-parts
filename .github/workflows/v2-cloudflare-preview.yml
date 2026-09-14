@@ -64,9 +64,21 @@ jobs:
         env:
           EXPECTED_SHA: ${{ github.sha }}
         run: |
-          LIVE_SHA="$(curl --fail --silent --show-error --retry 8 --retry-delay 5 https://torvo-b2b-spare-parts.torvotools.workers.dev/torvo-build-sha.txt)"
-          test "$LIVE_SHA" = "$EXPECTED_SHA"
-          echo "VERIFIED LIVE TORVO V2 SHA: $LIVE_SHA"
+          set -euo pipefail
+          LIVE_SHA=""
+          for ATTEMPT in $(seq 1 12); do
+            LIVE_SHA="$(curl --fail --silent --show-error --connect-timeout 10 --max-time 20 -H 'Cache-Control: no-cache, no-store, max-age=0' -H 'Pragma: no-cache' "https://torvo-b2b-spare-parts.torvotools.workers.dev/torvo-build-sha.txt?sha=${EXPECTED_SHA}&run=${GITHUB_RUN_ID}&attempt=${ATTEMPT}" || true)"
+            LIVE_SHA="$(printf '%s' "$LIVE_SHA" | tr -d '\r\n[:space:]')"
+            if [ "$LIVE_SHA" = "$EXPECTED_SHA" ]; then
+              echo "VERIFIED LIVE TORVO V2 SHA: $LIVE_SHA"
+              exit 0
+            fi
+            echo "LIVE SHA NOT READY (ATTEMPT ${ATTEMPT}/12): ${LIVE_SHA:-EMPTY}"
+            sleep 5
+          done
+          echo "EXPECTED LIVE SHA: $EXPECTED_SHA"
+          echo "LAST LIVE SHA: ${LIVE_SHA:-EMPTY}"
+          exit 1
       - name: DEPLOYMENT EVIDENCE
         run: |
           echo "### TORVO V2 CLOUDFLARE PREVIEW" >> "$GITHUB_STEP_SUMMARY"
