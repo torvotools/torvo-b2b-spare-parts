@@ -4,3 +4,4 @@ const rows=(value,label)=>{if(value==null)return[];if(!Array.isArray(value))thro
 export const loadDealerWorkspaceCatalog=async()=>rows(await rpc('dealer_workspace_catalog'),'DEALER CATALOG');
 export const loadDealerOrderHistory=async()=>rows(await rpc('get_dealer_order_history_30d'),'DEALER ORDER HISTORY');
 export const loadDealerWorkspace=async()=>{await assertDealerSession();const[catalog,history]=await Promise.all([loadDealerWorkspaceCatalog(),loadDealerOrderHistory()]);await assertDealerSession();return{catalog,history}};
+export const refreshDealerWorkspace=async()=>{const result=await loadDealerWorkspace();return{catalog:[...result.catalog],history:[...result.history]}};
