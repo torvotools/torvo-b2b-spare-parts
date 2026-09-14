@@ -1,65 +1,27 @@
 -- TORVO V2 DEALER TARGET REWARD SETTLEMENT
--- AUTHORITATIVE RULE: DELIVERED SALES VALUE -> TARGET SLAB -> POINTS, ONCE PER DEALER/SCHEME YEAR/SLAB.
+-- AUTHORITATIVE RULE: ACTUALLY DELIVERED ESTIMATE VALUE -> TARGET SLAB -> POINTS, ONCE PER DEALER/SCHEME YEAR/SLAB.
 create table if not exists dealer_target_reward_settlements(
- id uuid primary key default gen_random_uuid(),
- dealer_id uuid not null references dealers(id) on delete restrict,
- scheme_year int not null check(scheme_year between 2020 and 2100),
- target_type_id uuid not null references dealer_target_types(id) on delete restrict,
- target_slab_id uuid not null references dealer_target_slabs(id) on delete restrict,
- eligible_purchase_value numeric(14,2) not null default 0 check(eligible_purchase_value>=0),
- points_awarded int not null check(points_awarded>0),
- ledger_id uuid references dealer_reward_points_ledger(id) on delete restrict,
- settled_at timestamptz not null default now(),
- unique(dealer_id,scheme_year,target_slab_id)
-);
-alter table dealer_target_reward_settlements enable row level security;
-revoke all on dealer_target_reward_settlements from anon,authenticated;
-
-create or replace function reward_scheme_period(p_scheme_year int) returns table(start_date date,end_date date) language sql immutable as $$
- select make_date(p_scheme_year,4,1),make_date(p_scheme_year+1,4,1)
-$$;
-
+ id uuid primary key default gen_random_uuid(),dealer_id uuid not null references dealers(id) on delete restrict,scheme_year int not null check(scheme_year between 2020 and 2100),target_type_id uuid not null references dealer_target_types(id) on delete restrict,target_slab_id uuid not null references dealer_target_slabs(id) on delete restrict,eligible_purchase_value numeric(14,2) not null default 0 check(eligible_purchase_value>=0),points_awarded int not null check(points_awarded>0),ledger_id uuid references dealer_reward_points_ledger(id) on delete restrict,settled_at timestamptz not null default now(),unique(dealer_id,scheme_year,target_slab_id));
+alter table dealer_target_reward_settlements enable row level security;revoke all on dealer_target_reward_settlements from anon,authenticated;
+create or replace function reward_scheme_period(p_scheme_year int) returns table(start_date date,end_date date) language sql immutable as $$select make_date(p_scheme_year,4,1),make_date(p_scheme_year+1,4,1)$$;
 create or replace function admin_settle_dealer_target(p_dealer uuid,p_scheme_year int) returns table(eligible_value numeric,points_added int,total_points int) language plpgsql security definer set search_path=public as $$
 declare a uuid:=reward_admin_user();tt uuid;v numeric(14,2):=0;added int:=0;s record;l uuid;sd date;ed date;
 begin
  if p_scheme_year not between 2020 and 2100 then raise exception 'VALID APRIL-MARCH SCHEME YEAR REQUIRED';end if;
- select target_type_id into tt from dealer_target_assignments where dealer_id=p_dealer and scheme_year=p_scheme_year and active=true;
- if tt is null then raise exception 'ACTIVE DEALER TARGET ASSIGNMENT REQUIRED';end if;
+ select target_type_id into tt from dealer_target_assignments where dealer_id=p_dealer and scheme_year=p_scheme_year and active=true;if tt is null then raise exception 'ACTIVE DEALER TARGET ASSIGNMENT REQUIRED';end if;
  select start_date,end_date into sd,ed from reward_scheme_period(p_scheme_year);
- -- Delivered sales are the authoritative eligible value. Cancelled/rejected orders never qualify.
- select coalesce(sum(coalesce(total_amount,0)),0) into v from sales_orders where dealer_id=p_dealer and status='delivered' and coalesce(delivered_at,created_at)>=sd and coalesce(delivered_at,created_at)<ed;
+ -- Canonical delivery finalization sets dispatches.status=delivered and dispatches.delivered_at.
+ -- The delivered ESTIMATE final_payable is the authoritative eligible purchase value.
+ select coalesce(sum(d.final_payable),0) into v from sales_documents d join dispatches x on x.estimate_id=d.id where d.dealer_id=p_dealer and d.doc_type='estimate' and d.status='delivered' and x.status='delivered' and x.delivered_at>=sd and x.delivered_at<ed;
  for s in select id,points,target_value from dealer_target_slabs where target_type_id=tt and active=true and target_value<=v order by target_value loop
   if not exists(select 1 from dealer_target_reward_settlements where dealer_id=p_dealer and scheme_year=p_scheme_year and target_slab_id=s.id) then
    insert into dealer_reward_points_ledger(dealer_id,scheme_year,points,entry_type,reference_id,note,created_by) values(p_dealer,p_scheme_year,s.points,'target_earned',s.id,'TARGET VALUE ACHIEVED',a) returning id into l;
-   insert into dealer_target_reward_settlements(dealer_id,scheme_year,target_type_id,target_slab_id,eligible_purchase_value,points_awarded,ledger_id) values(p_dealer,p_scheme_year,tt,s.id,v,s.points,l);
-   added:=added+s.points;
+   insert into dealer_target_reward_settlements(dealer_id,scheme_year,target_type_id,target_slab_id,eligible_purchase_value,points_awarded,ledger_id) values(p_dealer,p_scheme_year,tt,s.id,v,s.points,l);added:=added+s.points;
   end if;
  end loop;
- insert into audit_log(actor_id,action,entity_type,entity_id,details) values(a,'DEALER_TARGET_SETTLED','DEALER',p_dealer::text,jsonb_build_object('scheme_year',p_scheme_year,'eligible_value',v,'points_added',added));
+ insert into audit_log(actor_id,action,entity_type,entity_id,details) values(a,'DEALER_TARGET_SETTLED','DEALER',p_dealer::text,jsonb_build_object('scheme_year',p_scheme_year,'eligible_value',v,'points_added',added,'source','DELIVERED ESTIMATE FINAL_PAYABLE'));
  return query select v,added,(select coalesce(sum(points),0)::int from dealer_reward_points_ledger where dealer_id=p_dealer and scheme_year=p_scheme_year);
 end$$;
-
-create or replace function admin_approve_reward_claim(p_claim uuid) returns boolean language plpgsql security definer set search_path=public as $$
-declare a uuid:=reward_admin_user();c dealer_reward_claims%rowtype;
-begin
- select * into c from dealer_reward_claims where id=p_claim for update;
- if not found or c.status<>'requested' then raise exception 'REQUESTED CLAIM REQUIRED';end if;
- update dealer_reward_claims set status='approved',approved_by=a,approved_at=now() where id=p_claim;
- insert into audit_log(actor_id,action,entity_type,entity_id,details) values(a,'DEALER_REWARD_CLAIM_APPROVED','REWARD_CLAIM',p_claim::text,jsonb_build_object('dealer_id',c.dealer_id,'points',c.points_used));return true;
-end$$;
-
-create or replace function admin_cancel_reward_claim(p_claim uuid,p_reason text) returns boolean language plpgsql security definer set search_path=public as $$
-declare a uuid:=reward_admin_user();c dealer_reward_claims%rowtype;
-begin
- if nullif(btrim(p_reason),'') is null then raise exception 'CANCELLATION REASON REQUIRED';end if;
- select * into c from dealer_reward_claims where id=p_claim for update;
- if not found or c.status not in('requested','approved') then raise exception 'CLAIM CANNOT BE CANCELLED';end if;
- if not exists(select 1 from dealer_reward_points_ledger where reference_id=p_claim and entry_type='claim_reversal') then
-  insert into dealer_reward_points_ledger(dealer_id,scheme_year,points,entry_type,reference_id,note,created_by) values(c.dealer_id,c.scheme_year,c.points_used,'claim_reversal',p_claim,'CLAIM CANCELLED: '||btrim(p_reason),a);
- end if;
- update dealer_reward_claims set status='cancelled' where id=p_claim;
- insert into audit_log(actor_id,action,entity_type,entity_id,details) values(a,'DEALER_REWARD_CLAIM_CANCELLED','REWARD_CLAIM',p_claim::text,jsonb_build_object('reason',btrim(p_reason)));return true;
-end$$;
-
-revoke all on function reward_scheme_period(int),admin_settle_dealer_target(uuid,int),admin_approve_reward_claim(uuid),admin_cancel_reward_claim(uuid,text) from public,anon;
-grant execute on function admin_settle_dealer_target(uuid,int),admin_approve_reward_claim(uuid),admin_cancel_reward_claim(uuid,text) to authenticated;
+create or replace function admin_approve_reward_claim(p_claim uuid) returns boolean language plpgsql security definer set search_path=public as $$declare a uuid:=reward_admin_user();c dealer_reward_claims%rowtype;begin select * into c from dealer_reward_claims where id=p_claim for update;if not found or c.status<>'requested' then raise exception 'REQUESTED CLAIM REQUIRED';end if;update dealer_reward_claims set status='approved',approved_by=a,approved_at=now() where id=p_claim;insert into audit_log(actor_id,action,entity_type,entity_id,details) values(a,'DEALER_REWARD_CLAIM_APPROVED','REWARD_CLAIM',p_claim::text,jsonb_build_object('dealer_id',c.dealer_id,'points',c.points_used));return true;end$$;
+create or replace function admin_cancel_reward_claim(p_claim uuid,p_reason text) returns boolean language plpgsql security definer set search_path=public as $$declare a uuid:=reward_admin_user();c dealer_reward_claims%rowtype;begin if nullif(btrim(p_reason),'') is null then raise exception 'CANCELLATION REASON REQUIRED';end if;select * into c from dealer_reward_claims where id=p_claim for update;if not found or c.status not in('requested','approved') then raise exception 'CLAIM CANNOT BE CANCELLED';end if;if not exists(select 1 from dealer_reward_points_ledger where reference_id=p_claim and entry_type='claim_reversal') then insert into dealer_reward_points_ledger(dealer_id,scheme_year,points,entry_type,reference_id,note,created_by) values(c.dealer_id,c.scheme_year,c.points_used,'claim_reversal',p_claim,'CLAIM CANCELLED: '||btrim(p_reason),a);end if;update dealer_reward_claims set status='cancelled' where id=p_claim;insert into audit_log(actor_id,action,entity_type,entity_id,details) values(a,'DEALER_REWARD_CLAIM_CANCELLED','REWARD_CLAIM',p_claim::text,jsonb_build_object('reason',btrim(p_reason)));return true;end$$;
+revoke all on function reward_scheme_period(int),admin_settle_dealer_target(uuid,int),admin_approve_reward_claim(uuid),admin_cancel_reward_claim(uuid,text) from public,anon;grant execute on function admin_settle_dealer_target(uuid,int),admin_approve_reward_claim(uuid),admin_cancel_reward_claim(uuid,text) to authenticated;
