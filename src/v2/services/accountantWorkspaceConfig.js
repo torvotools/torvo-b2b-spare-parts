@@ -1,0 +1,5 @@
+import{client}from'../supabase';
+const clean=x=>String(x||'').trim().toUpperCase();
+export async function loadAccountantWorkspaceButtons(){const{data,error}=await client.rpc('accountant_workspace_buttons');if(error)throw error;if(!Array.isArray(data))throw new Error('INVALID ACCOUNTANT WORKSPACE RESPONSE');return data.filter(x=>x&&x.enabled!==false).sort((a,b)=>(Number(a.sort_order)||0)-(Number(b.sort_order)||0)).map(x=>({...x,label:clean(x.label),description:clean(x.description)}));}
+export function validateAccountantWorkspaceButton(input={}){const label=clean(input.label),description=clean(input.description),sort_order=Number(input.sort_order);if(!label||label.length>60)throw new Error('INVALID WORKSPACE BUTTON NAME');if(description.length>160)throw new Error('INVALID WORKSPACE DESCRIPTION');if(!Number.isInteger(sort_order)||sort_order<1||sort_order>1000)throw new Error('INVALID WORKSPACE SORT ORDER');return{label,description,sort_order,enabled:input.enabled!==false};}
+export const ACCOUNTANT_WORKSPACE_ADMIN_RULE='OWNER / ADMIN ONLY';
