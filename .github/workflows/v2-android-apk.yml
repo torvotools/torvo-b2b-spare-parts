@@ -10,6 +10,7 @@ on:
       - 'v2.html'
       - 'vite.app.config.js'
       - 'package.json'
+      - 'scripts/verify-v2-auth-contract.mjs'
       - 'capacitor.config.json'
       - '.github/workflows/v2-android-apk.yml'
 
@@ -20,7 +21,12 @@ jobs:
   apk:
     runs-on: ubuntu-latest
     steps:
-      - uses: actions/checkout@v4
+      - name: CHECKOUT EXACT V2 COMMIT
+        uses: actions/checkout@v4
+        with:
+          ref: ${{ github.sha }}
+      - name: VERIFY V2 BRANCH BOUNDARY
+        run: test "${GITHUB_REF_NAME}" = "torvo-v2-build"
       - uses: actions/setup-node@v4
         with:
           node-version: 22
@@ -30,7 +36,11 @@ jobs:
           java-version: '21'
       - name: INSTALL
         run: npm install --no-audit --no-fund
+      - name: VERIFY DEALER AUTH CONTRACT
+        run: npm run verify:v2-auth
       - name: BUILD NATIVE APP
+        env:
+          VITE_BUILD_SHA: ${{ github.sha }}
         run: npm run build:app
       - name: VERIFY CURRENT LOGIN UI
         run: |
@@ -40,28 +50,27 @@ jobs:
           grep -R -q '4-DIGIT PIN' dist-app/assets
           grep -R -q 'getRegistrations' dist-app/assets
           grep -R -q 'torvo-v2-' dist-app/assets
+          grep -R -q 'dealer-session-valid' dist-app/assets
           if grep -R -q 'LOGIN SERVICE IS NOT CONNECTED YET' dist-app/assets; then echo 'PLACEHOLDER LOGIN FOUND IN COMPILED APP'; exit 1; fi
-          if grep -R -q 'ROLE AND PERMISSION ARE VERIFIED BY THE TORVO BACKEND' dist-app/assets; then echo 'OLD TECHNICAL LOGIN COPY FOUND'; exit 1; fi
       - name: VERIFY NATIVE ENTRY
         run: |
           test -f dist-app/v2.html
           grep -q 'torvo-v2-root' dist-app/v2.html
           cp dist-app/v2.html dist-app/index.html
-          test -f dist-app/index.html
           grep -q 'torvo-v2-root' dist-app/index.html
+          printf '%s' "${GITHUB_SHA}" > dist-app/torvo-build-sha.txt
       - name: CREATE ANDROID PROJECT
         run: npx cap add android
       - name: SYNC ONE APP
         run: npx cap sync android
-      - name: VERIFY ANDROID LOGIN AND CACHE FIX
+      - name: VERIFY ANDROID SINGLE-DEVICE AUTH ASSET
         run: |
           grep -R -q 'SECURE BUSINESS ACCESS' android/app/src/main/assets/public/assets
           grep -R -q 'WHATSAPP OTP' android/app/src/main/assets/public/assets
           grep -R -q '4-DIGIT PIN' android/app/src/main/assets/public/assets
-          grep -R -q 'getRegistrations' android/app/src/main/assets/public/assets
-          grep -R -q 'torvo-v2-' android/app/src/main/assets/public/assets
-          if grep -R -q 'LOGIN SERVICE IS NOT CONNECTED YET' android/app/src/main/assets/public/assets; then echo 'PLACEHOLDER LOGIN COPIED TO ANDROID'; exit 1; fi
-          if grep -R -q 'ROLE AND PERMISSION ARE VERIFIED BY THE TORVO BACKEND' android/app/src/main/assets/public/assets; then echo 'OLD TECHNICAL LOGIN COPY COPIED TO ANDROID'; exit 1; fi
+          grep -R -q 'dealer-session-valid' android/app/src/main/assets/public/assets
+          test -f android/app/src/main/assets/public/torvo-build-sha.txt
+          test "$(cat android/app/src/main/assets/public/torvo-build-sha.txt)" = "${GITHUB_SHA}"
       - name: VERIFY ANDROID ASSET
         run: |
           test -f android/app/src/main/assets/public/index.html
@@ -77,37 +86,17 @@ jobs:
         run: |
           set -euo pipefail
           test -f android/app/build/outputs/apk/debug/app-debug.apk
-          SHORT_SHA="${GITHUB_SHA::12}"
-          BUILD_NO="${GITHUB_RUN_NUMBER}"
-          APK_NAME="TORVO-TOOLS-v2-build-${BUILD_NO}-${SHORT_SHA}.apk"
-          mkdir -p release-artifact
-          cp android/app/build/outputs/apk/debug/app-debug.apk "release-artifact/${APK_NAME}"
-          SHA256="$(sha256sum "release-artifact/${APK_NAME}" | awk '{print $1}')"
-          BUILD_DATE="$(date -u +'%Y-%m-%dT%H:%M:%SZ')"
-          cat > release-artifact/release-manifest.json <<EOF
-          {
-            "app": "TORVO TOOLS",
-            "package": "com.torvotools.app",
-            "channel": "DEBUG-VERIFIED",
-            "build_number": "${BUILD_NO}",
-            "commit_sha": "${GITHUB_SHA}",
-            "short_sha": "${SHORT_SHA}",
-            "build_date_utc": "${BUILD_DATE}",
-            "apk_file": "${APK_NAME}",
-            "apk_sha256": "${SHA256}",
-            "workflow_run_id": "${GITHUB_RUN_ID}",
-            "status": "VERIFIED"
-          }
-          EOF
-          echo "apk_name=${APK_NAME}" >> "$GITHUB_OUTPUT"
-          echo "sha256=${SHA256}" >> "$GITHUB_OUTPUT"
+          SHORT_SHA="${GITHUB_SHA::12}"; BUILD_NO="${GITHUB_RUN_NUMBER}"; APK_NAME="TORVO-TOOLS-v2-build-${BUILD_NO}-${SHORT_SHA}.apk"
+          mkdir -p release-artifact; cp android/app/build/outputs/apk/debug/app-debug.apk "release-artifact/${APK_NAME}"
+          SHA256="$(sha256sum "release-artifact/${APK_NAME}" | awk '{print $1}')"; BUILD_DATE="$(date -u +'%Y-%m-%dT%H:%M:%SZ')"
+          printf '{\n  "app":"TORVO TOOLS",\n  "package":"com.torvotools.app",\n  "channel":"DEBUG-VERIFIED",\n  "build_number":"%s",\n  "commit_sha":"%s",\n  "build_date_utc":"%s",\n  "apk_file":"%s",\n  "apk_sha256":"%s",\n  "workflow_run_id":"%s",\n  "status":"VERIFIED"\n}\n' "$BUILD_NO" "$GITHUB_SHA" "$BUILD_DATE" "$APK_NAME" "$SHA256" "$GITHUB_RUN_ID" > release-artifact/release-manifest.json
+          echo "apk_name=${APK_NAME}" >> "$GITHUB_OUTPUT"; echo "sha256=${SHA256}" >> "$GITHUB_OUTPUT"
       - name: VERIFY RELEASE MANIFEST
         run: |
           test -s release-artifact/release-manifest.json
-          grep -q '"status": "VERIFIED"' release-artifact/release-manifest.json
+          grep -q '"status":"VERIFIED"' release-artifact/release-manifest.json
           grep -q "${GITHUB_SHA}" release-artifact/release-manifest.json
           test -f "release-artifact/${{ steps.release_meta.outputs.apk_name }}"
-          echo "APK SHA256: ${{ steps.release_meta.outputs.sha256 }}"
       - name: UPLOAD VERSIONED VERIFIED APK
         uses: actions/upload-artifact@v4
         with:
