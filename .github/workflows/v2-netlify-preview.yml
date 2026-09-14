@@ -20,20 +20,18 @@ jobs:
         uses: actions/checkout@v4
         with:
           ref: ${{ github.sha }}
-
       - name: Setup Node
         uses: actions/setup-node@v4
         with:
           node-version: 22
-
       - name: Install dependencies
         run: npm install --no-audit --no-fund
-
+      - name: Verify V2 scripts and permanent app identity
+        run: npm run verify:v2-preflight
       - name: Build isolated V2 preview
         env:
           VITE_BUILD_SHA: ${{ github.sha }}
         run: npm run build:v2
-
       - name: Normalize and stamp exact preview build
         run: |
           test "${GITHUB_REF_NAME}" = "torvo-v2-build"
@@ -41,7 +39,6 @@ jobs:
           printf '%s' "${GITHUB_SHA}" > dist/torvo-build-sha.txt
           printf '%s\n' "BRANCH=${GITHUB_REF_NAME}" "SHA=${GITHUB_SHA}" "RUN_ID=${GITHUB_RUN_ID}" > dist/torvo-build-manifest.txt
           echo "TORVO V2 preview ${GITHUB_SHA} ready."
-
       - name: Upload exact preview build artifact
         uses: actions/upload-artifact@v4
         with:
@@ -49,7 +46,6 @@ jobs:
           path: dist
           if-no-files-found: error
           retention-days: 14
-
       - name: Detect Netlify deployment credentials
         id: netlify
         env:
@@ -63,14 +59,12 @@ jobs:
             echo "ready=false" >> "$GITHUB_OUTPUT"
             echo "NETLIFY SECRETS NOT CONFIGURED; VERIFIED BUILD ARTIFACT REMAINS AVAILABLE."
           fi
-
       - name: Deploy exact build to TORVO V2 preview
         if: steps.netlify.outputs.ready == 'true'
         env:
           NETLIFY_AUTH_TOKEN: ${{ secrets.NETLIFY_AUTH_TOKEN }}
           NETLIFY_SITE_ID: ${{ secrets.NETLIFY_SITE_ID }}
         run: npx --yes netlify-cli@latest deploy --dir=dist --site="$NETLIFY_SITE_ID" --auth="$NETLIFY_AUTH_TOKEN" --alias=torvo-v2-build --message="TORVO V2 ${GITHUB_SHA}"
-
       - name: Verify live preview is exact commit
         if: steps.netlify.outputs.ready == 'true'
         env:
@@ -79,7 +73,6 @@ jobs:
           LIVE_SHA="$(curl --fail --silent --show-error --retry 8 --retry-delay 5 https://torvo-v2-build--torvo-v2-preview.netlify.app/torvo-build-sha.txt)"
           test "$LIVE_SHA" = "$EXPECTED_SHA"
           echo "Verified live TORVO V2 preview SHA: $LIVE_SHA"
-
       - name: Record preview availability
         run: |
           echo "### TORVO V2 PREVIEW" >> "$GITHUB_STEP_SUMMARY"
