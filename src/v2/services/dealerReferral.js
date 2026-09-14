@@ -6,3 +6,4 @@ export async function verifyDealerReferral(referralCode){return guardedRpc('deal
 export async function dealerReferralSupply(referralCode){return guardedRpc('dealer_referral_supply_status',{p_referral_code:code(referralCode)})}
 export async function confirmDealerReferralBenefit(referralCode){return guardedRpc('dealer_confirm_referral_benefit',{p_referral_code:code(referralCode)})}
 export async function orderDealerReferralItem(referralCode,quantity){return guardedRpc('dealer_order_referral_item',{p_referral_code:code(referralCode),p_qty:qty(quantity)})}
+export async function loadDealerReferralItems(){const data=await guardedRpc('dealer_referral_items',{});return Array.isArray(data)?data:data?[data]:[]}
