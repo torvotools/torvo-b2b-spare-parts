@@ -7,6 +7,10 @@ if(!sql.includes('public_android_app_update()'))fail('PUBLIC UPDATE RPC MISSING'
 if(!sql.includes("r.status='published'"))fail('PUBLISHED STATUS REQUIRED');
 if(!sql.includes('r.production_signed=true'))fail('PRODUCTION SIGNATURE REQUIRED');
 if(!sql.includes("r.artifact_sha256~'^[0-9a-f]{64}$'"))fail('SHA256 REQUIRED');
+if(!sql.includes('app_release_artifacts_published_contract_check'))fail('ATOMIC PUBLISHED METADATA CONTRACT MISSING');
+if(!sql.includes('app_release_artifacts_android_production_check'))fail('ANDROID PRODUCTION ROW CONTRACT MISSING');
+if(!sql.includes('min_supported_build<=build_number'))fail('MINIMUM BUILD RANGE CHECK MISSING');
+if(!sql.includes('r.published_at is not null'))fail('PUBLIC UPDATE PUBLISHED TIMESTAMP REQUIRED');
 if(!svc.includes('loadPublicAndroidUpdate'))fail('PUBLIC UPDATE CLIENT MISSING');
 if(!svc.includes('latestProductionAndroidRelease'))fail('PRODUCTION UPDATE SELECTOR MISSING');
 if(!svc.includes('durableDownload'))fail('DURABLE DOWNLOAD FILTER MISSING');
