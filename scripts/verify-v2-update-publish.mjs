@@ -9,6 +9,10 @@ if(!sql.includes('r.production_signed=true'))fail('PRODUCTION SIGNATURE REQUIRED
 if(!sql.includes("r.artifact_sha256~'^[0-9a-f]{64}$'"))fail('SHA256 REQUIRED');
 if(!svc.includes('loadPublicAndroidUpdate'))fail('PUBLIC UPDATE CLIENT MISSING');
 if(!svc.includes('latestProductionAndroidRelease'))fail('PRODUCTION UPDATE SELECTOR MISSING');
+if(!svc.includes('durableDownload'))fail('DURABLE DOWNLOAD FILTER MISSING');
+if(!svc.includes("host.endsWith('.blob.core.windows.net')"))fail('SIGNED BLOB URL FILTER MISSING');
+if(!svc.includes("u.searchParams.has('se')&&u.searchParams.has('sig')"))fail('EXPIRING SIGNATURE FILTER MISSING');
+if(!svc.includes('available:false,required:false'))fail('NO UPDATE STATE MUST FAIL CLOSED');
 if(!doc.includes('must be a durable HTTPS URL'))fail('DURABLE URL POLICY MISSING');
 if(!doc.includes('must never be stored as the production update URL'))fail('TEMPORARY URL REJECTION POLICY MISSING');
 if(!doc.includes('signing keys must be provided as protected deployment secrets'))fail('SIGNING SECRET POLICY MISSING');
