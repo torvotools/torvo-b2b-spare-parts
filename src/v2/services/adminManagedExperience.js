@@ -1,0 +1,4 @@
+import{requireBackend}from'./supabase';const fail=e=>{if(e)throw e};
+export async function loadAdminManagedSettings(){const{data,error}=await requireBackend().rpc('admin_managed_settings_snapshot');fail(error);return Array.isArray(data)?data:[]}
+export async function saveAdminManagedSetting(key,value,reason,active=true){if(!String(key||'').trim()||!String(reason||'').trim())throw new Error('SETTING AND CHANGE REASON REQUIRED');const{data,error}=await requireBackend().rpc('admin_save_managed_setting',{p_key:String(key).trim(),p_value:value||{},p_active:!!active,p_reason:String(reason).trim()});fail(error);return data===true}
+export async function loadPublicManagedSettings(){const{data,error}=await requireBackend().rpc('public_managed_settings');fail(error);return Object.fromEntries((data||[]).map(x=>[x.setting_key,x.setting_value||{}]))}
