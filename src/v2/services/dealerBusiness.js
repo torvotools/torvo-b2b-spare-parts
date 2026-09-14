@@ -5,7 +5,7 @@ import{loadDealerMachineSpares as spares}from'./dealerMachineSpares';
 import{requireBackend}from'./supabase';import{assertDealerSession}from'./dealerSession';
 const required=(fn,name)=>{if(typeof fn!=='function')throw new Error(`${name} SERVICE UNAVAILABLE`);return fn};
 const id=(v,label)=>{const s=String(v||'').trim();if(!s||s.length>128)throw new Error(`${label} IS INVALID`);return s};
-const reason=v=>{const s=String(v||'').trim();if(!s)throw new Error('REASON IS REQUIRED');if(s.length>500)throw new Error('REASON IS TOO LONG');return s};
+const reason=v=>{const s=String(v||'').trim();if(s.length<3)throw new Error('REASON MUST BE AT LEAST 3 CHARACTERS');if(s.length>500)throw new Error('REASON IS TOO LONG');return s};
 const qty=v=>{const n=Number(v);if(!Number.isInteger(n)||n<1||n>9999)throw new Error('QUANTITY MUST BE INTEGER 1 TO 9999');return n};
 const lines=v=>{if(!Array.isArray(v)||!v.length)throw new Error('AT LEAST ONE ITEM IS REQUIRED');if(v.length>500)throw new Error('TOO MANY ITEMS');const clean=v.map(x=>({item_id:id(x?.item_id,'ITEM'),qty:qty(x?.qty)}));if(new Set(clean.map(x=>x.item_id)).size!==clean.length)throw new Error('DUPLICATE ITEM IS NOT ALLOWED');return clean};
 const secureRpc=async(name,args={})=>{const proof=await assertDealerSession();if(!proof?.deviceId||!proof?.token)throw new Error('ACTIVE DEALER DEVICE SESSION REQUIRED');const{data,error}=await requireBackend().rpc(name,{...args,p_device_id:proof.deviceId,p_session_token:proof.token});if(error)throw error;await assertDealerSession();return data};
@@ -17,6 +17,6 @@ export const loadDealerOrderHistory=(...args)=>required(history,'DEALER ORDER HI
 export const loadDealerWorkspace=(...args)=>required(workspace,'DEALER WORKSPACE')(...args);
 export const loadDealerMachineSpares=(...args)=>required(spares,'DEALER MACHINE SPARES')(...args);
 export const reviseDealerPurchaseOrder=(orderId,orderLines,why)=>secureRpc('dealer_revise_sales_order_device',{p_sales_order:id(orderId,'SALES ORDER'),p_lines:lines(orderLines),p_reason:reason(why)});
-export const requestDealerSalesOrderChange=(orderId,type,why)=>{if(!['modify_order','add_more_items'].includes(type))throw new Error('INVALID CHANGE REQUEST');return secureRpc('dealer_request_sales_order_change_device',{p_sales_order:id(orderId,'SALES ORDER'),p_type:type,p_reason:reason(why)})};
+export const requestDealerSalesOrderChange=(orderId,type,why)=>{const t=String(type||'').trim().toLowerCase();if(!['modify_order','add_more_items'].includes(t))throw new Error('INVALID CHANGE REQUEST');return secureRpc('dealer_request_sales_order_change_device',{p_sales_order:id(orderId,'SALES ORDER'),p_type:t,p_reason:reason(why)})};
 export const loadApprovedAdditionalRequests=async()=>{const data=await secureRpc('dealer_approved_add_on_requests');if(data==null)return[];if(!Array.isArray(data))throw new Error('INVALID ADDITIONAL REQUEST RESPONSE');return data};
 export const createApprovedAdditionalOrder=(requestId,orderLines)=>secureRpc('dealer_create_add_on_order_device',{p_request:id(requestId,'ADD MORE ITEMS REQUEST'),p_lines:lines(orderLines)});
