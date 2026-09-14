@@ -5,6 +5,7 @@ export async function loadRewardOptions(){const data=await rpc('dealer_reward_op
 export async function loadRewardProgress(){const data=await rpc('dealer_reward_progress');return Array.isArray(data)?data[0]||null:data||null}
 export async function loadRewardClaims(){const data=await rpc('dealer_reward_claim_history');return Array.isArray(data)?data:[]}
 export async function claimReward(rewardId){return rpc('dealer_claim_reward',{p_reward:rewardId})}
+export async function loadTargetRewardAdminData(){const d=await rpc('admin_dealer_target_reward_data');return d||{scheme_year:null,target_types:[],target_slabs:[],assignments:[],reward_options:[],claims:[],dealers:[]}}
 export async function issueRewardVoucher(claimId,provider,code){return rpc('admin_issue_reward_voucher',{p_claim:claimId,p_provider:String(provider||'').toUpperCase(),p_code:String(code||'').trim()})}
 export async function approveRewardClaim(claimId){return rpc('admin_approve_reward_claim',{p_claim:claimId})}
 export async function cancelRewardClaim(claimId,reason){return rpc('admin_cancel_reward_claim',{p_claim:claimId,p_reason:String(reason||'').trim()})}
