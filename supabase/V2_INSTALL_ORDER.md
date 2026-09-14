@@ -11,6 +11,7 @@ Authoritative dependency order. Never install migrations alphabetically and neve
 - ADMIN PANEL IS THE DAILY BUSINESS CONTROL CENTER. APP/WEBSITE READ CENTRAL SETTINGS.
 - AI PRODUCT CONTENT IS ASSISTED DRAFT ONLY; ADMIN APPROVES CONTENT. AI NEVER AUTHORIZES COMPATIBILITY, OEM CLAIM, RATE OR STOCK.
 - PUBLIC PRODUCT SHOWCASE READS THE SAME CENTRAL PRODUCT MASTER; ONLY ACTIVE + PUBLIC-VISIBLE + ADMIN-APPROVED CONTENT MAY APPEAR.
+- ONE DEALER ACCOUNT MAY HAVE ONLY ONE ACTIVE APP DEVICE SESSION AT A TIME. SUCCESSFUL LOGIN ON A NEW MOBILE REVOKES THE PREVIOUS MOBILE SESSION.
 
 ## SAFETY
 - Dedicated V2 staging first; stop on first SQL error.
@@ -36,7 +37,7 @@ Authoritative dependency order. Never install migrations alphabetically and neve
 14. CENTRAL ADMIN CONTROL: `v2-admin-central-control.sql` after delivery settings, portal settings, tax settings, app users and audit log exist.
 15. PRODUCT DIGITAL CONTENT: `v2-product-digital-content.sql` after catalog items/app_users/audit log -> `v2-public-product-showcase.sql` after approved digital-content fields exist.
 16. PRODUCT/DRAFT MEDIA: `v2-media-storage.sql` after `app_users`. Product media is public-read catalog media; customer/dealer private media must use separate PRIVATE storage/policy.
-17. AUTH: `v2-staff-whatsapp-auth.sql` after `app_users` + Supabase Auth foundations -> `v2-dealer-pin-auth.sql` after `dealers` -> `v2-business-login-routing.sql` -> `v2-dealer-missing-part-request.sql` after authenticated Dealer identity is established. Missing-part identity is server-derived; secure photo storage remains a separate private-media dependency.
+17. AUTH: `v2-staff-whatsapp-auth.sql` after `app_users` + Supabase Auth foundations -> `v2-dealer-pin-auth.sql` after `dealers` -> `v2-business-login-routing.sql` -> `v2-dealer-missing-part-request.sql` after authenticated Dealer identity is established. Dealer PIN trusted worker must verify PIN, start the single active device session, establish real Supabase Dealer identity and validate that device session for private Dealer access. Missing-part identity is server-derived; secure photo storage remains a separate private-media dependency.
 18. SECURE DESKTOP: audit `v2-secure-desktop-verification.sql` against `v2-staff-whatsapp-auth.sql` before enabling. Do not operate two competing privileged-login/session systems in production.
 19. BACKUP: `v2-backup-control.sql` -> `v2-backup-channels.sql` -> `v2-backup-worker-contract.sql`.
 20. DEMO RESET: install the OWNER-only demo/fresh-production reset foundation only after backup/audit dependencies.
@@ -59,6 +60,8 @@ Authoritative dependency order. Never install migrations alphabetically and neve
 - Public requirement/complaint creation cannot directly set Admin workflow status, linked product or resolution; PRODUCT ADDED/FULFILLED requires a real linked catalog product and RESOLVED/REJECTED complaints require an Admin resolution note.
 - Staff OTP cannot be accepted until the external WhatsApp provider/server has actually verified it. Emergency access cannot create a browser-side auth bypass.
 - Dealer PIN is exactly 4 digits but stored only as a strong hash; plaintext PIN never persists.
+- Dealer account has at most one non-revoked device session; a new-device login revokes the prior device and the prior app must fail its next private-session validation.
+- PIN change/recovery revokes any existing Dealer device session.
 - ONE APP routes by authoritative authenticated role. Admin Mobile remains limited; full Admin and Accountant stay Desktop/Laptop.
 - Public product showcase exposes only active + explicitly public-visible + Admin-approved content and safe catalog identity fields.
 - Referral -> ORDER FROM TORVO creates at most one linked B2B Sales Order and uses authenticated Dealer + private rate group server-side.
