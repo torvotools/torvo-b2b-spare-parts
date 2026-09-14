@@ -1,0 +1,2 @@
+import{readFile}from'node:fs/promises';
+const config=JSON.parse(await readFile('capacitor.config.json','utf8'));const checks=[['PACKAGE ID',config.appId==='com.torvotools.app'],['APP NAME',config.appName==='TORVO TOOLS'],['APP WEB DIRECTORY',config.webDir==='dist-app'],['HTTPS ANDROID SCHEME',config.server?.androidScheme==='https'],['NO MIXED CONTENT',config.android?.allowMixedContent===false]];let failed=false;for(const[n,ok]of checks){console.log(`${ok?'PASS':'FAIL'} ${n}`);if(!ok)failed=true}if(failed)process.exit(1);console.log('TORVO TOOLS APP IDENTITY VERIFIED');
