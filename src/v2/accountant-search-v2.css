@@ -5,3 +5,16 @@
 @media(max-width:1100px) and (min-width:821px){.accountantPreview{--accountSide:270px}.accountantTopFinder{grid-template-columns:110px minmax(480px,1fr) auto!important}.accountantTopTitle b{max-width:110px!important;font-size:15px}.accountantFilterPanel,.accountantSelectedProduct{left:142px}}
 @media(max-width:820px){.accountantPreview{display:block;width:100%}.accountantSideNav{position:relative;width:100%;padding:8px;display:grid;grid-template-columns:repeat(2,1fr)}.accountantBrand,.accountantIdentity,.accountantSideTitle{grid-column:1/-1;margin:0}.accountantTopFinder{min-height:78px;grid-template-columns:minmax(0,1fr) auto;padding:8px 9px 34px;gap:8px}.accountantTopTitle{display:none}.accountantFilterPanel,.accountantSelectedProduct{left:9px;right:9px}.accountantContent,.accountantContent.workspaceMode{padding:10px 9px 30px}.accountantSummary{grid-template-columns:repeat(2,1fr)}.accountantStockList article{grid-template-columns:1fr}.accountantBell{width:34px!important;min-width:34px!important}}
 @media print{.accountantSideNav,.accountantTopFinder{display:none!important}.accountantPreview{display:block!important;background:#fff!important}.accountantContent,.accountantContent.workspaceMode{max-width:none!important;padding:0!important}}
+
+/* FINAL ACCOUNTANT WHITE STRIP: MATCH ADMIN HEADER GEOMETRY */
+@media(min-width:821px){
+.accountantPreview .accountantTopFinder{grid-template-columns:minmax(118px,155px) minmax(720px,1fr) 40px!important;gap:12px!important;padding:8px 20px 34px!important;align-items:start!important;min-height:86px!important;background:#fff!important}
+.accountantPreview .accountantTopTitle{padding-top:7px!important;align-self:start!important}
+.accountantPreview .accountantSharedSearch{width:100%!important;max-width:none!important;min-width:0!important;padding:0 118px 0 0!important;box-sizing:border-box!important;position:relative!important}
+.accountantPreview .accountantSharedSearch .publicHeroSearchBar{height:44px!important;min-height:44px!important;border-radius:11px!important;border-color:#c9ced7!important;background:#fff!important;box-shadow:0 2px 8px rgba(16,24,40,.05)!important}
+.accountantPreview .accountantFilterToggle{position:absolute!important;right:0!important;top:8px!important;height:27px!important;margin:0!important;padding:0 9px!important}
+.accountantPreview .accountantTopRight{width:40px!important;height:44px!important;align-self:start!important;padding:0!important;display:flex!important;align-items:center!important;justify-content:center!important}
+.accountantPreview .accountantBell{width:40px!important;height:40px!important;min-width:40px!important;min-height:40px!important;margin:2px 0 0!important;border:0!important;border-radius:8px!important;background:transparent!important;box-shadow:none!important}
+}
+@media(min-width:1450px){.accountantPreview .accountantTopFinder{grid-template-columns:150px minmax(900px,1fr) 40px!important}}
+@media(max-width:1100px) and (min-width:821px){.accountantPreview .accountantTopFinder{grid-template-columns:110px minmax(480px,1fr) 40px!important}.accountantPreview .accountantSharedSearch{padding-right:112px!important}}
