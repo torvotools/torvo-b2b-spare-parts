@@ -51,6 +51,8 @@ Authoritative dependency order. Never install migrations alphabetically and neve
 - Purchase Order quantities are integer 1..9999 and duplicate catalog item lines fail.
 - Machine-spare, fitment, referral, missing-part and protected order actions require current device proof.
 - Sales Order confirmation, Additional Purchase Order request and 30-day order history require current device proof.
+- Dealer business UI must call the dedicated device-proof services; direct legacy repository RPC shortcuts are release blockers.
+- Build/App/Android verification must fail if legacy no-device machine-spare, rate or Purchase Order client calls return.
 - Legacy no-device signatures must be absent after final migrations.
 - Revoked old mobile must fail every protected Dealer mutation/read even while its Supabase Auth token has not yet expired.
 
