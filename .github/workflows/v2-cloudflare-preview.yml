@@ -41,9 +41,19 @@ jobs:
         run: npm run verify:v2-runtime
       - name: VERIFY DEPLOYMENT CONTRACT
         run: npm run verify:v2-deploy
+      - name: VERIFY PREVIEW BACKEND CONFIG
+        env:
+          VITE_SUPABASE_URL: ${{ secrets.VITE_SUPABASE_URL }}
+          VITE_SUPABASE_ANON_KEY: ${{ secrets.VITE_SUPABASE_ANON_KEY }}
+        run: |
+          test -n "$VITE_SUPABASE_URL" || (echo "MISSING VITE_SUPABASE_URL" && exit 1)
+          test -n "$VITE_SUPABASE_ANON_KEY" || (echo "MISSING VITE_SUPABASE_ANON_KEY" && exit 1)
+          case "$VITE_SUPABASE_URL" in https://*) ;; *) echo "INVALID VITE_SUPABASE_URL"; exit 1;; esac
       - name: BUILD EXACT V2 COMMIT
         env:
           VITE_BUILD_SHA: ${{ github.sha }}
+          VITE_SUPABASE_URL: ${{ secrets.VITE_SUPABASE_URL }}
+          VITE_SUPABASE_ANON_KEY: ${{ secrets.VITE_SUPABASE_ANON_KEY }}
         run: npm run build
       - name: STAMP DEPLOYED SOURCE SHA
         run: |
@@ -90,6 +100,7 @@ jobs:
           echo "- BRANCH: ${GITHUB_REF_NAME}" >> "$GITHUB_STEP_SUMMARY"
           echo "- EXACT SHA: ${GITHUB_SHA}" >> "$GITHUB_STEP_SUMMARY"
           echo "- FULL V2 GATES: PASSED" >> "$GITHUB_STEP_SUMMARY"
+          echo "- BACKEND CONFIG INCLUDED: YES" >> "$GITHUB_STEP_SUMMARY"
           echo "- LIVE SHA VERIFIED: YES" >> "$GITHUB_STEP_SUMMARY"
           echo "- CACHE-SAFE EVIDENCE: YES" >> "$GITHUB_STEP_SUMMARY"
           echo "- WORKER: https://torvo-b2b-spare-parts.torvotools.workers.dev" >> "$GITHUB_STEP_SUMMARY"
