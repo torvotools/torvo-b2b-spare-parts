@@ -34,7 +34,7 @@ Authoritative dependency order. Never install migrations alphabetically and neve
 11. CUSTOMER/DEALER NETWORK BASE and public referral/repair/registration/service-area/support foundations.
 12. REFERRAL TO B2B BASE DEPENDENCIES.
 13. FIELD/STORE: salesman field network -> dealer-salesman mapping -> `v2-master-salesman-access.sql` -> store keeper boundary.
-14. CENTRAL ADMIN CONTROL.
+14. CENTRAL ADMIN CONTROL -> `v2-accountant-workspace-config.sql` after `app_users`; Owner/Admin manages Accountant sidebar buttons, Accountant reads enabled buttons only.
 15. PRODUCT DIGITAL CONTENT and public showcase.
 16. PRODUCT/DRAFT MEDIA after app_users.
 17. AUTH: `v2-staff-whatsapp-auth.sql` -> `v2-admin-issued-staff-access.sql` -> `v2-dealer-pin-auth.sql` -> `v2-auth-worker-runtime-grants.sql` -> `v2-business-login-routing.sql`.
@@ -62,6 +62,7 @@ Authoritative dependency order. Never install migrations alphabetically and neve
 - SALESMAN/STORE KEEPER = approved `mobile_app`; ACCOUNTANT = approved `desktop`.
 - Logout/revocation means next login needs a fresh Admin-issued password.
 - MASTER SALESMAN grant/revoke is Owner/Admin controlled and audited server-side.
+- ACCOUNTANT SIDEBAR WORKSPACES ARE OWNER/ADMIN-MANAGED; ACCOUNTANT CAN READ ENABLED WORKSPACES BUT CANNOT CREATE, REORDER, ENABLE OR DISABLE THEM.
 
 ## RETIRED / DO NOT ENABLE
 - `v2-public-retail-pricing-foundation.sql`
