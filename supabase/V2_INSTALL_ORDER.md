@@ -38,24 +38,19 @@ Authoritative dependency order. Never install migrations alphabetically and neve
 15. PRODUCT DIGITAL CONTENT and public showcase.
 16. PRODUCT/DRAFT MEDIA after app_users.
 17. AUTH: `v2-staff-whatsapp-auth.sql` -> `v2-admin-issued-staff-access.sql` -> `v2-dealer-pin-auth.sql` -> `v2-auth-worker-runtime-grants.sql` -> `v2-business-login-routing.sql`.
-18. FINAL DEALER DEVICE BOUNDARIES after auth assertion exists: `v2-dealer-catalog-search.sql` -> `v2-dealer-machine-spares.sql` -> `v2-dealer-missing-part-request.sql` -> `v2-customer-dealer-referral-network.sql` -> `v2-referral-to-b2b-order-conversion.sql` -> `v2-dealer-knowledge-device-bound.sql` -> `v2-dealer-order-device-bound.sql`.
+18. FINAL DEALER DEVICE BOUNDARIES after auth assertion exists: `v2-dealer-catalog-search.sql` -> `v2-dealer-machine-spares.sql` -> `v2-dealer-missing-part-request.sql` -> `v2-customer-dealer-referral-network.sql` -> `v2-referral-to-b2b-order-conversion.sql` -> `v2-dealer-knowledge-device-bound.sql` -> `v2-dealer-order-device-bound.sql` -> `v2-dealer-procurement-device-bound.sql`.
 19. DEPLOY AUTH EDGE FUNCTIONS only after DB auth boundary: `_shared/torvo-auth.ts`, `dealer-pin-login`, `dealer-session-valid`, `dealer-session-revoke`, `staff-one-time-login`. Configure server secrets only.
 20. SECURE DESKTOP verification against Accountant desktop/device boundary.
 21. BACKUP control -> channels -> worker contract.
 22. DEMO RESET after backup/audit dependencies; Dashboard/admin/business/reporting and later modules after prerequisites.
 
-## MANDATORY AUTH WORKER GATE
-- Dealer login worker verifies PIN server-side, starts one active device session, then creates/rotates real Supabase Auth credentials and returns only the resulting session + Dealer device token.
-- Dealer session-valid verifies bearer Auth user and Dealer device token server-side.
-- Dealer session-revoke derives Dealer from bearer Auth identity and revokes current Dealer sessions; browser never supplies dealer_id.
-- Service-role key must never be returned, logged, stored in client bundle or committed.
-
 ## MANDATORY DEALER DEVICE GATE
-- Machine-spare lookup passes current device proof and revalidates after response.
-- Fitment challenge/history/submission call `dealer_assert_my_device_session` server-side.
-- Dealer Sales Order confirmation, Additional Purchase Order request and 30-day order history require current device proof server-side.
+- Dealer item-rate resolution and Purchase Order submission require current device proof server-side; browser cannot select another Dealer/rate group.
+- Purchase Order quantities are integer 1..9999 and duplicate catalog item lines fail.
+- Machine-spare, fitment, referral, missing-part and protected order actions require current device proof.
+- Sales Order confirmation, Additional Purchase Order request and 30-day order history require current device proof.
 - Legacy no-device signatures must be absent after final migrations.
-- Revoked old mobile must fail catalog, machine-spares, missing-part, referral, fitment and protected order actions even while its Supabase Auth token has not yet expired.
+- Revoked old mobile must fail every protected Dealer mutation/read even while its Supabase Auth token has not yet expired.
 
 ## MANDATORY STAFF ACCESS GATE
 - `SM@01`-style username is Admin-managed and independent of employee mobile number.
@@ -73,7 +68,6 @@ Authoritative dependency order. Never install migrations alphabetically and neve
 - Public cannot read Dealer Rate A/B/C, private fitment, purchase cost or privileged Customer data.
 - Public catalog has no TORVO selling price/checkout/payment.
 - Dealer PIN is hashed and one active Dealer device rule is server-enforced.
-- Dealer private RPCs require current active Dealer device proof.
 - ONE APP routes by authoritative authenticated role.
 - Purchase/payment/Delivery/Return integrity and maker-checker remain final authority.
 
