@@ -35,9 +35,8 @@ create or replace function public.salesman_attendance_check_in(p_note text defau
 declare uid uuid; row_out public.salesman_attendance;
 begin
  uid:=public.salesman_current_user_id();if uid is null then raise exception 'SALESMAN LOGIN REQUIRED';end if;
- insert into public.salesman_attendance(salesman_user_id,attendance_date,check_in_note) values(uid,current_date,nullif(trim(p_note),''))
- on conflict(salesman_user_id,attendance_date) do update set check_in_note=coalesce(public.salesman_attendance.check_in_note,excluded.check_in_note),updated_at=now()
- returning * into row_out;return row_out;
+ if exists(select 1 from public.salesman_attendance where salesman_user_id=uid and attendance_date=current_date) then raise exception 'TODAY ATTENDANCE ALREADY CHECKED IN';end if;
+ insert into public.salesman_attendance(salesman_user_id,attendance_date,check_in_note) values(uid,current_date,nullif(trim(p_note),'')) returning * into row_out;return row_out;
 end$$;
 revoke all on function public.salesman_attendance_check_in(text) from public;grant execute on function public.salesman_attendance_check_in(text) to authenticated;
 
@@ -49,4 +48,12 @@ begin
  if row_out.id is null then raise exception 'CHECK IN BEFORE CHECK OUT';end if;return row_out;
 end$$;
 revoke all on function public.salesman_attendance_check_out(text) from public;grant execute on function public.salesman_attendance_check_out(text) to authenticated;
+
+create or replace function public.admin_salesman_attendance(p_from date default current_date-30,p_to date default current_date) returns table(attendance_id uuid,salesman_user_id uuid,salesman_name text,attendance_date date,check_in_at timestamptz,check_out_at timestamptz,status text) language plpgsql stable security definer set search_path=public as $$
+begin
+ if not exists(select 1 from public.app_users where auth_user_id=auth.uid() and active=true and lower(role) in('owner','admin')) then raise exception 'OWNER OR ADMIN REQUIRED';end if;
+ if p_from is null or p_to is null or p_from>p_to or p_to-p_from>366 then raise exception 'INVALID ATTENDANCE DATE RANGE';end if;
+ return query select a.id,a.salesman_user_id,coalesce(u.full_name,u.username,'SALESMAN'),a.attendance_date,a.check_in_at,a.check_out_at,a.status from public.salesman_attendance a join public.app_users u on u.id=a.salesman_user_id where a.attendance_date between p_from and p_to order by a.attendance_date desc,salesman_name;
+end$$;
+revoke all on function public.admin_salesman_attendance(date,date) from public;grant execute on function public.admin_salesman_attendance(date,date) to authenticated;
 commit;
