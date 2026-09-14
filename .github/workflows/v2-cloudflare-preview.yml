@@ -31,6 +31,14 @@ jobs:
         run: npm install --no-audit --no-fund
       - name: VERIFY DEALER AUTH CONTRACT
         run: npm run verify:v2-auth
+      - name: VERIFY FINAL READINESS
+        run: npm run verify:v2-ready
+      - name: VERIFY DEALER BUSINESS BOUNDARY
+        run: npm run verify:v2-dealer-business
+      - name: VERIFY RELEASE GATES
+        run: npm run verify:v2-release-gates
+      - name: VERIFY RUNTIME READINESS CONTRACT
+        run: npm run verify:v2-runtime
       - name: BUILD EXACT V2 COMMIT
         env:
           VITE_BUILD_SHA: ${{ github.sha }}
@@ -64,5 +72,6 @@ jobs:
           echo "### TORVO V2 CLOUDFLARE PREVIEW" >> "$GITHUB_STEP_SUMMARY"
           echo "- BRANCH: ${GITHUB_REF_NAME}" >> "$GITHUB_STEP_SUMMARY"
           echo "- EXACT SHA: ${GITHUB_SHA}" >> "$GITHUB_STEP_SUMMARY"
+          echo "- FULL V2 GATES: PASSED" >> "$GITHUB_STEP_SUMMARY"
           echo "- LIVE SHA VERIFIED: YES" >> "$GITHUB_STEP_SUMMARY"
           echo "- WORKER: https://torvo-b2b-spare-parts.torvotools.workers.dev" >> "$GITHUB_STEP_SUMMARY"
