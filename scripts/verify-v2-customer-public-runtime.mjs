@@ -30,6 +30,8 @@ const checks=[
  ['DEALER REPAIR DEVICE AUTH ONLY',/revoke all on function dealer_repair_requirements\(text,integer,text,text\),dealer_update_repair_requirement\(uuid,text,text,text\) from public,anon/i.test(repairDevice)&&/grant execute on function dealer_repair_requirements\(text,integer,text,text\),dealer_update_repair_requirement\(uuid,text,text,text\) to authenticated/i.test(repairDevice)],
  ['DEALER REPAIR FINAL INSTALL ORDER',order.indexOf('v2-customer-repair-device-bound.sql')>order.indexOf('v2-customer-public-runtime-contract.sql')&&order.indexOf('v2-customer-repair-device-bound.sql')>order.indexOf('v2-dealer-final-actions-device-bound.sql')],
  ['PUBLIC REFERRAL RPC',/create or replace function public_create_customer_referral/i.test(runtime)],
+ ['REFERRAL CRYPTO FOUNDATION',/create extension if not exists pgcrypto/i.test(network)&&/gen_random_bytes\(6\)/i.test(runtime)],
+ ['REFERRAL FOUNDATION BEFORE RUNTIME',order.indexOf('v2-customer-dealer-referral-network.sql')>=0&&order.indexOf('v2-customer-public-runtime-contract.sql')>order.indexOf('v2-customer-dealer-referral-network.sql')],
  ['REFERRAL CONSENT AUDIT',/customer_marketing_consent_events/i.test(runtime)&&/public_create_customer_referral/i.test(runtime)],
  ['PUBLIC BUSINESS SETTINGS',/create or replace function public_business_settings/i.test(runtime)],
  ['DUAL WHATSAPP ADMIN SETTINGS',/customer_number/.test(managed)&&/business_number/.test(managed)&&/customer_active/.test(managed)&&/business_active/.test(managed)],
