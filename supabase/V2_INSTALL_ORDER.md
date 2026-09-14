@@ -42,7 +42,8 @@ Authoritative dependency order. Never install migrations alphabetically and neve
 19. DEPLOY AUTH EDGE FUNCTIONS only after DB auth boundary: `_shared/torvo-auth.ts`, `dealer-pin-login`, `dealer-session-valid`, `dealer-session-revoke`, `staff-one-time-login`. Configure server secrets only.
 20. SECURE DESKTOP verification against Accountant desktop/device boundary.
 21. BACKUP control -> channels -> worker contract.
-22. DEMO RESET after backup/audit dependencies; Dashboard/admin/business/reporting and later modules after prerequisites.
+22. APP RELEASE CENTER: `v2-app-release-center.sql`; release metadata writes remain CI/trusted-worker only and Owner/Admin can read verified release status.
+23. DEMO RESET after backup/audit dependencies; Dashboard/admin/business/reporting and later modules after prerequisites.
 
 ## MANDATORY DEALER DEVICE GATE
 - Dealer item-rate resolution and Purchase Order submission require current device proof server-side; browser cannot select another Dealer/rate group.
@@ -70,6 +71,12 @@ Authoritative dependency order. Never install migrations alphabetically and neve
 - Dealer PIN is hashed and one active Dealer device rule is server-enforced.
 - ONE APP routes by authoritative authenticated role.
 - Purchase/payment/Delivery/Return integrity and maker-checker remain final authority.
+
+## APP RELEASE GATE
+- Owner/Admin APP RELEASE tab reads release metadata through `admin_app_release_center()` only.
+- Browser cannot write release metadata or mark an artifact verified.
+- APK/AAB/iOS download is shown only when status is VERIFIED/PUBLISHED and a trusted artifact URL exists.
+- DATA/CONTENT changes flow from the central backend without native reinstall; PROGRAM/CODE changes require a new verified native release.
 
 ## ANDROID / LIVE RELEASE GATE
 - Exact release SHA Build Check must pass.
