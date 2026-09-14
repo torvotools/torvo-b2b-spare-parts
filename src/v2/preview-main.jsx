@@ -6,7 +6,7 @@ import AdminVisualPreview from './components/AdminVisualPreview';
 import AccountantVisualPreview from './components/AccountantVisualPreview';
 import LoginVisualPreview from './components/LoginVisualPreview';
 import DealerRegistrationPreview from './components/DealerRegistrationPreview';
-import './styles.css';import './workspace-polish.css';import './login-preview.css';import './dealer-mobile-fix.css';import './premium-ui.css';import './compact-cloud-ui.css';import './admin-desktop-polish.css';import './admin-search-v2.css';import './public-website.css';import './public-mobile-fix.css';import './public-product-showcase.css';import './public-catalog-browser.css';import './smart-search-ui.css';import './smart-product-filters.css';import './role-app-preview.css';
+import './styles.css';import './workspace-polish.css';import './login-preview.css';import './dealer-mobile-fix.css';import './premium-ui.css';import './compact-cloud-ui.css';import './admin-desktop-polish.css';import './admin-search-v2.css';import './accountant-search-v2.css';import './public-website.css';import './public-mobile-fix.css';import './public-product-showcase.css';import './public-catalog-browser.css';import './smart-search-ui.css';import './smart-product-filters.css';import './role-app-preview.css';
 import {installGlobalUiFeedback} from './services/uiFeedback.js';
 const root=document.getElementById('torvo-v2-root');if(!root)throw new Error('TORVO V2 preview root not found');
 const params=new URLSearchParams(window.location.search);const visual=(params.get('visual')||'website').toLowerCase();
