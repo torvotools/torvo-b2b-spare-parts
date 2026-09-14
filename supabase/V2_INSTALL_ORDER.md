@@ -38,7 +38,7 @@ Authoritative dependency order. Never install migrations alphabetically and neve
 15. PRODUCT DIGITAL CONTENT and public showcase.
 16. PRODUCT/DRAFT MEDIA after app_users.
 17. AUTH: `v2-staff-whatsapp-auth.sql` -> `v2-admin-issued-staff-access.sql` -> `v2-dealer-pin-auth.sql` -> `v2-auth-worker-runtime-grants.sql` -> `v2-business-login-routing.sql`.
-18. FINAL DEALER DEVICE BOUNDARIES after auth assertion exists: `v2-dealer-catalog-search.sql` -> `v2-dealer-machine-spares.sql` -> `v2-dealer-missing-part-request.sql` -> `v2-customer-dealer-referral-network.sql` -> `v2-referral-to-b2b-order-conversion.sql` -> `v2-dealer-knowledge-device-bound.sql` -> `v2-dealer-order-device-bound.sql` -> `v2-dealer-procurement-device-bound.sql`.
+18. FINAL DEALER DEVICE BOUNDARIES after auth assertion exists: `v2-dealer-catalog-search.sql` -> `v2-dealer-machine-spares.sql` -> `v2-dealer-missing-part-request.sql` -> `v2-customer-dealer-referral-network.sql` -> `v2-referral-to-b2b-order-conversion.sql` -> `v2-dealer-knowledge-device-bound.sql` -> `v2-dealer-order-device-bound.sql` -> `v2-dealer-procurement-device-bound.sql` -> `v2-dealer-workspace-device-bound.sql`.
 19. DEPLOY AUTH EDGE FUNCTIONS only after DB auth boundary: `_shared/torvo-auth.ts`, `dealer-pin-login`, `dealer-session-valid`, `dealer-session-revoke`, `staff-one-time-login`. Configure server secrets only.
 20. SECURE DESKTOP verification against Accountant desktop/device boundary.
 21. BACKUP control -> channels -> worker contract.
@@ -47,6 +47,7 @@ Authoritative dependency order. Never install migrations alphabetically and neve
 
 ## MANDATORY DEALER DEVICE GATE
 - Dealer item-rate resolution and Purchase Order submission require current device proof server-side; browser cannot select another Dealer/rate group.
+- Private Dealer workspace catalog reads require current device proof; revoked old mobile must not keep browsing the private ordering workspace.
 - Purchase Order quantities are integer 1..9999 and duplicate catalog item lines fail.
 - Machine-spare, fitment, referral, missing-part and protected order actions require current device proof.
 - Sales Order confirmation, Additional Purchase Order request and 30-day order history require current device proof.
@@ -79,7 +80,7 @@ Authoritative dependency order. Never install migrations alphabetically and neve
 - DATA/CONTENT changes flow from the central backend without native reinstall; PROGRAM/CODE changes require a new verified native release.
 
 ## ANDROID / LIVE RELEASE GATE
-- Exact release SHA Build Check must pass.
+- Exact release SHA Build Check and FINAL READINESS contract must pass.
 - Android artifact must install/open on a real Android device before production-ready claim.
 - Debug APK is TEST ONLY; public release requires private signing and signed AAB/APK.
 - External provider credentials and custom domain/DNS remain deployment gates.
