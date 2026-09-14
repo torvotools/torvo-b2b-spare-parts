@@ -47,6 +47,8 @@ jobs:
           node-version: 22
       - name: Install dependencies
         run: npm install --no-audit --no-fund
+      - name: Verify app release security contract
+        run: node scripts/verify-v2-release-center.mjs
       - name: Verify exact stamped V2 build
         env:
           VITE_BUILD_SHA: ${{ github.sha }}
