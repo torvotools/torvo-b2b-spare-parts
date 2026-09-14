@@ -5,6 +5,8 @@ const repairDevice=read('supabase/v2-customer-repair-device-bound.sql');
 const managed=read('supabase/v2-admin-managed-experience.sql');
 const network=read('supabase/v2-customer-dealer-referral-network.sql');
 const order=read('supabase/V2_INSTALL_ORDER.md');
+const safeBool=(alias,key)=>new RegExp(`case lower\\(coalesce\\(${alias}\\.setting_value->>'${key}','true'\\)\\) when 'true' then true when 'false' then false else true end`,`i`).test(runtime);
+const unsafePublicBoolCast=/setting_value->>'(?:customer_active|business_active|customer_referral|repair_service|customer_catalog)'\s*\)::boolean/i.test(runtime);
 const checks=[
  ['REPAIR REQUIREMENTS TABLE',/create table if not exists customer_repair_requirements/i.test(runtime)],
  ['REPAIR REQUIREMENTS RLS',/alter table customer_repair_requirements enable row level security/i.test(runtime)],
@@ -34,7 +36,8 @@ const checks=[
  ['REFERRAL FOUNDATION BEFORE RUNTIME',order.indexOf('v2-customer-dealer-referral-network.sql')>=0&&order.indexOf('v2-customer-public-runtime-contract.sql')>order.indexOf('v2-customer-dealer-referral-network.sql')],
  ['REFERRAL CONSENT AUDIT',/customer_marketing_consent_events/i.test(runtime)&&/public_create_customer_referral/i.test(runtime)],
  ['PUBLIC BUSINESS SETTINGS',/create or replace function public_business_settings/i.test(runtime)],
- ['SAFE SETTINGS BOOLEAN PARSING',/case lower\(coalesce\(w\.setting_value->>'customer_active','true'\)\)/i.test(runtime)&&/case lower\(coalesce\(w\.setting_value->>'business_active','true'\)\)/i.test(runtime)&&/case lower\(coalesce\(f\.setting_value->>'customer_referral','true'\)\)/i.test(runtime)&&!/setting_value->>'(?:customer_active|business_active|customer_referral|repair_service|customer_catalog)'\)::boolean/i.test(runtime)],
+ ['PUBLIC SETTINGS SAFE BOOLEAN PARSING',safeBool('w','customer_active')&&safeBool('w','business_active')&&safeBool('f','customer_referral')&&safeBool('f','repair_service')&&safeBool('f','customer_catalog')],
+ ['PUBLIC SETTINGS NO UNSAFE BOOLEAN CAST',!unsafePublicBoolCast],
  ['EXACT PIN DEALER LOCATOR',/create or replace function public_find_torvo_dealers_expanded/i.test(runtime)&&/coalesce\(nullif\(d\.public_pin_code,''\),d\.pin_code\)=btrim\(p_pin_code\)/i.test(runtime)&&/'EXACT_PIN'::text/i.test(runtime)],
  ['VERIFIED PUBLIC DEALER ONLY',/d\.status='approved'[\s\S]*d\.customer_referral_enabled=true[\s\S]*d\.referral_profile_verified_at is not null/i.test(runtime)],
  ['REPAIR LOCATOR CAPABILITY FILTER',/not coalesce\(p_repair_only,false\) or d\.repair_service_available=true/i.test(runtime)],
