@@ -26,26 +26,33 @@ Authoritative dependency order. Never install migrations alphabetically and neve
 2. CATALOG: catalog/item/master/rate/search foundations + dependent RPCs.
 3. SALES: sales/order foundations -> `v2-sales-order-integrity.sql` -> `v2-additional-purchase-order.sql`.
 4. PURCHASE + INVENTORY: inventory + canonical movement and final Purchase integrity migrations.
-5. PURCHASE REQUIREMENTS: base -> RPC -> item link -> fulfilment -> receipt integrity -> `v2-accountant-stock-requirement-view.sql`. Accountant stock view is read-only and its SUBMIT action feeds the same central Purchase Requirements list used by Salesman/Store Keeper/Admin.
+5. PURCHASE REQUIREMENTS: base -> RPC -> item link -> fulfilment -> receipt integrity -> `v2-accountant-stock-requirement-view.sql`.
 6. PAYMENT / DELIVERY: payment/dispatch foundations -> `v2-delivery-stock-integrity.sql`.
 7. RETURNS BASE after Delivery + received Purchase integrity.
 8. CENTRAL MAKER-CHECKER and final approval boundaries.
 9. Inventory movement, low-stock/reorder, Purchase Cost History/reporting read layers.
 10. Private Suitable/fitment and Dealer/role privacy foundations, including `v2-knowledge-rewards.sql` base.
-11. CUSTOMER/DEALER NETWORK BASE and public referral/repair/registration/service-area/support foundations. After `v2-public-dealer-registration.sql`, install `v2-accountant-dealer-verification.sql`, then after `v2-business-rpcs.sql` install `v2-dealer-final-approval-accountant-gate.sql`. This final override prevents Owner/Admin approval until Accountant has submitted the application.
+11. CUSTOMER/DEALER NETWORK BASE and public referral/repair/registration/service-area/support foundations. After `v2-public-dealer-registration.sql`, install `v2-accountant-dealer-verification.sql`, then after `v2-business-rpcs.sql` install `v2-dealer-final-approval-accountant-gate.sql`.
 12. REFERRAL TO B2B BASE DEPENDENCIES.
-13. FIELD/STORE: salesman field network -> dealer-salesman mapping -> `v2-master-salesman-access.sql` -> `v2-salesman-attendance.sql` -> store keeper boundary. Attendance is authenticated SALESMAN-only for self check-in/check-out and history; direct table access remains blocked.
-14. CENTRAL ADMIN CONTROL -> `v2-accountant-workspace-buttons.sql` after `app_users`; only active OWNER/ADMIN/ACCOUNTANT may read enabled Accountant workspaces. Only OWNER/ADMIN may create, edit, reorder or disable them. The seeded six accounting sections remain the default set.
+13. FIELD/STORE: salesman field network -> dealer-salesman mapping -> `v2-master-salesman-access.sql` -> `v2-salesman-attendance.sql` -> store keeper boundary.
+14. CENTRAL ADMIN CONTROL -> `v2-accountant-workspace-buttons.sql` after `app_users` -> `v2-admin-managed-experience.sql`. Daily website/app/social/marketing/feature configuration must be changed through Owner/Admin backend controls instead of source edits wherever the setting is operational content/configuration rather than executable code or a security rule.
 15. PRODUCT DIGITAL CONTENT and public showcase.
 16. PRODUCT/DRAFT MEDIA after app_users.
 17. AUTH: `v2-staff-whatsapp-auth.sql` -> `v2-admin-issued-staff-access.sql` -> `v2-dealer-pin-auth.sql` -> `v2-auth-worker-runtime-grants.sql` -> `v2-business-login-routing.sql`.
 18. FINAL DEALER DEVICE BOUNDARIES after auth assertion exists: `v2-dealer-catalog-search.sql` -> `v2-dealer-machine-spares.sql` -> `v2-dealer-missing-part-request.sql` -> `v2-customer-dealer-referral-network.sql` -> `v2-referral-to-b2b-order-conversion.sql` -> `v2-dealer-knowledge-device-bound.sql` -> `v2-dealer-order-device-bound.sql` -> `v2-dealer-procurement-device-bound.sql` -> `v2-dealer-workspace-device-bound.sql` -> `v2-dealer-final-actions-device-bound.sql`.
-19. DEPLOY AUTH EDGE FUNCTIONS only after DB auth boundary: `_shared/torvo-auth.ts`, `dealer-pin-login`, `dealer-session-valid`, `dealer-session-revoke`, `staff-one-time-login`. Configure server secrets only.
+19. DEPLOY AUTH EDGE FUNCTIONS only after DB auth boundary: `_shared/torvo-auth.ts`, `dealer-pin-login`, `dealer-session-valid`, `dealer-session-revoke`, `staff-one-time-login`.
 20. SECURE DESKTOP verification against Accountant desktop/device boundary.
 21. BACKUP control -> channels -> worker contract.
 22. APP RELEASE CENTER: `v2-app-release-center.sql`; release metadata writes remain CI/trusted-worker only and Owner/Admin can read verified release status.
-23. APP NOTIFICATIONS: `v2-role-push-notifications.sql` after `app_users`; Owner/Admin may publish role-targeted messages to DEALER, SALESMAN, STORE KEEPER or ACCOUNTANT. Inbox delivery is authoritative in the backend; native push tokens feed a trusted-worker outbox and provider credentials never enter browser/GitHub source.
+23. APP NOTIFICATIONS: `v2-role-push-notifications.sql` after `app_users`; Owner/Admin may publish role-targeted messages to DEALER, SALESMAN, STORE KEEPER or ACCOUNTANT.
 24. DEMO RESET after backup/audit dependencies; Dashboard/admin/business/reporting and later modules after prerequisites.
+
+## ADMIN-MANAGED CONFIGURATION GATE
+- OWNER/ADMIN may change supported public website text/notices, official social links, app notices, marketing defaults and safe feature switches from backend-driven controls without a source-code deployment.
+- EVERY admin configuration write requires a reason and audit log.
+- PUBLIC receives only settings explicitly marked `public_read`; private app/marketing/feature controls are never exposed by the public RPC.
+- SECURITY, AUTHORIZATION, DATABASE INTEGRITY, PACKAGE IDENTITY, SIGNING AND EXECUTABLE PROGRAM LOGIC ARE NOT editable as arbitrary Admin JSON/code. Those remain protected release/code changes.
+- SOCIAL LINKS are data/configuration: once official URLs are entered in Admin, public website/app readers use backend values without recoding.
 
 ## MANDATORY DEALER DEVICE GATE
 - Dealer item-rate resolution and Purchase Order submission require current device proof server-side; browser cannot select another Dealer/rate group.
@@ -65,13 +72,10 @@ Authoritative dependency order. Never install migrations alphabetically and neve
 - Logout/revocation means next login needs a fresh Admin-issued password.
 - MASTER SALESMAN grant/revoke is Owner/Admin controlled and audited server-side.
 - SALESMAN attendance uses authenticated server identity; a salesman can check in once per date, check out only after check-in, and read only self attendance through RPCs.
-- ACCOUNTANT SIDEBAR WORKSPACES ARE OWNER/ADMIN-MANAGED; ACCOUNTANT CAN READ ENABLED WORKSPACES BUT CANNOT CREATE, REORDER, ENABLE OR DISABLE THEM. NON-ACCOUNTING STAFF CANNOT READ THIS WORKSPACE CONFIG.
-- DISABLING AN ACCOUNTANT WORKSPACE IS SOFT-DISABLE ONLY; IT DOES NOT DELETE ACCOUNTING DATA OR CHANGE THE SIX SEEDED DEFAULT BUSINESS DEFINITIONS.
-- ACCOUNTANT HAS A NOTIFICATION BELL AND NEW DEALER VERIFICATION QUEUE. ACCOUNTANT MAY EDIT UNAPPROVED APPLICATION DETAILS, REJECT WITH REASON, OR SUBMIT VERIFIED APPLICATION TO ADMIN; FINAL DEALER CODE/RATE/APPROVAL REMAINS OWNER/ADMIN ONLY.
-- ACCOUNTANT MAY READ STOCK / NO STOCK AND SUBMIT REQUIRED QUANTITY; THIS DOES NOT RECEIVE OR ADJUST STOCK. ALL STAFF REQUIREMENTS FLOW TO OWNER/ADMIN PURCHASE REQUIREMENTS.
+- ACCOUNTANT SIDEBAR WORKSPACES ARE OWNER/ADMIN-MANAGED; ACCOUNTANT CAN READ ENABLED WORKSPACES BUT CANNOT CREATE, REORDER, ENABLE OR DISABLE THEM.
 
 ## APP NOTIFICATION GATE
-- OWNER/ADMIN chooses one or more target roles; the server resolves recipients from active users. Client-supplied user IDs never define the audience.
+- OWNER/ADMIN chooses one or more target roles; the server resolves recipients from active users.
 - Every published message remains in the recipient's backend inbox even if native push delivery is temporarily unavailable.
 - Native Android/iOS push uses registered app-device tokens and a trusted server/worker provider integration; provider credentials are server-only.
 - UPDATE, ACCOUNT/ACCESS, BUSINESS and GENERAL messages may carry a safe action key/value for app routing; notification content must never change authorization rules.
