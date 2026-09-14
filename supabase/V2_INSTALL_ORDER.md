@@ -38,28 +38,27 @@ Authoritative dependency order. Never install migrations alphabetically and neve
 15. PRODUCT DIGITAL CONTENT and public showcase.
 16. PRODUCT/DRAFT MEDIA after app_users.
 17. AUTH: `v2-staff-whatsapp-auth.sql` -> `v2-admin-issued-staff-access.sql` -> `v2-dealer-pin-auth.sql` -> `v2-auth-worker-runtime-grants.sql` -> `v2-business-login-routing.sql`.
-18. FINAL DEALER DEVICE BOUNDARIES after auth assertion exists: `v2-dealer-catalog-search.sql` -> `v2-dealer-machine-spares.sql` -> `v2-dealer-missing-part-request.sql` -> `v2-customer-dealer-referral-network.sql` -> `v2-referral-to-b2b-order-conversion.sql` -> `v2-dealer-knowledge-device-bound.sql`.
-19. DEPLOY AUTH EDGE FUNCTIONS only after DB auth boundary: `_shared/torvo-auth.ts`, `dealer-pin-login`, `dealer-session-valid`, `dealer-session-revoke`, `staff-one-time-login`. Configure `SUPABASE_URL`, `SUPABASE_ANON_KEY`, `SUPABASE_SERVICE_ROLE_KEY` as server secrets; never VITE/browser variables.
-20. SECURE DESKTOP: audit `v2-secure-desktop-verification.sql` against Accountant desktop/device boundary.
+18. FINAL DEALER DEVICE BOUNDARIES after auth assertion exists: `v2-dealer-catalog-search.sql` -> `v2-dealer-machine-spares.sql` -> `v2-dealer-missing-part-request.sql` -> `v2-customer-dealer-referral-network.sql` -> `v2-referral-to-b2b-order-conversion.sql` -> `v2-dealer-knowledge-device-bound.sql` -> `v2-dealer-order-device-bound.sql`.
+19. DEPLOY AUTH EDGE FUNCTIONS only after DB auth boundary: `_shared/torvo-auth.ts`, `dealer-pin-login`, `dealer-session-valid`, `dealer-session-revoke`, `staff-one-time-login`. Configure server secrets only.
+20. SECURE DESKTOP verification against Accountant desktop/device boundary.
 21. BACKUP control -> channels -> worker contract.
 22. DEMO RESET after backup/audit dependencies; Dashboard/admin/business/reporting and later modules after prerequisites.
 
 ## MANDATORY AUTH WORKER GATE
 - Dealer login worker verifies PIN server-side, starts one active device session, then creates/rotates real Supabase Auth credentials and returns only the resulting session + Dealer device token.
-- Dealer session-valid verifies the bearer Auth user and Dealer device token server-side.
+- Dealer session-valid verifies bearer Auth user and Dealer device token server-side.
 - Dealer session-revoke derives Dealer from bearer Auth identity and revokes current Dealer sessions; browser never supplies dealer_id.
-- Staff one-time worker consumes the password only after approved device verification, establishes real Auth session, then creates `admin_one_time_password` staff session.
 - Service-role key must never be returned, logged, stored in client bundle or committed.
 
 ## MANDATORY DEALER DEVICE GATE
-- Machine-spare lookup must pass current `device_id` + Dealer session token and revalidate after response.
-- Fitment challenge list, Dealer fitment history and fitment submission must call `dealer_assert_my_device_session` server-side.
-- Legacy no-device fitment RPC signatures must be absent after final migration.
-- Revoked old mobile must fail catalog, machine-spares, missing-part, referral and fitment actions even while its Supabase Auth token has not yet expired.
+- Machine-spare lookup passes current device proof and revalidates after response.
+- Fitment challenge/history/submission call `dealer_assert_my_device_session` server-side.
+- Dealer Sales Order confirmation, Additional Purchase Order request and 30-day order history require current device proof server-side.
+- Legacy no-device signatures must be absent after final migrations.
+- Revoked old mobile must fail catalog, machine-spares, missing-part, referral, fitment and protected order actions even while its Supabase Auth token has not yet expired.
 
 ## MANDATORY STAFF ACCESS GATE
 - `SM@01`-style username is Admin-managed and independent of employee mobile number.
-- Employee name can be changed by Owner/Admin.
 - Only one current unused one-time password; issuing another revokes previous.
 - SALESMAN/STORE KEEPER = approved `mobile_app`; ACCOUNTANT = approved `desktop`.
 - Logout/revocation means next login needs a fresh Admin-issued password.
@@ -78,15 +77,11 @@ Authoritative dependency order. Never install migrations alphabetically and neve
 - ONE APP routes by authoritative authenticated role.
 - Purchase/payment/Delivery/Return integrity and maker-checker remain final authority.
 
-## CLEAN PRODUCTION RULE
-Development artifacts may exist while building, but final production must not carry unnecessary duplicate business logic/data structures.
-
 ## ANDROID / LIVE RELEASE GATE
 - Exact release SHA Build Check must pass.
 - Android artifact must install/open on a real Android device before production-ready claim.
 - Debug APK is TEST ONLY; public release requires private signing and signed AAB/APK.
-- External WhatsApp provider remains required for OWNER/ADMIN recovery or explicitly retained WhatsApp flow.
-- Custom domain/DNS only after final verified production deployment.
+- External provider credentials and custom domain/DNS remain deployment gates.
 
 ## RELEASE EVIDENCE
 Retain migration branch/commit, role/security results, exact web build/deploy SHA, Android artifact and real-device test evidence. No final-live claim without it.
