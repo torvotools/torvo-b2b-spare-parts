@@ -7,6 +7,7 @@ on:
       - 'src/v2/**'
       - 'v2.html'
       - 'package.json'
+      - 'capacitor.config.json'
       - 'scripts/**'
       - 'docs/TORVO-V2-RELEASE-GATES.md'
       - 'docs/TORVO-V2-STAGING-ACCEPTANCE.md'
@@ -23,6 +24,7 @@ on:
       - 'src/v2/**'
       - 'v2.html'
       - 'package.json'
+      - 'capacitor.config.json'
       - 'scripts/**'
       - 'docs/TORVO-V2-RELEASE-GATES.md'
       - 'docs/TORVO-V2-STAGING-ACCEPTANCE.md'
@@ -54,6 +56,8 @@ jobs:
           node-version: 22
       - name: Install dependencies
         run: npm install --no-audit --no-fund
+      - name: Verify V2 scripts and app identity
+        run: npm run verify:v2-preflight
       - name: Verify app release security contract
         run: node scripts/verify-v2-release-center.mjs
       - name: Verify exact stamped V2 build
