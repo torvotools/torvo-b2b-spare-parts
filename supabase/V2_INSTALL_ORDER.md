@@ -34,7 +34,7 @@ Authoritative dependency order. Never install migrations alphabetically and neve
 11. CUSTOMER/DEALER NETWORK BASE and public referral/repair/registration/service-area/support foundations.
 12. REFERRAL TO B2B BASE DEPENDENCIES.
 13. FIELD/STORE: salesman field network -> dealer-salesman mapping -> `v2-master-salesman-access.sql` -> store keeper boundary.
-14. CENTRAL ADMIN CONTROL -> `v2-accountant-workspace-config.sql` after `app_users`; Owner/Admin manages Accountant sidebar buttons, Accountant reads enabled buttons only.
+14. CENTRAL ADMIN CONTROL -> `v2-accountant-workspace-buttons.sql` after `app_users`; Owner/Admin manages Accountant sidebar buttons, Accountant reads enabled buttons only.
 15. PRODUCT DIGITAL CONTENT and public showcase.
 16. PRODUCT/DRAFT MEDIA after app_users.
 17. AUTH: `v2-staff-whatsapp-auth.sql` -> `v2-admin-issued-staff-access.sql` -> `v2-dealer-pin-auth.sql` -> `v2-auth-worker-runtime-grants.sql` -> `v2-business-login-routing.sql`.
