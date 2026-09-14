@@ -12,6 +12,7 @@ import './login-preview.css';
 import './dealer-mobile-fix.css';
 import './premium-ui.css';
 import './compact-cloud-ui.css';
+import './admin-desktop-polish.css';
 import './public-website.css';
 import './public-mobile-fix.css';
 import './public-product-showcase.css';
