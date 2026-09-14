@@ -4,7 +4,12 @@ const sql=read('supabase/v2-app-release-center.sql'),svc=read('src/v2/services/a
 const checks=[
  ['OWNER ADMIN SERVER GATE',sql.includes("a.role not in('owner','admin')")],
  ['NO AUTHENTICATED TABLE WRITE',sql.includes('revoke all on table app_release_artifacts from public,anon,authenticated')],
- ['VERIFIED DOWNLOAD ONLY',svc.includes("release.status!=='verified'")&&svc.includes("release.status!=='published'")],
+ ['VERIFIED DOWNLOAD STATUS ALLOWLIST',svc.includes("new Set(['verified','published'])")&&svc.includes('allowedStatus.has')],
+ ['VERIFIED DOWNLOAD PLATFORM ALLOWLIST',svc.includes("new Set(['android_apk','android_aab','ios'])")&&svc.includes('allowedPlatform.has')],
+ ['VERIFIED DOWNLOAD HTTPS ONLY',svc.includes("u.protocol!=='https:'")],
+ ['VERIFIED DOWNLOAD MALFORMED URL CLOSED',svc.includes('catch{return null}')],
+ ['RELEASE LOAD ARRAY BOUNDARY',svc.includes('Array.isArray(data)?data:[]')],
+ ['RELEASE BACKEND REQUIRED',svc.includes("requireBackend().rpc('admin_app_release_center')")],
  ['RELEASE UI CONNECTED',ui.includes('loadAppReleases')&&ui.includes('DOWNLOAD VERIFIED FILE')],
  ['ADMIN SETTINGS TAB CONNECTED',settings.includes("tab==='release'")&&settings.includes('<AppReleaseCenter/>')],
  ['ANDROID TEST APK CLEARLY LABELED',android.includes('TEST-DEBUG')&&android.includes('production_signed')&&android.includes('VERIFIED_TEST')],
