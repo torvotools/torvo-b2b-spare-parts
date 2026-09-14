@@ -1,6 +1,6 @@
 import fs from'node:fs';
 const read=p=>fs.readFileSync(p,'utf8');
-const sql=read('supabase/v2-app-release-center.sql'),svc=read('src/v2/services/appRelease.js'),ui=read('src/v2/components/AppReleaseCenter.jsx'),settings=read('src/v2/components/SettingsAuditWorkspace.jsx'),android=read('.github/workflows/v2-android-apk.yml');
+const sql=read('supabase/v2-app-release-center.sql'),svc=read('src/v2/services/appRelease.js'),ui=read('src/v2/components/AppReleaseCenter.jsx'),settings=read('src/v2/components/SettingsAuditWorkspace.jsx'),android=read('.github/workflows/v2-android-apk.yml'),cap=read('capacitor.config.json');
 const checks=[
  ['OWNER ADMIN SERVER GATE',sql.includes("a.role not in('owner','admin')")],
  ['NO AUTHENTICATED TABLE WRITE',sql.includes('revoke all on table app_release_artifacts from public,anon,authenticated')],
@@ -13,6 +13,11 @@ const checks=[
  ['RELEASE BACKEND REQUIRED',svc.includes("requireBackend().rpc('admin_app_release_center')")],
  ['LATEST VERIFIED BUILD SELECTED',svc.includes('latestVerifiedRelease')&&svc.includes('build_number')&&svc.includes('.sort(')],
  ['APP UPDATE BUILD COMPARISON',svc.includes('appUpdateState')&&svc.includes('available:next>current')],
+ ['ANDROID PACKAGE LOCKED',svc.includes("TORVO_ANDROID_PACKAGE='com.torvotools.app'")&&cap.includes('"appId": "com.torvotools.app"')],
+ ['ANDROID PRODUCTION SIGNATURE REQUIRED',svc.includes('x.production_signed!==true')],
+ ['ANDROID PRODUCTION CHANNEL REQUIRED',svc.includes("channel==='production'||channel==='play'||channel==='stable'")],
+ ['ANDROID TEST EXCLUDED FROM UPDATE',svc.includes('latestProductionAndroidRelease')&&svc.includes("platform==='android_apk'?latestProductionAndroidRelease")],
+ ['ANDROID MINIMUM BUILD SUPPORTED',svc.includes('min_supported_build')&&svc.includes('required:minimum!=null&&current<minimum')],
  ['RELEASE UI CONNECTED',ui.includes('loadAppReleases')&&ui.includes('DOWNLOAD VERIFIED FILE')],
  ['ADMIN SETTINGS TAB CONNECTED',settings.includes("tab==='release'")&&settings.includes('<AppReleaseCenter/>')],
  ['ANDROID TEST APK CLEARLY LABELED',android.includes('TEST-DEBUG')&&android.includes('production_signed')&&android.includes('VERIFIED_TEST')],
