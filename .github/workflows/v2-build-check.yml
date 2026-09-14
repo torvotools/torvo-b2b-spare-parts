@@ -8,6 +8,7 @@ on:
       - 'v2.html'
       - 'package.json'
       - 'supabase/v2-*.sql'
+      - 'supabase/V2_INSTALL_ORDER.md'
       - '.github/workflows/v2-build-check.yml'
   pull_request:
     branches: [main]
@@ -16,6 +17,7 @@ on:
       - 'v2.html'
       - 'package.json'
       - 'supabase/v2-*.sql'
+      - 'supabase/V2_INSTALL_ORDER.md'
       - '.github/workflows/v2-build-check.yml'
   workflow_dispatch:
 
