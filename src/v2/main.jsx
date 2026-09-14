@@ -9,6 +9,7 @@ import './workspace-polish.css';
 import './admin-desktop-polish.css';
 import './admin-search-v2.css';
 import './accountant-search-v2.css';
+import './accountant-admin-parity-fix.css';
 import './purchase-requirements-ui.css';
 import './app-install-ui.css';
 import './backup-ui.css';
