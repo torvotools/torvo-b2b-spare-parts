@@ -16,6 +16,10 @@ if(!svc.includes('latestProductionAndroidRelease'))fail('PRODUCTION UPDATE SELEC
 if(!svc.includes('durableDownload'))fail('DURABLE DOWNLOAD FILTER MISSING');
 if(!svc.includes("host.endsWith('.blob.core.windows.net')"))fail('SIGNED BLOB URL FILTER MISSING');
 if(!svc.includes("u.searchParams.has('se')&&u.searchParams.has('sig')"))fail('EXPIRING SIGNATURE FILTER MISSING');
+if(!svc.includes("/^[0-9a-f]{40}$/.test(commitOf(x))"))fail('PRODUCTION COMMIT SHA VALIDATION MISSING');
+if(!svc.includes("/^[0-9a-f]{64}$/.test(sha256Of(x))"))fail('PRODUCTION ARTIFACT HASH VALIDATION MISSING');
+if(!svc.includes('minimum!=null&&minimum>build'))fail('PRODUCTION MINIMUM BUILD RANGE VALIDATION MISSING');
+if(!svc.includes('build==null||build<1'))fail('PRODUCTION BUILD NUMBER VALIDATION MISSING');
 if(!svc.includes('available:false,required:false'))fail('NO UPDATE STATE MUST FAIL CLOSED');
 if(!doc.includes('must be a durable HTTPS URL'))fail('DURABLE URL POLICY MISSING');
 if(!doc.includes('must never be stored as the production update URL'))fail('TEMPORARY URL REJECTION POLICY MISSING');
