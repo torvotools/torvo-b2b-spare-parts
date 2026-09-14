@@ -30,19 +30,19 @@ Authoritative dependency order. Never install migrations alphabetically and neve
 7. RETURNS BASE after Delivery + received Purchase integrity.
 8. CENTRAL MAKER-CHECKER and final approval boundaries.
 9. Inventory movement, low-stock/reorder, Purchase Cost History/reporting read layers.
-10. Private Suitable/fitment and Dealer/role privacy foundations.
+10. Private Suitable/fitment and Dealer/role privacy foundations, including `v2-knowledge-rewards.sql` base.
 11. CUSTOMER/DEALER NETWORK BASE and public referral/repair/registration/service-area/support foundations.
 12. REFERRAL TO B2B BASE DEPENDENCIES.
 13. FIELD/STORE: salesman field network -> dealer-salesman mapping -> `v2-master-salesman-access.sql` -> store keeper boundary.
 14. CENTRAL ADMIN CONTROL.
 15. PRODUCT DIGITAL CONTENT and public showcase.
 16. PRODUCT/DRAFT MEDIA after app_users.
-17. AUTH: `v2-staff-whatsapp-auth.sql` -> `v2-admin-issued-staff-access.sql` -> `v2-dealer-pin-auth.sql` -> `v2-auth-worker-runtime-grants.sql` -> `v2-business-login-routing.sql` -> final Dealer device-bound migrations.
-18. DEPLOY AUTH EDGE FUNCTIONS only after step 17: `_shared/torvo-auth.ts`, `dealer-pin-login`, `dealer-session-valid`, `dealer-session-revoke`, `staff-one-time-login`. Configure `SUPABASE_URL`, `SUPABASE_ANON_KEY`, `SUPABASE_SERVICE_ROLE_KEY` as server secrets; never VITE/browser variables.
-19. SECURE DESKTOP: audit `v2-secure-desktop-verification.sql` against Accountant desktop/device boundary.
-20. BACKUP control -> channels -> worker contract.
-21. DEMO RESET after backup/audit dependencies.
-22. Dashboard/admin/business/reporting and later modules after prerequisites.
+17. AUTH: `v2-staff-whatsapp-auth.sql` -> `v2-admin-issued-staff-access.sql` -> `v2-dealer-pin-auth.sql` -> `v2-auth-worker-runtime-grants.sql` -> `v2-business-login-routing.sql`.
+18. FINAL DEALER DEVICE BOUNDARIES after auth assertion exists: `v2-dealer-catalog-search.sql` -> `v2-dealer-machine-spares.sql` -> `v2-dealer-missing-part-request.sql` -> `v2-customer-dealer-referral-network.sql` -> `v2-referral-to-b2b-order-conversion.sql` -> `v2-dealer-knowledge-device-bound.sql`.
+19. DEPLOY AUTH EDGE FUNCTIONS only after DB auth boundary: `_shared/torvo-auth.ts`, `dealer-pin-login`, `dealer-session-valid`, `dealer-session-revoke`, `staff-one-time-login`. Configure `SUPABASE_URL`, `SUPABASE_ANON_KEY`, `SUPABASE_SERVICE_ROLE_KEY` as server secrets; never VITE/browser variables.
+20. SECURE DESKTOP: audit `v2-secure-desktop-verification.sql` against Accountant desktop/device boundary.
+21. BACKUP control -> channels -> worker contract.
+22. DEMO RESET after backup/audit dependencies; Dashboard/admin/business/reporting and later modules after prerequisites.
 
 ## MANDATORY AUTH WORKER GATE
 - Dealer login worker verifies PIN server-side, starts one active device session, then creates/rotates real Supabase Auth credentials and returns only the resulting session + Dealer device token.
@@ -50,6 +50,12 @@ Authoritative dependency order. Never install migrations alphabetically and neve
 - Dealer session-revoke derives Dealer from bearer Auth identity and revokes current Dealer sessions; browser never supplies dealer_id.
 - Staff one-time worker consumes the password only after approved device verification, establishes real Auth session, then creates `admin_one_time_password` staff session.
 - Service-role key must never be returned, logged, stored in client bundle or committed.
+
+## MANDATORY DEALER DEVICE GATE
+- Machine-spare lookup must pass current `device_id` + Dealer session token and revalidate after response.
+- Fitment challenge list, Dealer fitment history and fitment submission must call `dealer_assert_my_device_session` server-side.
+- Legacy no-device fitment RPC signatures must be absent after final migration.
+- Revoked old mobile must fail catalog, machine-spares, missing-part, referral and fitment actions even while its Supabase Auth token has not yet expired.
 
 ## MANDATORY STAFF ACCESS GATE
 - `SM@01`-style username is Admin-managed and independent of employee mobile number.
