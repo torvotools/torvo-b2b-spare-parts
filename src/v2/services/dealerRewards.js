@@ -6,6 +6,9 @@ export async function loadRewardProgress(){const data=await rpc('dealer_reward_p
 export async function loadRewardClaims(){const data=await rpc('dealer_reward_claim_history');return Array.isArray(data)?data:[]}
 export async function claimReward(rewardId){return rpc('dealer_claim_reward',{p_reward:rewardId})}
 export async function issueRewardVoucher(claimId,provider,code){return rpc('admin_issue_reward_voucher',{p_claim:claimId,p_provider:String(provider||'').toUpperCase(),p_code:String(code||'').trim()})}
+export async function approveRewardClaim(claimId){return rpc('admin_approve_reward_claim',{p_claim:claimId})}
+export async function cancelRewardClaim(claimId,reason){return rpc('admin_cancel_reward_claim',{p_claim:claimId,p_reason:String(reason||'').trim()})}
+export async function settleDealerTarget(dealerId,schemeYear){const data=await rpc('admin_settle_dealer_target',{p_dealer:dealerId,p_scheme_year:Number(schemeYear)});return Array.isArray(data)?data[0]||null:data||null}
 export async function saveTargetType(name,startMonth=4){return rpc('admin_save_dealer_target_type',{p_name:String(name||'').trim(),p_start_month:Number(startMonth)||4})}
 export async function saveTargetSlab(targetTypeId,targetValue,points){return rpc('admin_save_dealer_target_slab',{p_target_type:targetTypeId,p_target_value:Number(targetValue),p_points:Number(points)})}
 export async function assignDealerTarget(dealerId,targetTypeId,schemeYear){return rpc('admin_assign_dealer_target',{p_dealer:dealerId,p_target_type:targetTypeId,p_scheme_year:Number(schemeYear)})}
