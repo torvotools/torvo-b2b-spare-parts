@@ -1,2 +1,76 @@
-import React,{useCallback,useEffect,useState}from'react';import{CheckCircle2,RefreshCw,Wrench}from'lucide-react';import{secureDealerLegacy as data}from'../services/dealerLegacyBridge';const U=v=>String(v||'').toUpperCase();
-export default function DealerRepairWorkspace(){const[rows,setRows]=useState([]),[filter,setFilter]=useState(''),[busy,setBusy]=useState(false),[err,setErr]=useState(''),[ok,setOk]=useState('');const load=useCallback(async()=>{setBusy(true);setErr('');try{setRows(await data.dealerRepairRequirements(filter||null,100))}catch(e){setErr(U(e.message)||'REPAIR REQUESTS COULD NOT BE LOADED'}finally{setBusy(false)}},[filter]);useEffect(()=>{load()},[load]);const act=async(r,next)=>{if(busy)return;setBusy(true);setErr('');setOk('');try{await data.dealerUpdateRepairRequirement(r.requirement_id,next);setOk(next==='accepted'?'REPAIR REQUEST ACCEPTED.':'REPAIR REQUEST CLOSED.');await load()}catch(e){setErr(U(e.message)||'REPAIR REQUEST COULD NOT BE UPDATED'}finally{setBusy(false)}};return <section className="panel workspace dealerRepairWorkspace"><header><div><span className="eyebrow">REPAIR & SERVICE</span><h3>CUSTOMER REPAIR REQUIREMENTS</h3><p>ONLY REQUESTS ROUTED TO YOUR APPROVED REPAIR DEALER ACCOUNT ARE SHOWN HERE.</p></div><button className="iconBtn" disabled={busy} onClick={load} aria-label="REFRESH REPAIR REQUESTS"><RefreshCw size={18}/></button></header>{err&&<div className="inlineError">{err}</div>}{ok&&<div className="inlineSuccess">{ok}</div>}<div className="workspaceTabs quickActions"><button className={!filter?'active':''} onClick={()=>setFilter('')}>ALL ROUTED</button><button className={filter==='routed'?'active':''} onClick={()=>setFilter('routed')}>PENDING</button><button className={filter==='accepted'?'active':''} onClick={()=>setFilter('accepted')}>ACCEPTED</button><button className={filter==='closed'?'active':''} onClick={()=>setFilter('closed')}>CLOSED</button></div><div className="requestList">{busy&&!rows.length?<div className="empty"><Wrench/><h3>LOADING REPAIR REQUESTS</h3></div>:rows.length===0?<div className="empty"><Wrench/><h3>NO REPAIR REQUEST</h3></div>:rows.map(r=><article key={r.requirement_id}><div><strong>{U(r.brand)||'BRAND NOT GIVEN'} {U(r.model_number)}</strong><span>{U(r.problem_description)}</span><small>{U(r.customer_name)} · {r.mobile} · PIN {r.pin_code} · {U(r.status)}</small></div>{r.status==='routed'&&<button className="primary" disabled={busy} onClick={()=>act(r,'accepted')}><Wrench size={14}/>ACCEPT REPAIR</button>}{r.status==='accepted'&&<button className="primary" disabled={busy} onClick={()=>act(r,'closed')}><CheckCircle2 size={14}/>CLOSE REPAIR</button>}</article>)}</div><div className="modalNotice">REPAIR ACTIONS ARE DEVICE-BOUND. AN INACTIVE OR REVOKED DEALER DEVICE CANNOT VIEW OR UPDATE THESE REQUESTS.</div></section>}
+import React,{useCallback,useEffect,useState}from'react';
+import{CheckCircle2,RefreshCw,Wrench}from'lucide-react';
+import{secureDealerLegacy as data}from'../services/dealerLegacyBridge';
+
+const U=v=>String(v||'').toUpperCase();
+
+export default function DealerRepairWorkspace(){
+  const[rows,setRows]=useState([]);
+  const[filter,setFilter]=useState('');
+  const[busy,setBusy]=useState(false);
+  const[err,setErr]=useState('');
+  const[ok,setOk]=useState('');
+
+  const load=useCallback(async()=>{
+    setBusy(true);
+    setErr('');
+    try{
+      setRows(await data.dealerRepairRequirements(filter||null,100));
+    }catch(e){
+      setErr(U(e?.message)||'REPAIR REQUESTS COULD NOT BE LOADED');
+    }finally{
+      setBusy(false);
+    }
+  },[filter]);
+
+  useEffect(()=>{load();},[load]);
+
+  const act=async(r,next)=>{
+    if(busy)return;
+    setBusy(true);
+    setErr('');
+    setOk('');
+    try{
+      await data.dealerUpdateRepairRequirement(r.requirement_id,next);
+      setOk(next==='accepted'?'REPAIR REQUEST ACCEPTED.':'REPAIR REQUEST CLOSED.');
+      await load();
+    }catch(e){
+      setErr(U(e?.message)||'REPAIR REQUEST COULD NOT BE UPDATED');
+    }finally{
+      setBusy(false);
+    }
+  };
+
+  return <section className="panel workspace dealerRepairWorkspace">
+    <header>
+      <div>
+        <span className="eyebrow">REPAIR & SERVICE</span>
+        <h3>CUSTOMER REPAIR REQUIREMENTS</h3>
+        <p>ONLY REQUESTS ROUTED TO YOUR APPROVED REPAIR DEALER ACCOUNT ARE SHOWN HERE.</p>
+      </div>
+      <button className="iconBtn" disabled={busy} onClick={load} aria-label="REFRESH REPAIR REQUESTS"><RefreshCw size={18}/></button>
+    </header>
+    {err&&<div className="inlineError">{err}</div>}
+    {ok&&<div className="inlineSuccess">{ok}</div>}
+    <div className="workspaceTabs quickActions">
+      <button className={!filter?'active':''} onClick={()=>setFilter('')}>ALL ROUTED</button>
+      <button className={filter==='routed'?'active':''} onClick={()=>setFilter('routed')}>PENDING</button>
+      <button className={filter==='accepted'?'active':''} onClick={()=>setFilter('accepted')}>ACCEPTED</button>
+      <button className={filter==='closed'?'active':''} onClick={()=>setFilter('closed')}>CLOSED</button>
+    </div>
+    <div className="requestList">
+      {busy&&!rows.length?<div className="empty"><Wrench/><h3>LOADING REPAIR REQUESTS</h3></div>:
+       rows.length===0?<div className="empty"><Wrench/><h3>NO REPAIR REQUEST</h3></div>:
+       rows.map(r=><article key={r.requirement_id}>
+        <div>
+          <strong>{U(r.brand)||'BRAND NOT GIVEN'} {U(r.model_number)}</strong>
+          <span>{U(r.problem_description)}</span>
+          <small>{U(r.customer_name)} · {r.mobile} · PIN {r.pin_code} · {U(r.status)}</small>
+        </div>
+        {r.status==='routed'&&<button className="primary" disabled={busy} onClick={()=>act(r,'accepted')}><Wrench size={14}/>ACCEPT REPAIR</button>}
+        {r.status==='accepted'&&<button className="primary" disabled={busy} onClick={()=>act(r,'closed')}><CheckCircle2 size={14}/>CLOSE REPAIR</button>}
+      </article>)}
+    </div>
+    <div className="modalNotice">REPAIR ACTIONS ARE DEVICE-BOUND. AN INACTIVE OR REVOKED DEALER DEVICE CANNOT VIEW OR UPDATE THESE REQUESTS.</div>
+  </section>;
+}
