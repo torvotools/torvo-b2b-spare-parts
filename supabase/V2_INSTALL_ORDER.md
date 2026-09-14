@@ -25,7 +25,7 @@ Authoritative dependency order. Never install migrations alphabetically and neve
 2. CATALOG: catalog/item/master/rate/search foundations + dependent RPCs.
 3. SALES: sales/order foundations -> `v2-sales-order-integrity.sql` -> `v2-additional-purchase-order.sql`.
 4. PURCHASE + INVENTORY: inventory + canonical movement and final Purchase integrity migrations.
-5. PURCHASE REQUIREMENTS: base -> RPC -> item link -> fulfilment -> receipt integrity.
+5. PURCHASE REQUIREMENTS: base -> RPC -> item link -> fulfilment -> receipt integrity -> `v2-accountant-stock-requirement-view.sql`. Accountant stock view is read-only and its SUBMIT action feeds the same central Purchase Requirements list used by Salesman/Store Keeper/Admin.
 6. PAYMENT / DELIVERY: payment/dispatch foundations -> `v2-delivery-stock-integrity.sql`.
 7. RETURNS BASE after Delivery + received Purchase integrity.
 8. CENTRAL MAKER-CHECKER and final approval boundaries.
@@ -63,6 +63,7 @@ Authoritative dependency order. Never install migrations alphabetically and neve
 - Logout/revocation means next login needs a fresh Admin-issued password.
 - MASTER SALESMAN grant/revoke is Owner/Admin controlled and audited server-side.
 - ACCOUNTANT SIDEBAR WORKSPACES ARE OWNER/ADMIN-MANAGED; ACCOUNTANT CAN READ ENABLED WORKSPACES BUT CANNOT CREATE, REORDER, ENABLE OR DISABLE THEM.
+- ACCOUNTANT MAY READ STOCK / NO STOCK AND SUBMIT REQUIRED QUANTITY; THIS DOES NOT RECEIVE OR ADJUST STOCK. ALL STAFF REQUIREMENTS FLOW TO OWNER/ADMIN PURCHASE REQUIREMENTS.
 
 ## RETIRED / DO NOT ENABLE
 - `v2-public-retail-pricing-foundation.sql`
