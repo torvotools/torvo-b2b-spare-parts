@@ -1,8 +1,12 @@
 import{access,copyFile,rm,writeFile}from'node:fs/promises';
+import{execFileSync}from'node:child_process';
 const source='dist/v2-preview.html',target='dist/index.html';
 await access(source);await copyFile(source,target);await rm(source);
-const sha=String(process.env.VITE_BUILD_SHA||process.env.GITHUB_SHA||'LOCAL').trim();
-const branch=String(process.env.GITHUB_REF_NAME||'LOCAL').trim();
+const clean=value=>String(value||'').trim();
+const git=(...args)=>{try{return clean(execFileSync('git',args,{encoding:'utf8',stdio:['ignore','pipe','ignore']}));}catch{return'';}};
+const sha=clean(process.env.VITE_BUILD_SHA)||clean(process.env.GITHUB_SHA)||clean(process.env.CF_PAGES_COMMIT_SHA)||git('rev-parse','HEAD');
+if(!/^[0-9a-f]{40}$/i.test(sha))throw new Error('TORVO V2 BUILD SHA UNAVAILABLE');
+const branch=clean(process.env.GITHUB_REF_NAME)||clean(process.env.CF_PAGES_BRANCH)||git('branch','--show-current')||'torvo-v2-build';
 await writeFile('dist/torvo-build-sha.txt',sha,'utf8');
 await writeFile('dist/torvo-build-manifest.json',JSON.stringify({app:'TORVO V2',branch,commit_sha:sha,built_at_utc:new Date().toISOString()},null,2)+'\n','utf8');
 console.log(`TORVO V2 BUILD READY: dist/index.html [${sha}]`);
