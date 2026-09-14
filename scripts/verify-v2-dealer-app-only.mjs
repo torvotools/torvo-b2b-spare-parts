@@ -4,10 +4,10 @@ const runtime=read('src/v2/services/runtimePlatform.js'),router=read('src/v2/ser
 const checks=[
  ['NATIVE PLATFORM DETECTION',runtime.includes('Capacitor.isNativePlatform()')&&runtime.includes('dealerAppRuntimeAllowed')],
  ['WEB OPERATIONAL LANDING BLOCKED',router.includes('roleRuntimeAllowed(appUser.role)')&&router.includes("['dealer','salesman','store_keeper'].includes(appUser.role)")&&router.includes('operationalAppOnlyReason(appUser.role)')],
- ['WEB LOGIN HIDES DEALER OPTION',login.includes('const native=operationalAppRuntimeAllowed()')&&login.includes('{native&&<button')&&login.includes('DEALER LOGIN IS APP-ONLY')],
- ['DEALER PIN FAILS CLOSED ON WEB',login.match(/if\(!native\)throw new Error\(dealerAppOnlyReason\(\)\)/g)?.length>=2],
- ['DEALER RECOVERY FAILS CLOSED ON WEB',login.includes("if(!native)throw new Error(dealerAppOnlyReason());const r=await requestDealerPinRecovery")],
- ['BUSINESS USE WEB ONLY',login.includes("mode={native?'staff':'business'}")&&login.includes('BUSINESS USE')],
+ ['WEB LOGIN HIDES DEALER OPTION',login.includes('dealerApp=dealerAppRuntimeAllowed()')&&login.includes('{dealerApp&&<button')&&login.includes("dealerApp?'DEALER USES REGISTERED MOBILE")],
+ ['DEALER PIN FAILS CLOSED ON WEB',login.match(/if\(!dealerApp\)throw new Error\(dealerAppOnlyReason\(\)\)/g)?.length>=2],
+ ['DEALER RECOVERY FAILS CLOSED ON WEB',login.includes("if(!dealerApp)throw new Error(dealerAppOnlyReason());const r=await requestDealerPinRecovery")],
+ ['BUSINESS USE WEB ONLY',login.includes("native?'TORVO APP ACCESS':'BUSINESS USE'")&&login.includes('ADMIN / ACCOUNTANT')],
  ['BUSINESS RULE APP ONLY',modules.includes('dealerPrivateWorkspaceAppOnly:true')&&modules.includes('dealerWebPrivateLogin:false')],
  ['RELEASE CONTRACT APP ONLY',release.includes('DEALER PRIVATE LOGIN / B2B WORKSPACE IS TORVO TOOLS NATIVE APP ONLY')&&release.includes('WEB RUNTIME MUST REJECT AN ALREADY-AUTHENTICATED DEALER SESSION')],
  ['STAGING APP ONLY ACCEPTANCE',staging.includes('DEALER APP-ONLY TEST')&&staging.includes('DEALER LOGIN OPTION MUST NOT BE OFFERED')&&staging.includes('MUST REFUSE THE PRIVATE DEALER WORKSPACE')]
