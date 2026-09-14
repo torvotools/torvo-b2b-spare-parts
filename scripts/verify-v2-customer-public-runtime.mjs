@@ -34,6 +34,10 @@ const checks=[
  ['REFERRAL FOUNDATION BEFORE RUNTIME',order.indexOf('v2-customer-dealer-referral-network.sql')>=0&&order.indexOf('v2-customer-public-runtime-contract.sql')>order.indexOf('v2-customer-dealer-referral-network.sql')],
  ['REFERRAL CONSENT AUDIT',/customer_marketing_consent_events/i.test(runtime)&&/public_create_customer_referral/i.test(runtime)],
  ['PUBLIC BUSINESS SETTINGS',/create or replace function public_business_settings/i.test(runtime)],
+ ['SAFE SETTINGS BOOLEAN PARSING',/case lower\(coalesce\(w\.setting_value->>'customer_active','true'\)\)/i.test(runtime)&&/case lower\(coalesce\(w\.setting_value->>'business_active','true'\)\)/i.test(runtime)&&/case lower\(coalesce\(f\.setting_value->>'customer_referral','true'\)\)/i.test(runtime)&&!/setting_value->>'(?:customer_active|business_active|customer_referral|repair_service|customer_catalog)'\)::boolean/i.test(runtime)],
+ ['EXACT PIN DEALER LOCATOR',/create or replace function public_find_torvo_dealers_expanded/i.test(runtime)&&/coalesce\(nullif\(d\.public_pin_code,''\),d\.pin_code\)=btrim\(p_pin_code\)/i.test(runtime)&&/'EXACT_PIN'::text/i.test(runtime)],
+ ['VERIFIED PUBLIC DEALER ONLY',/d\.status='approved'[\s\S]*d\.customer_referral_enabled=true[\s\S]*d\.referral_profile_verified_at is not null/i.test(runtime)],
+ ['REPAIR LOCATOR CAPABILITY FILTER',/not coalesce\(p_repair_only,false\) or d\.repair_service_available=true/i.test(runtime)],
  ['DUAL WHATSAPP ADMIN SETTINGS',/customer_number/.test(managed)&&/business_number/.test(managed)&&/customer_active/.test(managed)&&/business_active/.test(managed)],
  ['CUSTOMER WHATSAPP RUNTIME',/customer_active/.test(runtime)&&/setting_value->>'customer_number'/.test(runtime)],
  ['BUSINESS WHATSAPP RUNTIME',/business_active/.test(runtime)&&/setting_value->>'business_number'/.test(runtime)],
@@ -47,4 +51,4 @@ const checks=[
 let failed=0;
 for(const [name,ok] of checks){console.log(`${ok?'PASS':'FAIL'} ${name}`);if(!ok)failed++;}
 if(failed){console.error(`CUSTOMER PUBLIC RUNTIME CONTRACT FAILED: ${failed} GATE(S)`);process.exit(1)}
-console.log('PASS CUSTOMER PUBLIC RUNTIME CONTRACT');
+console.log(`PASS CUSTOMER PUBLIC RUNTIME CONTRACT (${checks.length} GATES)`);
