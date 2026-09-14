@@ -7,7 +7,9 @@ on:
       - 'src/v2/**'
       - 'v2.html'
       - 'package.json'
+      - 'scripts/verify-v2-auth-contract.mjs'
       - 'supabase/v2-*.sql'
+      - 'supabase/tests/v2-dealer-auth-security-checklist.sql'
       - 'supabase/V2_INSTALL_ORDER.md'
       - '.github/workflows/v2-build-check.yml'
   pull_request:
@@ -16,7 +18,9 @@ on:
       - 'src/v2/**'
       - 'v2.html'
       - 'package.json'
+      - 'scripts/verify-v2-auth-contract.mjs'
       - 'supabase/v2-*.sql'
+      - 'supabase/tests/v2-dealer-auth-security-checklist.sql'
       - 'supabase/V2_INSTALL_ORDER.md'
       - '.github/workflows/v2-build-check.yml'
   workflow_dispatch:
@@ -36,9 +40,11 @@ jobs:
         with:
           node-version: 22
 
-      # package-lock.json is not yet committed on this branch, so npm ci/cache cannot be used safely.
       - name: Install dependencies
         run: npm install --no-audit --no-fund
+
+      - name: Verify Dealer auth contract
+        run: npm run verify:v2-auth
 
       - name: Build V2
         run: npm run build
