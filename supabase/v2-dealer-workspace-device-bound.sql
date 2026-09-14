@@ -8,3 +8,12 @@ return query select c.id,c.item_type,c.item_code,c.oem_code,c.name,c.brand,c.cat
 end$$;
 revoke all on function dealer_workspace_catalog(text,text) from public,anon;
 grant execute on function dealer_workspace_catalog(text,text) to authenticated;
+
+-- History is also device-bound here so the dealer portal never needs direct sales_documents access.
+create or replace function dealer_workspace_order_history(p_device_id text,p_session_token text)
+returns setof sales_documents language plpgsql security definer set search_path=public as $$declare did uuid;begin
+did:=dealer_assert_my_device_session(p_device_id,p_session_token);
+return query select d.* from sales_documents d where d.dealer_id=did and d.doc_type in('sales_order','estimate') and d.created_at>=now()-interval '30 days' order by d.created_at desc;
+end$$;
+revoke all on function dealer_workspace_order_history(text,text) from public,anon;
+grant execute on function dealer_workspace_order_history(text,text) to authenticated;
