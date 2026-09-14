@@ -1,6 +1,6 @@
 import fs from'node:fs';
 const read=p=>fs.readFileSync(p,'utf8');
-const svc=read('src/v2/services/appRelease.js'),sql=read('supabase/v2-app-release-center.sql'),cap=JSON.parse(read('capacitor.config.json')),doc=read('docs/TORVO-ANDROID-UPDATE-PUBLISHING.md');
+const svc=read('src/v2/services/appRelease.js'),sql=read('supabase/v2-app-release-center.sql'),cap=JSON.parse(read('capacitor.config.json')),doc=read('docs/TORVO-ANDROID-UPDATE-PUBLISHING.md'),notice=read('src/v2/components/AppUpdateNotice.jsx'),main=read('src/v2/main.jsx'),vite=read('vite.app.config.js');
 const fail=m=>{console.error(`FAIL ${m}`);process.exitCode=1};
 if(cap.appId!=='com.torvotools.app')fail('ANDROID PACKAGE CHANGED');
 if(!sql.includes('public_android_app_update()'))fail('PUBLIC UPDATE RPC MISSING');
@@ -21,6 +21,11 @@ if(!svc.includes("/^[0-9a-f]{64}$/.test(sha256Of(x))"))fail('PRODUCTION ARTIFACT
 if(!svc.includes('minimum!=null&&minimum>build'))fail('PRODUCTION MINIMUM BUILD RANGE VALIDATION MISSING');
 if(!svc.includes('build==null||build<1'))fail('PRODUCTION BUILD NUMBER VALIDATION MISSING');
 if(!svc.includes('available:false,required:false'))fail('NO UPDATE STATE MUST FAIL CLOSED');
+if(!svc.includes('publicAndroidUpdateState')||!svc.includes('currentAndroidBuild'))fail('NATIVE UPDATE STATE MISSING');
+if(!notice.includes('UPDATE AVAILABLE')||!notice.includes('UPDATE REQUIRED')||!notice.includes('UPDATE NOW'))fail('NATIVE UPDATE NOTICE MISSING');
+if(!notice.includes('loadPublicAndroidUpdate')||notice.includes('TORVO_DURABLE_TEST_APK'))fail('NATIVE UPDATE NOTICE MUST USE PRODUCTION RPC ONLY');
+if(!main.includes('<AppUpdateNotice/>'))fail('NATIVE UPDATE NOTICE NOT MOUNTED');
+if(!vite.includes('VITE_ANDROID_BUILD_NUMBER')||!vite.includes('GITHUB_RUN_NUMBER'))fail('ANDROID BUILD NUMBER NOT STAMPED');
 if(!doc.includes('must be a durable HTTPS URL'))fail('DURABLE URL POLICY MISSING');
 if(!doc.includes('must never be stored as the production update URL'))fail('TEMPORARY URL REJECTION POLICY MISSING');
 if(!doc.includes('signing keys must be provided as protected deployment secrets'))fail('SIGNING SECRET POLICY MISSING');
