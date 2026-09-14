@@ -12,6 +12,7 @@ on:
       - 'supabase/tests/v2-dealer-auth-security-checklist.sql'
       - 'supabase/V2_INSTALL_ORDER.md'
       - '.github/workflows/v2-build-check.yml'
+      - '.github/workflows/v2-netlify-preview.yml'
   pull_request:
     branches: [main]
     paths:
@@ -23,6 +24,7 @@ on:
       - 'supabase/tests/v2-dealer-auth-security-checklist.sql'
       - 'supabase/V2_INSTALL_ORDER.md'
       - '.github/workflows/v2-build-check.yml'
+      - '.github/workflows/v2-netlify-preview.yml'
   workflow_dispatch:
 
 permissions:
@@ -32,8 +34,14 @@ jobs:
   build:
     runs-on: ubuntu-latest
     steps:
-      - name: Checkout V2 source
+      - name: Checkout exact V2 source
         uses: actions/checkout@v4
+        with:
+          ref: ${{ github.sha }}
+
+      - name: Verify branch boundary
+        if: github.event_name != 'pull_request'
+        run: test "${GITHUB_REF_NAME}" = "torvo-v2-build"
 
       - name: Setup Node
         uses: actions/setup-node@v4
@@ -46,5 +54,13 @@ jobs:
       - name: Verify Dealer auth contract
         run: npm run verify:v2-auth
 
-      - name: Build V2
+      - name: Build exact V2 commit
+        env:
+          VITE_BUILD_SHA: ${{ github.sha }}
         run: npm run build
+
+      - name: Record verified SHA
+        run: |
+          test -f dist/index.html
+          printf '%s\n' "${GITHUB_SHA}" > dist/torvo-build-sha.txt
+          echo "VERIFIED V2 SHA ${GITHUB_SHA}" >> "$GITHUB_STEP_SUMMARY"
