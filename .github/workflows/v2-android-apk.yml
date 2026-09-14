@@ -41,7 +41,7 @@ jobs:
       - uses: actions/setup-node@v4
         with:
           node-version: 22
-      - uses: actions/setup-java@v4
+      - uses: actions/setup-java@v5
         with:
           distribution: temurin
           java-version: '21'
@@ -107,7 +107,21 @@ jobs:
           grep -q 'torvo-v2-root' android/app/src/main/assets/public/v2.html
       - name: BUILD DEBUG TEST APK
         working-directory: android
-        run: ./gradlew assembleDebug
+        shell: bash
+        run: |
+          set -euo pipefail
+          for attempt in 1 2 3; do
+            echo "GRADLE BUILD ATTEMPT ${attempt}/3"
+            if ./gradlew --no-daemon --stacktrace assembleDebug; then
+              exit 0
+            fi
+            if [ "$attempt" -lt 3 ]; then
+              echo "GRADLE BUILD FAILED; RETRYING TRANSIENT DOWNLOAD/NETWORK FAILURE IN 10 SECONDS"
+              sleep 10
+            fi
+          done
+          echo "GRADLE BUILD FAILED AFTER 3 ATTEMPTS"
+          exit 1
       - name: PREPARE VERIFIED TEST APK ARTIFACT
         id: release_meta
         shell: bash
