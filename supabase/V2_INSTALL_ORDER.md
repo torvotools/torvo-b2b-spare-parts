@@ -7,6 +7,7 @@ Authoritative dependency order. Never install migrations alphabetically and neve
 - CUSTOMER DISCOVERS PRODUCTS -> PRICE-FREE ENQUIRY -> APPROVED DEALER; CUSTOMER AND DEALER FINALIZE RETAIL RATE/PAYMENT/DELIVERY.
 - DEALER PROCUREMENT REMAINS PRIVATE B2B WITH A/B/C RATE GROUPS.
 - WEBSITE, ONE APP AND SECURE DESKTOP USE ONE AUTHORITATIVE BACKEND.
+- NEW DEALER APPLICATION -> ACCOUNTANT VERIFICATION / CORRECTION -> SUBMIT TO ADMIN -> OWNER/ADMIN FINAL APPROVAL. ACCOUNTANT NEVER FINAL-ACTIVATES A DEALER.
 - ONE DEALER ACCOUNT MAY HAVE ONLY ONE ACTIVE APP DEVICE SESSION AT A TIME.
 - SALESMAN / STORE KEEPER / ACCOUNTANT NORMAL LOGIN = ADMIN USERNAME + ONE-TIME PASSWORD; NO EMPLOYEE MOBILE REQUIRED.
 - SALESMAN / STORE KEEPER PASSWORD IS CONSUMED ON FIRST LOGIN; APPROVED APP SESSION CONTINUES UNTIL LOGOUT/REVOKE. NEXT LOGIN NEEDS A NEW ADMIN PASSWORD.
@@ -31,7 +32,7 @@ Authoritative dependency order. Never install migrations alphabetically and neve
 8. CENTRAL MAKER-CHECKER and final approval boundaries.
 9. Inventory movement, low-stock/reorder, Purchase Cost History/reporting read layers.
 10. Private Suitable/fitment and Dealer/role privacy foundations, including `v2-knowledge-rewards.sql` base.
-11. CUSTOMER/DEALER NETWORK BASE and public referral/repair/registration/service-area/support foundations.
+11. CUSTOMER/DEALER NETWORK BASE and public referral/repair/registration/service-area/support foundations. After `v2-public-dealer-registration.sql`, install `v2-accountant-dealer-verification.sql`, then after `v2-business-rpcs.sql` install `v2-dealer-final-approval-accountant-gate.sql`. This final override prevents Owner/Admin approval until Accountant has submitted the application.
 12. REFERRAL TO B2B BASE DEPENDENCIES.
 13. FIELD/STORE: salesman field network -> dealer-salesman mapping -> `v2-master-salesman-access.sql` -> store keeper boundary.
 14. CENTRAL ADMIN CONTROL -> `v2-accountant-workspace-buttons.sql` after `app_users`; Owner/Admin manages Accountant sidebar buttons, Accountant reads enabled buttons only.
@@ -63,6 +64,7 @@ Authoritative dependency order. Never install migrations alphabetically and neve
 - Logout/revocation means next login needs a fresh Admin-issued password.
 - MASTER SALESMAN grant/revoke is Owner/Admin controlled and audited server-side.
 - ACCOUNTANT SIDEBAR WORKSPACES ARE OWNER/ADMIN-MANAGED; ACCOUNTANT CAN READ ENABLED WORKSPACES BUT CANNOT CREATE, REORDER, ENABLE OR DISABLE THEM.
+- ACCOUNTANT HAS A NOTIFICATION BELL AND NEW DEALER VERIFICATION QUEUE. ACCOUNTANT MAY EDIT UNAPPROVED APPLICATION DETAILS, REJECT WITH REASON, OR SUBMIT VERIFIED APPLICATION TO ADMIN; FINAL DEALER CODE/RATE/APPROVAL REMAINS OWNER/ADMIN ONLY.
 - ACCOUNTANT MAY READ STOCK / NO STOCK AND SUBMIT REQUIRED QUANTITY; THIS DOES NOT RECEIVE OR ADJUST STOCK. ALL STAFF REQUIREMENTS FLOW TO OWNER/ADMIN PURCHASE REQUIREMENTS.
 
 ## RETIRED / DO NOT ENABLE
