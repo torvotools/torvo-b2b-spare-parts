@@ -2,6 +2,7 @@ import React,{useEffect,useState}from'react';
 import{ArrowLeft,ArrowRight,LockKeyhole,Smartphone,UserRound}from'lucide-react';
 import{currentAppUser}from'../services/auth';
 import{deviceId,loginStaffWithAdminPassword,normalizeDealerMobile,normalizeStaffUsername,verifyDealerPin,requestDealerPinRecovery}from'../services/staffAuth';
+import'../login-attendance.css';
 const digits=v=>String(v||'').replace(/\D/g,'').slice(-10);
 export default function BusinessLogin(){
  const[kind,setKind]=useState('dealer'),[identity,setIdentity]=useState(''),[mode,setMode]=useState('identity'),[code,setCode]=useState(''),[busy,setBusy]=useState(false),[err,setErr]=useState(''),[notice,setNotice]=useState('');
