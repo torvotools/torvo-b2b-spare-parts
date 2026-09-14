@@ -1,12 +1,16 @@
 import{dealerItemRate,submitDealerPurchaseOrder}from'./dealerProcurement';
-import{confirmDealerSalesOrder,requestDealerAdditionalOrder,loadDealerOrderHistory}from'./dealerOrders';
+import{confirmDealerSalesOrder,loadDealerOrderHistory}from'./dealerOrders';
 import{loadDealerMachineSpares}from'./dealerMachineSpares';
+import{reviseDealerPurchaseOrder,requestDealerSalesOrderChange,loadApprovedAdditionalRequests,createApprovedAdditionalOrder}from'./dealerBusiness';
 
 export const secureDealerLegacy={
  dealerMachineSpares:loadDealerMachineSpares,
  dealerItemRate,
  submitPurchaseOrder:submitDealerPurchaseOrder,
  dealerConfirmSalesOrder:confirmDealerSalesOrder,
- dealerCreateAddOnOrder:(requestId,lines)=>requestDealerAdditionalOrder(requestId,lines,'APPROVED ADDITIONAL PURCHASE ORDER'),
+ dealerReviseSalesOrder:reviseDealerPurchaseOrder,
+ dealerRequestSalesOrderChange:requestDealerSalesOrderChange,
+ dealerApprovedAddOnRequests:loadApprovedAdditionalRequests,
+ dealerCreateAddOnOrder:createApprovedAdditionalOrder,
  dealerOrderHistory:loadDealerOrderHistory
 };
