@@ -3,6 +3,7 @@ import{confirmDealerSalesOrder,loadDealerOrderHistory}from'./dealerOrders';
 import{loadDealerMachineSpares}from'./dealerMachineSpares';
 import{loadDealerWorkspaceCatalog}from'./dealerWorkspace';
 import{reviseDealerPurchaseOrder,requestDealerSalesOrderChange,loadApprovedAdditionalRequests,createApprovedAdditionalOrder}from'./dealerBusiness';
+import{loadDealerRepairRequirements,updateDealerRepairRequirement}from'./dealerRepair';
 
 // Compatibility facade for dealer UI modules. Every dealer-private action below is routed
 // through a current device-bound service; this file must never call Supabase directly.
@@ -18,7 +19,9 @@ export const secureDealerLegacy={
  dealerRequestSalesOrderChange:requestDealerSalesOrderChange,
  dealerApprovedAddOnRequests:loadApprovedAdditionalRequests,
  dealerCreateAddOnOrder:createApprovedAdditionalOrder,
- dealerOrderHistory:loadDealerOrderHistory
+ dealerOrderHistory:loadDealerOrderHistory,
+ dealerRepairRequirements:loadDealerRepairRequirements,
+ dealerUpdateRepairRequirement:updateDealerRepairRequirement
 };
 export const data=secureDealerLegacy;
 export const dealerPrivateActions=Object.freeze(Object.keys(secureDealerLegacy));
