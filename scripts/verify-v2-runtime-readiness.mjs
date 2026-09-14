@@ -11,10 +11,10 @@ const checks=[
  ['ACCOUNTANT WORKSPACE ROLE GATED',accountant.includes("v_role not in('OWNER','ADMIN','ACCOUNTANT')")&&accountant.includes('ACCOUNTANT WORKSPACE ACCESS REQUIRED')],
  ['ACCOUNTANT WORKSPACE ADMIN WRITE GATED',(accountant.match(/v_role not in\('OWNER','ADMIN'\)/g)||[]).length>=2],
  ['ACCOUNTANT WORKSPACE SOFT DISABLE',accountant.includes('admin_disable_accountant_workspace_button')&&accountant.includes('set enabled=false')],
- ['ACCOUNTANT WORKSPACE DEFAULT SIX',accountant.includes("'SALES & ESTIMATES'")&&accountant.includes("'PURCHASE'")&&accountant.includes("'PAYMENTS'")&&accountant.includes("'RETURNS'")&&accountant.includes("'LEDGER'")&&accountant.includes("'REPORTS'"))],
- ['ACCOUNTANT CLIENT ADMIN DISABLE',accountantClient.includes('adminDisableAccountantWorkspaceButton')&&accountantClient.includes("rpc('admin_disable_accountant_workspace_button'"))],
- ['ACCOUNTANT CLIENT ADMIN REORDER',accountantClient.includes('adminReorderAccountantWorkspaceButton')&&accountantClient.includes("direction).toUpperCase()==='UP'")&&accountantClient.includes("direction).toUpperCase()==='DOWN'"))],
- ['ACCOUNTANT CLIENT ORDER STABLE',accountantClient.includes('localeCompare')&&accountantClient.includes('sort_order'))],
+ ['ACCOUNTANT WORKSPACE DEFAULT SIX',accountant.includes("'SALES & ESTIMATES'")&&accountant.includes("'PURCHASE'")&&accountant.includes("'PAYMENTS'")&&accountant.includes("'RETURNS'")&&accountant.includes("'LEDGER'")&&accountant.includes("'REPORTS'")],
+ ['ACCOUNTANT CLIENT ADMIN DISABLE',accountantClient.includes('adminDisableAccountantWorkspaceButton')&&accountantClient.includes("rpc('admin_disable_accountant_workspace_button'")],
+ ['ACCOUNTANT CLIENT ADMIN REORDER',accountantClient.includes('adminReorderAccountantWorkspaceButton')&&accountantClient.includes("direction).toUpperCase()==='UP'")&&accountantClient.includes("direction).toUpperCase()==='DOWN'")],
+ ['ACCOUNTANT CLIENT ORDER STABLE',accountantClient.includes('localeCompare')&&accountantClient.includes('sort_order')],
  ['STAGING REQUIRED BEFORE LIVE',gates.includes('DEDICATED V2 STAGING DATABASE')&&gates.includes('BACKUP/RESTORE')]
 ];
 const failed=checks.filter(([,ok])=>!ok);for(const[n,ok]of checks)console.log(`${ok?'PASS':'FAIL'} ${n}`);if(failed.length){console.error(`RUNTIME READINESS FAILED: ${failed.length}`);process.exit(1)}console.log('TORVO V2 RUNTIME READINESS CONTRACT VERIFIED');
