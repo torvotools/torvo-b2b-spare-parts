@@ -8,6 +8,6 @@ const checks=[
  ['PUBLIC CHECKOUT REMAINS RETIRED',install.includes('v2-public-checkout-payment-modes.sql')&&install.includes('DO NOT ENABLE')],
  ['ANDROID DEBUG NOT PRODUCTION',gates.includes('ANDROID DEBUG APK IS TEST ONLY')&&gates.includes('SIGNED AAB/APK')],
  ['LIVE DOMAIN HELD UNTIL ACCEPTANCE',gates.includes('DO NOT SWITCH `torvotools.com`')],
- ['DEALER BUSINESS VERIFY IN BUILD',String(pkg.scripts['verify:v2-build']).includes('verify:v2-dealer-business'))
+ ['DEALER BUSINESS VERIFY IN BUILD',String(pkg.scripts['verify:v2-build']).includes('verify:v2-dealer-business')]
 ];
 const failed=checks.filter(([,ok])=>!ok);for(const[n,ok]of checks)console.log(`${ok?'PASS':'FAIL'} ${n}`);if(failed.length){console.error(`RELEASE GATES FAILED: ${failed.length}`);process.exit(1)}console.log('TORVO V2 RELEASE GATES VERIFIED');
