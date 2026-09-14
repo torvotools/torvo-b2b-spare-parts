@@ -1,6 +1,12 @@
-import{dealerItemRate,submitDealerPurchaseOrder}from'./dealerProcurement';
-import{confirmDealerSalesOrder,requestDealerAdditionalOrder,loadDealerOrderHistory}from'./dealerOrders';
-import{loadDealerWorkspace}from'./dealerWorkspace';
-import{loadDealerMachineSpares}from'./dealerMachineSpares';
-
-export{dealerItemRate,submitDealerPurchaseOrder,confirmDealerSalesOrder,requestDealerAdditionalOrder,loadDealerOrderHistory,loadDealerWorkspace,loadDealerMachineSpares};
+import{dealerItemRate as rate,submitDealerPurchaseOrder as submit}from'./dealerProcurement';
+import{confirmDealerSalesOrder as confirm,requestDealerAdditionalOrder as additional,loadDealerOrderHistory as history}from'./dealerOrders';
+import{loadDealerWorkspace as workspace}from'./dealerWorkspace';
+import{loadDealerMachineSpares as spares}from'./dealerMachineSpares';
+const required=(fn,name)=>{if(typeof fn!=='function')throw new Error(`${name} SERVICE UNAVAILABLE`);return fn};
+export const dealerItemRate=(...args)=>required(rate,'DEALER RATE')(...args);
+export const submitDealerPurchaseOrder=(...args)=>required(submit,'PURCHASE ORDER')(...args);
+export const confirmDealerSalesOrder=(...args)=>required(confirm,'SALES ORDER CONFIRMATION')(...args);
+export const requestDealerAdditionalOrder=(...args)=>required(additional,'ADDITIONAL PURCHASE ORDER')(...args);
+export const loadDealerOrderHistory=(...args)=>required(history,'DEALER ORDER HISTORY')(...args);
+export const loadDealerWorkspace=(...args)=>required(workspace,'DEALER WORKSPACE')(...args);
+export const loadDealerMachineSpares=(...args)=>required(spares,'DEALER MACHINE SPARES')(...args);
