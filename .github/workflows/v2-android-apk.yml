@@ -65,7 +65,7 @@ jobs:
         run: npm run build:app
       - name: VERIFY CURRENT LOGIN UI
         run: |
-          grep -R -q 'SECURE BUSINESS ACCESS' dist-app/assets
+          grep -R -q 'TORVO APP ACCESS' dist-app/assets
           grep -R -q 'DEALER MOBILE' dist-app/assets
           grep -R -q 'STAFF USER ID' dist-app/assets
           grep -R -q 'REGISTER AS DEALER' dist-app/assets
@@ -92,7 +92,7 @@ jobs:
           test -x android/gradlew
       - name: VERIFY ANDROID AUTH AND ATTENDANCE ASSET
         run: |
-          grep -R -q 'SECURE BUSINESS ACCESS' android/app/src/main/assets/public/assets
+          grep -R -q 'TORVO APP ACCESS' android/app/src/main/assets/public/assets
           grep -R -q 'DEALER MOBILE' android/app/src/main/assets/public/assets
           grep -R -q 'STAFF USER ID' android/app/src/main/assets/public/assets
           grep -R -q 'ATTENDANCE' android/app/src/main/assets/public/assets
