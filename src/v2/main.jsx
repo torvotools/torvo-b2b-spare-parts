@@ -6,6 +6,7 @@ import BackupCloseModal from './components/BackupCloseModal.jsx';
 import './styles.css';
 import './workspace-polish.css';
 import './admin-desktop-polish.css';
+import './admin-search-v2.css';
 import './app-install-ui.css';
 import './backup-ui.css';
 import './backup-close-ui.css';
