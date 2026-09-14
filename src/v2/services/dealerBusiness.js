@@ -2,7 +2,13 @@ import{dealerItemRate as rate,submitDealerPurchaseOrder as submit}from'./dealerP
 import{confirmDealerSalesOrder as confirm,requestDealerAdditionalOrder as additional,loadDealerOrderHistory as history}from'./dealerOrders';
 import{loadDealerWorkspace as workspace}from'./dealerWorkspace';
 import{loadDealerMachineSpares as spares}from'./dealerMachineSpares';
+import{requireBackend}from'./supabase';import{assertDealerSession}from'./dealerSession';
 const required=(fn,name)=>{if(typeof fn!=='function')throw new Error(`${name} SERVICE UNAVAILABLE`);return fn};
+const id=(v,label)=>{const s=String(v||'').trim();if(!s||s.length>128)throw new Error(`${label} IS INVALID`);return s};
+const reason=v=>{const s=String(v||'').trim();if(!s)throw new Error('REASON IS REQUIRED');if(s.length>500)throw new Error('REASON IS TOO LONG');return s};
+const qty=v=>{const n=Number(v);if(!Number.isInteger(n)||n<1||n>9999)throw new Error('QUANTITY MUST BE INTEGER 1 TO 9999');return n};
+const lines=v=>{if(!Array.isArray(v)||!v.length)throw new Error('AT LEAST ONE ITEM IS REQUIRED');if(v.length>500)throw new Error('TOO MANY ITEMS');const clean=v.map(x=>({item_id:id(x?.item_id,'ITEM'),qty:qty(x?.qty)}));if(new Set(clean.map(x=>x.item_id)).size!==clean.length)throw new Error('DUPLICATE ITEM IS NOT ALLOWED');return clean};
+const secureRpc=async(name,args)=>{const proof=await assertDealerSession();if(!proof?.deviceId||!proof?.token)throw new Error('ACTIVE DEALER DEVICE SESSION REQUIRED');const{data,error}=await requireBackend().rpc(name,{...args,p_device_id:proof.deviceId,p_session_token:proof.token});if(error)throw error;await assertDealerSession();return data};
 export const dealerItemRate=(...args)=>required(rate,'DEALER RATE')(...args);
 export const submitDealerPurchaseOrder=(...args)=>required(submit,'PURCHASE ORDER')(...args);
 export const confirmDealerSalesOrder=(...args)=>required(confirm,'SALES ORDER CONFIRMATION')(...args);
@@ -10,3 +16,6 @@ export const requestDealerAdditionalOrder=(...args)=>required(additional,'ADDITI
 export const loadDealerOrderHistory=(...args)=>required(history,'DEALER ORDER HISTORY')(...args);
 export const loadDealerWorkspace=(...args)=>required(workspace,'DEALER WORKSPACE')(...args);
 export const loadDealerMachineSpares=(...args)=>required(spares,'DEALER MACHINE SPARES')(...args);
+export const reviseDealerPurchaseOrder=(orderId,orderLines,why)=>secureRpc('dealer_revise_sales_order',{p_sales_order:id(orderId,'SALES ORDER'),p_lines:lines(orderLines),p_reason:reason(why)});
+export const requestDealerSalesOrderChange=(orderId,type,why)=>{if(!['modify_order','add_more_items'].includes(type))throw new Error('INVALID CHANGE REQUEST');return secureRpc('dealer_request_sales_order_change',{p_sales_order:id(orderId,'SALES ORDER'),p_type:type,p_reason:reason(why)})};
+export const loadApprovedAdditionalRequests=async()=>{const proof=await assertDealerSession();const{data,error}=await requireBackend().rpc('dealer_approved_add_on_requests',{p_device_id:proof.deviceId,p_session_token:proof.token});if(error)throw error;await assertDealerSession();if(data==null)return[];if(!Array.isArray(data))throw new Error('INVALID ADDITIONAL REQUEST RESPONSE');return data};
