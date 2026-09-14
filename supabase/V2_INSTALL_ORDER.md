@@ -44,7 +44,8 @@ Authoritative dependency order. Never install migrations alphabetically and neve
 20. SECURE DESKTOP verification against Accountant desktop/device boundary.
 21. BACKUP control -> channels -> worker contract.
 22. APP RELEASE CENTER: `v2-app-release-center.sql`; release metadata writes remain CI/trusted-worker only and Owner/Admin can read verified release status.
-23. DEMO RESET after backup/audit dependencies; Dashboard/admin/business/reporting and later modules after prerequisites.
+23. APP NOTIFICATIONS: `v2-role-push-notifications.sql` after `app_users`; Owner/Admin may publish role-targeted messages to DEALER, SALESMAN, STORE KEEPER or ACCOUNTANT. Inbox delivery is authoritative in the backend; native push tokens feed a trusted-worker outbox and provider credentials never enter browser/GitHub source.
+24. DEMO RESET after backup/audit dependencies; Dashboard/admin/business/reporting and later modules after prerequisites.
 
 ## MANDATORY DEALER DEVICE GATE
 - Dealer item-rate resolution and Purchase Order submission require current device proof server-side; browser cannot select another Dealer/rate group.
@@ -69,6 +70,12 @@ Authoritative dependency order. Never install migrations alphabetically and neve
 - ACCOUNTANT HAS A NOTIFICATION BELL AND NEW DEALER VERIFICATION QUEUE. ACCOUNTANT MAY EDIT UNAPPROVED APPLICATION DETAILS, REJECT WITH REASON, OR SUBMIT VERIFIED APPLICATION TO ADMIN; FINAL DEALER CODE/RATE/APPROVAL REMAINS OWNER/ADMIN ONLY.
 - ACCOUNTANT MAY READ STOCK / NO STOCK AND SUBMIT REQUIRED QUANTITY; THIS DOES NOT RECEIVE OR ADJUST STOCK. ALL STAFF REQUIREMENTS FLOW TO OWNER/ADMIN PURCHASE REQUIREMENTS.
 
+## APP NOTIFICATION GATE
+- OWNER/ADMIN chooses one or more target roles; the server resolves recipients from active users. Client-supplied user IDs never define the audience.
+- Every published message remains in the recipient's backend inbox even if native push delivery is temporarily unavailable.
+- Native Android/iOS push uses registered app-device tokens and a trusted server/worker provider integration; provider credentials are server-only.
+- UPDATE, ACCOUNT/ACCESS, BUSINESS and GENERAL messages may carry a safe action key/value for app routing; notification content must never change authorization rules.
+
 ## RETIRED / DO NOT ENABLE
 - `v2-public-retail-pricing-foundation.sql`
 - `v2-public-checkout-payment-modes.sql`
@@ -86,6 +93,7 @@ Authoritative dependency order. Never install migrations alphabetically and neve
 - Browser cannot write release metadata or mark an artifact verified.
 - APK/AAB/iOS download is shown only when status is VERIFIED/PUBLISHED and a trusted artifact URL exists.
 - DATA/CONTENT changes flow from the central backend without native reinstall; PROGRAM/CODE changes require a new verified native release.
+- INSTALLED APP checks verified production update metadata on startup, foreground/resume and periodically; package identity remains `com.torvotools.app`.
 
 ## ANDROID / LIVE RELEASE GATE
 - Exact release SHA Build Check and FINAL READINESS contract must pass.
