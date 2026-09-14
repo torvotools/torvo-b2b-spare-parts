@@ -12,7 +12,10 @@ const checks=[
  ['APP VALIDATES DEALER DEVICE SESSION',session.includes("functions.invoke('dealer-session-valid'")&&app.includes('enforceDealerSession')],
  ['SESSION VALIDATION FAILS CLOSED',session.includes('return invalidate()')&&session.includes('validationPromise')],
  ['SIGN OUT REVOKES SERVER DEALER SESSION',auth.includes("functions.invoke('dealer-session-revoke'")&&auth.includes('dealer_session_token')],
+ ['CLIENT REJECTS DUPLICATE ACTIVE APP USER',auth.includes("limit(2)")&&auth.includes('ACCOUNT IDENTITY AMBIGUOUS')],
+ ['CLIENT REJECTS DUPLICATE DEALER PROFILE',auth.includes('rows.length>1')&&auth.includes('DEALER LINK AMBIGUOUS')],
  ['DEALER PROFILE SERVER DERIVED',missing.includes('dealer_my_profile()')&&missing.includes('auth.uid()')],
- ['AMBIGUOUS DEALER LINK REJECTED',missing.includes('DEALER LINK AMBIGUOUS')]
+ ['SERVER REJECTS DUPLICATE ACTIVE APP USER',missing.includes('v_user_count>1')&&missing.includes('DEALER AUTH IDENTITY AMBIGUOUS')],
+ ['AMBIGUOUS DEALER LINK REJECTED',missing.includes('v_count>1')&&missing.includes('DEALER LINK AMBIGUOUS')]
 ];
 const failed=checks.filter(([,ok])=>!ok);for(const[name,ok]of checks)console.log(`${ok?'PASS':'FAIL'} ${name}`);if(failed.length){console.error(`AUTH CONTRACT FAILED: ${failed.length} CHECK(S)`);process.exit(1)}console.log('TORVO V2 AUTH CONTRACT VERIFIED');
