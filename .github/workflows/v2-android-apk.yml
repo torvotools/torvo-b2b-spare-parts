@@ -4,20 +4,13 @@ on:
   workflow_dispatch:
   push:
     branches: [torvo-v2-build]
-    paths:
-      - 'src/v2/**'
-      - 'public/**'
-      - 'v2.html'
-      - 'vite.app.config.js'
-      - 'package.json'
-      - 'scripts/**'
-      - 'docs/TORVO-V2-RELEASE-GATES.md'
-      - 'docs/TORVO-V2-STAGING-ACCEPTANCE.md'
-      - 'capacitor.config.json'
-      - '.github/workflows/v2-android-apk.yml'
 
 permissions:
   contents: read
+
+concurrency:
+  group: torvo-v2-android-apk
+  cancel-in-progress: true
 
 jobs:
   apk:
@@ -46,6 +39,7 @@ jobs:
           npm run verify:v2-dealer-business
           npm run verify:v2-release-gates
           npm run verify:v2-runtime
+          npm run verify:v2-release-center
       - name: BUILD NATIVE APP
         env:
           VITE_BUILD_SHA: ${{ github.sha }}
@@ -114,6 +108,7 @@ jobs:
           path: release-artifact/
           if-no-files-found: error
           retention-days: 90
+          compression-level: 0
       - name: TEST APK EVIDENCE
         run: |
           echo "### TORVO TOOLS ANDROID TEST APK" >> "$GITHUB_STEP_SUMMARY"
