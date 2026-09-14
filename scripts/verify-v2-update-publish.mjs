@@ -1,0 +1,12 @@
+import fs from'node:fs';
+const read=p=>fs.readFileSync(p,'utf8');
+const svc=read('src/v2/services/appRelease.js'),sql=read('supabase/v2-app-release-center.sql'),cap=JSON.parse(read('capacitor.config.json'));
+const fail=m=>{console.error(`FAIL ${m}`);process.exitCode=1};
+if(cap.appId!=='com.torvotools.app')fail('ANDROID PACKAGE CHANGED');
+if(!sql.includes('public_android_app_update()'))fail('PUBLIC UPDATE RPC MISSING');
+if(!sql.includes("r.status='published'"))fail('PUBLISHED STATUS REQUIRED');
+if(!sql.includes('r.production_signed=true'))fail('PRODUCTION SIGNATURE REQUIRED');
+if(!sql.includes("r.artifact_sha256~'^[0-9a-f]{64}$'"))fail('SHA256 REQUIRED');
+if(!svc.includes('loadPublicAndroidUpdate'))fail('PUBLIC UPDATE CLIENT MISSING');
+if(!svc.includes('latestProductionAndroidRelease'))fail('PRODUCTION UPDATE SELECTOR MISSING');
+if(process.exitCode)process.exit(process.exitCode);console.log('TORVO ANDROID UPDATE PUBLISH CONTRACT VERIFIED');
