@@ -8,8 +8,17 @@ const checks=[
  ['RELEASE UI CONNECTED',ui.includes('loadAppReleases')&&ui.includes('DOWNLOAD VERIFIED FILE')],
  ['ADMIN SETTINGS TAB CONNECTED',settings.includes("tab==='release'")&&settings.includes('<AppReleaseCenter/>')],
  ['ANDROID TEST APK CLEARLY LABELED',android.includes('TEST-DEBUG')&&android.includes('production_signed')&&android.includes('VERIFIED_TEST')],
- ['ANDROID FULL RELEASE GATES REQUIRED',android.includes('verify:v2-dealer-business')&&android.includes('verify:v2-release-gates')&&android.includes('verify:v2-runtime')],
+ ['ANDROID FULL RELEASE GATES REQUIRED',android.includes('verify:v2-auth')&&android.includes('verify:v2-ready')&&android.includes('verify:v2-dealer-business')&&android.includes('verify:v2-release-gates')&&android.includes('verify:v2-runtime')&&android.includes('verify:v2-release-center')],
  ['ANDROID EXACT SHA STAMPED',android.includes('torvo-build-sha.txt')&&android.includes('${GITHUB_SHA}')],
- ['ANDROID ARTIFACT HASHED',android.includes('sha256sum')&&android.includes('apk_sha256')]
+ ['ANDROID ARTIFACT HASHED',android.includes('sha256sum')&&android.includes('apk_sha256')],
+ ['ANDROID APK MUST EXIST',android.includes('test -f android/app/build/outputs/apk/debug/app-debug.apk')],
+ ['ANDROID MANIFEST MUST EXIST',android.includes('test -s release-artifact/release-manifest.json')],
+ ['ANDROID MANIFEST SHA BOUND',android.includes('grep -q "${GITHUB_SHA}" release-artifact/release-manifest.json')],
+ ['ANDROID ARTIFACT FAILS CLOSED',android.includes('if-no-files-found: error')],
+ ['ANDROID ARTIFACT RETAINED',android.includes('retention-days: 90')],
+ ['ANDROID TEST NOT PRODUCTION',android.includes('TEST-DEBUG (NOT PLAY STORE PRODUCTION)')&&android.includes('"production_signed":false')],
+ ['ANDROID ONE DEVICE AUTH ASSET',android.includes('dealer-session-valid')&&android.includes('VERIFY ANDROID SINGLE-DEVICE AUTH ASSET')],
+ ['ANDROID VERSIONED FILE NAME',android.includes('TORVO-TOOLS-TEST-v2-build-${BUILD_NO}-${SHORT_SHA}.apk')],
+ ['ANDROID WORKFLOW BRANCH BOUND',android.includes('test "${GITHUB_REF_NAME}" = "torvo-v2-build"')]
 ];
-const bad=checks.filter(([,ok])=>!ok);for(const[n,ok]of checks)console.log(`${ok?'PASS':'FAIL'} ${n}`);if(bad.length){console.error(`RELEASE CENTER FAILED: ${bad.length}`);process.exit(1)}console.log('TORVO V2 RELEASE CENTER VERIFIED');
+const bad=checks.filter(([,ok])=>!ok);for(const[n,ok]of checks)console.log(`${ok?'PASS':'FAIL'} ${n}`);if(bad.length){console.error(`RELEASE CENTER FAILED: ${bad.length}`);process.exit(1)}console.log(`TORVO V2 RELEASE CENTER VERIFIED (${checks.length} GATES)`);
