@@ -36,7 +36,7 @@ Authoritative dependency order. Never install migrations alphabetically and neve
 12. REFERRAL TO B2B BASE DEPENDENCIES.
 13. FIELD/STORE: salesman field network -> dealer-salesman mapping -> `v2-master-salesman-access.sql` -> `v2-salesman-attendance.sql` -> store keeper boundary.
 14. CENTRAL ADMIN CONTROL -> `v2-accountant-workspace-buttons.sql` after `app_users` -> `v2-admin-managed-experience.sql`. Daily website/app/social/marketing/feature configuration must be changed through Owner/Admin backend controls instead of source edits wherever the setting is operational content/configuration rather than executable code or a security rule.
-15. PRODUCT DIGITAL CONTENT and public showcase -> `v2-product-promotion-popularity.sql`. Promotions may target WEBSITE, DEALER APP or BOTH; Popular Items are ranked by Admin feature/rank then order/enquiry/view signals. Inactive products are excluded.
+15. PRODUCT DIGITAL CONTENT and public showcase -> `v2-product-promotion-popularity.sql` -> `v2-product-promotions.sql`. Promotions may target WEBSITE, DEALER APP or BOTH; Popular Items are ranked by Admin feature/rank then available popularity signals. Inactive products are excluded.
 16. PRODUCT/DRAFT MEDIA after app_users.
 17. AUTH: `v2-staff-whatsapp-auth.sql` -> `v2-admin-issued-staff-access.sql` -> `v2-dealer-pin-auth.sql` -> `v2-auth-worker-runtime-grants.sql` -> `v2-business-login-routing.sql`.
 18. FINAL DEALER DEVICE BOUNDARIES after auth assertion exists: `v2-dealer-catalog-search.sql` -> `v2-dealer-machine-spares.sql` -> `v2-dealer-missing-part-request.sql` -> `v2-customer-dealer-referral-network.sql` -> `v2-referral-to-b2b-order-conversion.sql` -> `v2-dealer-knowledge-device-bound.sql` -> `v2-dealer-order-device-bound.sql` -> `v2-dealer-procurement-device-bound.sql` -> `v2-dealer-workspace-device-bound.sql` -> `v2-dealer-final-actions-device-bound.sql`.
@@ -48,11 +48,13 @@ Authoritative dependency order. Never install migrations alphabetically and neve
 24. DEMO RESET after backup/audit dependencies; Dashboard/admin/business/reporting and later modules after prerequisites.
 
 ## ADMIN-MANAGED CONFIGURATION GATE
-- OWNER/ADMIN may change supported public website text/notices, official social links, app notices, marketing defaults and safe feature switches from backend-driven controls without a source-code deployment.
+- OWNER/ADMIN may change supported public website text/notices, official social links, app notices, marketing defaults, PRODUCT PROMOTIONS, POPULAR/FEATURED ITEMS, APP DOWNLOAD LINKS and safe feature switches from backend-driven controls without a source-code deployment.
 - EVERY admin configuration write requires a reason and audit log.
 - PUBLIC receives only settings explicitly marked `public_read`; private app/marketing/feature controls are never exposed by the public RPC.
 - SECURITY, AUTHORIZATION, DATABASE INTEGRITY, PACKAGE IDENTITY, SIGNING AND EXECUTABLE PROGRAM LOGIC ARE NOT editable as arbitrary Admin JSON/code. Those remain protected release/code changes.
 - SOCIAL LINKS are data/configuration: once official URLs are entered in Admin, public website/app readers use backend values without recoding.
+- PRODUCT ADS may target WEBSITE, DEALER APP or BOTH and must have active/time boundaries. INACTIVE PRODUCTS MUST NEVER BE PROMOTED.
+- POPULAR ITEMS support Admin FEATURED override plus automatic popularity signals; the public surface never exposes Dealer A/B/C rates.
 
 ## MANDATORY DEALER DEVICE GATE
 - Dealer item-rate resolution and Purchase Order submission require current device proof server-side; browser cannot select another Dealer/rate group.
