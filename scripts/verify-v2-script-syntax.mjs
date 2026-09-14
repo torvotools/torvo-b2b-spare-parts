@@ -1,0 +1,2 @@
+import{readdir}from'node:fs/promises';import{spawnSync}from'node:child_process';
+const files=(await readdir('scripts')).filter(x=>/^verify-v2-.*\.mjs$/.test(x)).sort();if(!files.length)throw new Error('NO V2 VERIFIER SCRIPTS FOUND');let failed=0;for(const file of files){const r=spawnSync(process.execPath,['--check',`scripts/${file}`],{encoding:'utf8'});if(r.status===0)console.log(`PASS SYNTAX ${file}`);else{failed++;console.error(`FAIL SYNTAX ${file}\n${r.stderr||r.stdout}`)}}if(failed)process.exit(1);console.log(`TORVO V2 VERIFIER SYNTAX VERIFIED (${files.length} FILES)`);
