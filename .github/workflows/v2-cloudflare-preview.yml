@@ -29,6 +29,8 @@ jobs:
           node-version: 22
       - name: INSTALL
         run: npm install --no-audit --no-fund
+      - name: VERIFY SCRIPT SYNTAX AND APP IDENTITY
+        run: npm run verify:v2-preflight
       - name: VERIFY DEALER AUTH CONTRACT
         run: npm run verify:v2-auth
       - name: VERIFY FINAL READINESS
