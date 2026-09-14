@@ -5,6 +5,7 @@ import BusinessLogin from './components/BusinessLogin.jsx';
 import BackupCloseModal from './components/BackupCloseModal.jsx';
 import './styles.css';
 import './workspace-polish.css';
+import './admin-desktop-polish.css';
 import './app-install-ui.css';
 import './backup-ui.css';
 import './backup-close-ui.css';
