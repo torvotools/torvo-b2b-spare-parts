@@ -40,6 +40,7 @@ jobs:
           npm run verify:v2-release-gates
           npm run verify:v2-runtime
           npm run verify:v2-release-center
+          npm run verify:v2-update-publish
       - name: BUILD NATIVE APP
         env:
           VITE_BUILD_SHA: ${{ github.sha }}
@@ -66,6 +67,10 @@ jobs:
         run: npx cap add android
       - name: SYNC ONE APP
         run: npx cap sync android
+      - name: VERIFY ANDROID PACKAGE CONTINUITY
+        run: |
+          grep -R -q 'applicationId "com.torvotools.app"' android/app/build.gradle
+          grep -R -q 'namespace "com.torvotools.app"' android/app/build.gradle
       - name: VERIFY ANDROID SINGLE-DEVICE AUTH ASSET
         run: |
           grep -R -q 'SECURE BUSINESS ACCESS' android/app/src/main/assets/public/assets
@@ -97,6 +102,8 @@ jobs:
       - name: VERIFY TEST RELEASE MANIFEST
         run: |
           test -s release-artifact/release-manifest.json
+          grep -q '"package":"com.torvotools.app"' release-artifact/release-manifest.json
+          grep -q '"channel":"TEST-DEBUG"' release-artifact/release-manifest.json
           grep -q '"status":"VERIFIED_TEST"' release-artifact/release-manifest.json
           grep -q '"production_signed":false' release-artifact/release-manifest.json
           grep -q "${GITHUB_SHA}" release-artifact/release-manifest.json
@@ -112,6 +119,7 @@ jobs:
       - name: TEST APK EVIDENCE
         run: |
           echo "### TORVO TOOLS ANDROID TEST APK" >> "$GITHUB_STEP_SUMMARY"
+          echo "- PACKAGE: com.torvotools.app" >> "$GITHUB_STEP_SUMMARY"
           echo "- SHA: ${GITHUB_SHA}" >> "$GITHUB_STEP_SUMMARY"
           echo "- APK: ${{ steps.release_meta.outputs.apk_name }}" >> "$GITHUB_STEP_SUMMARY"
           echo "- SHA256: ${{ steps.release_meta.outputs.sha256 }}" >> "$GITHUB_STEP_SUMMARY"
