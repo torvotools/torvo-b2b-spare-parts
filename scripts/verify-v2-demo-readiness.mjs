@@ -1,0 +1,13 @@
+import fs from'node:fs';import path from'node:path';
+const root='src/v2';const files=[];const walk=d=>{for(const n of fs.readdirSync(d)){const p=path.join(d,n),s=fs.statSync(p);if(s.isDirectory())walk(p);else if(/\.(jsx|js|css)$/.test(n))files.push(p)}};walk(root);
+const all=files.map(p=>`\n/* ${p} */\n${fs.readFileSync(p,'utf8')}`).join('\n');const portal=fs.readFileSync('src/v2/components/DealerPortal.jsx','utf8');const publicHome=fs.existsSync('src/v2/components/PublicHome.jsx')?fs.readFileSync('src/v2/components/PublicHome.jsx','utf8'):all;const fail=m=>{console.error(`FAIL ${m}`);process.exitCode=1};
+if(/>\s*OK\s*</i.test(all))fail('GENERIC OK BUTTON FOUND');
+if(/LOGIN SERVICE IS NOT CONNECTED YET/i.test(all))fail('PLACEHOLDER LOGIN FOUND');
+if(!all.includes('CAMERA')||!all.includes('MIC'))fail('CAMERA OR MIC UI MISSING');
+if(portal.includes('SUBMIT PURCHASE ORDER')===false)fail('PURCHASE ORDER ACTION MISSING');
+if(portal.includes('GIVE DEALER OK')===false)fail('DEALER OK ACTION MISSING');
+if(portal.includes('ADD MORE ITEMS')===false)fail('ADDITIONAL ORDER ACTION MISSING');
+if(portal.includes('REQUEST MODIFICATION')===false)fail('ORDER MODIFICATION ACTION MISSING');
+if(portal.includes('WHATSAPP TORVO')===false)fail('DEALER SUPPORT ACTION MISSING');
+if(!all.includes('com.torvotools.app'))fail('ANDROID PACKAGE CONTINUITY EVIDENCE MISSING');
+if(process.exitCode)process.exit(process.exitCode);console.log(`TORVO V2 DEMO READINESS VERIFIED: ${files.length} UI/SERVICE FILES SCANNED`);
