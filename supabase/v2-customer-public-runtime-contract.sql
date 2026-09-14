@@ -219,6 +219,7 @@ grant execute on function dealer_repair_requirements(text,integer),dealer_update
 
 -- Stable public settings facade. Values are intentionally non-sensitive and sourced from Admin-managed settings.
 -- Customer/support and business WhatsApp channels stay independent so Admin can change either without a code deployment.
+-- Legacy or manually-edited JSON must never make the public facade fail because PostgreSQL boolean casts reject malformed text.
 create or replace function public_business_settings() returns table(
   support_mobile text,
   whatsapp_mobile text,
@@ -232,14 +233,24 @@ create or replace function public_business_settings() returns table(
   ), f as(
     select setting_value from admin_managed_settings
     where setting_key='feature_switches' and active=true
+  ), safe as(
+    select
+      w.setting_value as wv,
+      f.setting_value as fv,
+      case lower(coalesce(w.setting_value->>'customer_active','true')) when 'true' then true when 'false' then false else true end as customer_active,
+      case lower(coalesce(w.setting_value->>'business_active','true')) when 'true' then true when 'false' then false else true end as business_active,
+      case lower(coalesce(f.setting_value->>'customer_referral','true')) when 'true' then true when 'false' then false else true end as customer_referral,
+      case lower(coalesce(f.setting_value->>'repair_service','true')) when 'true' then true when 'false' then false else true end as repair_service,
+      case lower(coalesce(f.setting_value->>'customer_catalog','true')) when 'true' then true when 'false' then false else true end as customer_catalog
+    from (select 1) q left join w on true left join f on true
   )
   select
-    case when coalesce((w.setting_value->>'customer_active')::boolean,true) then coalesce(nullif(w.setting_value->>'customer_number',''),'7027751533') else '7027751533' end::text,
-    case when coalesce((w.setting_value->>'business_active')::boolean,true) then coalesce(nullif(w.setting_value->>'business_number',''),nullif(w.setting_value->>'customer_number',''),'7027751533') else coalesce(nullif(w.setting_value->>'customer_number',''),'7027751533') end::text,
-    coalesce((f.setting_value->>'customer_referral')::boolean,true),
-    coalesce((f.setting_value->>'repair_service')::boolean,true),
-    coalesce((f.setting_value->>'customer_catalog')::boolean,true)
-  from (select 1) q left join w on true left join f on true;
+    case when customer_active then coalesce(nullif(wv->>'customer_number',''),'7027751533') else '7027751533' end::text,
+    case when business_active then coalesce(nullif(wv->>'business_number',''),nullif(wv->>'customer_number',''),'7027751533') else coalesce(nullif(wv->>'customer_number',''),'7027751533') end::text,
+    customer_referral,
+    repair_service,
+    customer_catalog
+  from safe;
 $$;
 revoke all on function public_business_settings() from public;
 grant execute on function public_business_settings() to anon,authenticated;
