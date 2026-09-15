@@ -47,3 +47,18 @@ begin
  insert into audit_log(actor_id,action,entity_type,entity_id,details) values(u.id,'CUSTOMER_DEMAND_CONVERTED','CUSTOMER_PRODUCT_DEMAND',p_demand_id::text,jsonb_build_object('reason',nullif(r,''),'found_dealer_id',d.found_dealer_id));return true;
 end$$;
 revoke all on function admin_convert_customer_demand(uuid,text) from public,anon;grant execute on function admin_convert_customer_demand(uuid,text) to authenticated;
+
+-- POST-FOUND OVERRIDE: the base admin lifecycle is installed before closed_at exists.
+-- Recreate the close RPC here so every manual Admin close records the demand close timestamp too.
+create or replace function admin_close_customer_demand_lead(p_demand_id uuid,p_reason text default null)
+returns boolean language plpgsql security definer set search_path=public as $$
+declare u app_users%rowtype;r text:=left(nullif(upper(btrim(coalesce(p_reason,''))),''),500);begin
+ select * into u from app_users where auth_user_id=auth.uid() and active=true;
+ if u.id is null or u.role not in('owner','admin') then raise exception 'OWNER OR ADMIN REQUIRED';end if;
+ update customer_product_demands set status='closed',closed_at=coalesce(closed_at,now()),updated_at=now() where id=p_demand_id and status not in('closed','cancelled');
+ if not found then raise exception 'OPEN CUSTOMER REQUIREMENT REQUIRED';end if;
+ update customer_demand_dealer_leads set status='closed',closed_at=coalesce(closed_at,now()) where demand_id=p_demand_id and status in('sent','accepted');
+ insert into audit_log(actor_id,action,entity_type,entity_id,details) values(u.id,'CUSTOMER_DEMAND_CLOSED','CUSTOMER_PRODUCT_DEMAND',p_demand_id::text,jsonb_build_object('reason',r));
+ return true;
+end$$;
+revoke all on function admin_close_customer_demand_lead(uuid,text) from public,anon;grant execute on function admin_close_customer_demand_lead(uuid,text) to authenticated;
