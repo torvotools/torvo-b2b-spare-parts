@@ -13,3 +13,9 @@ export async function requestTorvoProductHelp(demandId,mobile){
  const m=cleanMobile(mobile);if(!demandId)throw new Error('CUSTOMER REQUIREMENT REQUIRED');if(m.length!==10)throw new Error('10-DIGIT MOBILE REQUIRED');
  const{data,error}=await db().rpc('public_request_torvo_product_help',{p_demand_id:demandId,p_mobile:m});if(error)throw error;return one(data);
 }
+export async function loadCustomerProductDemandResult(demandId,mobile){
+ const m=cleanMobile(mobile);if(!demandId)throw new Error('CUSTOMER REQUIREMENT REQUIRED');if(m.length!==10)throw new Error('10-DIGIT MOBILE REQUIRED');
+ const{data,error}=await db().rpc('public_customer_demand_result',{p_demand_id:demandId,p_mobile:m});if(error)throw error;
+ const result=one(data);if(!result)return null;
+ const status=String(result.status||'').toLowerCase();return{...result,found_dealer_id:status==='available'?result.found_dealer_id||null:null,found_contact_note:status==='available'?result.found_contact_note||null:null,available_at:status==='available'?result.available_at||null:null};
+}
