@@ -5,7 +5,11 @@ const found=fs.readFileSync('supabase/v2-customer-demand-found-lifecycle.sql','u
 const checks=[
 ['ADMIN LEADS RPC',/admin_customer_lead_center/.test(svc)],
 ['ADMIN ROUTING RPC',/admin_route_customer_demand_to_dealer/.test(svc)],
+['ROUTING STAGE CLIENT VALIDATION',/\['LOCAL','EXTENDED','TORVO_ASSIGNED'\]\.includes\(s\)/.test(svc)&&/INVALID ROUTING STAGE/.test(svc)],
 ['AUDITED CLOSE RPC',/admin_close_customer_demand_lead/.test(svc)],
+['CLOSE REASON CLIENT BOUNDS',/r\.length<3/.test(svc)&&/r\.length>500/.test(svc)],
+['FOUND NOTE CLIENT BOUNDS',/note\(contactNote\)/.test(svc)&&/note\(sourcingNote\)/.test(svc)&&/NOTE MUST BE/.test(svc)],
+['CONVERSION NOTE CLIENT BOUNDS',/note\(reason,500\)/.test(svc)],
 ['LEADS CENTER UI',/CUSTOMER LEADS CENTER/.test(ui)],
 ['STATUS FILTERS',/submitted.*sourcing.*available.*sent.*accepted.*declined.*closed/.test(ui)],
 ['CUSTOMER CONTACT ACTIONS',/tel:/.test(ui)&&/wa\.me/.test(ui)],
