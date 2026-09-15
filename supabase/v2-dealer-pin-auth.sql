@@ -4,6 +4,10 @@
 -- DEALER LOGIN IS SEPARATE FROM STAFF WHATSAPP OTP. PIN IS NEVER STORED IN PLAINTEXT.
 create extension if not exists pgcrypto;
 
+-- Canonical Dealer identity link. This removes mobile-number matching from private Dealer authorization.
+alter table app_users add column if not exists dealer_id uuid references dealers(id) on delete restrict;
+create unique index if not exists uq_app_users_dealer_identity on app_users(dealer_id) where dealer_id is not null;
+
 create table if not exists dealer_login_credentials(dealer_id uuid primary key references dealers(id) on delete cascade,pin_hash text,pin_set_at timestamptz,failed_attempts integer not null default 0 check(failed_attempts>=0),locked_until timestamptz,updated_at timestamptz not null default now());alter table dealer_login_credentials enable row level security;
 create table if not exists dealer_device_sessions(id uuid primary key default gen_random_uuid(),dealer_id uuid not null references dealers(id) on delete cascade,device_id text not null,session_token_hash text not null,created_at timestamptz not null default now(),last_seen_at timestamptz not null default now(),expires_at timestamptz not null,revoked_at timestamptz,revoke_reason text);alter table dealer_device_sessions enable row level security;
 create unique index if not exists uq_dealer_one_active_device on dealer_device_sessions(dealer_id) where revoked_at is null;create index if not exists idx_dealer_device_session_token on dealer_device_sessions(session_token_hash) where revoked_at is null;
@@ -16,23 +20,22 @@ create or replace function dealer_validate_device_session(p_dealer_id uuid,p_dev
 create or replace function dealer_revoke_device_sessions(p_dealer_id uuid,p_reason text default 'LOGOUT') returns void language plpgsql security definer set search_path=public as $$begin update dealer_device_sessions set revoked_at=now(),revoke_reason=left(coalesce(nullif(btrim(p_reason),''),'LOGOUT'),80) where dealer_id=p_dealer_id and revoked_at is null;end$$;
 create or replace function dealer_create_recovery_challenge(p_dealer_id uuid,p_verified_by text,p_minutes integer default 10) returns uuid language plpgsql security definer set search_path=public as $$declare d dealers%rowtype;rid uuid;begin if p_verified_by not in('whatsapp_otp','admin_verified') then raise exception 'VERIFICATION_REQUIRED';end if;if p_minutes<5 or p_minutes>30 then raise exception 'EXPIRY_MUST_BE_5_TO_30_MINUTES';end if;select * into d from dealers where id=p_dealer_id and status='approved';if d.id is null then raise exception 'APPROVED_DEALER_REQUIRED';end if;insert into dealer_pin_recovery_challenges(dealer_id,verified_by,expires_at) values(d.id,p_verified_by,now()+make_interval(mins=>p_minutes)) returning id into rid;return rid;end$$;
 
--- AUTHENTICATED DEALER SAFE ASSERTION: derives Dealer only from auth.uid(); browser never supplies dealer_id.
+-- AUTHENTICATED DEALER SAFE ASSERTION: derives Dealer only from auth.uid() + canonical app_users.dealer_id.
+-- Browser never supplies dealer_id and changing a mobile number cannot silently relink private Dealer access.
 create or replace function dealer_assert_my_device_session(p_device_id text,p_session_token text) returns uuid language plpgsql security definer set search_path=public as $$
-declare v_user app_users%rowtype;v_mobile text;v_user_count integer;v_dealer_count integer;v_dealer_id uuid;v_ok boolean;
+declare v_user app_users%rowtype;v_user_count integer;v_dealer dealers%rowtype;v_ok boolean;
 begin
  if auth.uid() is null then raise exception 'AUTHENTICATION REQUIRED';end if;
  select count(*) into v_user_count from app_users where auth_user_id=auth.uid() and active=true;
  if v_user_count=0 then raise exception 'ACTIVE DEALER LOGIN REQUIRED';elsif v_user_count>1 then raise exception 'DEALER AUTH IDENTITY AMBIGUOUS';end if;
  select * into strict v_user from app_users where auth_user_id=auth.uid() and active=true;
  if lower(coalesce(v_user.role,''))<>'dealer' then raise exception 'ACTIVE DEALER LOGIN REQUIRED';end if;
- v_mobile:=right(regexp_replace(coalesce(v_user.mobile,''),'\D','','g'),10);
- if length(v_mobile)<>10 then raise exception 'DEALER MOBILE LINK REQUIRED';end if;
- select count(*) into v_dealer_count from dealers d where right(regexp_replace(coalesce(d.mobile,''),'\D','','g'),10)=v_mobile and lower(coalesce(d.status,''))='approved';
- if v_dealer_count=0 then raise exception 'APPROVED DEALER LINK REQUIRED';elsif v_dealer_count>1 then raise exception 'DEALER LINK AMBIGUOUS';end if;
- select d.id into strict v_dealer_id from dealers d where right(regexp_replace(coalesce(d.mobile,''),'\D','','g'),10)=v_mobile and lower(coalesce(d.status,''))='approved';
- v_ok:=dealer_validate_device_session(v_dealer_id,p_device_id,p_session_token);
+ if v_user.dealer_id is null then raise exception 'APPROVED DEALER LINK REQUIRED';end if;
+ select * into v_dealer from dealers where id=v_user.dealer_id and lower(coalesce(status,''))='approved';
+ if v_dealer.id is null then raise exception 'APPROVED DEALER LINK REQUIRED';end if;
+ v_ok:=dealer_validate_device_session(v_dealer.id,p_device_id,p_session_token);
  if not coalesce(v_ok,false) then raise exception 'DEALER DEVICE SESSION INVALID';end if;
- return v_dealer_id;
+ return v_dealer.id;
 end$$;
 
 revoke all on function dealer_set_pin(uuid,text,uuid) from public,anon,authenticated;revoke all on function dealer_verify_pin(text,text) from public,anon,authenticated;revoke all on function dealer_start_device_session(uuid,text,integer) from public,anon,authenticated;revoke all on function dealer_validate_device_session(uuid,text,text) from public,anon,authenticated;revoke all on function dealer_revoke_device_sessions(uuid,text) from public,anon,authenticated;revoke all on function dealer_create_recovery_challenge(uuid,text,integer) from public,anon,authenticated;
