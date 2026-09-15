@@ -40,13 +40,19 @@ create or replace function public_create_product_demand(
   p_full_name text,p_mobile text,p_pin_code text,p_search_text text,p_product_id uuid default null,p_brand text default null,p_model_number text default null,p_requirement_note text default null,p_marketing_opt_in boolean default false
 ) returns table(demand_id uuid,status text)
 language plpgsql security definer set search_path=public as $$
-declare m text:=right(regexp_replace(coalesce(p_mobile,''),'\D','','g'),10);q text:=upper(btrim(coalesce(p_search_text,'')));c customer_contacts%rowtype;rid uuid;found_product boolean:=false;
+declare m text:=right(regexp_replace(coalesce(p_mobile,''),'\D','','g'),10);q text:=upper(btrim(coalesce(p_search_text,'')));n text:=upper(btrim(coalesce(p_full_name,'')));b text:=upper(nullif(btrim(p_brand),''));model text:=upper(nullif(btrim(p_model_number),''));note text:=upper(nullif(btrim(p_requirement_note),''));c customer_contacts%rowtype;rid uuid;found_product boolean:=false;
 begin
-  if length(m)<>10 then raise exception '10-DIGIT MOBILE REQUIRED'; end if;if coalesce(p_pin_code,'')!~'^[0-9]{6}$' then raise exception '6-DIGIT PIN CODE REQUIRED'; end if;if nullif(btrim(p_full_name),'') is null then raise exception 'CUSTOMER NAME REQUIRED'; end if;if length(q)<2 or length(q)>180 then raise exception 'PRODUCT SEARCH REQUIRED'; end if;if length(coalesce(p_requirement_note,''))>500 then raise exception 'REQUIREMENT NOTE TOO LONG'; end if;
+  if length(m)<>10 then raise exception '10-DIGIT MOBILE REQUIRED'; end if;
+  if coalesce(p_pin_code,'')!~'^[0-9]{6}$' then raise exception '6-DIGIT PIN CODE REQUIRED'; end if;
+  if length(n)<2 or length(n)>120 then raise exception 'CUSTOMER NAME REQUIRED'; end if;
+  if length(q)<2 or length(q)>200 then raise exception 'PRODUCT SEARCH REQUIRED'; end if;
+  if length(coalesce(b,''))>120 then raise exception 'BRAND TOO LONG'; end if;
+  if length(coalesce(model,''))>120 then raise exception 'MODEL NUMBER TOO LONG'; end if;
+  if length(coalesce(note,''))>500 then raise exception 'REQUIREMENT NOTE TOO LONG'; end if;
   if p_product_id is not null then select exists(select 1 from catalog_items i where i.id=p_product_id and coalesce(i.active,true)=true) into found_product;if not found_product then raise exception 'ACTIVE PRODUCT REQUIRED';end if;end if;
-  insert into customer_contacts(full_name,mobile,whatsapp,pin_code,marketing_opt_in,marketing_opt_in_at,marketing_opt_in_source,marketing_opt_out_at,consent_updated_at,updated_at) values(upper(btrim(p_full_name)),m,m,btrim(p_pin_code),p_marketing_opt_in,case when p_marketing_opt_in then now() end,'PUBLIC PRODUCT REQUIREMENT',case when not p_marketing_opt_in then now() end,now(),now()) on conflict(mobile) do update set full_name=excluded.full_name,whatsapp=excluded.whatsapp,pin_code=excluded.pin_code,marketing_opt_in=excluded.marketing_opt_in,marketing_opt_in_at=case when excluded.marketing_opt_in then coalesce(customer_contacts.marketing_opt_in_at,now()) else null end,marketing_opt_in_source='PUBLIC PRODUCT REQUIREMENT',marketing_opt_out_at=case when excluded.marketing_opt_in then null else now() end,consent_updated_at=now(),updated_at=now() returning * into c;
+  insert into customer_contacts(full_name,mobile,whatsapp,pin_code,marketing_opt_in,marketing_opt_in_at,marketing_opt_in_source,marketing_opt_out_at,consent_updated_at,updated_at) values(n,m,m,btrim(p_pin_code),p_marketing_opt_in,case when p_marketing_opt_in then now() end,'PUBLIC PRODUCT REQUIREMENT',case when not p_marketing_opt_in then now() end,now(),now()) on conflict(mobile) do update set full_name=excluded.full_name,whatsapp=excluded.whatsapp,pin_code=excluded.pin_code,marketing_opt_in=excluded.marketing_opt_in,marketing_opt_in_at=case when excluded.marketing_opt_in then coalesce(customer_contacts.marketing_opt_in_at,now()) else null end,marketing_opt_in_source='PUBLIC PRODUCT REQUIREMENT',marketing_opt_out_at=case when excluded.marketing_opt_in then null else now() end,consent_updated_at=now(),updated_at=now() returning * into c;
   insert into customer_marketing_consent_events(customer_id,opted_in,source) values(c.id,p_marketing_opt_in,'PUBLIC PRODUCT REQUIREMENT');
-  insert into customer_product_demands(customer_id,product_id,search_text,pin_code,brand,model_number,requirement_note,source,product_found) values(c.id,p_product_id,q,btrim(p_pin_code),upper(nullif(btrim(p_brand),'')),upper(nullif(btrim(p_model_number),'')),upper(nullif(btrim(p_requirement_note),'')),case when found_product then 'PUBLIC PRODUCT' else 'PUBLIC MISSING PRODUCT' end,found_product) returning id into rid;
+  insert into customer_product_demands(customer_id,product_id,search_text,pin_code,brand,model_number,requirement_note,source,product_found) values(c.id,p_product_id,q,btrim(p_pin_code),b,model,note,case when found_product then 'PUBLIC PRODUCT' else 'PUBLIC MISSING PRODUCT' end,found_product) returning id into rid;
   return query select rid,'submitted'::text;
 end$$;
 revoke all on function public_create_product_demand(text,text,text,text,uuid,text,text,text,boolean) from public;grant execute on function public_create_product_demand(text,text,text,text,uuid,text,text,text,boolean) to anon,authenticated;
@@ -59,7 +65,7 @@ language plpgsql security definer set search_path=public as $$
 declare m text:=right(regexp_replace(coalesce(p_mobile,''),'\D','','g'),10);d customer_product_demands%rowtype;
 begin
   if length(m)<>10 then raise exception '10-DIGIT MOBILE REQUIRED'; end if;
-  select x.* into d from customer_product_demands x join customer_contacts c on c.id=x.customer_id where x.id=p_demand_id and c.mobile=m for update of x;
+  select x.* into d from customer_product_demands x join customer_contacts c on c.id=x.customer_id where x.id=p_demand_id and right(regexp_replace(coalesce(c.mobile,''),'\D','','g'),10)=m for update of x;
   if d.id is null then raise exception 'CUSTOMER REQUIREMENT NOT FOUND'; end if;
   if d.status in('closed','cancelled') then raise exception 'CUSTOMER REQUIREMENT IS NOT ACTIVE'; end if;
   update customer_product_demands set torvo_help_requested=true,torvo_help_requested_at=coalesce(torvo_help_requested_at,now()),status=case when status='available' then status else 'sourcing' end,updated_at=now() where id=d.id;
