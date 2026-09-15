@@ -34,11 +34,12 @@ end$$;
 revoke all on function admin_route_customer_demand_to_dealer(uuid,uuid,text) from public,anon;grant execute on function admin_route_customer_demand_to_dealer(uuid,uuid,text) to authenticated;
 
 -- Device-verified dealer inbox exposes requirement only: NO customer name/mobile/WhatsApp.
+-- Closed/cancelled demands are excluded even if a stale lead row has not yet been closed.
 create or replace function dealer_customer_demand_leads(p_device_id text,p_session_token text,p_limit integer default 50)
 returns table(lead_id uuid,demand_id uuid,search_text text,pin_code text,brand text,model_number text,requirement_note text,routing_stage text,status text,sent_at timestamptz)
 language plpgsql security definer set search_path=public as $$declare did uuid;begin
  did:=dealer_assert_my_device_session(p_device_id,p_session_token);
- return query select l.id,d.id,d.search_text,d.pin_code,d.brand,d.model_number,d.requirement_note,l.routing_stage,l.status,l.sent_at from customer_demand_dealer_leads l join customer_product_demands d on d.id=l.demand_id where l.dealer_id=did and l.status in('sent','accepted') order by l.sent_at desc limit greatest(1,least(coalesce(p_limit,50),100));
+ return query select l.id,d.id,d.search_text,d.pin_code,d.brand,d.model_number,d.requirement_note,l.routing_stage,l.status,l.sent_at from customer_demand_dealer_leads l join customer_product_demands d on d.id=l.demand_id where l.dealer_id=did and l.status in('sent','accepted') and d.status not in('closed','cancelled') order by l.sent_at desc limit greatest(1,least(coalesce(p_limit,50),100));
 end$$;
 revoke all on function dealer_customer_demand_leads(text,text,integer) from public,anon;grant execute on function dealer_customer_demand_leads(text,text,integer) to authenticated;
 
@@ -55,22 +56,24 @@ begin
  if l.status not in('sent','accepted') then raise exception 'CUSTOMER LEAD IS NOT OPEN';end if;
  select * into d from customer_product_demands where id=l.demand_id for update;
  if d.id is null or d.status in('closed','cancelled') then raise exception 'ACTIVE CUSTOMER REQUIREMENT REQUIRED';end if;
- update customer_demand_dealer_leads set status='accepted',accepted_at=coalesce(accepted_at,now()) where id=l.id;
- select id into au from app_users where auth_user_id=auth.uid() and active=true limit 1;
+ select id into au from app_users where auth_user_id=auth.uid() and active=true and dealer_id=did limit 1;
  if au is null then raise exception 'ACTIVE DEALER APP USER REQUIRED';end if;
+ update customer_demand_dealer_leads set status='accepted',accepted_at=coalesce(accepted_at,now()) where id=l.id;
  insert into audit_log(actor_id,action,entity_type,entity_id,details) values(au,'CUSTOMER_DEMAND_LEAD_ACCEPTED','CUSTOMER_DEMAND_DEALER_LEAD',l.id::text,jsonb_build_object('demand_id',l.demand_id,'dealer_id',did,'already_accepted',l.status='accepted'));
  return query select l.id,c.full_name,c.mobile,c.whatsapp,d.pin_code,d.search_text from customer_contacts c where c.id=d.customer_id;
 end$$;
 revoke all on function dealer_accept_customer_demand_lead(uuid,text,text) from public,anon;grant execute on function dealer_accept_customer_demand_lead(uuid,text,text) to authenticated;
 
 create or replace function dealer_decline_customer_demand_lead(p_lead_id uuid,p_device_id text,p_session_token text)
-returns boolean language plpgsql security definer set search_path=public as $$declare did uuid;l customer_demand_dealer_leads%rowtype;au uuid;begin
+returns boolean language plpgsql security definer set search_path=public as $$declare did uuid;l customer_demand_dealer_leads%rowtype;d customer_product_demands%rowtype;au uuid;begin
  did:=dealer_assert_my_device_session(p_device_id,p_session_token);
  select * into l from customer_demand_dealer_leads where id=p_lead_id and dealer_id=did and status='sent' for update;
  if l.id is null then raise exception 'OPEN ASSIGNED CUSTOMER LEAD REQUIRED';end if;
- update customer_demand_dealer_leads set status='declined',declined_at=now() where id=l.id;
- select id into au from app_users where auth_user_id=auth.uid() and active=true limit 1;
+ select * into d from customer_product_demands where id=l.demand_id for update;
+ if d.id is null or d.status in('closed','cancelled') then raise exception 'ACTIVE CUSTOMER REQUIREMENT REQUIRED';end if;
+ select id into au from app_users where auth_user_id=auth.uid() and active=true and dealer_id=did limit 1;
  if au is null then raise exception 'ACTIVE DEALER APP USER REQUIRED';end if;
+ update customer_demand_dealer_leads set status='declined',declined_at=now() where id=l.id;
  insert into audit_log(actor_id,action,entity_type,entity_id,details) values(au,'CUSTOMER_DEMAND_LEAD_DECLINED','CUSTOMER_DEMAND_DEALER_LEAD',l.id::text,jsonb_build_object('demand_id',l.demand_id,'dealer_id',did));
  return true;
 end$$;
