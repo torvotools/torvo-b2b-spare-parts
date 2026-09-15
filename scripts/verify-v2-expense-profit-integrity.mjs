@@ -19,6 +19,6 @@ const checks=[
  ['PROFIT INCLUDES ACTIVE BUSINESS EXPENSES',sql.includes("from business_expenses where status='active'")],
  ['MISSING COST FAILS TRUTHFULLY',sql.includes("'complete',missing=0")&&sql.includes("'missing_cost_lines',missing")],
  ['PROFIT RPC CLIENT WIRED',repo.includes("rpc('get_profit_summary'")],
- ['REPORTS UI WIRED TO PROFIT SUMMARY',reports.includes('data.profitSummary')&&reports.includes('PROFIT & MARGIN')]
+ ['REPORTS UI WIRED TO PROFIT SUMMARY',reports.includes('data.profitSummary(')&&reports.includes("id:'profit'")&&reports.includes('profit.profit')&&reports.includes('profit.margin_percent')&&reports.includes('missing_cost_lines')]
 ];
 const failed=checks.filter(([,ok])=>!ok);for(const[n,ok]of checks)console.log(`${ok?'PASS':'FAIL'} ${n}`);if(failed.length){console.error(`EXPENSE/PROFIT INTEGRITY FAILED: ${failed.length}`);process.exit(1)}console.log(`TORVO V2 EXPENSE/PROFIT INTEGRITY VERIFIED (${checks.length} GATES)`);
