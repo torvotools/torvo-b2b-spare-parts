@@ -47,7 +47,7 @@ Authoritative dependency order. Never install migrations alphabetically and neve
 21. SECURE DESKTOP verification against Accountant desktop/device boundary.
 22. BACKUP control -> channels -> worker contract.
 23. APP RELEASE CENTER: `v2-app-release-center.sql`; release metadata writes remain CI/trusted-worker only and Owner/Admin can read verified release status.
-24. APP NOTIFICATIONS: `v2-role-push-notifications.sql` after `app_users`; Owner/Admin may publish role-targeted messages to DEALER, SALESMAN, STORE KEEPER or ACCOUNTANT.
+24. APP NOTIFICATIONS: `v2-role-push-notifications.sql` after `app_users`; Owner/Admin may publish role-targeted messages to DEALER, SALESMAN, STORE KEEPER or ACCOUNTANT. After Step 18 Customer lead routing/lifecycle and this notification foundation both exist, install `v2-customer-lead-notifications.sql`; it targets only the specifically assigned approved Dealer app user and never copies Customer name/mobile/WhatsApp into notification data.
 25. DEMO RESET after backup/audit dependencies; Dashboard/admin/business/reporting and later modules after prerequisites.
 
 ## ADMIN-MANAGED CONFIGURATION GATE
@@ -67,6 +67,7 @@ Authoritative dependency order. Never install migrations alphabetically and neve
 - OWNER/ADMIN private CUSTOMER LEADS CENTER may combine requirement, customer contact and assigned Dealer status; this privileged read is never granted to public/Dealer roles.
 - CLOSING a requirement closes its still-open Dealer lead assignments and writes an audit entry with the supplied reason.
 - DEALER notification/routing is controlled: Owner/Admin may assign only an active requirement to an APPROVED Dealer. Dealer inbox is device-bound and contains requirement/area data but no customer contact. Only the assigned Dealer that explicitly ACCEPTS the lead may receive the necessary Customer name/mobile/WhatsApp. Declined/unassigned Dealers never receive contact.
+- CUSTOMER LEAD ALERTS target only the assigned active approved Dealer app user. Alert body contains requirement and area/PIN only; Customer name/mobile/WhatsApp remain private until accepted through the device-bound lead RPC.
 - LOCAL / EXTENDED routing labels do not themselves prove distance. 0-25 KM / 25-50 KM claims require truthful coordinates, geocoding or service-area evidence; never infer kilometres from a PIN string alone.
 
 ## MANDATORY DEALER DEVICE GATE
@@ -95,6 +96,7 @@ Authoritative dependency order. Never install migrations alphabetically and neve
 - Every published message remains in the recipient's backend inbox even if native push delivery is temporarily unavailable.
 - Native Android/iOS push uses registered app-device tokens and a trusted server/worker provider integration; provider credentials are server-only.
 - UPDATE, ACCOUNT/ACCESS, BUSINESS and GENERAL messages may carry a safe action key/value for app routing; notification content must never change authorization rules.
+- CUSTOMER LEAD notifications are direct-recipient alerts, not role-wide broadcasts; the assigned Dealer receives requirement/area only and must use the secure lead acceptance flow to unlock Customer contact.
 
 ## RETIRED / DO NOT ENABLE
 - `v2-public-retail-pricing-foundation.sql`
