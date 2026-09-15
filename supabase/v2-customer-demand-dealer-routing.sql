@@ -17,15 +17,17 @@ revoke all on customer_demand_dealer_leads from anon,authenticated;
 
 -- OWNER/ADMIN routes only a confirmed demand to an approved dealer. Distance stages are labels only here;
 -- actual 0-25/25-50 KM routing must be supplied by a truthful geospatial/service-area selector later.
+-- Locking the demand prevents Admin routing from racing with a simultaneous close/cancel operation.
 create or replace function admin_route_customer_demand_to_dealer(p_demand_id uuid,p_dealer_id uuid,p_routing_stage text default 'TORVO_ASSIGNED')
 returns uuid language plpgsql security definer set search_path=public as $$
-declare u app_users%rowtype;rid uuid;stage text:=upper(btrim(coalesce(p_routing_stage,'')));
+declare u app_users%rowtype;d customer_product_demands%rowtype;rid uuid;stage text:=upper(btrim(coalesce(p_routing_stage,'')));
 begin
  select * into u from app_users where auth_user_id=auth.uid() and active=true;
  if u.id is null or u.role not in('owner','admin') then raise exception 'OWNER OR ADMIN REQUIRED';end if;
  if stage not in('LOCAL','EXTENDED','TORVO_ASSIGNED') then raise exception 'INVALID ROUTING STAGE';end if;
- if not exists(select 1 from customer_product_demands d where d.id=p_demand_id and d.status not in('closed','cancelled')) then raise exception 'ACTIVE CUSTOMER REQUIREMENT REQUIRED';end if;
- if not exists(select 1 from dealers d where d.id=p_dealer_id and d.status='approved') then raise exception 'APPROVED DEALER REQUIRED';end if;
+ select * into d from customer_product_demands where id=p_demand_id for update;
+ if d.id is null or d.status in('closed','cancelled') then raise exception 'ACTIVE CUSTOMER REQUIREMENT REQUIRED';end if;
+ if not exists(select 1 from dealers x where x.id=p_dealer_id and x.status='approved') then raise exception 'APPROVED DEALER REQUIRED';end if;
  insert into customer_demand_dealer_leads(demand_id,dealer_id,routing_stage,assigned_by) values(p_demand_id,p_dealer_id,stage,u.id)
  on conflict(demand_id,dealer_id) do update set routing_stage=excluded.routing_stage,status='sent',sent_at=now(),accepted_at=null,declined_at=null,closed_at=null,assigned_by=u.id returning id into rid;
  insert into audit_log(actor_id,action,entity_type,entity_id,details) values(u.id,'CUSTOMER_DEMAND_ROUTED','CUSTOMER_PRODUCT_DEMAND',p_demand_id::text,jsonb_build_object('dealer_id',p_dealer_id,'routing_stage',stage));
