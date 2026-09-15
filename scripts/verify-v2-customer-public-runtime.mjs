@@ -4,6 +4,7 @@ const runtime=read('supabase/v2-customer-public-runtime-contract.sql');
 const repairDevice=read('supabase/v2-customer-repair-device-bound.sql');
 const managed=read('supabase/v2-admin-managed-experience.sql');
 const network=read('supabase/v2-customer-dealer-referral-network.sql');
+const demand=read('supabase/v2-customer-product-demand-leads.sql');
 const order=read('supabase/V2_INSTALL_ORDER.md');
 const safeBool=(alias,key)=>new RegExp(`case lower\\(coalesce\\(${alias}\\.setting_value->>'${key}','true'\\)\\) when 'true' then true when 'false' then false else true end`,`i`).test(runtime);
 const unsafePublicBoolCast=/setting_value->>'(?:customer_active|business_active|customer_referral|repair_service|customer_catalog)'\s*\)::boolean/i.test(runtime);
@@ -50,6 +51,16 @@ const checks=[
  ['FEATURE BOOLEAN VALIDATION',/FEATURE SWITCH % MUST BE BOOLEAN/.test(managed)],
  ['RUNTIME INSTALL ORDER',order.indexOf('v2-admin-managed-experience.sql')>=0&&order.indexOf('v2-customer-public-runtime-contract.sql')>order.indexOf('v2-admin-managed-experience.sql')],
  ['NO PUBLIC CHECKOUT RPC',!/public_(checkout|payment|place_order)/i.test(runtime)],
+ ['CUSTOMER DEMAND PRIVATE TABLE',/create table if not exists customer_product_demands/i.test(demand)&&/enable row level security/i.test(demand)&&/revoke all on customer_product_demands from anon,authenticated/i.test(demand)],
+ ['CONFIRMED DEMAND PUBLIC RPC',/create or replace function public_create_product_demand/i.test(demand)&&/PRODUCT SEARCH REQUIRED/.test(demand)],
+ ['TORVO PAN INDIA HELP RPC',/create or replace function public_request_torvo_product_help/i.test(demand)&&/CUSTOMER REQUIREMENT NOT FOUND/.test(demand)&&/status=case when status='available' then status else 'sourcing' end/i.test(demand)],
+ ['TORVO HELP MOBILE OWNERSHIP HINT',/join customer_contacts c on c\.id=x\.customer_id where x\.id=p_demand_id and c\.mobile=m/i.test(demand)],
+ ['PUBLIC DEMAND RETURNS NO CONTACT',/returns table\(demand_id uuid,status text\)/i.test(demand)&&/returns table\(demand_id uuid,status text,torvo_help_requested boolean\)/i.test(demand)],
+ ['ADMIN DEMAND OWNER ADMIN ONLY',/create or replace function admin_customer_product_demands/i.test(demand)&&/u\.role not in\('owner','admin'\)/i.test(demand)],
+ ['ADMIN SOURCING UPDATE AUDITED',/create or replace function admin_update_product_demand/i.test(demand)&&/CUSTOMER_PRODUCT_DEMAND_UPDATED/.test(demand)&&/insert into audit_log/i.test(demand)],
+ ['FOUND DEALER MUST BE APPROVED',/APPROVED DEALER REQUIRED/.test(demand)&&/x\.status='approved'/.test(demand)],
+ ['DEMAND SUMMARY TORVO HELP COUNT',/torvo_help_count bigint/.test(demand)&&/filter\(where d\.torvo_help_requested\)/i.test(demand)],
+ ['DEMAND INSTALL ORDER',order.indexOf('v2-customer-product-demand-leads.sql')>order.indexOf('v2-customer-marketing-consent-segmentation.sql')&&order.indexOf('v2-customer-product-demand-leads.sql')<order.indexOf('v2-customer-public-runtime-contract.sql')],
 ];
 let failed=0;
 for(const [name,ok] of checks){console.log(`${ok?'PASS':'FAIL'} ${name}`);if(!ok)failed++;}
