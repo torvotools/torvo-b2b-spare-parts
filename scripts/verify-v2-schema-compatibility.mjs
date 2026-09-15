@@ -3,6 +3,7 @@ const read=p=>fs.readFileSync(p,'utf8');
 const schema=read('supabase/v2-schema.sql');
 const staff=read('supabase/v2-admin-issued-staff-access.sql');
 const master=read('supabase/v2-master-salesman-access.sql');
+const dealerAuth=read('supabase/v2-dealer-pin-auth.sql');
 const demand=read('supabase/v2-customer-product-demand-leads.sql');
 const routing=read('supabase/v2-customer-demand-dealer-routing.sql');
 const lifecycle=read('supabase/v2-customer-demand-lead-lifecycle.sql');
@@ -13,6 +14,10 @@ const checks=[
  ['DEALER STATUS DOMAIN',/create table if not exists dealers[\s\S]*status text not null default 'pending' check\(status in \('pending','approved','hold','rejected','inactive','suspended'\)\)/i.test(schema)],
  ['DEALER SHOP NAME CONTRACT',/create table if not exists dealers[\s\S]*shop_name text not null/i.test(schema)&&/x\.shop_name\s*,\s*l\.routing_stage/i.test(lifecycle)],
  ['CATALOG ITEM DOMAIN',/item_type text not null check\(item_type in \('machine','spare_part','accessory'\)\)/i.test(schema)],
+ ['CANONICAL DEALER LINK FK',/alter table app_users add column if not exists dealer_id uuid references dealers\(id\) on delete restrict/i.test(dealerAuth)],
+ ['ONE APP USER PER DEALER',/create unique index if not exists uq_app_users_dealer_identity on app_users\(dealer_id\) where dealer_id is not null/i.test(dealerAuth)],
+ ['DEALER ASSERT USES DIRECT LINK',/v_user\.dealer_id is null/i.test(dealerAuth)&&/where id=v_user\.dealer_id and lower\(coalesce\(status,''\)\)='approved'/i.test(dealerAuth)],
+ ['DEALER ASSERT NO MOBILE RELINK',!/v_mobile:=right\(regexp_replace\(coalesce\(v_user\.mobile/i.test(dealerAuth)&&!/where right\(regexp_replace\(coalesce\(d\.mobile/i.test(dealerAuth)],
  ['STAFF ROLE SUBSET MATCHES APP USERS',/staff_role text not null check\(staff_role in\('salesman','store_keeper','accountant'\)\)/i.test(staff)&&/target\.role<>p_staff_role/i.test(staff)],
  ['STAFF IDENTITY APP USER FK',/staff_access_identities[\s\S]*app_user_id uuid primary key references app_users\(id\) on delete cascade/i.test(staff)],
  ['STAFF DEVICE APP USER FK',/staff_authorized_devices[\s\S]*app_user_id uuid not null references app_users\(id\) on delete cascade/i.test(staff)],
@@ -39,6 +44,7 @@ const checks=[
  ['FOUND CUSTOMER MOBILE PROOF',/join customer_contacts c on c\.id=d\.customer_id[\s\S]*right\(regexp_replace\(coalesce\(c\.mobile,''\),'\\D','','g'\),10\)=m/i.test(found)],
  ['FOUND RESULT AVAILABLE PRIVACY',/case when d\.status='available' then d\.found_dealer_id else null end/i.test(found)&&/case when d\.status='available' then d\.found_contact_note else null end/i.test(found)&&/case when d\.status='available' then d\.available_at else null end/i.test(found)],
  ['CORE INSTALLED BEFORE STAFF',order.indexOf('v2-schema.sql')>=0&&order.indexOf('v2-admin-issued-staff-access.sql')>order.indexOf('v2-schema.sql')],
+ ['CORE BEFORE DEALER AUTH',order.indexOf('v2-dealer-pin-auth.sql')>order.indexOf('v2-schema.sql')],
  ['CORE INSTALLED BEFORE MASTER SALESMAN',order.indexOf('v2-master-salesman-access.sql')>order.indexOf('v2-schema.sql')],
  ['CORE INSTALLED BEFORE DEMAND',order.indexOf('v2-customer-product-demand-leads.sql')>order.indexOf('v2-schema.sql')],
  ['DEMAND BEFORE ROUTING',order.indexOf('v2-customer-demand-dealer-routing.sql')>order.indexOf('v2-customer-product-demand-leads.sql')],
