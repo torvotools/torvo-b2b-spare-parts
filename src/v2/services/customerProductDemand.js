@@ -2,6 +2,7 @@ import{requireBackend}from'./supabase';
 const db=()=>requireBackend();
 const cleanMobile=v=>String(v||'').replace(/\D/g,'').slice(-10);
 const cleanPin=v=>String(v||'').replace(/\D/g,'').slice(0,6);
+const cleanId=v=>String(v||'').trim();
 const one=data=>Array.isArray(data)?data[0]:data;
 export async function createCustomerProductDemand({name,mobile,pin,searchText,productId=null,brand=null,modelNumber=null,requirementNote=null,marketing=false}){
  const m=cleanMobile(mobile),p=cleanPin(pin),q=String(searchText||'').trim();
@@ -10,12 +11,12 @@ export async function createCustomerProductDemand({name,mobile,pin,searchText,pr
  if(error)throw error;return one(data);
 }
 export async function requestTorvoProductHelp(demandId,mobile){
- const m=cleanMobile(mobile);if(!demandId)throw new Error('CUSTOMER REQUIREMENT REQUIRED');if(m.length!==10)throw new Error('10-DIGIT MOBILE REQUIRED');
- const{data,error}=await db().rpc('public_request_torvo_product_help',{p_demand_id:demandId,p_mobile:m});if(error)throw error;return one(data);
+ const id=cleanId(demandId),m=cleanMobile(mobile);if(!id)throw new Error('CUSTOMER REQUIREMENT REQUIRED');if(m.length!==10)throw new Error('10-DIGIT MOBILE REQUIRED');
+ const{data,error}=await db().rpc('public_request_torvo_product_help',{p_demand_id:id,p_mobile:m});if(error)throw error;return one(data);
 }
 export async function loadCustomerProductDemandResult(demandId,mobile){
- const m=cleanMobile(mobile);if(!demandId)throw new Error('CUSTOMER REQUIREMENT REQUIRED');if(m.length!==10)throw new Error('10-DIGIT MOBILE REQUIRED');
- const{data,error}=await db().rpc('public_customer_demand_result',{p_demand_id:demandId,p_mobile:m});if(error)throw error;
+ const id=cleanId(demandId),m=cleanMobile(mobile);if(!id)throw new Error('CUSTOMER REQUIREMENT REQUIRED');if(m.length!==10)throw new Error('10-DIGIT MOBILE REQUIRED');
+ const{data,error}=await db().rpc('public_customer_demand_result',{p_demand_id:id,p_mobile:m});if(error)throw error;
  const result=one(data);if(!result)return null;
- const status=String(result.status||'').toLowerCase();return{...result,found_dealer_id:status==='available'?result.found_dealer_id||null:null,found_contact_note:status==='available'?result.found_contact_note||null:null,available_at:status==='available'?result.available_at||null:null};
+ const status=String(result.status||'').trim().toLowerCase();return{demand_id:result.demand_id||id,status,search_text:String(result.search_text||'').trim(),message:String(result.message||'').trim(),found_dealer_id:status==='available'?result.found_dealer_id||null:null,found_contact_note:status==='available'?String(result.found_contact_note||'').trim()||null:null,available_at:status==='available'?result.available_at||null:null};
 }
