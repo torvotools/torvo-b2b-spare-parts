@@ -3,6 +3,8 @@ const read=p=>fs.readFileSync(p,'utf8');
 const sql=read('supabase/v2-expense-profit-integrity.sql');
 const repo=read('src/v2/services/repository.js');
 const reports=read('src/v2/components/ReportsWorkspace.jsx');
+const catalog=read('src/v2/config/reports.js');
+const expenseService=read('src/v2/services/expenseReports.js');
 const checks=[
  ['EXPENSE TABLE EXISTS',sql.includes('create table if not exists public.business_expenses')],
  ['EXPENSE TABLE RLS ENABLED',sql.includes('alter table public.business_expenses enable row level security')],
@@ -11,6 +13,10 @@ const checks=[
  ['EXPENSE RECORD AUDITED',sql.includes("'EXPENSE_RECORDED'")],
  ['EXPENSE REVERSAL OWNER ADMIN ONLY',sql.includes("a.role not in('owner','admin')")&&sql.includes("'EXPENSE_REVERSED'")],
  ['EXPENSE REVERSAL REASON REQUIRED',sql.includes('Reversal reason required')],
+ ['EXPENSE DETAIL RPC EXISTS',sql.includes('public.get_business_expenses')&&sql.includes("a.role not in('owner','admin','accountant')")],
+ ['EXPENSE DETAIL SERVICE WIRED',expenseService.includes("rpc('get_business_expenses'")],
+ ['EXPENSES REPORT CATALOG ROLE SAFE',catalog.includes("id:'expenses'")&&catalog.includes("roles:['owner','admin','accountant']")],
+ ['EXPENSES REPORT DETAIL AND EXPORT WIRED',reports.includes("'expenses'")&&reports.includes('loadExpenseReport')&&reports.includes('exportSpreadsheet')&&reports.includes('exportPdf')],
  ['PROFIT RPC EXISTS',sql.includes('public.get_profit_summary')],
  ['PROFIT OWNER ONLY',sql.includes("a.role<>'owner'")&&sql.includes('Owner only profit report')],
  ['PROFIT USES ACTUAL DELIVERED SALES',sql.includes('delivery_stock_finalizations')&&sql.includes("e.doc_type='estimate'")],
