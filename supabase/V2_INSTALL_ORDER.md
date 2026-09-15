@@ -32,7 +32,7 @@ Authoritative dependency order. Never install migrations alphabetically and neve
 6. PAYMENT / DELIVERY: payment/dispatch foundations -> `v2-delivery-stock-integrity.sql`.
 7. RETURNS BASE after Delivery + received Purchase integrity.
 8. CENTRAL MAKER-CHECKER and final approval boundaries.
-9. Inventory movement, low-stock/reorder, Purchase Cost History/reporting read layers.
+9. FINANCIAL REPORTING: inventory movement, low-stock/reorder and Purchase Cost History/reporting read layers first; after delivered Sales, Purchase Cost History and Sales Return foundations exist, install `v2-expense-profit-integrity.sql`. Business expenses remain private, reversals are audited, and the profit summary is OWNER-only. Profit must use authoritative delivered Sales, completed Sales Returns and historical Purchase cost; missing historical cost must be reported rather than invented.
 10. Private Suitable/fitment and Dealer/role privacy foundations, including `v2-knowledge-rewards.sql` base.
 11. CUSTOMER/DEALER NETWORK BASE and public referral/repair/registration/service-area/support foundations. Install `v2-customer-dealer-referral-network.sql` exactly once here. After it install `v2-customer-marketing-consent-segmentation.sql`; marketing profile data is voluntary, consent-audited and private. After both customer contact + marketing-consent foundations exist, install `v2-customer-product-demand-leads.sql` to capture confirmed product requirements and missing-range demand without exposing Customer contact publicly. The public CustomerApp runtime-contract migration is installed later in CENTRAL ADMIN CONTROL after its managed-experience dependency exists. After `v2-public-dealer-registration.sql`, install `v2-accountant-dealer-verification.sql`, then after `v2-business-rpcs.sql` install `v2-dealer-final-approval-accountant-gate.sql`. The Step 1 canonical Dealer identity foundation is a mandatory prerequisite for this final approval gate.
 12. REFERRAL TO B2B BASE DEPENDENCIES.
@@ -111,6 +111,7 @@ Authoritative dependency order. Never install migrations alphabetically and neve
 - Dealer PIN is hashed and one active Dealer device rule is server-enforced.
 - ONE APP routes by authoritative authenticated role.
 - Purchase/payment/Delivery/Return integrity and maker-checker remain final authority.
+- Expense/Profit integrity must pass before release: direct financial tables stay private; expense recording/reversal is role-controlled and audited; profit is OWNER-only, delivered-Sales based, Return-aware, historical-cost based, and reports missing cost instead of fabricating it.
 
 ## APP RELEASE GATE
 - Owner/Admin APP RELEASE tab reads release metadata through `admin_app_release_center()` only.
