@@ -2,6 +2,7 @@ import{readFile}from'node:fs/promises';
 const [normalize,wrangler,worker,workflow,releaseGates]=await Promise.all([
   readFile('scripts/normalize-v2-build.mjs','utf8'),readFile('wrangler.jsonc','utf8'),readFile('src/v2/cloudflare-worker.js','utf8'),readFile('.github/workflows/v2-cloudflare-preview.yml','utf8'),readFile('docs/TORVO-V2-RELEASE-GATES.md','utf8')
 ]);
+const previewUrl='https://torvo-b2b-spare-parts.torvotools.workers.dev';
 const gates=[
  ['GIT SHA FALLBACK',normalize.includes("git('rev-parse','HEAD')")],
  ['LOCAL SHA FORBIDDEN',normalize.includes('BUILD SHA UNAVAILABLE')&&!normalize.includes("||'LOCAL'")],
@@ -16,6 +17,8 @@ const gates=[
  ['BACKEND CONFIG PASSED TO BUILD',workflow.includes('BUILD EXACT V2 COMMIT')&&workflow.includes('VITE_SUPABASE_URL: ${{ secrets.VITE_SUPABASE_URL }}')&&workflow.includes('VITE_SUPABASE_ANON_KEY: ${{ secrets.VITE_SUPABASE_ANON_KEY }}')],
  ['LIVE DEPLOY FAILS CLOSED',workflow.includes("if: steps.deploy_config.outputs.ready == 'true'")&&workflow.includes('DEPLOY EXACT V2 COMMIT')&&workflow.includes('VERIFY LIVE WORKER EXACT SHA')],
  ['MISSING CONFIG REPORTED NOT MASKED',workflow.includes('CODE VERIFIED; LIVE DEPLOY WAITING FOR REPOSITORY CONFIG')&&workflow.includes('LIVE DEPLOY: WAITING FOR SUPABASE/CLOUDFLARE REPOSITORY CONFIG')],
+ ['ONE CANONICAL PREVIEW URL',workflow.includes(previewUrl+'/torvo-build-sha.txt')&&workflow.includes(previewUrl+'/torvo-build-manifest.json')],
+ ['PREVIEW URL ONLY REPORTED AFTER LIVE SHA',workflow.includes('LIVE PREVIEW: '+previewUrl)&&workflow.indexOf('LIVE PREVIEW: '+previewUrl)>workflow.indexOf('test "$LIVE_SHA" = "$EXPECTED_SHA"')],
  ['DOMAIN CUTOVER REQUIRES ACCEPTANCE',releaseGates.includes('DO NOT SWITCH `torvotools.com` UNTIL STAGING')&&releaseGates.includes('BACKUP/RESTORE')&&releaseGates.includes('OWNER ACCEPTANCE')],
  ['DOMAIN DNS EXTERNAL DEPENDENCY',releaseGates.includes('DOMAIN/DNS')&&releaseGates.includes('FINAL DEPLOYMENT DEPENDENCIES')]
 ];
