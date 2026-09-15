@@ -1,3 +1,4 @@
+import './verify-v2-core-dealer-identity.mjs';
 import './verify-v2-final-dealer-approval.mjs';
 import fs from'node:fs';
 const read=p=>fs.readFileSync(p,'utf8');
