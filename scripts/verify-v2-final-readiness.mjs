@@ -1,5 +1,6 @@
 import './verify-v2-core-dealer-identity.mjs';
 import './verify-v2-final-dealer-approval.mjs';
+import './verify-v2-expense-profit-integrity.mjs';
 import fs from'node:fs';
 const read=p=>fs.readFileSync(p,'utf8');
 const portal=read('src/v2/components/DealerPortal.jsx'),mounted=read('src/v2/components/DealerPortalMounted.jsx'),workspace=read('src/v2/services/dealerWorkspace.js'),business=read('src/v2/services/dealerBusiness.js'),bridge=read('src/v2/services/dealerLegacyBridge.js'),repo=read('src/v2/services/repository.js'),proc=read('src/v2/services/dealerProcurement.js'),orders=read('src/v2/services/dealerOrders.js'),machine=read('src/v2/services/dealerMachineSpares.js'),missing=read('src/v2/services/dealerMissingPart.js'),sql=read('supabase/v2-dealer-workspace-device-bound.sql'),retired=read('supabase/v2-retire-legacy-dealer-rpcs.sql'),staging=read('supabase/tests/v2-dealer-auth-security-checklist.sql'),install=read('supabase/V2_INSTALL_ORDER.md'),releaseGates=read('docs/TORVO-V2-RELEASE-GATES.md'),attendance=read('supabase/v2-salesman-attendance.sql');
