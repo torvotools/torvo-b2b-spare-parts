@@ -19,6 +19,7 @@ const gates=[
  ['MISSING CONFIG REPORTED NOT MASKED',workflow.includes('CODE VERIFIED; LIVE DEPLOY WAITING FOR REPOSITORY CONFIG')&&workflow.includes('LIVE DEPLOY: WAITING FOR SUPABASE/CLOUDFLARE REPOSITORY CONFIG')],
  ['ONE CANONICAL PREVIEW URL',workflow.includes(previewUrl+'/torvo-build-sha.txt')&&workflow.includes(previewUrl+'/torvo-build-manifest.json')],
  ['PREVIEW URL ONLY REPORTED AFTER LIVE SHA',workflow.includes('LIVE PREVIEW: '+previewUrl)&&workflow.indexOf('LIVE PREVIEW: '+previewUrl)>workflow.indexOf('test "$LIVE_SHA" = "$EXPECTED_SHA"')],
+ ['PREVIEW CONFIG EVIDENCE AFTER SHA VERIFY',workflow.includes('LIVE CONFIG: SUPABASE + CLOUDFLARE READY')&&workflow.indexOf('LIVE CONFIG: SUPABASE + CLOUDFLARE READY')>workflow.indexOf('test "$LIVE_SHA" = "$EXPECTED_SHA"')],
  ['DOMAIN CUTOVER REQUIRES ACCEPTANCE',releaseGates.includes('DO NOT SWITCH `torvotools.com` UNTIL STAGING')&&releaseGates.includes('BACKUP/RESTORE')&&releaseGates.includes('OWNER ACCEPTANCE')],
  ['DOMAIN DNS EXTERNAL DEPENDENCY',releaseGates.includes('DOMAIN/DNS')&&releaseGates.includes('FINAL DEPLOYMENT DEPENDENCIES')]
 ];
