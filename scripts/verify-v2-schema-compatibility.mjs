@@ -27,6 +27,8 @@ const checks=[
  ['DEMAND DEALER STATUS COMPATIBLE',/x\.status='approved'/i.test(demand)&&/APPROVED DEALER REQUIRED/i.test(demand)],
  ['DEMAND AUDIT CONTRACT',/insert into audit_log\(actor_id,action,entity_type,entity_id,details\)/i.test(demand)&&/CUSTOMER_PRODUCT_DEMAND_UPDATED/i.test(demand)],
  ['DEMAND PUBLIC RPC RETURNS NO CONTACT',/returns table\(demand_id uuid,status text\)/i.test(demand)&&/returns table\(demand_id uuid,status text,torvo_help_requested boolean\)/i.test(demand)],
+ ['DEMAND BACKEND PAYLOAD BOUNDS',/length\(n\)<2 or length\(n\)>120/.test(demand)&&/length\(q\)<2 or length\(q\)>200/.test(demand)&&/length\(coalesce\(b,''\)\)>120/.test(demand)&&/length\(coalesce\(model,''\)\)>120/.test(demand)&&/length\(coalesce\(note,''\)\)>500/.test(demand)],
+ ['DEMAND HELP NORMALIZED MOBILE PROOF',/public_request_torvo_product_help[\s\S]*right\(regexp_replace\(coalesce\(c\.mobile,''\),'\\D','','g'\),10\)=m/i.test(demand)],
  ['ROUTING DEMAND FK',/demand_id uuid not null references customer_product_demands\(id\) on delete cascade/i.test(routing)],
  ['ROUTING DEALER FK',/dealer_id uuid not null references dealers\(id\) on delete restrict/i.test(routing)],
  ['ROUTING DEVICE ASSERTION',/dealer_assert_my_device_session\(p_device_id,p_session_token\)/i.test(routing)],
