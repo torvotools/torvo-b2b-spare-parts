@@ -7,8 +7,10 @@ const mount=read('src/v2/components/DealerPortalMounted.jsx');
 const order=read('supabase/V2_INSTALL_ORDER.md');
 const checks=[
  ['PRIVATE LEAD TABLE',/enable row level security/i.test(sql)&&/revoke all on customer_demand_dealer_leads from anon,authenticated/i.test(sql)],
- ['APPROVED DEALER ROUTING',/d\.status='approved'/i.test(sql)&&/APPROVED DEALER REQUIRED/i.test(sql)],
+ ['APPROVED DEALER ROUTING',/x\.status='approved'/i.test(sql)&&/APPROVED DEALER REQUIRED/i.test(sql)],
  ['ADMIN ROUTING ONLY',/u\.role not in\('owner','admin'\)/i.test(sql)],
+ ['ADMIN ROUTE LOCKS DEMAND',/admin_route_customer_demand_to_dealer[\s\S]*select \* into d from customer_product_demands where id=p_demand_id for update[\s\S]*ACTIVE CUSTOMER REQUIREMENT REQUIRED/i.test(sql)],
+ ['ADMIN ROUTE ACTIVE BEFORE INSERT',sql.indexOf("select * into d from customer_product_demands where id=p_demand_id for update")<sql.indexOf('insert into customer_demand_dealer_leads')&&sql.indexOf("d.status in('closed','cancelled')")<sql.indexOf('insert into customer_demand_dealer_leads')],
  ['DEVICE VERIFIED INBOX',/dealer_assert_my_device_session\(p_device_id,p_session_token\)/i.test(sql)],
  ['INBOX HIDES CONTACT',/returns table\(lead_id uuid,demand_id uuid,search_text text,pin_code text,brand text,model_number text,requirement_note text,routing_stage text,status text,sent_at timestamptz\)/i.test(sql)],
  ['INBOX HIDES CLOSED DEMANDS',/l\.status in\('sent','accepted'\) and d\.status not in\('closed','cancelled'\)/i.test(sql)],
