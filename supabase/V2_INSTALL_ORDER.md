@@ -5,6 +5,8 @@ Authoritative dependency order. Never install migrations alphabetically and neve
 ## LOCKED BUSINESS ARCHITECTURE
 - PUBLIC CUSTOMER HAS NO TORVO RETAIL PRICE, CHECKOUT, COD, PAYMENT OR PUBLIC RETURN FLOW.
 - CUSTOMER DISCOVERS PRODUCTS -> PRICE-FREE ENQUIRY -> APPROVED DEALER; CUSTOMER AND DEALER FINALIZE RETAIL RATE/PAYMENT/DELIVERY.
+- CONFIRMED CUSTOMER PRODUCT REQUIREMENTS AND NO-MATCH SEARCH REQUESTS ARE CAPTURED AS PRIVATE TORVO DEMAND/OPPORTUNITY DATA; RAW TYPING ALONE MUST NOT CREATE A CONFIRMED LEAD.
+- CUSTOMER CONTACT DATA IS NEVER BROADCAST PUBLICLY; DEALER CONTACT UNLOCK/ROUTING MUST FOLLOW CONTROLLED LEAD CONSENT/RULES.
 - DEALER PROCUREMENT REMAINS PRIVATE B2B WITH A/B/C RATE GROUPS.
 - WEBSITE, ONE APP AND SECURE DESKTOP USE ONE AUTHORITATIVE BACKEND.
 - NEW DEALER APPLICATION -> ACCOUNTANT VERIFICATION / CORRECTION -> SUBMIT TO ADMIN -> OWNER/ADMIN FINAL APPROVAL. ACCOUNTANT NEVER FINAL-ACTIVATES A DEALER.
@@ -32,7 +34,7 @@ Authoritative dependency order. Never install migrations alphabetically and neve
 8. CENTRAL MAKER-CHECKER and final approval boundaries.
 9. Inventory movement, low-stock/reorder, Purchase Cost History/reporting read layers.
 10. Private Suitable/fitment and Dealer/role privacy foundations, including `v2-knowledge-rewards.sql` base.
-11. CUSTOMER/DEALER NETWORK BASE and public referral/repair/registration/service-area/support foundations. Install `v2-customer-dealer-referral-network.sql` exactly once here. After it install `v2-customer-marketing-consent-segmentation.sql`; marketing profile data is voluntary, consent-audited and private. The public CustomerApp runtime-contract migration is installed later in CENTRAL ADMIN CONTROL after its managed-experience dependency exists. After `v2-public-dealer-registration.sql`, install `v2-accountant-dealer-verification.sql`, then after `v2-business-rpcs.sql` install `v2-dealer-final-approval-accountant-gate.sql`.
+11. CUSTOMER/DEALER NETWORK BASE and public referral/repair/registration/service-area/support foundations. Install `v2-customer-dealer-referral-network.sql` exactly once here. After it install `v2-customer-marketing-consent-segmentation.sql`; marketing profile data is voluntary, consent-audited and private. After both customer contact + marketing-consent foundations exist, install `v2-customer-product-demand-leads.sql` to capture confirmed product requirements and missing-range demand without exposing Customer contact publicly. The public CustomerApp runtime-contract migration is installed later in CENTRAL ADMIN CONTROL after its managed-experience dependency exists. After `v2-public-dealer-registration.sql`, install `v2-accountant-dealer-verification.sql`, then after `v2-business-rpcs.sql` install `v2-dealer-final-approval-accountant-gate.sql`.
 12. REFERRAL TO B2B BASE DEPENDENCIES.
 13. FIELD/STORE: salesman field network -> dealer-salesman mapping -> `v2-master-salesman-access.sql` -> `v2-salesman-attendance.sql` -> store keeper boundary.
 14. CENTRAL ADMIN CONTROL -> `v2-accountant-workspace-buttons.sql` after `app_users` -> `v2-admin-managed-experience.sql` -> `v2-customer-public-runtime-contract.sql`. The final public runtime contract is installed here so CustomerApp locator/referral/settings RPC names match the client only after both customer/dealer network and Admin-managed experience dependencies exist. Daily website/app/social/marketing/feature configuration must be changed through Owner/Admin backend controls instead of source edits wherever the setting is operational content/configuration rather than executable code or a security rule.
@@ -56,6 +58,13 @@ Authoritative dependency order. Never install migrations alphabetically and neve
 - SOCIAL LINKS are data/configuration: once official URLs are entered in Admin, public website/app readers use backend values without recoding.
 - PRODUCT ADS may target WEBSITE, DEALER APP or BOTH and must have active/time boundaries. INACTIVE PRODUCTS MUST NEVER BE PROMOTED.
 - POPULAR ITEMS support Admin FEATURED override plus automatic popularity signals; the public surface never exposes Dealer A/B/C rates.
+
+## CUSTOMER DEMAND / OPPORTUNITY GATE
+- A CONFIRMED `REQUEST THIS ITEM` action may create a demand lead; ordinary partial search typing must not be treated as a confirmed Customer requirement.
+- FOUND PRODUCT and MISSING PRODUCT requirements are both retained so TORVO can measure demand and source missing range.
+- CUSTOMER NAME/MOBILE/WHATSAPP remain private tables/RPC output; public callers receive only the created demand identifier/status.
+- OWNER/ADMIN may read the private demand inbox and aggregated demand summary for sourcing/range decisions.
+- DEALER notification/routing is a separate controlled stage: do not expose Customer contact to every nearby Dealer merely because a search occurred.
 
 ## MANDATORY DEALER DEVICE GATE
 - Dealer item-rate resolution and Purchase Order submission require current device proof server-side; browser cannot select another Dealer/rate group.
