@@ -26,7 +26,13 @@ language plpgsql security definer set search_path=public as $$
 declare m text:=right(regexp_replace(coalesce(p_mobile,''),'\D','','g'),10);
 begin
  if length(m)<>10 then raise exception '10-DIGIT MOBILE REQUIRED';end if;
- return query select d.id,d.status,d.search_text,case when d.status='available' then 'THE ITEM YOU REQUESTED IS NOW AVAILABLE.' when d.status='closed' then 'CUSTOMER REQUIREMENT CLOSED.' else 'TORVO IS WORKING ON YOUR REQUIREMENT.' end,d.found_dealer_id,case when d.status='available' then d.found_contact_note else null end,d.available_at from customer_product_demands d join customer_contacts c on c.id=d.customer_id where d.id=p_demand_id and c.mobile=m;
+ return query select d.id,d.status,d.search_text,
+ case when d.status='available' then 'THE ITEM YOU REQUESTED IS NOW AVAILABLE.' when d.status='closed' then 'CUSTOMER REQUIREMENT CLOSED.' else 'TORVO IS WORKING ON YOUR REQUIREMENT.' end,
+ case when d.status='available' then d.found_dealer_id else null end,
+ case when d.status='available' then d.found_contact_note else null end,
+ case when d.status='available' then d.available_at else null end
+ from customer_product_demands d join customer_contacts c on c.id=d.customer_id
+ where d.id=p_demand_id and right(regexp_replace(coalesce(c.mobile,''),'\D','','g'),10)=m;
 end$$;
 revoke all on function public_customer_demand_result(uuid,text) from public;grant execute on function public_customer_demand_result(uuid,text) to anon,authenticated;
 
