@@ -96,6 +96,7 @@ jobs:
           printf '%s\n' "$HEADERS" | grep -qi '^x-torvo-v2:.*ACTIVE'
           MANIFEST="$(curl --fail --silent --show-error "https://torvo-b2b-spare-parts.torvotools.workers.dev/torvo-build-manifest.json?verify=${GITHUB_RUN_ID}")"
           printf '%s' "$MANIFEST" | grep -q "${EXPECTED_SHA}"
+          echo "LIVE PREVIEW: https://torvo-b2b-spare-parts.torvotools.workers.dev"
       - name: DEPLOYMENT EVIDENCE
         run: |
           echo "### TORVO V2 CLOUDFLARE PREVIEW" >> "$GITHUB_STEP_SUMMARY"
@@ -104,6 +105,7 @@ jobs:
           echo "- FULL V2 GATES: PASSED" >> "$GITHUB_STEP_SUMMARY"
           if [ "${{ steps.deploy_config.outputs.ready }}" = "true" ]; then
             echo "- LIVE DEPLOY: VERIFIED" >> "$GITHUB_STEP_SUMMARY"
+            echo "- LIVE PREVIEW: https://torvo-b2b-spare-parts.torvotools.workers.dev" >> "$GITHUB_STEP_SUMMARY"
           else
             echo "- LIVE DEPLOY: WAITING FOR SUPABASE/CLOUDFLARE REPOSITORY CONFIG" >> "$GITHUB_STEP_SUMMARY"
           fi
