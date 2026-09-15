@@ -1,0 +1,17 @@
+import fs from 'node:fs';
+const read=p=>fs.readFileSync(p,'utf8');
+const order=read('supabase/V2_INSTALL_ORDER.md');
+const core=read('supabase/v2-core-dealer-identity.sql');
+const auth=read('supabase/v2-dealer-pin-auth.sql');
+const finalGate=read('supabase/v2-dealer-final-approval-accountant-gate.sql');
+let bad=0;const gate=(name,ok)=>{console.log(`${ok?'PASS':'FAIL'} ${name}`);if(!ok)bad++};
+gate('CORE IDENTITY ADDS DEALER ID',/alter table app_users[\s\S]*add column if not exists dealer_id uuid references dealers\(id\)/i.test(core));
+gate('CORE IDENTITY UNIQUE PER DEALER',/create unique index if not exists uq_app_users_dealer_identity[\s\S]*app_users\(dealer_id\)/i.test(core));
+gate('MOBILE NOT AUTHORIZATION KEY',core.includes('mobile is not an authorization key'));
+gate('FINAL APPROVAL USES CANONICAL IDENTITY',finalGate.includes('dealer_id')&&finalGate.includes('DEALER APP IDENTITY REQUIRED BEFORE APPROVAL'));
+gate('LATER AUTH MIGRATION REMAINS IDEMPOTENT',/add column if not exists dealer_id/i.test(auth));
+const corePos=order.indexOf('v2-core-dealer-identity.sql'),finalPos=order.indexOf('v2-dealer-final-approval-accountant-gate.sql'),authPos=order.indexOf('v2-dealer-pin-auth.sql');
+gate('INSTALL ORDER DECLARES CORE IDENTITY',corePos>=0);
+gate('CORE IDENTITY BEFORE FINAL APPROVAL',corePos>=0&&finalPos>=0&&corePos<finalPos);
+gate('FINAL APPROVAL BEFORE PIN AUTH',finalPos>=0&&authPos>=0&&finalPos<authPos);
+if(bad)process.exit(1);console.log('TORVO V2 CORE DEALER IDENTITY DEPENDENCY VERIFIED');
