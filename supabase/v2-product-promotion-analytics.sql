@@ -17,17 +17,20 @@ alter table product_promotion_events enable row level security;
 revoke all on product_promotion_events from anon,authenticated;
 
 create or replace function record_product_promotion_event(p_promotion_id uuid,p_event_type text,p_target text,p_session_key text,p_source_ref text default null) returns boolean language plpgsql security definer set search_path=public as $$
-declare a product_promotions%rowtype;p products%rowtype;d uuid;
+declare a product_promotions%rowtype;p products%rowtype;d uuid;ev text:=lower(btrim(coalesce(p_event_type,'')));t text:=lower(btrim(coalesce(p_target,'')));sk text:=btrim(coalesce(p_session_key,''));src text:=nullif(btrim(coalesce(p_source_ref,'')),'');
 begin
- if p_event_type not in('view','click','enquiry','dealer_order') then raise exception 'INVALID PROMOTION EVENT';end if;
- if p_target not in('website','dealer_app') then raise exception 'INVALID PROMOTION TARGET';end if;
- if nullif(btrim(coalesce(p_session_key,'')),'') is null then raise exception 'SESSION KEY REQUIRED';end if;
- select * into a from product_promotions where id=p_promotion_id and active=true and starts_at<=now() and(ends_at is null or ends_at>=now()) and(target='both' or target=p_target);
+ if p_promotion_id is null then raise exception 'PROMOTION REQUIRED';end if;
+ if ev not in('view','click','enquiry','dealer_order') then raise exception 'INVALID PROMOTION EVENT';end if;
+ if t not in('website','dealer_app') then raise exception 'INVALID PROMOTION TARGET';end if;
+ if length(sk)<8 or length(sk)>96 then raise exception 'VALID SESSION KEY REQUIRED';end if;
+ if src is not null and length(src)>120 then raise exception 'SOURCE REFERENCE MUST BE 120 CHARACTERS OR LESS';end if;
+ select * into a from product_promotions where id=p_promotion_id and active=true and starts_at<=now() and(ends_at is null or ends_at>=now()) and(target='both' or target=t);
  if a.id is null then return false;end if;
  select * into p from products where id=a.product_id and active=true;if p.id is null then return false;end if;
- if p_target='dealer_app' then select dealer_id into d from app_users where auth_user_id=auth.uid() and active=true and role='dealer';end if;
+ if ev='dealer_order' and t<>'dealer_app' then raise exception 'DEALER ORDER REQUIRES DEALER APP';end if;
+ if t='dealer_app' then select dealer_id into d from app_users where auth_user_id=auth.uid() and active=true and role='dealer';if d is null then raise exception 'ACTIVE DEALER REQUIRED';end if;end if;
  insert into product_promotion_events(promotion_id,product_id,event_type,target,session_key,source_ref,dealer_id)
- values(a.id,a.product_id,p_event_type,p_target,left(btrim(p_session_key),96),nullif(left(btrim(coalesce(p_source_ref,'')),120),''),d)
+ values(a.id,a.product_id,ev,t,sk,src,d)
  on conflict do nothing;
  return true;
 end$$;
