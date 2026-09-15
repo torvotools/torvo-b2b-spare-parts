@@ -1,5 +1,5 @@
 -- TORVO V2 SALESMAN REFERRAL OTP + STATEMENT
--- Install after customer/dealer referral network, dealer-salesman mapping and staff identity foundations.
+-- Install after v2-customer-dealer-referral-network.sql and v2-sales-team-mapping.sql.
 -- OTP delivery remains a trusted WhatsApp provider/worker responsibility. Plain OTP is never stored.
 
 create table if not exists salesman_referral_otp_challenges(
@@ -38,8 +38,7 @@ declare u app_users%rowtype;r customer_dealer_referrals%rowtype;v_id uuid;v_exp 
  select * into r from customer_dealer_referrals where referral_code=upper(btrim(p_referral_code)) for update;
  if not found or r.status in('expired','cancelled') or r.expires_at<=now() then raise exception 'ACTIVE REFERRAL REQUIRED';end if;
  if r.dealer_id is null then raise exception 'REFERRAL DEALER REQUIRED';end if;
- if not exists(select 1 from dealer_salesman_mapping m where m.dealer_id=r.dealer_id and m.salesman_user_id=u.id and coalesce(m.active,true)=true) then raise exception 'SALESMAN NOT MAPPED TO REFERRAL DEALER';end if;
- -- Generate six digits server-side. Provider worker sends this value through WhatsApp; DB stores only crypt hash.
+ if not exists(select 1 from salesman_dealer_mappings m where m.dealer_id=r.dealer_id and m.salesman_id=u.id and m.active=true) then raise exception 'SALESMAN NOT MAPPED TO REFERRAL DEALER';end if;
  v_plain:=lpad((floor(random()*1000000))::int::text,6,'0');
  update salesman_referral_otp_challenges set consumed_at=coalesce(consumed_at,now()) where salesman_user_id=u.id and referral_id=r.id and verified_at is null and consumed_at is null;
  insert into salesman_referral_otp_challenges(referral_id,salesman_user_id,otp_hash,expires_at) values(r.id,u.id,crypt(v_plain,gen_salt('bf')),v_exp) returning id into v_id;
@@ -60,7 +59,7 @@ declare u app_users%rowtype;c salesman_referral_otp_challenges%rowtype;r custome
  update salesman_referral_otp_challenges set attempts=attempts+1 where id=c.id;
  if nullif(btrim(p_otp),'') is null or crypt(btrim(p_otp),c.otp_hash)<>c.otp_hash then raise exception 'INVALID OTP';end if;
  select * into r from customer_dealer_referrals where id=c.referral_id for update;if not found or r.dealer_id is null then raise exception 'REFERRAL NOT AVAILABLE';end if;
- if not exists(select 1 from dealer_salesman_mapping m where m.dealer_id=r.dealer_id and m.salesman_user_id=u.id and coalesce(m.active,true)=true) then raise exception 'SALESMAN NOT MAPPED TO REFERRAL DEALER';end if;
+ if not exists(select 1 from salesman_dealer_mappings m where m.dealer_id=r.dealer_id and m.salesman_id=u.id and m.active=true) then raise exception 'SALESMAN NOT MAPPED TO REFERRAL DEALER';end if;
  update salesman_referral_otp_challenges set verified_at=now(),consumed_at=now() where id=c.id;
  insert into salesman_referral_verifications(referral_id,salesman_user_id,dealer_id,otp_challenge_id) values(r.id,u.id,r.dealer_id,c.id) on conflict(referral_id) do update set salesman_user_id=excluded.salesman_user_id,dealer_id=excluded.dealer_id,verified_at=now(),otp_challenge_id=excluded.otp_challenge_id returning id into v;
  insert into audit_log(actor_id,action,entity_type,entity_id,details) values(u.id,'SALESMAN_REFERRAL_OTP_VERIFIED','customer_dealer_referral',r.id::text,jsonb_build_object('verification_id',v,'dealer_id',r.dealer_id));return v;
