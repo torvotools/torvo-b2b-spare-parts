@@ -40,7 +40,7 @@ const checks=[
  ['ROUTING CONTACT PRIVACY',/returns table\(lead_id uuid,demand_id uuid,search_text text,pin_code text,brand text,model_number text,requirement_note text,routing_stage text,status text,sent_at timestamptz\)/i.test(routing)],
  ['LIFECYCLE OWNER ADMIN ONLY',/u\.role not in\('owner','admin'\)/i.test(lifecycle)],
  ['FOUND OWNER ADMIN ONLY',/u\.role not in\('owner','admin'\)/i.test(found)],
- ['FOUND APPROVED DEALER CONTRACT',/x\.status='approved'/i.test(found)&&/APPROVED DEALER REQUIRED/i.test(found)],
+ ['FOUND APPROVED DEALER CONTRACT',/select \* into fd from dealers where id=p_found_dealer_id for update/i.test(found)&&/fd\.status<>'approved'/i.test(found)&&/APPROVED DEALER REQUIRED/i.test(found)],
  ['FOUND CUSTOMER MOBILE PROOF',/join customer_contacts c on c\.id=d\.customer_id[\s\S]*right\(regexp_replace\(coalesce\(c\.mobile,''\),'\\D','','g'\),10\)=m/i.test(found)],
  ['FOUND RESULT AVAILABLE PRIVACY',/case when d\.status='available' then d\.found_dealer_id else null end/i.test(found)&&/case when d\.status='available' then d\.found_contact_note else null end/i.test(found)&&/case when d\.status='available' then d\.available_at else null end/i.test(found)],
  ['CORE INSTALLED BEFORE STAFF',order.indexOf('v2-schema.sql')>=0&&order.indexOf('v2-admin-issued-staff-access.sql')>order.indexOf('v2-schema.sql')],
