@@ -27,6 +27,7 @@ begin
  if stage not in('LOCAL','EXTENDED','TORVO_ASSIGNED') then raise exception 'INVALID ROUTING STAGE';end if;
  select * into d from customer_product_demands where id=p_demand_id for update;
  if d.id is null or d.status in('closed','cancelled') then raise exception 'ACTIVE CUSTOMER REQUIREMENT REQUIRED';end if;
+ -- Serialize assignment with Dealer status changes using the Dealer row itself.
  select * into target_dealer from dealers where id=p_dealer_id for update;
  if target_dealer.id is null or target_dealer.status<>'approved' then raise exception 'APPROVED DEALER REQUIRED';end if;
  insert into customer_demand_dealer_leads(demand_id,dealer_id,routing_stage,assigned_by) values(p_demand_id,p_dealer_id,stage,u.id)
