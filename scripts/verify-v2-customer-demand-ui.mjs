@@ -2,7 +2,7 @@ import fs from 'node:fs';
 const ui=fs.readFileSync('src/v2/components/CustomerApp.jsx','utf8');
 const svc=fs.readFileSync('src/v2/services/customerProductDemand.js','utf8');
 const checks=[
- ['DEMAND SERVICE IMPORT',/createCustomerProductDemand,requestTorvoProductHelp/.test(ui)],
+ ['DEMAND SERVICE IMPORT',/createCustomerProductDemand,requestTorvoProductHelp,loadCustomerProductDemandResult/.test(ui)],
  ['REQUEST THIS ITEM UI',/REQUEST THIS ITEM/.test(ui)&&/SUBMIT REQUIREMENT/.test(ui)],
  ['RAW SEARCH NOT A LEAD',/RAW SEARCH TYPING DOES NOT CREATE A CUSTOMER LEAD/.test(ui)],
  ['CONFIRMED DEMAND SERVICE',/createCustomerProductDemand\(/.test(ui)&&/public_create_product_demand/.test(svc)],
@@ -10,8 +10,11 @@ const checks=[
  ['PRIVATE RESULT SERVICE',/loadCustomerProductDemandResult/.test(svc)&&/public_customer_demand_result/.test(svc)],
  ['RESULT MOBILE NORMALIZED',/loadCustomerProductDemandResult[\s\S]*cleanMobile\(mobile\)/.test(svc)&&/10-DIGIT MOBILE REQUIRED/.test(svc)],
  ['RESULT AVAILABLE PRIVACY',/found_dealer_id:status==='available'/.test(svc)&&/found_contact_note:status==='available'/.test(svc)&&/available_at:status==='available'/.test(svc)],
+ ['STATUS UI CONNECTED',/const checkDemand=async/.test(ui)&&/loadCustomerProductDemandResult\(demandResult\?\.demand_id,demand\.mobile\)/.test(ui)&&/CHECK STATUS/.test(ui)],
+ ['STATUS UI REFRESH',/REFRESH STATUS/.test(ui)&&/onClick=\{checkDemand\}/.test(ui)],
+ ['AVAILABLE NOTE STATUS GATED',/status\|\|''\)\.toLowerCase\(\)==='available'&&demandResult\.found_contact_note/.test(ui)],
  ['PRIVATE CONTACT MESSAGE',/CUSTOMER CONTACT IS NOT PUBLICLY BROADCAST TO DEALERS/.test(ui)],
- ['NO AVAILABILITY PROMISE',/AVAILABILITY IS NOT GUARANTEED/.test(ui)&&!/WE FOUND YOUR ITEM|ITEM IS AVAILABLE NOW/.test(ui)],
+ ['NO UNVERIFIED AVAILABILITY PROMISE',/AVAILABILITY IS NOT GUARANTEED/.test(ui)&&!/WE FOUND YOUR ITEM|ITEM IS AVAILABLE NOW/.test(ui)],
  ['PIN INPUT BOUNDED',/maxLength="6"/.test(ui)&&/replace\(\/\\D\/g,''\)\.slice\(0,6\)/.test(ui)],
  ['MOBILE INPUT BOUNDED',/MOBILE \/ WHATSAPP/.test(ui)&&/slice\(0,10\)/.test(ui)],
  ['REPAIR FLOW PRESERVED',/SEND REPAIR REQUIREMENT/.test(ui)&&/public_create_repair_request/.test(ui)],
