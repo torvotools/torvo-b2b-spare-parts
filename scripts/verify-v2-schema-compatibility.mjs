@@ -1,5 +1,6 @@
 import fs from 'node:fs';
 const read=p=>fs.readFileSync(p,'utf8');
+const compact=s=>s.replace(/\s+/g,' ').trim();
 const schema=read('supabase/v2-schema.sql');
 const coreDealerIdentity=read('supabase/v2-core-dealer-identity.sql');
 const staff=read('supabase/v2-admin-issued-staff-access.sql');
@@ -11,17 +12,18 @@ const routing=read('supabase/v2-customer-demand-dealer-routing.sql');
 const lifecycle=read('supabase/v2-customer-demand-lead-lifecycle.sql');
 const found=read('supabase/v2-customer-demand-found-lifecycle.sql');
 const order=read('supabase/V2_INSTALL_ORDER.md');
+const coreCompact=compact(coreDealerIdentity),approvalCompact=compact(finalApproval);
 const pos=x=>order.indexOf(x);
 const checks=[
  ['APP USER ROLE DOMAIN',/create table if not exists app_users[\s\S]*role text not null check\(role in \('owner','admin','salesman','accountant','store_keeper','dealer'\)\)/i.test(schema)],
  ['DEALER STATUS DOMAIN',/create table if not exists dealers[\s\S]*status text not null default 'pending' check\(status in \('pending','approved','hold','rejected','inactive','suspended'\)\)/i.test(schema)],
  ['DEALER SHOP NAME CONTRACT',/create table if not exists dealers[\s\S]*shop_name text not null/i.test(schema)&&/x\.shop_name\s*,\s*l\.routing_stage/i.test(lifecycle)],
  ['CATALOG ITEM DOMAIN',/item_type text not null check\(item_type in \('machine','spare_part','accessory'\)\)/i.test(schema)],
- ['CORE CANONICAL DEALER LINK FK',/alter table app_users add column if not exists dealer_id uuid references dealers\(id\) on delete restrict/i.test(coreDealerIdentity)],
- ['CORE ONE APP USER PER DEALER',/create unique index if not exists uq_app_users_dealer_identity on app_users\(dealer_id\) where dealer_id is not null/i.test(coreDealerIdentity)],
+ ['CORE CANONICAL DEALER LINK FK',/alter table app_users add column if not exists dealer_id uuid references dealers\(id\) on delete restrict/i.test(coreCompact)],
+ ['CORE ONE APP USER PER DEALER',/create unique index if not exists uq_app_users_dealer_identity on app_users\(dealer_id\) where dealer_id is not null/i.test(coreCompact)],
  ['DEALER AUTH UPGRADE KEEPS CANONICAL FK',/alter table app_users add column if not exists dealer_id uuid references dealers\(id\) on delete restrict/i.test(dealerAuth)],
  ['DEALER AUTH UPGRADE KEEPS UNIQUE DEALER',/create unique index if not exists uq_app_users_dealer_identity on app_users\(dealer_id\) where dealer_id is not null/i.test(dealerAuth)],
- ['FINAL APPROVAL USES CANONICAL DEALER LINK',/dealer_id=p_dealer/i.test(finalApproval)&&/DEALER AUTH IDENTITY AMBIGUOUS/i.test(finalApproval)&&/DEALER AUTH IDENTITY REQUIRED/i.test(finalApproval)],
+ ['FINAL APPROVAL USES CANONICAL DEALER LINK',/dealer_id\s*=\s*p_dealer/i.test(approvalCompact)&&/DEALER AUTH IDENTITY AMBIGUOUS/i.test(finalApproval)&&/DEALER APP IDENTITY REQUIRED BEFORE APPROVAL/i.test(finalApproval)&&/canonical_identity_bound/i.test(finalApproval)],
  ['DEALER ASSERT USES DIRECT LINK',/v_user\.dealer_id is null/i.test(dealerAuth)&&/where id=v_user\.dealer_id and lower\(coalesce\(status,''\)\)='approved'/i.test(dealerAuth)],
  ['DEALER ASSERT NO MOBILE RELINK',!/v_mobile:=right\(regexp_replace\(coalesce\(v_user\.mobile/i.test(dealerAuth)&&!/where right\(regexp_replace\(coalesce\(d\.mobile/i.test(dealerAuth)],
  ['STAFF ROLE SUBSET MATCHES APP USERS',/staff_role text not null check\(staff_role in\('salesman','store_keeper','accountant'\)\)/i.test(staff)&&/target\.role<>p_staff_role/i.test(staff)],
