@@ -35,6 +35,9 @@ const checks=[
  ['DEALER PRIVACY MESSAGE',/CONTACT STAYS PRIVATE UNTIL YOU ACCEPT YOUR ASSIGNED LEAD/.test(ui)],
  ['DEALER EXPLICIT ACCEPT',/I CAN SUPPLY — ACCEPT/.test(ui)],
  ['CONTACT ONLY AFTER ACCEPT',/CUSTOMER CONTACT UNLOCKED/.test(ui)&&/CALL CUSTOMER/.test(ui)&&/WHATSAPP CUSTOMER/.test(ui)],
+ ['DEALER LEAD REFRESH STATE',/REFRESHING…/.test(ui)&&/const\[loading,setLoading\]=useState\(true\)/.test(ui)],
+ ['DEALER LEAD ACTIONS LOCK DURING REFRESH',/disabled=\{loading\|\|!!busy\}/.test(ui)&&/if\(loading\|\|busy\)return/.test(ui)],
+ ['DEALER LEAD LOAD ERROR CLEARS STALE ROWS',/catch\(e\)\{setRows\(\[\]\);setErr/.test(ui)],
  ['DEALER PORTAL MOUNT',/DealerCustomerLeads/.test(mount)&&/CUSTOMER LEADS/.test(mount)&&/mode==='leads'/.test(mount)],
  ['INSTALL ORDER ROUTING',order.indexOf('v2-customer-demand-dealer-routing.sql')>order.indexOf('v2-customer-product-demand-leads.sql')]
 ];
