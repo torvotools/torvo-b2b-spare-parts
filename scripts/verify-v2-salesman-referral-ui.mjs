@@ -12,6 +12,6 @@ const checks=[
  ['FAIL CLOSED WHATSAPP MESSAGE',ui.includes('WHATSAPP OTP WORKER NOT CONFIGURED')&&ui.includes('OTP WAS NOT SENT')],
  ['NO BROWSER OTP GENERATOR',!ui.includes('Math.random')&&!ui.includes('crypto.getRandomValues')&&!ui.includes('randomUUID')],
  ['OTP INPUT SIX DIGITS',ui.includes('maxLength="6"')&&ui.includes("replace(/\\D/g,'').slice(0,6)")],
- ['SUCCESS ONLY AFTER CHALLENGE',ui.includes("if(!c?.challenge_id)")&&ui.includes("setChallenge(c.challenge_id)")&&ui.includes('OTP SENT TO THE VERIFIED WHATSAPP NUMBER'))
+ ['SUCCESS ONLY AFTER CHALLENGE',ui.includes("if(!c?.challenge_id)")&&ui.includes('setChallenge(c.challenge_id)')&&ui.includes('OTP SENT TO THE VERIFIED WHATSAPP NUMBER')]
 ];
 const failed=checks.filter(([,ok])=>!ok);for(const[n,ok]of checks)console.log(`${ok?'PASS':'FAIL'} ${n}`);if(failed.length){console.error(`SALESMAN REFERRAL UI CONTRACT FAILED: ${failed.length}`);process.exit(1)}console.log(`TORVO V2 SALESMAN REFERRAL UI CONTRACT VERIFIED (${checks.length} GATES)`);
