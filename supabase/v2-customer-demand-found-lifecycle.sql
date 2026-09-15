@@ -6,7 +6,7 @@ alter table customer_product_demands add column if not exists closed_at timestam
 
 create or replace function admin_mark_customer_demand_available(p_demand_id uuid,p_found_dealer_id uuid default null,p_found_contact_note text default null,p_sourcing_note text default null)
 returns boolean language plpgsql security definer set search_path=public as $$
-declare u app_users%rowtype;d customer_product_demands%rowtype;
+declare u app_users%rowtype;d customer_product_demands%rowtype;fd dealers%rowtype;
 begin
  select * into u from app_users where auth_user_id=auth.uid() and active=true;
  if u.id is null or u.role not in('owner','admin') then raise exception 'OWNER OR ADMIN REQUIRED';end if;
@@ -14,7 +14,7 @@ begin
  select * into d from customer_product_demands where id=p_demand_id for update;
  if d.id is null then raise exception 'CUSTOMER REQUIREMENT NOT FOUND';end if;
  if d.status in('closed','cancelled') then raise exception 'CUSTOMER REQUIREMENT IS NOT ACTIVE';end if;
- if p_found_dealer_id is not null and not exists(select 1 from dealers x where x.id=p_found_dealer_id and x.status='approved') then raise exception 'APPROVED DEALER REQUIRED';end if;
+ if p_found_dealer_id is not null then select * into fd from dealers where id=p_found_dealer_id for update;if fd.id is null or fd.status<>'approved' then raise exception 'APPROVED DEALER REQUIRED';end if;end if;
  update customer_product_demands set status='available',found_dealer_id=p_found_dealer_id,found_contact_note=upper(nullif(btrim(p_found_contact_note),'')),sourcing_note=upper(nullif(btrim(p_sourcing_note),'')),available_at=coalesce(available_at,now()),updated_at=now() where id=p_demand_id;
  insert into audit_log(actor_id,action,entity_type,entity_id,details) values(u.id,'CUSTOMER_DEMAND_AVAILABLE','CUSTOMER_PRODUCT_DEMAND',p_demand_id::text,jsonb_build_object('found_dealer_id',p_found_dealer_id));return true;
 end$$;
