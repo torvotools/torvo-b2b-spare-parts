@@ -8,7 +8,7 @@ const checks=[
  ['CONFIRMED DEMAND SERVICE',/createCustomerProductDemand\(/.test(ui)&&/public_create_product_demand/.test(svc)],
  ['TORVO PAN INDIA ESCALATION',/ASK TORVO PAN-INDIA HELP/.test(ui)&&/requestTorvoProductHelp\(/.test(ui)&&/public_request_torvo_product_help/.test(svc)],
  ['PRIVATE CONTACT MESSAGE',/CUSTOMER CONTACT IS NOT PUBLICLY BROADCAST TO DEALERS/.test(ui)],
- ['NO AVAILABILITY PROMISE',/THIS DOES NOT PROMISE AVAILABILITY/.test(ui)],
+ ['NO AVAILABILITY PROMISE',/AVAILABILITY IS NOT GUARANTEED/.test(ui)&&!/WE FOUND YOUR ITEM|ITEM IS AVAILABLE NOW/.test(ui)],
  ['PIN INPUT BOUNDED',/maxLength="6"/.test(ui)&&/replace\(\/\\D\/g,''\)\.slice\(0,6\)/.test(ui)],
  ['MOBILE INPUT BOUNDED',/MOBILE \/ WHATSAPP/.test(ui)&&/slice\(0,10\)/.test(ui)],
  ['REPAIR FLOW PRESERVED',/SEND REPAIR REQUIREMENT/.test(ui)&&/public_create_repair_request/.test(ui)],
