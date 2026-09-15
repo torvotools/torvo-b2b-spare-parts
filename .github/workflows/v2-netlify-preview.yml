@@ -70,12 +70,23 @@ jobs:
         env:
           EXPECTED_SHA: ${{ github.sha }}
         run: |
-          LIVE_SHA="$(curl --fail --silent --show-error --retry 8 --retry-delay 5 https://torvo-v2-build--torvo-v2-preview.netlify.app/torvo-build-sha.txt)"
+          set -euo pipefail
+          PREVIEW_URL="https://torvo-v2-build--torvo-v2-preview.netlify.app"
+          LIVE_SHA="$(curl --fail --silent --show-error --retry 8 --retry-delay 5 -H 'Cache-Control: no-cache, no-store, max-age=0' -H 'Pragma: no-cache' "${PREVIEW_URL}/torvo-build-sha.txt?sha=${EXPECTED_SHA}&run=${GITHUB_RUN_ID}")"
+          LIVE_SHA="$(printf '%s' "$LIVE_SHA" | tr -d '\r\n[:space:]')"
           test "$LIVE_SHA" = "$EXPECTED_SHA"
+          INDEX="$(curl --fail --silent --show-error --retry 4 --retry-delay 3 "${PREVIEW_URL}/")"
+          printf '%s' "$INDEX" | grep -q 'TORVO'
           echo "Verified live TORVO V2 preview SHA: $LIVE_SHA"
+          echo "LIVE PREVIEW: ${PREVIEW_URL}"
       - name: Record preview availability
         run: |
           echo "### TORVO V2 PREVIEW" >> "$GITHUB_STEP_SUMMARY"
           echo "- Exact SHA: ${GITHUB_SHA}" >> "$GITHUB_STEP_SUMMARY"
           echo "- Build artifact: uploaded for 14 days" >> "$GITHUB_STEP_SUMMARY"
-          if [ "${{ steps.netlify.outputs.ready }}" = "true" ]; then echo "- Netlify deploy: enabled" >> "$GITHUB_STEP_SUMMARY"; else echo "- Netlify deploy: waiting for repository secrets" >> "$GITHUB_STEP_SUMMARY"; fi
+          if [ "${{ steps.netlify.outputs.ready }}" = "true" ]; then
+            echo "- Netlify deploy: VERIFIED" >> "$GITHUB_STEP_SUMMARY"
+            echo "- Live preview: https://torvo-v2-build--torvo-v2-preview.netlify.app" >> "$GITHUB_STEP_SUMMARY"
+          else
+            echo "- Netlify deploy: WAITING FOR NETLIFY_AUTH_TOKEN + NETLIFY_SITE_ID" >> "$GITHUB_STEP_SUMMARY"
+          fi
