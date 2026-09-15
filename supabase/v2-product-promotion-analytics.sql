@@ -28,7 +28,10 @@ begin
  if a.id is null then return false;end if;
  select * into p from products where id=a.product_id and active=true;if p.id is null then return false;end if;
  if ev='dealer_order' and t<>'dealer_app' then raise exception 'DEALER ORDER REQUIRES DEALER APP';end if;
- if t='dealer_app' then select dealer_id into d from app_users where auth_user_id=auth.uid() and active=true and role='dealer';if d is null then raise exception 'ACTIVE DEALER REQUIRED';end if;end if;
+ if t='dealer_app' then
+  select au.dealer_id into d from app_users au join dealers dl on dl.id=au.dealer_id and dl.status='approved' where au.auth_user_id=auth.uid() and au.active=true and au.role='dealer' limit 1;
+  if d is null then raise exception 'ACTIVE APPROVED DEALER REQUIRED';end if;
+ end if;
  insert into product_promotion_events(promotion_id,product_id,event_type,target,session_key,source_ref,dealer_id)
  values(a.id,a.product_id,ev,t,sk,src,d)
  on conflict do nothing;
