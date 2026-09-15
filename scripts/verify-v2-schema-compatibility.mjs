@@ -4,10 +4,14 @@ const schema=read('supabase/v2-schema.sql');
 const staff=read('supabase/v2-admin-issued-staff-access.sql');
 const master=read('supabase/v2-master-salesman-access.sql');
 const demand=read('supabase/v2-customer-product-demand-leads.sql');
+const routing=read('supabase/v2-customer-demand-dealer-routing.sql');
+const lifecycle=read('supabase/v2-customer-demand-lead-lifecycle.sql');
+const found=read('supabase/v2-customer-demand-found-lifecycle.sql');
 const order=read('supabase/V2_INSTALL_ORDER.md');
 const checks=[
  ['APP USER ROLE DOMAIN',/create table if not exists app_users[\s\S]*role text not null check\(role in \('owner','admin','salesman','accountant','store_keeper','dealer'\)\)/i.test(schema)],
  ['DEALER STATUS DOMAIN',/create table if not exists dealers[\s\S]*status text not null default 'pending' check\(status in \('pending','approved','hold','rejected','inactive','suspended'\)\)/i.test(schema)],
+ ['DEALER SHOP NAME CONTRACT',/create table if not exists dealers[\s\S]*shop_name text not null/i.test(schema)&&/d\.shop_name as dealer_name/i.test(lifecycle)],
  ['CATALOG ITEM DOMAIN',/item_type text not null check\(item_type in \('machine','spare_part','accessory'\)\)/i.test(schema)],
  ['STAFF ROLE SUBSET MATCHES APP USERS',/staff_role text not null check\(staff_role in\('salesman','store_keeper','accountant'\)\)/i.test(staff)&&/target\.role<>p_staff_role/i.test(staff)],
  ['STAFF IDENTITY APP USER FK',/staff_access_identities[\s\S]*app_user_id uuid primary key references app_users\(id\) on delete cascade/i.test(staff)],
@@ -23,9 +27,20 @@ const checks=[
  ['DEMAND DEALER STATUS COMPATIBLE',/x\.status='approved'/i.test(demand)&&/APPROVED DEALER REQUIRED/i.test(demand)],
  ['DEMAND AUDIT CONTRACT',/insert into audit_log\(actor_id,action,entity_type,entity_id,details\)/i.test(demand)&&/CUSTOMER_PRODUCT_DEMAND_UPDATED/i.test(demand)],
  ['DEMAND PUBLIC RPC RETURNS NO CONTACT',/returns table\(demand_id uuid,status text\)/i.test(demand)&&/returns table\(demand_id uuid,status text,torvo_help_requested boolean\)/i.test(demand)],
+ ['ROUTING DEMAND FK',/demand_id uuid not null references customer_product_demands\(id\) on delete cascade/i.test(routing)],
+ ['ROUTING DEALER FK',/dealer_id uuid not null references dealers\(id\) on delete restrict/i.test(routing)],
+ ['ROUTING DEVICE ASSERTION',/dealer_assert_my_device_session\(p_device_id,p_session_token\)/i.test(routing)],
+ ['ROUTING CONTACT PRIVACY',/returns table\(lead_id uuid,demand_id uuid,search_text text,pin_code text,brand text,model_number text,requirement_note text,routing_stage text,status text,sent_at timestamptz\)/i.test(routing)],
+ ['LIFECYCLE OWNER ADMIN ONLY',/u\.role not in\('owner','admin'\)/i.test(lifecycle)],
+ ['FOUND OWNER ADMIN ONLY',/u\.role not in\('owner','admin'\)/i.test(found)],
+ ['FOUND APPROVED DEALER CONTRACT',/x\.status='approved'/i.test(found)&&/APPROVED DEALER REQUIRED/i.test(found)],
+ ['FOUND CUSTOMER MOBILE PROOF',/join customer_contacts c on c\.id=d\.customer_id[\s\S]*c\.mobile=m/i.test(found)],
  ['CORE INSTALLED BEFORE STAFF',order.indexOf('v2-schema.sql')>=0&&order.indexOf('v2-admin-issued-staff-access.sql')>order.indexOf('v2-schema.sql')],
  ['CORE INSTALLED BEFORE MASTER SALESMAN',order.indexOf('v2-master-salesman-access.sql')>order.indexOf('v2-schema.sql')],
  ['CORE INSTALLED BEFORE DEMAND',order.indexOf('v2-customer-product-demand-leads.sql')>order.indexOf('v2-schema.sql')],
+ ['DEMAND BEFORE ROUTING',order.indexOf('v2-customer-demand-dealer-routing.sql')>order.indexOf('v2-customer-product-demand-leads.sql')],
+ ['ROUTING BEFORE LIFECYCLE',order.indexOf('v2-customer-demand-lead-lifecycle.sql')>order.indexOf('v2-customer-demand-dealer-routing.sql')],
+ ['LIFECYCLE BEFORE FOUND',order.indexOf('v2-customer-demand-found-lifecycle.sql')>order.indexOf('v2-customer-demand-lead-lifecycle.sql')],
 ];
 const failed=checks.filter(([,ok])=>!ok);
 for(const [name,ok] of checks) console.log(`${ok?'PASS':'FAIL'} ${name}`);
