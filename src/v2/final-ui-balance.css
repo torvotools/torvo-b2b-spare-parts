@@ -1,0 +1,65 @@
+/* TORVO V2 FINAL RESPONSIVE BALANCE LAYER
+   Keeps utility actions compact and prevents WhatsApp / install / app-store controls
+   from stretching into oversized boxes across public, dealer and secure desktop UI. */
+
+/* Shared header/action geometry */
+.top,.dealerTop{overflow:visible}
+.topRight,.dealerTop{min-width:0}
+.topRight{gap:7px!important}
+.whatsappChannels{display:inline-flex;align-items:center;justify-content:flex-end;gap:6px;min-width:0;flex:0 1 auto}
+.whatsappChannels>.iconBtn{width:auto!important;min-width:38px!important;height:38px!important;min-height:38px!important;max-width:150px;padding:0 10px!important;display:inline-flex!important;align-items:center;justify-content:center;gap:6px;border-radius:10px!important;white-space:nowrap;line-height:1!important;flex:0 0 auto!important}
+.whatsappChannels>.iconBtn span{font-size:9px!important;font-weight:900;letter-spacing:.03em;line-height:1}
+.whatsappChannels>.inlineError{position:absolute;top:calc(100% + 6px);right:0;max-width:min(320px,90vw);z-index:80}
+.appInstallCompact{width:auto!important;max-width:150px;min-width:38px;min-height:38px!important;height:38px!important;padding:0 11px!important;white-space:nowrap;flex:0 0 auto}
+.appInstallCompact span{font-size:9px;font-weight:900;line-height:1}
+.appInstalledBadge{height:34px;white-space:nowrap;flex:0 0 auto}
+.notificationBell{width:38px!important;height:38px!important;min-height:38px!important;padding:0!important;display:grid!important;place-items:center;flex:0 0 auto}
+
+/* Operational/customer app header: clean white compact toolbar */
+.dealerTop{display:flex!important;align-items:center!important;gap:7px!important;justify-content:flex-start!important}
+.dealerTop>.brand{min-width:0;flex:1 1 auto;padding:0!important}
+.dealerTop>.brand>div:last-child{min-width:0}
+.dealerTop .brand strong{color:#101828!important}
+.dealerTop .brand span{display:block;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
+.dealerTop>.whatsappChannels,.dealerTop>.appInstallCompact,.dealerTop>.appInstalledBadge,.dealerTop>button{flex:0 0 auto!important}
+.dealerTop>button{min-width:38px!important;width:38px!important;height:38px!important;min-height:38px!important;padding:0!important;display:grid!important;place-items:center}
+
+/* Secure desktop keeps utilities on one tidy line rather than card-sized controls */
+.topRight>.whatsappChannels,.topRight>.appInstallCompact,.topRight>.appInstalledBadge{flex:0 0 auto}
+.topRight .avatar{flex:0 0 auto}
+
+/* Generic app/release action cards must stay inside their own panel */
+.appReleaseActions,.appInstallActions,.storeActions{display:flex;align-items:center;gap:8px;flex-wrap:wrap}
+.appReleaseActions>* ,.appInstallActions>* ,.storeActions>*{max-width:100%}
+
+@media(max-width:820px){
+ .topRight{gap:5px!important}
+ .topRight .whatsappChannels>.iconBtn,.dealerTop .whatsappChannels>.iconBtn{width:36px!important;min-width:36px!important;height:36px!important;min-height:36px!important;padding:0!important;border-radius:10px!important}
+ .topRight .whatsappChannels>.iconBtn span,.dealerTop .whatsappChannels>.iconBtn span{display:none!important}
+ .appInstallCompact{width:36px!important;min-width:36px!important;height:36px!important;min-height:36px!important;padding:0!important;border-radius:10px!important}
+ .appInstallCompact span{display:none!important}
+ .appInstalledBadge{width:36px;height:36px;padding:0!important;justify-content:center;font-size:0!important}
+ .notificationBell{width:36px!important;height:36px!important;min-height:36px!important}
+ .dealerTop{padding-left:9px!important;padding-right:9px!important;gap:5px!important}
+ .dealerTop .brand{gap:7px!important}
+ .dealerTop .brand .mark{width:34px!important;height:34px!important;border-radius:10px!important;font-size:17px!important}
+ .dealerTop .brand strong{font-size:15px!important}
+ .dealerTop .brand span{font-size:8px!important;max-width:145px}
+}
+
+@media(max-width:520px){
+ .top{gap:6px!important}
+ .top>div:not(.topRight){min-width:0}
+ .top h1{white-space:nowrap;overflow:hidden;text-overflow:ellipsis;max-width:46vw}
+ .topRight{margin-left:auto!important;min-width:0}
+ .topRight .avatar{display:none}
+ .dealerTop .brand span{max-width:105px}
+ .dealerTop>.whatsappChannels{gap:4px}
+}
+
+@media(max-width:390px){
+ .dealerTop .brand span{display:none!important}
+ .dealerTop .brand strong{font-size:14px!important}
+ .dealerTop .brand .mark{width:32px!important;height:32px!important}
+ .top h1{max-width:38vw}
+}
