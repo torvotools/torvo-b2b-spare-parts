@@ -1,4 +1,4 @@
-import{getDealerItemRate,submitDealerPO,approveLatestDealerOrder,loadDealerOrders,reviseDealerPO,requestDealerOrderChange,loadApprovedAddOnRequests,createApprovedAddOnOrder}from'./dealerB2BFlow';
+import{getDealerItemRate,submitDealerPO,approveLatestDealerOrder,loadDealerOrders,reviseDealerPO,requestDealerOrderChange,loadApprovedAddOnRequests,createApprovedAddOnOrder,createAdditionalPO}from'./dealerB2BFlow';
 import{loadDealerMachineSpares}from'./dealerMachineSpares';
 import{loadDealerWorkspaceCatalog}from'./dealerWorkspace';
 import{loadDealerRepairRequirements,updateDealerRepairRequirement,acceptDealerRepairRequirement,closeDealerRepairRequirement,loadOpenDealerRepairRequirements,loadAcceptedDealerRepairRequirements,loadClosedDealerRepairRequirements,dealerRepairStatuses}from'./dealerRepair';
@@ -13,6 +13,7 @@ export const secureDealerLegacy={
  dealerConfirmSalesOrder:approveLatestDealerOrder,
  dealerReviseSalesOrder:(orderId,items,reason)=>reviseDealerPO({orderId,items,reason}),
  dealerRequestSalesOrderChange:(orderId,type,reason)=>requestDealerOrderChange({orderId,type,reason}),
+ dealerCreateAdditionalPO:(parentOrderId,items,note)=>createAdditionalPO({parentOrderId,items,note}),
  dealerApprovedAddOnRequests:loadApprovedAddOnRequests,
  dealerCreateAddOnOrder:(requestId,items)=>createApprovedAddOnOrder({requestId,items}),
  dealerOrderHistory:loadDealerOrders,
