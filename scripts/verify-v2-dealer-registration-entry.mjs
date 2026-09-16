@@ -4,7 +4,7 @@ const login=read('src/v2/components/BusinessLogin.jsx');
 const website=read('src/v2/components/PublicWebsitePreview.jsx');
 const form=read('src/v2/components/PublicDealerRegistrationForm.jsx');
 for(const token of["import PublicDealerRegistrationForm from'./PublicDealerRegistrationForm'",'NEW DEALER? REGISTER AS DEALER','setRegistering(true)','NEW DEALER REGISTRATION','<PublicDealerRegistrationForm','BACK TO DEALER LOGIN'])if(!login.includes(token))fail(`APP LOGIN REGISTRATION ENTRY MISSING: ${token}`);
-if(login.includes("location.href='/'">))fail('APP REGISTRATION MUST OPEN IN-APP FORM, NOT REDIRECT TO WEBSITE');
+if(login.includes("location.href='/'"))fail('APP REGISTRATION MUST OPEN IN-APP FORM, NOT REDIRECT TO WEBSITE');
 for(const token of['id="dealer-business"','REGISTER AS DEALER','DEALER_REGISTER'])if(!website.includes(token))fail(`WEBSITE DEALER ENTRY MISSING: ${token}`);
 for(const token of['SHOP / FIRM NAME','CONTACT PERSON','MOBILE / WHATSAPP (+91)','BUSINESS TYPE','PublicLocationDropdowns','SUBMIT FOR VERIFICATION','PENDING VERIFICATION'])if(!form.includes(token))fail(`COMMON DEALER REGISTRATION FORM MISSING: ${token}`);
 console.log('TORVO V2 website + direct-installed app dealer registration entry contract OK');
