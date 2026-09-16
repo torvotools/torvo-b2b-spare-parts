@@ -4,6 +4,7 @@ const sql=read('supabase/v2-public-catalog-dropdowns.sql');
 const service=read('src/v2/services/publicWebsite.js');
 const ui=read('src/v2/components/PublicCatalogDropdowns.jsx');
 const form=read('src/v2/components/PublicProductRequirementForm.jsx');
+const website=read('src/v2/components/PublicWebsitePreview.jsx');
 for(const token of['public_catalog_brands','public_catalog_machine_models','catalog_items','ACTIVE'])if(!sql.includes(token))fail(`CATALOG SQL CONTRACT MISSING: ${token}`);
 for(const token of['loadCatalogBrands','loadCatalogMachineModels',"rpc('public_catalog_brands'","rpc('public_catalog_machine_models'","p_brand:clean"])if(!service.includes(token))fail(`PUBLIC CATALOG SERVICE MISSING: ${token}`);
 for(const token of['SELECT BRAND','SELECT MACHINE / MODEL','changeBrand',"machineModel:''",'CATALOG BRAND MASTER NOT AVAILABLE','MACHINE / MODEL MASTER NOT AVAILABLE','useRef','modelRequest.current','request===modelRequest.current','setModels([])',"[value?.brand]","models.some(x=>String(x.name||'').toUpperCase()===selected.toUpperCase())"])if(!ui.includes(token))fail(`LINKED CATALOG DROPDOWN SAFETY MISSING: ${token}`);
@@ -12,7 +13,9 @@ for(const token of["import PublicCatalogDropdowns from'./PublicCatalogDropdowns'
 for(const token of['name,mobile,pin,state,district,city,productType,brand,machineModel,requiredItem,itemOemNo,description,quantity:qty'])if(!form.includes(token))fail(`CLEAN PRODUCT REQUIREMENT PAYLOAD MISSING: ${token}`);
 if(/<label>BRAND<input|<label>MACHINE \/ MODEL<input/.test(form))fail('PRODUCT REQUIREMENT FORM MUST USE MASTER-BACKED BRAND/MODEL DROPDOWNS');
 if(!/max="9999"/.test(form)||!/step="1"/.test(form))fail('PRODUCT REQUIREMENT QUANTITY INPUT MUST BE INTEGER 1-9999');
+for(const token of["import PublicProductRequirementForm from'./PublicProductRequirementForm'",'REQUEST A PRODUCT',"modal==='REQUIREMENT'",'<PublicProductRequirementForm/>'])if(!website.includes(token))fail(`WEBSITE COMMON PRODUCT REQUIREMENT FLOW MISSING: ${token}`);
+for(const forbidden of['createProductRequirement','submitRequirement','changeRequirement','setRequirement','emptyRequirement','requirement.productType','requirement.brand','requirement.machineModel','requirement.requiredItem'])if(website.includes(forbidden))fail(`WEBSITE MUST NOT RESTORE DUPLICATE PRODUCT REQUIREMENT LOGIC: ${forbidden}`);
 for(const token of["throw new Error('CUSTOMER NAME REQUIRED')","throw new Error('10-DIGIT MOBILE / WHATSAPP REQUIRED')","throw new Error('6-DIGIT PIN CODE REQUIRED')","throw new Error('STATE, DISTRICT AND CITY REQUIRED')","['MACHINE','SPARE PART','ACCESSORY'].includes(type)","throw new Error('REQUIRED PRODUCT / ITEM REQUIRED')","throw new Error('QUANTITY MUST BE 1-9999')",'p_mobile_whatsapp:cleanMobile','p_pin_code:cleanPin','p_product_type:type','p_quantity:qty'])if(!service.includes(token))fail(`PRODUCT REQUIREMENT SERVICE BOUNDARY MISSING: ${token}`);
 if(service.includes('Math.max(1,Number(quantity)||1)'))fail('SERVICE MUST REJECT INVALID QUANTITY INSTEAD OF SILENTLY COERCING IT');
 for(const forbidden of['purchase_cost','rate_a','rate_b','rate_c'])if(sql.toLowerCase().includes(forbidden))fail(`PRIVATE PRICING MUST NOT BE EXPOSED BY PUBLIC DROPDOWN SQL: ${forbidden}`);
-console.log('TORVO V2 authoritative catalog dropdown + stale-response safety + hardened product requirement UI/service contract OK');
+console.log('TORVO V2 website common product requirement + authoritative catalog dropdown + stale-response + validation/privacy contract OK');
