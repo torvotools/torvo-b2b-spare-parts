@@ -1,76 +1,15 @@
-import React,{useCallback,useEffect,useState}from'react';
-import{CheckCircle2,RefreshCw,Wrench}from'lucide-react';
+import React,{useCallback,useEffect,useMemo,useState}from'react';
+import{CheckCircle2,RefreshCw,Wrench,Phone,MessageSquare}from'lucide-react';
 import{secureDealerLegacy as data}from'../services/dealerLegacyBridge';
-
-const U=v=>String(v||'').toUpperCase();
-
+const U=v=>String(v||'').trim().toUpperCase();
+const phone=v=>String(v||'').replace(/\D/g,'').slice(-10);
 export default function DealerRepairWorkspace(){
-  const[rows,setRows]=useState([]);
-  const[filter,setFilter]=useState('');
-  const[busy,setBusy]=useState(false);
-  const[err,setErr]=useState('');
-  const[ok,setOk]=useState('');
-
-  const load=useCallback(async()=>{
-    setBusy(true);
-    setErr('');
-    try{
-      setRows(await data.dealerRepairRequirements(filter||null,100));
-    }catch(e){
-      setErr(U(e?.message)||'REPAIR REQUESTS COULD NOT BE LOADED');
-    }finally{
-      setBusy(false);
-    }
-  },[filter]);
-
-  useEffect(()=>{load();},[load]);
-
-  const act=async(r,next)=>{
-    if(busy)return;
-    setBusy(true);
-    setErr('');
-    setOk('');
-    try{
-      await data.dealerUpdateRepairRequirement(r.requirement_id,next);
-      setOk(next==='accepted'?'REPAIR REQUEST ACCEPTED.':'REPAIR REQUEST CLOSED.');
-      await load();
-    }catch(e){
-      setErr(U(e?.message)||'REPAIR REQUEST COULD NOT BE UPDATED');
-    }finally{
-      setBusy(false);
-    }
-  };
-
-  return <section className="panel workspace dealerRepairWorkspace">
-    <header>
-      <div>
-        <span className="eyebrow">REPAIR & SERVICE</span>
-        <h3>CUSTOMER REPAIR REQUIREMENTS</h3>
-        <p>ONLY REQUESTS ROUTED TO YOUR APPROVED REPAIR DEALER ACCOUNT ARE SHOWN HERE.</p>
-      </div>
-      <button className="iconBtn" disabled={busy} onClick={load} aria-label="REFRESH REPAIR REQUESTS"><RefreshCw size={18}/></button>
-    </header>
-    {err&&<div className="inlineError">{err}</div>}
-    {ok&&<div className="inlineSuccess">{ok}</div>}
-    <div className="workspaceTabs quickActions">
-      <button className={!filter?'active':''} onClick={()=>setFilter('')}>ALL ROUTED</button>
-      <button className={filter==='routed'?'active':''} onClick={()=>setFilter('routed')}>PENDING</button>
-      <button className={filter==='accepted'?'active':''} onClick={()=>setFilter('accepted')}>ACCEPTED</button>
-      <button className={filter==='closed'?'active':''} onClick={()=>setFilter('closed')}>CLOSED</button>
-    </div>
-    <div className="requestList">
-      {busy&&!rows.length?<div className="empty"><Wrench/><h3>LOADING REPAIR REQUESTS</h3></div>:
-       rows.length===0?<div className="empty"><Wrench/><h3>NO REPAIR REQUEST</h3></div>:
-       rows.map(r=><article key={r.requirement_id}>
-        <div>
-          <strong>{U(r.brand)||'BRAND NOT GIVEN'} {U(r.model_number)}</strong>
-          <span>{U(r.problem_description)}</span>
-          <small>{U(r.customer_name)} · {r.mobile} · PIN {r.pin_code} · {U(r.status)}</small>
-        </div>
-        {r.status==='routed'&&<button className="primary" disabled={busy} onClick={()=>act(r,'accepted')}><Wrench size={14}/>ACCEPT REPAIR</button>}
-        {r.status==='accepted'&&<button className="primary" disabled={busy} onClick={()=>act(r,'closed')}><CheckCircle2 size={14}/>CLOSE REPAIR</button>}
-      </article>)}
-    </div>
-    <div className="modalNotice">REPAIR ACTIONS ARE DEVICE-BOUND. AN INACTIVE OR REVOKED DEALER DEVICE CANNOT VIEW OR UPDATE THESE REQUESTS.</div>
-  </section>;
+ const[rows,setRows]=useState([]),[filter,setFilter]=useState(''),[busyId,setBusyId]=useState(''),[loading,setLoading]=useState(false),[err,setErr]=useState(''),[ok,setOk]=useState('');
+ const load=useCallback(async()=>{setLoading(true);setErr('');try{const result=filter==='routed'?await data.dealerOpenRepairRequirements(100):filter==='accepted'?await data.dealerAcceptedRepairRequirements(100):filter==='closed'?await data.dealerClosedRepairRequirements(100):await data.dealerRepairRequirements(null,100);setRows(result)}catch(e){setErr(U(e?.message)||'REPAIR REQUESTS COULD NOT BE LOADED')}finally{setLoading(false)}},[filter]);
+ React.useEffect(()=>{load()},[load]);
+ const counts=useMemo(()=>rows.reduce((a,r)=>{const s=String(r.status||'').toLowerCase();a[s]=(a[s]||0)+1;return a},{}),[rows]);
+ const act=async(r,next)=>{if(busyId)return;setBusyId(r.requirement_id);setErr('');setOk('');try{if(next==='accepted')await data.dealerAcceptRepairRequirement(r.requirement_id);else await data.dealerCloseRepairRequirement(r.requirement_id);setOk(next==='accepted'?'REPAIR REQUEST ACCEPTED.':'REPAIR REQUEST CLOSED.');await load()}catch(e){setErr(U(e?.message)||'REPAIR REQUEST COULD NOT BE UPDATED')}finally{setBusyId('')}};
+ const call=r=>{const p=phone(r.mobile);if(!p)return setErr('CUSTOMER MOBILE NUMBER NOT AVAILABLE.');window.location.href=`tel:${p}`};
+ const whatsapp=r=>{const p=phone(r.mobile);if(!p)return setErr('CUSTOMER WHATSAPP NUMBER NOT AVAILABLE.');window.open(`https://wa.me/91${p}?text=${encodeURIComponent('HELLO, I AM CONTACTING YOU REGARDING YOUR TORVO REPAIR REQUIREMENT.')}`,'_blank','noopener,noreferrer')};
+ return <section className="panel workspace dealerRepairWorkspace"><header><div><span className="eyebrow">REPAIR & SERVICE</span><h3>CUSTOMER REPAIR REQUIREMENTS</h3><p>ONLY REQUESTS ROUTED TO YOUR APPROVED REPAIR DEALER ACCOUNT ARE SHOWN HERE.</p></div><button className="iconBtn" disabled={loading||!!busyId} onClick={load} aria-label="REFRESH REPAIR REQUESTS"><RefreshCw size={18}/></button></header>{err&&<div className="inlineError">{err}</div>}{ok&&<div className="inlineSuccess">{ok}</div>}<div className="workspaceTabs quickActions"><button className={!filter?'active':''} onClick={()=>setFilter('')}>ALL</button><button className={filter==='routed'?'active':''} onClick={()=>setFilter('routed')}>PENDING{!filter&&counts.routed?` (${counts.routed})`:''}</button><button className={filter==='accepted'?'active':''} onClick={()=>setFilter('accepted')}>ACCEPTED{!filter&&counts.accepted?` (${counts.accepted})`:''}</button><button className={filter==='closed'?'active':''} onClick={()=>setFilter('closed')}>CLOSED{!filter&&counts.closed?` (${counts.closed})`:''}</button></div><div className="requestList">{loading&&!rows.length?<div className="empty"><Wrench/><h3>LOADING REPAIR REQUESTS</h3></div>:rows.length===0?<div className="empty"><Wrench/><h3>NO REPAIR REQUEST</h3><p>NO REQUEST MATCHES THIS STATUS.</p></div>:rows.map(r=>{const s=String(r.status||'').toLowerCase(),p=phone(r.mobile),rowBusy=busyId===r.requirement_id;return <article key={r.requirement_id}><div><strong>{U(r.brand)||'BRAND NOT GIVEN'} {U(r.model_number)}</strong><span>{U(r.problem_description)||'PROBLEM DESCRIPTION NOT GIVEN'}</span><small>{U(r.customer_name)||'CUSTOMER'} · {p||'MOBILE NOT GIVEN'} · PIN {r.pin_code||'NOT GIVEN'} · {U(s)}</small></div>{p&&<button className="secondary" disabled={!!busyId} onClick={()=>call(r)}><Phone size={14}/>CALL</button>}{p&&<button className="secondary" disabled={!!busyId} onClick={()=>whatsapp(r)}><MessageSquare size={14}/>WHATSAPP</button>}{s==='routed'&&<button className="primary" disabled={!!busyId} onClick={()=>act(r,'accepted')}><Wrench size={14}/>{rowBusy?'ACCEPTING…':'ACCEPT REPAIR'}</button>}{s==='accepted'&&<button className="primary" disabled={!!busyId} onClick={()=>act(r,'closed')}><CheckCircle2 size={14}/>{rowBusy?'CLOSING…':'CLOSE REPAIR'}</button>}</article>})}</div><div className="modalNotice">REPAIR ACTIONS ARE DEVICE-BOUND. AN INACTIVE OR REVOKED DEALER DEVICE CANNOT VIEW OR UPDATE THESE REQUESTS.</div></section>
 }
