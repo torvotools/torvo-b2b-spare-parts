@@ -3,9 +3,11 @@ const read=p=>fs.readFileSync(p,'utf8'),fail=m=>{console.error(`DEALER REGISTRAT
 const login=read('src/v2/components/BusinessLogin.jsx');
 const website=read('src/v2/components/PublicWebsitePreview.jsx');
 const form=read('src/v2/components/PublicDealerRegistrationForm.jsx');
+const install=read('src/v2/components/AppInstallControl.jsx');
 for(const token of["import PublicDealerRegistrationForm from'./PublicDealerRegistrationForm'",'NEW DEALER? REGISTER AS DEALER','setRegistering(true)','NEW DEALER REGISTRATION','<PublicDealerRegistrationForm','BACK TO DEALER LOGIN'])if(!login.includes(token))fail(`APP LOGIN REGISTRATION ENTRY MISSING: ${token}`);
 if(login.includes("location.href='/'"))fail('APP REGISTRATION MUST OPEN IN-APP FORM, NOT REDIRECT TO WEBSITE');
 for(const token of['id="dealer-business"','REGISTER AS DEALER','DEALER_REGISTER'])if(!website.includes(token))fail(`WEBSITE DEALER ENTRY MISSING: ${token}`);
-for(const token of['SHOP / FIRM NAME','CONTACT PERSON','MOBILE / WHATSAPP (+91)','BUSINESS TYPE','PublicLocationDropdowns','SUBMIT FOR VERIFICATION','PENDING VERIFICATION','TORVO BUSINESS APP','APP ACCESS IS FOR APPROVED DEALERS, SALESMEN AND AUTHORIZED STORE / BUSINESS STAFF','GENERAL CUSTOMERS CAN USE THE TORVO WEBSITE','ANDROID / IPHONE INSTALL BUTTONS WILL APPEAR HERE ONLY WHEN VERIFIED RELEASE LINKS ARE AVAILABLE'])if(!form.includes(token))fail(`COMMON DEALER REGISTRATION FORM MISSING: ${token}`);
+for(const token of['SHOP / FIRM NAME','CONTACT PERSON','MOBILE / WHATSAPP (+91)','BUSINESS TYPE','PublicLocationDropdowns','SUBMIT FOR VERIFICATION','PENDING VERIFICATION','TORVO BUSINESS APP','APP ACCESS IS FOR APPROVED DEALERS, SALESMEN AND AUTHORIZED STORE / BUSINESS STAFF','GENERAL CUSTOMERS CAN USE THE TORVO WEBSITE',"import AppInstallControl from'./AppInstallControl'",'<AppInstallControl/>','INSTALL IS SHOWN HERE ONLY WHEN THIS DEVICE HAS A VERIFIED TORVO INSTALL OPTION'])if(!form.includes(token))fail(`COMMON DEALER REGISTRATION FORM MISSING: ${token}`);
+for(const token of['canInstallTorvoApp','promptTorvoAppInstall','if(!ready)return null'])if(!install.includes(token))fail(`VERIFIED INSTALL CONTROL SAFETY MISSING: ${token}`);
 for(const forbidden of['DOWNLOAD APP','INSTALL APP','PLAY STORE','APP STORE'])if(website.includes(forbidden))fail(`PUBLIC CUSTOMER WEBSITE MUST NOT EXPOSE GENERIC APP DOWNLOAD CTA: ${forbidden}`);
-console.log('TORVO V2 website + direct-installed app dealer registration + business-only app install placement contract OK');
+console.log('TORVO V2 website + direct-installed app dealer registration + verified business-only install control contract OK');
