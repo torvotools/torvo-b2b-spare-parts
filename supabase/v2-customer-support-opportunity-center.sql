@@ -6,7 +6,7 @@ create table if not exists public.customer_product_requirements(
  id uuid primary key default gen_random_uuid(), customer_name text not null, mobile_whatsapp text not null, state text, district text, city text, pin_code text not null,
  product_type text not null check(product_type in('MACHINE','SPARE PART','ACCESSORY')), brand text, machine_model text, required_item text not null, item_oem_no text, description text,
  quantity integer not null default 1 check(quantity>0), photo_url text, marketing_opt_in boolean not null default false, marketing_consent_at timestamptz, marketing_consent_source text, marketing_opted_out_at timestamptz,
- status text not null default 'OPEN' check(status in('OPEN','UNDER REVIEW','RESOLVED','REJECTED','PRODUCT ADDED','FULFILLED','CLOSED')), linked_product_id uuid references public.catalog_items(id) on delete set null,
+ status text not null default 'OPEN' check(status in('OPEN','UNDER REVIEW','PRODUCT ADDED','FULFILLED','CLOSED')), linked_product_id uuid references public.catalog_items(id) on delete set null,
  created_at timestamptz not null default now(), updated_at timestamptz not null default now()
 );
 alter table public.customer_product_requirements add column if not exists marketing_consent_at timestamptz;
