@@ -1,6 +1,7 @@
 import fs from'node:fs';
 const read=p=>fs.readFileSync(p,'utf8'),fail=m=>{console.error(`PUBLIC SERVICE EXPORT CONTRACT FAILED: ${m}`);process.exit(1)};
 const service=read('src/v2/services/publicWebsite.js');
+const publicUi=read('src/v2/components/PublicWebsitePreview.jsx');
 const leadSql=read('supabase/v2-public-lead-source.sql');
 const enquirySql=read('supabase/v2-customer-demand-dealer-referral-analytics.sql');
 const supportSql=read('supabase/v2-customer-support-opportunity-center.sql');
@@ -33,9 +34,10 @@ if(!requirementBody.includes('requirement_id:requirementId')||!requirementBody.i
 const requirementOptOutBody=service.match(/export\s+async\s+function\s+optOutProductRequirementMarketing\b([\s\S]*?)(?=export\s+async\s+function|$)/)?.[1]||'';
 if(!requirementOptOutBody.includes("rpc('public_set_product_requirement_marketing_opt_out'"))fail('PRODUCT REQUIREMENT OPT-OUT SERVICE MUST CALL AUTHORITATIVE RPC');
 for(const token of['REQUIREMENT ID REQUIRED','10-DIGIT MOBILE / WHATSAPP REQUIRED','p_requirement_id:requirementId','p_mobile_whatsapp:cleanMobile'])if(!requirementOptOutBody.includes(token))fail(`PRODUCT REQUIREMENT OPT-OUT VALIDATION/ARGUMENT MISSING: ${token}`);
+for(const token of["validLocation=()=>form.state.trim().length>=2&&form.district.trim().length>=2&&form.city.trim().length>=2","!validContact()||!validLocation()||requirement.requiredItem.trim().length<2||Number(requirement.quantity)<1","STATE, DISTRICT, CITY","VALID QUANTITY AND REQUIRED PRODUCT / ITEM"])if(!publicUi.includes(token))fail(`PRODUCT REQUIREMENT UI VALIDATION MISSING: ${token}`);
 if(!supportSql.includes('create or replace function public.public_create_product_requirement('))fail('AUTHORITATIVE PRODUCT REQUIREMENT SQL RPC MISSING');
 for(const guard of['STATE REQUIRED','DISTRICT REQUIRED','CITY REQUIRED','VALID PRODUCT TYPE REQUIRED','REQUIRED PRODUCT / ITEM REQUIRED','VALID QUANTITY REQUIRED'])if(!supportSql.includes(guard))fail(`PRODUCT REQUIREMENT SERVER VALIDATION MISSING: ${guard}`);
 for(const field of['state text','district text','city text','product_type text','brand text','machine_model text','required_item text','item_oem_no text','quantity integer','marketing_consent_at timestamptz','marketing_consent_source text','marketing_opted_out_at timestamptz'])if(!supportSql.includes(field))fail(`PRODUCT REQUIREMENT STRUCTURED/AUDIT FIELD MISSING: ${field}`);
 if(!supportSql.includes('public_set_product_requirement_marketing_opt_out')||!supportSql.includes('marketing_opted_out_at=now()'))fail('PRODUCT REQUIREMENT MARKETING OPT-OUT SQL CONTRACT MISSING');
 if(!supportSql.includes('enquiry_id uuid references public.customer_product_enquiries(id)')||!supportSql.includes('public_create_customer_complaint'))fail('CUSTOMER COMPLAINT MUST REFERENCE CUSTOMER PRODUCT ENQUIRY ID');
-console.log('TORVO V2 public website + enquiry/referral + enquiry/requirement opt-out + structured requirement contract OK');
+console.log('TORVO V2 public website + enquiry/referral + enquiry/requirement opt-out + UI/server structured requirement contract OK');
