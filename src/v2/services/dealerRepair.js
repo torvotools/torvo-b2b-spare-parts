@@ -1,40 +1,14 @@
 import{requireBackend}from'./supabase';
 import{assertDealerSession}from'./dealerSession';
-
-const proof=async()=>{
-  const session=await assertDealerSession();
-  if(!session?.deviceId||!session?.token)throw new Error('ACTIVE DEALER DEVICE SESSION REQUIRED');
-  return session;
-};
-
-export const loadDealerRepairRequirements=async(status=null,limit=100)=>{
-  const session=await proof();
-  const{data,error}=await requireBackend().rpc('dealer_repair_requirements',{
-    p_status:status||null,
-    p_limit:Math.max(1,Math.min(Number(limit)||100,500)),
-    p_device_id:session.deviceId,
-    p_session_token:session.token
-  });
-  if(error)throw error;
-  await assertDealerSession();
-  if(data==null)return[];
-  if(!Array.isArray(data))throw new Error('INVALID DEALER REPAIR RESPONSE');
-  return data;
-};
-
-export const updateDealerRepairRequirement=async(requirementId,status)=>{
-  if(!requirementId)throw new Error('REPAIR REQUIREMENT REQUIRED');
-  const next=String(status||'').trim().toLowerCase();
-  if(!['accepted','closed'].includes(next))throw new Error('REPAIR STATUS MUST BE ACCEPTED OR CLOSED');
-  const session=await proof();
-  const{data,error}=await requireBackend().rpc('dealer_update_repair_requirement',{
-    p_requirement_id:requirementId,
-    p_status:next,
-    p_device_id:session.deviceId,
-    p_session_token:session.token
-  });
-  if(error)throw error;
-  await assertDealerSession();
-  if(data!==true)throw new Error('REPAIR UPDATE NOT CONFIRMED');
-  return true;
-};
+const STATES=Object.freeze(['new','accepted','closed']);
+const id=v=>{const s=String(v||'').trim();if(!s)throw new Error('REPAIR REQUIREMENT REQUIRED');if(s.length>128)throw new Error('REPAIR REQUIREMENT IS INVALID');return s};
+const state=(v,allowAll=false)=>{if((v==null||v==='')&&allowAll)return null;const s=String(v||'').trim().toLowerCase();if(!STATES.includes(s))throw new Error('INVALID REPAIR STATUS');return s};
+const proof=async()=>{const session=await assertDealerSession();if(!session?.deviceId||!session?.token)throw new Error('ACTIVE DEALER DEVICE SESSION REQUIRED');return session};
+const rpc=async(name,args)=>{const session=await proof();const{data,error}=await requireBackend().rpc(name,{...args,p_device_id:session.deviceId,p_session_token:session.token});if(error)throw error;await assertDealerSession();return data};
+export const loadDealerRepairRequirements=async(status=null,limit=100)=>{const n=Math.max(1,Math.min(Math.floor(Number(limit)||100),500));const data=await rpc('dealer_repair_requirements',{p_status:state(status,true),p_limit:n});if(data==null)return[];if(!Array.isArray(data))throw new Error('INVALID DEALER REPAIR RESPONSE');return data};
+export const updateDealerRepairRequirement=async(requirementId,status)=>{const next=state(status);if(!['accepted','closed'].includes(next))throw new Error('REPAIR STATUS MUST BE ACCEPTED OR CLOSED');const data=await rpc('dealer_update_repair_requirement',{p_requirement_id:id(requirementId),p_status:next});if(data!==true)throw new Error('REPAIR UPDATE NOT CONFIRMED');return true};
+export const acceptDealerRepairRequirement=requirementId=>updateDealerRepairRequirement(requirementId,'accepted');
+export const closeDealerRepairRequirement=requirementId=>updateDealerRepairRequirement(requirementId,'closed');
+export const loadOpenDealerRepairRequirements=limit=>loadDealerRepairRequirements('new',limit);
+export const loadAcceptedDealerRepairRequirements=limit=>loadDealerRepairRequirements('accepted',limit);
+export const dealerRepairStatuses=STATES;
