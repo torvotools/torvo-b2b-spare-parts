@@ -7,6 +7,14 @@ Purpose: permanent no-omission checklist for TORVO V2 development. This suppleme
 - Continue only on `torvo-v2-build`; never change V27/main without explicit Owner release permission.
 - Website, App and Desktop share one authoritative Supabase backend and central business logic. Content/data changes should propagate from backend; native code changes require a versioned signed release.
 
+## FORM / DROPDOWN-FIRST RULE
+- Use dropdowns/selectors to the fullest practical extent across Website, App, Desktop and Admin forms whenever the value comes from a known master, fixed option set or linked business list.
+- Prefer searchable dropdowns for long lists and linked/dependent dropdowns where relationships exist, especially STATE -> DISTRICT -> CITY, BRAND -> MACHINE/TYPE/MODEL, CATEGORY, PRODUCT TYPE, RATE A/B/C, STATUS, ROLE, BUSINESS TYPE, DEALER, SUPPLIER, SCHEME and report/filter selections.
+- Reuse authoritative master data instead of allowing free-text duplicates. A selection should save the stable underlying ID/value while displaying the approved business label.
+- Dependent dropdowns must reset invalid child selections when the parent changes and must not permit a stale child value from another parent.
+- Keep free-text inputs only where genuinely open/custom data is required, such as Customer/Contact name, mobile, detailed address, description/notes and Item/OEM number where no authoritative master selection exists.
+- Dropdown-first design must reduce spelling mistakes, duplicate master values and inconsistent reporting; it must not weaken server-side validation or role/security rules.
+
 ## PUBLIC CUSTOMER WEBSITE
 - Public discovery for MACHINE -> SPARE PART -> ACCESSORY, product photo/detail, requirement capture, nearby Dealer referral, Dealer public profile, map/directions, call/WhatsApp, Dealer registration, support and OPEN TORVO APP.
 - No public TORVO selling price, Dealer A/B/C rate, purchase cost, public TORVO checkout/payment/COD/refund flow.
