@@ -10,8 +10,12 @@ if(!pub.includes('FIND DEALER')||!pub.includes('REQUEST A PRODUCT'))fail('PUBLIC
 if(!pub.includes('detail.image_url')||!pub.includes('detailed_description'))fail('PUBLIC PRODUCT PHOTO/DETAIL VIEW MISSING');
 if(/\b(rate_a|rate_b|rate_c|purchase_cost|dealer_rate)\b/i.test(pub))fail('PRIVATE RATE/COST IDENTIFIER LEAKED INTO PUBLIC WEBSITE');
 if(/\b(rate_a|rate_b|rate_c|purchase_cost|dealer_rate)\b/i.test(browser))fail('PRIVATE RATE/COST IDENTIFIER LEAKED INTO PUBLIC PRODUCT BROWSER');
+if(/['\"]ALL['\"]/.test(browser))fail('PUBLIC PRODUCT FINDER MUST NOT RESTORE VISIBLE ALL FILTER OPTION');
+const camera=browser.indexOf('aria-label="CAMERA SEARCH"'),voice=browser.indexOf('aria-label="VOICE SEARCH"');
+if(camera<0||voice<0||camera>voice)fail('PUBLIC SEARCH MUST KEEP CAMERA BEFORE MIC');
+if(!browser.includes('placeholder="MACHINE CATEGORY"')||!browser.includes('placeholder="BRAND"'))fail('PUBLIC FILTER PLACEHOLDERS MISSING');
 if(!managed.includes('CUSTOMER WHATSAPP'))fail('PUBLIC WHATSAPP ENTRY MISSING');
 if(/admin.*email|security.*email/i.test(managed))fail('PRIVATE ADMIN/SECURITY EMAIL LEAKED INTO PUBLIC LINKS');
 if(/rate_a|rate_b|rate_c|purchase_cost/i.test(sql))fail('PUBLIC SHOWCASE SQL EXPOSES PRIVATE RATE/COST FIELDS');
 if(!release.includes('Public customer flow has no TORVO retail checkout and no public selling price'))fail('RELEASE GATE DOES NOT LOCK PUBLIC NO-PRICE RULE');
-console.log('TORVO V2 public privacy contract OK');
+console.log('TORVO V2 public privacy/search contract OK');
