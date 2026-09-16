@@ -42,4 +42,5 @@ if(!supportSql.includes('public_set_product_requirement_marketing_opt_out')||!su
 if(!supportSql.includes('enquiry_id uuid references public.customer_product_enquiries(id)')||!supportSql.includes('public_create_customer_complaint'))fail('CUSTOMER COMPLAINT MUST REFERENCE CUSTOMER PRODUCT ENQUIRY ID');
 for(const guard of['VALID APPROVED DEALER REQUIRED','CUSTOMER ENQUIRY NOT FOUND FOR MOBILE'])if(!supportSql.includes(guard))fail(`CUSTOMER COMPLAINT OWNERSHIP VALIDATION MISSING: ${guard}`);
 if(!supportSql.includes("e.id=p_enquiry_id and e.mobile_whatsapp=right(v_mobile,10)"))fail('CUSTOMER COMPLAINT ENQUIRY MUST BELONG TO SUBMITTING MOBILE');
-console.log('TORVO V2 public website + enquiry/referral + complaint ownership + enquiry/requirement opt-out + UI/server structured requirement contract OK');
+for(const token of['customer_complaints_open_dedupe',"c.status in('OPEN','UNDER REVIEW')",'SIMILAR COMPLAINT ALREADY OPEN','exception when unique_violation'])if(!supportSql.includes(token))fail(`CUSTOMER COMPLAINT DUPLICATE PROTECTION MISSING: ${token}`);
+console.log('TORVO V2 public website + enquiry/referral + complaint ownership/dedupe + enquiry/requirement opt-out + UI/server structured requirement contract OK');
