@@ -1,0 +1,17 @@
+import fs from'node:fs';
+const read=p=>fs.readFileSync(p,'utf8');
+const pub=read('src/v2/components/PublicWebsitePreview.jsx');
+const browser=read('src/v2/components/PublicProductBrowser.jsx');
+const managed=read('src/v2/components/PublicManagedLinks.jsx');
+const sql=read('supabase/v2-public-product-showcase.sql');
+const release=read('docs/TORVO-V2-RELEASE-GATES.md');
+const fail=m=>{console.error(`PUBLIC PRIVACY CONTRACT FAILED: ${m}`);process.exit(1)};
+if(!pub.includes('FIND DEALER')||!pub.includes('REQUEST A PRODUCT'))fail('PUBLIC DEALER/REQUIREMENT ACTIONS MISSING');
+if(!pub.includes('detail.image_url')||!pub.includes('detailed_description'))fail('PUBLIC PRODUCT PHOTO/DETAIL VIEW MISSING');
+if(/\b(rate_a|rate_b|rate_c|purchase_cost|dealer_rate)\b/i.test(pub))fail('PRIVATE RATE/COST IDENTIFIER LEAKED INTO PUBLIC WEBSITE');
+if(/\b(rate_a|rate_b|rate_c|purchase_cost|dealer_rate)\b/i.test(browser))fail('PRIVATE RATE/COST IDENTIFIER LEAKED INTO PUBLIC PRODUCT BROWSER');
+if(!managed.includes('CUSTOMER WHATSAPP'))fail('PUBLIC WHATSAPP ENTRY MISSING');
+if(/admin.*email|security.*email/i.test(managed))fail('PRIVATE ADMIN/SECURITY EMAIL LEAKED INTO PUBLIC LINKS');
+if(/rate_a|rate_b|rate_c|purchase_cost/i.test(sql))fail('PUBLIC SHOWCASE SQL EXPOSES PRIVATE RATE/COST FIELDS');
+if(!release.includes('Public customer flow has no TORVO retail checkout and no public selling price'))fail('RELEASE GATE DOES NOT LOCK PUBLIC NO-PRICE RULE');
+console.log('TORVO V2 public privacy contract OK');
