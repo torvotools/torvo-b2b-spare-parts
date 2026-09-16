@@ -16,4 +16,4 @@ NEXT IMPLEMENTATION DEPENDENCIES
 
 Branch policy: torvo-v2-build only. main/V27 remains untouched.
 
-Five-work documentation batch finalized and ready to attach to torvo-v2-build.
+Five-work documentation batch finalized for branch update.
