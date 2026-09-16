@@ -68,6 +68,9 @@ declare v_event text:=upper(trim(coalesce(p_event_type,'')));
 begin
  if v_event not in ('PROFILE_VIEW','DEALER_SELECTED','CALL_CLICK','WHATSAPP_CLICK','DIRECTIONS_CLICK') then raise exception 'INVALID PUBLIC REFERRAL EVENT'; end if;
  if not exists(select 1 from public.dealers d where d.id=p_dealer_id and upper(coalesce(d.status,''))='APPROVED') then raise exception 'DEALER NOT AVAILABLE'; end if;
+ if p_enquiry_id is not null and not exists(select 1 from public.customer_product_enquiries q where q.id=p_enquiry_id) then raise exception 'CUSTOMER ENQUIRY NOT FOUND'; end if;
+ if p_product_id is not null and not exists(select 1 from public.catalog_items c where c.id=p_product_id and coalesce(c.is_active,true)=true) then raise exception 'PRODUCT NOT AVAILABLE'; end if;
+ if p_enquiry_id is not null and p_product_id is not null and not exists(select 1 from public.customer_product_enquiry_items i where i.enquiry_id=p_enquiry_id and i.product_id=p_product_id) then raise exception 'PRODUCT DOES NOT BELONG TO CUSTOMER ENQUIRY'; end if;
  insert into public.dealer_referral_events(enquiry_id,dealer_id,event_type,product_id) values(p_enquiry_id,p_dealer_id,v_event,p_product_id);
  if v_event='DEALER_SELECTED' and p_enquiry_id is not null then update public.customer_product_enquiries set status='DEALER_REFERRED',updated_at=now() where id=p_enquiry_id; end if;
  return true;
