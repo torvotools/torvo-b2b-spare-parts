@@ -40,4 +40,6 @@ for(const guard of['STATE REQUIRED','DISTRICT REQUIRED','CITY REQUIRED','VALID P
 for(const field of['state text','district text','city text','product_type text','brand text','machine_model text','required_item text','item_oem_no text','quantity integer','marketing_consent_at timestamptz','marketing_consent_source text','marketing_opted_out_at timestamptz'])if(!supportSql.includes(field))fail(`PRODUCT REQUIREMENT STRUCTURED/AUDIT FIELD MISSING: ${field}`);
 if(!supportSql.includes('public_set_product_requirement_marketing_opt_out')||!supportSql.includes('marketing_opted_out_at=now()'))fail('PRODUCT REQUIREMENT MARKETING OPT-OUT SQL CONTRACT MISSING');
 if(!supportSql.includes('enquiry_id uuid references public.customer_product_enquiries(id)')||!supportSql.includes('public_create_customer_complaint'))fail('CUSTOMER COMPLAINT MUST REFERENCE CUSTOMER PRODUCT ENQUIRY ID');
-console.log('TORVO V2 public website + enquiry/referral + enquiry/requirement opt-out + UI/server structured requirement contract OK');
+for(const guard of['VALID APPROVED DEALER REQUIRED','CUSTOMER ENQUIRY NOT FOUND FOR MOBILE'])if(!supportSql.includes(guard))fail(`CUSTOMER COMPLAINT OWNERSHIP VALIDATION MISSING: ${guard}`);
+if(!supportSql.includes("e.id=p_enquiry_id and e.mobile_whatsapp=right(v_mobile,10)"))fail('CUSTOMER COMPLAINT ENQUIRY MUST BELONG TO SUBMITTING MOBILE');
+console.log('TORVO V2 public website + enquiry/referral + complaint ownership + enquiry/requirement opt-out + UI/server structured requirement contract OK');
