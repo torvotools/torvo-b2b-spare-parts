@@ -15,3 +15,5 @@ NEXT IMPLEMENTATION DEPENDENCIES
 - Run staging tests and record evidence before production-ready status.
 
 Branch policy: torvo-v2-build only. main/V27 remains untouched.
+
+Checkpoint commit prepared after the five-work documentation batch.
