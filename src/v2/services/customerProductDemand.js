@@ -1,16 +1,18 @@
 import{requireBackend}from'./supabase';
+import{detectLeadSource,normalizeLeadSource}from'./publicLeadSource';
 const db=()=>requireBackend();
 const cleanMobile=v=>String(v||'').replace(/\D/g,'').slice(-10);
 const cleanPin=v=>String(v||'').replace(/\D/g,'').slice(0,6);
 const cleanId=v=>String(v||'').trim();
+const leadSource=v=>normalizeLeadSource(v)||detectLeadSource();
 const UUID_RE=/^[0-9a-f]{8}-[0-9a-f]{4}-[1-5][0-9a-f]{3}-[89ab][0-9a-f]{3}-[0-9a-f]{12}$/i;
 const requireUuid=(v,label='ID')=>{const id=cleanId(v);if(!id||!UUID_RE.test(id))throw new Error(`${label} IS INVALID`);return id};
 const cleanText=(v,max,label='VALUE')=>{const x=String(v||'').trim();if(x.length>max)throw new Error(`${label} MUST BE ${max} CHARACTERS OR LESS`);return x};
 const one=data=>Array.isArray(data)?data[0]:data;
-export async function createCustomerProductDemand({name,mobile,pin,searchText,productId=null,brand=null,modelNumber=null,requirementNote=null,marketing=false}={}){
+export async function createCustomerProductDemand({name,mobile,pin,searchText,productId=null,brand=null,modelNumber=null,requirementNote=null,marketing=false,source=null}={}){
  const fullName=cleanText(name,120,'CUSTOMER NAME'),m=cleanMobile(mobile),p=cleanPin(pin),q=cleanText(searchText,200,'PRODUCT SEARCH'),pid=cleanId(productId)?requireUuid(productId,'PRODUCT ID'):null,b=cleanText(brand,120,'BRAND')||null,model=cleanText(modelNumber,120,'MODEL NUMBER')||null,note=cleanText(requirementNote,500,'REQUIREMENT NOTE')||null;
  if(fullName.length<2)throw new Error('CUSTOMER NAME REQUIRED');if(m.length!==10)throw new Error('10-DIGIT MOBILE REQUIRED');if(p.length!==6)throw new Error('6-DIGIT PIN CODE REQUIRED');if(q.length<2)throw new Error('PRODUCT SEARCH REQUIRED');
- const{data,error}=await db().rpc('public_create_product_demand',{p_full_name:fullName,p_mobile:m,p_pin_code:p,p_search_text:q,p_product_id:pid,p_brand:b,p_model_number:model,p_requirement_note:note,p_marketing_opt_in:Boolean(marketing)});
+ const{data,error}=await db().rpc('public_create_product_demand',{p_full_name:fullName,p_mobile:m,p_pin_code:p,p_search_text:q,p_product_id:pid,p_brand:b,p_model_number:model,p_requirement_note:note,p_marketing_opt_in:Boolean(marketing),p_lead_source:leadSource(source)});
  if(error)throw error;const result=one(data);if(!result?.demand_id)throw new Error('CUSTOMER REQUIREMENT CREATION FAILED');return result;
 }
 export async function requestTorvoProductHelp(demandId,mobile){
