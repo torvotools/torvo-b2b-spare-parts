@@ -1,5 +1,5 @@
 -- TORVO V2 CUSTOMER SUPPORT + MISSING RANGE FOUNDATION
--- Run after core app_users, dealers and catalog_items migrations.
+-- Run after core app_users, dealers, catalog_items and customer_product_enquiries migrations.
 create extension if not exists pgcrypto;
 
 create table if not exists public.customer_product_requirements(
@@ -19,10 +19,16 @@ create table if not exists public.customer_product_requirements(
  quantity integer not null default 1 check(quantity>0),
  photo_url text,
  marketing_opt_in boolean not null default false,
+ marketing_consent_at timestamptz,
+ marketing_consent_source text,
+ marketing_opted_out_at timestamptz,
  status text not null default 'OPEN' check(status in('OPEN','UNDER REVIEW','PRODUCT ADDED','FULFILLED','CLOSED')),
  linked_product_id uuid references public.catalog_items(id) on delete set null,
  created_at timestamptz not null default now(), updated_at timestamptz not null default now()
 );
+alter table public.customer_product_requirements add column if not exists marketing_consent_at timestamptz;
+alter table public.customer_product_requirements add column if not exists marketing_consent_source text;
+alter table public.customer_product_requirements add column if not exists marketing_opted_out_at timestamptz;
 create index if not exists customer_product_requirements_lookup on public.customer_product_requirements(status,product_type,brand,created_at desc);
 
 create table if not exists public.customer_complaints(
@@ -56,8 +62,16 @@ returns uuid language plpgsql security definer set search_path=public as $$decla
  if v_type not in('MACHINE','SPARE PART','ACCESSORY') then raise exception 'VALID PRODUCT TYPE REQUIRED';end if;
  if length(trim(coalesce(p_required_item,'')))<2 then raise exception 'REQUIRED PRODUCT / ITEM REQUIRED';end if;
  if coalesce(p_quantity,0)<1 then raise exception 'VALID QUANTITY REQUIRED';end if;
- insert into customer_product_requirements(customer_name,mobile_whatsapp,state,district,city,pin_code,product_type,brand,machine_model,required_item,item_oem_no,description,quantity,photo_url,marketing_opt_in)
- values(upper(trim(p_customer_name)),right(v_mobile,10),upper(trim(p_state)),upper(trim(p_district)),upper(trim(p_city)),v_pin,v_type,upper(nullif(trim(p_brand),'')),upper(nullif(trim(p_machine_model),'')),upper(trim(p_required_item)),upper(nullif(trim(p_item_oem_no),'')),upper(nullif(trim(p_description),'')),p_quantity,nullif(trim(p_photo_url),''),coalesce(p_marketing_opt_in,false)) returning id into v_id;return v_id;end$$;
+ insert into customer_product_requirements(customer_name,mobile_whatsapp,state,district,city,pin_code,product_type,brand,machine_model,required_item,item_oem_no,description,quantity,photo_url,marketing_opt_in,marketing_consent_at,marketing_consent_source,marketing_opted_out_at)
+ values(upper(trim(p_customer_name)),right(v_mobile,10),upper(trim(p_state)),upper(trim(p_district)),upper(trim(p_city)),v_pin,v_type,upper(nullif(trim(p_brand),'')),upper(nullif(trim(p_machine_model),'')),upper(trim(p_required_item)),upper(nullif(trim(p_item_oem_no),'')),upper(nullif(trim(p_description),'')),p_quantity,nullif(trim(p_photo_url),''),coalesce(p_marketing_opt_in,false),case when coalesce(p_marketing_opt_in,false) then now() else null end,case when coalesce(p_marketing_opt_in,false) then 'PUBLIC WEBSITE' else null end,null) returning id into v_id;return v_id;end$$;
+
+create or replace function public.public_set_product_requirement_marketing_opt_out(p_requirement_id uuid,p_mobile_whatsapp text)
+returns boolean language plpgsql security definer set search_path=public as $$declare v_mobile text:=regexp_replace(coalesce(p_mobile_whatsapp,''),'\D','','g');begin
+ if p_requirement_id is null then raise exception 'REQUIREMENT ID REQUIRED';end if;
+ if length(v_mobile)<>10 then raise exception '10-DIGIT MOBILE / WHATSAPP REQUIRED';end if;
+ update customer_product_requirements set marketing_opt_in=false,marketing_opted_out_at=now(),updated_at=now() where id=p_requirement_id and mobile_whatsapp=right(v_mobile,10);
+ if not found then raise exception 'PRODUCT REQUIREMENT NOT FOUND';end if;
+ return true;end$$;
 
 create or replace function public.public_create_customer_complaint(p_customer_name text,p_mobile_whatsapp text,p_dealer_id uuid,p_enquiry_id uuid,p_category text,p_description text,p_attachment_url text default null)
 returns uuid language plpgsql security definer set search_path=public as $$declare v_id uuid;v_mobile text:=regexp_replace(coalesce(p_mobile_whatsapp,''),'\D','','g');v_cat text:=upper(trim(coalesce(p_category,'')));begin
@@ -69,6 +83,7 @@ returns uuid language plpgsql security definer set search_path=public as $$decla
  insert into customer_complaints(customer_name,mobile_whatsapp,dealer_id,enquiry_id,category,description,attachment_url) values(upper(trim(p_customer_name)),right(v_mobile,10),p_dealer_id,p_enquiry_id,v_cat,upper(trim(p_description)),nullif(trim(p_attachment_url),'')) returning id into v_id;return v_id;end$$;
 
 grant execute on function public.public_create_product_requirement(text,text,text,text,text,text,text,text,text,text,text,text,integer,text,boolean) to anon,authenticated;
+grant execute on function public.public_set_product_requirement_marketing_opt_out(uuid,text) to anon,authenticated;
 grant execute on function public.public_create_customer_complaint(text,text,uuid,uuid,text,text,text) to anon,authenticated;
 
 create or replace function public.torvo_admin_customer_requirements(p_status text default null) returns setof public.customer_product_requirements language sql security definer set search_path=public as $$select r.* from customer_product_requirements r where exists(select 1 from app_users u where u.auth_user_id=auth.uid() and lower(u.role) in('owner','admin') and coalesce(u.active,true)) and (p_status is null or r.status=upper(p_status)) order by r.created_at desc$$;
