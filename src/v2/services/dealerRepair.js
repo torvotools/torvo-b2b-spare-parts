@@ -1,6 +1,7 @@
 import{requireBackend}from'./supabase';
 import{assertDealerSession}from'./dealerSession';
-const STATES=Object.freeze(['new','accepted','closed']);
+// Public repair requests become dealer-visible only after TORVO routes them.
+const STATES=Object.freeze(['routed','accepted','closed']);
 const id=v=>{const s=String(v||'').trim();if(!s)throw new Error('REPAIR REQUIREMENT REQUIRED');if(s.length>128)throw new Error('REPAIR REQUIREMENT IS INVALID');return s};
 const state=(v,allowAll=false)=>{if((v==null||v==='')&&allowAll)return null;const s=String(v||'').trim().toLowerCase();if(!STATES.includes(s))throw new Error('INVALID REPAIR STATUS');return s};
 const proof=async()=>{const session=await assertDealerSession();if(!session?.deviceId||!session?.token)throw new Error('ACTIVE DEALER DEVICE SESSION REQUIRED');return session};
@@ -9,6 +10,7 @@ export const loadDealerRepairRequirements=async(status=null,limit=100)=>{const n
 export const updateDealerRepairRequirement=async(requirementId,status)=>{const next=state(status);if(!['accepted','closed'].includes(next))throw new Error('REPAIR STATUS MUST BE ACCEPTED OR CLOSED');const data=await rpc('dealer_update_repair_requirement',{p_requirement_id:id(requirementId),p_status:next});if(data!==true)throw new Error('REPAIR UPDATE NOT CONFIRMED');return true};
 export const acceptDealerRepairRequirement=requirementId=>updateDealerRepairRequirement(requirementId,'accepted');
 export const closeDealerRepairRequirement=requirementId=>updateDealerRepairRequirement(requirementId,'closed');
-export const loadOpenDealerRepairRequirements=limit=>loadDealerRepairRequirements('new',limit);
+export const loadOpenDealerRepairRequirements=limit=>loadDealerRepairRequirements('routed',limit);
 export const loadAcceptedDealerRepairRequirements=limit=>loadDealerRepairRequirements('accepted',limit);
+export const loadClosedDealerRepairRequirements=limit=>loadDealerRepairRequirements('closed',limit);
 export const dealerRepairStatuses=STATES;
