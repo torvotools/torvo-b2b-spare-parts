@@ -34,7 +34,7 @@ Authoritative dependency order. Never install migrations alphabetically and neve
 8. CENTRAL MAKER-CHECKER and final approval boundaries.
 9. FINANCIAL REPORTING: inventory movement, low-stock/reorder and Purchase Cost History/reporting read layers first; after delivered Sales, Purchase Cost History and Sales Return foundations exist, install `v2-expense-profit-integrity.sql`. Business expenses remain private, reversals are audited, and the profit summary is OWNER-only. Profit must use authoritative delivered Sales, completed Sales Returns and historical Purchase cost; missing historical cost must be reported rather than invented.
 10. Private Suitable/fitment and Dealer/role privacy foundations, including `v2-knowledge-rewards.sql` base.
-11. CUSTOMER/DEALER NETWORK BASE and public referral/repair/registration/service-area/support foundations. Install `v2-customer-dealer-referral-network.sql` exactly once here. After it install `v2-customer-marketing-consent-segmentation.sql`; marketing profile data is voluntary, consent-audited and private. After both customer contact + marketing-consent foundations exist, install `v2-customer-product-demand-leads.sql` to capture confirmed product requirements and missing-range demand without exposing Customer contact publicly. The public CustomerApp runtime-contract migration is installed later in CENTRAL ADMIN CONTROL after its managed-experience dependency exists. After `v2-public-dealer-registration.sql`, install `v2-accountant-dealer-verification.sql`, then after `v2-business-rpcs.sql` install `v2-dealer-final-approval-accountant-gate.sql`. The Step 1 canonical Dealer identity foundation is a mandatory prerequisite for this final approval gate.
+11. CUSTOMER/DEALER NETWORK BASE and public referral/repair/registration/service-area/support foundations. Install `v2-customer-dealer-referral-network.sql` exactly once here. After it install `v2-customer-marketing-consent-segmentation.sql`; marketing profile data is voluntary, consent-audited and private. After both customer contact + marketing-consent foundations exist, install `v2-customer-product-demand-leads.sql` to capture confirmed product requirements and missing-range demand without exposing Customer contact publicly. After the public enquiry/requirement/referral/repair foundations exist, install `v2-public-lead-source.sql` so WEBSITE/FACEBOOK/INSTAGRAM/YOUTUBE/WHATSAPP/EMAIL source is allowlisted and stored without retaining private referrer URLs. The public CustomerApp runtime-contract migration is installed later in CENTRAL ADMIN CONTROL after its managed-experience dependency exists. After `v2-public-dealer-registration.sql`, install `v2-accountant-dealer-verification.sql`, then after `v2-business-rpcs.sql` install `v2-dealer-final-approval-accountant-gate.sql`. The Step 1 canonical Dealer identity foundation is a mandatory prerequisite for this final approval gate.
 12. REFERRAL TO B2B BASE DEPENDENCIES.
 13. FIELD/STORE: salesman field network -> dealer-salesman mapping -> `v2-master-salesman-access.sql` -> `v2-salesman-attendance.sql` -> `v2-salesman-referral-otp-statement.sql` -> store keeper boundary. The Salesman referral OTP/statement migration is installed only after both the Step 11 customer/dealer referral network and the dealer-salesman mapping exist. OTP delivery remains a trusted WhatsApp worker/provider responsibility; plaintext OTP is never stored or returned to the client.
 14. CENTRAL ADMIN CONTROL -> `v2-accountant-workspace-buttons.sql` after `app_users` -> `v2-admin-managed-experience.sql` -> `v2-customer-public-runtime-contract.sql`. The final public runtime contract is installed here so CustomerApp locator/referral/settings RPC names match the client only after both customer/dealer network and Admin-managed experience dependencies exist. Daily website/app/social/marketing/feature configuration must be changed through Owner/Admin backend controls instead of source edits wherever the setting is operational content/configuration rather than executable code or a security rule.
@@ -67,7 +67,7 @@ Authoritative dependency order. Never install migrations alphabetically and neve
 - OWNER/ADMIN private CUSTOMER LEADS CENTER may combine requirement, customer contact and assigned Dealer status; this privileged read is never granted to public/Dealer roles.
 - CLOSING a requirement closes its still-open Dealer lead assignments and writes an audit entry with the supplied reason.
 - OWNER/ADMIN may mark an active requirement AVAILABLE only with truthful found information; an optional found Dealer must be APPROVED. The Customer result RPC requires matching demand ID + mobile proof and exposes the found contact note only while status is AVAILABLE.
-- CONVERSION requires AVAILABLE status, records `converted_at`, closes remaining open Dealer assignments and writes an audit entry before the requirement becomes CLOSED.
+- CONVERSION requires AVAILABLE status, records `converted_at`, closes remaining open Dealer lead assignments and writes an audit entry before the requirement becomes CLOSED.
 - DEALER notification/routing is controlled: Owner/Admin may assign only an active requirement to an APPROVED Dealer. Dealer inbox is device-bound and contains requirement/area data but no customer contact. Only the assigned Dealer that explicitly ACCEPTS the lead may receive the necessary Customer name/mobile/WhatsApp. Declined/unassigned Dealers never receive contact.
 - CUSTOMER LEAD ALERTS target only the assigned active approved Dealer app user. Alert body contains requirement and area/PIN only; Customer name/mobile/WhatsApp remain private until accepted through the device-bound lead RPC.
 - LOCAL / EXTENDED routing labels do not themselves prove distance. 0-25 KM / 25-50 KM claims require truthful coordinates, geocoding or service-area evidence; never infer kilometres from a PIN string alone.
@@ -78,53 +78,3 @@ Authoritative dependency order. Never install migrations alphabetically and neve
 - Purchase Order quantities are integer 1..9999 and duplicate catalog item lines fail.
 - Machine-spare, fitment, referral, missing-part, repair inbox/update and protected order actions require current device proof.
 - Sales Order confirmation, revision, modification request, approved Add More Items read/create, Additional Purchase Order request and 30-day order history require current device proof.
-- Customer demand lead inbox/accept/decline requires current Dealer device proof; contact unlock is permitted only after an assigned lead is accepted.
-- Dealer business UI must call the dedicated device-proof services; direct legacy repository RPC shortcuts are release blockers.
-- Build/App/Android verification must fail if legacy no-device machine-spare, rate, Purchase Order or repair client calls return.
-- Legacy no-device signatures must be absent after final migrations.
-- Revoked old mobile must fail every protected Dealer mutation/read even while its Supabase Auth token has not yet expired.
-
-## MANDATORY STAFF ACCESS GATE
-- `SM@01`-style username is Admin-managed and independent of employee mobile number.
-- Only one current unused one-time password; issuing another revokes previous.
-- SALESMAN/STORE KEEPER = approved `mobile_app`; ACCOUNTANT = approved `desktop`.
-- Logout/revocation means next login needs a fresh Admin-issued password.
-- MASTER SALESMAN grant/revoke is Owner/Admin controlled and audited server-side.
-- SALESMAN attendance uses authenticated server identity; a salesman can check in once per date, check out only after check-in, and read only self attendance through RPCs.
-- ACCOUNTANT SIDEBAR WORKSPACES ARE OWNER/ADMIN-MANAGED; ACCOUNTANT CAN READ ENABLED WORKSPACES BUT CANNOT CREATE, REORDER, ENABLE OR DISABLE THEM.
-
-## APP NOTIFICATION GATE
-- OWNER/ADMIN chooses one or more target roles; the server resolves recipients from active users.
-- Every published message remains in the recipient's backend inbox even if native push delivery is temporarily unavailable.
-- Native Android/iOS push uses registered app-device tokens and a trusted server/worker provider integration; provider credentials are server-only.
-- UPDATE, ACCOUNT/ACCESS, BUSINESS and GENERAL messages may carry a safe action key/value for app routing; notification content must never change authorization rules.
-- CUSTOMER LEAD notifications are direct-recipient alerts, not role-wide broadcasts; the assigned Dealer receives requirement/area only and must use the secure lead acceptance flow to unlock Customer contact.
-
-## RETIRED / DO NOT ENABLE
-- `v2-public-retail-pricing-foundation.sql`
-- `v2-public-checkout-payment-modes.sql`
-
-## MANDATORY GENERAL STAGING GATE
-- Role authorization/privacy for OWNER, ADMIN, SALESMAN, ACCOUNTANT, STORE KEEPER, DEALER and PUBLIC CUSTOMER.
-- Public cannot read Dealer Rate A/B/C, private fitment, purchase cost or privileged Customer data.
-- Public catalog has no TORVO selling price/checkout/payment.
-- Dealer PIN is hashed and one active Dealer device rule is server-enforced.
-- ONE APP routes by authoritative authenticated role.
-- Purchase/payment/Delivery/Return integrity and maker-checker remain final authority.
-- Expense/Profit integrity must pass before release: direct financial tables stay private; expense recording/reversal is role-controlled and audited; profit is OWNER-only, delivered-Sales based, Return-aware, historical-cost based, and reports missing cost instead of fabricating it.
-
-## APP RELEASE GATE
-- Owner/Admin APP RELEASE tab reads release metadata through `admin_app_release_center()` only.
-- Browser cannot write release metadata or mark an artifact verified.
-- APK/AAB/iOS download is shown only when status is VERIFIED/PUBLISHED and a trusted artifact URL exists.
-- DATA/CONTENT changes flow from the central backend without native reinstall; PROGRAM/CODE changes require a new verified native release.
-- INSTALLED APP checks verified production update metadata on startup, foreground/resume and periodically; package identity remains `com.torvotools.app`.
-
-## ANDROID / LIVE RELEASE GATE
-- Exact release SHA Build Check and FINAL READINESS contract must pass.
-- Android artifact must install/open on a real Android device before production-ready claim.
-- Debug APK is TEST ONLY; public release requires private signing and signed AAB/APK.
-- External provider credentials and custom domain/DNS remain deployment gates.
-
-## RELEASE EVIDENCE
-Retain migration branch/commit, role/security results, exact web build/deploy SHA, Android artifact and real-device test evidence. No final-live claim without it.
