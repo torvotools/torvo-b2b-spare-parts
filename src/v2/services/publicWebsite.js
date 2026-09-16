@@ -4,6 +4,8 @@ const db=()=>requireBackend(),source=v=>normalizeLeadSource(v)||detectLeadSource
 export async function loadLocationStates(){const{data,error}=await db().rpc('public_location_states');if(error)throw error;return data||[]}
 export async function loadLocationDistricts(stateId){if(!stateId)return[];const{data,error}=await db().rpc('public_location_districts',{p_state_id:stateId});if(error)throw error;return data||[]}
 export async function loadLocationCities(districtId){if(!districtId)return[];const{data,error}=await db().rpc('public_location_cities',{p_district_id:districtId});if(error)throw error;return data||[]}
+export async function loadCatalogBrands(){const{data,error}=await db().rpc('public_catalog_brands');if(error)throw error;return data||[]}
+export async function loadCatalogMachineModels(brand){const clean=String(brand||'').trim();if(!clean)return[];const{data,error}=await db().rpc('public_catalog_machine_models',{p_brand:clean});if(error)throw error;return data||[]}
 export async function searchProducts(search){const{data,error}=await db().rpc('public_customer_catalog',{p_search:String(search||'').trim()||null,p_limit:20});if(error)throw error;return data||[]}
 export async function loadProductShowcase(limit=60){const{data,error}=await db().rpc('public_product_showcase',{p_limit:Math.max(1,Math.min(Number(limit)||60,120))});if(error)throw error;return data||[]}
 export async function findDealers(pin,repairOnly=false){const{data,error}=await db().rpc('public_find_torvo_dealers_expanded',{p_pin_code:pin6(pin),p_repair_only:repairOnly,p_limit:12});if(error)throw error;return data||[]}
