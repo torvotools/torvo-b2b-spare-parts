@@ -23,5 +23,12 @@ if(!enquirySql.includes('public_set_customer_enquiry_marketing_opt_out')||!enqui
 if(!enquirySql.includes('enquiry_id uuid references public.customer_product_enquiries(id)')||!enquirySql.includes('public_track_dealer_referral_event(p_enquiry_id uuid'))fail('REFERRAL ANALYTICS MUST REFERENCE CUSTOMER PRODUCT ENQUIRY ID');
 for(const guard of['CUSTOMER ENQUIRY NOT FOUND','PRODUCT NOT AVAILABLE','PRODUCT DOES NOT BELONG TO CUSTOMER ENQUIRY'])if(!enquirySql.includes(guard))fail(`REFERRAL SERVER VALIDATION MISSING: ${guard}`);
 if(!enquirySql.includes("upper(coalesce(d.status,''))='APPROVED'"))fail('REFERRAL EVENTS MUST REQUIRE APPROVED DEALER');
+const requirementBody=service.match(/export\s+async\s+function\s+createProductRequirement\b([\s\S]*?)(?=export\s+async\s+function|$)/)?.[1]||'';
+if(!requirementBody.includes("rpc('public_create_product_requirement'"))fail('PRODUCT REQUIREMENT MUST CREATE AUTHORITATIVE STRUCTURED REQUIREMENT');
+for(const arg of['p_state:state||null','p_district:district||null','p_city:city||null','p_product_type:','p_brand:','p_machine_model:','p_required_item:','p_item_oem_no:','p_quantity:qty'])if(!requirementBody.includes(arg))fail(`PRODUCT REQUIREMENT STRUCTURED ARGUMENT MISSING: ${arg}`);
+if(!requirementBody.includes('requirement_id:requirementId')||!requirementBody.includes('demand_id:demand?.demand_id'))fail('REQUIREMENT ID AND DEMAND ID MUST REMAIN DISTINCT');
+if(!supportSql.includes('create or replace function public.public_create_product_requirement('))fail('AUTHORITATIVE PRODUCT REQUIREMENT SQL RPC MISSING');
+for(const guard of['STATE REQUIRED','DISTRICT REQUIRED','CITY REQUIRED','VALID PRODUCT TYPE REQUIRED','REQUIRED PRODUCT / ITEM REQUIRED','VALID QUANTITY REQUIRED'])if(!supportSql.includes(guard))fail(`PRODUCT REQUIREMENT SERVER VALIDATION MISSING: ${guard}`);
+for(const field of['state text','district text','city text','product_type text','brand text','machine_model text','required_item text','item_oem_no text','quantity integer'])if(!supportSql.includes(field))fail(`PRODUCT REQUIREMENT STRUCTURED FIELD MISSING: ${field}`);
 if(!supportSql.includes('enquiry_id uuid references public.customer_product_enquiries(id)')||!supportSql.includes('public_create_customer_complaint'))fail('CUSTOMER COMPLAINT MUST REFERENCE CUSTOMER PRODUCT ENQUIRY ID');
-console.log('TORVO V2 public website + enquiry/referral consent/location contract OK');
+console.log('TORVO V2 public website + enquiry/referral + structured requirement contract OK');
