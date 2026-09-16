@@ -1,6 +1,9 @@
 import{requireBackend}from'./supabase';
 import{detectLeadSource,normalizeLeadSource}from'./publicLeadSource';
 const db=()=>requireBackend(),source=v=>normalizeLeadSource(v)||detectLeadSource(),mobile10=v=>String(v||'').replace(/\D/g,'').slice(-10),pin6=v=>String(v||'').replace(/\D/g,'').slice(0,6);
+export async function loadLocationStates(){const{data,error}=await db().rpc('public_location_states');if(error)throw error;return data||[]}
+export async function loadLocationDistricts(stateId){if(!stateId)return[];const{data,error}=await db().rpc('public_location_districts',{p_state_id:stateId});if(error)throw error;return data||[]}
+export async function loadLocationCities(districtId){if(!districtId)return[];const{data,error}=await db().rpc('public_location_cities',{p_district_id:districtId});if(error)throw error;return data||[]}
 export async function searchProducts(search){const{data,error}=await db().rpc('public_customer_catalog',{p_search:String(search||'').trim()||null,p_limit:20});if(error)throw error;return data||[]}
 export async function loadProductShowcase(limit=60){const{data,error}=await db().rpc('public_product_showcase',{p_limit:Math.max(1,Math.min(Number(limit)||60,120))});if(error)throw error;return data||[]}
 export async function findDealers(pin,repairOnly=false){const{data,error}=await db().rpc('public_find_torvo_dealers_expanded',{p_pin_code:pin6(pin),p_repair_only:repairOnly,p_limit:12});if(error)throw error;return data||[]}
