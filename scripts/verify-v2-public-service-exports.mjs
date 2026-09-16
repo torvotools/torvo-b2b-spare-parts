@@ -7,7 +7,7 @@ const supportSql=read('supabase/v2-customer-support-opportunity-center.sql');
 const consumers=['src/v2/components/PublicWebsitePreview.jsx','src/v2/components/CustomerApp.jsx'];
 const exported=new Set([...service.matchAll(/export\s+async\s+function\s+([A-Za-z_$][\w$]*)/g)].map(x=>x[1]));
 for(const file of consumers){const text=read(file);for(const m of text.matchAll(/import\s*\{([^}]+)\}\s*from\s*['"]\.\.\/services\/publicWebsite['"]/g)){for(const raw of m[1].split(',')){const spec=raw.trim();if(!spec)continue;const imported=spec.split(/\s+as\s+/)[0].trim();if(!exported.has(imported))fail(`${file} IMPORTS ${imported} BUT publicWebsite.js DOES NOT EXPORT IT`)}}}
-for(const required of['createProductDemand','createProductEnquiry','createProductRequirement','createReferral','createRepair','findDealers','loadDealerProfile','registerDealer','trackDealerReferralEvent','createCustomerComplaint'])if(!exported.has(required))fail(`REQUIRED PUBLIC SERVICE EXPORT MISSING: ${required}`);
+for(const required of['createProductDemand','createProductEnquiry','optOutProductEnquiryMarketing','createProductRequirement','createReferral','createRepair','findDealers','loadDealerProfile','registerDealer','trackDealerReferralEvent','createCustomerComplaint'])if(!exported.has(required))fail(`REQUIRED PUBLIC SERVICE EXPORT MISSING: ${required}`);
 for(const fn of['createProductEnquiry','createProductRequirement']){const body=service.match(new RegExp(`export\\s+async\\s+function\\s+${fn}\\b([\\s\\S]*?)(?=export\\s+async\\s+function|$)`))?.[1]||'';if(!body.includes('createProductDemand'))fail(`${fn} MUST ROUTE THROUGH AUTHORITATIVE PRODUCT DEMAND SERVICE`)}
 for(const rpc of['public_create_product_demand','public_create_customer_referral','public_create_repair_request']){if(!service.includes(`rpc('${rpc}'`))fail(`${rpc} CLIENT CALL MISSING`);if(!leadSql.includes(`function ${rpc}(`))fail(`${rpc} SOURCE-AWARE SQL OVERLOAD MISSING`)}
 if(!service.includes('p_lead_source:source(leadSource)'))fail('PUBLIC SERVICE LEAD SOURCE ARGUMENT MISSING');
@@ -20,6 +20,9 @@ for(const field of['marketing_consent_at timestamptz','marketing_consent_source 
 for(const guard of['STATE REQUIRED','DISTRICT REQUIRED','CITY REQUIRED'])if(!enquirySql.includes(guard))fail(`SERVER LOCATION VALIDATION MISSING: ${guard}`);
 if(!enquirySql.includes("marketing_consent_source")||!enquirySql.includes("'PUBLIC WEBSITE'"))fail('MARKETING CONSENT SOURCE AUDIT MISSING');
 if(!enquirySql.includes('public_set_customer_enquiry_marketing_opt_out')||!enquirySql.includes('marketing_opted_out_at=now()'))fail('CUSTOMER MARKETING OPT-OUT CONTRACT MISSING');
+const optOutBody=service.match(/export\s+async\s+function\s+optOutProductEnquiryMarketing\b([\s\S]*?)(?=export\s+async\s+function|$)/)?.[1]||'';
+if(!optOutBody.includes("rpc('public_set_customer_enquiry_marketing_opt_out'"))fail('PUBLIC MARKETING OPT-OUT SERVICE MUST CALL AUTHORITATIVE RPC');
+for(const token of['ENQUIRY ID REQUIRED','10-DIGIT MOBILE / WHATSAPP REQUIRED','p_enquiry_id:enquiryId','p_mobile_whatsapp:cleanMobile'])if(!optOutBody.includes(token))fail(`PUBLIC MARKETING OPT-OUT VALIDATION/ARGUMENT MISSING: ${token}`);
 if(!enquirySql.includes('enquiry_id uuid references public.customer_product_enquiries(id)')||!enquirySql.includes('public_track_dealer_referral_event(p_enquiry_id uuid'))fail('REFERRAL ANALYTICS MUST REFERENCE CUSTOMER PRODUCT ENQUIRY ID');
 for(const guard of['CUSTOMER ENQUIRY NOT FOUND','PRODUCT NOT AVAILABLE','PRODUCT DOES NOT BELONG TO CUSTOMER ENQUIRY'])if(!enquirySql.includes(guard))fail(`REFERRAL SERVER VALIDATION MISSING: ${guard}`);
 if(!enquirySql.includes("upper(coalesce(d.status,''))='APPROVED'"))fail('REFERRAL EVENTS MUST REQUIRE APPROVED DEALER');
@@ -31,4 +34,4 @@ if(!supportSql.includes('create or replace function public.public_create_product
 for(const guard of['STATE REQUIRED','DISTRICT REQUIRED','CITY REQUIRED','VALID PRODUCT TYPE REQUIRED','REQUIRED PRODUCT / ITEM REQUIRED','VALID QUANTITY REQUIRED'])if(!supportSql.includes(guard))fail(`PRODUCT REQUIREMENT SERVER VALIDATION MISSING: ${guard}`);
 for(const field of['state text','district text','city text','product_type text','brand text','machine_model text','required_item text','item_oem_no text','quantity integer'])if(!supportSql.includes(field))fail(`PRODUCT REQUIREMENT STRUCTURED FIELD MISSING: ${field}`);
 if(!supportSql.includes('enquiry_id uuid references public.customer_product_enquiries(id)')||!supportSql.includes('public_create_customer_complaint'))fail('CUSTOMER COMPLAINT MUST REFERENCE CUSTOMER PRODUCT ENQUIRY ID');
-console.log('TORVO V2 public website + enquiry/referral + structured requirement contract OK');
+console.log('TORVO V2 public website + enquiry/referral + marketing opt-out + structured requirement contract OK');
