@@ -1,0 +1,11 @@
+import fs from'node:fs';
+const read=p=>fs.readFileSync(p,'utf8'),fail=m=>{console.error(`LOCATION DROPDOWN CONTRACT FAILED: ${m}`);process.exit(1)};
+const sql=read('supabase/v2-location-master.sql');
+const service=read('src/v2/services/publicWebsite.js');
+const ui=read('src/v2/components/PublicLocationDropdowns.jsx');
+for(const token of['location_states','location_districts','location_cities','public_location_states','public_location_districts','public_location_cities'])if(!sql.includes(token))fail(`LOCATION MASTER TOKEN MISSING: ${token}`);
+for(const token of['loadLocationStates','loadLocationDistricts','loadLocationCities',"rpc('public_location_states'","rpc('public_location_districts'","rpc('public_location_cities'"])if(!service.includes(token))fail(`PUBLIC LOCATION SERVICE MISSING: ${token}`);
+for(const token of['SELECT STATE','SELECT DISTRICT','SELECT CITY','setDistrictId(\'\')','setDistricts([])','setCities([])','DISTRICT MASTER NOT AVAILABLE','CITY MASTER NOT AVAILABLE'])if(!ui.includes(token))fail(`LINKED DROPDOWN SAFETY MISSING: ${token}`);
+if(/<label>STATE<input|<label>DISTRICT<input|<label>CITY<input/.test(ui))fail('LOCATION COMPONENT MUST NOT FALL BACK TO FREE-TEXT STATE/DISTRICT/CITY');
+for(const token of['replace(/\\D/g,\'\').slice(0,10)','replace(/\\D/g,\'\').slice(0,6)','pattern="[0-9]{6}"'])if(!ui.includes(token))fail(`CONTACT INPUT NORMALIZATION MISSING: ${token}`);
+console.log('TORVO V2 authoritative STATE -> DISTRICT -> CITY dropdown contract OK');
