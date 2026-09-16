@@ -11,10 +11,16 @@ create table if not exists public.customer_product_enquiries (
   city_name text,
   pin_code text not null,
   marketing_opt_in boolean not null default false,
+  marketing_consent_at timestamptz,
+  marketing_consent_source text,
+  marketing_opted_out_at timestamptz,
   status text not null default 'OPEN' check (status in ('OPEN','DEALER_REFERRED','FULFILLED','CLOSED')),
   created_at timestamptz not null default now(),
   updated_at timestamptz not null default now()
 );
+alter table public.customer_product_enquiries add column if not exists marketing_consent_at timestamptz;
+alter table public.customer_product_enquiries add column if not exists marketing_consent_source text;
+alter table public.customer_product_enquiries add column if not exists marketing_opted_out_at timestamptz;
 
 create table if not exists public.customer_product_enquiry_items (
   id uuid primary key default gen_random_uuid(),
@@ -50,9 +56,12 @@ begin
  if length(trim(coalesce(p_customer_name,''))) < 2 then raise exception 'CUSTOMER NAME REQUIRED'; end if;
  if trim(coalesce(p_mobile_whatsapp,'')) !~ '^[0-9]{10}$' then raise exception 'VALID 10-DIGIT MOBILE REQUIRED'; end if;
  if trim(coalesce(p_pin_code,'')) !~ '^[0-9]{6}$' then raise exception 'VALID 6-DIGIT PIN REQUIRED'; end if;
+ if length(trim(coalesce(p_state,''))) < 2 then raise exception 'STATE REQUIRED'; end if;
+ if length(trim(coalesce(p_district,''))) < 2 then raise exception 'DISTRICT REQUIRED'; end if;
+ if length(trim(coalesce(p_city,''))) < 2 then raise exception 'CITY REQUIRED'; end if;
  if coalesce(array_length(p_product_ids,1),0)=0 then raise exception 'SELECT AT LEAST ONE PRODUCT'; end if;
- insert into public.customer_product_enquiries(customer_name,mobile_whatsapp,state_name,district_name,city_name,pin_code,marketing_opt_in)
- values(upper(trim(p_customer_name)),trim(p_mobile_whatsapp),upper(nullif(trim(p_state),'')),upper(nullif(trim(p_district),'')),upper(nullif(trim(p_city),'')),trim(p_pin_code),coalesce(p_marketing_opt_in,false)) returning id,enquiry_no into v_id,v_no;
+ insert into public.customer_product_enquiries(customer_name,mobile_whatsapp,state_name,district_name,city_name,pin_code,marketing_opt_in,marketing_consent_at,marketing_consent_source,marketing_opted_out_at)
+ values(upper(trim(p_customer_name)),trim(p_mobile_whatsapp),upper(trim(p_state)),upper(trim(p_district)),upper(trim(p_city)),trim(p_pin_code),coalesce(p_marketing_opt_in,false),case when coalesce(p_marketing_opt_in,false) then now() else null end,case when coalesce(p_marketing_opt_in,false) then 'PUBLIC WEBSITE' else null end,null) returning id,enquiry_no into v_id,v_no;
  foreach v_product in array p_product_ids loop
   if exists(select 1 from public.catalog_items c where c.id=v_product and coalesce(c.is_active,true)=true) then
    insert into public.customer_product_enquiry_items(enquiry_id,product_id) values(v_id,v_product) on conflict do nothing;
@@ -76,6 +85,16 @@ begin
  return true;
 end $$;
 
+create or replace function public.public_set_customer_enquiry_marketing_opt_out(p_enquiry_id uuid,p_mobile_whatsapp text)
+returns boolean language plpgsql security definer set search_path=public as $$
+begin
+ if trim(coalesce(p_mobile_whatsapp,'')) !~ '^[0-9]{10}$' then raise exception 'VALID 10-DIGIT MOBILE REQUIRED'; end if;
+ update public.customer_product_enquiries set marketing_opt_in=false,marketing_opted_out_at=now(),updated_at=now()
+ where id=p_enquiry_id and mobile_whatsapp=trim(p_mobile_whatsapp);
+ if not found then raise exception 'CUSTOMER ENQUIRY NOT FOUND'; end if;
+ return true;
+end $$;
+
 create or replace function public.admin_dealer_referral_performance(p_from timestamptz default now()-interval '30 days',p_to timestamptz default now())
 returns table(dealer_id uuid,shop_name text,total_customers bigint,profile_views bigint,dealer_selections bigint,call_clicks bigint,whatsapp_clicks bigint,directions_clicks bigint,confirmed_conversions bigint)
 language sql security definer set search_path=public as $$
@@ -93,5 +112,7 @@ revoke all on function public.public_create_product_enquiry(text,text,text,text,
 grant execute on function public.public_create_product_enquiry(text,text,text,text,text,text,uuid[],boolean) to anon,authenticated;
 revoke all on function public.public_track_dealer_referral_event(uuid,uuid,text,uuid) from public;
 grant execute on function public.public_track_dealer_referral_event(uuid,uuid,text,uuid) to anon,authenticated;
+revoke all on function public.public_set_customer_enquiry_marketing_opt_out(uuid,text) from public;
+grant execute on function public.public_set_customer_enquiry_marketing_opt_out(uuid,text) to anon,authenticated;
 revoke all on function public.admin_dealer_referral_performance(timestamptz,timestamptz) from public;
 grant execute on function public.admin_dealer_referral_performance(timestamptz,timestamptz) to authenticated;
