@@ -25,7 +25,7 @@ Authoritative dependency order. Never install migrations alphabetically and neve
 
 ## INSTALL SEQUENCE
 1. CORE: `v2-schema.sql` -> `v2-core-dealer-identity.sql`, then role/profile/base RLS/security dependencies. The canonical `app_users.dealer_id` link MUST exist here before any Dealer final-approval RPC; mobile is never an authorization key. Later `v2-dealer-pin-auth.sql` keeps its `ADD COLUMN IF NOT EXISTS` only for idempotent upgrade compatibility.
-2. CATALOG: catalog/item/master/rate/search foundations + dependent RPCs.
+2. CATALOG: catalog/item/master/rate/search foundations + dependent RPCs. After `catalog_items` exists, install `v2-public-catalog-dropdowns.sql`; its public BRAND -> MACHINE/MODEL RPCs derive only ACTIVE catalog values and expose no Dealer A/B/C rate or Purchase Cost data. This migration must exist before public Product Requirement runtime verification.
 3. SALES: sales/order foundations -> `v2-sales-order-integrity.sql` -> `v2-additional-purchase-order.sql`.
 4. PURCHASE + INVENTORY: inventory + canonical movement and final Purchase integrity migrations.
 5. PURCHASE REQUIREMENTS: base -> RPC -> item link -> fulfilment -> receipt integrity -> `v2-accountant-stock-requirement-view.sql`.
