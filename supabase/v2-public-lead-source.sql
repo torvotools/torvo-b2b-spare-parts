@@ -1,36 +1,15 @@
 -- TORVO V2 PUBLIC LEAD SOURCE
--- ADDITIVE MIGRATION. RUN AFTER THE PUBLIC CUSTOMER/REFERRAL TABLES AND RPCS EXIST.
--- PURPOSE: PRESERVE WEBSITE / FACEBOOK / INSTAGRAM / YOUTUBE / WHATSAPP / EMAIL SOURCE WITHOUT EXPOSING PRIVATE DATA.
-
+-- ADDITIVE MIGRATION. RUN AFTER PUBLIC CUSTOMER/REFERRAL/REPAIR/DEMAND FOUNDATIONS EXIST.
+-- RAW REFERRER URL IS NEVER STORED.
 do $$ begin
-  if to_regclass('public.customer_contacts') is not null then
-    alter table public.customer_contacts add column if not exists lead_source text;
-    alter table public.customer_contacts drop constraint if exists customer_contacts_lead_source_check;
-    alter table public.customer_contacts add constraint customer_contacts_lead_source_check check(lead_source is null or lead_source in('WEBSITE','FACEBOOK','INSTAGRAM','YOUTUBE','WHATSAPP','EMAIL','OTHER'));
-  end if;
+ if to_regclass('public.customer_contacts') is not null then alter table customer_contacts add column if not exists lead_source text; end if;
+ if to_regclass('public.customer_dealer_referrals') is not null then alter table customer_dealer_referrals add column if not exists lead_source text; end if;
+ if to_regclass('public.customer_repair_requirements') is not null then alter table customer_repair_requirements add column if not exists lead_source text; end if;
+ if to_regclass('public.customer_product_demands') is not null then alter table customer_product_demands add column if not exists lead_source text; end if;
 end $$;
-
-do $$ begin
-  if to_regclass('public.customer_product_enquiries') is not null then
-    alter table public.customer_product_enquiries add column if not exists lead_source text;
-  end if;
-  if to_regclass('public.product_requirements') is not null then
-    alter table public.product_requirements add column if not exists lead_source text;
-  end if;
-  if to_regclass('public.customer_dealer_referrals') is not null then
-    alter table public.customer_dealer_referrals add column if not exists lead_source text;
-  end if;
-  if to_regclass('public.repair_requests') is not null then
-    alter table public.repair_requests add column if not exists lead_source text;
-  end if;
-end $$;
-
-create or replace function public.torvo_normalize_public_lead_source(p_source text) returns text language sql immutable as $$
-  select case upper(btrim(coalesce(p_source,'')))
-    when 'FACEBOOK' then 'FACEBOOK' when 'INSTAGRAM' then 'INSTAGRAM' when 'YOUTUBE' then 'YOUTUBE'
-    when 'WHATSAPP' then 'WHATSAPP' when 'EMAIL' then 'EMAIL' when 'OTHER' then 'OTHER' else 'WEBSITE' end
-$$;
-revoke all on function public.torvo_normalize_public_lead_source(text) from public;
-grant execute on function public.torvo_normalize_public_lead_source(text) to anon,authenticated;
-
-comment on function public.torvo_normalize_public_lead_source(text) is 'TORVO V2 allowlisted public lead-source normalizer. No private referrer URL is stored.';
+create or replace function torvo_normalize_public_lead_source(p_source text) returns text language sql immutable as $$select case upper(btrim(coalesce(p_source,''))) when 'FACEBOOK' then 'FACEBOOK' when 'INSTAGRAM' then 'INSTAGRAM' when 'YOUTUBE' then 'YOUTUBE' when 'WHATSAPP' then 'WHATSAPP' when 'EMAIL' then 'EMAIL' when 'OTHER' then 'OTHER' else 'WEBSITE' end$$;
+revoke all on function torvo_normalize_public_lead_source(text) from public;grant execute on function torvo_normalize_public_lead_source(text) to anon,authenticated;
+create or replace function public_create_customer_referral(p_full_name text,p_mobile text,p_pin_code text,p_product_id uuid,p_dealer_id uuid,p_marketing_opt_in boolean,p_lead_source text) returns table(referral_id uuid,referral_code text,benefit_type text,benefit_value numeric,benefit_text text,expires_at timestamptz) language plpgsql security definer set search_path=public as $$declare r record;s text:=torvo_normalize_public_lead_source(p_lead_source);begin for r in select * from public_create_customer_referral(p_full_name,p_mobile,p_pin_code,p_product_id,p_dealer_id,p_marketing_opt_in) loop update customer_contacts set lead_source=s where mobile=right(regexp_replace(coalesce(p_mobile,''),'\D','','g'),10);update customer_dealer_referrals set lead_source=s where id=r.referral_id;return query select r.referral_id,r.referral_code,r.benefit_type,r.benefit_value,r.benefit_text,r.expires_at;end loop;end$$;revoke all on function public_create_customer_referral(text,text,text,uuid,uuid,boolean,text) from public;grant execute on function public_create_customer_referral(text,text,text,uuid,uuid,boolean,text) to anon,authenticated;
+create or replace function public_create_repair_request(p_full_name text,p_mobile text,p_pin_code text,p_brand text,p_model_number text,p_problem_description text,p_marketing_opt_in boolean,p_lead_source text) returns table(requirement_id uuid,status text) language plpgsql security definer set search_path=public as $$declare r record;s text:=torvo_normalize_public_lead_source(p_lead_source);begin for r in select * from public_create_repair_request(p_full_name,p_mobile,p_pin_code,p_brand,p_model_number,p_problem_description,p_marketing_opt_in) loop update customer_contacts set lead_source=s where mobile=right(regexp_replace(coalesce(p_mobile,''),'\D','','g'),10);update customer_repair_requirements set lead_source=s where id=r.requirement_id;return query select r.requirement_id,r.status;end loop;end$$;revoke all on function public_create_repair_request(text,text,text,text,text,text,boolean,text) from public;grant execute on function public_create_repair_request(text,text,text,text,text,text,boolean,text) to anon,authenticated;
+create or replace function public_create_product_demand(p_full_name text,p_mobile text,p_pin_code text,p_search_text text,p_product_id uuid,p_brand text,p_model_number text,p_requirement_note text,p_marketing_opt_in boolean,p_lead_source text) returns table(demand_id uuid,status text) language plpgsql security definer set search_path=public as $$declare r record;s text:=torvo_normalize_public_lead_source(p_lead_source);begin for r in select * from public_create_product_demand(p_full_name,p_mobile,p_pin_code,p_search_text,p_product_id,p_brand,p_model_number,p_requirement_note,p_marketing_opt_in) loop update customer_contacts set lead_source=s where mobile=right(regexp_replace(coalesce(p_mobile,''),'\D','','g'),10);update customer_product_demands set lead_source=s where id=r.demand_id;return query select r.demand_id,r.status;end loop;end$$;revoke all on function public_create_product_demand(text,text,text,text,uuid,text,text,text,boolean,text) from public;grant execute on function public_create_product_demand(text,text,text,text,uuid,text,text,text,boolean,text) to anon,authenticated;
+comment on function torvo_normalize_public_lead_source(text) is 'TORVO V2 ALLOWLISTED LEAD SOURCE; RAW REFERRER URL IS NOT STORED.';
