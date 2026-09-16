@@ -22,7 +22,7 @@ create table if not exists public.customer_product_requirements(
  marketing_consent_at timestamptz,
  marketing_consent_source text,
  marketing_opted_out_at timestamptz,
- status text not null default 'OPEN' check(status in('OPEN','UNDER REVIEW','PRODUCT ADDED','FULFILLED','CLOSED')),
+ status text not null default 'OPEN' check(status in('OPEN','UNDER REVIEW','RESOLVED','REJECTED','PRODUCT ADDED','FULFILLED','CLOSED')),
  linked_product_id uuid references public.catalog_items(id) on delete set null,
  created_at timestamptz not null default now(), updated_at timestamptz not null default now()
 );
@@ -45,6 +45,7 @@ create table if not exists public.customer_complaints(
  created_at timestamptz not null default now(), updated_at timestamptz not null default now()
 );
 create index if not exists customer_complaints_admin_lookup on public.customer_complaints(status,dealer_id,created_at desc);
+create unique index if not exists customer_complaints_open_dedupe on public.customer_complaints(mobile_whatsapp,coalesce(dealer_id,'00000000-0000-0000-0000-000000000000'::uuid),coalesce(enquiry_id,'00000000-0000-0000-0000-000000000000'::uuid),category) where status in('OPEN','UNDER REVIEW');
 
 alter table public.customer_product_requirements enable row level security;
 alter table public.customer_complaints enable row level security;
@@ -81,7 +82,11 @@ returns uuid language plpgsql security definer set search_path=public as $$decla
  if length(trim(coalesce(p_description,'')))<5 then raise exception 'COMPLAINT DETAILS REQUIRED';end if;
  if p_dealer_id is not null and not exists(select 1 from dealers d where d.id=p_dealer_id and upper(coalesce(d.status,''))='APPROVED') then raise exception 'VALID APPROVED DEALER REQUIRED';end if;
  if p_enquiry_id is not null and not exists(select 1 from customer_product_enquiries e where e.id=p_enquiry_id and e.mobile_whatsapp=right(v_mobile,10)) then raise exception 'CUSTOMER ENQUIRY NOT FOUND FOR MOBILE';end if;
- insert into customer_complaints(customer_name,mobile_whatsapp,dealer_id,enquiry_id,category,description,attachment_url) values(upper(trim(p_customer_name)),right(v_mobile,10),p_dealer_id,p_enquiry_id,v_cat,upper(trim(p_description)),nullif(trim(p_attachment_url),'')) returning id into v_id;return v_id;end$$;
+ if exists(select 1 from customer_complaints c where c.mobile_whatsapp=right(v_mobile,10) and c.dealer_id is not distinct from p_dealer_id and c.enquiry_id is not distinct from p_enquiry_id and c.category=v_cat and c.status in('OPEN','UNDER REVIEW')) then raise exception 'SIMILAR COMPLAINT ALREADY OPEN';end if;
+ begin
+  insert into customer_complaints(customer_name,mobile_whatsapp,dealer_id,enquiry_id,category,description,attachment_url) values(upper(trim(p_customer_name)),right(v_mobile,10),p_dealer_id,p_enquiry_id,v_cat,upper(trim(p_description)),nullif(trim(p_attachment_url),'')) returning id into v_id;
+ exception when unique_violation then raise exception 'SIMILAR COMPLAINT ALREADY OPEN';end;
+ return v_id;end$$;
 
 grant execute on function public.public_create_product_requirement(text,text,text,text,text,text,text,text,text,text,text,text,integer,text,boolean) to anon,authenticated;
 grant execute on function public.public_set_product_requirement_marketing_opt_out(uuid,text) to anon,authenticated;
