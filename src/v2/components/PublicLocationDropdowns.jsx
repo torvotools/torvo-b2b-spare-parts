@@ -1,0 +1,12 @@
+import React,{useEffect,useState}from'react';
+import{loadLocationStates,loadLocationDistricts,loadLocationCities}from'../services/publicWebsite';
+
+export default function PublicLocationDropdowns({value,onChange,disabled=false}){
+ const[states,setStates]=useState([]),[districts,setDistricts]=useState([]),[cities,setCities]=useState([]),[stateId,setStateId]=useState(''),[districtId,setDistrictId]=useState(''),[loading,setLoading]=useState('');
+ useEffect(()=>{let live=true;setLoading('STATE');loadLocationStates().then(x=>{if(live)setStates(x||[])}).catch(()=>{if(live)setStates([])}).finally(()=>{if(live)setLoading('')});return()=>{live=false}},[]);
+ const emit=next=>onChange?.({...value,...next});
+ const changeState=async e=>{const id=e.target.value,row=states.find(x=>x.id===id);setStateId(id);setDistrictId('');setDistricts([]);setCities([]);emit({state:row?.name||'',district:'',city:''});if(!id)return;setLoading('DISTRICT');try{setDistricts(await loadLocationDistricts(id))}finally{setLoading('')}};
+ const changeDistrict=async e=>{const id=e.target.value,row=districts.find(x=>x.id===id);setDistrictId(id);setCities([]);emit({district:row?.name||'',city:''});if(!id)return;setLoading('CITY');try{setCities(await loadLocationCities(id))}finally{setLoading('')}};
+ const changeCity=e=>{const row=cities.find(x=>x.id===e.target.value);emit({city:row?.name||''})};
+ return <><div className="formTwo"><label>STATE<select value={stateId} onChange={changeState} disabled={disabled||loading==='STATE'}><option value="">{loading==='STATE'?'LOADING STATES…':'SELECT STATE'}</option>{states.map(x=><option key={x.id} value={x.id}>{x.name}</option>)}</select></label><label>DISTRICT<select value={districtId} onChange={changeDistrict} disabled={disabled||!stateId||loading==='DISTRICT'}><option value="">{loading==='DISTRICT'?'LOADING DISTRICTS…':'SELECT DISTRICT'}</option>{districts.map(x=><option key={x.id} value={x.id}>{x.name}</option>)}</select></label></div><div className="formTwo"><label>CITY<select value={cities.find(x=>x.name===value?.city)?.id||''} onChange={changeCity} disabled={disabled||!districtId||loading==='CITY'}><option value="">{loading==='CITY'?'LOADING CITIES…':'SELECT CITY'}</option>{cities.map(x=><option key={x.id} value={x.id}>{x.name}</option>)}</select></label><label>PIN CODE<input name="pin" inputMode="numeric" maxLength="6" value={value?.pin||''} onChange={e=>emit({pin:e.target.value.replace(/\D/g,'').slice(0,6)})} disabled={disabled}/></label></div></>;
+}
