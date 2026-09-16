@@ -17,5 +17,7 @@ if(!enquiryBody.includes('enquiry?.enquiry_id')||/enquiry_id\s*:\s*rows\[0\]\?\.
 for(const arg of['p_state:state||null','p_district:district||null','p_city:city||null'])if(!enquiryBody.includes(arg))fail(`PRODUCT ENQUIRY LOCATION ARGUMENT MISSING: ${arg}`);
 if(!enquirySql.includes('create table if not exists public.customer_product_enquiries')||!enquirySql.includes('create or replace function public.public_create_product_enquiry('))fail('AUTHORITATIVE CUSTOMER ENQUIRY SQL CONTRACT MISSING');
 if(!enquirySql.includes('enquiry_id uuid references public.customer_product_enquiries(id)')||!enquirySql.includes('public_track_dealer_referral_event(p_enquiry_id uuid'))fail('REFERRAL ANALYTICS MUST REFERENCE CUSTOMER PRODUCT ENQUIRY ID');
+for(const guard of['CUSTOMER ENQUIRY NOT FOUND','PRODUCT NOT AVAILABLE','PRODUCT DOES NOT BELONG TO CUSTOMER ENQUIRY'])if(!enquirySql.includes(guard))fail(`REFERRAL SERVER VALIDATION MISSING: ${guard}`);
+if(!enquirySql.includes("upper(coalesce(d.status,''))='APPROVED'"))fail('REFERRAL EVENTS MUST REQUIRE APPROVED DEALER');
 if(!supportSql.includes('enquiry_id uuid references public.customer_product_enquiries(id)')||!supportSql.includes('public_create_customer_complaint'))fail('CUSTOMER COMPLAINT MUST REFERENCE CUSTOMER PRODUCT ENQUIRY ID');
-console.log('TORVO V2 public website service + authoritative enquiry identity contract OK');
+console.log('TORVO V2 public website + enquiry/referral server validation contract OK');
