@@ -1,0 +1,14 @@
+import fs from'node:fs';
+const read=p=>fs.readFileSync(p,'utf8'),fail=m=>{console.error(`OWNER REQUIREMENTS LOCK FAILED: ${m}`);process.exit(1)};
+const master=read('docs/TORVO-V2-MASTER-HANDOVER.md');
+const lock=read('docs/TORVO-V2-OWNER-REQUIREMENTS-LOCK.md');
+const pkg=read('package.json');
+const requiredMaster=['PUBLIC WEBSITE','TORVO APP','SECURE DESKTOP/LAPTOP','SALES FLOW','PURCHASE / INVENTORY','BACKUP & DISASTER RECOVERY','WHATSAPP / OTP / SESSION','MAJOR RELEASE BLOCKERS','SQL INSTALL'];
+for(const item of requiredMaster)if(!master.includes(item))fail(`MASTER HANDOVER SECTION MISSING: ${item}`);
+const requiredLock=['PUBLIC CUSTOMER WEBSITE','SEARCH / PUBLIC UI LOCK','DEALER ONBOARDING / ACCESS','DEALER PRICING / B2B ORDER LOGIC','DELIVERY / TRACKING','PRODUCT / MASTER / COMPATIBILITY','DEALER NETWORK / CUSTOMER REFERRAL','STAFF / ROLE SECURITY','PURCHASE / INVENTORY','SCHEMES / REWARDS / REFERRAL / TARGETS','REPORTS / NOTIFICATIONS','COMMUNICATION / CUSTOMER CARE','ADMIN-MANAGED SETTINGS','APP / RELEASE / UPDATE','BACKUP / DISASTER RECOVERY','RELEASE / STAGING','NO-OMISSION RELEASE RULE'];
+for(const item of requiredLock)if(!lock.includes(`## ${item}`))fail(`OWNER LOCK SECTION MISSING: ${item}`);
+const immutableRules=['torvo-v2-build','V27/main','RATE A / RATE B / RATE C','Rs 10,000','7027751533','com.torvotools.app','CAMERA before MIC','No public TORVO selling price','WhatsApp OTP','ADD MORE ITEMS','one active mobile device'];
+for(const rule of immutableRules)if(!lock.toLowerCase().includes(rule.toLowerCase())&&!master.toLowerCase().includes(rule.toLowerCase()))fail(`OWNER RULE MISSING: ${rule}`);
+if(!pkg.includes('verify:v2-owner-requirements'))fail('OWNER REQUIREMENTS VERIFIER NOT WIRED INTO PACKAGE SCRIPTS');
+if(!pkg.match(/verify:v2-preflight[^\n]*verify:v2-owner-requirements/))fail('OWNER REQUIREMENTS VERIFIER NOT IN PREFLIGHT');
+console.log('TORVO V2 owner requirements no-omission lock OK');
