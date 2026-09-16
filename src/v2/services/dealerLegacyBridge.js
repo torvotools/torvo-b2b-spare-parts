@@ -1,25 +1,23 @@
-import{dealerItemRate,submitDealerPurchaseOrder}from'./dealerProcurement';
-import{confirmDealerSalesOrder,loadDealerOrderHistory}from'./dealerOrders';
+import{getDealerItemRate,submitDealerPO,approveLatestDealerOrder,loadDealerOrders,reviseDealerPO,requestDealerOrderChange,loadApprovedAddOnRequests,createApprovedAddOnOrder}from'./dealerB2BFlow';
 import{loadDealerMachineSpares}from'./dealerMachineSpares';
 import{loadDealerWorkspaceCatalog}from'./dealerWorkspace';
-import{reviseDealerPurchaseOrder,requestDealerSalesOrderChange,loadApprovedAdditionalRequests,createApprovedAdditionalOrder}from'./dealerBusiness';
 import{loadDealerRepairRequirements,updateDealerRepairRequirement}from'./dealerRepair';
 
-// Compatibility facade for dealer UI modules. Every dealer-private action below is routed
-// through a current device-bound service; this file must never call Supabase directly.
-const documents=async type=>{const rows=await loadDealerOrderHistory();return rows.filter(x=>x.doc_type===type)};
+// Compatibility facade for dealer UI modules. All B2B order/rate mutations are now routed
+// through dealerB2BFlow so validation and approved-device session rules have one boundary.
+const documents=async type=>{const rows=await loadDealerOrders();return rows.filter(x=>x.doc_type===type)};
 const catalog=async type=>{const rows=await loadDealerWorkspaceCatalog();return rows.filter(x=>x.item_type===type)};
 export const secureDealerLegacy={
  documents,catalog,
  dealerMachineSpares:loadDealerMachineSpares,
- dealerItemRate,
- submitPurchaseOrder:submitDealerPurchaseOrder,
- dealerConfirmSalesOrder:confirmDealerSalesOrder,
- dealerReviseSalesOrder:reviseDealerPurchaseOrder,
- dealerRequestSalesOrderChange:requestDealerSalesOrderChange,
- dealerApprovedAddOnRequests:loadApprovedAdditionalRequests,
- dealerCreateAddOnOrder:createApprovedAdditionalOrder,
- dealerOrderHistory:loadDealerOrderHistory,
+ dealerItemRate:getDealerItemRate,
+ submitPurchaseOrder:submitDealerPO,
+ dealerConfirmSalesOrder:approveLatestDealerOrder,
+ dealerReviseSalesOrder:(orderId,items,reason)=>reviseDealerPO({orderId,items,reason}),
+ dealerRequestSalesOrderChange:(orderId,type,reason)=>requestDealerOrderChange({orderId,type,reason}),
+ dealerApprovedAddOnRequests:loadApprovedAddOnRequests,
+ dealerCreateAddOnOrder:(requestId,items)=>createApprovedAddOnOrder({requestId,items}),
+ dealerOrderHistory:loadDealerOrders,
  dealerRepairRequirements:loadDealerRepairRequirements,
  dealerUpdateRepairRequirement:updateDealerRepairRequirement
 };
