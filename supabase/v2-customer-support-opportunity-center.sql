@@ -50,10 +50,14 @@ returns uuid language plpgsql security definer set search_path=public as $$decla
  if length(trim(coalesce(p_customer_name,'')))<2 then raise exception 'CUSTOMER NAME REQUIRED';end if;
  if length(v_mobile)<>10 then raise exception '10-DIGIT MOBILE / WHATSAPP REQUIRED';end if;
  if v_pin!~'^[0-9]{6}$' then raise exception '6-DIGIT PIN CODE REQUIRED';end if;
+ if length(trim(coalesce(p_state,'')))<2 then raise exception 'STATE REQUIRED';end if;
+ if length(trim(coalesce(p_district,'')))<2 then raise exception 'DISTRICT REQUIRED';end if;
+ if length(trim(coalesce(p_city,'')))<2 then raise exception 'CITY REQUIRED';end if;
  if v_type not in('MACHINE','SPARE PART','ACCESSORY') then raise exception 'VALID PRODUCT TYPE REQUIRED';end if;
  if length(trim(coalesce(p_required_item,'')))<2 then raise exception 'REQUIRED PRODUCT / ITEM REQUIRED';end if;
+ if coalesce(p_quantity,0)<1 then raise exception 'VALID QUANTITY REQUIRED';end if;
  insert into customer_product_requirements(customer_name,mobile_whatsapp,state,district,city,pin_code,product_type,brand,machine_model,required_item,item_oem_no,description,quantity,photo_url,marketing_opt_in)
- values(upper(trim(p_customer_name)),right(v_mobile,10),upper(nullif(trim(p_state),'')),upper(nullif(trim(p_district),'')),upper(nullif(trim(p_city),'')),v_pin,v_type,upper(nullif(trim(p_brand),'')),upper(nullif(trim(p_machine_model),'')),upper(trim(p_required_item)),upper(nullif(trim(p_item_oem_no),'')),upper(nullif(trim(p_description),'')),greatest(coalesce(p_quantity,1),1),nullif(trim(p_photo_url),''),coalesce(p_marketing_opt_in,false)) returning id into v_id;return v_id;end$$;
+ values(upper(trim(p_customer_name)),right(v_mobile,10),upper(trim(p_state)),upper(trim(p_district)),upper(trim(p_city)),v_pin,v_type,upper(nullif(trim(p_brand),'')),upper(nullif(trim(p_machine_model),'')),upper(trim(p_required_item)),upper(nullif(trim(p_item_oem_no),'')),upper(nullif(trim(p_description),'')),p_quantity,nullif(trim(p_photo_url),''),coalesce(p_marketing_opt_in,false)) returning id into v_id;return v_id;end$$;
 
 create or replace function public.public_create_customer_complaint(p_customer_name text,p_mobile_whatsapp text,p_dealer_id uuid,p_enquiry_id uuid,p_category text,p_description text,p_attachment_url text default null)
 returns uuid language plpgsql security definer set search_path=public as $$declare v_id uuid;v_mobile text:=regexp_replace(coalesce(p_mobile_whatsapp,''),'\D','','g');v_cat text:=upper(trim(coalesce(p_category,'')));begin
