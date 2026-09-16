@@ -1,0 +1,5 @@
+const ALLOWED=new Set(['WEBSITE','FACEBOOK','INSTAGRAM','YOUTUBE','WHATSAPP','EMAIL','OTHER']);
+export function normalizeLeadSource(value){const v=String(value||'').trim().toUpperCase();return ALLOWED.has(v)?v:''}
+export function detectLeadSource(){if(typeof window==='undefined')return'WEBSITE';try{const url=new URL(window.location.href);const explicit=normalizeLeadSource(url.searchParams.get('source')||url.searchParams.get('utm_source'));if(explicit)return explicit;const ref=String(document.referrer||'').toLowerCase();if(ref.includes('facebook.com')||ref.includes('fb.com'))return'FACEBOOK';if(ref.includes('instagram.com'))return'INSTAGRAM';if(ref.includes('youtube.com')||ref.includes('youtu.be'))return'YOUTUBE';if(ref.includes('wa.me')||ref.includes('whatsapp.com'))return'WHATSAPP';return'WEBSITE'}catch{return'WEBSITE'}}
+export function withLeadSource(payload={},source){return{...payload,leadSource:normalizeLeadSource(source)||detectLeadSource()}}
+export const PUBLIC_LEAD_SOURCES=Object.freeze([...ALLOWED]);
