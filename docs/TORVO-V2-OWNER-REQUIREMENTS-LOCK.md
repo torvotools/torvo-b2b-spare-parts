@@ -16,7 +16,8 @@ Purpose: permanent no-omission checklist for TORVO V2 development. This suppleme
 - Dropdown-first design must reduce spelling mistakes, duplicate master values and inconsistent reporting; it must not weaken server-side validation or role/security rules.
 
 ## PUBLIC CUSTOMER WEBSITE
-- Public discovery for MACHINE -> SPARE PART -> ACCESSORY, product photo/detail, requirement capture, nearby Dealer referral, Dealer public profile, map/directions, call/WhatsApp, Dealer registration, support and OPEN TORVO APP.
+- Public discovery for MACHINE -> SPARE PART -> ACCESSORY, product photo/detail, requirement capture, nearby Dealer referral, Dealer public profile, map/directions, call/WhatsApp, Dealer registration and support.
+- The general Customer website/homepage must not expose a generic APP DOWNLOAD / INSTALL CTA. TORVO Business App install/download belongs inside Dealer registration/onboarding or other authorized business-access surfaces only, because the App is for Dealer, Salesman and authorized Store/Business staff rather than ordinary Customers.
 - No public TORVO selling price, Dealer A/B/C rate, purchase cost, public TORVO checkout/payment/COD/refund flow.
 - Customer selects product first; product identity must follow the referral.
 - Capture minimum useful Customer data: name, mobile/WhatsApp, PIN/location, product/requirement, timestamp, selected/contacted Dealer where available.
@@ -24,7 +25,7 @@ Purpose: permanent no-omission checklist for TORVO V2 development. This suppleme
 - Lead source attribution supports WEBSITE/FACEBOOK/INSTAGRAM/YOUTUBE/WHATSAPP/EMAIL/OTHER without storing raw referrer URLs.
 - Nearby Dealer result must be real: APPROVED/ACTIVE, opted into referrals, verified location/service capability. Never fabricate distance, availability, authorization or Dealer results.
 - If no suitable Dealer exists: CONTACT TORVO / SEND REQUIREMENT.
-- Customer app/login direction retained: mobile/OTP identity can use saved PIN/area to show area Dealers; Customer may change Dealer with a recorded reason when that flow is implemented.
+- Customer app/login direction retained only where separately Owner-approved; it must not create a public generic Business App download CTA or bypass business-role authorization.
 
 ## SEARCH / PUBLIC UI LOCK
 - Mobile-first premium RED/BLACK/WHITE/GREY TORVO identity.
@@ -39,6 +40,9 @@ Purpose: permanent no-omission checklist for TORVO V2 development. This suppleme
 
 ## DEALER ONBOARDING / ACCESS
 - Website registration -> TORVO verification -> approval -> App access.
+- Website `REGISTER AS DEALER` opens the Dealer registration/onboarding surface; the TORVO Business App install/download control is placed inside that business-only flow, not in the general Customer homepage.
+- A directly installed TORVO Business App must offer `REGISTER AS DEALER` from the first Dealer login screen so a new Dealer can complete the same authoritative registration flow.
+- App install/download controls must expose only a verified install prompt or verified Android/iPhone release/store link. Never invent APK/AAB/IPA/Play Store/App Store targets.
 - Registration shared Call + WhatsApp number concept: India +91, 10-digit mobile, WhatsApp indication/helper; same active number unless Owner later changes the rule.
 - Dealer private login is App-only, not public Website.
 - Dealer login uses 10-digit registered mobile. First login/defined security verification uses WhatsApp OTP, then secure 4-digit PIN; forgot PIN and suspicious/new device require verification.
@@ -121,6 +125,7 @@ Purpose: permanent no-omission checklist for TORVO V2 development. This suppleme
 
 ## APP / RELEASE / UPDATE
 - Package identity: `com.torvotools.app`.
+- TORVO Business App is for Dealer, Salesman and authorized Store/Business staff. General Customer pages must not advertise its install/download control.
 - Admin/Owner APP RELEASE/DOWNLOAD area must show real version/build/date/commit/status and verified downloadable artifacts/links only.
 - Android: debug APK is test-only; production requires private signing, signed AAB/APK, real-device testing and Play Store path.
 - iOS: Apple signing + TestFlight/App Store path; do not pretend an Android APK is an iPhone package.
