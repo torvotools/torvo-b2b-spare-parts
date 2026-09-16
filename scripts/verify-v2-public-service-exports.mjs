@@ -2,10 +2,11 @@ import fs from'node:fs';
 const read=p=>fs.readFileSync(p,'utf8'),fail=m=>{console.error(`PUBLIC SERVICE EXPORT CONTRACT FAILED: ${m}`);process.exit(1)};
 const service=read('src/v2/services/publicWebsite.js');
 const publicUi=read('src/v2/components/PublicWebsitePreview.jsx');
+const requirementForm=read('src/v2/components/PublicProductRequirementForm.jsx');
 const leadSql=read('supabase/v2-public-lead-source.sql');
 const enquirySql=read('supabase/v2-customer-demand-dealer-referral-analytics.sql');
 const supportSql=read('supabase/v2-customer-support-opportunity-center.sql');
-const consumers=['src/v2/components/PublicWebsitePreview.jsx','src/v2/components/CustomerApp.jsx'];
+const consumers=['src/v2/components/PublicWebsitePreview.jsx','src/v2/components/CustomerApp.jsx','src/v2/components/PublicProductRequirementForm.jsx','src/v2/components/PublicDealerRegistrationForm.jsx'];
 const exported=new Set([...service.matchAll(/export\s+async\s+function\s+([A-Za-z_$][\w$]*)/g)].map(x=>x[1]));
 for(const file of consumers){const text=read(file);for(const m of text.matchAll(/import\s*\{([^}]+)\}\s*from\s*['"]\.\.\/services\/publicWebsite['"]/g)){for(const raw of m[1].split(',')){const spec=raw.trim();if(!spec)continue;const imported=spec.split(/\s+as\s+/)[0].trim();if(!exported.has(imported))fail(`${file} IMPORTS ${imported} BUT publicWebsite.js DOES NOT EXPORT IT`)}}}
 for(const required of['createProductDemand','createProductEnquiry','optOutProductEnquiryMarketing','createProductRequirement','optOutProductRequirementMarketing','createReferral','createRepair','findDealers','loadDealerProfile','registerDealer','trackDealerReferralEvent','createCustomerComplaint'])if(!exported.has(required))fail(`REQUIRED PUBLIC SERVICE EXPORT MISSING: ${required}`);
@@ -35,7 +36,9 @@ for(const token of["demand_tracking_status='RECORDED'","demand_tracking_status='
 const requirementOptOutBody=service.match(/export\s+async\s+function\s+optOutProductRequirementMarketing\b([\s\S]*?)(?=export\s+async\s+function|$)/)?.[1]||'';
 if(!requirementOptOutBody.includes("rpc('public_set_product_requirement_marketing_opt_out'"))fail('PRODUCT REQUIREMENT OPT-OUT SERVICE MUST CALL AUTHORITATIVE RPC');
 for(const token of['REQUIREMENT ID REQUIRED','10-DIGIT MOBILE / WHATSAPP REQUIRED','p_requirement_id:requirementId','p_mobile_whatsapp:cleanMobile'])if(!requirementOptOutBody.includes(token))fail(`PRODUCT REQUIREMENT OPT-OUT VALIDATION/ARGUMENT MISSING: ${token}`);
-for(const token of["validLocation=()=>form.state.trim().length>=2&&form.district.trim().length>=2&&form.city.trim().length>=2","!validContact()||!validLocation()||requirement.requiredItem.trim().length<2||Number(requirement.quantity)<1","STATE, DISTRICT, CITY","VALID QUANTITY AND REQUIRED PRODUCT / ITEM"])if(!publicUi.includes(token))fail(`PRODUCT REQUIREMENT UI VALIDATION MISSING: ${token}`);
+for(const token of["import PublicProductRequirementForm from'./PublicProductRequirementForm'",'REQUIREMENT'])if(!publicUi.includes(token))fail(`PUBLIC WEBSITE COMMON REQUIREMENT ENTRY MISSING: ${token}`);
+for(const token of["import PublicCatalogDropdowns from'./PublicCatalogDropdowns'","import PublicLocationDropdowns from'./PublicLocationDropdowns'",'<PublicCatalogDropdowns value={form} onChange={setForm} disabled={busy}/>','includeContact','Number.isInteger(qty)','qty<1||qty>9999','SEND PRODUCT REQUIREMENT','createProductRequirement(payload)'])if(!requirementForm.includes(token))fail(`COMMON PRODUCT REQUIREMENT UI VALIDATION MISSING: ${token}`);
+if(/<label>BRAND<input|<label>MACHINE \/ MODEL<input/.test(requirementForm))fail('COMMON PRODUCT REQUIREMENT MUST USE MASTER-BACKED BRAND/MODEL DROPDOWNS');
 if(!supportSql.includes('create or replace function public.public_create_product_requirement('))fail('AUTHORITATIVE PRODUCT REQUIREMENT SQL RPC MISSING');
 for(const guard of['STATE REQUIRED','DISTRICT REQUIRED','CITY REQUIRED','VALID PRODUCT TYPE REQUIRED','REQUIRED PRODUCT / ITEM REQUIRED','VALID QUANTITY REQUIRED'])if(!supportSql.includes(guard))fail(`PRODUCT REQUIREMENT SERVER VALIDATION MISSING: ${guard}`);
 for(const field of['state text','district text','city text','product_type text','brand text','machine_model text','required_item text','item_oem_no text','quantity integer','marketing_consent_at timestamptz','marketing_consent_source text','marketing_opted_out_at timestamptz'])if(!supportSql.includes(field))fail(`PRODUCT REQUIREMENT STRUCTURED/AUDIT FIELD MISSING: ${field}`);
@@ -49,4 +52,4 @@ for(const guard of['VALID APPROVED DEALER REQUIRED','CUSTOMER ENQUIRY NOT FOUND 
 if(!supportSql.includes("e.id=p_enquiry_id and e.mobile_whatsapp=right(v_mobile,10)"))fail('CUSTOMER COMPLAINT ENQUIRY MUST BELONG TO SUBMITTING MOBILE');
 for(const token of['customer_complaints_open_dedupe',"c.status in('OPEN','UNDER REVIEW')",'SIMILAR COMPLAINT ALREADY OPEN','exception when unique_violation'])if(!supportSql.includes(token))fail(`CUSTOMER COMPLAINT DUPLICATE PROTECTION MISSING: ${token}`);
 for(const token of['resolved_by uuid references public.app_users(id)','resolved_at timestamptz','torvo_admin_update_customer_complaint','OWNER / ADMIN ACCESS REQUIRED','VALID COMPLAINT STATUS REQUIRED','RESOLUTION NOTE REQUIRED',"v_status in('RESOLVED','REJECTED')",'resolved_by=case','resolved_at=case','grant execute on function public.torvo_admin_update_customer_complaint(uuid,text,text) to authenticated'])if(!supportSql.includes(token))fail(`ADMIN COMPLAINT RESOLUTION AUDIT MISSING: ${token}`);
-console.log('TORVO V2 public website + enquiry/referral + saved-requirement demand fallback + authoritative requirement statuses + complaint ownership/dedupe/admin-resolution-audit + enquiry/requirement opt-out + UI/server structured requirement contract OK');
+console.log('TORVO V2 public website + common product requirement form + enquiry/referral + saved-requirement fallback + complaint audit + opt-out contract OK');
