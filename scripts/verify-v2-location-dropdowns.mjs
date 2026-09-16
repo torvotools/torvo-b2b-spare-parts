@@ -5,6 +5,7 @@ const dealerSql=read('supabase/v2-public-dealer-registration.sql');
 const service=read('src/v2/services/publicWebsite.js');
 const ui=read('src/v2/components/PublicLocationDropdowns.jsx');
 const publicUi=read('src/v2/components/PublicWebsitePreview.jsx');
+const dealerUi=read('src/v2/components/PublicDealerRegistrationForm.jsx');
 for(const token of['location_states','location_districts','location_cities','public_location_states','public_location_districts','public_location_cities'])if(!sql.includes(token))fail(`LOCATION MASTER TOKEN MISSING: ${token}`);
 for(const token of['loadLocationStates','loadLocationDistricts','loadLocationCities',"rpc('public_location_states'","rpc('public_location_districts'","rpc('public_location_cities'"])if(!service.includes(token))fail(`PUBLIC LOCATION SERVICE MISSING: ${token}`);
 for(const token of['SELECT STATE','SELECT DISTRICT','SELECT CITY',"setDistrictId('')",'setDistricts([])','setCities([])','DISTRICT MASTER NOT AVAILABLE','CITY MASTER NOT AVAILABLE'])if(!ui.includes(token))fail(`LINKED DROPDOWN SAFETY MISSING: ${token}`);
@@ -13,6 +14,8 @@ if(/<label>STATE<input|<label>DISTRICT<input|<label>CITY<input/.test(ui))fail('L
 for(const token of["replace(/\\D/g,'').slice(0,10)","replace(/\\D/g,'').slice(0,6)",'pattern="[0-9]{6}"'])if(!ui.includes(token))fail(`CONTACT INPUT NORMALIZATION MISSING: ${token}`);
 for(const token of["import PublicLocationDropdowns from'./PublicLocationDropdowns'",'<PublicLocationDropdowns value={form} onChange={setForm} disabled={busy}/>'])if(!publicUi.includes(token))fail(`PUBLIC FORM LOCATION WIRING MISSING: ${token}`);
 if(/<label>STATE<input|<label>DISTRICT<input|<label>CITY<input/.test(publicUi))fail('PUBLIC WEBSITE MUST NOT USE FREE-TEXT STATE/DISTRICT/CITY');
+for(const token of["import PublicLocationDropdowns from'./PublicLocationDropdowns'",'<PublicLocationDropdowns value={form} onChange={setForm} disabled={busy}/>','!form.state||!form.district||!form.city','registerDealer({...form,mobile})','PENDING VERIFICATION'])if(!dealerUi.includes(token))fail(`DEALER REGISTRATION LOCATION WIRING MISSING: ${token}`);
+if(/<label>STATE<input|<label>DISTRICT<input|<label>CITY<input/.test(dealerUi))fail('DEALER REGISTRATION MUST USE AUTHORITATIVE LINKED LOCATION DROPDOWNS');
 for(const token of['p_state text','p_district text','p_city text','state,district,city','PENDING VERIFICATION'])if(!dealerSql.includes(token))fail(`DEALER REGISTRATION LOCATION SQL MISSING: ${token}`);
 for(const token of['state=null,district=null,city=null','STATE, DISTRICT AND CITY REQUIRED','p_state:cleanState','p_district:cleanDistrict','p_city:cleanCity'])if(!service.includes(token))fail(`DEALER REGISTRATION LOCATION SERVICE MISSING: ${token}`);
 console.log('TORVO V2 authoritative STATE -> DISTRICT -> CITY + public/dealer registration location contract OK');
