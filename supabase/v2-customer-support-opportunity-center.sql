@@ -80,6 +80,7 @@ returns uuid language plpgsql security definer set search_path=public as $$decla
  if v_cat not in('BEHAVIOUR','WRONG INFORMATION','PRODUCT ISSUE','OVERCHARGING / COMMERCIAL ISSUE','SERVICE ISSUE','OTHER') then raise exception 'VALID COMPLAINT CATEGORY REQUIRED';end if;
  if length(trim(coalesce(p_description,'')))<5 then raise exception 'COMPLAINT DETAILS REQUIRED';end if;
  if p_dealer_id is not null and not exists(select 1 from dealers d where d.id=p_dealer_id and upper(coalesce(d.status,''))='APPROVED') then raise exception 'VALID APPROVED DEALER REQUIRED';end if;
+ if p_enquiry_id is not null and not exists(select 1 from customer_product_enquiries e where e.id=p_enquiry_id and e.mobile_whatsapp=right(v_mobile,10)) then raise exception 'CUSTOMER ENQUIRY NOT FOUND FOR MOBILE';end if;
  insert into customer_complaints(customer_name,mobile_whatsapp,dealer_id,enquiry_id,category,description,attachment_url) values(upper(trim(p_customer_name)),right(v_mobile,10),p_dealer_id,p_enquiry_id,v_cat,upper(trim(p_description)),nullif(trim(p_attachment_url),'')) returning id into v_id;return v_id;end$$;
 
 grant execute on function public.public_create_product_requirement(text,text,text,text,text,text,text,text,text,text,text,text,integer,text,boolean) to anon,authenticated;
