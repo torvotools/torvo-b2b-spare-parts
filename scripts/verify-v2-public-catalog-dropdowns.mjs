@@ -1,0 +1,10 @@
+import fs from'node:fs';
+const read=p=>fs.readFileSync(p,'utf8'),fail=m=>{console.error(`PUBLIC CATALOG DROPDOWN CONTRACT FAILED: ${m}`);process.exit(1)};
+const sql=read('supabase/v2-public-catalog-dropdowns.sql');
+const service=read('src/v2/services/publicWebsite.js');
+const ui=read('src/v2/components/PublicCatalogDropdowns.jsx');
+for(const token of['public_catalog_brands','public_catalog_machine_models','catalog_items','ACTIVE'])if(!sql.includes(token))fail(`CATALOG SQL CONTRACT MISSING: ${token}`);
+for(const token of['loadCatalogBrands','loadCatalogMachineModels',"rpc('public_catalog_brands'","rpc('public_catalog_machine_models'","p_brand:clean"])if(!service.includes(token))fail(`PUBLIC CATALOG SERVICE MISSING: ${token}`);
+for(const token of['SELECT BRAND','SELECT MACHINE / MODEL','changeBrand','machineModel:\'\'','CATALOG BRAND MASTER NOT AVAILABLE','MACHINE / MODEL MASTER NOT AVAILABLE'])if(!ui.includes(token))fail(`LINKED CATALOG DROPDOWN SAFETY MISSING: ${token}`);
+if(/<label>BRAND<input|<label>MACHINE \/ MODEL<input/.test(ui))fail('CATALOG DROPDOWN COMPONENT MUST NOT FALL BACK TO FREE-TEXT BRAND/MODEL');
+console.log('TORVO V2 authoritative BRAND -> MACHINE / MODEL public dropdown contract OK');
