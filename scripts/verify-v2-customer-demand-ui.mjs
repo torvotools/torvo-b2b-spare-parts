@@ -30,8 +30,16 @@ const checks=[
  ['NO UNVERIFIED AVAILABILITY PROMISE',/AVAILABILITY IS NOT GUARANTEED/.test(ui)&&!/WE FOUND YOUR ITEM|ITEM IS AVAILABLE NOW/.test(ui)],
  ['PIN INPUT BOUNDED',/maxLength="6"/.test(ui)&&/replace\(\/\\D\/g,''\)\.slice\(0,6\)/.test(ui)],
  ['MOBILE INPUT BOUNDED',/MOBILE \/ WHATSAPP/.test(ui)&&/slice\(0,10\)/.test(ui)],
- ['REPAIR FLOW PRESERVED',/SEND REPAIR REQUIREMENT/.test(ui)&&/public_create_repair_request/.test(ui)],
- ['REFERRAL FLOW PRESERVED',/GET TORVO REFERRAL CODE/.test(ui)&&/public_create_customer_referral/.test(ui)],
+ ['COMMON CATALOG IMPORT',/import PublicCatalogDropdowns from'\.\/PublicCatalogDropdowns'/.test(ui)],
+ ['DEMAND MASTER DROPDOWNS',/open==='demand'[\s\S]*<PublicCatalogDropdowns value=\{demand\} onChange=\{setDemand\} disabled=\{busy\}/.test(ui)],
+ ['REPAIR MASTER DROPDOWNS',/open==='repair'[\s\S]*<PublicCatalogDropdowns value=\{repair\} onChange=\{setRepair\} disabled=\{busy\}/.test(ui)],
+ ['DEMAND MODEL PAYLOAD',/modelNumber:demand\.machineModel/.test(ui)],
+ ['REPAIR MODEL PAYLOAD',/model:repair\.machineModel\|\|null/.test(ui)],
+ ['NO FREE TEXT BRAND MODEL',!/<label>BRAND<input|<label>MODEL NUMBER<input/.test(ui)],
+ ['UPPERCASE BUSINESS TEXT',/search:e\.target\.value\.toUpperCase\(\)/.test(ui)&&/note:e\.target\.value\.toUpperCase\(\)/.test(ui)&&/problem:e\.target\.value\.toUpperCase\(\)/.test(ui)],
+ ['REPAIR DESCRIPTION BOUNDED',/PROBLEM DESCRIPTION<textarea maxLength="1000"/.test(ui)],
+ ['REPAIR FLOW PRESERVED',/SEND REPAIR REQUIREMENT/.test(ui)&&/createPublicRepair\(/.test(ui)],
+ ['REFERRAL FLOW PRESERVED',/GET TORVO REFERRAL CODE/.test(ui)&&/createPublicReferral\(/.test(ui)],
  ['PUBLIC NO PRICE CHECKOUT',!/CHECKOUT|ADD TO CART|BUY NOW|PAY NOW/.test(ui)],
 ];
 let failed=0;for(const[name,ok]of checks){console.log(`${ok?'PASS':'FAIL'} ${name}`);if(!ok)failed++}if(failed){console.error(`CUSTOMER DEMAND UI CONTRACT FAILED: ${failed} GATE(S)`);process.exit(1)}console.log(`PASS CUSTOMER DEMAND UI CONTRACT (${checks.length} GATES)`);
