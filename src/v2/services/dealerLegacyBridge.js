@@ -5,6 +5,7 @@ import{loadDealerRepairRequirements,updateDealerRepairRequirement,acceptDealerRe
 // Compatibility facade for dealer UI modules. Private actions stay behind approved-device services.
 const documents=async type=>{const t=String(type||'').trim().toLowerCase();if(!['sales_order','estimate'].includes(t))throw new Error('INVALID DOCUMENT TYPE');const rows=await loadDealerOrders();return rows.filter(x=>x.doc_type===t)};
 const catalog=async type=>{const t=String(type||'').trim().toLowerCase();if(!['machine','spare_part','accessory'].includes(t))throw new Error('INVALID PRODUCT TYPE');const rows=await loadDealerWorkspaceCatalog();return rows.filter(x=>x.item_type===t)};
+const modifyOrder=async(orderId,type,reason)=>{const t=String(type||'').trim().toLowerCase();if(t!=='modify_order')throw new Error('USE LINKED ADDITIONAL PURCHASE ORDER FOR EXTRA ITEMS');return requestDealerOrderChange({orderId,type:'modify_order',reason})};
 export const secureDealerLegacy={
  documents,catalog,
  dealerMachineSpares:loadDealerMachineSpares,
@@ -12,7 +13,7 @@ export const secureDealerLegacy={
  submitPurchaseOrder:submitDealerPO,
  dealerConfirmSalesOrder:approveLatestDealerOrder,
  dealerReviseSalesOrder:(orderId,items,reason)=>reviseDealerPO({orderId,items,reason}),
- dealerRequestSalesOrderChange:(orderId,type,reason)=>requestDealerOrderChange({orderId,type,reason}),
+ dealerRequestSalesOrderChange:modifyOrder,
  dealerCreateAdditionalPO:(parentOrderId,items,note)=>createAdditionalPO({parentOrderId,items,note}),
  dealerApprovedAddOnRequests:loadApprovedAddOnRequests,
  dealerCreateAddOnOrder:(requestId,items)=>createApprovedAddOnOrder({requestId,items}),
