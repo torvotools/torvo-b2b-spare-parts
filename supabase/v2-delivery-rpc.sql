@@ -44,5 +44,21 @@ begin
   perform recalculate_dealer_scheme_progress(v_estimate.dealer_id);
   insert into audit_log(actor_id,action,entity_type,entity_id,details) values(v_actor.id,'DELIVER_AND_DEDUCT_STOCK','estimate',p_estimate::text,jsonb_build_object('dispatch_id',v_dispatch.id,'paid_amount',v_paid,'stock_deducted_once',true,'scheme_progress_refreshed',true));
 end;$$;
-revoke all on function deliver_estimate(uuid) from public,anon;
-grant execute on function deliver_estimate(uuid) to authenticated;
+
+-- Dealer-safe delivery history: no payment, purchase cost or private staff fields are exposed.
+drop function if exists dealer_delivery_tracking(text,text);
+create or replace function dealer_delivery_tracking(p_device_id text,p_session_token text)
+returns table(estimate_id uuid,dispatch_status text,tracking_code text,created_at timestamptz,delivered_at timestamptz)
+language plpgsql security definer set search_path=public as $$
+declare did uuid;begin
+  did:=dealer_assert_my_device_session(p_device_id,p_session_token);
+  return query
+  select e.id,d.status,d.tracking_code,e.created_at,d.delivered_at
+  from sales_documents e
+  left join dispatches d on d.estimate_id=e.id
+  where e.dealer_id=did and e.doc_type='estimate' and e.created_at>=now()-interval '90 days'
+  order by e.created_at desc;
+end$$;
+
+revoke all on function deliver_estimate(uuid),dealer_delivery_tracking(text,text) from public,anon;
+grant execute on function deliver_estimate(uuid),dealer_delivery_tracking(text,text) to authenticated;
