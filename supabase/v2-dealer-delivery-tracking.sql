@@ -20,13 +20,13 @@ begin
     d.estimate_id,
     coalesce(e.parent_id,e.root_order_id) as sales_order_id,
     d.status::text as delivery_status,
-    d.tracking_code::text,
+    nullif(upper(trim(d.tracking_code::text)),'') as tracking_code,
     d.delivered_at,
     coalesce(d.delivered_at,e.created_at) as updated_at
   from dispatches d
   join sales_documents e on e.id=d.estimate_id and e.doc_type='estimate'
   where e.dealer_id=did
-  order by coalesce(d.delivered_at,e.created_at) desc;
+  order by coalesce(d.delivered_at,e.created_at) desc,d.estimate_id desc;
 end$$;
 
 revoke all on function get_dealer_delivery_tracking(text,text) from public,anon;
