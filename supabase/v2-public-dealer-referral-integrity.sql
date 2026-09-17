@@ -1,38 +1,37 @@
 -- TORVO V2 PUBLIC DEALER REFERRAL INTEGRITY
--- Install after v2-customer-public-runtime-contract.sql and v2-public-lead-source.sql.
+-- Install after v2-customer-public-runtime-contract.sql, v2-customer-demand-dealer-referral-analytics.sql and v2-public-lead-source.sql.
 -- PUBLIC WEBSITE IS REFERRAL-ONLY: NO TORVO RETAIL PRICE/CHECKOUT/PAYMENT.
 
 create or replace function public_find_torvo_dealers_expanded(p_pin_code text,p_repair_only boolean default false,p_limit integer default 12)
 returns table(dealer_id uuid,shop_name text,address text,pin_code text,map_url text,latitude numeric,longitude numeric,product_sales_available boolean,repair_service_available boolean,authorized_service_center boolean,authorized_service_note text,match_type text)
 language plpgsql security definer set search_path=public as $$declare p text:=btrim(coalesce(p_pin_code,''));begin
  if p !~ '^[0-9]{6}$' then raise exception 'VALID 6 DIGIT PIN CODE REQUIRED'; end if;
- return query select d.id,d.shop_name,coalesce(nullif(d.public_address,''),d.address),coalesce(nullif(d.public_pin_code,''),d.pin_code),d.map_url,d.latitude,d.longitude,d.product_sales_available,d.repair_service_available,d.authorized_service_center,case when d.authorized_service_center=true then d.authorized_service_note else null end,'EXACT_PIN'::text
+ return query select d.id,d.shop_name,coalesce(nullif(d.public_address,''),d.address),coalesce(nullif(d.public_pin_code,''),d.pin_code),case when d.map_url ~* '^https://' then d.map_url else null end,d.latitude,d.longitude,d.product_sales_available,d.repair_service_available,d.authorized_service_center,case when d.authorized_service_center=true then d.authorized_service_note else null end,'EXACT_PIN'::text
  from dealers d where lower(coalesce(d.status,''))='approved' and d.customer_referral_enabled=true and d.referral_profile_verified_at is not null and d.product_sales_available=true and coalesce(nullif(d.public_pin_code,''),d.pin_code)=p and (not coalesce(p_repair_only,false) or d.repair_service_available=true)
  order by d.shop_name limit greatest(1,least(coalesce(p_limit,12),50));
 end$$;
 revoke all on function public_find_torvo_dealers_expanded(text,boolean,integer) from public;grant execute on function public_find_torvo_dealers_expanded(text,boolean,integer) to anon,authenticated;
 
-create or replace function public_dealer_profile(p_dealer_id uuid)
-returns table(dealer_id uuid,shop_name text,address text,city text,district text,state text,pin_code text,mobile text,whatsapp text,map_url text,repair_service boolean)
-language sql security definer set search_path=public as $$select d.id,d.shop_name,coalesce(nullif(d.public_address,''),d.address),d.city,d.district,d.state,coalesce(nullif(d.public_pin_code,''),d.pin_code),d.mobile,coalesce(nullif(d.whatsapp,''),d.mobile),d.map_url,d.repair_service_available from dealers d where d.id=p_dealer_id and lower(coalesce(d.status,''))='approved' and d.customer_referral_enabled=true and d.referral_profile_verified_at is not null and d.product_sales_available=true limit 1$$;
+drop function if exists public.public_dealer_profile(uuid);
+create function public_dealer_profile(p_dealer_id uuid)
+returns table(dealer_id uuid,shop_name text,address text,city text,district text,state text,pin_code text,mobile text,whatsapp text,map_url text,repair_service boolean,product_sales_available boolean,repair_service_available boolean,authorized_service_center boolean,authorized_service_note text)
+language sql security definer set search_path=public as $$select d.id,d.shop_name,coalesce(nullif(d.public_address,''),d.address),d.city,d.district,d.state,coalesce(nullif(d.public_pin_code,''),d.pin_code),d.mobile,coalesce(nullif(d.whatsapp,''),d.mobile),case when d.map_url ~* '^https://' then d.map_url else null end,d.repair_service_available,d.product_sales_available,d.repair_service_available,d.authorized_service_center,case when d.authorized_service_center=true then d.authorized_service_note else null end from dealers d where d.id=p_dealer_id and lower(coalesce(d.status,''))='approved' and d.customer_referral_enabled=true and d.referral_profile_verified_at is not null and d.product_sales_available=true limit 1$$;
 revoke all on function public_dealer_profile(uuid) from public;grant execute on function public_dealer_profile(uuid) to anon,authenticated;
 
--- Ensure the analytics table accepts the client lifecycle event emitted after referral creation.
 do $$begin
  if to_regclass('public.dealer_referral_events') is not null then
   alter table dealer_referral_events drop constraint if exists dealer_referral_events_event_type_check;
-  alter table dealer_referral_events add constraint dealer_referral_events_event_type_check check(event_type in('PROFILE_VIEW','DEALER_SELECTED','CALL_CLICK','WHATSAPP_CLICK','DIRECTIONS_CLICK','REFERRAL_CREATED','CONFIRMED_CONVERSION'));
+  alter table dealer_referral_events add constraint dealer_referral_events_event_type_check check(event_type in('DEALER_VIEW','MAP_OPEN','CALL_CLICK','WHATSAPP_CLICK','REFERRAL_CREATED','CONFIRMED_CONVERSION'));
  end if;
 end$$;
 
 create or replace function public_track_dealer_referral_event(p_enquiry_id uuid,p_dealer_id uuid,p_event_type text,p_product_id uuid default null)
 returns boolean language plpgsql security definer set search_path=public as $$declare e text:=upper(btrim(coalesce(p_event_type,'')));begin
- if e not in('PROFILE_VIEW','DEALER_SELECTED','CALL_CLICK','WHATSAPP_CLICK','DIRECTIONS_CLICK','REFERRAL_CREATED') then raise exception 'INVALID PUBLIC REFERRAL EVENT'; end if;
+ if e not in('DEALER_VIEW','MAP_OPEN','CALL_CLICK','WHATSAPP_CLICK') then raise exception 'INVALID PUBLIC REFERRAL EVENT'; end if;
  if not exists(select 1 from dealers d where d.id=p_dealer_id and lower(coalesce(d.status,''))='approved' and d.customer_referral_enabled=true and d.referral_profile_verified_at is not null and d.product_sales_available=true) then raise exception 'VERIFIED DEALER NOT AVAILABLE'; end if;
  if p_product_id is not null and not exists(select 1 from catalog_items c where c.id=p_product_id and coalesce(c.active,true)=true) then raise exception 'PRODUCT NOT AVAILABLE'; end if;
  if p_enquiry_id is not null and not exists(select 1 from customer_product_enquiries q where q.id=p_enquiry_id) then raise exception 'CUSTOMER ENQUIRY NOT FOUND'; end if;
  insert into dealer_referral_events(enquiry_id,dealer_id,event_type,product_id) values(p_enquiry_id,p_dealer_id,e,p_product_id);
- if e='DEALER_SELECTED' and p_enquiry_id is not null then update customer_product_enquiries set status='DEALER_REFERRED',updated_at=now() where id=p_enquiry_id; end if;
  return true;
 end$$;
 revoke all on function public_track_dealer_referral_event(uuid,uuid,text,uuid) from public;grant execute on function public_track_dealer_referral_event(uuid,uuid,text,uuid) to anon,authenticated;
