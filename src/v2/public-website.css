@@ -164,3 +164,10 @@
 @media(max-width:700px){
  .torvoPublicTopBar .torvoMailGlyph svg{width:17px!important;height:17px!important;stroke-width:2.5!important;}
 }
+
+
+/* MAIL ICON FINAL RESET — remove legacy pseudo-envelope and center the single SVG. */
+.torvoPublicTopBar .torvoMailGlyph::before,.torvoPublicTopBar .torvoMailGlyph::after{content:none!important;display:none!important;}
+.torvoPublicTopBar .torvoMailGlyph{font-size:0!important;line-height:0!important;display:inline-flex!important;align-items:center!important;justify-content:center!important;overflow:hidden!important;}
+.torvoPublicTopBar .torvoMailGlyph>svg{position:static!important;margin:0!important;transform:none!important;flex:none!important;}
+@media(max-width:700px){.torvoPublicTopBar .torvoMailGlyph>svg{width:17px!important;height:17px!important;}}
