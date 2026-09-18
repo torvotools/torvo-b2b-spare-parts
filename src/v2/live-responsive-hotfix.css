@@ -523,6 +523,24 @@
  .publicHeader.topSearchHeader .headerFilterOnly .finderClearButton,
  .publicHeader.topSearchHeader .headerFilterOnly .finderApplyButton{width:100%!important;height:40px!important}
 }
+/* FILTER DROPDOWN — FINAL APPROVED UI MATCH */
+@media(min-width:821px){
+ .publicHeader.topSearchHeader .headerFilterOnly .finderFilterRow{width:500px!important;padding:16px!important;border-radius:10px!important}
+ .publicHeader.topSearchHeader .headerFilterOnly .finderFilterTitle{display:grid!important;grid-template-columns:30px 1fr 30px!important;align-items:center!important;gap:8px!important;margin:0 0 14px!important}
+ .publicHeader.topSearchHeader .headerFilterOnly .finderFilterTitle svg{width:28px!important;height:28px!important;fill:none!important;stroke:#e10620!important;stroke-width:2.5!important;stroke-linejoin:round!important}
+ .publicHeader.topSearchHeader .headerFilterOnly .finderFilterTitle>b{font-size:20px!important;font-weight:950!important;color:#111!important}
+ .publicHeader.topSearchHeader .headerFilterOnly .finderFilterTitle>button{width:30px!important;height:30px!important;padding:0!important;border:0!important;background:transparent!important;color:#111!important;font-size:28px!important;line-height:1!important;font-weight:500!important;cursor:pointer!important}
+ .publicHeader.topSearchHeader .headerFilterOnly .finderFilterTop{grid-template-columns:1fr 1fr!important;gap:10px!important}
+ .publicHeader.topSearchHeader .headerFilterOnly .finderTypeTrigger,
+ .publicHeader.topSearchHeader .headerFilterOnly .finderTotalCount>button{height:54px!important}
+ .publicHeader.topSearchHeader .headerFilterOnly .smartFinderFilters.dynamic{gap:10px!important}
+ .publicHeader.topSearchHeader .headerFilterOnly .smartFinderFilters.dynamic label>span{display:block!important;margin:0 0 5px!important;font-size:11px!important;font-weight:950!important;color:#111827!important}
+ .publicHeader.topSearchHeader .headerFilterOnly .smartFinderFilters.dynamic select{height:44px!important;border-radius:7px!important}
+ .publicHeader.topSearchHeader .headerFilterOnly .finderMatchingRow{min-height:48px!important}
+ .publicHeader.topSearchHeader .headerFilterOnly .finderFilterActions{margin-top:10px!important}
+ .publicHeader.topSearchHeader .headerFilterOnly .finderClearButton,
+ .publicHeader.topSearchHeader .headerFilterOnly .finderApplyButton{height:44px!important;font-size:12px!important}
+}
 /* LOCK 1 — TOP DELIVERY MESSAGE */
 .torvoPublicTopBar{position:relative!important}
 .torvoTopDelivery{
