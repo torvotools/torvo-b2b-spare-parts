@@ -63,7 +63,17 @@ jobs:
       - name: BUILD NATIVE APP
         env:
           VITE_BUILD_SHA: ${{ github.sha }}
-        run: npm run build:app
+        shell: bash
+        run: |
+          set -o pipefail
+          npm run build:app 2>&1 | tee /tmp/torvo-native-build.log || {
+            echo "::group::TORVO NATIVE BUILD ROOT ERROR"
+            grep -n -B 15 -A 20 -E "ERROR|Error:|error:|failed|FAILED|Expected|Unexpected|Transform failed|Build failed|✗" /tmp/torvo-native-build.log | tail -n 300 || true
+            echo "---- FINAL BUILD OUTPUT ----"
+            tail -n 300 /tmp/torvo-native-build.log
+            echo "::endgroup::"
+            exit 1
+          }
       - name: VERIFY CURRENT LOGIN UI
         run: |
           grep -R -q 'TORVO APP ACCESS' dist-app/assets
