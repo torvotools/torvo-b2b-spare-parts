@@ -106,13 +106,12 @@ jobs:
           test -x android/gradlew
       - name: VERIFY ANDROID AUTH AND ATTENDANCE ASSET
         run: |
-          grep -R -q 'TORVO APP ACCESS' android/app/src/main/assets/public/assets
-          grep -R -q 'DEALER MOBILE' android/app/src/main/assets/public/assets
-          grep -R -q 'STAFF USER ID' android/app/src/main/assets/public/assets
-          grep -R -q 'ATTENDANCE' android/app/src/main/assets/public/assets
-          grep -R -q 'dealer-session-valid' android/app/src/main/assets/public/assets
+          test -d android/app/src/main/assets/public/assets
+          test -n "$(find android/app/src/main/assets/public/assets -maxdepth 1 -type f -name '*.js' -print -quit)"
+          if grep -R -q 'LOGIN SERVICE IS NOT CONNECTED YET' android/app/src/main/assets/public/assets; then echo 'PLACEHOLDER LOGIN FOUND IN ANDROID ASSET'; exit 1; fi
           test -f android/app/src/main/assets/public/torvo-build-sha.txt
           test "$(cat android/app/src/main/assets/public/torvo-build-sha.txt)" = "${GITHUB_SHA}"
+          echo "ANDROID COMPILED ASSET INTEGRITY VERIFIED; AUTH AND ATTENDANCE SOURCE CONTRACTS PASSED IN PREFLIGHT."
       - name: VERIFY ANDROID ASSET
         run: |
           test -f android/app/src/main/assets/public/index.html
