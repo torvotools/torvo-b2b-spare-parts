@@ -57,3 +57,8 @@
 
 /* UI #1: PHONE GLYPH ONLY. Mobile/desktop top-bar geometry intentionally untouched. */
 .torvoPublicTopBar .torvoPhoneGlyph svg{width:14px!important;height:14px!important;fill:#050505!important;stroke:#050505!important;stroke-width:1.55!important;stroke-linejoin:round!important;opacity:1!important}
+
+/* UI #1 AFTER approved: email glyph size + social spacing; phone mobile unchanged. */
+.torvoPublicTopBar .torvoMailGlyph svg{width:14px!important;height:14px!important;stroke:#111!important;stroke-width:2.35!important;opacity:1!important}
+.torvoPublicTopBar .torvoTopSocial{gap:11px!important}
+@media(max-width:700px){.torvoPublicTopBar .torvoMailGlyph svg{width:13px!important;height:13px!important}.torvoPublicTopBar .torvoTopSocial{gap:9px!important}}
