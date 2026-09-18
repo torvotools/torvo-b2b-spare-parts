@@ -128,3 +128,22 @@
  .publicHero.compactHero .torvoHeroMedia{display:block!important;position:relative!important;width:100%!important;height:440px!important;overflow:hidden!important;background:linear-gradient(135deg,#fff 0 12%,#e10620 12.2% 100%)!important;clip-path:polygon(18% 0,100% 0,100% 100%,0 100%,14% 30%)!important;}
  .publicHero.compactHero .torvoHeroMedia img{width:100%!important;height:100%!important;display:block!important;object-fit:contain!important;object-position:center!important;padding:18px!important;}
 }
+
+/* OWNER-APPROVED HOME HERO: keep desktop reference composition and scale safely on mobile. */
+.torvoHeroMedia{position:relative}
+.torvoHeroClaims{position:absolute;right:20px;top:44px;bottom:42px;width:150px;display:flex;flex-direction:column;justify-content:center;gap:24px;color:#fff;text-align:left;z-index:3;pointer-events:none}
+.torvoHeroClaims b{font-size:17px;line-height:1.14;font-weight:950}
+.torvoHeroClaims span{width:58px;height:1px;background:rgba(255,255,255,.8)}
+@media(min-width:821px){
+ .publicHero.compactHero{border-top:1px solid #eceef1!important}
+ .publicHero.compactHero .torvoHeroMedia{background:linear-gradient(120deg,#fff 0 15%,#ed071f 15.2% 100%)!important}
+ .publicHero.compactHero .torvoHeroMedia img{object-position:left center!important;padding:12px 125px 8px 0!important;transform:scale(1.08)!important}
+}
+@media(max-width:820px){
+ .publicHero.compactHero{grid-template-columns:1fr!important}
+ .publicHero.compactHero .torvoHeroMedia{display:block!important;width:100%!important;min-height:285px!important;background:linear-gradient(120deg,#fff 0 13%,#ed071f 13.2% 100%)!important;clip-path:polygon(14% 0,100% 0,100% 100%,0 100%,10% 24%)!important;overflow:hidden!important}
+ .publicHero.compactHero .torvoHeroMedia img{width:100%!important;height:285px!important;object-fit:contain!important;object-position:left center!important;padding:8px 96px 5px 0!important}
+ .torvoHeroClaims{right:10px;top:28px;bottom:28px;width:88px;gap:15px}
+ .torvoHeroClaims b{font-size:10px;line-height:1.16}
+ .torvoHeroClaims span{width:38px}
+}
