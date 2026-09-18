@@ -6,6 +6,7 @@ on:
     branches: [torvo-v2-build]
     paths:
       - 'src/v2/**'
+      - '.github/workflows/v2-android-apk.yml'
       - 'v2.html'
       - 'package.json'
       - 'package-lock.json'
