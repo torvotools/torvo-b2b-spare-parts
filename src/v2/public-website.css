@@ -10,3 +10,12 @@
 .torvoPublicTopBar{min-height:34px;font-size:13px}.torvoPublicTopBar,.torvoPublicTopBar:empty{background:#e10600;color:#fff}.torvoTopContact a{font-weight:500}.torvoTopSocial svg{display:block}@media(max-width:700px){.torvoPublicTopBar{min-height:31px;font-size:11px}}
 
 .torvoTopSocial .isUnlinked{display:inline-flex;align-items:center;justify-content:center;color:#fff;opacity:1;cursor:default}.torvoTopSocial .torvoSocialFACEBOOK{background:#1877f2;border-radius:50%}.torvoTopSocial .torvoSocialYOUTUBE{background:#fff;color:#e10600;border:1px solid rgba(0,0,0,.55)}.torvoTopSocial .torvoSocialINSTAGRAM{background:#fff;color:#e10600;border-radius:5px}
+
+/* UI #1 approved red/black split */
+.torvoPublicTopBar{background:linear-gradient(125deg,#e10600 0 58%,#fff 58.15% 58.45%,#000 58.6% 100%)}
+.torvoTopSocial{margin-left:auto;padding-left:14px}
+.torvoTopSocial .torvoSocialIcon{width:27px;height:25px;display:inline-flex;align-items:center;justify-content:center;border-radius:6px}
+.torvoTopSocial .torvoSocialFACEBOOK{background:#1877f2;color:#fff}
+.torvoTopSocial .torvoSocialYOUTUBE{background:#fff;color:#e10600;border:1px solid #111}
+.torvoTopSocial .torvoSocialINSTAGRAM{background:linear-gradient(135deg,#833ab4,#fd1d1d,#fcb045);color:#fff;border:1px solid rgba(255,255,255,.55)}
+@media(max-width:700px){.torvoPublicTopBar{background:linear-gradient(125deg,#e10600 0 69%,#fff 69.2% 69.55%,#000 69.75% 100%)}.torvoTopSocial{padding-left:5px}.torvoTopSocial .torvoSocialIcon{width:22px;height:21px}}
