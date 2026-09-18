@@ -48,3 +48,35 @@
   .publicHeroActions{grid-template-columns:1fr!important}
   .previewSwitcher{left:8px!important;right:8px!important;width:auto!important;max-width:none!important}
 }
+/* CUSTOMER JOURNEY + FILTER + DEALER REGISTRATION POLISH */
+.publicProductFilterToggle{margin:8px 0 0 auto!important;min-height:34px!important;padding:0 12px!important;font-size:9px!important}
+.finderFilterRow{display:grid!important;grid-template-columns:minmax(150px,190px) minmax(0,1fr)!important;gap:12px!important;align-items:end!important;width:100%!important}
+.finderTypeCompact,.smartFinderFilters.dynamic,.smartFinderFilters.dynamic label{min-width:0!important}
+.smartFinderFilters.dynamic{display:grid!important;grid-template-columns:repeat(4,minmax(0,1fr))!important;gap:8px!important}
+.finderTypeTrigger,.smartFinderFilters.dynamic select{width:100%!important;max-width:100%!important;min-width:0!important}
+.smartFinderFoot{grid-column:1/-1!important}
+.customerJourney .dealerRegistration{gap:7px!important;padding-top:12px!important}
+.customerJourney .dealerRegistration .compactDealerNotice{padding:7px 9px!important;gap:7px!important;align-items:center!important}
+.customerJourney .dealerRegistration .compactDealerNotice svg{width:17px!important;height:17px!important;flex:none!important}
+.customerJourney .dealerRegistration .compactDealerNotice span{display:flex!important;align-items:center!important;gap:7px!important;min-width:0!important;flex-wrap:wrap!important}
+.customerJourney .dealerRegistration .compactDealerNotice b{font-size:10px!important;line-height:1.2!important}
+.customerJourney .dealerRegistration .compactDealerNotice small{font-size:8px!important;line-height:1.3!important;margin:0!important}
+.customerJourney .dealerRegistration label{gap:3px!important}
+.customerJourney .dealerRegistration input,.customerJourney .dealerRegistration select{min-height:38px!important;padding:8px 10px!important;font-size:11px!important;font-weight:500!important;letter-spacing:0!important}
+.dealerWhatsAppHint{display:flex!important;align-items:center!important;gap:8px!important;padding:1px 2px!important}
+.dealerWhatsAppHint b{font-size:9px!important}
+.dealerWhatsAppHint small{font-size:8px!important;color:#777!important}
+.cartStepActions{display:grid;grid-template-columns:auto 1fr;gap:8px}
+@media(max-width:900px){
+ .smartFinderFilters.dynamic{grid-template-columns:repeat(2,minmax(0,1fr))!important}
+}
+@media(max-width:600px){
+ .publicProductFilterToggle{margin:7px 0 0!important;width:max-content!important;max-width:100%!important}
+ .finderFilterRow{grid-template-columns:1fr!important;gap:8px!important}
+ .smartFinderFilters.dynamic{grid-template-columns:1fr!important;gap:7px!important}
+ .customerJourney .dealerRegistration{padding:10px 12px 14px!important;gap:6px!important}
+ .customerJourney .dealerRegistration .formTwo{grid-template-columns:1fr 1fr!important;gap:7px!important}
+ .customerJourney .dealerRegistration input,.customerJourney .dealerRegistration select{min-height:36px!important;padding:7px 8px!important;font-size:11px!important;font-weight:500!important}
+ .customerJourney .dealerRegistration .compactDealerNotice span{display:grid!important;gap:2px!important}
+ .cartStepActions{grid-template-columns:1fr!important}
+}
