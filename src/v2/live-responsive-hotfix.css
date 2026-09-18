@@ -502,6 +502,27 @@
  .publicHeader.topSearchHeader .headerFilterOnly .finderApplyButton{background:#e10620!important;color:#fff!important;border:1px solid #e10620!important}
 }
 
+/* FILTER PANEL — APPROVED LARGE LAYOUT */
+@media(min-width:821px){
+ .publicHeader.topSearchHeader .headerFilterOnly .finderFilterRow{width:430px!important;padding:16px!important}
+ .publicHeader.topSearchHeader .headerFilterOnly .finderFilterTop{display:grid!important;grid-template-columns:1fr 1fr!important;gap:10px!important;margin-bottom:12px!important}
+ .publicHeader.topSearchHeader .headerFilterOnly .finderTypeCompact{margin:0!important}
+ .publicHeader.topSearchHeader .headerFilterOnly .finderTypeCompact>span,
+ .publicHeader.topSearchHeader .headerFilterOnly .finderTotalCount>span{display:block!important;font-size:11px!important;font-weight:900!important;margin:0 0 6px!important;color:#1f2937!important}
+ .publicHeader.topSearchHeader .headerFilterOnly .finderTypeTrigger,
+ .publicHeader.topSearchHeader .headerFilterOnly .finderTotalCount>button{height:48px!important;border:1px solid #f3a6af!important;border-radius:8px!important;background:#fff7f8!important}
+ .publicHeader.topSearchHeader .headerFilterOnly .finderTotalCount>button{width:100%!important;display:flex!important;align-items:center!important;justify-content:center!important;gap:7px!important;color:#111!important}
+ .publicHeader.topSearchHeader .headerFilterOnly .finderTotalCount>button b{font-size:18px!important;font-weight:950!important}
+ .publicHeader.topSearchHeader .headerFilterOnly .finderTotalCount>button small{font-size:10px!important;font-weight:900!important}
+ .publicHeader.topSearchHeader .headerFilterOnly .smartFinderFoot{display:block!important;margin-top:12px!important}
+ .publicHeader.topSearchHeader .headerFilterOnly .finderMatchingRow{display:flex!important;align-items:center!important;justify-content:space-between!important;gap:10px!important;padding:9px 10px!important;border:1px solid #f3a6af!important;border-radius:8px!important;background:#fff7f8!important}
+ .publicHeader.topSearchHeader .headerFilterOnly .finderMatchingRow>b{font-size:11px!important;font-weight:950!important}
+ .publicHeader.topSearchHeader .headerFilterOnly .finderViewButton{height:32px!important;min-width:70px!important;padding:0 12px!important;border:0!important;border-radius:6px!important;background:#e10620!important;color:#fff!important;font-size:11px!important;font-weight:950!important}
+ .publicHeader.topSearchHeader .headerFilterOnly .finderViewButton:disabled{opacity:.45!important;cursor:not-allowed!important}
+ .publicHeader.topSearchHeader .headerFilterOnly .finderFilterActions{display:grid!important;grid-template-columns:1fr 1fr!important;gap:10px!important;margin-top:10px!important;width:100%!important}
+ .publicHeader.topSearchHeader .headerFilterOnly .finderClearButton,
+ .publicHeader.topSearchHeader .headerFilterOnly .finderApplyButton{width:100%!important;height:40px!important}
+}
 /* LOCK 1 — TOP DELIVERY MESSAGE */
 .torvoPublicTopBar{position:relative!important}
 .torvoTopDelivery{
