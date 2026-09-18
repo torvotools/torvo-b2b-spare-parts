@@ -163,3 +163,13 @@
  .publicTopFinder.filtersOnly .finderNav{align-items:center!important}
  .publicTopFinder.filtersOnly .finderNav a{white-space:nowrap!important;padding:0 12px!important;font-size:11px!important;line-height:1!important}
 }
+
+
+/* OWNER DESKTOP MICRO-FIX: simple contact glyphs + clean nav buttons (no grey strip). */
+@media(min-width:821px){
+ .torvoPhoneGlyph,.torvoMailGlyph{width:25px!important;height:25px!important;min-width:25px!important;aspect-ratio:1/1!important;border-radius:999px!important;padding:0!important;box-sizing:border-box!important}
+ .torvoPhoneGlyph svg{width:14px!important;height:14px!important;fill:none!important;stroke:#111!important;stroke-width:1.7!important;stroke-linecap:round!important;stroke-linejoin:round!important}
+ .torvoMailGlyph svg{width:14px!important;height:14px!important;fill:none!important;stroke:#111!important;stroke-width:1.7!important;stroke-linecap:round!important;stroke-linejoin:round!important}
+ .publicTopFinder.filtersOnly .finderNav a{background:#fff!important;border:1px solid #e5e7eb!important;box-shadow:none!important}
+ .publicTopFinder.filtersOnly .finderNav a:hover{background:#e10620!important;border-color:#e10620!important;color:#fff!important}
+}
