@@ -464,6 +464,26 @@
 .publicHeader.topSearchHeader .headerSearchOnly .publicHeroSearchBar button[aria-label="VOICE SEARCH"]{order:3!important}
 .publicHeader.topSearchHeader .headerSearchOnly .publicHeroSearchBar button[aria-label="SEARCH"]{order:4!important}
 
+/* FILTER DROPDOWN — OPEN STRAIGHT DOWN BELOW HEADER */
+@media(min-width:821px){
+ .publicHeader.topSearchHeader .headerFilterOnly{position:static!important}
+ .publicHeader.topSearchHeader .headerFilterOnly>.publicSmartFinder{position:static!important}
+ .publicHeader.topSearchHeader .headerFilterOnly .finderFilterRow{
+  position:absolute!important;top:72px!important;left:16px!important;right:16px!important;
+  width:auto!important;max-width:none!important;margin:0!important;
+  display:flex!important;align-items:flex-end!important;gap:10px!important;flex-wrap:nowrap!important;
+  padding:12px 14px!important;background:#fff!important;border:1px solid #e5e7eb!important;
+  border-radius:0 0 10px 10px!important;box-shadow:0 10px 24px rgba(17,24,39,.12)!important;
+  z-index:700!important
+ }
+ .publicHeader.topSearchHeader .headerFilterOnly .finderTypeCompact{flex:0 0 150px!important;min-width:150px!important}
+ .publicHeader.topSearchHeader .headerFilterOnly .smartFinderFilters.dynamic{
+  flex:1 1 auto!important;min-width:0!important;display:grid!important;
+  grid-template-columns:repeat(4,minmax(0,1fr))!important;gap:10px!important
+ }
+ .publicHeader.topSearchHeader .headerFilterOnly .smartFinderFoot{flex:0 0 auto!important;white-space:nowrap!important}
+}
+
 /* LOCK 1 — TOP DELIVERY MESSAGE */
 .torvoPublicTopBar{position:relative!important}
 .torvoTopDelivery{
