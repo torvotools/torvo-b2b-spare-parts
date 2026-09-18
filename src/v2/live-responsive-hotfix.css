@@ -184,3 +184,17 @@
  .publicTopFinder.filtersOnly .finderNav a{background:#fff!important;border:0!important;box-shadow:none!important;border-radius:7px!important}
  .publicTopFinder.filtersOnly .finderNav a:hover{background:#e10620!important;color:#fff!important}
 }
+
+/* OWNER SCREENSHOT FIX — desktop only: thinner contact strip, regular contact text, equal icon circles, prevent edge clipping. */
+@media(min-width:821px){
+ .torvoPublicTopBar{height:28px!important;min-height:28px!important;padding-left:max(42px,calc((100vw - 1420px)/2 + 18px))!important;padding-right:max(42px,calc((100vw - 1420px)/2 + 18px))!important;background:linear-gradient(110deg,#ed071f 0 20%,#17191e 20.2% 79.8%,#ed071f 80% 100%)!important}
+ .torvoTopContact>a{height:28px!important;font-weight:500!important;font-size:11px!important;gap:7px!important}
+ .torvoPhoneGlyph,.torvoMailGlyph{width:22px!important;height:22px!important;min-width:22px!important;min-height:22px!important;max-width:22px!important;max-height:22px!important;flex:0 0 22px!important;border-radius:50%!important}
+ .torvoPhoneGlyph svg,.torvoMailGlyph svg{width:13px!important;height:13px!important;stroke-width:1.7!important}
+ .publicHeader.topSearchHeader{box-sizing:border-box!important;width:100%!important;max-width:1420px!important;margin:0 auto!important;padding-left:max(42px,calc((100vw - 1420px)/2 + 18px))!important;padding-right:max(42px,calc((100vw - 1420px)/2 + 18px))!important;grid-template-columns:minmax(210px,260px) minmax(430px,1fr) minmax(150px,190px)!important;column-gap:22px!important;overflow:visible!important}
+ .publicHeader.topSearchHeader .publicBrand{min-width:0!important;margin-left:0!important;transform:none!important;overflow:visible!important}
+ .publicHeader.topSearchHeader .publicHeaderActions{min-width:0!important;margin-right:0!important;transform:none!important;justify-self:end!important}
+ .publicHeader.topSearchHeader .publicCartButton{max-width:190px!important;white-space:nowrap!important}
+ .publicTopFinder.filtersOnly{box-sizing:border-box!important;width:100%!important;max-width:1420px!important;padding-left:max(42px,calc((100vw - 1420px)/2 + 18px))!important;padding-right:max(42px,calc((100vw - 1420px)/2 + 18px))!important;overflow:visible!important}
+ .publicTopFinder.filtersOnly .finderNav{max-width:100%!important}
+}
