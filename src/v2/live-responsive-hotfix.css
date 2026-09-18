@@ -485,3 +485,16 @@ button.headerFilterOnly svg{display:block!important;width:23px!important;height:
 @media(max-width:720px){
  .publicHeader.topSearchHeader>.headerFilterOnly .finderFilterRow{position:absolute!important;top:calc(100% + 7px)!important;right:0!important;left:auto!important;width:min(94vw,520px)!important;max-height:70vh!important;overflow:auto!important;padding:10px!important}
 }
+
+
+/* HEADER SEARCH ORDER LOCK: INPUT | CAMERA | MIC | SEARCH, FILTER OUTSIDE */
+.publicHeader.topSearchHeader .headerSearchOnly{min-width:0!important;flex:1 1 auto!important}
+.publicHeader.topSearchHeader .headerSearchOnly .publicHeroSearchBar{width:100%!important;display:flex!important;align-items:center!important}
+.publicHeader.topSearchHeader .headerSearchOnly .publicHeroSearchBar input{order:1!important;flex:1 1 auto!important;min-width:0!important}
+.publicHeader.topSearchHeader .headerSearchOnly .publicHeroSearchBar button[aria-label="CAMERA SEARCH"]{order:2!important}
+.publicHeader.topSearchHeader .headerSearchOnly .publicHeroSearchBar button[aria-label="VOICE SEARCH"]{order:3!important}
+.publicHeader.topSearchHeader .headerSearchOnly .publicHeroSearchBar button[aria-label="SEARCH"]{order:4!important}
+.publicHeader.topSearchHeader>.headerFilterOnly{order:3!important;flex:0 0 auto!important}
+.publicHeader.topSearchHeader>.publicHeaderActions{order:4!important;flex:0 0 auto!important}
+.publicHeader.topSearchHeader>.publicBrand{order:1!important}
+.publicHeader.topSearchHeader>.headerSearchOnly{order:2!important}
