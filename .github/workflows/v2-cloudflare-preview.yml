@@ -1,7 +1,13 @@
 name: TORVO V2 Cloudflare Preview
 
 on:
-  # MANUAL LIVE DEPLOY ONLY: routine source commits must not create repeated failure-email noise.
+  # AUTO LIVE DEPLOY: every TORVO V2 source update is verified first; deploy happens only after all gates pass.
+  push:
+    branches:
+      - torvo-v2-build
+    paths-ignore:
+      - 'docs/**'
+      - '*.md'
   workflow_dispatch:
 
 concurrency:
