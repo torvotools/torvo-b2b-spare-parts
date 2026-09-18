@@ -610,3 +610,34 @@ button.headerFilterOnly svg{display:block!important;width:23px!important;height:
   width:26px!important;height:26px!important;
  }
 }
+
+
+/* DEALER INQUIRY — USER APPROVED HEADER CONTROL */
+.publicHeader.topSearchHeader .publicHeaderActions{flex:0 0 auto!important;margin-left:4px!important}
+.publicHeader.topSearchHeader .dealerInquiryButton{
+ position:relative!important;width:82px!important;height:48px!important;min-width:82px!important;
+ padding:5px 8px!important;border:0!important;border-radius:11px!important;
+ display:grid!important;grid-template-columns:26px 1fr!important;align-items:center!important;gap:5px!important;
+ background:#d71932!important;color:#fff!important;box-shadow:none!important;
+}
+.publicHeader.topSearchHeader .dealerInquiryButton .dealerInquiryIcon{
+ width:25px!important;height:25px!important;stroke:#fff!important;stroke-width:2.3!important;
+}
+.publicHeader.topSearchHeader .dealerInquiryButton span{
+ font-size:9px!important;line-height:.95!important;font-weight:800!important;text-align:left!important;
+}
+.publicHeader.topSearchHeader .dealerInquiryButton b{
+ position:absolute!important;right:-6px!important;top:-7px!important;
+ width:23px!important;height:23px!important;min-width:23px!important;border-radius:50%!important;
+ display:flex!important;align-items:center!important;justify-content:center!important;
+ padding:0!important;background:#111827!important;color:#fff!important;font-size:11px!important;
+}
+@media(max-width:720px){
+ .publicHeader.topSearchHeader .dealerInquiryButton{
+  width:76px!important;height:44px!important;min-width:76px!important;
+  grid-template-columns:23px 1fr!important;padding:4px 7px!important;border-radius:10px!important;
+ }
+ .publicHeader.topSearchHeader .dealerInquiryButton .dealerInquiryIcon{width:22px!important;height:22px!important}
+ .publicHeader.topSearchHeader .dealerInquiryButton span{font-size:8px!important}
+ .publicHeader.topSearchHeader .dealerInquiryButton b{width:21px!important;height:21px!important;min-width:21px!important;font-size:10px!important}
+}
