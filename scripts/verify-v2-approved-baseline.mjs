@@ -1,0 +1,17 @@
+import fs from'node:fs';
+const read=p=>fs.readFileSync(p,'utf8');
+const fail=m=>{throw new Error('TORVO APPROVED BASELINE REGRESSION: '+m)};
+const pub=read('src/v2/components/PublicWebsitePreview.jsx');
+const search=read('src/v2/components/PublicProductBrowser.jsx');
+const app=read('src/v2/App.jsx');
+const modules=read('src/v2/config/modules.js');
+const accountant=read('src/v2/components/AccountantDealerVerification.jsx');
+if(pub.includes("open('DIRECT')")||pub.includes("modal==='DIRECT'"))fail('standalone public FIND DEALER flow returned');
+if(!pub.includes('SELECTED ITEMS')||!pub.includes('SELECT ITEM'))fail('product-first selected-items journey missing');
+const camera=search.indexOf('aria-label="CAMERA SEARCH"'),voice=search.indexOf('aria-label="VOICE SEARCH"');
+if(camera<0||voice<0||camera>voice)fail('public search CAMERA -> MIC order missing');
+if(search.includes('>ALL<')||search.includes("'ALL'"))fail('public search ALL option returned');
+if(!app.includes('secureDesktopShell'))fail('secure desktop shell lock missing');
+if(!modules.includes("ACCOUNTANT:'accountant'")||!modules.includes('accountantDesktopOnly:true'))fail('accountant role/desktop contract missing');
+if(!accountant.includes('SUBMIT TO ADMIN')||!accountant.includes('REJECT DEALER APPLICATION'))fail('accountant dealer verification flow missing');
+console.log('TORVO APPROVED BASELINE REGRESSION CHECK: PASS');
