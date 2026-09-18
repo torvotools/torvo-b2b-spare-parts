@@ -8,3 +8,5 @@
 
 /* UI #1 refinement: one-step larger contact type/bar; stable red first paint. */
 .torvoPublicTopBar{min-height:34px;font-size:13px}.torvoPublicTopBar,.torvoPublicTopBar:empty{background:#e10600;color:#fff}.torvoTopContact a{font-weight:500}.torvoTopSocial svg{display:block}@media(max-width:700px){.torvoPublicTopBar{min-height:31px;font-size:11px}}
+
+.torvoTopSocial .isUnlinked{display:inline-flex;align-items:center;justify-content:center;color:#fff;opacity:1;cursor:default}.torvoTopSocial .torvoSocialFACEBOOK{background:#1877f2;border-radius:50%}.torvoTopSocial .torvoSocialYOUTUBE{background:#fff;color:#e10600;border:1px solid rgba(0,0,0,.55)}.torvoTopSocial .torvoSocialINSTAGRAM{background:#fff;color:#e10600;border-radius:5px}
