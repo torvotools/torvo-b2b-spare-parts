@@ -553,3 +553,15 @@ button.headerFilterOnly svg{display:block!important;width:23px!important;height:
    grid-template-columns:1fr!important
  }
 }
+
+
+/* LOCK 1 — TOP DELIVERY MESSAGE */
+.torvoPublicTopBar{position:relative!important}
+.torvoTopDelivery{
+ position:absolute!important;left:50%!important;top:50%!important;transform:translate(-50%,-50%)!important;
+ color:#fff!important;font-weight:800!important;font-size:13px!important;letter-spacing:.15px!important;
+ white-space:nowrap!important;pointer-events:none!important
+}
+@media(max-width:720px){
+ .torvoTopDelivery{font-size:10px!important;max-width:42vw!important;overflow:hidden!important;text-overflow:ellipsis!important}
+}
