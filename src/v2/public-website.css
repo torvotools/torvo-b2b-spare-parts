@@ -77,3 +77,20 @@
   .torvoPublicTopBar .torvoMailGlyph svg{width:15px!important;height:15px!important;stroke:#111!important;stroke-width:2.6!important;opacity:1!important;}
   .torvoPublicTopBar .torvoTopSocial{gap:13px!important;}
 }
+
+
+/* TOP CONTACT STRIP — OWNER APPROVED WHITE VERSION (2026-09-18).
+   Visual-only: preserves contact/social actions and responsive geometry. */
+.torvoPublicTopBar{
+  background:#fff!important;
+  color:#111!important;
+  border-bottom:1px solid #eceff3!important;
+}
+.torvoPublicTopBar .torvoTopContact a{color:#111!important;}
+.torvoPublicTopBar .torvoPhoneGlyph,
+.torvoPublicTopBar .torvoMailGlyph{background:#fff!important;color:#111!important;}
+.torvoPublicTopBar .torvoTopContact a:first-child svg,
+.torvoPublicTopBar .torvoTopContact a:nth-child(2) svg{background:#fff!important;color:#111!important;stroke:#111!important;}
+@media(max-width:700px){
+  .torvoPublicTopBar{background:#fff!important;color:#111!important;}
+}
