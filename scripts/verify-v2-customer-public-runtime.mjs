@@ -40,7 +40,7 @@ const checks=[
  ['PUBLIC SETTINGS SAFE BOOLEAN PARSING',safeBool('w','customer_active')&&safeBool('w','business_active')&&safeBool('f','customer_referral')&&safeBool('f','repair_service')&&safeBool('f','customer_catalog')],
  ['PUBLIC SETTINGS NO UNSAFE BOOLEAN CAST',!unsafePublicBoolCast],
  ['EXACT PIN DEALER LOCATOR',/create or replace function public_find_torvo_dealers_expanded/i.test(runtime)&&/coalesce\(nullif\(d\.public_pin_code,''\),d\.pin_code\)=btrim\(p_pin_code\)/i.test(runtime)&&/'EXACT_PIN'::text/i.test(runtime)],
- ['VERIFIED PUBLIC DEALER ONLY',/d\.status='approved'[\s\S]*d\.customer_referral_enabled=true[\s\S]*d\.referral_profile_verified_at is not null/i.test(runtime)],
+ ['VERIFIED PUBLIC DEALER ONLY',/(?:d\\.status='approved'|lower\\(coalesce\\(d\\.status,''\\)\\)='approved')[\\s\\S]*d\\.customer_referral_enabled=true[\\s\\S]*d\\.referral_profile_verified_at is not null/i.test(runtime)],
  ['REPAIR LOCATOR CAPABILITY FILTER',/not coalesce\(p_repair_only,false\) or d\.repair_service_available=true/i.test(runtime)],
  ['DUAL WHATSAPP ADMIN SETTINGS',/customer_number/.test(managed)&&/business_number/.test(managed)&&/customer_active/.test(managed)&&/business_active/.test(managed)],
  ['CUSTOMER WHATSAPP RUNTIME',/customer_active/.test(runtime)&&/(?:wv|setting_value)->>'customer_number'/.test(runtime)&&/7027751533/.test(runtime)],
