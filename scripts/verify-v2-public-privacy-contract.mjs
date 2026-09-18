@@ -8,7 +8,7 @@ const requirementForm=read('src/v2/components/PublicProductRequirementForm.jsx')
 const sql=read('supabase/v2-public-product-showcase.sql');
 const release=read('docs/TORVO-V2-RELEASE-GATES.md');
 const fail=m=>{console.error(`PUBLIC PRIVACY CONTRACT FAILED: ${m}`);process.exit(1)};
-if(!pub.includes('FIND DEALER')||!pub.includes('REQUEST A PRODUCT'))fail('PUBLIC DEALER/REQUIREMENT ACTIONS MISSING');
+if(!pub.includes('SELECT ITEMS. SHARE YOUR AREA. CONTACT APPROVED DEALERS.')||!pub.includes('REQUEST A PRODUCT'))fail('PUBLIC PRODUCT-FIRST DEALER/REQUIREMENT ACTIONS MISSING');
 if(!pub.includes('detail.image_url')||!pub.includes('detailed_description'))fail('PUBLIC PRODUCT PHOTO/DETAIL VIEW MISSING');
 for(const token of["import PublicDealerRegistrationForm from'./PublicDealerRegistrationForm'",'<PublicDealerRegistrationForm source="WEBSITE"/>',"import PublicProductRequirementForm from'./PublicProductRequirementForm'",'<PublicProductRequirementForm/>'])if(!pub.includes(token))fail(`PUBLIC COMMON FORM WIRING MISSING: ${token}`);
 for(const forbidden of['registerDealer','createProductRequirement','submitDealer','submitRequirement','dealerForm','emptyDealer','emptyRequirement'])if(pub.includes(forbidden))fail(`PUBLIC WEBSITE RESTORED DUPLICATE FORM LOGIC: ${forbidden}`);
