@@ -19,3 +19,9 @@
 .torvoTopSocial .torvoSocialYOUTUBE{background:#fff;color:#e10600;border:1px solid #111}
 .torvoTopSocial .torvoSocialINSTAGRAM{background:linear-gradient(135deg,#833ab4,#fd1d1d,#fcb045);color:#fff;border:1px solid rgba(255,255,255,.55)}
 @media(max-width:700px){.torvoPublicTopBar{background:linear-gradient(125deg,#e10600 0 69%,#fff 69.2% 69.55%,#000 69.75% 100%)}.torvoTopSocial{padding-left:5px}.torvoTopSocial .torvoSocialIcon{width:22px;height:21px}}
+
+/* UI #1 approved refinement */
+.torvoPublicTopBar{min-height:30px;padding-top:3px;padding-bottom:3px;font-size:12px;background:linear-gradient(125deg,#e10600 0 58.15%,#fff 58.2% 58.32%,#000 58.4% 100%)}
+.torvoTopContact svg{color:#fff;stroke:#fff}.torvoTopContact a:first-child svg{width:17px;height:17px;padding:2px;background:#fff;color:#e10600;stroke:#e10600;border-radius:50%}.torvoTopContact a:nth-child(2) svg{width:17px;height:17px;fill:#fff;stroke:#fff}
+.torvoTopSocial .torvoSocialIcon{width:24px;height:23px}.torvoTopSocial .torvoSocialIcon svg{width:14px;height:14px}
+@media(max-width:700px){.torvoPublicTopBar{min-height:28px;padding-top:3px;padding-bottom:3px;font-size:11px;background:linear-gradient(125deg,#e10600 0 69.15%,#fff 69.2% 69.32%,#000 69.4% 100%)}.torvoTopContact a:first-child svg,.torvoTopContact a:nth-child(2) svg{width:15px;height:15px}.torvoTopSocial .torvoSocialIcon{width:20px;height:19px}.torvoTopSocial .torvoSocialIcon svg{width:12px;height:12px}}
