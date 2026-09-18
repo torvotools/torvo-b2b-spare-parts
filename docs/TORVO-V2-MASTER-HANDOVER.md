@@ -150,3 +150,12 @@ Do not restart planning on every turn. Continue maximum safe compatible batches 
 
 ## NEW CHAT RECOVERY INSTRUCTION
 In a new chat, tell ChatGPT: `Continue TORVO V2 from docs/TORVO-V2-MASTER-HANDOVER.md on branch torvo-v2-build. Inspect current GitHub first. Never touch V27/main. Continue actual work in large safe batches and keep reports short.` This file plus current repository state is authoritative over old chat assumptions.
+
+
+## UI LOCK REGISTER
+
+### LOCK 1 — PUBLIC TOP CONTACT STRIP — LOCKED 2026-09-18
+- LOCKED FOR BOTH MOBILE AND DESKTOP.
+- Preserve the currently approved RED/BLACK top contact strip, phone contact presentation, email contact presentation, responsive sizing/alignment, and the single centered email SVG treatment implemented through commit `0ff97881713d5e86f622f8d450c661d424196134`.
+- Do not alter this locked area during unrelated UI, responsive, cleanup, or refactor work.
+- A future change to this area is allowed only when the Owner explicitly asks to unlock/change **LOCK 1**.
