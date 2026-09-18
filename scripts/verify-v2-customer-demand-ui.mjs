@@ -2,6 +2,7 @@ import fs from 'node:fs';
 const ui=fs.readFileSync('src/v2/components/CustomerApp.jsx','utf8');
 const svc=fs.readFileSync('src/v2/services/customerProductDemand.js','utf8');
 const pub=fs.readFileSync('src/v2/services/publicWebsite.js','utf8');
+const journey=fs.readFileSync('src/v2/services/customerDealerJourney.js','utf8');
 const checks=[
  ['DEMAND SERVICE IMPORT',/createCustomerProductDemand,requestTorvoProductHelp,loadCustomerProductDemandResult/.test(ui)],
  ['REQUEST THIS ITEM UI',/REQUEST THIS ITEM/.test(ui)&&/SUBMIT REQUIREMENT/.test(ui)],
@@ -21,15 +22,15 @@ const checks=[
  ['INPUT LENGTH LIMITS',/NAME<input maxLength="120"/.test(ui)&&/MOBILE \/ WHATSAPP<input inputMode="numeric" maxLength="10"/.test(ui)&&/ITEM \/ SEARCH<input maxLength="200"/.test(ui)],
  ['ACCESSIBLE STATUS',/role="alert"/.test(ui)&&/role="status"/.test(ui)],
  ['RESULT RESET ON NEW FLOW',/setDemandResult\(null\)/.test(ui)&&/setRepairResult\(null\)/.test(ui)&&/setRef\(null\)/.test(ui)],
- ['VERIFIED DEALER PROFILE SERVICE',/loadDealerProfile/.test(ui)&&/const selectDealer=async d=>/.test(ui)&&/await loadDealerProfile\(d\.dealer_id\)/.test(ui)],
- ['DEALER PROFILE BEFORE DETAILS',/setDealerProfile\(profile\|\|d\);setOpen\('details'\)/.test(ui)],
- ['CALL DEALER ACTION',/CALL DEALER/.test(ui)&&/href=\{`tel:\$\{dp\.mobile\}`\}/.test(ui)],
+ ['VERIFIED DEALER PROFILE SERVICE',/openCustomerDealerProfile/.test(ui)&&/loadDealerProfile/.test(journey)&&/VERIFIED DEALER PROFILE NOT AVAILABLE/.test(journey)],
+ ['DEALER PROFILE BEFORE DETAILS',/const profile=await openCustomerDealerProfile\(d,selected\)/.test(ui)&&/setDealerProfile\(profile\);setOpen\('details'\)/.test(ui)],
+ ['CALL DEALER ACTION',/CALL DEALER/.test(ui)&&/href=\{`tel:\$\{phone\}`\}/.test(ui)&&/onClick=\{dealerCall\}/.test(ui)],
  ['WHATSAPP DEALER ACTION',/WHATSAPP DEALER/.test(ui)&&/https:\/\/wa\.me\/91\$\{wa\}/.test(ui)&&/TORVO PRODUCT ENQUIRY/.test(ui)],
  ['MAP DIRECTION ACTION',/MAP \/ DIRECTION/.test(ui)&&/href=\{map\}/.test(ui)],
  ['VERIFIED DEALER LABEL',/VERIFIED TORVO DEALER/.test(ui)],
  ['DEALER LOCATION DISPLAY',/dp\.address,dp\.city,dp\.district,dp\.state,dp\.pin_code/.test(ui)],
- ['REFERRAL LINKS SELECTED DEALER',/dealerId:dealer\?\.dealer_id\|\|null/.test(ui)&&/GET TORVO REFERRAL CODE/.test(ui)],
- ['REFERRAL SERVICE VALIDATION',/CUSTOMER NAME REQUIRED/.test(pub)&&/10-DIGIT MOBILE \/ WHATSAPP REQUIRED/.test(pub)&&/6-DIGIT PIN CODE REQUIRED/.test(pub)&&/PRODUCT REQUIRED/.test(pub)&&/REFERRAL CREATION FAILED/.test(pub)],
+ ['REFERRAL LINKS SELECTED DEALER',/dealerId:dealerProfile\.dealer_id/.test(ui)&&/GET TORVO REFERRAL CODE/.test(ui)],
+ ['REFERRAL SERVICE VALIDATION',/CUSTOMER NAME REQUIRED/.test(pub)&&/10-DIGIT MOBILE \/ WHATSAPP REQUIRED/.test(pub)&&/6-DIGIT PIN CODE REQUIRED/.test(pub)&&/uuid\(productId,'PRODUCT ID'\)/.test(pub)&&/REFERRAL CREATION FAILED/.test(pub)],
  ['REPAIR SERVICE VALIDATION',/PROBLEM DESCRIPTION REQUIRED/.test(pub)&&/REPAIR REQUEST CREATION FAILED/.test(pub)],
  ['PUBLIC NO PRICE CHECKOUT',!/CHECKOUT|ADD TO CART|BUY NOW|PAY NOW/.test(ui)],
 ];
