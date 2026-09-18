@@ -577,3 +577,42 @@
    position:static!important;width:100%!important;height:36px!important;margin:0!important
  }
 }
+
+/* APPROVED FILTER UI — MATCH FINAL OWNER REFERENCE */
+@media(min-width:821px){
+ .publicHeader.topSearchHeader .headerFilterOnly .finderFilterRow{
+   right:-102px!important;width:320px!important;padding:12px!important;border-radius:9px!important;
+   overflow:visible!important;max-height:none!important
+ }
+ .publicHeader.topSearchHeader .headerFilterOnly .finderFilterRow:before{
+   right:106px!important;top:-8px!important
+ }
+ .publicHeader.topSearchHeader .headerFilterOnly .finderFilterTitle{
+   grid-template-columns:24px minmax(0,1fr) 24px!important;gap:8px!important;margin:0 0 10px!important
+ }
+ .publicHeader.topSearchHeader .headerFilterOnly .finderFilterTitle>b{font-size:17px!important}
+ .publicHeader.topSearchHeader .headerFilterOnly .finderFilterTop{
+   grid-template-columns:minmax(0,1fr) 102px!important;gap:8px!important;margin-bottom:8px!important
+ }
+ .publicHeader.topSearchHeader .headerFilterOnly .finderTypeTrigger,
+ .publicHeader.topSearchHeader .headerFilterOnly .finderTotalCount>button{height:42px!important}
+ .publicHeader.topSearchHeader .headerFilterOnly .smartFinderFilters.dynamic{gap:7px!important}
+ .publicHeader.topSearchHeader .headerFilterOnly .smartFinderFilters.dynamic select{height:38px!important}
+ .publicHeader.topSearchHeader .headerFilterOnly .smartFinderFoot{margin-top:8px!important}
+ .publicHeader.topSearchHeader .headerFilterOnly .finderMatchingRow{
+   min-height:44px!important;padding:7px 9px!important;border-radius:7px!important
+ }
+ .publicHeader.topSearchHeader .headerFilterOnly .finderViewButton{
+   display:inline-block!important;opacity:1!important;color:#e10620!important;background:transparent!important;
+   text-decoration:underline!important;font-size:9px!important;font-weight:900!important
+ }
+ .publicHeader.topSearchHeader .headerFilterOnly .finderFilterActions{
+   display:grid!important;grid-template-columns:1fr 1fr!important;gap:8px!important;
+   width:100%!important;margin:8px 0 0!important;padding:0!important
+ }
+ .publicHeader.topSearchHeader .headerFilterOnly .finderClearButton,
+ .publicHeader.topSearchHeader .headerFilterOnly .finderApplyButton{
+   display:block!important;position:static!important;width:100%!important;height:38px!important;
+   margin:0!important;padding:0!important;border-radius:7px!important
+ }
+}
