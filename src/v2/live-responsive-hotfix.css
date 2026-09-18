@@ -568,3 +568,6 @@ button.headerFilterOnly svg{display:block!important;width:23px!important;height:
 
 /* LOCK 1 — delivery text normal weight */
 .torvoTopDelivery{font-weight:400!important}
+
+/* APPROVED FILTER ICON — FUNNEL + SEARCH, KEEP EXISTING BOX */
+.torvoFilterSearchIcon{width:23px!important;height:23px!important;fill:none!important;stroke:currentColor!important;stroke-width:2.2!important;stroke-linecap:round!important;stroke-linejoin:round!important}
