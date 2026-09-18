@@ -80,3 +80,14 @@
  .customerJourney .dealerRegistration .compactDealerNotice span{display:grid!important;gap:2px!important}
  .cartStepActions{grid-template-columns:1fr!important}
 }
+
+/* DEALER REGISTRATION READABILITY */
+.customerJourney .dealerRegistration .compactDealerNotice{padding:9px 11px!important}
+.customerJourney .dealerRegistration .compactDealerNotice svg{width:20px!important;height:20px!important}
+.customerJourney .dealerRegistration .compactDealerNotice b{font-size:12px!important;line-height:1.25!important}
+.customerJourney .dealerRegistration .compactDealerNotice small{font-size:10px!important;line-height:1.45!important}
+.customerJourney .dealerRegistration .dealerAppAccess span{display:grid!important;grid-template-columns:1fr auto!important;column-gap:10px!important;row-gap:3px!important;width:100%!important}
+.customerJourney .dealerRegistration .dealerAppAccess b,.customerJourney .dealerRegistration .dealerAppAccess small{grid-column:1!important}
+.customerJourney .dealerRegistration .dealerAppAccess .appInstallButton{grid-column:2!important;grid-row:1/3!important;align-self:center!important;min-height:38px!important}
+.dealerWhatsAppHint b{font-size:10px!important}.dealerWhatsAppHint small{font-size:9px!important}
+@media(max-width:600px){.customerJourney .dealerRegistration .compactDealerNotice b{font-size:11px!important}.customerJourney .dealerRegistration .compactDealerNotice small{font-size:9px!important}.customerJourney .dealerRegistration .dealerAppAccess span{grid-template-columns:1fr!important}.customerJourney .dealerRegistration .dealerAppAccess .appInstallButton{grid-column:1!important;grid-row:auto!important;justify-self:start!important}}
