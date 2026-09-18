@@ -25,5 +25,5 @@ if(!browser.includes('placeholder="MACHINE CATEGORY"')||!browser.includes('place
 if(!managed.includes('CUSTOMER WHATSAPP'))fail('PUBLIC WHATSAPP ENTRY MISSING');
 if(/admin.*email|security.*email/i.test(managed))fail('PRIVATE ADMIN/SECURITY EMAIL LEAKED INTO PUBLIC LINKS');
 if(/rate_a|rate_b|rate_c|purchase_cost/i.test(sql))fail('PUBLIC SHOWCASE SQL EXPOSES PRIVATE RATE/COST FIELDS');
-if(!release.includes('Public customer flow has no TORVO retail checkout and no public selling price'))fail('RELEASE GATE DOES NOT LOCK PUBLIC NO-PRICE RULE');
+if(!release.includes('PUBLIC CUSTOMER HAS NO TORVO RETAIL CHECKOUT OR PUBLIC SELLING PRICE.'))fail('RELEASE GATE DOES NOT LOCK PUBLIC NO-PRICE RULE');
 console.log('TORVO V2 public privacy + common website form boundary contract OK');
