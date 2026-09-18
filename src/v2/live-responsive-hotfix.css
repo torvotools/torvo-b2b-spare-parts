@@ -571,3 +571,17 @@ button.headerFilterOnly svg{display:block!important;width:23px!important;height:
 
 /* APPROVED FILTER ICON — FUNNEL + SEARCH, KEEP EXISTING BOX */
 .torvoFilterSearchIcon{width:23px!important;height:23px!important;fill:none!important;stroke:currentColor!important;stroke-width:2.2!important;stroke-linecap:round!important;stroke-linejoin:round!important}
+
+
+/* APPROVED FILTER CONTROL — VISIBLE ROUNDED BOX + SLIGHTLY LARGER ICON */
+.headerFilterOnly .publicProductFilterToggle.iconOnly{
+ width:44px!important;height:44px!important;min-width:44px!important;
+ display:inline-flex!important;align-items:center!important;justify-content:center!important;
+ background:#fff!important;border:1.5px solid #d7dbe0!important;border-radius:10px!important;
+ box-shadow:none!important;padding:0!important;
+}
+.headerFilterOnly .torvoFilterSearchIcon{width:27px!important;height:27px!important}
+@media(max-width:720px){
+ .headerFilterOnly .publicProductFilterToggle.iconOnly{width:40px!important;height:40px!important;min-width:40px!important;border-radius:9px!important}
+ .headerFilterOnly .torvoFilterSearchIcon{width:25px!important;height:25px!important}
+}
