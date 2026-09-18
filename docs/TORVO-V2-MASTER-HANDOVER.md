@@ -99,6 +99,15 @@ Existing TORVO-to-Dealer B2B delivery policy remains: Machines/Accessories deliv
 ## ROLES
 OWNER full. ADMIN operational/admin but not Owner-only confidential cost/profit. SALESMAN mapped Dealer/area/order/sales. ACCOUNTANT secure desktop accounting/payment + authorized flows. STORE KEEPER stock/pick/pack/dispatch with no unauthorized financials. DEALER approved linked App. Compatibility/private Suitable Owner/Admin. Purchase Cost/Profit Owner-only.
 
+## CLEAN REPOSITORY + PORTABLE HANDOVER STANDARD
+- Keep one authoritative TORVO V2 codebase and one authoritative backend/database. Do not create parallel business logic, duplicate databases or duplicate deployment paths.
+- Remove obsolete code/schema only after dependency verification. Retired public retail pricing and public checkout/payment migrations stay excluded from the production install path; preserve only the minimum historical/recovery evidence required.
+- New folders/files must use descriptive names so a newly hired developer can understand purpose quickly. Avoid vague duplicate files, temporary copies and unexplained legacy variants.
+- Maintain docs/TORVO-V2-MASTER-HANDOVER.md as the architecture/business source of truth and supabase/V2_INSTALL_ORDER.md as the database dependency source of truth.
+- Final handover must include project architecture, role matrix, public/app/desktop flows, deployment, database install order, security boundaries, Android release process, backup/restore, environment-variable inventory (names only; no secrets), verification checklist and troubleshooting.
+- Final Owner package must include a portable source-code archive plus database schema/migrations/functions and a restore manifest/checklist. It must be sufficient to recreate TORVO on another compatible hosting/backend setup after supplying fresh environment secrets and running the documented database/install/deploy steps; raw copy/paste cannot recreate external provider accounts, secrets, DNS, signing keys or third-party services.
+- Before producing the final package, run dependency-aware cleanup, full V2 gates, build/deploy verification, staging database acceptance and a restore rehearsal.
+
 ## BACKUP & DISASTER RECOVERY
 Website, App and Desktop share one authoritative backend; avoid conflicting duplicate business databases. Backup is a core Owner/Admin function. A backup request is not success: only trusted worker completion + integrity verification can mark it verified. Portable backup must be encrypted; secrets/passwords/service-role credentials are excluded. Full Restore Point carries DB backup + code branch/commit + schema version + checksum + restore manifest. GitHub code/migrations + verified DB backup + restore manifest together form disaster recovery. Restore must be staging-tested.
 
