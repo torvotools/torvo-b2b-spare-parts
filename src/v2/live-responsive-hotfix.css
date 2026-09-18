@@ -616,3 +616,27 @@
    margin:0!important;padding:0!important;border-radius:7px!important
  }
 }
+
+/* LOCKED PUBLIC TOP PATTERN — TOP BAR + HEADER + NAV STAY FIXED WHILE PAGE BODY SCROLLS */
+:root{--torvo-public-topbar-h:32px;--torvo-public-header-h:72px;--torvo-public-nav-h:38px}
+.publicSite>.torvoPublicTopBar{
+ position:sticky!important;top:0!important;z-index:1200!important;height:var(--torvo-public-topbar-h)!important;
+}
+.publicSite>.publicHeader.topSearchHeader{
+ position:sticky!important;top:var(--torvo-public-topbar-h)!important;z-index:1190!important;background:#fff!important;
+}
+.publicSite>main#top>.publicTopFinder.filtersOnly{
+ position:sticky!important;top:calc(var(--torvo-public-topbar-h) + var(--torvo-public-header-h))!important;
+ z-index:1180!important;background:#fff!important;
+}
+@media(max-width:820px){
+ :root{--torvo-public-topbar-h:32px;--torvo-public-header-h:62px;--torvo-public-nav-h:38px}
+ .publicSite>.torvoPublicTopBar{position:sticky!important;top:0!important}
+ .publicSite>.publicHeader.topSearchHeader{
+   position:sticky!important;top:var(--torvo-public-topbar-h)!important;z-index:1190!important
+ }
+ .publicSite>main#top>.publicTopFinder.filtersOnly{
+   position:sticky!important;top:calc(var(--torvo-public-topbar-h) + var(--torvo-public-header-h))!important;
+   z-index:1180!important
+ }
+}
