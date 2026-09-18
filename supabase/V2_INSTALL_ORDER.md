@@ -19,6 +19,7 @@ Authoritative dependency order. Never install migrations alphabetically and neve
 
 ## SAFETY
 - Dedicated V2 staging first; stop on first SQL error.
+- Before final app production release, complete the required real Android device acceptance test; do not treat browser/emulator-only testing as final device verification.
 - No service-role keys, provider secrets, plaintext passwords, PINs, OTP secrets or private tokens in GitHub/browser code.
 - `SUPABASE_SERVICE_ROLE_KEY` exists only as a Supabase Edge Function secret/environment variable.
 - Server derives authenticated role/user/dealer identity; never trust browser-supplied role/dealer identity.
