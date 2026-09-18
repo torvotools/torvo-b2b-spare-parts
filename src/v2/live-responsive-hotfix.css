@@ -641,3 +641,38 @@ button.headerFilterOnly svg{display:block!important;width:23px!important;height:
  .publicHeader.topSearchHeader .dealerInquiryButton span{font-size:8px!important}
  .publicHeader.topSearchHeader .dealerInquiryButton b{width:21px!important;height:21px!important;min-width:21px!important;font-size:10px!important}
 }
+
+
+/* FILTER + DEALER ITEM — APPROVED SAME-HEIGHT HEADER CONTROLS */
+.publicHeader.topSearchHeader > .headerFilterOnly{
+ margin-left:2px!important;margin-right:7px!important;
+}
+.publicHeader.topSearchHeader > .headerFilterOnly,
+.publicHeader.topSearchHeader > .headerFilterOnly > .publicSmartFinder,
+.publicHeader.topSearchHeader > .headerFilterOnly .publicProductFilterToggle.iconOnly{
+ height:44px!important;
+}
+.publicHeader.topSearchHeader .dealerInquiryButton{
+ height:44px!important;width:94px!important;min-width:94px!important;
+ border-radius:10px!important;padding:4px 8px!important;
+ grid-template-columns:27px 1fr!important;gap:6px!important;
+}
+.publicHeader.topSearchHeader .dealerInquiryButton .dealerInquiryIcon{
+ width:26px!important;height:26px!important;
+}
+.publicHeader.topSearchHeader .dealerInquiryButton span{
+ font-size:10px!important;line-height:1!important;
+}
+@media(max-width:720px){
+ .publicHeader.topSearchHeader > .headerFilterOnly{margin-left:1px!important;margin-right:5px!important}
+ .publicHeader.topSearchHeader > .headerFilterOnly,
+ .publicHeader.topSearchHeader > .headerFilterOnly > .publicSmartFinder,
+ .publicHeader.topSearchHeader > .headerFilterOnly .publicProductFilterToggle.iconOnly,
+ .publicHeader.topSearchHeader .dealerInquiryButton{height:40px!important}
+ .publicHeader.topSearchHeader .dealerInquiryButton{
+  width:86px!important;min-width:86px!important;border-radius:9px!important;
+  grid-template-columns:24px 1fr!important;padding:3px 7px!important;
+ }
+ .publicHeader.topSearchHeader .dealerInquiryButton .dealerInquiryIcon{width:23px!important;height:23px!important}
+ .publicHeader.topSearchHeader .dealerInquiryButton span{font-size:9px!important}
+}
