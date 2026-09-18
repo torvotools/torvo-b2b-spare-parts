@@ -26,6 +26,7 @@ import './smart-product-filters.css';
 import './dealer-search-lock.css';
 import './final-ui-balance.css';
 import './secure-desktop-lock.css';
+import './live-responsive-hotfix.css';
 import {installGlobalUiFeedback} from './services/uiFeedback.js';
 import {installAppFoundation} from './services/appInstall.js';
 import {forceSignOut,currentAppUser} from './services/auth.js';
