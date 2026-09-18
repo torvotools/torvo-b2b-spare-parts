@@ -474,3 +474,14 @@
 /* DIRECT HEADER FILTER ICON — no nested finder, cannot be hidden by finder CSS. */
 button.headerFilterOnly{display:grid!important;place-items:center!important;align-self:center!important;width:38px!important;height:36px!important;min-width:38px!important;padding:0!important;margin:0!important;border:0!important;border-radius:0!important;background:transparent!important;box-shadow:none!important;color:#17243b!important;visibility:visible!important;opacity:1!important;position:relative!important;z-index:9999!important}
 button.headerFilterOnly svg{display:block!important;width:23px!important;height:23px!important;fill:none!important;stroke:currentColor!important;stroke-width:1.8!important;stroke-linecap:round!important;visibility:visible!important;opacity:1!important}
+
+
+/* LOCKED HEADER SEARCH ALIGNMENT + TOP-DOWN FILTER — 2026-09-19 */
+.publicHeroSearchBar{display:flex!important;align-items:center!important}
+.publicHeroSearchBar input{align-self:stretch!important;height:auto!important;min-height:0!important;padding-top:0!important;padding-bottom:0!important;line-height:1.2!important;display:block!important}
+.headerFilterOnly{position:relative!important;align-self:stretch!important;display:flex!important;align-items:center!important}
+.headerFilterOnly .publicSmartFinder{position:static!important}
+.publicHeader.topSearchHeader>.headerFilterOnly .finderFilterRow{position:absolute!important;top:calc(100% + 8px)!important;right:0!important;left:auto!important;width:min(900px,calc(100vw - 32px))!important;max-height:min(68vh,560px)!important;overflow:auto!important;background:#fff!important;border:1px solid #e5e7eb!important;border-radius:12px!important;padding:14px!important;box-shadow:0 14px 32px rgba(17,24,39,.14)!important;z-index:700!important}
+@media(max-width:720px){
+ .publicHeader.topSearchHeader>.headerFilterOnly .finderFilterRow{position:absolute!important;top:calc(100% + 7px)!important;right:0!important;left:auto!important;width:min(94vw,520px)!important;max-height:70vh!important;overflow:auto!important;padding:10px!important}
+}
