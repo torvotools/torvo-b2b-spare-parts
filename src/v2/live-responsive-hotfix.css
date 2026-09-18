@@ -676,3 +676,42 @@ button.headerFilterOnly svg{display:block!important;width:23px!important;height:
  .publicHeader.topSearchHeader .dealerInquiryButton .dealerInquiryIcon{width:23px!important;height:23px!important}
  .publicHeader.topSearchHeader .dealerInquiryButton span{font-size:9px!important}
 }
+
+
+/* FIND DEALER + FILTER — APPROVED REFERENCE #2 */
+.publicHeader.topSearchHeader > .headerFilterOnly{
+ margin-left:6px!important;margin-right:7px!important;
+}
+.publicHeader.topSearchHeader > .headerFilterOnly,
+.publicHeader.topSearchHeader > .headerFilterOnly > .publicSmartFinder,
+.publicHeader.topSearchHeader > .headerFilterOnly .publicProductFilterToggle.iconOnly{
+ height:42px!important;
+}
+.publicHeader.topSearchHeader .dealerInquiryButton{
+ width:88px!important;min-width:88px!important;height:42px!important;
+ padding:4px 7px!important;border-radius:10px!important;
+ grid-template-columns:24px 1fr!important;gap:5px!important;
+}
+.publicHeader.topSearchHeader .dealerInquiryButton .dealerInquiryIcon{
+ width:23px!important;height:23px!important;stroke-width:2.5!important;
+}
+.publicHeader.topSearchHeader .dealerInquiryButton span{
+ font-size:9px!important;line-height:1!important;font-weight:800!important;
+}
+.publicHeader.topSearchHeader .dealerInquiryButton b{
+ right:-5px!important;top:-7px!important;width:21px!important;height:21px!important;min-width:21px!important;
+ font-size:10px!important;
+}
+@media(max-width:720px){
+ .publicHeader.topSearchHeader > .headerFilterOnly{margin-left:5px!important;margin-right:5px!important}
+ .publicHeader.topSearchHeader > .headerFilterOnly,
+ .publicHeader.topSearchHeader > .headerFilterOnly > .publicSmartFinder,
+ .publicHeader.topSearchHeader > .headerFilterOnly .publicProductFilterToggle.iconOnly,
+ .publicHeader.topSearchHeader .dealerInquiryButton{height:38px!important}
+ .publicHeader.topSearchHeader .dealerInquiryButton{
+  width:80px!important;min-width:80px!important;border-radius:9px!important;
+  grid-template-columns:21px 1fr!important;gap:4px!important;padding:3px 6px!important;
+ }
+ .publicHeader.topSearchHeader .dealerInquiryButton .dealerInquiryIcon{width:20px!important;height:20px!important}
+ .publicHeader.topSearchHeader .dealerInquiryButton span{font-size:8px!important}
+}
