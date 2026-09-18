@@ -28,6 +28,8 @@ jobs:
           node-version: 22
       - name: INSTALL
         run: npm install --no-audit --no-fund
+      - name: VERIFY V2 PREFLIGHT
+        run: npm run verify:v2-preflight
       - name: VERIFY COMPLETE V2 CI CONTRACT
         run: npm run verify:v2-ci
       - name: DETECT EXTERNAL DEPLOY CONFIG
