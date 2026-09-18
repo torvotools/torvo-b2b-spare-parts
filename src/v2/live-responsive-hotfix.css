@@ -147,3 +147,19 @@
  .torvoHeroClaims b{font-size:10px;line-height:1.16}
  .torvoHeroClaims span{width:38px}
 }
+
+
+/* DESKTOP HEADER CORRECTION — owner screenshot 18-09: thin contact strip, split contacts, clean nav. */
+@media(min-width:821px){
+ .torvoPublicTopBar{height:34px!important;min-height:34px!important;padding:0 max(30px,calc((100vw - 1420px)/2))!important;display:flex!important;align-items:center!important;justify-content:space-between!important;background:linear-gradient(110deg,#ed071f 0 20%,#17191e 20.2% 79.8%,#ed071f 80% 100%)!important;overflow:hidden!important}
+ .torvoTopContact{display:contents!important}
+ .torvoTopContact>a{height:34px!important;display:flex!important;align-items:center!important;gap:8px!important;color:#fff!important;font-size:12px!important;font-weight:800!important;text-decoration:none!important;white-space:nowrap!important}
+ .torvoTopContact>a:first-child{order:1!important;justify-self:flex-start!important}
+ .torvoTopContact>a:last-child{order:3!important;justify-self:flex-end!important;margin-left:auto!important}
+ .torvoPhoneGlyph,.torvoMailGlyph{width:25px!important;height:25px!important;min-width:25px!important;border-radius:50%!important;background:#fff!important;display:grid!important;place-items:center!important}
+ .torvoPhoneGlyph svg{width:15px!important;height:15px!important;fill:#111!important}
+ .torvoMailGlyph svg{width:15px!important;height:15px!important;fill:none!important;stroke:#111!important;stroke-width:2!important}
+ .torvoTopSocial{display:none!important}
+ .publicTopFinder.filtersOnly .finderNav{align-items:center!important}
+ .publicTopFinder.filtersOnly .finderNav a{white-space:nowrap!important;padding:0 12px!important;font-size:11px!important;line-height:1!important}
+}
