@@ -171,3 +171,24 @@
 .torvoPublicTopBar .torvoMailGlyph{font-size:0!important;line-height:0!important;display:inline-flex!important;align-items:center!important;justify-content:center!important;overflow:hidden!important;}
 .torvoPublicTopBar .torvoMailGlyph>svg{position:static!important;margin:0!important;transform:none!important;flex:none!important;}
 @media(max-width:700px){.torvoPublicTopBar .torvoMailGlyph>svg{width:17px!important;height:17px!important;}}
+
+
+/* DESKTOP HEADER + HERO — OWNER APPROVED MOCKUP 2026-09-18. MOBILE UNCHANGED. */
+@media(min-width:901px){
+ .publicHeader.topSearchHeader{display:grid!important;grid-template-columns:minmax(220px,18%) minmax(0,1fr) minmax(190px,18%)!important;grid-template-rows:auto auto!important;align-items:center!important;column-gap:22px!important;row-gap:12px!important;padding:18px clamp(30px,4vw,70px) 16px!important;min-height:126px!important;background:#fff!important;}
+ .publicHeader.topSearchHeader .publicBrand{grid-column:1!important;grid-row:1 / span 2!important;align-self:start!important;}
+ .publicHeader.topSearchHeader .headerSearchOnly{grid-column:2!important;grid-row:1!important;width:96%!important;justify-self:center!important;}
+ .publicHeader.topSearchHeader .publicHeaderActions{grid-column:3!important;grid-row:1!important;justify-self:center!important;}
+ .publicTopFinder.filtersOnly{display:flex!important;align-items:center!important;justify-content:center!important;padding:0!important;margin:-58px auto 18px!important;position:relative!important;z-index:5!important;pointer-events:none!important;}
+ .publicTopFinder.filtersOnly>*:not(.finderNav){display:none!important;}
+ .publicTopFinder .finderNav{display:flex!important;gap:12px!important;align-items:center!important;justify-content:center!important;pointer-events:auto!important;}
+ .publicTopFinder .finderNav a{min-height:42px!important;padding:0 24px!important;border:1px solid #e1e4e8!important;border-radius:8px!important;background:#f7f8fa!important;color:#15171b!important;font-weight:800!important;text-decoration:none!important;display:inline-flex!important;align-items:center!important;justify-content:center!important;transition:background .18s ease,color .18s ease,border-color .18s ease,transform .18s ease!important;}
+ .publicTopFinder .finderNav a:hover{background:#ef172b!important;color:#fff!important;border-color:#ef172b!important;transform:translateY(-1px)!important;}
+ .publicHero.compactHero{min-height:500px!important;margin-top:0!important;padding:70px clamp(48px,5vw,88px)!important;display:grid!important;grid-template-columns:minmax(480px,54%) 1fr!important;align-items:center!important;background:linear-gradient(115deg,#fff 0%,#fff 60%,#f5f6f8 60.2%,#fff 100%)!important;position:relative!important;overflow:hidden!important;}
+ .publicHero.compactHero:after{content:'';position:absolute;right:-4%;top:0;width:43%;height:100%;background:linear-gradient(135deg,transparent 0 19%,#ef172b 19.2% 100%);z-index:0;}
+ .publicHero.compactHero .publicHeroCopy{position:relative!important;z-index:1!important;max-width:760px!important;}
+ .publicHero.compactHero h1{font-size:clamp(42px,4.25vw,68px)!important;line-height:.96!important;letter-spacing:-2px!important;margin:12px 0 20px!important;}
+ .publicHero.compactHero h1 em{color:#ef172b!important;font-style:normal!important;}
+ .publicHero.compactHero p{max-width:690px!important;font-size:17px!important;line-height:1.45!important;}
+ .publicHero.compactHero .publicHeroActions button{min-width:245px!important;min-height:54px!important;background:#ef172b!important;color:#fff!important;border-radius:9px!important;}
+}
