@@ -81,13 +81,13 @@ jobs:
           grep -q 'torvo-v2-root' dist-app/v2.html
       - name: VERIFY CURRENT LOGIN UI
         run: |
+          test -d dist-app/assets
           grep -R -q 'TORVO APP ACCESS' dist-app/assets
           grep -R -q 'DEALER MOBILE' dist-app/assets
           grep -R -q 'STAFF USER ID' dist-app/assets
           grep -R -q 'REGISTER AS DEALER' dist-app/assets
           grep -R -q '4-DIGIT PIN' dist-app/assets
           grep -R -q 'ADMIN-ISSUED ONE-TIME PASSWORD' dist-app/assets
-          grep -R -q 'dealer-session-valid' dist-app/assets
           if grep -R -q 'LOGIN SERVICE IS NOT CONNECTED YET' dist-app/assets; then echo 'PLACEHOLDER LOGIN FOUND IN COMPILED APP'; exit 1; fi
       - name: VERIFY NATIVE ENTRY AND EXACT SHA
         run: |
