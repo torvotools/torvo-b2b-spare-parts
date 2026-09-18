@@ -661,3 +661,39 @@
  :root{--torvo-fixed-topbar:32px;--torvo-fixed-header:62px;--torvo-fixed-nav:38px}
  .publicSite{padding-top:calc(var(--torvo-fixed-topbar) + var(--torvo-fixed-header) + var(--torvo-fixed-nav))!important}
 }
+
+/* FILTER COMPACT SPACE FIX — ONLY DROPDOWN INTERNAL SPACING; LOCKED TOP SHELL UNTOUCHED */
+@media(min-width:821px){
+ .publicHeader.topSearchHeader .headerFilterOnly .finderFilterRow{
+   width:300px!important;padding:9px 10px 10px!important
+ }
+ .publicHeader.topSearchHeader .headerFilterOnly .finderFilterTitle{
+   grid-template-columns:21px minmax(0,1fr) 22px!important;gap:6px!important;
+   margin:0 0 5px!important;min-height:27px!important
+ }
+ .publicHeader.topSearchHeader .headerFilterOnly .finderFilterTitle svg{width:20px!important;height:20px!important}
+ .publicHeader.topSearchHeader .headerFilterOnly .finderFilterTitle>b{font-size:15px!important;line-height:1!important}
+ .publicHeader.topSearchHeader .headerFilterOnly .finderFilterTitle>button{width:22px!important;height:22px!important;font-size:21px!important}
+ .publicHeader.topSearchHeader .headerFilterOnly .finderFilterTop{
+   grid-template-columns:minmax(0,1fr) 88px!important;gap:7px!important;margin-bottom:6px!important
+ }
+ .publicHeader.topSearchHeader .headerFilterOnly .finderTypeCompact>span,
+ .publicHeader.topSearchHeader .headerFilterOnly .finderTotalCount>span{margin-bottom:3px!important;font-size:9px!important}
+ .publicHeader.topSearchHeader .headerFilterOnly .finderTypeTrigger,
+ .publicHeader.topSearchHeader .headerFilterOnly .finderTotalCount>button{height:36px!important}
+ .publicHeader.topSearchHeader .headerFilterOnly .finderTotalCount>button{gap:3px!important;padding:0 5px!important}
+ .publicHeader.topSearchHeader .headerFilterOnly .finderTotalCount>button b{font-size:15px!important}
+ .publicHeader.topSearchHeader .headerFilterOnly .finderTotalCount>button small{font-size:7px!important}
+ .publicHeader.topSearchHeader .headerFilterOnly .smartFinderFilters.dynamic{gap:5px!important}
+ .publicHeader.topSearchHeader .headerFilterOnly .smartFinderFilters.dynamic label>span{margin-bottom:2px!important;font-size:9px!important}
+ .publicHeader.topSearchHeader .headerFilterOnly .smartFinderFilters.dynamic select{height:34px!important}
+ .publicHeader.topSearchHeader .headerFilterOnly .smartFinderFoot{margin-top:5px!important}
+ .publicHeader.topSearchHeader .headerFilterOnly .finderMatchingRow{
+   min-height:34px!important;padding:4px 7px!important;grid-template-columns:minmax(0,1fr) auto!important
+ }
+ .publicHeader.topSearchHeader .headerFilterOnly .finderMatchingRow>b{font-size:9px!important;white-space:nowrap!important}
+ .publicHeader.topSearchHeader .headerFilterOnly .finderViewButton{font-size:8px!important;white-space:nowrap!important}
+ .publicHeader.topSearchHeader .headerFilterOnly .finderFilterActions{margin-top:6px!important;gap:7px!important}
+ .publicHeader.topSearchHeader .headerFilterOnly .finderClearButton,
+ .publicHeader.topSearchHeader .headerFilterOnly .finderApplyButton{height:34px!important}
+}
