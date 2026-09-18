@@ -1,8 +1,7 @@
 name: TORVO V2 Cloudflare Preview
 
 on:
-  push:
-    branches: [torvo-v2-build]
+  # MANUAL PREVIEW ONLY: routine source commits must not generate failure-email noise.
   workflow_dispatch:
 
 concurrency:
