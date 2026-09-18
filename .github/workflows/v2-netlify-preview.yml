@@ -2,8 +2,7 @@ name: TORVO V2 Netlify Preview
 
 on:
   workflow_dispatch:
-  push:
-    branches: [torvo-v2-build]
+  # MANUAL PREVIEW ONLY: routine source commits must not generate failure-email noise.
 
 permissions:
   contents: read
