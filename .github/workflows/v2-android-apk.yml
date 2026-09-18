@@ -75,8 +75,10 @@ jobs:
             exit 1
           }
           rm -rf dist-app
-          cp -R dist dist-app
+          mkdir -p dist-app
+          cp -R dist/. dist-app/
           test -f dist-app/index.html
+          test -d dist-app/assets
           cp dist-app/index.html dist-app/v2.html
           grep -q 'torvo-v2-root' dist-app/v2.html
       - name: VERIFY CURRENT LOGIN UI
