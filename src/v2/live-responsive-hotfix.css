@@ -697,3 +697,24 @@
  .publicHeader.topSearchHeader .headerFilterOnly .finderClearButton,
  .publicHeader.topSearchHeader .headerFilterOnly .finderApplyButton{height:34px!important}
 }
+
+/* LOCKED NAV ROW — PRODUCTS / DEALERS / BECOME A DEALER / SUPPORT MUST STAY FIXED AND FULL WIDTH */
+.publicSite>main#top>.publicTopFinder.filtersOnly{
+ display:flex!important;align-items:center!important;justify-content:center!important;
+ overflow:visible!important
+}
+.publicSite>main#top>.publicTopFinder.filtersOnly .finderNav{
+ width:min(820px,calc(100vw - 40px))!important;max-width:820px!important;height:38px!important;
+ margin:0 auto!important;display:grid!important;grid-template-columns:1fr 1fr 1.45fr 1fr!important;
+ gap:12px!important;align-items:center!important;position:relative!important;left:auto!important;right:auto!important;
+ transform:none!important
+}
+@media(max-width:820px){
+ .publicSite>main#top>.publicTopFinder.filtersOnly .finderNav{
+  width:100%!important;max-width:none!important;padding:0 6px!important;box-sizing:border-box!important;
+  grid-template-columns:1fr 1fr 1.35fr 1fr!important;gap:2px!important
+ }
+ .publicSite>main#top>.publicTopFinder.filtersOnly .finderNav a{
+  min-width:0!important;padding:0 2px!important;font-size:8px!important;white-space:nowrap!important
+ }
+}
