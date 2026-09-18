@@ -549,6 +549,27 @@
 .publicHeader.topSearchHeader .headerFilterOnly .finderFilterTop{display:grid!important;grid-template-columns:1fr 1fr!important;gap:10px!important;margin-bottom:12px!important}
 .publicHeader.topSearchHeader .headerFilterOnly .finderFilterActions{display:grid!important;grid-template-columns:1fr 1fr!important;gap:10px!important;width:100%!important;margin-top:10px!important}
 .publicHeader.topSearchHeader .headerFilterOnly .finderClearButton,.publicHeader.topSearchHeader .headerFilterOnly .finderApplyButton{width:100%!important}
+/* FILTER DROPDOWN — FINAL POSITION + POINTER ARROW */
+@media(min-width:821px){
+ .publicHeader.topSearchHeader .headerFilterOnly .finderFilterRow{
+  right:-132px!important;
+  left:auto!important;
+  transform:none!important;
+ }
+ .publicHeader.topSearchHeader .headerFilterOnly .finderFilterRow:before{
+  content:""!important;
+  position:absolute!important;
+  top:-9px!important;
+  right:136px!important;
+  width:16px!important;
+  height:16px!important;
+  background:#fff!important;
+  border-left:1px solid #cbd5e1!important;
+  border-top:1px solid #cbd5e1!important;
+  transform:rotate(45deg)!important;
+  z-index:1!important;
+ }
+}
 /* LOCK 1 — TOP DELIVERY MESSAGE */
 .torvoPublicTopBar{position:relative!important}
 .torvoTopDelivery{
