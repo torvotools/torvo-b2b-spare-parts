@@ -94,3 +94,19 @@
 @media(max-width:700px){
   .torvoPublicTopBar{background:#fff!important;color:#111!important;}
 }
+
+
+/* TOP WHITE STRIP +1 SIZE — OWNER REQUESTED. White treatment unchanged. */
+.torvoPublicTopBar{min-height:29px!important;padding-top:2px!important;padding-bottom:2px!important;font-size:13px!important;}
+.torvoPublicTopBar .torvoPhoneGlyph,.torvoPublicTopBar .torvoMailGlyph{width:21px!important;height:21px!important;}
+.torvoPublicTopBar .torvoPhoneGlyph svg{width:15px!important;height:15px!important;}
+.torvoPublicTopBar .torvoMailGlyph svg{width:15px!important;height:15px!important;}
+.torvoPublicTopBar .torvoTopSocial .torvoSocialIcon{width:19px!important;height:19px!important;min-width:19px!important;min-height:19px!important;}
+.torvoPublicTopBar .torvoTopSocial .torvoSocialIcon svg{width:12px!important;height:12px!important;}
+@media(max-width:700px){
+ .torvoPublicTopBar{min-height:28px!important;font-size:12px!important;}
+ .torvoPublicTopBar .torvoPhoneGlyph,.torvoPublicTopBar .torvoMailGlyph{width:20px!important;height:20px!important;}
+ .torvoPublicTopBar .torvoPhoneGlyph svg,.torvoPublicTopBar .torvoMailGlyph svg{width:14px!important;height:14px!important;}
+ .torvoPublicTopBar .torvoTopSocial .torvoSocialIcon{width:18px!important;height:18px!important;min-width:18px!important;min-height:18px!important;}
+ .torvoPublicTopBar .torvoTopSocial .torvoSocialIcon svg{width:12px!important;height:12px!important;}
+}
