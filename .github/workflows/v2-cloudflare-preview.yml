@@ -1,7 +1,24 @@
 name: TORVO V2 Cloudflare Preview
 
 on:
-  # MANUAL PREVIEW ONLY: routine source commits must not generate failure-email noise.
+  # LIVE V2: deploy current torvo-v2-build updates automatically; manual dispatch remains available.
+  push:
+    branches: [torvo-v2-build]
+    paths:
+      - 'src/v2/**'
+      - 'v2.html'
+      - 'package.json'
+      - 'package-lock.json'
+      - 'capacitor.config.json'
+      - 'scripts/**'
+      - 'docs/TORVO-V2-RELEASE-GATES.md'
+      - 'docs/TORVO-V2-STAGING-ACCEPTANCE.md'
+      - 'supabase/v2-*.sql'
+      - 'supabase/tests/v2-dealer-auth-security-checklist.sql'
+      - 'supabase/V2_INSTALL_ORDER.md'
+      - 'wrangler.jsonc'
+      - 'vite.v2-preview.config.js'
+      - '.github/workflows/v2-cloudflare-preview.yml'
   workflow_dispatch:
 
 concurrency:
