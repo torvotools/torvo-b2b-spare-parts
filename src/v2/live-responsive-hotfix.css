@@ -173,3 +173,14 @@
  .publicTopFinder.filtersOnly .finderNav a{background:#fff!important;border:1px solid #e5e7eb!important;box-shadow:none!important}
  .publicTopFinder.filtersOnly .finderNav a:hover{background:#e10620!important;border-color:#e10620!important;color:#fff!important}
 }
+
+
+/* EXACT DESKTOP CLEANUP: no grey navigation band; contact circles stay true circles. */
+@media(min-width:821px){
+ .torvoPhoneGlyph,.torvoMailGlyph{display:inline-flex!important;align-items:center!important;justify-content:center!important;width:25px!important;height:25px!important;min-width:25px!important;min-height:25px!important;max-width:25px!important;max-height:25px!important;border-radius:50%!important;background:#fff!important;flex:0 0 25px!important}
+ .torvoPhoneGlyph svg,.torvoMailGlyph svg{width:14px!important;height:14px!important;stroke:#111!important;stroke-width:1.7!important;fill:none!important}
+ .publicTopFinder.filtersOnly,.publicTopFinder.filtersOnly .finderNav{background:#fff!important;border:0!important;box-shadow:none!important}
+ .publicTopFinder.filtersOnly:before,.publicTopFinder.filtersOnly:after,.publicTopFinder.filtersOnly .finderNav:before,.publicTopFinder.filtersOnly .finderNav:after{display:none!important}
+ .publicTopFinder.filtersOnly .finderNav a{background:#fff!important;border:0!important;box-shadow:none!important;border-radius:7px!important}
+ .publicTopFinder.filtersOnly .finderNav a:hover{background:#e10620!important;color:#fff!important}
+}
