@@ -585,3 +585,22 @@ button.headerFilterOnly svg{display:block!important;width:23px!important;height:
  .headerFilterOnly .publicProductFilterToggle.iconOnly{width:40px!important;height:40px!important;min-width:40px!important;border-radius:9px!important}
  .headerFilterOnly .torvoFilterSearchIcon{width:25px!important;height:25px!important}
 }
+
+
+/* FILTER BUTTON FINAL TUNING — REFERENCE SHAPE */
+.headerFilterOnly .publicProductFilterToggle.iconOnly{
+ width:48px!important;height:44px!important;min-width:48px!important;
+ background:#fff!important;border:1.5px solid #cfd3d8!important;
+ border-radius:12px!important;padding:0!important;
+ display:inline-flex!important;align-items:center!important;justify-content:center!important;
+ box-shadow:none!important;
+}
+.headerFilterOnly .torvoFilterSearchIcon{
+ width:29px!important;height:29px!important;stroke-width:2.25!important;
+}
+@media(max-width:720px){
+ .headerFilterOnly .publicProductFilterToggle.iconOnly{
+  width:44px!important;height:40px!important;min-width:44px!important;border-radius:11px!important;
+ }
+ .headerFilterOnly .torvoFilterSearchIcon{width:27px!important;height:27px!important}
+}
