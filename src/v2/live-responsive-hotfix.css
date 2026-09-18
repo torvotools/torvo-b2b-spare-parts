@@ -784,3 +784,51 @@
  .publicHeader.topSearchHeader .headerFilterOnly .finderClearButton,
  .publicHeader.topSearchHeader .headerFilterOnly .finderApplyButton{height:32px!important}
 }
+
+
+/* APPROVED FILTER DROPDOWN — REFERENCE 1000925903 */
+.publicHeader.topSearchHeader .headerFilterOnly .finderFilterRow .finderFilterTitle{
+ grid-template-columns:20px auto minmax(0,1fr) 22px!important;
+ align-items:center!important;
+}
+.publicHeader.topSearchHeader .headerFilterOnly .finderHeaderCount{
+ justify-self:end!important;display:flex!important;align-items:center!important;justify-content:center!important;
+ gap:5px!important;height:28px!important;min-width:82px!important;padding:0 8px!important;
+ border-radius:6px!important;background:#fff0f2!important;box-sizing:border-box!important;
+}
+.publicHeader.topSearchHeader .headerFilterOnly .finderHeaderCount>b{
+ color:#e10620!important;font-size:15px!important;font-weight:950!important;line-height:1!important;
+}
+.publicHeader.topSearchHeader .headerFilterOnly .finderHeaderCount>span{
+ color:#172033!important;font-size:8px!important;font-weight:950!important;white-space:nowrap!important;
+}
+.publicHeader.topSearchHeader .headerFilterOnly .finderFilterTop{
+ display:block!important;margin:0 0 5px!important;
+}
+.publicHeader.topSearchHeader .headerFilterOnly .finderTypeCompact>span,
+.publicHeader.topSearchHeader .headerFilterOnly .finderTotalCount{display:none!important}
+.publicHeader.topSearchHeader .headerFilterOnly .finderTypeTrigger{
+ height:38px!important;border-radius:7px!important;
+}
+.publicHeader.topSearchHeader .headerFilterOnly .smartFinderFilters.dynamic select{
+ height:38px!important;border-radius:7px!important;font-weight:800!important;
+}
+.publicHeader.topSearchHeader .headerFilterOnly .finderMatchingRow{
+ display:grid!important;grid-template-columns:1fr 1fr!important;gap:6px!important;
+ padding:0!important;background:transparent!important;border:0!important;min-height:38px!important;
+}
+.publicHeader.topSearchHeader .headerFilterOnly .finderMatchingRow>b{
+ display:flex!important;align-items:center!important;padding:0 9px!important;height:38px!important;
+ border:1px solid #e1e5ea!important;border-radius:7px!important;background:#fff!important;
+ font-size:8px!important;font-weight:950!important;white-space:nowrap!important;
+}
+.publicHeader.topSearchHeader .headerFilterOnly .finderMatchingRow>b::first-letter{color:#e10620!important}
+.publicHeader.topSearchHeader .headerFilterOnly .finderViewButton{
+ display:flex!important;align-items:center!important;justify-content:center!important;height:38px!important;
+ padding:0 8px!important;border:1px solid #e10620!important;border-radius:7px!important;
+ background:#fff7f8!important;color:#e10620!important;text-decoration:none!important;
+ font-size:8px!important;font-weight:950!important;white-space:nowrap!important;
+}
+.publicHeader.topSearchHeader .headerFilterOnly .finderFilterActions{margin-top:6px!important}
+.publicHeader.topSearchHeader .headerFilterOnly .finderClearButton,
+.publicHeader.topSearchHeader .headerFilterOnly .finderApplyButton{height:38px!important;font-size:10px!important}
