@@ -469,13 +469,13 @@
  .publicHeader.topSearchHeader .headerFilterOnly{position:relative!important;overflow:visible!important}
  .publicHeader.topSearchHeader .headerFilterOnly>.publicSmartFinder{position:relative!important;overflow:visible!important}
  .publicHeader.topSearchHeader .headerFilterOnly .finderFilterRow{
-  position:absolute!important;top:50px!important;right:-132px!important;left:auto!important;
+  position:absolute!important;top:50px!important;right:-112px!important;left:auto!important;
   width:360px!important;max-width:calc(100vw - 24px)!important;margin:0!important;padding:14px!important;
   display:block!important;background:#fff!important;border:1px solid #cbd5e1!important;border-radius:10px!important;
   box-shadow:0 12px 28px rgba(17,24,39,.18)!important;z-index:700!important;box-sizing:border-box!important
  }
  .publicHeader.topSearchHeader .headerFilterOnly .finderFilterRow:before{
-  content:""!important;position:absolute!important;top:-8px!important;right:136px!important;width:14px!important;height:14px!important;
+  content:""!important;position:absolute!important;top:-8px!important;right:116px!important;width:14px!important;height:14px!important;
   background:#fff!important;border-left:1px solid #cbd5e1!important;border-top:1px solid #cbd5e1!important;
   transform:rotate(45deg)!important;z-index:1!important
  }
@@ -548,3 +548,32 @@
 
 /* APPROVED FILTER ICON — FUNNEL + SEARCH, KEEP EXISTING BOX */
 .torvoFilterSearchIcon{width:23px!important;height:23px!important;fill:none!important;stroke:currentColor!important;stroke-width:2.2!important;stroke-linecap:round!important;stroke-linejoin:round!important}
+
+/* APPROVED FILTER DROPDOWN — FINAL COMPACT ALIGNMENT */
+@media(min-width:821px){
+ .publicHeader.topSearchHeader .headerFilterOnly .finderFilterRow{
+   right:-112px!important;width:320px!important;padding:11px!important;
+ }
+ .publicHeader.topSearchHeader .headerFilterOnly .finderFilterRow:before{right:116px!important}
+ .publicHeader.topSearchHeader .headerFilterOnly .finderFilterTitle{
+   grid-template-columns:22px minmax(0,1fr) 24px!important;margin:0 0 8px!important
+ }
+ .publicHeader.topSearchHeader .headerFilterOnly .finderFilterTitle>b{font-size:16px!important}
+ .publicHeader.topSearchHeader .headerFilterOnly .finderMatchingRow{
+   display:grid!important;grid-template-columns:minmax(0,1fr) auto!important;
+   min-height:44px!important;background:#fff4f5!important
+ }
+ .publicHeader.topSearchHeader .headerFilterOnly .finderViewButton{
+   width:auto!important;min-width:0!important;height:auto!important;padding:0!important;
+   border:0!important;background:transparent!important;color:#e10620!important;
+   text-decoration:underline!important;font-size:9px!important
+ }
+ .publicHeader.topSearchHeader .headerFilterOnly .finderFilterActions{
+   display:grid!important;grid-template-columns:1fr 1fr!important;gap:8px!important;
+   width:100%!important;margin:8px 0 0!important
+ }
+ .publicHeader.topSearchHeader .headerFilterOnly .finderClearButton,
+ .publicHeader.topSearchHeader .headerFilterOnly .finderApplyButton{
+   position:static!important;width:100%!important;height:36px!important;margin:0!important
+ }
+}
