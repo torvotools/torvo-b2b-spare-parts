@@ -509,6 +509,29 @@
  .publicHeader.topSearchHeader .headerFilterOnly .finderClearButton{background:#f1f3f5!important;color:#111!important;border:1px solid #e1e5ea!important}
  .publicHeader.topSearchHeader .headerFilterOnly .finderApplyButton{background:#e10620!important;color:#fff!important;border:1px solid #e10620!important}
 }
+/* FILTER DROPDOWN — USER SIZE 8/10 + FOOTER BUTTONS INSIDE */
+@media(min-width:821px){
+ .publicHeader.topSearchHeader .headerFilterOnly .finderFilterRow{
+  width:320px!important;padding:11px!important;max-height:calc(100vh - 110px)!important;overflow-y:auto!important;overflow-x:hidden!important
+ }
+ .publicHeader.topSearchHeader .headerFilterOnly .finderFilterTitle{margin-bottom:9px!important}
+ .publicHeader.topSearchHeader .headerFilterOnly .finderFilterTop{grid-template-columns:minmax(0,1fr) 86px!important;gap:7px!important;margin-bottom:8px!important}
+ .publicHeader.topSearchHeader .headerFilterOnly .finderTypeTrigger,
+ .publicHeader.topSearchHeader .headerFilterOnly .finderTotalCount>button{height:38px!important}
+ .publicHeader.topSearchHeader .headerFilterOnly .smartFinderFilters.dynamic{gap:6px!important}
+ .publicHeader.topSearchHeader .headerFilterOnly .smartFinderFilters.dynamic select{height:35px!important}
+ .publicHeader.topSearchHeader .headerFilterOnly .smartFinderFoot{margin-top:7px!important}
+ .publicHeader.topSearchHeader .headerFilterOnly .finderMatchingRow{min-height:36px!important;padding:5px 7px!important}
+ .publicHeader.topSearchHeader .headerFilterOnly .finderFilterActions{
+  position:static!important;display:grid!important;grid-template-columns:1fr 1fr!important;
+  gap:8px!important;width:100%!important;margin:8px 0 0!important;padding:0!important
+ }
+ .publicHeader.topSearchHeader .headerFilterOnly .finderClearButton,
+ .publicHeader.topSearchHeader .headerFilterOnly .finderApplyButton{
+  position:static!important;display:block!important;width:100%!important;min-width:0!important;height:36px!important;
+  margin:0!important;padding:0 8px!important;box-sizing:border-box!important
+ }
+}
 /* LOCK 1 — TOP DELIVERY MESSAGE */
 .torvoPublicTopBar{position:relative!important}
 .torvoTopDelivery{
