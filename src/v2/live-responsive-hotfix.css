@@ -423,3 +423,18 @@
 
 /* APPROVED TOP CONTACT HANDSET: ICON ONLY, NO CONTAINER. */
 .torvoPublicTopBar .torvoPhoneGlyph svg{width:18px!important;height:18px!important;display:block!important;fill:#fff!important;stroke:none!important;background:none!important;border:0!important;border-radius:0!important;box-shadow:none!important}
+
+/* FINAL PHONE GLYPH OVERRIDE — HANDSET ONLY, NEVER A TILE/BOX. */
+.torvoPublicTopBar .torvoTopContact a:first-child .torvoPhoneGlyph{
+  all:unset!important;display:inline-flex!important;align-items:center!important;justify-content:center!important;
+  width:20px!important;height:20px!important;flex:0 0 20px!important;
+  padding:0!important;margin:0!important;background:transparent!important;background-color:transparent!important;
+  border:0!important;border-radius:0!important;box-shadow:none!important;outline:0!important
+}
+.torvoPublicTopBar .torvoTopContact a:first-child .torvoPhoneGlyph svg{
+  display:block!important;width:20px!important;height:20px!important;padding:0!important;margin:0!important;
+  background:transparent!important;border:0!important;border-radius:0!important;box-shadow:none!important;
+  fill:#fff!important;stroke:none!important
+}
+.torvoPublicTopBar .torvoTopContact a:first-child .torvoPhoneGlyph:before,
+.torvoPublicTopBar .torvoTopContact a:first-child .torvoPhoneGlyph:after{content:none!important;display:none!important}
