@@ -139,3 +139,15 @@
  .torvoPublicTopBar .torvoMailGlyph{width:22px!important;height:22px!important;min-width:22px!important;min-height:22px!important;}
  .torvoPublicTopBar .torvoMailGlyph svg{width:16px!important;height:16px!important;stroke-width:2.4!important;}
 }
+
+
+/* CONTACT STRIP MICRO-FIX ONLY: keep approved red/black strip unchanged. */
+.torvoPublicTopBar .torvoTopContact>a:nth-child(2){border-left:0!important;border-inline-start:0!important;}
+.torvoPublicTopBar .torvoTopContact>a:nth-child(2)::before{display:none!important;content:none!important;}
+/* One identical mail glyph treatment on desktop and mobile. */
+.torvoPublicTopBar .torvoMailGlyph{width:22px!important;height:22px!important;min-width:22px!important;min-height:22px!important;background:#fff!important;color:#111!important;}
+.torvoPublicTopBar .torvoMailGlyph svg{width:16px!important;height:16px!important;color:#111!important;stroke:#111!important;stroke-width:2.4!important;}
+@media(max-width:700px){
+ .torvoPublicTopBar .torvoMailGlyph{width:22px!important;height:22px!important;min-width:22px!important;min-height:22px!important;}
+ .torvoPublicTopBar .torvoMailGlyph svg{width:16px!important;height:16px!important;stroke-width:2.4!important;}
+}
