@@ -210,3 +210,10 @@
  .publicHero.compactHero .torvoHeroMedia img{width:100%!important;height:100%!important;object-fit:contain!important;object-position:center!important;filter:drop-shadow(0 18px 20px rgba(0,0,0,.16))!important;}
 }
 @media(max-width:900px){.torvoHeroMedia{display:none!important;}}
+
+
+/* TOP CONTACT GLYPHS — direct icons only; no white icon boxes. */
+.torvoPublicTopBar .torvoPhoneGlyph,.torvoPublicTopBar .torvoMailGlyph{background:transparent!important;border:0!important;border-radius:0!important;box-shadow:none!important;color:#fff!important;width:auto!important;height:auto!important;min-width:0!important;min-height:0!important;padding:0!important;overflow:visible!important;font-family:Arial,sans-serif!important;font-style:normal!important;font-weight:700!important;line-height:1!important;display:inline-flex!important;align-items:center!important;justify-content:center!important;}
+.torvoPublicTopBar .torvoPhoneGlyph{font-size:19px!important;transform:rotate(-10deg)!important;}
+.torvoPublicTopBar .torvoMailGlyph{font-size:20px!important;}
+@media(max-width:700px){.torvoPublicTopBar .torvoPhoneGlyph{font-size:18px!important}.torvoPublicTopBar .torvoMailGlyph{font-size:19px!important}}
