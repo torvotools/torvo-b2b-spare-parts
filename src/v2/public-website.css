@@ -71,3 +71,9 @@
 @media(min-width:701px){
   .torvoPublicTopBar .torvoPhoneGlyph svg{width:15px!important;height:15px!important;fill:#050505!important;stroke:#050505!important;stroke-width:1.55!important;}
 }
+
+/* UI #1 MOBILE FINAL — approved option 2. Desktop intentionally unchanged. */
+@media(max-width:700px){
+  .torvoPublicTopBar .torvoMailGlyph svg{width:15px!important;height:15px!important;stroke:#111!important;stroke-width:2.6!important;opacity:1!important;}
+  .torvoPublicTopBar .torvoTopSocial{gap:13px!important;}
+}
