@@ -5,3 +5,6 @@
 
 /* LOCKED UI #1: PUBLIC TOP BAR. Keep flat red, sharp corners, compact mobile-safe layout. */
 .torvoPublicTopBar .torvoSocialYOUTUBE{border:1px solid rgba(0,0,0,.55);border-radius:4px;background:rgba(255,255,255,.08)}
+
+/* UI #1 refinement: one-step larger contact type/bar; stable red first paint. */
+.torvoPublicTopBar{min-height:34px;font-size:13px}.torvoPublicTopBar,.torvoPublicTopBar:empty{background:#e10600;color:#fff}.torvoTopContact a{font-weight:500}.torvoTopSocial svg{display:block}@media(max-width:700px){.torvoPublicTopBar{min-height:31px;font-size:11px}}
