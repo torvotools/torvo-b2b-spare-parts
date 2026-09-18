@@ -450,8 +450,8 @@
  }
  .publicHeader.topSearchHeader .publicBrand{grid-column:1!important;grid-row:1!important;align-self:center!important}
  .publicHeader.topSearchHeader .headerSearchOnly{grid-column:2!important;grid-row:1!important;width:100%!important;min-width:0!important;align-self:center!important;margin:0!important}
- .publicHeader.topSearchHeader .headerFilterOnly{grid-column:3!important;grid-row:1!important;width:46px!important;min-width:46px!important;height:44px!important;margin:0!important;align-self:center!important;justify-self:center!important;display:flex!important;align-items:center!important;justify-content:center!important;position:relative!important}
- .publicHeader.topSearchHeader .headerFilterOnly>.publicSmartFinder,.publicHeader.topSearchHeader .headerFilterOnly .publicProductFilterToggle.iconOnly{width:46px!important;min-width:46px!important;height:44px!important;margin:0!important;padding:0!important;display:flex!important;align-items:center!important;justify-content:center!important}
+ .publicHeader.topSearchHeader .headerFilterOnly{grid-column:3!important;grid-row:1!important;width:46px!important;min-width:46px!important;height:40px!important;margin:0!important;align-self:center!important;justify-self:center!important;display:flex!important;align-items:center!important;justify-content:center!important;position:relative!important}
+ .publicHeader.topSearchHeader .headerFilterOnly>.publicSmartFinder,.publicHeader.topSearchHeader .headerFilterOnly .publicProductFilterToggle.iconOnly{width:46px!important;min-width:46px!important;height:40px!important;margin:0!important;padding:0!important;box-sizing:border-box!important;display:flex!important;align-items:center!important;justify-content:center!important}
  .publicHeader.topSearchHeader .publicHeaderActions{grid-column:4!important;grid-row:1!important;width:94px!important;margin:0!important;align-self:center!important;justify-self:center!important}
  .publicHeader.topSearchHeader .dealerInquiryButton{width:94px!important;min-width:94px!important;height:44px!important;margin:0!important}
 }
