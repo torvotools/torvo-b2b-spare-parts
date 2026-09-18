@@ -50,6 +50,10 @@ Authoritative dependency order. Never install migrations alphabetically and neve
 24. APP NOTIFICATIONS: `v2-role-push-notifications.sql` after `app_users`; Owner/Admin may publish role-targeted messages to DEALER, SALESMAN, STORE KEEPER or ACCOUNTANT. After Step 18 Customer lead routing/lifecycle and this notification foundation both exist, install `v2-customer-lead-notifications.sql`; it targets only the specifically assigned approved Dealer app user and never copies Customer name/mobile/WhatsApp into notification data.
 25. DEMO RESET after backup/audit dependencies; Dashboard/admin/business/reporting and later modules after prerequisites.
 
+## RETIRED / DO NOT ENABLE
+- `v2-public-retail-pricing-foundation.sql` is retired and MUST NOT be installed. Public TORVO selling prices remain disabled.
+- `v2-public-checkout-payment-modes.sql` is retired and MUST NOT be installed. Public checkout/COD/payment remains disabled.
+
 ## ADMIN-MANAGED CONFIGURATION GATE
 - OWNER/ADMIN may change supported public website text/notices, official social links, app notices, marketing defaults, PRODUCT PROMOTIONS, POPULAR/FEATURED ITEMS, APP DOWNLOAD LINKS and safe feature switches from backend-driven controls without a source-code deployment.
 - EVERY admin configuration write requires a reason and audit log.
