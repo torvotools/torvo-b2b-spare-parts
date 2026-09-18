@@ -420,3 +420,6 @@
    z-index:2147483647!important;isolation:isolate!important
  }
 }
+
+/* APPROVED TOP CONTACT HANDSET: ICON ONLY, NO CONTAINER. */
+.torvoPublicTopBar .torvoPhoneGlyph svg{width:18px!important;height:18px!important;display:block!important;fill:#fff!important;stroke:none!important;background:none!important;border:0!important;border-radius:0!important;box-shadow:none!important}
