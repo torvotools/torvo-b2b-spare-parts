@@ -110,3 +110,17 @@
  .torvoPublicTopBar .torvoTopSocial .torvoSocialIcon{width:18px!important;height:18px!important;min-width:18px!important;min-height:18px!important;}
  .torvoPublicTopBar .torvoTopSocial .torvoSocialIcon svg{width:12px!important;height:12px!important;}
 }
+
+
+/* TOP CONTACT STRIP — CONTACT ONLY. Social links move to a later section. */
+.torvoPublicTopBar .torvoTopSocial{display:none!important;}
+.torvoPublicTopBar .torvoTopBarInner{display:grid!important;grid-template-columns:1fr 1fr!important;align-items:center!important;}
+.torvoPublicTopBar .torvoTopContact{display:contents!important;}
+.torvoPublicTopBar .torvoTopContact>a:first-child{justify-self:start!important;}
+.torvoPublicTopBar .torvoTopContact>a:nth-child(2){justify-self:end!important;}
+@media(max-width:700px){
+ .torvoPublicTopBar .torvoTopBarInner{grid-template-columns:minmax(0,1fr) minmax(0,1.35fr)!important;}
+ .torvoPublicTopBar .torvoTopContact>a{min-width:0!important;white-space:nowrap!important;}
+ .torvoPublicTopBar .torvoMailGlyph{width:21px!important;height:21px!important;min-width:21px!important;min-height:21px!important;}
+ .torvoPublicTopBar .torvoMailGlyph svg{width:15px!important;height:15px!important;stroke-width:2.4!important;}
+}
