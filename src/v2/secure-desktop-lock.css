@@ -1,0 +1,36 @@
+/* TORVO V2 APPROVED DESKTOP SHELL REGRESSION LOCK
+   Keep privileged desktop layout isolated from generic/mobile component CSS. */
+@media (min-width:821px){
+  .app.secureDesktopShell{
+    min-height:100vh!important;
+    display:grid!important;
+    grid-template-columns:264px minmax(0,1fr)!important;
+    background:#f5f7fa!important;
+  }
+  .app.secureDesktopShell>aside{
+    position:sticky!important;top:0!important;
+    width:264px!important;height:100vh!important;
+    min-width:264px!important;max-width:264px!important;
+    background:#101828!important;color:#d0d5dd!important;
+    display:flex!important;flex-direction:column!important;
+    overflow:hidden!important;z-index:30!important;
+  }
+  .app.secureDesktopShell>aside>nav{min-height:0!important;overflow-y:auto!important;overflow-x:hidden!important;flex:1!important}
+  .app.secureDesktopShell>main{
+    display:block!important;min-width:0!important;width:auto!important;
+    min-height:100vh!important;background:#f5f7fa!important;color:#172033!important;
+  }
+  .app.secureDesktopShell>main>.top{
+    width:100%!important;min-height:52px!important;
+    background:#fff!important;color:#172033!important;
+    border-bottom:1px solid #e7eaf0!important;
+  }
+  .app.secureDesktopShell>main>.content{
+    display:block!important;width:100%!important;max-width:1680px!important;
+    margin:0 auto!important;background:#f5f7fa!important;
+  }
+  .app.secureDesktopShell .welcome{
+    background:#fff!important;color:#172033!important;
+    border:1px solid #e4e7ec!important;border-radius:12px!important;
+  }
+}
