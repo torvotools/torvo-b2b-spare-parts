@@ -384,3 +384,39 @@
  .publicTopFinder.filtersOnly .publicProductFilterToggle.iconOnly svg{width:24px!important;height:24px!important;stroke-width:1.8!important}
  .publicTopFinder.filtersOnly .publicProductFilterToggle.iconOnly:hover{background:#f4f5f7!important;color:#e10620!important}
 }
+
+
+/* OWNER VISIBLE DESKTOP FIX — 19 SEP 2026.
+   Force the requested header geometry so refresh shows a real visual change. */
+@media(min-width:821px){
+ .publicHeader.topSearchHeader{
+   height:64px!important;min-height:64px!important;padding:0 22px!important;
+   grid-template-columns:190px minmax(0,1fr) 38px 92px!important;
+   column-gap:8px!important
+ }
+ .publicHeader.topSearchHeader .publicBrand>b{width:43px!important;height:43px!important;font-size:29px!important}
+ .publicHeader.topSearchHeader .publicBrand strong{font-size:22px!important}
+ .publicHeader.topSearchHeader .headerSearchOnly{min-width:0!important}
+ .publicHeader.topSearchHeader .publicCartButton{
+   width:92px!important;min-width:92px!important;max-width:92px!important;height:36px!important;min-height:36px!important;
+   padding:0 7px 0 9px!important;border-radius:8px!important;gap:5px!important;font-size:10px!important
+ }
+ .publicHeader.topSearchHeader .publicCartButton>b{
+   width:27px!important;min-width:27px!important;height:22px!important;padding:0 3px!important;
+   border-radius:999px!important;font-size:10px!important
+ }
+ .publicTopFinder.filtersOnly{height:38px!important;padding:0 22px!important}
+ .publicTopFinder.filtersOnly>.publicSmartFinder{
+   top:-51px!important;right:calc(22px + 92px + 8px)!important;width:38px!important;height:36px!important
+ }
+ .publicTopFinder.filtersOnly .publicProductFilterToggle.iconOnly{
+   width:38px!important;height:36px!important;min-width:38px!important;border:0!important;background:transparent!important
+ }
+ .publicTopFinder.filtersOnly .publicProductFilterToggle.iconOnly svg{width:22px!important;height:22px!important;stroke-width:1.65!important}
+ .publicTopFinder.filtersOnly .finderNav{height:38px!important}
+ .publicTopFinder.filtersOnly .finderNav a{min-height:32px!important;font-size:10px!important}
+ .headerSearchOnly .publicHeroSuggestions{
+   display:block!important;visibility:visible!important;opacity:1!important;
+   z-index:2147483647!important;isolation:isolate!important
+ }
+}
