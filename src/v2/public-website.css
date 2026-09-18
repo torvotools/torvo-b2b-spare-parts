@@ -62,3 +62,12 @@
 .torvoPublicTopBar .torvoMailGlyph svg{width:14px!important;height:14px!important;stroke:#111!important;stroke-width:2.35!important;opacity:1!important}
 .torvoPublicTopBar .torvoTopSocial{gap:11px!important}
 @media(max-width:700px){.torvoPublicTopBar .torvoMailGlyph svg{width:13px!important;height:13px!important}.torvoPublicTopBar .torvoTopSocial{gap:9px!important}}
+
+/* UI #1 FINAL APPROVED — 2026-09-18. Only requested final refinements. */
+@media(max-width:700px){
+  .torvoPublicTopBar .torvoMailGlyph svg{width:14px!important;height:14px!important;stroke:#111!important;stroke-width:2.5!important;}
+  .torvoPublicTopBar .torvoTopSocial{gap:11px!important;}
+}
+@media(min-width:701px){
+  .torvoPublicTopBar .torvoPhoneGlyph svg{width:15px!important;height:15px!important;fill:#050505!important;stroke:#050505!important;stroke-width:1.55!important;}
+}
