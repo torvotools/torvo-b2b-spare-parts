@@ -49,3 +49,8 @@
 /* UI #1 AFTER-approved solid handset only */
 .torvoPublicTopBar .torvoPhoneGlyph svg{width:13px!important;height:13px!important;fill:#111!important;stroke:none!important;opacity:1!important;filter:none!important}
 @media(max-width:700px){.torvoPublicTopBar .torvoPhoneGlyph svg{width:12px!important;height:12px!important}}
+
+/* UI #1 approved mockup: bold handset + slightly wider social spacing only */
+.torvoPublicTopBar .torvoPhoneGlyph svg{width:13px!important;height:13px!important;fill:#050505!important;stroke:#050505!important;stroke-width:1.15!important;opacity:1!important}
+.torvoPublicTopBar .torvoTopSocial{gap:9px!important}
+@media(max-width:700px){.torvoPublicTopBar .torvoPhoneGlyph svg{width:12px!important;height:12px!important}.torvoPublicTopBar .torvoTopSocial{gap:7px!important}}
