@@ -565,3 +565,6 @@ button.headerFilterOnly svg{display:block!important;width:23px!important;height:
 @media(max-width:720px){
  .torvoTopDelivery{font-size:10px!important;max-width:42vw!important;overflow:hidden!important;text-overflow:ellipsis!important}
 }
+
+/* LOCK 1 — delivery text normal weight */
+.torvoTopDelivery{font-weight:400!important}
