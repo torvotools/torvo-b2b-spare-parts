@@ -60,13 +60,13 @@ jobs:
           npm run verify:v2-release-center
           npm run verify:v2-update-publish
           npm run verify:v2-salesman-attendance
-      - name: BUILD NATIVE APP
+      - name: BUILD VERIFIED V2 WEB ASSETS FOR NATIVE APP
         env:
           VITE_BUILD_SHA: ${{ github.sha }}
         shell: bash
         run: |
           set -o pipefail
-          npm run build:app 2>&1 | tee /tmp/torvo-native-build.log || {
+          npm run build:v2 2>&1 | tee /tmp/torvo-native-build.log || {
             echo "::group::TORVO NATIVE BUILD ROOT ERROR"
             grep -n -B 15 -A 20 -E "ERROR|Error:|error:|failed|FAILED|Expected|Unexpected|Transform failed|Build failed|✗" /tmp/torvo-native-build.log | tail -n 300 || true
             echo "---- FINAL BUILD OUTPUT ----"
@@ -74,6 +74,11 @@ jobs:
             echo "::endgroup::"
             exit 1
           }
+          rm -rf dist-app
+          cp -R dist dist-app
+          test -f dist-app/index.html
+          cp dist-app/index.html dist-app/v2.html
+          grep -q 'torvo-v2-root' dist-app/v2.html
       - name: VERIFY CURRENT LOGIN UI
         run: |
           grep -R -q 'TORVO APP ACCESS' dist-app/assets
