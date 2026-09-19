@@ -3,7 +3,7 @@
 create table if not exists dealer_target_reward_settlements(
  id uuid primary key default gen_random_uuid(),dealer_id uuid not null references dealers(id) on delete restrict,scheme_year int not null check(scheme_year between 2020 and 2100),target_type_id uuid not null references dealer_target_types(id) on delete restrict,target_slab_id uuid not null references dealer_target_slabs(id) on delete restrict,eligible_purchase_value numeric(14,2) not null default 0 check(eligible_purchase_value>=0),points_awarded int not null check(points_awarded>0),ledger_id uuid references dealer_reward_points_ledger(id) on delete restrict,settled_at timestamptz not null default now(),unique(dealer_id,scheme_year,target_slab_id));
 alter table dealer_target_reward_settlements enable row level security;revoke all on dealer_target_reward_settlements from anon,authenticated;
-create or replace function reward_scheme_period(p_scheme_year int) returns table(start_date date,end_date date) language sql immutable as $$select make_date(p_scheme_year,4,1),make_date(p_scheme_year+1,4,1)$$;
+create or replace function reward_scheme_period(p_scheme_year int) returns table(start_date date,end_date date) language sql immutable set search_path=public as $select make_date(p_scheme_year,4,1),make_date(p_scheme_year+1,4,1)$;
 create or replace function admin_settle_dealer_target(p_dealer uuid,p_scheme_year int) returns table(eligible_value numeric,points_added int,total_points int) language plpgsql security definer set search_path=public as $$
 declare a uuid:=reward_admin_user();tt uuid;v numeric(14,2):=0;added int:=0;s record;l uuid;sd date;ed date;
 begin
