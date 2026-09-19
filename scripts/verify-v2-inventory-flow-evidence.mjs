@@ -3,6 +3,7 @@ const fail=m=>{console.error('FAIL '+m);process.exit(1)};
 const [,,p]=process.argv;if(!p||!fs.existsSync(p))fail('usage: node scripts/verify-v2-inventory-flow-evidence.mjs <evidence.json>');
 let e;try{e=JSON.parse(fs.readFileSync(p,'utf8'))}catch{fail('invalid evidence JSON')}
 for(const k of ['environment_project_id','commit_sha','captured_at_utc','purchase_ref','estimate_ref','item_id','opening_qty','purchase_received_qty','delivered_qty','closing_qty','movement_net_qty','same_key_purchase_replay_no_extra_movement','different_key_same_purchase_rejected','delivery_replay_no_extra_movement','second_delivery_key_rejected','role_boundary_checked'])if(e[k]===undefined||e[k]===null||e[k]==='')fail('missing '+k);
+if(e.environment_project_id!=='jvmhhngjlaqrfopfavur')fail('runtime evidence must come from TORVO V2 STAGING');
 if(!/^[a-f0-9]{40}$/i.test(e.commit_sha))fail('invalid exact commit SHA');
 if(!/^\d{4}-\d{2}-\d{2}T/.test(e.captured_at_utc))fail('captured_at_utc must be ISO timestamp');
 const n=x=>Number(x);for(const k of ['opening_qty','purchase_received_qty','delivered_qty','closing_qty','movement_net_qty'])if(!Number.isFinite(n(e[k])))fail(k+' must be numeric');
