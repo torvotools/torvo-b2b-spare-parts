@@ -35,6 +35,10 @@ begin
   if e.status='delivered' or exists(select 1 from delivery_stock_finalizations f where f.estimate_id=e.id) then
     raise exception 'Delivered Estimate cannot be changed';
   end if;
+  if exists(select 1 from payments p where p.estimate_id=e.id)
+     or exists(select 1 from approval_requests ar where ar.module='payment' and ar.entity_type='estimate' and ar.entity_id=e.id::text and ar.status in('pending_approval','approved')) then
+    raise exception 'Delivery charge is locked after payment activity starts';
+  end if;
 
   select coalesce(ds.spare_free_delivery_enabled,false),coalesce(ds.spare_free_delivery_threshold,10000)
     into enabled,threshold from delivery_settings ds where ds.id=true;
@@ -89,3 +93,15 @@ grant execute on function public.set_estimate_delivery_details(uuid,text,numeric
 revoke all on table public.estimate_delivery_details from anon, authenticated;
 revoke all on table public.delivery_settings from anon, authenticated;
 revoke all on table public.delivery_setting_history from anon, authenticated;
+
+
+-- Payment must start only after delivery/freight has been finalized for the Estimate.
+-- This prevents final_payable from changing after a payment request or receipt exists.
+create or replace function public.assert_estimate_delivery_finalized_for_payment(p_estimate uuid)
+returns void language plpgsql security definer set search_path=public as $$
+begin
+  if not exists(select 1 from estimate_delivery_details d where d.estimate_id=p_estimate) then
+    raise exception 'Finalize Estimate delivery details before payment';
+  end if;
+end;$$;
+revoke all on function public.assert_estimate_delivery_finalized_for_payment(uuid) from public,anon,authenticated;
