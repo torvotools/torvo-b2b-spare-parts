@@ -63,7 +63,7 @@ begin
  insert into public.customer_product_enquiries(customer_name,mobile_whatsapp,state_name,district_name,city_name,pin_code,marketing_opt_in,marketing_consent_at,marketing_consent_source,marketing_opted_out_at)
  values(upper(trim(p_customer_name)),trim(p_mobile_whatsapp),upper(trim(p_state)),upper(trim(p_district)),upper(trim(p_city)),trim(p_pin_code),coalesce(p_marketing_opt_in,false),case when coalesce(p_marketing_opt_in,false) then now() else null end,case when coalesce(p_marketing_opt_in,false) then 'PUBLIC WEBSITE' else null end,null) returning id,enquiry_no into v_id,v_no;
  foreach v_product in array p_product_ids loop
-  if exists(select 1 from public.catalog_items c where c.id=v_product and coalesce(c.is_active,true)=true) then
+  if exists(select 1 from public.catalog_items c where c.id=v_product and coalesce(c.active,true)=true) then
    insert into public.customer_product_enquiry_items(enquiry_id,product_id) values(v_id,v_product) on conflict do nothing;
   end if;
  end loop;
@@ -78,7 +78,7 @@ begin
  if v_event not in ('PROFILE_VIEW','DEALER_SELECTED','CALL_CLICK','WHATSAPP_CLICK','DIRECTIONS_CLICK') then raise exception 'INVALID PUBLIC REFERRAL EVENT'; end if;
  if not exists(select 1 from public.dealers d where d.id=p_dealer_id and upper(coalesce(d.status,''))='APPROVED') then raise exception 'DEALER NOT AVAILABLE'; end if;
  if p_enquiry_id is not null and not exists(select 1 from public.customer_product_enquiries q where q.id=p_enquiry_id) then raise exception 'CUSTOMER ENQUIRY NOT FOUND'; end if;
- if p_product_id is not null and not exists(select 1 from public.catalog_items c where c.id=p_product_id and coalesce(c.is_active,true)=true) then raise exception 'PRODUCT NOT AVAILABLE'; end if;
+ if p_product_id is not null and not exists(select 1 from public.catalog_items c where c.id=p_product_id and coalesce(c.active,true)=true) then raise exception 'PRODUCT NOT AVAILABLE'; end if;
  if p_enquiry_id is not null and p_product_id is not null and not exists(select 1 from public.customer_product_enquiry_items i where i.enquiry_id=p_enquiry_id and i.product_id=p_product_id) then raise exception 'PRODUCT DOES NOT BELONG TO CUSTOMER ENQUIRY'; end if;
  insert into public.dealer_referral_events(enquiry_id,dealer_id,event_type,product_id) values(p_enquiry_id,p_dealer_id,v_event,p_product_id);
  if v_event='DEALER_SELECTED' and p_enquiry_id is not null then update public.customer_product_enquiries set status='DEALER_REFERRED',updated_at=now() where id=p_enquiry_id; end if;
