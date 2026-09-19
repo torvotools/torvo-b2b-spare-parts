@@ -63,6 +63,8 @@ language plpgsql security definer set search_path=public as $$declare a text:=up
  select * into r from customer_dealer_referrals where id=p_referral_id for update;if not found then raise exception 'REFERRAL NOT FOUND'; end if;
  if r.dealer_id is null or r.product_id is null then raise exception 'REFERRAL DEALER / PRODUCT LINK REQUIRED'; end if;
  if r.expires_at<=now() and a not in('CLOSE') then raise exception 'EXPIRED REFERRAL CANNOT BE ADVANCED OR REOPENED'; end if;
+ if not exists(select 1 from dealers d where d.id=r.dealer_id and lower(coalesce(d.status,''))='approved' and d.customer_referral_enabled=true and d.referral_profile_verified_at is not null and d.product_sales_available=true) and a not in('CLOSE') then raise exception 'ASSIGNED DEALER IS NO LONGER AVAILABLE FOR REFERRALS'; end if;
+ if not exists(select 1 from catalog_items i where i.id=r.product_id and coalesce(i.active,true)=true) and a not in('CLOSE') then raise exception 'REFERRAL PRODUCT IS NO LONGER ACTIVE'; end if;
  select e.enquiry_id into qid from dealer_referral_events e where e.dealer_id=r.dealer_id and e.product_id=r.product_id and e.event_type='REFERRAL_CREATED' and e.created_at between r.created_at-interval '1 minute' and r.created_at+interval '5 minutes' order by e.created_at desc limit 1;
  if a='MARK_CONTACTED' then
   if lower(coalesce(r.status,''))<>'dealer_selected' then raise exception 'ONLY DEALER SELECTED REFERRAL CAN BE MARKED CONTACTED'; end if;
