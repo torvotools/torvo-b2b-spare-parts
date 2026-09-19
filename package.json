@@ -67,7 +67,8 @@
     "verify:v2-report-reconciliation": "node scripts/verify-v2-report-reconciliation.mjs",
     "verify:v2-inventory-flow-evidence": "node scripts/verify-v2-inventory-flow-evidence.mjs",
     "verify:v2-auth-runtime-evidence": "node scripts/verify-v2-auth-runtime-evidence.mjs",
-    "verify:v2-b2b-flow-evidence": "node scripts/verify-v2-b2b-flow-evidence.mjs"
+    "verify:v2-b2b-flow-evidence": "node scripts/verify-v2-b2b-flow-evidence.mjs",
+    "verify:v2-restore-rehearsal-evidence": "node scripts/verify-v2-restore-rehearsal-evidence.mjs"
   },
   "dependencies": {
     "@capacitor/android": "^7.4.3",
