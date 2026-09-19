@@ -26,10 +26,13 @@ Check 360px-class mobile width and desktop: no horizontal overflow, no clipped t
 ## 8. ANDROID TEST
 Use only the verified TEST prerelease for device testing. Confirm package `com.torvotools.app`, launch/login/search/order flow, one-device security and update-link behavior. TEST-DEBUG is not production signed and must never become the public production update.
 
-## 9. PRODUCTION RELEASE
-Only after staging acceptance: apply Supabase migrations in `supabase/V2_INSTALL_ORDER.md` order, deploy required Edge Functions/secrets, complete real-device tests, create production-signed Android APK/AAB with the same package/signing identity, publish durable production metadata, then move approved domain/DNS. iOS/TestFlight/App Store signing remains an external Apple release step.
+## 9. BACKUP / RESTORE ACCEPTANCE
+Before production cutover, create a trusted-worker backup artifact, verify checksum/integrity + restore manifest + exact code commit/schema version, restore into an isolated non-production target and verify core counts/security/runtime. A backup request or database metadata row is not proof of a successful backup or restore. Follow `docs/TORVO-V2-PORTABLE-RESTORE-RUNBOOK.md` and `docs/TORVO-V2-RESTORE-GUIDE.md`.
+
+## 10. PRODUCTION RELEASE
+Only after staging acceptance and backup/restore rehearsal: apply Supabase migrations in `supabase/V2_INSTALL_ORDER.md` order, deploy required Edge Functions/secrets, complete real-device tests, create production-signed Android APK/AAB with the same package/signing identity, publish durable production metadata, verify Build Check + Cloudflare live evidence against the exact accepted SHA, then move approved domain/DNS. iOS/TestFlight/App Store signing remains an external Apple release step. Netlify is retired and must not be reintroduced as a parallel deployment path.
 
 ## OWNER DEMO SEQUENCE
-PUBLIC → DEALER REGISTRATION → ADMIN APPROVAL → DEALER LOGIN → PRODUCT SEARCH → PURCHASE ORDER → SALES ORDER → DEALER OK → ESTIMATE → DELIVERY/TRACKING → REPORTS → APP RELEASE → STAFF ROLES → SECURITY/ONE-DEVICE TEST → MOBILE/DESKTOP UI REVIEW.
+PUBLIC → DEALER REGISTRATION → ADMIN APPROVAL → DEALER LOGIN → PRODUCT SEARCH → PURCHASE ORDER → SALES ORDER → DEALER OK → ESTIMATE → DELIVERY/TRACKING → REPORTS → BACKUP/RESTORE REHEARSAL → APP RELEASE → STAFF ROLES → SECURITY/ONE-DEVICE TEST → MOBILE/DESKTOP UI REVIEW → EXACT-SHA CLOUDFLARE ACCEPTANCE.
 
 Any failure found in this sequence is fixed on `torvo-v2-build` and rechecked before production approval.
