@@ -34,6 +34,27 @@ returns boolean language plpgsql security definer set search_path=public as $$de
  insert into dealer_referral_events(enquiry_id,dealer_id,event_type,product_id) values(p_enquiry_id,p_dealer_id,e,p_product_id);return true;end$$;
 revoke all on function public_track_dealer_referral_event(uuid,uuid,text,uuid) from public;grant execute on function public_track_dealer_referral_event(uuid,uuid,text,uuid) to anon,authenticated;
 
+-- Canonical analytics projection after the public event taxonomy is tightened above.
+-- Keep the existing return signature so downstream Admin reports remain compatible.
+create or replace function admin_dealer_referral_performance(p_from timestamptz default now()-interval '30 days',p_to timestamptz default now())
+returns table(dealer_id uuid,shop_name text,total_customers bigint,profile_views bigint,dealer_selections bigint,call_clicks bigint,whatsapp_clicks bigint,directions_clicks bigint,confirmed_conversions bigint)
+language sql security definer set search_path=public as $
+ select d.id,d.shop_name,
+ count(distinct e.enquiry_id) filter(where e.enquiry_id is not null),
+ count(*) filter(where e.event_type='DEALER_VIEW'),
+ count(*) filter(where e.event_type='REFERRAL_CREATED'),
+ count(*) filter(where e.event_type='CALL_CLICK'),
+ count(*) filter(where e.event_type='WHATSAPP_CLICK'),
+ count(*) filter(where e.event_type='MAP_OPEN'),
+ count(*) filter(where e.event_type='CONFIRMED_CONVERSION')
+ from dealers d left join dealer_referral_events e on e.dealer_id=d.id and e.created_at>=p_from and e.created_at<p_to
+ where exists(select 1 from app_users u where u.auth_user_id=auth.uid() and lower(coalesce(u.role,'')) in('owner','admin') and coalesce(u.active,true)=true)
+ group by d.id,d.shop_name
+ order by count(distinct e.enquiry_id) filter(where e.enquiry_id is not null) desc,d.shop_name;
+$;
+revoke all on function admin_dealer_referral_performance(timestamptz,timestamptz) from public,anon;
+grant execute on function admin_dealer_referral_performance(timestamptz,timestamptz) to authenticated;
+
 drop function if exists public.public_create_customer_referral(text,text,text,uuid,uuid,boolean,text);
 create or replace function public_create_customer_referral(p_full_name text,p_mobile text,p_pin_code text,p_product_id uuid,p_dealer_id uuid default null,p_marketing_opt_in boolean default false,p_lead_source text default 'WEBSITE')
 returns table(referral_id uuid,referral_code text,benefit_type text,benefit_value numeric,benefit_text text,expires_at timestamptz,enquiry_id uuid)
