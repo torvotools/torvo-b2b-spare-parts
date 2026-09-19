@@ -8,6 +8,12 @@ alter table public.customer_dealer_referrals add column if not exists converted_
 alter table public.customer_dealer_referrals add column if not exists closed_at timestamptz;
 alter table public.customer_dealer_referrals add column if not exists updated_at timestamptz not null default now();
 
+-- The base referral migration originally allowed only CREATED/DEALER_SELECTED/VERIFIED/BENEFIT states.
+-- CRM lifecycle actions below need CONTACTED/CONVERTED/CLOSED as authoritative persisted states.
+alter table public.customer_dealer_referrals drop constraint if exists customer_dealer_referrals_status_check;
+alter table public.customer_dealer_referrals add constraint customer_dealer_referrals_status_check
+ check(status in('created','dealer_selected','verified_by_dealer','benefit_given','expired','cancelled','contacted','converted','closed'));
+
 create index if not exists customer_dealer_referrals_status_created_idx on public.customer_dealer_referrals(status,created_at desc);
 create index if not exists customer_dealer_referrals_dealer_created_idx on public.customer_dealer_referrals(dealer_id,created_at desc);
 create index if not exists dealer_referral_events_enquiry_event_idx on public.dealer_referral_events(enquiry_id,event_type,created_at desc);
