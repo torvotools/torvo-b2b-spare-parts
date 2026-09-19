@@ -91,14 +91,14 @@ create or replace function permanently_delete_catalog_master(p_id uuid,p_confirm
 returns void language plpgsql security definer set search_path=public as 'declare r text; u jsonb; a uuid; deleted_name text; deleted_type text;
 begin
  select id,role into a,r from app_users where auth_user_id=auth.uid() and active=true;
- if r not in ('owner','admin') then raise exception 'NOT AUTHORIZED'; end if;
- if p_confirmation<>'1122' then raise exception 'INVALID DELETE CONFIRMATION CODE'; end if;
- if not exists(select 1 from catalog_master_values where id=p_id and deleted_at is not null) then raise exception 'MOVE MASTER TO TRASH FIRST'; end if;
+ if r not in (''owner'',''admin'') then raise exception ''NOT AUTHORIZED''; end if;
+ if p_confirmation<>''1122'' then raise exception ''INVALID DELETE CONFIRMATION CODE''; end if;
+ if not exists(select 1 from catalog_master_values where id=p_id and deleted_at is not null) then raise exception ''MOVE MASTER TO TRASH FIRST''; end if;
  u:=catalog_master_usage(p_id);
- if coalesce((u->>'total')::bigint,0)>0 then raise exception 'MASTER IS IN USE: %',u::text; end if;
+ if coalesce((u->>''total'')::bigint,0)>0 then raise exception ''MASTER IS IN USE: %'',u::text; end if;
  select name,master_type into deleted_name,deleted_type from catalog_master_values where id=p_id for update;
  delete from catalog_master_values where id=p_id;
- insert into audit_log(actor_id,action,entity_type,entity_id,details) values(a,'CATALOG_MASTER_PERMANENTLY_DELETED','catalog_master_value',p_id::text,jsonb_build_object('name',deleted_name,'master_type',deleted_type,'confirmation_code_verified',true,'usage_snapshot',u));
+ insert into audit_log(actor_id,action,entity_type,entity_id,details) values(a,''CATALOG_MASTER_PERMANENTLY_DELETED'',''catalog_master_value'',p_id::text,jsonb_build_object(''name'',deleted_name,''master_type'',deleted_type,''confirmation_code_verified'',true,''usage_snapshot'',u));
 end';
 
 revoke all on function catalog_master_usage(uuid) from public,anon;
