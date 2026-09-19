@@ -1,0 +1,11 @@
+import fs from'node:fs';
+const fail=m=>{console.error('FAIL '+m);process.exit(1)};
+const required=['TORVO_BACKUP_RUN_ID','TORVO_BACKUP_WORKER_JOB_ID','TORVO_BACKUP_SOURCE','TORVO_BACKUP_OUTPUT_DIR'];
+for(const k of required)if(!process.env[k])fail(k+' is required');
+if(process.env.TORVO_BACKUP_ALLOW_PRODUCTION==='true')fail('production backup execution is disabled in this worker skeleton');
+if(!/^https:\/\//.test(process.env.TORVO_BACKUP_SOURCE))fail('TORVO_BACKUP_SOURCE must be an HTTPS trusted server endpoint');
+const forbidden=['VITE_SUPABASE_ANON_KEY','VITE_SUPABASE_URL'];for(const k of forbidden)if(process.env[k])fail(k+' must not be used as worker credentials');
+const out=process.env.TORVO_BACKUP_OUTPUT_DIR;if(!fs.existsSync(out))fail('output directory does not exist');
+console.log('PASS TORVO V2 TRUSTED BACKUP WORKER PREFLIGHT');
+console.log('run_id='+process.env.TORVO_BACKUP_RUN_ID);console.log('worker_job_id='+process.env.TORVO_BACKUP_WORKER_JOB_ID);
+console.log('NOTE: preflight only. Artifact creation/provider upload and protected worker RPC calls require a separately configured trusted runtime; no browser/service secrets are accepted or printed.');
