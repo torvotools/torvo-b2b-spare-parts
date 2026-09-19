@@ -83,11 +83,15 @@ jobs:
             echo "LIVE SHA NOT READY (ATTEMPT ${ATTEMPT}/12): ${LIVE_SHA:-EMPTY}"; sleep 5
           done
           test "$LIVE_SHA" = "$EXPECTED_SHA"
-          HEADERS="$(curl --fail --silent --show-error -I "https://torvo-b2b-spare-parts.torvotools.workers.dev/torvo-build-sha.txt?verify=${GITHUB_RUN_ID}")"
-          printf '%s\n' "$HEADERS" | grep -qi '^cache-control:.*no-store'
-          printf '%s\n' "$HEADERS" | grep -qi '^x-torvo-v2:.*ACTIVE'
-          MANIFEST="$(curl --fail --silent --show-error "https://torvo-b2b-spare-parts.torvotools.workers.dev/torvo-build-manifest.json?verify=${GITHUB_RUN_ID}")"
+          HEADER_FILE="$(mktemp)"
+          BODY_FILE="$(mktemp)"
+          curl --fail --silent --show-error -D "$HEADER_FILE" -o "$BODY_FILE" -H 'Cache-Control: no-cache, no-store, max-age=0' -H 'Pragma: no-cache' "https://torvo-b2b-spare-parts.torvotools.workers.dev/torvo-build-sha.txt?verify=${GITHUB_RUN_ID}"
+          tr -d '\r' < "$HEADER_FILE" | grep -qi '^cache-control:.*no-store'
+          tr -d '\r' < "$HEADER_FILE" | grep -qi '^x-torvo-v2:.*ACTIVE'
+          test "$(tr -d '\r\n[:space:]' < "$BODY_FILE")" = "$EXPECTED_SHA"
+          MANIFEST="$(curl --fail --silent --show-error -H 'Cache-Control: no-cache, no-store, max-age=0' -H 'Pragma: no-cache' "https://torvo-b2b-spare-parts.torvotools.workers.dev/torvo-build-manifest.json?verify=${GITHUB_RUN_ID}")"
           printf '%s' "$MANIFEST" | grep -q "${EXPECTED_SHA}"
+          rm -f "$HEADER_FILE" "$BODY_FILE"
           echo "LIVE CONFIG: SUPABASE + CLOUDFLARE READY"
           echo "LIVE PREVIEW: https://torvo-b2b-spare-parts.torvotools.workers.dev"
       - name: DEPLOYMENT EVIDENCE
