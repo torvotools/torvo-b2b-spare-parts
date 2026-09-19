@@ -1,6 +1,6 @@
 # TORVO V2 MASTER HANDOVER
 
-Last updated: 12-09-2026
+Last updated: 19-09-2026
 Authoritative repository: torvotools/torvo-b2b-spare-parts
 Development branch: torvo-v2-build
 
@@ -107,6 +107,14 @@ OWNER full. ADMIN operational/admin but not Owner-only confidential cost/profit.
 - Final handover must include project architecture, role matrix, public/app/desktop flows, deployment, database install order, security boundaries, Android release process, backup/restore, environment-variable inventory (names only; no secrets), verification checklist and troubleshooting.
 - Final Owner package must include a portable source-code archive plus database schema/migrations/functions and a restore manifest/checklist. It must be sufficient to recreate TORVO on another compatible hosting/backend setup after supplying fresh environment secrets and running the documented database/install/deploy steps; raw copy/paste cannot recreate external provider accounts, secrets, DNS, signing keys or third-party services.
 - Before producing the final package, run dependency-aware cleanup, full V2 gates, build/deploy verification, staging database acceptance and a restore rehearsal.
+
+## CURRENT VERIFIED CLOSURE STATUS — 2026-09-19
+- Canonical portable restore procedure: `docs/TORVO-V2-PORTABLE-RESTORE-RUNBOOK.md`.
+- Restore/release contracts are now CI-gated; Build Check, Android test APK and Cloudflare preview watch the final acceptance/restore contract files.
+- Final return source-row serialization and authoritative Reports Center RPC install precedence are protected by install-order verification.
+- Static security/CI documentation is not a substitute for runtime acceptance.
+- Still open before final production acceptance: real authorized Dealer/Staff staging E2E, real transaction/report verification, trusted-worker backup artifact + clean-target restore rehearsal, production-signed Android release/real-device acceptance, exact accepted Cloudflare SHA and explicit domain cutover.
+- Production Supabase, V27/main and LOCK 1 remain untouched until their explicit acceptance/cleanup stages.
 
 ## BACKUP & DISASTER RECOVERY
 Website, App and Desktop share one authoritative backend; avoid conflicting duplicate business databases. Backup is a core Owner/Admin function. A backup request is not success: only trusted worker completion + integrity verification can mark it verified. Portable backup must be encrypted; secrets/passwords/service-role credentials are excluded. Full Restore Point carries DB backup + code branch/commit + schema version + checksum + restore manifest. GitHub code/migrations + verified DB backup + restore manifest together form disaster recovery. Restore must be staging-tested.
