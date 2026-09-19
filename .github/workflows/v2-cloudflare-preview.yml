@@ -5,9 +5,6 @@ on:
   push:
     branches:
       - torvo-v2-build
-    paths-ignore:
-      - 'docs/**'
-      - '*.md'
   workflow_dispatch:
 
 concurrency:
