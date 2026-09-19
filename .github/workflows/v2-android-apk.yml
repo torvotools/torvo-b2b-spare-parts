@@ -13,6 +13,7 @@ on:
       - 'scripts/**'
       - 'docs/TORVO-V2-RELEASE-GATES.md'
       - 'supabase/v2-*.sql'
+      - 'supabase/functions/**'
       - 'supabase/V2_INSTALL_ORDER.md'
       - '.github/workflows/v2-android-apk.yml'
 
