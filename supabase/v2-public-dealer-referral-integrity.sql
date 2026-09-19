@@ -38,7 +38,7 @@ revoke all on function public_track_dealer_referral_event(uuid,uuid,text,uuid) f
 -- Keep the existing return signature so downstream Admin reports remain compatible.
 create or replace function admin_dealer_referral_performance(p_from timestamptz default now()-interval '30 days',p_to timestamptz default now())
 returns table(dealer_id uuid,shop_name text,total_customers bigint,profile_views bigint,dealer_selections bigint,call_clicks bigint,whatsapp_clicks bigint,directions_clicks bigint,confirmed_conversions bigint)
-language sql security definer set search_path=public as $
+language sql security definer set search_path=public as $$
  select d.id,d.shop_name,
  count(distinct e.enquiry_id) filter(where e.enquiry_id is not null),
  count(*) filter(where e.event_type='DEALER_VIEW'),
@@ -51,7 +51,7 @@ language sql security definer set search_path=public as $
  where exists(select 1 from app_users u where u.auth_user_id=auth.uid() and lower(coalesce(u.role,'')) in('owner','admin') and coalesce(u.active,true)=true)
  group by d.id,d.shop_name
  order by count(distinct e.enquiry_id) filter(where e.enquiry_id is not null) desc,d.shop_name;
-$;
+$$;
 revoke all on function admin_dealer_referral_performance(timestamptz,timestamptz) from public,anon;
 grant execute on function admin_dealer_referral_performance(timestamptz,timestamptz) to authenticated;
 
