@@ -88,6 +88,10 @@ begin
  insert into secure_desktop_verification_audit(app_user_id,event_type) values(v_user.id,'session_revoked');
 end$$;
 
+-- Browser boundary: these authenticated RPCs must never inherit EXECUTE from PUBLIC/anon.
+revoke all on function secure_desktop_is_verified(text) from public,anon;
+revoke all on function secure_desktop_verify_code(uuid,text,text) from public,anon;
+revoke all on function secure_desktop_revoke(text) from public,anon;
 grant execute on function secure_desktop_is_verified(text) to authenticated;
 grant execute on function secure_desktop_verify_code(uuid,text,text) to authenticated;
 grant execute on function secure_desktop_revoke(text) to authenticated;
