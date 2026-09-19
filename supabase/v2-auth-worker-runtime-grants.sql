@@ -21,6 +21,7 @@ begin
  if lower(coalesce(v_user.role,''))<>'dealer' then raise exception 'ACTIVE DEALER LOGIN REQUIRED';end if;
  if v_user.dealer_id is null then raise exception 'APPROVED DEALER LINK REQUIRED';end if;
  select d.id into strict v_dealer_id from dealers d where d.id=v_user.dealer_id and lower(coalesce(d.status,''))='approved';
+ if length(btrim(coalesce(p_device_id,'')))<8 or length(coalesce(p_device_id,''))>180 or length(coalesce(p_session_token,''))<32 then raise exception 'DEALER DEVICE SESSION INVALID';end if;
  v_ok:=dealer_validate_device_session(v_dealer_id,p_device_id,p_session_token);
  if not coalesce(v_ok,false) then raise exception 'DEALER DEVICE SESSION INVALID';end if;
  return v_dealer_id;
