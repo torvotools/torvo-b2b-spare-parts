@@ -17,6 +17,7 @@ begin
  if nullif(trim(p_request_key),'') is null then raise exception 'Payment request key required';end if;
  select * into e from sales_documents where id=p_estimate and doc_type='estimate' for update;
  if not found then raise exception 'Estimate not found';end if;
+ perform public.assert_estimate_delivery_finalized_for_payment(e.id);
  select coalesce(sum(amount),0) into paid from payments where estimate_id=e.id and status in('cash','received');
  outstanding:=greatest(coalesce(e.final_payable,0)-paid,0);
  if p_status in('cash','received') and p_amount>outstanding then raise exception 'Payment exceeds outstanding amount';end if;
