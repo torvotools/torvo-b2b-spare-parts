@@ -8,7 +8,7 @@ alter table public.approval_requests add column if not exists effect_result json
 
 create or replace function public.submit_payment_for_approval(p_estimate uuid,p_status text,p_amount numeric,p_request_key text)
 returns uuid language plpgsql security definer set search_path=public as $$
-declare a app_users%rowtype;e sales_documents%rowtype;r uuid;paid numeric;outstanding numeric;
+declare a app_users%rowtype;e sales_documents%rowtype;r uuid;paid numeric;pending_total numeric;outstanding numeric;existing payments%rowtype;
 begin
  select * into a from app_users where auth_user_id=auth.uid() and active=true;
  if not found or a.role not in('accountant','admin') then raise exception 'Accountant/Admin authorization required';end if;
@@ -18,9 +18,12 @@ begin
  select * into e from sales_documents where id=p_estimate and doc_type='estimate' for update;
  if not found then raise exception 'Estimate not found';end if;
  perform public.assert_estimate_delivery_finalized_for_payment(e.id);
- select coalesce(sum(amount),0) into paid from payments where estimate_id=e.id and status in('cash','received');
- outstanding:=greatest(coalesce(e.final_payable,0)-paid,0);
+ if e.final_payable is null or e.final_payable<=0 then raise exception 'Estimate final payable is invalid';end if;
+ select * into existing from payments where request_key=trim(p_request_key);if found then raise exception 'Payment request key already used';end if;
+ select coalesce(sum(amount) filter(where status in('cash','received')),0),coalesce(sum(amount) filter(where status='pending'),0) into paid,pending_total from payments where estimate_id=e.id;
+ outstanding:=greatest(e.final_payable-paid,0);
  if p_status in('cash','received') and p_amount>outstanding then raise exception 'Payment exceeds outstanding amount';end if;
+ if p_status='pending' and paid+pending_total+p_amount>e.final_payable then raise exception 'Pending payment exceeds outstanding amount';end if;
  select id into r from approval_requests where module='payment' and entity_type='estimate' and entity_id=e.id::text and action_type='RECORD PAYMENT' and status='pending_approval';
  if found then raise exception 'A payment approval is already pending for this Estimate';end if;
  insert into approval_requests(module,entity_type,entity_id,action_type,maker_id,status,amount_snapshot,summary,payload_snapshot)
