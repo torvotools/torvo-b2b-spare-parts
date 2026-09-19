@@ -3,7 +3,7 @@
 create table if not exists product_promotion_events(
   id uuid primary key default gen_random_uuid(),
   promotion_id uuid not null references product_promotions(id) on delete cascade,
-  product_id uuid not null references products(id) on delete cascade,
+  product_id uuid not null references catalog_items(id) on delete cascade,
   event_type text not null check(event_type in('view','click','enquiry','dealer_order')),
   target text not null check(target in('website','dealer_app')),
   session_key text not null,
@@ -17,7 +17,7 @@ alter table product_promotion_events enable row level security;
 revoke all on product_promotion_events from anon,authenticated;
 
 create or replace function record_product_promotion_event(p_promotion_id uuid,p_event_type text,p_target text,p_session_key text,p_source_ref text default null) returns boolean language plpgsql security definer set search_path=public as $$
-declare a product_promotions%rowtype;p products%rowtype;d uuid;identity_count integer;ev text:=lower(btrim(coalesce(p_event_type,'')));t text:=lower(btrim(coalesce(p_target,'')));sk text:=btrim(coalesce(p_session_key,''));src text:=nullif(btrim(coalesce(p_source_ref,'')),'');
+declare a product_promotions%rowtype;p catalog_items%rowtype;d uuid;identity_count integer;ev text:=lower(btrim(coalesce(p_event_type,'')));t text:=lower(btrim(coalesce(p_target,'')));sk text:=btrim(coalesce(p_session_key,''));src text:=nullif(btrim(coalesce(p_source_ref,'')),'');
 begin
  if p_promotion_id is null then raise exception 'PROMOTION REQUIRED';end if;
  if ev not in('view','click','enquiry','dealer_order') then raise exception 'INVALID PROMOTION EVENT';end if;
@@ -26,7 +26,7 @@ begin
  if src is not null and length(src)>120 then raise exception 'SOURCE REFERENCE MUST BE 120 CHARACTERS OR LESS';end if;
  select * into a from product_promotions where id=p_promotion_id and active=true and starts_at<=now() and(ends_at is null or ends_at>=now()) and(target='both' or target=t);
  if a.id is null then return false;end if;
- select * into p from products where id=a.product_id and active=true;if p.id is null then return false;end if;
+ select * into p from catalog_items where id=a.product_id and active=true;if p.id is null then return false;end if;
  if ev='dealer_order' and t<>'dealer_app' then raise exception 'DEALER ORDER REQUIRES DEALER APP';end if;
  if t='dealer_app' then
   if auth.uid() is null then raise exception 'ACTIVE APPROVED DEALER REQUIRED';end if;
