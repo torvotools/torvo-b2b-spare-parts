@@ -193,14 +193,10 @@ jobs:
           set -euo pipefail
           test "${GITHUB_REF_NAME}" = "torvo-v2-build"
           test -f "durable-release/${TEST_RELEASE_ASSET}"
-          git tag -f "${TEST_RELEASE_TAG}" "${GITHUB_SHA}"
-          git push origin "refs/tags/${TEST_RELEASE_TAG}" --force
           if gh release view "${TEST_RELEASE_TAG}" >/dev/null 2>&1; then
-            gh release edit "${TEST_RELEASE_TAG}" --title "TORVO TOOLS VERIFIED TEST APK" --notes "TEST-DEBUG ONLY. NOT PRODUCTION SIGNED. PACKAGE: com.torvotools.app. COMMIT: ${GITHUB_SHA}. SHA256: ${{ steps.release_meta.outputs.sha256 }}." --prerelease
-          else
-            gh release create "${TEST_RELEASE_TAG}" --title "TORVO TOOLS VERIFIED TEST APK" --notes "TEST-DEBUG ONLY. NOT PRODUCTION SIGNED. PACKAGE: com.torvotools.app. COMMIT: ${GITHUB_SHA}. SHA256: ${{ steps.release_meta.outputs.sha256 }}." --prerelease --target "${GITHUB_SHA}"
+            gh release delete "${TEST_RELEASE_TAG}" --yes --cleanup-tag || gh release delete "${TEST_RELEASE_TAG}" --yes
           fi
-          gh release upload "${TEST_RELEASE_TAG}" "durable-release/${TEST_RELEASE_ASSET}" "durable-release/release-manifest.json" --clobber
+          gh release create "${TEST_RELEASE_TAG}" --title "TORVO TOOLS VERIFIED TEST APK" --notes "TEST-DEBUG ONLY. NOT PRODUCTION SIGNED. PACKAGE: com.torvotools.app. COMMIT: ${GITHUB_SHA}. SHA256: ${{ steps.release_meta.outputs.sha256 }}." --prerelease --target "${GITHUB_SHA}" "durable-release/${TEST_RELEASE_ASSET}" "durable-release/release-manifest.json"
       - name: VERIFY DURABLE TEST PRERELEASE
         env:
           GH_TOKEN: ${{ github.token }}
