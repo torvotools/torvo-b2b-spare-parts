@@ -36,9 +36,9 @@ begin
   if old.return_type=t and old.source_id=s and old.status='completed' then result_id:=old.id;else raise exception 'Return request key already used';end if;
  else
   if t='sales_return' then
-   if not exists(select 1 from delivery_stock_finalizations where estimate_id=s) then raise exception 'Actual delivered Estimate required';end if;
+   perform 1 from delivery_stock_finalizations where estimate_id=s for update;\n   if not found then raise exception 'Actual delivered Estimate required';end if;
   else
-   if not exists(select 1 from purchase_stock_receipts where purchase_id=s and reversed_at is null) then raise exception 'Received unreversed Purchase required';end if;
+   perform 1 from purchase_stock_receipts where purchase_id=s and reversed_at is null for update;\n   if not found then raise exception 'Received unreversed Purchase required';end if;
    if exists(select 1 from purchase_requirement_links where purchase_id=s and reversed_at is null) then raise exception 'Reverse active Purchase Requirement links before Purchase Return';end if;
   end if;
   insert into transaction_returns(return_type,source_id,status,reason,request_key,created_by,completed_by,completed_at,details)
