@@ -15,7 +15,7 @@ This file prevents source completion from being confused with production accepta
 | Backup/restore | Trusted-worker backup artifact + SHA-256/integrity + manifest + exact code/schema identity + isolated clean-target restore + core/security/runtime comparison | OPEN — no verified backup/restore rehearsal artifact recorded |
 | Android test | Exact-SHA TEST-DEBUG APK installed on real Android device; package/hash/build SHA recorded; core login/business/UI checks | OPEN until real-device evidence is recorded |
 | Android production | Privately signed release AAB/APK, preserved signing identity, version/build, store/release evidence and Owner acceptance | EXTERNAL/OPEN |
-| Cloudflare exact SHA | Build Check + Cloudflare live evidence for the exact final accepted commit | VERIFIED CI EVIDENCE — current verified code SHA `2839fcb4e00b1d4de7d685b79d38966dbcec1a01`: Build Check #2114 SUCCESS; Cloudflare Preview #1440 SUCCESS. Final acceptance remains OPEN until this SHA (or a later accepted SHA) is frozen with all other applicable gates PASS |
+| Cloudflare exact SHA | Build Check + Cloudflare live evidence for the exact final accepted commit | CI EVIDENCE ONLY — exact final accepted SHA must be recorded after the branch is frozen; later commits supersede earlier CI evidence without converting runtime gates to PASS |
 | Production/domain | Production backup/readiness, explicit Owner acceptance, production Supabase migration/deploy, domain/DNS cutover, post-cutover smoke test | EXTERNAL/OPEN; production must remain untouched before approval |
 
 ## Recorded CI evidence — 2026-09-19
@@ -67,3 +67,9 @@ The following do NOT prove runtime acceptance by themselves:
 
 ## Final 100% rule
 TORVO V2 is called 100% only after every applicable gate above has real PASS evidence, final exact-SHA acceptance is complete, and the explicitly approved production/domain cutover has passed its smoke test. Until then, report the remaining gates truthfully.
+
+
+## Acceptance tooling added — 2026-09-19
+- Backup artifact integrity can now be checked with `npm run verify:v2-backup-artifact -- <manifest.json> <artifact>`; this validates real artifact bytes/checksum and manifest boundaries only, not restore success.
+- Android real-device evidence can now be structure-checked with `npm run verify:v2-android-device-evidence -- <evidence.json>`; this does not perform or fabricate the physical device test.
+- Both verifier contracts are enforced by the final-readiness CI verifier. Their presence does not change the OPEN state of backup/restore or Android real-device acceptance.
