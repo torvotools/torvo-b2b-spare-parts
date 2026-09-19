@@ -1,6 +1,6 @@
 import{readFile}from'node:fs/promises';
-const [normalize,wrangler,worker,workflow,releaseGates]=await Promise.all([
-  readFile('scripts/normalize-v2-build.mjs','utf8'),readFile('wrangler.jsonc','utf8'),readFile('src/v2/cloudflare-worker.js','utf8'),readFile('.github/workflows/v2-cloudflare-preview.yml','utf8'),readFile('docs/TORVO-V2-RELEASE-GATES.md','utf8')
+const [normalize,wrangler,worker,workflow,buildWorkflow,androidWorkflow,releaseGates]=await Promise.all([
+  readFile('scripts/normalize-v2-build.mjs','utf8'),readFile('wrangler.jsonc','utf8'),readFile('src/v2/cloudflare-worker.js','utf8'),readFile('.github/workflows/v2-cloudflare-preview.yml','utf8'),readFile('.github/workflows/v2-build-check.yml','utf8'),readFile('.github/workflows/v2-android-apk.yml','utf8'),readFile('docs/TORVO-V2-RELEASE-GATES.md','utf8')
 ]);
 const previewUrl='https://torvo-b2b-spare-parts.torvotools.workers.dev';
 const gates=[
@@ -21,6 +21,6 @@ const gates=[
  ['PREVIEW URL ONLY REPORTED AFTER LIVE SHA',workflow.includes('LIVE PREVIEW: '+previewUrl)&&workflow.indexOf('LIVE PREVIEW: '+previewUrl)>workflow.indexOf('test "$LIVE_SHA" = "$EXPECTED_SHA"')],
  ['PREVIEW CONFIG EVIDENCE AFTER SHA VERIFY',workflow.includes('LIVE CONFIG: SUPABASE + CLOUDFLARE READY')&&workflow.indexOf('LIVE CONFIG: SUPABASE + CLOUDFLARE READY')>workflow.indexOf('test "$LIVE_SHA" = "$EXPECTED_SHA"')],
  ['DOMAIN CUTOVER REQUIRES ACCEPTANCE',releaseGates.includes('DO NOT SWITCH `torvotools.com` UNTIL STAGING')&&releaseGates.includes('BACKUP/RESTORE')&&releaseGates.includes('OWNER ACCEPTANCE')],
- ['DOMAIN DNS EXTERNAL DEPENDENCY',releaseGates.includes('DOMAIN/DNS')&&releaseGates.includes('FINAL DEPLOYMENT DEPENDENCIES')]
+ ['DOMAIN DNS EXTERNAL DEPENDENCY',releaseGates.includes('DOMAIN/DNS')&&releaseGates.includes('FINAL DEPLOYMENT DEPENDENCIES')],['CLOUDFLARE DOES NOT IGNORE DOC CONTRACTS',!workflow.includes("paths-ignore:\n      - 'docs/**'")],['BUILD WATCHES RESTORE CONTRACT',buildWorkflow.includes("docs/TORVO-V2-PORTABLE-RESTORE-RUNBOOK.md")&&buildWorkflow.includes("docs/TORVO-V2-RESTORE-GUIDE.md")&&buildWorkflow.includes("docs/TORVO-V2-MASTER-HANDOVER.md")],['ANDROID WATCHES RESTORE CONTRACT',androidWorkflow.includes("docs/TORVO-V2-PORTABLE-RESTORE-RUNBOOK.md")&&androidWorkflow.includes("docs/TORVO-V2-RESTORE-GUIDE.md")&&androidWorkflow.includes("docs/TORVO-V2-STAGING-ACCEPTANCE.md")]
 ];
 let failed=false;for(const[name,ok]of gates){console.log(`${ok?'PASS':'FAIL'} ${name}`);if(!ok)failed=true;}if(failed)process.exit(1);console.log(`TORVO V2 DEPLOY CONTRACT VERIFIED (${gates.length} GATES)`);
