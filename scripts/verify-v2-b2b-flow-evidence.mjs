@@ -3,6 +3,7 @@ const fail=m=>{console.error('FAIL '+m);process.exit(1)};
 const [,,p]=process.argv;if(!p||!fs.existsSync(p))fail('usage: node scripts/verify-v2-b2b-flow-evidence.mjs <evidence.json>');
 let e;try{e=JSON.parse(fs.readFileSync(p,'utf8'))}catch{fail('invalid evidence JSON')}
 for(const k of ['environment_project_id','commit_sha','captured_at_utc','dealer_identity_ref','purchase_order_ref','sales_order_ref','revision_no','estimate_ref','payment_ref','dispatch_ref','delivery_ref'])if(e[k]===undefined||e[k]===null||e[k]==='')fail('missing '+k);
+if(e.environment_project_id!=='jvmhhngjlaqrfopfavur')fail('runtime evidence must come from TORVO V2 STAGING');
 if(!/^[a-f0-9]{40}$/i.test(e.commit_sha))fail('invalid exact commit SHA');
 if(!/^\d{4}-\d{2}-\d{2}T/.test(e.captured_at_utc))fail('captured_at_utc must be ISO timestamp');
 if(!Number.isInteger(Number(e.revision_no))||Number(e.revision_no)<1)fail('revision_no must be positive integer');
