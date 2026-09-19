@@ -36,6 +36,13 @@ This file prevents source completion from being confused with production accepta
 - Dealer/Staff and business transaction runtime gates remain OPEN because STAGING has no acceptance identities or qualifying transactions; no fake records are to be created merely to close gates.
 - This supersedes prior SHA CI evidence only; it does not convert runtime/external gates to PASS.
 
+## Latest exact-HEAD CI evidence — 2026-09-19
+- Exact Git SHA: `7592d05a1d33f5060dce54bc0daa93fe21aee896`.
+- Build Check #2115: SUCCESS.
+- Cloudflare Preview #1441: SUCCESS.
+- Android APK #1408: SUCCESS (CI/build evidence only; real-device installation and production signing remain OPEN).
+- This confirms the repaired Cloudflare live-evidence path on the current branch HEAD. Runtime identity/transaction, backup/restore rehearsal, catalog permanent-delete runtime installation, real-device Android, production signing, and production/domain gates remain OPEN.
+
 ## Evidence recording rule
 For each completed gate record: UTC timestamp, environment/project ID, exact Git commit SHA, actor/test identity reference without secret values, test/result summary, artifact/checksum/run reference where applicable, and PASS/FAIL. A FAIL returns to `torvo-v2-build`, is fixed at root cause, and the affected gate is repeated.
 
