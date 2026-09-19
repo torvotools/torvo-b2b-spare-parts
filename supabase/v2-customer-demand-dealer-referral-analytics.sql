@@ -104,7 +104,7 @@ language sql security definer set search_path=public as $$
  count(*) filter(where e.event_type='CALL_CLICK'),count(*) filter(where e.event_type='WHATSAPP_CLICK'),
  count(*) filter(where e.event_type='DIRECTIONS_CLICK'),count(*) filter(where e.event_type='CONFIRMED_CONVERSION')
  from public.dealers d left join public.dealer_referral_events e on e.dealer_id=d.id and e.created_at>=p_from and e.created_at<p_to
- where exists(select 1 from public.app_users u where u.auth_user_id=auth.uid() and upper(u.role) in ('OWNER','ADMIN') and coalesce(u.is_active,true)=true)
+ where exists(select 1 from public.app_users u where u.auth_user_id=auth.uid() and upper(u.role) in ('OWNER','ADMIN') and coalesce(u.active,true)=true)
  group by d.id,d.shop_name order by count(distinct e.enquiry_id) filter(where e.enquiry_id is not null) desc,d.shop_name;
 $$;
 
