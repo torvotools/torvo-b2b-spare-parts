@@ -26,7 +26,7 @@ const checks=[
  ['FINAL APPROVAL USES CANONICAL DEALER LINK',/dealer_id\s*=\s*p_dealer/i.test(approvalCompact)&&/DEALER AUTH IDENTITY AMBIGUOUS/i.test(finalApproval)&&/DEALER APP IDENTITY REQUIRED BEFORE APPROVAL/i.test(finalApproval)&&/canonical_identity_bound/i.test(finalApproval)],
  ['DEALER ASSERT USES DIRECT LINK',/v_user\.dealer_id is null/i.test(dealerAuth)&&/where id=v_user\.dealer_id and lower\(coalesce\(status,''\)\)='approved'/i.test(dealerAuth)],
  ['DEALER ASSERT NO MOBILE RELINK',!/v_mobile:=right\(regexp_replace\(coalesce\(v_user\.mobile/i.test(dealerAuth)&&!/where right\(regexp_replace\(coalesce\(d\.mobile/i.test(dealerAuth)],
- ['STAFF ROLE SUBSET MATCHES APP USERS',/staff_role text not null check\(staff_role in\('salesman','store_keeper','accountant'\)\)/i.test(staff)&&/target\.role<>p_staff_role/i.test(staff)],
+ ['STAFF ROLE SUBSET MATCHES APP USERS',/staff_role text not null check\(staff_role in\('salesman','store_keeper','accountant'\)\)/i.test(staff)&&(/target\.role<>p_staff_role/i.test(staff)||/lower\(coalesce\(target\.role,''\)\)<>lower\(coalesce\(p_staff_role,''\)\)/i.test(staff))],
  ['STAFF IDENTITY APP USER FK',/staff_access_identities[\s\S]*app_user_id uuid primary key references app_users\(id\) on delete cascade/i.test(staff)],
  ['STAFF DEVICE APP USER FK',/staff_authorized_devices[\s\S]*app_user_id uuid not null references app_users\(id\) on delete cascade/i.test(staff)],
  ['STAFF ONE ACTIVE DEVICE',/uq_staff_one_active_device[\s\S]*staff_authorized_devices\(app_user_id\) where revoked_at is null/i.test(staff)],
