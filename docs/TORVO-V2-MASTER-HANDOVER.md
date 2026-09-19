@@ -130,7 +130,7 @@ Development preview/test/migration artifacts may exist while building, but final
 - Premium CSS layering/readability regression must be corrected safely.
 - Browser alerts/confirms in remaining workspaces should become in-app validation/confirmation.
 - Backup trusted worker/storage/export and actual restore drill remain.
-- Exact current GitHub build + Netlify deploy SHA must be verified before calling a release live.
+- Exact current GitHub build + fixed Cloudflare deployment SHA must be verified before calling a release live. Netlify is retired/disabled and must not be reintroduced as a parallel deployment path.
 
 ## FAST DEVELOPMENT PRIORITY — OWNER REQUESTED ASAP
 Do not restart planning on every turn. Continue maximum safe compatible batches from current branch. Priority order:
