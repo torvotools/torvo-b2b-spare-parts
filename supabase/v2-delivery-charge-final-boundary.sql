@@ -82,3 +82,10 @@ end;$$;
 
 revoke all on function public.set_estimate_delivery_details(uuid,text,numeric,text,text,text,text) from public,anon;
 grant execute on function public.set_estimate_delivery_details(uuid,text,numeric,text,text,text,text) to authenticated;
+
+
+-- RPC-only table boundary: these delivery financial/configuration tables are deny-by-default under RLS.
+-- SECURITY DEFINER RPCs above / existing setting RPCs are the only supported mutation path.
+revoke all on table public.estimate_delivery_details from anon, authenticated;
+revoke all on table public.delivery_settings from anon, authenticated;
+revoke all on table public.delivery_setting_history from anon, authenticated;
