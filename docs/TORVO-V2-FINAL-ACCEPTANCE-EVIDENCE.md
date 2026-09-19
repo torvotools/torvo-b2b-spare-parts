@@ -43,6 +43,14 @@ This file prevents source completion from being confused with production accepta
 - Android APK #1408: SUCCESS (CI/build evidence only; real-device installation and production signing remain OPEN).
 - This confirms the repaired Cloudflare live-evidence path on the current branch HEAD. Runtime identity/transaction, backup/restore rehearsal, catalog permanent-delete runtime installation, real-device Android, production signing, and production/domain gates remain OPEN.
 
+## Current exact-HEAD CI evidence — 2026-09-19
+- Exact Git SHA: `6c25ee538e0a92aaed9a4459cdf30af2df3e57ce`.
+- Build Check #2120: SUCCESS.
+- Cloudflare Preview #1446: SUCCESS.
+- Android APK #1413: SUCCESS (CI/build evidence only; real-device installation and production signing remain OPEN).
+- The final-readiness verifier includes fail-closed checks for real staging Dealer/Staff authentication acceptance, approved staging business/report reconciliation, secret-free restore packaging, and exact-SHA real-device Android review.
+- Runtime/external gates remain OPEN until their real evidence exists; this CI result does not substitute for them.
+
 ## Evidence recording rule
 For each completed gate record: UTC timestamp, environment/project ID, exact Git commit SHA, actor/test identity reference without secret values, test/result summary, artifact/checksum/run reference where applicable, and PASS/FAIL. A FAIL returns to `torvo-v2-build`, is fixed at root cause, and the affected gate is repeated.
 
