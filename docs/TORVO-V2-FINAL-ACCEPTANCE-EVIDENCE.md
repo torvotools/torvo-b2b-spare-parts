@@ -32,7 +32,7 @@ This file prevents source completion from being confused with production accepta
 - Android APK: no new run was triggered by this Cloudflare-workflow-only commit. The latest Android build evidence remains the prior successful run; real-device and production-signing gates remain OPEN.
 - The canonical source preserves the three verified helper search-path hardenings: `torvo_is_staff_role(text)`, `reward_scheme_year()`, and `reward_scheme_period(integer)`.
 - Install-order CI now explicitly protects the catalog permanent-delete runtime gate, so its required runtime verification cannot silently disappear from the authoritative install contract.
-- Catalog permanent-delete runtime gate remains OPEN: `permanently_delete_catalog_master(uuid,text)` is not installed in STAGING; source presence or CI protection is not accepted as runtime evidence.
+- Catalog permanent-delete RPC installation prerequisite is VERIFIED in STAGING: `permanently_delete_catalog_master(uuid,text)` is installed. The destructive-behavior acceptance gate remains OPEN until a real authorized Owner/Admin staging test proves wrong-confirmation, not-in-trash, in-use rejection, zero-usage deletion, post-delete absence and audit evidence.
 - Dealer/Staff and business transaction runtime gates remain OPEN because STAGING has no acceptance identities or qualifying transactions; no fake records are to be created merely to close gates.
 - This supersedes prior SHA CI evidence only; it does not convert runtime/external gates to PASS.
 
@@ -41,7 +41,7 @@ This file prevents source completion from being confused with production accepta
 - Build Check #2115: SUCCESS.
 - Cloudflare Preview #1441: SUCCESS.
 - Android APK #1408: SUCCESS (CI/build evidence only; real-device installation and production signing remain OPEN).
-- This confirms the repaired Cloudflare live-evidence path on the current branch HEAD. Runtime identity/transaction, backup/restore rehearsal, catalog permanent-delete runtime installation, real-device Android, production signing, and production/domain gates remain OPEN.
+- This confirms the repaired Cloudflare live-evidence path on the current branch HEAD. Runtime identity/transaction, backup/restore rehearsal, catalog permanent-delete destructive-behavior acceptance, real-device Android, production signing, and production/domain gates remain OPEN.
 
 ## Current exact-HEAD CI evidence — 2026-09-19
 - Exact Git SHA: `6c25ee538e0a92aaed9a4459cdf30af2df3e57ce`.
@@ -75,5 +75,16 @@ TORVO V2 is called 100% only after every applicable gate above has real PASS evi
 - Both verifier contracts are enforced by the final-readiness CI verifier. Their presence does not change the OPEN state of backup/restore or Android real-device acceptance.
 - Runtime evidence commands now cover Dealer/Staff auth, B2B flow, inventory, returns, report reconciliation, catalog destructive actions, restore rehearsal, Android production release and pre-production cutover. Each verifier validates supplied evidence only and does not manufacture staging identities, transactions, destructive actions, backup restores, signing or production cutover.
 - Reports reconciliation command: `npm run verify:v2-report-reconciliation -- <evidence.json>`.
-- Catalog destructive runtime command: `npm run verify:v2-catalog-destructive-evidence -- <evidence.json>`; the catalog gate remains OPEN until the RPC is genuinely installed and an authorized staging Owner/Admin runtime test is recorded.
+- Catalog destructive runtime command: `npm run verify:v2-catalog-destructive-evidence -- <evidence.json>`; RPC installation is verified in STAGING, while the behavior gate remains OPEN until an authorized staging Owner/Admin runtime test is recorded.
 
+
+## Verified staging/runtime state refresh — 2026-09-19
+- Source baseline before this documentation-only refresh: `cab8cfd7686ba01f4b619c4e65146ceea2b97467`.
+- Build Check #2189: SUCCESS.
+- Cloudflare Preview #1518: SUCCESS.
+- Android APK #1478: SUCCESS (TEST-DEBUG CI evidence only; real-device and production-signing gates remain OPEN).
+- STAGING project: `jvmhhngjlaqrfopfavur`.
+- Public regular tables: 132; RLS enabled: 132/132.
+- `permanently_delete_catalog_master(uuid,text)`, `get_report_summary()`, canonical `get_report_detail(...)`, public Dealer registration and trusted backup completion RPC prerequisites are installed in STAGING.
+- STAGING remains clean for acceptance: no real acceptance Dealer/Staff identities, qualifying business transactions, verified backup runs/restore manifests or release-artifact rows are recorded. These gates therefore remain OPEN and must not be converted to PASS from source/CI evidence.
+- Production project `gckafjiitjocodlrwanm`, V27/main and LOCK 1 remain untouched.
