@@ -23,13 +23,14 @@ do $$begin if to_regclass('public.dealer_referral_events') is not null then alte
 create or replace function public_track_dealer_referral_event(p_enquiry_id uuid,p_dealer_id uuid,p_event_type text,p_product_id uuid default null)
 returns boolean language plpgsql security definer set search_path=public as $$declare e text:=upper(btrim(coalesce(p_event_type,'')));begin
  if e not in('DEALER_VIEW','MAP_OPEN','CALL_CLICK','WHATSAPP_CLICK') then raise exception 'INVALID PUBLIC REFERRAL EVENT'; end if;
+ if p_enquiry_id is null then raise exception 'CUSTOMER ENQUIRY REQUIRED'; end if;
  if not exists(select 1 from dealers d where d.id=p_dealer_id and lower(coalesce(d.status,''))='approved' and d.customer_referral_enabled=true and d.referral_profile_verified_at is not null and d.product_sales_available=true) then raise exception 'VERIFIED DEALER NOT AVAILABLE'; end if;
  if p_product_id is not null and not exists(select 1 from catalog_items c where c.id=p_product_id and coalesce(c.active,true)=true) then raise exception 'PRODUCT NOT AVAILABLE'; end if;
  if p_enquiry_id is not null and not exists(select 1 from customer_product_enquiries q where q.id=p_enquiry_id) then raise exception 'CUSTOMER ENQUIRY NOT FOUND'; end if;
  if p_enquiry_id is not null and p_product_id is not null and not exists(select 1 from customer_product_enquiry_items i where i.enquiry_id=p_enquiry_id and i.product_id=p_product_id) then raise exception 'PRODUCT DOES NOT BELONG TO CUSTOMER ENQUIRY'; end if;
- if p_enquiry_id is null and p_product_id is not null then raise exception 'CUSTOMER ENQUIRY REQUIRED FOR PRODUCT EVENT'; end if;
  if p_enquiry_id is not null and not exists(select 1 from customer_product_enquiries q where q.id=p_enquiry_id and coalesce(q.pin_code,'')=(select coalesce(nullif(d.public_pin_code,''),d.pin_code) from dealers d where d.id=p_dealer_id)) then raise exception 'DEALER DOES NOT COVER CUSTOMER ENQUIRY PIN'; end if;
- if p_enquiry_id is not null and upper(coalesce((select q.status from customer_product_enquiries q where q.id=p_enquiry_id),'')) in('FULFILLED','CLOSED') then raise exception 'CUSTOMER ENQUIRY IS CLOSED'; end if;
+ if upper(coalesce((select q.status from customer_product_enquiries q where q.id=p_enquiry_id),'')) in('FULFILLED','CLOSED') then raise exception 'CUSTOMER ENQUIRY IS CLOSED'; end if;
+ if e in('CALL_CLICK','WHATSAPP_CLICK') and p_product_id is null then raise exception 'PRODUCT REQUIRED FOR CONTACT EVENT'; end if;
  insert into dealer_referral_events(enquiry_id,dealer_id,event_type,product_id) values(p_enquiry_id,p_dealer_id,e,p_product_id);return true;end$$;
 revoke all on function public_track_dealer_referral_event(uuid,uuid,text,uuid) from public;grant execute on function public_track_dealer_referral_event(uuid,uuid,text,uuid) to anon,authenticated;
 
