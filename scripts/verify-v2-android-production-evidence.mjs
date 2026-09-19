@@ -1,0 +1,20 @@
+import fs from 'node:fs';import crypto from'node:crypto';
+const fail=m=>{console.error('FAIL '+m);process.exit(1)};
+const [,,evidencePath,artifactPath]=process.argv;if(!evidencePath||!artifactPath||!fs.existsSync(evidencePath)||!fs.existsSync(artifactPath))fail('usage: node scripts/verify-v2-android-production-evidence.mjs <evidence.json> <signed-artifact>');
+let e;try{e=JSON.parse(fs.readFileSync(evidencePath,'utf8'))}catch{fail('invalid evidence JSON')}
+for(const k of ['package_id','channel','production_signed','commit_sha','artifact_sha256','build_number','version','signing_identity_fingerprint','artifact_url','published_at_utc','owner_acceptance_ref'])if(e[k]===undefined||e[k]===null||e[k]==='')fail('missing '+k);
+if(e.package_id!=='com.torvotools.app')fail('wrong package_id');
+if(!['production','play','stable'].includes(String(e.channel).toLowerCase()))fail('wrong production channel');
+if(e.production_signed!==true)fail('production_signed must be true');
+if(!/^[a-f0-9]{40}$/i.test(e.commit_sha))fail('invalid commit_sha');
+if(!/^[a-f0-9]{64}$/i.test(e.artifact_sha256))fail('invalid artifact_sha256');
+if(!Number.isInteger(Number(e.build_number))||Number(e.build_number)<1)fail('invalid build_number');
+if(!/^https:\/\//i.test(e.artifact_url))fail('artifact_url must be durable HTTPS');
+if(!/^\d{4}-\d{2}-\d{2}T/.test(e.published_at_utc))fail('published_at_utc must be ISO timestamp');
+if(String(e.signing_identity_fingerprint).trim().length<8)fail('signing identity fingerprint/reference required');
+const actual=crypto.createHash('sha256').update(fs.readFileSync(artifactPath)).digest('hex');
+if(actual!==String(e.artifact_sha256).toLowerCase())fail('signed artifact SHA256 mismatch');
+if(e.same_signing_identity_as_previous_release!==true)fail('signing continuity not confirmed');
+if(e.install_or_store_release_checked!==true)fail('install/store release check not confirmed');
+console.log('PASS TORVO V2 ANDROID PRODUCTION EVIDENCE');console.log('commit_sha='+e.commit_sha);console.log('artifact_sha256='+actual);console.log('build_number='+e.build_number);
+console.log('NOTE: this verifies supplied production-release evidence and artifact bytes; it never requires or stores private signing keys and does not publish a release');
