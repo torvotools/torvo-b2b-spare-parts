@@ -1,103 +1,102 @@
 # TORVO V2 — WEBSITE + ROLE APP + DESKTOP ARCHITECTURE
 
-Approved direction: 12-09-2026
+Current approved architecture: 19-09-2026
 
 ## CORE MODEL
-TORVO has three clearly separated experiences over ONE authoritative backend/database:
-1. PUBLIC WEBSITE = TORVO identity + public retail e-commerce + discovery + inquiry + Dealer registration.
-2. TORVO APP = daily operational workspace for approved DEALER, SALESMAN and STORE KEEPER (and future mobile operational roles explicitly authorized by Owner).
+TORVO V2 is ONE business platform over ONE authoritative backend/database:
+1. PUBLIC WEBSITE = TORVO identity + public product discovery + Customer-to-Dealer referral + requirement capture + Dealer registration + support.
+2. TORVO APP = private daily operational workspace for approved DEALER, SALESMAN and STORE KEEPER.
 3. SECURE DESKTOP = OWNER / ADMIN and ACCOUNTANT control workspace.
-The interfaces are separate. Authoritative business data is not duplicated into conflicting databases.
 
-## PUBLIC WEBSITE + RETAIL CUSTOMER
-The website is public and may be viewed by anyone, including Dealers. Existing staff/Dealers may read public information, but internal daily business, private Dealer rates, accounting, stock-control and Admin controls are not performed through it.
-Public website purpose includes ABOUT TORVO, MACHINE -> SPARE PART -> ACCESSORY catalog/search, HIGH PUBLIC CUSTOMER RETAIL PRICE, CART/BUY, SEND REQUIREMENT, DEALER REGISTRATION and SUPPORT.
+The interfaces are role-separated; business truth is not duplicated into parallel databases or competing logic.
 
-## PUBLIC CUSTOMER PRICE VS DEALER PRICE — FINAL COMMERCIAL RULE
-PUBLIC E-COMMERCE CUSTOMER RATE IS THE HIGHER RETAIL SELLING RATE and is separate from private Dealer Rate A/B/C. Public promotions must not accidentally undercut the protected Dealer commercial price. Dealer quantity slabs, schemes/rewards and private B2B commercial data remain private. Browser/client supplied price, discount, rate class or final amount is never authoritative.
+## PUBLIC WEBSITE — FINAL CUSTOMER MODEL
+The public Website does NOT sell directly to the normal public Customer and does NOT show TORVO public selling prices.
 
-### PRICE SAFETY RULE
-For the same comparable product and quantity/tax basis, checkout pricing must validate the active PUBLIC CUSTOMER RATE against the protected Dealer price rule. Invalid pricing configuration fails safely for Admin correction; no fake fallback price is permitted.
+Canonical flow:
+`PRODUCT SEARCH -> PRODUCT SELECT -> FIND NEARBY DEALER -> CUSTOMER NAME + MOBILE/WHATSAPP + PIN/MINIMUM LOCATION -> ELIGIBLE NEARBY DEALERS -> DEALER PROFILE -> CALL/WHATSAPP/MAP/SEND REQUIREMENT -> CUSTOMER AND DEALER COMPLETE THEIR COMMERCIAL TRANSACTION DIRECTLY.`
 
-## PUBLIC RETAIL PAYMENT MODES — FINAL DIRECTION
-The public checkout supports two controlled payment modes when enabled by Owner/Admin:
+Rules:
+- No public TORVO retail price, Dealer A/B/C rate, Dealer purchase rate, scheme or private commercial data.
+- No normal TORVO public cart, checkout, COD, payment or refund transaction.
+- Customer and Dealer decide retail price, payment and delivery directly.
+- Product identity travels with the referral/requirement.
+- Nearby results use verified Dealer service/location data; never fabricate distance, stock, availability or authorization.
+- Only approved/active referral-enabled Dealers with verified customer-facing data are eligible.
+- If no suitable Dealer is available, offer TORVO support / SEND REQUIREMENT rather than a fake result.
+- PRODUCT SALES and REPAIR & SERVICE capabilities may be shown when verified. Brand-authorized service wording requires actual verified authorization.
 
-### 1. FULL PREPAID
-PUBLIC CATALOG -> CART -> DELIVERY ADDRESS -> SERVER FINAL TOTAL -> FULL ONLINE PAYMENT -> SERVER/PROVIDER PAYMENT VERIFICATION -> ORDER CONFIRMED -> PICK -> PACK -> DISPATCH -> DELIVERY.
+## CUSTOMER DATA + CONSENT
+Collect only useful referral fields. Customer/referral history is protected and must not be publicly enumerable.
+Promotional WhatsApp/SMS consent is separate from service/referral consent. Store opt-in status/source/time and opt-out status. Respect STOP/UNSUBSCRIBE. Do not claim a message was delivered unless provider/server state confirms it.
 
-### 2. LOGISTICS ADVANCE + BALANCE ON DELIVERY
-This is not zero-advance COD. The Customer must first pay a server-calculated LOGISTICS ADVANCE before the order can enter fulfilment. The remaining authorized order balance may then be collected on delivery through the supported collection method.
+## DEALER B2B APP
+Dealer onboarding starts on the Website:
+`REGISTRATION -> TORVO VERIFICATION -> APPROVAL -> APP ACCESS`.
 
-The logistics advance is intended to protect TORVO against applicable forward and return-to-origin logistics exposure if a Customer refuses/does not accept the shipment. Owner/Admin can configure the commercial calculation by supported rules such as product class, weight/value, destination/serviceability or other verified logistics inputs.
+Private Dealer flow:
+`SEARCH -> SERVER DEALER RATE -> PURCHASE ORDER -> TORVO SALES ORDER/REVISION -> DEALER OK -> ESTIMATE -> PAYMENT/FULFILMENT -> DELIVERY/TRACKING`.
 
-The checkout must clearly disclose before payment:
-- LOGISTICS ADVANCE payable now;
-- BALANCE payable on delivery;
-- the applicable cancellation/refusal/RTO treatment;
-- that normal Customer refusal/non-acceptance may cause applicable logistics advance to be retained against logistics cost;
-- statutory/TORVO-fault exceptions remain controlled separately.
+Dealer A/B/C rates, quantity slabs, schemes/rewards, order history, messages and referral operations remain private. TORVO revision invalidates an old Dealer OK. ADD MORE ITEMS creates a separate linked Additional Purchase Order after approval and never mutates the original order/Estimate.
 
-No UI may label this mode as free/zero-advance COD. No order may enter the applicable fulfilment state until the required advance payment is authoritatively verified.
+## SALESMAN APP
+Only mapped/authorized field and sales workflows. Attendance and role identity are server-bound. No client-selected role or unauthorized Dealer/accounting data.
 
-## PAYMENT INTEGRITY
-Payment button clicks, redirects or client success messages are not proof of payment. Full payment and logistics advance payments must be verified server-side and handled idempotently. Duplicate provider callbacks/retries must not create duplicate orders, duplicate payment credit or duplicate inventory effects.
+## STORE KEEPER APP
+Only authorized stock, pick, pack and dispatch workflows. Unauthorized financial/cost/profit data remains hidden.
 
-The system stores separately: order merchandise amount, tax where applicable, forward delivery/logistics charge, protected logistics advance, amount paid online, balance due on delivery, payment mode, payment verification reference/status, and RTO/exception treatment where applicable.
-
-## RTO / REFUSAL / REFUND CONTROL
-Normal Customer refusal/non-acceptance may use the paid logistics advance against applicable forward + return logistics cost according to the disclosed policy. The system must not automatically promise a refund merely because the parcel returned.
-
-However, 'non-refundable' is not an unconditional technical override of law or TORVO responsibility. Admin-controlled exception/refund handling remains available for TORVO cancellation/non-supply, duplicate payment, wrong shipment, verified damage/defect, legally required remedies or other approved cases. Every exception/refund must be auditable.
-
-## PUBLIC RETAIL RETURN / EXCEPTION POLICY
-Normal public e-commerce UI does NOT show a routine RETURN button/no-reason return workflow. A controlled CLAIM / EXCEPTION route remains for wrong item, transit damage, verified defect, duplicate payment/shipment, TORVO fault or applicable legal obligation. Final policy text at launch must match applicable law and actual warranty/claim rules.
-
-## VISITOR / QUERY FLOW
-A public inquiry never automatically becomes a Dealer account. TORVO may classify Customer/Retail Buyer, Retailer/Prospective Dealer or approved Dealer. A Customer who cannot find a product may use PUBLIC REQUIREMENT -> TORVO REVIEW -> REAL AVAILABILITY + HIGH CUSTOMER RETAIL QUOTE -> CUSTOMER CONFIRMATION -> APPROVED PAYMENT MODE -> VERIFIED PAYMENT/ADVANCE -> FULFILMENT. No fake availability, rate, payment or delivery state.
-
-## TORVO APP — OPERATIONAL ROLES
-The TORVO App is an authenticated role-based business application, not the public Customer shopping website.
-DEALER: WEBSITE REGISTRATION -> TORVO VERIFICATION -> APPROVAL -> DEALER APP. Private Dealer Rates, Purchase Orders, Estimates, Additional Orders, Delivery/Tracking, Schemes/Rewards, requests/messages stay in the App.
-SALESMAN: only authorized field/sales work.
-STORE KEEPER: only authorized stock/warehouse Pick/Pack/Dispatch work. Financial/accounting data remains hidden.
+## SECURE DESKTOP
+OWNER / ADMIN and ACCOUNTANT use secure Desktop/Laptop access for their authorized controls. This includes approvals, accounting/payment controls, reports, users/roles, catalog/master configuration, Dealer referral/location/service verification, Customer/referral CRM, consent/audit and backup/recovery. Desktop-only presentation is not the security boundary; server authorization is mandatory.
 
 ## ROLE ROUTING
-- DEALER -> DEALER APP WORKSPACE
-- SALESMAN -> SALESMAN APP WORKSPACE
-- STORE KEEPER -> STORE APP WORKSPACE
-- OWNER / ADMIN -> SECURE DESKTOP WORKSPACE
-- ACCOUNTANT -> SECURE DESKTOP ACCOUNTING WORKSPACE
-- unauthorized/inactive/blocked identity -> NO PRIVATE WORKSPACE ACCESS
-Role comes from authoritative identity/profile/permission data, never user-selected buttons.
+- DEALER -> DEALER APP.
+- SALESMAN -> SALESMAN APP.
+- STORE KEEPER -> STORE APP.
+- OWNER / ADMIN -> SECURE DESKTOP.
+- ACCOUNTANT -> SECURE DESKTOP ACCOUNTING.
+- inactive/blocked/unauthorized identity -> NO PRIVATE WORKSPACE.
+
+Role is derived from authoritative server identity/session data, never a user-selected role button.
 
 ## SESSION + DEVICE SECURITY
-Operational App users use secure sessions. Logout, expiry, revoked access, suspicious/new device, PIN reset or defined security event may require re-verification. WhatsApp OTP remains preferred when a real provider is integrated and verified. Blocked/inactive users must not retain private access.
-
-## SECURE DESKTOP — OWNER / ADMIN + ACCOUNTANT
-Owner/Admin controls configuration, approvals, users/roles, Dealer approvals, public retail/payment/logistics settings, catalog/master controls, reports, backup/recovery and audit. Accountant receives only explicitly authorized accounting/payment/financial modules. Mobile/tablet may show ADMIN/ACCOUNTING ACCESS REQUIRES DESKTOP; server authorization remains the actual security boundary.
+Dealer private access is app-only and device-bound. Staff access follows the approved one-time-password/device policy. Logout, expiry, revoke, blocked/inactive status, suspicious/new device, PIN reset and defined security events must invalidate or re-verify access as specified by the auth contract. WhatsApp OTP is used only when the real provider path is configured and verified.
 
 ## ONE AUTHORITATIVE PLATFORM
-Website, App and Secure Desktop share one authoritative backend. Customer, Dealer, product, inventory, order and payment records must not be conflicting duplicates. Centralized backup/restore remains mandatory.
+Website, App and Desktop share one authoritative backend. Product, Dealer, Customer/referral, inventory, order, payment and audit records must not become conflicting duplicates. Backup/restore and release evidence remain centralized.
 
-## NOTIFICATIONS
-Notifications are role-aware. Public Customer order/payment/dispatch notifications use authorized channels when implemented. Never claim provider delivery or payment success unless provider/server state confirms it.
+## RETIRED — DO NOT ENABLE
+The superseded TORVO-direct public retail foundation is not part of the approved release:
+- public retail selling-price flow;
+- public cart/checkout;
+- FULL PREPAID public checkout;
+- LOGISTICS ADVANCE / balance-on-delivery public checkout;
+- routine TORVO public return/refund transaction flow.
 
-## APP DELIVERY STRATEGY
-Retain install-ready PWA/web-app foundation for development/testing. Native Android/iOS can reuse the same backend, role model and business logic after core stability. No duplicate business database.
+Historical migration/recovery evidence may remain, but retired public pricing/checkout migrations must stay excluded from the active install path. Never re-enable them from this document.
 
-## DESIGN RULES
-PUBLIC WEBSITE: premium TORVO identity + retail e-commerce + requirement capture.
-TORVO APP: fast mobile-first role-specific daily operational UI.
-SECURE DESKTOP: professional keyboard/mouse cloud-business UI for control, finance and reporting.
+## DELIVERY
+TORVO-to-Dealer B2B rule remains: Spare Parts free delivery only when spare-parts subtotal is at least Rs 10,000; Machines and Accessories carry delivery charge. Public Customer delivery is a Customer/Dealer transaction and must not be confused with TORVO B2B delivery logic.
 
-## PRODUCT PRIORITY
-MACHINE -> SPARE PART -> ACCESSORY. Private fitment/compatibility remains protected.
+## APP DELIVERY
+PWA/web-app foundation may support development/testing. Native Android/iOS reuse the same authoritative backend, role/security model and business rules. Do not create a second native business database or parallel business logic. Debug/test APK is not production; production requires signed release + real-device acceptance.
+
+## DESIGN / UI CONTRACT
+PUBLIC WEBSITE: premium TORVO identity, product discovery, FIND NEARBY DEALER, Dealer profile/contact/map, SEND REQUIREMENT, BECOME A DEALER and OPEN TORVO APP.
+APP: mobile-first role-specific daily operations.
+DESKTOP: compact professional keyboard/mouse control, finance and reporting.
+Preserve registered UI locks. Current LOCK 1 protects the approved public top contact strip.
 
 ## SECURITY PRINCIPLE
 PUBLIC WEBSITE != DEALER AUTHORIZATION.
 APP INSTALLATION != AUTHORIZATION.
 DESKTOP DEVICE != AUTHORIZATION.
-CLIENT-SENT PRICE != FINAL PRICE.
-PAYMENT REDIRECT != VERIFIED PAYMENT.
-ZERO-ADVANCE COD != APPROVED TORVO PUBLIC FLOW.
-SERVER-VERIFIED IDENTITY + CHANNEL + ROLE + PERMISSION + PRICE + PAYMENT + BUSINESS RULES = AUTHORIZATION AND COMMERCIAL TRUTH.
+CLIENT-SENT ROLE/RATE/FINANCIAL VALUE != AUTHORITATIVE BUSINESS TRUTH.
+SERVER-VERIFIED IDENTITY + DEVICE/SESSION + ROLE + PERMISSION + BUSINESS RULES = AUTHORIZATION.
+
+## SOURCES OF TRUTH
+- Business/architecture master: `docs/TORVO-V2-MASTER-HANDOVER.md`.
+- Database dependency order: `supabase/V2_INSTALL_ORDER.md`.
+- Runtime acceptance: `docs/TORVO-V2-STAGING-ACCEPTANCE.md`.
+- Release gates: `docs/TORVO-V2-RELEASE-GATES.md`.
+- Portable restore: `docs/TORVO-V2-PORTABLE-RESTORE-RUNBOOK.md`.
+- Environment names/boundaries: `docs/TORVO-V2-ENVIRONMENT-INVENTORY.md`.
