@@ -63,7 +63,8 @@
     "ios:sync": "npm run build:app && npx cap sync ios",
     "ios:open": "npx cap open ios",
     "verify:v2-backup-artifact": "node scripts/verify-v2-backup-artifact.mjs",
-    "verify:v2-android-device-evidence": "node scripts/verify-v2-android-device-evidence.mjs"
+    "verify:v2-android-device-evidence": "node scripts/verify-v2-android-device-evidence.mjs",
+    "verify:v2-report-reconciliation": "node scripts/verify-v2-report-reconciliation.mjs"
   },
   "dependencies": {
     "@capacitor/android": "^7.4.3",
