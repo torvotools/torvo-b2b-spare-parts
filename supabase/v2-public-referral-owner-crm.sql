@@ -62,6 +62,7 @@ language plpgsql security definer set search_path=public as $$declare a text:=up
  if n is not null then n:=upper(n); end if;
  select * into r from customer_dealer_referrals where id=p_referral_id for update;if not found then raise exception 'REFERRAL NOT FOUND'; end if;
  if r.dealer_id is null or r.product_id is null then raise exception 'REFERRAL DEALER / PRODUCT LINK REQUIRED'; end if;
+ if r.expires_at<=now() and a not in('CLOSE') then raise exception 'EXPIRED REFERRAL CANNOT BE ADVANCED OR REOPENED'; end if;
  select e.enquiry_id into qid from dealer_referral_events e where e.dealer_id=r.dealer_id and e.product_id=r.product_id and e.event_type='REFERRAL_CREATED' and e.created_at between r.created_at-interval '1 minute' and r.created_at+interval '5 minutes' order by e.created_at desc limit 1;
  if a='MARK_CONTACTED' then
   if lower(coalesce(r.status,''))<>'dealer_selected' then raise exception 'ONLY DEALER SELECTED REFERRAL CAN BE MARKED CONTACTED'; end if;
@@ -69,13 +70,16 @@ language plpgsql security definer set search_path=public as $$declare a text:=up
  elsif a='MARK_CONVERTED' then
   if lower(coalesce(r.status,'')) not in('dealer_selected','contacted') then raise exception 'ONLY ACTIVE REFERRAL CAN BE MARKED CONVERTED'; end if;
   update customer_dealer_referrals set status='converted',contacted_at=coalesce(contacted_at,now()),converted_at=coalesce(converted_at,now()),closed_at=coalesce(closed_at,now()),owner_note=coalesce(n,owner_note),updated_at=now() where id=p_referral_id;
+  if qid is not null then update customer_product_enquiries set status='FULFILLED',updated_at=now() where id=qid and status<>'CLOSED'; end if;
   if qid is not null and not exists(select 1 from dealer_referral_events e where e.enquiry_id=qid and e.dealer_id=r.dealer_id and e.product_id=r.product_id and e.event_type='CONFIRMED_CONVERSION') then insert into dealer_referral_events(enquiry_id,dealer_id,event_type,product_id)values(qid,r.dealer_id,'CONFIRMED_CONVERSION',r.product_id);end if;
  elsif a='CLOSE' then
   if lower(coalesce(r.status,'')) not in('dealer_selected','contacted') then raise exception 'ONLY ACTIVE REFERRAL CAN BE CLOSED'; end if;
   update customer_dealer_referrals set status='closed',closed_at=coalesce(closed_at,now()),owner_note=coalesce(n,owner_note),updated_at=now() where id=p_referral_id;
+  if qid is not null then update customer_product_enquiries set status='CLOSED',updated_at=now() where id=qid; end if;
  else
   if lower(coalesce(r.status,'')) not in('closed','converted') then raise exception 'ONLY CLOSED OR CONVERTED REFERRAL CAN BE REOPENED'; end if;
   update customer_dealer_referrals set status='dealer_selected',contacted_at=null,closed_at=null,converted_at=null,owner_note=coalesce(n,owner_note),updated_at=now() where id=p_referral_id;
+  if qid is not null then update customer_product_enquiries set status='DEALER_REFERRED',updated_at=now() where id=qid; end if;
  end if;
  return query select x.id,upper(x.status),x.contacted_at,x.converted_at,x.closed_at from customer_dealer_referrals x where x.id=p_referral_id;
 end$$;
