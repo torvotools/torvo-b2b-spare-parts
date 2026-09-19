@@ -41,7 +41,7 @@ create or replace function save_catalog_master(p_id uuid,p_type text,p_name text
 returns uuid language plpgsql security definer set search_path=public as $$
 declare uid uuid; r text; nm text:=torvo_normalize_business_text(p_name); old catalog_master_values; usage_count bigint:=0;
 begin
- select id,role into a,r from app_users where auth_user_id=auth.uid() and active=true;
+ select role into r from app_users where auth_user_id=auth.uid() and active=true;
  if r not in ('owner','admin') then raise exception 'NOT AUTHORIZED'; end if;
  if p_type not in ('brand','category','model') or nm='' then raise exception 'INVALID MASTER VALUE'; end if;
  if exists(select 1 from catalog_master_values x where x.deleted_at is null and x.master_type=p_type and torvo_normalize_business_text(x.name)=nm and (p_id is null or x.id<>p_id)) then raise exception '% ALREADY EXISTS',nm; end if;
@@ -88,10 +88,10 @@ end $$;
 
 -- Permanent delete is deliberately separate from normal Trash and still requires 1122.
 create or replace function permanently_delete_catalog_master(p_id uuid,p_confirmation text)
-returns void language plpgsql security definer set search_path=public as $$
-declare r text; u jsonb;
+returns void language plpgsql security definer set search_path=public as $
+declare r text; u jsonb; a uuid; deleted_name text; deleted_type text;
 begin
- select role into r from app_users where auth_user_id=auth.uid() and active=true;
+ select id,role into a,r from app_users where auth_user_id=auth.uid() and active=true;
  if r not in ('owner','admin') then raise exception 'NOT AUTHORIZED'; end if;
  if p_confirmation<>'1122' then raise exception 'INVALID DELETE CONFIRMATION CODE'; end if;
  if not exists(select 1 from catalog_master_values where id=p_id and deleted_at is not null) then raise exception 'MOVE MASTER TO TRASH FIRST'; end if;
