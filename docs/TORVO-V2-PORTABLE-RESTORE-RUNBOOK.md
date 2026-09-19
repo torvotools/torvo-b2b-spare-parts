@@ -78,3 +78,11 @@ Any checksum mismatch, wrong commit, missing migration, authorization leak, fail
 
 ## Production cutover rule
 A successful staging restore rehearsal is evidence for portability, not permission to alter production. Production/domain cutover is a separate explicit acceptance step. V27 remains untouched until TORVO V2 production acceptance, required backup/reference preservation, and explicit cleanup stage are complete.
+
+
+## Executable pre-restore artifact verification
+Before any clean-target restore, run the repository verifier against the trusted-worker manifest export and the exact backup artifact:
+
+`npm run verify:v2-backup-artifact -- <manifest.json> <artifact>`
+
+The verifier checks the real artifact bytes against SHA-256, requires branch `torvo-v2-build`, an exact 40-character code commit, encrypted=true and includes_secrets=false. A PASS here proves artifact/manifest integrity only. It does **not** prove that a restore rehearsal, authentication test, business reconciliation, or production acceptance has passed.
