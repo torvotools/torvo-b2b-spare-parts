@@ -20,6 +20,7 @@ on:
       - 'docs/TORVO-V2-PUBLIC-WEB-APP-ARCHITECTURE.md'
       - 'docs/TORVO-V2-FINAL-DEMO-RUNBOOK.md'
       - 'docs/TORVO-V2-OWNER-REQUIREMENTS-LOCK.md'
+      - 'docs/TORVO-V2-FINAL-ACCEPTANCE-EVIDENCE.md'
       - 'supabase/v2-*.sql'
       - 'supabase/functions/**'
       - 'supabase/V2_INSTALL_ORDER.md'
