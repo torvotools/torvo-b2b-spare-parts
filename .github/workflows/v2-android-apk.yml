@@ -16,6 +16,7 @@ on:
       - 'docs/TORVO-V2-MASTER-HANDOVER.md'
       - 'docs/TORVO-V2-PORTABLE-RESTORE-RUNBOOK.md'
       - 'docs/TORVO-V2-RESTORE-GUIDE.md'
+      - 'docs/TORVO-V2-ENVIRONMENT-INVENTORY.md'
       - 'supabase/v2-*.sql'
       - 'supabase/functions/**'
       - 'supabase/V2_INSTALL_ORDER.md'
