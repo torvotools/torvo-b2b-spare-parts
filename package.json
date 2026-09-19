@@ -72,7 +72,8 @@
     "verify:v2-returns-evidence": "node scripts/verify-v2-returns-evidence.mjs",
     "verify:v2-android-production-evidence": "node scripts/verify-v2-android-production-evidence.mjs",
     "verify:v2-production-cutover-evidence": "node scripts/verify-v2-production-cutover-evidence.mjs",
-    "verify:v2-catalog-destructive-evidence": "node scripts/verify-v2-catalog-destructive-evidence.mjs"
+    "verify:v2-catalog-destructive-evidence": "node scripts/verify-v2-catalog-destructive-evidence.mjs",
+    "verify:v2-final-readiness": "node scripts/verify-v2-final-readiness.mjs"
   },
   "dependencies": {
     "@capacitor/android": "^7.4.3",
