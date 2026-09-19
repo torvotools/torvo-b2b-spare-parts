@@ -75,7 +75,8 @@
     "verify:v2-catalog-destructive-evidence": "node scripts/verify-v2-catalog-destructive-evidence.mjs",
     "verify:v2-final-readiness": "node scripts/verify-v2-final-readiness.mjs",
     "verify:v2-acceptance-bundle": "node scripts/verify-v2-acceptance-bundle.mjs",
-    "verify:v2-post-cutover-evidence": "node scripts/verify-v2-post-cutover-evidence.mjs"
+    "verify:v2-post-cutover-evidence": "node scripts/verify-v2-post-cutover-evidence.mjs",
+    "backup:v2-worker-preflight": "node scripts/run-v2-backup-worker.mjs"
   },
   "dependencies": {
     "@capacitor/android": "^7.4.3",
