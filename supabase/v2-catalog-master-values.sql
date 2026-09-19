@@ -41,7 +41,7 @@ create or replace function save_catalog_master(p_id uuid,p_type text,p_name text
 returns uuid language plpgsql security definer set search_path=public as $$
 declare uid uuid; r text; nm text:=torvo_normalize_business_text(p_name); old catalog_master_values; usage_count bigint:=0;
 begin
- select role into r from app_users where auth_user_id=auth.uid() and active=true;
+ select id,role into a,r from app_users where auth_user_id=auth.uid() and active=true;
  if r not in ('owner','admin') then raise exception 'NOT AUTHORIZED'; end if;
  if p_type not in ('brand','category','model') or nm='' then raise exception 'INVALID MASTER VALUE'; end if;
  if exists(select 1 from catalog_master_values x where x.deleted_at is null and x.master_type=p_type and torvo_normalize_business_text(x.name)=nm and (p_id is null or x.id<>p_id)) then raise exception '% ALREADY EXISTS',nm; end if;
@@ -63,7 +63,7 @@ end $$;
 -- DELETE in the UI means move to Trash. Linked values cannot be trashed.
 create or replace function delete_catalog_master(p_id uuid,p_confirmation text)
 returns void language plpgsql security definer set search_path=public as $$
-declare r text; u jsonb;
+declare r text; u jsonb; a uuid; deleted_name text; deleted_type text;
 begin
  select role into r from app_users where auth_user_id=auth.uid() and active=true;
  if r not in ('owner','admin') then raise exception 'NOT AUTHORIZED'; end if;
@@ -97,8 +97,10 @@ begin
  if not exists(select 1 from catalog_master_values where id=p_id and deleted_at is not null) then raise exception 'MOVE MASTER TO TRASH FIRST'; end if;
  u:=catalog_master_usage(p_id);
  if coalesce((u->>'total')::bigint,0)>0 then raise exception 'MASTER IS IN USE: %',u::text; end if;
+ select name,master_type into deleted_name,deleted_type from catalog_master_values where id=p_id for update;
  delete from catalog_master_values where id=p_id;
-end $$;
+ insert into audit_log(actor_id,action,entity_type,entity_id,details) values(a,'CATALOG_MASTER_PERMANENTLY_DELETED','catalog_master_value',p_id::text,jsonb_build_object('name',deleted_name,'master_type',deleted_type,'confirmation_code_verified',true,'usage_snapshot',u));
+end $;
 
 revoke all on function catalog_master_usage(uuid) from public,anon;
 revoke all on function save_catalog_master(uuid,text,text,boolean) from public,anon;
