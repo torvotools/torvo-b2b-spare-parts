@@ -34,7 +34,9 @@ jobs:
       - name: VERIFY V2 PREFLIGHT
         run: npm run verify:v2-preflight
       - name: VERIFY COMPLETE V2 CI CONTRACT
-        run: npm run verify:v2-ci
+        run: |
+          npm run verify:v2-ci
+          npm run verify:v2-final-readiness
       - name: DETECT EXTERNAL DEPLOY CONFIG
         id: deploy_config
         env:
