@@ -29,6 +29,7 @@ returns boolean language plpgsql security definer set search_path=public as $$de
  if p_enquiry_id is not null and p_product_id is not null and not exists(select 1 from customer_product_enquiry_items i where i.enquiry_id=p_enquiry_id and i.product_id=p_product_id) then raise exception 'PRODUCT DOES NOT BELONG TO CUSTOMER ENQUIRY'; end if;
  if p_enquiry_id is null and p_product_id is not null then raise exception 'CUSTOMER ENQUIRY REQUIRED FOR PRODUCT EVENT'; end if;
  if p_enquiry_id is not null and not exists(select 1 from customer_product_enquiries q where q.id=p_enquiry_id and coalesce(q.pin_code,'')=(select coalesce(nullif(d.public_pin_code,''),d.pin_code) from dealers d where d.id=p_dealer_id)) then raise exception 'DEALER DOES NOT COVER CUSTOMER ENQUIRY PIN'; end if;
+ if p_enquiry_id is not null and upper(coalesce((select q.status from customer_product_enquiries q where q.id=p_enquiry_id),'')) in('FULFILLED','CLOSED') then raise exception 'CUSTOMER ENQUIRY IS CLOSED'; end if;
  insert into dealer_referral_events(enquiry_id,dealer_id,event_type,product_id) values(p_enquiry_id,p_dealer_id,e,p_product_id);return true;end$$;
 revoke all on function public_track_dealer_referral_event(uuid,uuid,text,uuid) from public;grant execute on function public_track_dealer_referral_event(uuid,uuid,text,uuid) to anon,authenticated;
 
