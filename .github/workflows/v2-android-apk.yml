@@ -23,6 +23,7 @@ on:
       - 'docs/TORVO-V2-FINAL-ACCEPTANCE-EVIDENCE.md'
       - 'supabase/v2-*.sql'
       - 'supabase/functions/**'
+      - 'supabase/tests/**'
       - 'supabase/V2_INSTALL_ORDER.md'
       - '.github/workflows/v2-android-apk.yml'
 
@@ -70,6 +71,7 @@ jobs:
           npm run verify:v2-release-center
           npm run verify:v2-update-publish
           npm run verify:v2-salesman-attendance
+          npm run verify:v2-final-readiness
       - name: BUILD VERIFIED V2 WEB ASSETS FOR NATIVE APP
         env:
           VITE_BUILD_SHA: ${{ github.sha }}
