@@ -15,7 +15,7 @@ This file prevents source completion from being confused with production accepta
 | Backup/restore | Trusted-worker backup artifact + SHA-256/integrity + manifest + exact code/schema identity + isolated clean-target restore + core/security/runtime comparison | OPEN — no verified backup/restore rehearsal artifact recorded |
 | Android test | Exact-SHA TEST-DEBUG APK installed on real Android device; package/hash/build SHA recorded; core login/business/UI checks | OPEN until real-device evidence is recorded |
 | Android production | Privately signed release AAB/APK, preserved signing identity, version/build, store/release evidence and Owner acceptance | EXTERNAL/OPEN |
-| Cloudflare exact SHA | Build Check + Cloudflare live evidence for the exact final accepted commit | VERIFIED CI EVIDENCE — current branch SHA `998d5beab4168897f5867cab94ddf5f563177d33`: Build Check #2096 SUCCESS; Cloudflare Preview #1422 SUCCESS. Final acceptance remains OPEN until this SHA (or a later accepted SHA) is frozen with all other applicable gates PASS |
+| Cloudflare exact SHA | Build Check + Cloudflare live evidence for the exact final accepted commit | VERIFIED CI EVIDENCE — current branch SHA `d825979e9707729e5340c230d75c90cb415734c0`: Build Check #2098 SUCCESS; Cloudflare Preview #1424 SUCCESS. Final acceptance remains OPEN until this SHA (or a later accepted SHA) is frozen with all other applicable gates PASS |
 | Production/domain | Production backup/readiness, explicit Owner acceptance, production Supabase migration/deploy, domain/DNS cutover, post-cutover smoke test | EXTERNAL/OPEN; production must remain untouched before approval |
 
 ## Recorded CI evidence — 2026-09-19
@@ -26,11 +26,13 @@ This file prevents source completion from being confused with production accepta
 - No production/domain acceptance is inferred from these CI results.
 
 ### Current branch CI evidence — 2026-09-19
-- Exact Git SHA: `998d5beab4168897f5867cab94ddf5f563177d33`.
-- Build Check #2096: SUCCESS.
-- Cloudflare Preview #1422: SUCCESS.
-- Android APK #1390: SUCCESS (build evidence only; real-device and production-signing gates remain OPEN).
-- This supersedes the prior SHA only for current-branch CI evidence; it does not convert any runtime/external gate to PASS.
+- Exact Git SHA: `d825979e9707729e5340c230d75c90cb415734c0`.
+- Build Check #2098: SUCCESS.
+- Cloudflare Preview #1424: SUCCESS.
+- Android APK #1392: SUCCESS (build evidence only; real-device and production-signing gates remain OPEN).
+- Catalog permanent-delete runtime gate remains OPEN: `permanently_delete_catalog_master(uuid,text)` is not installed in STAGING; source presence is not accepted as runtime evidence.
+- Dealer/Staff and business transaction runtime gates remain OPEN because STAGING has no acceptance identities or qualifying transactions; no fake records are to be created merely to close gates.
+- This supersedes prior SHA CI evidence only; it does not convert runtime/external gates to PASS.
 
 ## Evidence recording rule
 For each completed gate record: UTC timestamp, environment/project ID, exact Git commit SHA, actor/test identity reference without secret values, test/result summary, artifact/checksum/run reference where applicable, and PASS/FAIL. A FAIL returns to `torvo-v2-build`, is fixed at root cause, and the affected gate is repeated.
