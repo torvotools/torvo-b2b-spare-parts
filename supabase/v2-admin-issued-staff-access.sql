@@ -45,8 +45,9 @@ end$$;
 create or replace function admin_issue_staff_one_time_password(p_app_user_id uuid,p_password text,p_minutes integer default 30)
 returns uuid language plpgsql security definer set search_path=public as $$declare actor app_users%rowtype;i staff_access_identities%rowtype;rid uuid;begin
  select * into actor from app_users where auth_user_id=auth.uid() and active=true;if actor.id is null or lower(coalesce(actor.role,'')) not in('owner','admin') then raise exception 'ADMIN REQUIRED';end if;
- select * into i from staff_access_identities where app_user_id=p_app_user_id and active=true;if i.app_user_id is null then raise exception 'STAFF ACCESS ID REQUIRED';end if;
+ select i.* into i from staff_access_identities i join app_users u on u.id=i.app_user_id where i.app_user_id=p_app_user_id and i.active=true and u.active=true and lower(coalesce(u.role,''))=i.staff_role;if i.app_user_id is null then raise exception 'STAFF ACCESS ID REQUIRED';end if;
  if length(coalesce(p_password,''))<10 or length(p_password)>80 then raise exception 'STRONG TEMPORARY PASSWORD REQUIRED';end if;if p_minutes<5 or p_minutes>120 then raise exception 'PASSWORD EXPIRY MUST BE 5 TO 120 MINUTES';end if;
+ update staff_access_identities set active=false,updated_at=now(),updated_by=actor.id where app_user_id=p_app_user_id;
  update staff_one_time_passwords set revoked_at=now() where app_user_id=p_app_user_id and used_at is null and revoked_at is null;
  insert into staff_one_time_passwords(app_user_id,password_hash,created_by,expires_at) values(p_app_user_id,crypt(p_password,gen_salt('bf')),actor.id,now()+make_interval(mins=>p_minutes)) returning id into rid;return rid;
 end$$;
@@ -54,7 +55,7 @@ end$$;
 create or replace function admin_approve_staff_device(p_app_user_id uuid,p_device_id text,p_device_type text)
 returns uuid language plpgsql security definer set search_path=public as $$declare actor app_users%rowtype;i staff_access_identities%rowtype;rid uuid;begin
  select * into actor from app_users where auth_user_id=auth.uid() and active=true;if actor.id is null or lower(coalesce(actor.role,'')) not in('owner','admin') then raise exception 'ADMIN REQUIRED';end if;
- select * into i from staff_access_identities where app_user_id=p_app_user_id and active=true;if i.app_user_id is null then raise exception 'STAFF ACCESS ID REQUIRED';end if;
+ select i.* into i from staff_access_identities i join app_users u on u.id=i.app_user_id where i.app_user_id=p_app_user_id and i.active=true and u.active=true and lower(coalesce(u.role,''))=i.staff_role;if i.app_user_id is null then raise exception 'STAFF ACCESS ID REQUIRED';end if;
  if length(btrim(coalesce(p_device_id,'')))<8 or length(p_device_id)>180 then raise exception 'SECURE DEVICE ID REQUIRED';end if;
  if (i.staff_role='accountant' and p_device_type<>'desktop') or (i.staff_role in('salesman','store_keeper') and p_device_type<>'mobile_app') then raise exception 'DEVICE TYPE NOT ALLOWED FOR ROLE';end if;
  update staff_authorized_devices set revoked_at=now() where app_user_id=p_app_user_id and revoked_at is null;
