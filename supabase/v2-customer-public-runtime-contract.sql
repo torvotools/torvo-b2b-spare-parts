@@ -65,7 +65,7 @@ returns boolean language plpgsql security definer set search_path=public as $$de
 revoke all on function dealer_repair_requirements(text,integer),dealer_update_repair_requirement(uuid,text) from public,anon;grant execute on function dealer_repair_requirements(text,integer),dealer_update_repair_requirement(uuid,text) to authenticated;
 
 create or replace function public_business_settings() returns table(support_mobile text,whatsapp_mobile text,referral_enabled boolean,repair_service_enabled boolean,customer_catalog_enabled boolean)
-language sql security definer set search_path=public as $with w as(
+language sql security definer set search_path=public as $$with w as(
  select setting_value from admin_managed_settings where setting_key='whatsapp_channels' and public_read=true and active=true
 ),f as(
  select setting_value from admin_managed_settings where setting_key='feature_switches' and active=true
@@ -83,5 +83,5 @@ select '7027751533',
       when coalesce(business_active,true) then coalesce(nullif(wv->>'business_number',''),nullif(wv->>'customer_number',''),'7027751533')
       else '7027751533' end,
  coalesce(referral_enabled,true),coalesce(repair_service_enabled,true),coalesce(customer_catalog_enabled,true)
-from safe$;
+from safe$$;
 revoke all on function public_business_settings() from public;grant execute on function public_business_settings() to anon,authenticated;
