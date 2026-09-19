@@ -3,6 +3,7 @@ const fail=m=>{console.error('FAIL '+m);process.exit(1)};
 const [,,p]=process.argv;if(!p||!fs.existsSync(p))fail('usage: node scripts/verify-v2-report-reconciliation.mjs <evidence.json>');
 let e;try{e=JSON.parse(fs.readFileSync(p,'utf8'))}catch{fail('invalid evidence JSON')}
 for(const k of ['environment_project_id','commit_sha','captured_at_utc','accepted_transaction_refs','summary','details'])if(e[k]===undefined||e[k]===null)fail('missing '+k);
+if(e.environment_project_id!=='jvmhhngjlaqrfopfavur')fail('report evidence must come from TORVO V2 STAGING');
 if(!/^[a-f0-9]{40}$/i.test(e.commit_sha))fail('invalid exact commit SHA');
 if(!Array.isArray(e.accepted_transaction_refs)||e.accepted_transaction_refs.length<1)fail('no accepted real staging transaction references');
 if(!/^\d{4}-\d{2}-\d{2}T/.test(e.captured_at_utc))fail('captured_at_utc must be ISO timestamp');
