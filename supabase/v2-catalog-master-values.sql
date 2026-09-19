@@ -13,7 +13,7 @@ create table if not exists catalog_master_values (
 alter table catalog_master_values add column if not exists deleted_at timestamptz;
 
 create or replace function torvo_normalize_business_text(p_value text)
-returns text language sql immutable set search_path=public,pg_catalog as $ select upper(regexp_replace(btrim(coalesce(p_value,'')),'\s+',' ','g')) $;
+returns text language sql immutable set search_path=public,pg_catalog as 'select upper(regexp_replace(btrim(coalesce(p_value,'''''')),''\\s+'','' '',''g''))';
 
 drop index if exists catalog_master_values_upper_uq;
 drop index if exists catalog_master_values_normalized_uq;
