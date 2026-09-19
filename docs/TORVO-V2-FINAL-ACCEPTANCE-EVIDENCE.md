@@ -73,3 +73,7 @@ TORVO V2 is called 100% only after every applicable gate above has real PASS evi
 - Backup artifact integrity can now be checked with `npm run verify:v2-backup-artifact -- <manifest.json> <artifact>`; this validates real artifact bytes/checksum and manifest boundaries only, not restore success.
 - Android real-device evidence can now be structure-checked with `npm run verify:v2-android-device-evidence -- <release-manifest.json> <evidence.json>`; this cross-validates package/channel/signing state, exact commit SHA and APK SHA-256 against the CI-generated release manifest; it does not perform or fabricate the physical device test.
 - Both verifier contracts are enforced by the final-readiness CI verifier. Their presence does not change the OPEN state of backup/restore or Android real-device acceptance.
+- Runtime evidence commands now cover Dealer/Staff auth, B2B flow, inventory, returns, report reconciliation, catalog destructive actions, restore rehearsal, Android production release and pre-production cutover. Each verifier validates supplied evidence only and does not manufacture staging identities, transactions, destructive actions, backup restores, signing or production cutover.
+- Reports reconciliation command: `npm run verify:v2-report-reconciliation -- <evidence.json>`.
+- Catalog destructive runtime command: `npm run verify:v2-catalog-destructive-evidence -- <evidence.json>`; the catalog gate remains OPEN until the RPC is genuinely installed and an authorized staging Owner/Admin runtime test is recorded.
+
