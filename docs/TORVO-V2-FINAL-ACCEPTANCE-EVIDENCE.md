@@ -15,8 +15,15 @@ This file prevents source completion from being confused with production accepta
 | Backup/restore | Trusted-worker backup artifact + SHA-256/integrity + manifest + exact code/schema identity + isolated clean-target restore + core/security/runtime comparison | OPEN — no verified backup/restore rehearsal artifact recorded |
 | Android test | Exact-SHA TEST-DEBUG APK installed on real Android device; package/hash/build SHA recorded; core login/business/UI checks | OPEN until real-device evidence is recorded |
 | Android production | Privately signed release AAB/APK, preserved signing identity, version/build, store/release evidence and Owner acceptance | EXTERNAL/OPEN |
-| Cloudflare exact SHA | Build Check + Cloudflare live evidence for the exact final accepted commit | OPEN until final accepted SHA is frozen and verified |
+| Cloudflare exact SHA | Build Check + Cloudflare live evidence for the exact final accepted commit | VERIFIED CI EVIDENCE — exact SHA `67ccd428a4191094d1c3c445b4c33a7a63052790`: Build Check #2095 SUCCESS; Cloudflare Preview #1421 SUCCESS. Final acceptance remains OPEN until this SHA (or a later accepted SHA) is frozen with all other applicable gates PASS |
 | Production/domain | Production backup/readiness, explicit Owner acceptance, production Supabase migration/deploy, domain/DNS cutover, post-cutover smoke test | EXTERNAL/OPEN; production must remain untouched before approval |
+
+## Recorded CI evidence — 2026-09-19
+- Exact Git SHA: `67ccd428a4191094d1c3c445b4c33a7a63052790`.
+- Build Check #2095: SUCCESS.
+- Cloudflare Preview #1421: SUCCESS.
+- Android APK #1389: SUCCESS (build evidence only; this does **not** satisfy the real-device Android test gate or production signing gate).
+- No production/domain acceptance is inferred from these CI results.
 
 ## Evidence recording rule
 For each completed gate record: UTC timestamp, environment/project ID, exact Git commit SHA, actor/test identity reference without secret values, test/result summary, artifact/checksum/run reference where applicable, and PASS/FAIL. A FAIL returns to `torvo-v2-build`, is fixed at root cause, and the affected gate is repeated.
