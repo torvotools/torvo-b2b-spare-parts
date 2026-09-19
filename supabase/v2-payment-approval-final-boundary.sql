@@ -6,7 +6,7 @@ begin
  if p_status not in('cash','pending','received') or p_amount is null or p_amount<=0 or nullif(trim(p_request_key),'') is null then raise exception 'Valid payment required';end if;
  if p_actor is null or not exists(select 1 from app_users where id=p_actor and active=true) then raise exception 'Valid payment actor required';end if;
  select * into existing from payments where request_key=trim(p_request_key);if found then if existing.estimate_id=p_estimate and existing.status=p_status and existing.amount=p_amount then return existing.id;end if;raise exception 'Payment request key already used';end if;
- select final_payable into f from sales_documents where id=p_estimate and doc_type='estimate' for update;if not found then raise exception 'Estimate not found';end if;
+ select final_payable into f from sales_documents where id=p_estimate and doc_type='estimate' for update;if not found then raise exception 'Estimate not found';end if;perform public.assert_estimate_delivery_finalized_for_payment(p_estimate);
  select coalesce(sum(amount),0) into already from payments where estimate_id=p_estimate and status in('cash','received');if p_status in('cash','received') and already+p_amount>f then raise exception 'Payment exceeds estimate payable';end if;
  insert into payments(estimate_id,status,amount,received_at,recorded_by,request_key)values(p_estimate,p_status,p_amount,case when p_status in('cash','received')then now()end,p_actor,trim(p_request_key))returning id into pid;
  insert into audit_log(actor_id,action,entity_type,entity_id,details)values(p_actor,'INTERNAL_PAYMENT_NOTED','estimate',p_estimate::text,jsonb_build_object('payment_id',pid,'status',p_status,'amount',p_amount,'request_key',trim(p_request_key),'server_boundary',true));return pid;
