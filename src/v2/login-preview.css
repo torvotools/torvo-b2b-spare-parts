@@ -90,3 +90,13 @@
  .loginFeatureRow span{font-size:clamp(9px,1.3vh,11px)!important;font-weight:800;letter-spacing:.015em}
  .loginFeatureRow svg{width:clamp(13px,1.8vh,16px)!important;height:clamp(13px,1.8vh,16px)!important}
 }
+
+
+/* Final readability pass approved from fresh visual check:
+   stronger role-card secondary text + slightly larger left trust labels. */
+@media (min-width:901px){
+ .loginFeatureRow span{font-size:clamp(10px,1.5vh,12px)!important;font-weight:850!important;line-height:1.15}
+ .loginFeatureRow svg{width:clamp(14px,2vh,17px)!important;height:clamp(14px,2vh,17px)!important}
+ .loginTrustCards small{font-size:clamp(8px,1.2vh,10px)!important;font-weight:700!important;color:#475467!important;line-height:1.25!important;opacity:1!important}
+ .loginTrustCards b{font-size:clamp(8px,1.2vh,10px)!important;color:#1d2939!important;line-height:1.2!important}
+}
