@@ -100,3 +100,17 @@
  .loginTrustCards small{font-size:clamp(8px,1.2vh,10px)!important;font-weight:700!important;color:#475467!important;line-height:1.25!important;opacity:1!important}
  .loginTrustCards b{font-size:clamp(8px,1.2vh,10px)!important;color:#1d2939!important;line-height:1.2!important}
 }
+
+
+/* Approved login input appearance: no browser/autofill inner fill; typed username stays normal weight. */
+.loginV2 .loginInput input{font-weight:400!important;background:transparent!important;background-color:transparent!important}
+.loginV2 .loginInput input:focus,.loginV2 .loginInput input:focus-visible{font-weight:400!important;background:transparent!important;background-color:transparent!important}
+.loginV2 .loginInput input:-webkit-autofill,
+.loginV2 .loginInput input:-webkit-autofill:hover,
+.loginV2 .loginInput input:-webkit-autofill:focus{
+ -webkit-text-fill-color:#101828!important;
+ -webkit-box-shadow:0 0 0 1000px #fff inset!important;
+ box-shadow:0 0 0 1000px #fff inset!important;
+ font-weight:400!important;
+ caret-color:#101828!important;
+}
