@@ -114,3 +114,22 @@
  font-weight:400!important;
  caret-color:#101828!important;
 }
+
+
+/* Owner-approved final login typography tuning. */
+.loginV2 .loginInput input{color:#344054!important;font-weight:400!important}
+.loginV2 .loginInput input::placeholder{color:#667085!important;font-weight:400!important;opacity:1!important}
+.loginV2 .loginInput input:-webkit-autofill,
+.loginV2 .loginInput input:-webkit-autofill:hover,
+.loginV2 .loginInput input:-webkit-autofill:focus{
+ -webkit-text-fill-color:#344054!important;
+ -webkit-box-shadow:0 0 0 1000px transparent inset!important;
+ box-shadow:0 0 0 1000px transparent inset!important;
+ transition:background-color 99999s ease-out 0s!important;
+ font-weight:400!important;
+}
+.loginV2 .loginDivider span{font-weight:500!important;color:#475467!important}
+@media (min-width:901px){
+ .loginTrustCards b{font-size:clamp(7px,1.08vh,9px)!important;font-weight:700!important;color:#344054!important}
+ .loginTrustCards small{font-size:clamp(7px,1.05vh,9px)!important;font-weight:500!important;color:#475467!important;line-height:1.22!important}
+}
