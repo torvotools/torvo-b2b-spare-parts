@@ -133,3 +133,10 @@
  .loginTrustCards b{font-size:clamp(7px,1.08vh,9px)!important;font-weight:700!important;color:#344054!important}
  .loginTrustCards small{font-size:clamp(7px,1.05vh,9px)!important;font-weight:500!important;color:#475467!important;line-height:1.22!important}
 }
+
+
+/* Laptop readability: typed username/email remains normal-weight but comfortably readable. */
+@media (min-width:901px){
+ .loginV2 .loginInput input{font-size:clamp(13px,1.9vh,16px)!important;font-weight:400!important;line-height:1.25!important;color:#344054!important}
+ .loginV2 .loginInput input::placeholder{font-size:clamp(11px,1.55vh,13px)!important;font-weight:400!important}
+}
