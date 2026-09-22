@@ -140,3 +140,9 @@
  .loginV2 .loginInput input{font-size:clamp(13px,1.9vh,16px)!important;font-weight:400!important;line-height:1.25!important;color:#344054!important}
  .loginV2 .loginInput input::placeholder{font-size:clamp(11px,1.55vh,13px)!important;font-weight:400!important}
 }
+
+
+/* Password visibility control */
+.loginV2 .loginPasswordView{display:grid;place-items:center;flex:0 0 auto;width:34px;height:34px;padding:0;border:0;background:transparent;color:#667085;cursor:pointer;border-radius:8px}
+.loginV2 .loginPasswordView:hover{color:#344054;background:#f2f4f7}
+.loginV2 .loginPasswordView:focus,.loginV2 .loginPasswordView:focus-visible{outline:none;box-shadow:none}
