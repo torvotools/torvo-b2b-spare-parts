@@ -335,3 +335,26 @@
  cursor:default!important;
  opacity:1!important;
 }
+
+/* Approved action behavior: CTAs always TORVO red; invalid/incomplete state is disabled by behavior only. */
+.loginV2 .loginButtonReady,
+.loginV2 .loginButtonReady:disabled{
+ background:#d71920!important;border-color:#d71920!important;color:#fff!important;opacity:1!important;
+}
+.loginV2 .loginButtonReady:disabled{cursor:not-allowed!important;box-shadow:0 8px 18px rgba(215,25,32,.18)!important}
+
+/* Refined resend control: compact status pill, not a large disabled button. */
+.loginV2 .loginResend{
+ display:inline-flex!important;align-items:center!important;gap:7px!important;
+ min-height:28px!important;padding:0 9px!important;border:1px solid #d0d5dd!important;
+ border-radius:999px!important;background:#fff!important;color:#344054!important;
+ font-size:9px!important;font-weight:700!important;letter-spacing:.01em!important;
+}
+.loginV2 .loginResend b{
+ display:inline-flex!important;align-items:center!important;justify-content:center!important;
+ min-width:43px!important;padding:3px 6px!important;border-radius:999px!important;
+ background:#f2f4f7!important;color:#667085!important;font-size:9px!important;font-weight:800!important;
+}
+.loginV2 .loginResend:not(:disabled){border-color:#d71920!important;color:#d71920!important;cursor:pointer!important}
+.loginV2 .loginResend:not(:disabled) b{background:#fff1f2!important;color:#d71920!important}
+.loginV2 .loginResend:disabled{opacity:1!important;cursor:default!important}
