@@ -240,3 +240,6 @@
 .loginV2 .loginOtpClose span{display:block!important;transform:translateY(-1px)}
 .loginV2 .loginOtpClose:hover{color:#d71920!important}
 @media(max-width:900px){.loginV2 .loginOtpPopup{transform:none!important}}
+
+/* Keep OTP modal exactly centered over the full login form. */
+.loginV2 .loginOtpPopup{transform:none!important}
