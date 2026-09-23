@@ -250,5 +250,6 @@
 .loginV2 .loginOtpPopup{margin:auto!important;transform:none!important}
 
 
-/* Final optical centering: split the previous 10px correction. */
-@media(min-width:901px){.loginV2 .loginOtpPopup{transform:translateX(-5px)!important}}
+
+/* Final card-relative centering: no manual horizontal offset. */
+@media(min-width:901px){.loginV2 .loginOtpOverlay{left:0!important;right:0!important;margin:0!important;transform:none!important}.loginV2 .loginOtpPopup{justify-self:center!important;margin-left:auto!important;margin-right:auto!important;transform:none!important}}
