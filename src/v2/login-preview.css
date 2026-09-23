@@ -268,4 +268,4 @@
 @media(min-width:901px){.loginV2 .loginOtpPopup{left:auto!important;right:auto!important;transform:none!important}}
 
 /* Final optical calibration from owner desktop photo: tiny left correction after card-relative centering. */
-@media(min-width:901px){.loginV2 .loginOtpPopup{transform:translateX(-5px)!important}}
+@media(min-width:901px){.loginV2 .loginOtpPopup{transform:translateX(-2.5px)!important}}
