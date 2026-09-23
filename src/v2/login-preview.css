@@ -269,3 +269,8 @@
 
 /* Final optical calibration from owner desktop photo: tiny left correction after card-relative centering. */
 @media(min-width:901px){.loginV2 .loginOtpPopup{transform:translateX(-2.5px)!important}}
+
+
+/* Owner-approved subtle field contrast only: keep layout and validation cues unchanged. */
+.loginV2 .loginInput{border-color:#b8c2cf!important}
+.loginV2 .loginInput>svg{color:#40566f!important;stroke-width:2.35!important}
