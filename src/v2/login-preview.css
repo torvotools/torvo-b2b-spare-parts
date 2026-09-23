@@ -219,3 +219,12 @@
 .loginV2 .loginButtonReady:focus,.loginV2 .loginButtonReady:focus-visible{outline:3px solid rgba(215,25,32,.18)!important;outline-offset:3px!important}
 
 .loginV2 .loginFieldInvalid{order:3!important;margin-left:auto!important;flex:0 0 auto!important;width:22px!important;height:22px!important;color:#d71920!important;stroke:#d71920!important;stroke-width:3.4!important}
+
+
+/* OTP is a separate compact modal over the unchanged login card. */
+.loginV2 .loginOtpOverlay{position:fixed!important;inset:0!important;z-index:1000!important;display:grid!important;place-items:center!important;padding:20px!important;background:rgba(15,23,42,.32)!important;backdrop-filter:blur(2px)}
+.loginV2 .loginOtpPopup{width:min(92vw,380px)!important;background:#fff!important;border:1px solid #e4e7ec!important;border-radius:18px!important;padding:22px!important;box-shadow:0 24px 60px rgba(15,23,42,.24)!important}
+.loginV2 .loginOtpPopup h3{margin:14px 0 8px!important;font-size:20px!important;color:#101828!important}
+.loginV2 .loginOtpPopup p{margin:0 0 14px!important;font-size:12px!important;line-height:1.45!important;color:#667085!important}
+.loginV2 .loginOtpPopup small{display:block!important;margin:8px 0 4px!important;color:#667085!important;font-size:10px!important}
+.loginV2 .loginOtpPopup .loginHelp{display:block!important;margin:10px auto 0!important;border:0!important;background:transparent!important;color:#475467!important;cursor:pointer!important}
