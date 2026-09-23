@@ -232,3 +232,11 @@
 .loginV2 .loginOtpPopup{position:relative!important}
 .loginV2 .loginOtpClose{position:absolute!important;top:12px!important;right:12px!important;display:grid!important;place-items:center!important;width:30px!important;height:30px!important;padding:0!important;border:0!important;background:transparent!important;color:#667085!important;cursor:pointer!important}
 .loginV2 .loginOtpClose:hover{color:#d71920!important}
+
+/* Owner-requested OTP modal alignment and simple close mark. */
+.loginV2 .loginOtpOverlay{padding:20px!important;place-items:center!important}
+.loginV2 .loginOtpPopup{position:relative!important;transform:translateX(-4%)!important}
+.loginV2 .loginOtpClose{top:12px!important;right:12px!important;left:auto!important;border:0!important;background:transparent!important;box-shadow:none!important;color:#667085!important;font-size:28px!important;font-weight:400!important;line-height:1!important}
+.loginV2 .loginOtpClose span{display:block!important;transform:translateY(-1px)}
+.loginV2 .loginOtpClose:hover{color:#d71920!important}
+@media(max-width:900px){.loginV2 .loginOtpPopup{transform:none!important}}
