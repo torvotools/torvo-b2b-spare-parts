@@ -243,3 +243,8 @@
 
 /* Keep OTP modal exactly centered over the full login form. */
 .loginV2 .loginOtpPopup{transform:none!important}
+
+/* Center OTP against the login card itself, not the browser viewport. */
+.loginV2 .loginCard{position:relative!important}
+.loginV2 .loginOtpOverlay{position:absolute!important;inset:0!important;width:100%!important;height:100%!important;padding:16px!important;place-items:center!important;border-radius:inherit!important}
+.loginV2 .loginOtpPopup{margin:auto!important;transform:none!important}
