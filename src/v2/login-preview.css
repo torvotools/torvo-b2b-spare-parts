@@ -255,11 +255,14 @@
 @media(min-width:901px){.loginV2 .loginOtpOverlay{left:0!important;right:0!important;margin:0!important;transform:none!important}.loginV2 .loginOtpPopup{justify-self:center!important;margin-left:auto!important;margin-right:auto!important;transform:none!important}}
 
 
-/* Owner desktop-photo calibration: visible popup margins are equalized inside the login card. */
-@media(min-width:901px){.loginV2 .loginOtpPopup{transform:translateX(16px)!important}}
 
 /* Typed values must read as entered data, not pale placeholder text. */
 .loginV2 .loginInput input:not(:placeholder-shown){color:#101828!important;-webkit-text-fill-color:#101828!important;font-weight:400!important;opacity:1!important}
 .loginV2 .loginInput input:-webkit-autofill,
 .loginV2 .loginInput input:-webkit-autofill:hover,
 .loginV2 .loginInput input:-webkit-autofill:focus{-webkit-text-fill-color:#101828!important;font-weight:400!important}
+
+/* OTP must stay fully inside the underlying login-card boundary. */
+.loginV2 .loginOtpOverlay{box-sizing:border-box!important;overflow:hidden!important}
+.loginV2 .loginOtpPopup{box-sizing:border-box!important;max-width:calc(100% - 32px)!important;justify-self:center!important;margin-left:auto!important;margin-right:auto!important;transform:none!important}
+@media(min-width:901px){.loginV2 .loginOtpPopup{left:auto!important;right:auto!important;transform:none!important}}
