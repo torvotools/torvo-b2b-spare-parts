@@ -274,3 +274,64 @@
 /* Owner-approved subtle field contrast only: keep layout and validation cues unchanged. */
 .loginV2 .loginInput{border-color:#b8c2cf!important}
 .loginV2 .loginInput>svg{color:#40566f!important;stroke-width:2.35!important}
+
+
+/* FINAL APPROVED EMAIL-OTP UI — 23 Sep 2026
+   Neutral field focus (no red focus boundary), consistent validation icons,
+   45-second resend countdown and compact card-relative modal. */
+.loginV2 .loginInput:focus-within{
+ border-color:#b8c2cf!important;
+ box-shadow:none!important;
+ outline:none!important;
+}
+.loginV2 .loginInput input:focus,
+.loginV2 .loginInput input:focus-visible{
+ outline:none!important;
+ box-shadow:none!important;
+ border:0!important;
+}
+.loginV2 .loginOtpPopup{
+ width:min(92vw,420px)!important;
+ padding:24px!important;
+ border-radius:20px!important;
+}
+.loginV2 .loginOtpPopup .loginInput{
+ background:#fff!important;
+ border:1.25px solid #b8c2cf!important;
+ box-shadow:none!important;
+}
+.loginV2 .loginOtpPopup .loginInput:focus-within{
+ border-color:#9eabb9!important;
+ box-shadow:none!important;
+}
+.loginV2 .loginOtpReadonly input{
+ pointer-events:none!important;
+ color:#101828!important;
+ -webkit-text-fill-color:#101828!important;
+}
+.loginV2 .loginOtpMeta{
+ display:flex!important;
+ align-items:center!important;
+ justify-content:space-between!important;
+ gap:10px!important;
+ margin:7px 0 5px!important;
+}
+.loginV2 .loginOtpMeta small{
+ margin:0!important;
+}
+.loginV2 .loginResend{
+ border:0!important;
+ padding:0!important;
+ background:transparent!important;
+ color:#d71920!important;
+ font:inherit!important;
+ font-size:10px!important;
+ font-weight:750!important;
+ white-space:nowrap!important;
+ cursor:pointer!important;
+}
+.loginV2 .loginResend:disabled{
+ color:#667085!important;
+ cursor:default!important;
+ opacity:1!important;
+}
