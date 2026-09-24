@@ -141,13 +141,13 @@ jobs:
         run: |
           set -euo pipefail
           test -s android/app/build/outputs/apk/debug/app-debug.apk
-          SHORT_SHA="${GITHUB_SHA::12}"; BUILD_NO="${GITHUB_RUN_NUMBER}"; APK_NAME="TORVO-TOOLS-TEST-v2-build-${BUILD_NO}-${SHORT_SHA}.apk"
+          SHORT_SHA="${SOURCE_SHA::12}"; BUILD_NO="${GITHUB_RUN_NUMBER}"; APK_NAME="TORVO-TOOLS-TEST-v2-build-${BUILD_NO}-${SHORT_SHA}.apk"
           mkdir -p release-artifact durable-release
           cp android/app/build/outputs/apk/debug/app-debug.apk "release-artifact/${APK_NAME}"
           cp android/app/build/outputs/apk/debug/app-debug.apk "durable-release/${TEST_RELEASE_ASSET}"
           SHA256="$(sha256sum "release-artifact/${APK_NAME}" | awk '{print $1}')"; BUILD_DATE="$(date -u +'%Y-%m-%dT%H:%M:%SZ')"
           test -n "${SHA256}"; test "${SHA256}" = "$(sha256sum "durable-release/${TEST_RELEASE_ASSET}" | awk '{print $1}')"
-          printf '{\n  "app":"TORVO TOOLS",\n  "package":"com.torvotools.app",\n  "channel":"TEST-DEBUG",\n  "production_signed":false,\n  "build_number":"%s",\n  "commit_sha":"%s",\n  "build_date_utc":"%s",\n  "apk_file":"%s",\n  "apk_sha256":"%s",\n  "workflow_run_id":"%s",\n  "status":"VERIFIED_TEST"\n}\n' "$BUILD_NO" "$GITHUB_SHA" "$BUILD_DATE" "$APK_NAME" "$SHA256" "$GITHUB_RUN_ID" > release-artifact/release-manifest.json
+          printf '{\n  "app":"TORVO TOOLS",\n  "package":"com.torvotools.app",\n  "channel":"TEST-DEBUG",\n  "production_signed":false,\n  "build_number":"%s",\n  "commit_sha":"%s",\n  "build_date_utc":"%s",\n  "apk_file":"%s",\n  "apk_sha256":"%s",\n  "workflow_run_id":"%s",\n  "status":"VERIFIED_TEST"\n}\n' "$BUILD_NO" "$SOURCE_SHA" "$BUILD_DATE" "$APK_NAME" "$SHA256" "$GITHUB_RUN_ID" > release-artifact/release-manifest.json
           cp release-artifact/release-manifest.json durable-release/release-manifest.json
           echo "apk_name=${APK_NAME}" >> "$GITHUB_OUTPUT"; echo "sha256=${SHA256}" >> "$GITHUB_OUTPUT"
       - name: VERIFY TEST RELEASE MANIFEST
@@ -164,7 +164,7 @@ jobs:
       - name: UPLOAD VERSIONED VERIFIED TEST APK
         uses: actions/upload-artifact@v4
         with:
-          name: TORVO-TOOLS-TEST-APK-BUILD-${{ github.run_number }}-${{ github.sha }}
+          name: TORVO-TOOLS-TEST-APK-BUILD-${{ github.run_number }}
           path: release-artifact/
           if-no-files-found: error
           retention-days: 90
