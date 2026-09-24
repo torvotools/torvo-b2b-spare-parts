@@ -9,7 +9,7 @@ on:
   workflow_dispatch:
 
 concurrency:
-  group: torvo-v2-cloudflare-preview-${{ github.event_name == 'workflow_dispatch' && github.sha || github.event.workflow_run.head_sha }}
+  group: torvo-v2-cloudflare-preview
   cancel-in-progress: true
 
 permissions:
