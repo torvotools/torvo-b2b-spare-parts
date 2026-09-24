@@ -12,7 +12,7 @@ const step=n=>steps.get(n)||'';const has=(n,x)=>step(n).includes(x);const inline
 gate('CORE IDENTITY ADDS DEALER ID',/alter table app_users[\s\S]*add column if not exists dealer_id uuid references dealers\(id\)/i.test(core));
 gate('CORE IDENTITY UNIQUE PER DEALER',/create unique index if not exists uq_app_users_dealer_identity[\s\S]*app_users\(dealer_id\)/i.test(core));
 gate('MOBILE NOT AUTHORIZATION KEY',core.includes('mobile is not an authorization key'));
-gate('FINAL APPROVAL USES CANONICAL IDENTITY',finalGate.includes('dealer_id')&&finalGate.includes('DEALER APP IDENTITY REQUIRED BEFORE APPROVAL'));
+gate('FINAL APPROVAL USES CANONICAL IDENTITY',finalGate.includes('dealer_id')&&finalGate.includes('DEALER AUTH IDENTITY AMBIGUOUS')&&finalGate.includes('if linked_count=0 then insert into app_users'));
 gate('LATER AUTH MIGRATION REMAINS IDEMPOTENT',/add column if not exists dealer_id/i.test(auth));
 gate('INSTALL ORDER DECLARES CORE IDENTITY',has(1,'v2-core-dealer-identity.sql'));
 gate('CORE IDENTITY BEFORE FINAL APPROVAL',has(1,'v2-core-dealer-identity.sql')&&has(11,'v2-dealer-final-approval-accountant-gate.sql')&&1<11);
