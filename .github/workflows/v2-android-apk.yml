@@ -12,7 +12,7 @@ permissions:
   actions: read
 
 concurrency:
-  group: torvo-v2-android-apk-${{ github.ref }}
+  group: torvo-v2-android-apk-${{ github.event_name == 'workflow_dispatch' && github.sha || github.event.workflow_run.head_sha }}
   cancel-in-progress: true
 
 env:
