@@ -5,7 +5,8 @@ grant execute on function dealer_verify_pin(text,text) to service_role;
 grant execute on function dealer_start_device_session(uuid,text,integer) to service_role;
 grant execute on function dealer_validate_device_session(uuid,text,text) to service_role;
 grant execute on function dealer_revoke_device_sessions(uuid,text) to service_role;
-grant execute on function staff_verify_one_time_password(text,text,text,text) to service_role;
+grant execute on function staff_email_otp_begin(text,text,text) to service_role;
+grant execute on function staff_email_otp_verify(uuid,text,text,text) to service_role;
 grant execute on function staff_create_verified_session(uuid,text,text) to service_role;
 
 -- Keep the final runtime assertion on the canonical app_users.dealer_id identity link.
