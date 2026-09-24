@@ -7,7 +7,7 @@ create table if not exists staff_access_identities(
  app_user_id uuid primary key references app_users(id) on delete cascade,
  username text not null unique,
  employee_name text not null,
- staff_role text not null check(staff_role in('salesman','store_keeper','accountant')),
+ staff_role text not null check(staff_role in('salesman','store_keeper','accountant','admin')),
  active boolean not null default true,
  updated_at timestamptz not null default now(),
  updated_by uuid references app_users(id)
@@ -36,7 +36,7 @@ create or replace function admin_upsert_staff_access(p_app_user_id uuid,p_userna
 returns void language plpgsql security definer set search_path=public as $$declare actor app_users%rowtype;target app_users%rowtype;u text:=upper(btrim(coalesce(p_username,'')));n text:=upper(btrim(coalesce(p_employee_name,'')));begin
  select * into actor from app_users where auth_user_id=auth.uid() and active=true;if actor.id is null or lower(coalesce(actor.role,'')) not in('owner','admin') then raise exception 'ADMIN REQUIRED';end if;
  select * into target from app_users where id=p_app_user_id and active=true;if target.id is null then raise exception 'ACTIVE STAFF REQUIRED';end if;
- if lower(coalesce(p_staff_role,'')) not in('salesman','store_keeper','accountant') or lower(coalesce(target.role,''))<>lower(coalesce(p_staff_role,'')) then raise exception 'STAFF ROLE MISMATCH';end if;
+ if lower(coalesce(p_staff_role,'')) not in('salesman','store_keeper','accountant','admin') or lower(coalesce(target.role,''))<>lower(coalesce(p_staff_role,'')) then raise exception 'STAFF ROLE MISMATCH';end if;
  if u!~ '^[A-Z]{2,8}@[0-9]{2,6}$' then raise exception 'USERNAME FORMAT REQUIRED';end if;if length(n)<2 or length(n)>120 then raise exception 'EMPLOYEE NAME REQUIRED';end if;
  insert into staff_access_identities(app_user_id,username,employee_name,staff_role,updated_by) values(target.id,u,n,lower(p_staff_role),actor.id)
  on conflict(app_user_id) do update set username=excluded.username,employee_name=excluded.employee_name,staff_role=excluded.staff_role,active=true,updated_at=now(),updated_by=actor.id;
@@ -56,7 +56,7 @@ returns uuid language plpgsql security definer set search_path=public as $$decla
  select * into actor from app_users where auth_user_id=auth.uid() and active=true;if actor.id is null or lower(coalesce(actor.role,'')) not in('owner','admin') then raise exception 'ADMIN REQUIRED';end if;
  select i.* into i from staff_access_identities i join app_users u on u.id=i.app_user_id where i.app_user_id=p_app_user_id and i.active=true and u.active=true and lower(coalesce(u.role,''))=i.staff_role;if i.app_user_id is null then raise exception 'STAFF ACCESS ID REQUIRED';end if;
  if length(btrim(coalesce(p_device_id,'')))<8 or length(p_device_id)>180 then raise exception 'SECURE DEVICE ID REQUIRED';end if;
- if (i.staff_role='accountant' and p_device_type<>'desktop') or (i.staff_role in('salesman','store_keeper') and p_device_type<>'mobile_app') then raise exception 'DEVICE TYPE NOT ALLOWED FOR ROLE';end if;
+ if (i.staff_role in('admin','accountant') and p_device_type<>'desktop') or (i.staff_role in('salesman','store_keeper') and p_device_type<>'mobile_app') then raise exception 'DEVICE TYPE NOT ALLOWED FOR ROLE';end if;
  update staff_authorized_devices set revoked_at=now() where app_user_id=p_app_user_id and revoked_at is null;
  insert into staff_authorized_devices(app_user_id,device_id,device_type,approved_by) values(p_app_user_id,btrim(p_device_id),p_device_type,actor.id)
  on conflict(app_user_id,device_id) do update set device_type=excluded.device_type,approved_by=actor.id,approved_at=now(),revoked_at=null returning id into rid;return rid;
