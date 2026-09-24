@@ -1,7 +1,10 @@
 -- TORVO V2 TRUSTED AUTH WORKER RUNTIME GRANTS + DEALER ASSERTION COMPATIBILITY
 -- SERVICE ROLE IS USED ONLY INSIDE SUPABASE EDGE FUNCTIONS; NEVER IN CLIENT CODE.
 
-grant execute on function dealer_verify_pin(text,text) to service_role;
+-- Dealer PIN login is legacy/retired. Canonical login is registered Email OTP.
+revoke all on function dealer_verify_pin(text,text) from public,anon,authenticated;
+grant execute on function dealer_email_otp_begin(text,text,text) to service_role;
+grant execute on function dealer_email_otp_verify(uuid,text,text,text) to service_role;
 grant execute on function dealer_start_device_session(uuid,text,integer) to service_role;
 grant execute on function dealer_validate_device_session(uuid,text,text) to service_role;
 grant execute on function dealer_revoke_device_sessions(uuid,text) to service_role;
