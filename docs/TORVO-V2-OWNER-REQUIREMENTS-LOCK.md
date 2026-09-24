@@ -45,7 +45,7 @@ Purpose: permanent no-omission checklist for TORVO V2 development. This suppleme
 - App install/download controls must expose only a verified install prompt or verified Android/iPhone release/store link. Never invent APK/AAB/IPA/Play Store/App Store targets.
 - Registration shared Call + WhatsApp number concept: India +91, 10-digit mobile, WhatsApp indication/helper; same active number unless Owner later changes the rule.
 - Dealer private login is App-only, not public Website.
-- Dealer login uses 10-digit registered mobile. First login/defined security verification uses WhatsApp OTP, then secure 4-digit PIN; forgot PIN and suspicious/new device require verification.
+- Dealer login uses 10-digit registered mobile. First login/defined security verification uses Email OTP for Admin/Accountant secure desktop; WhatsApp OTP remains for Dealer recovery/other approved channels, then secure 4-digit PIN; forgot PIN and suspicious/new device require verification.
 - One Dealer account/device security means one active mobile device per Dealer account; a newly verified device revokes the old active device. Blocked/inactive access denial, rate limiting and secure PIN hashing are server-authoritative.
 - Inactive Dealer warning after prolonged no-billing period remains; suspension/reactivation is Admin-controlled, not blind deletion.
 
