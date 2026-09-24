@@ -50,7 +50,8 @@ begin
  select i.* into i from staff_access_identities i join app_users a on a.id=i.app_user_id
  where upper(i.username)=upper(btrim(coalesce(p_username,''))) and i.active=true and a.active=true
  and lower(coalesce(a.role,'')) in('admin','accountant') and lower(coalesce(i.staff_role,''))=lower(a.role)
- and lower(coalesce(i.login_email,''))=e;
+ and lower(coalesce(i.login_email,''))=e
+ for update of i;
  if i.app_user_id is null then raise exception 'INVALID LOGIN'; end if;
  perform 1 from staff_authorized_devices where app_user_id=i.app_user_id and device_id=d and device_type='desktop' and revoked_at is null;
  if not found then raise exception 'DEVICE APPROVAL REQUIRED'; end if;
@@ -75,7 +76,13 @@ begin
  if i.app_user_id is null then raise exception 'INVALID OR EXPIRED OTP'; end if;
  perform 1 from staff_authorized_devices where app_user_id=i.app_user_id and device_id=c.device_id and device_type='desktop' and revoked_at is null;
  if not found then raise exception 'INVALID OR EXPIRED OTP'; end if;
- if crypt(coalesce(p_otp,''),c.otp_hash)<>c.otp_hash then raise exception 'INVALID OR EXPIRED OTP'; end if;
+ if crypt(coalesce(p_otp,''),c.otp_hash)<>c.otp_hash then
+   update staff_email_otp_challenges
+   set failed_attempts=least(5,failed_attempts+1),
+       revoked_at=case when failed_attempts+1>=5 then now() else revoked_at end
+   where id=c.id;
+   return null;
+ end if;
  update staff_email_otp_challenges set consumed_at=now() where id=c.id;
  return c.app_user_id;
 end$$;
