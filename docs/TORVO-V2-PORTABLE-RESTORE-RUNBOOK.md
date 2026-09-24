@@ -46,7 +46,7 @@ A package is not a verified restore point unless its checksum, commit, schema/da
 
 ### Authentication
 - Real authorized staging Dealer login/session/logout/revoke flow passes.
-- Real authorized staging Staff one-time-login/session/revoke flow passes.
+- Real authorized staging Staff master-email OTP/session/revoke flow passes.
 - Blocked/inactive and wrong-session cases are rejected.
 
 ### Business workflow
