@@ -2,11 +2,11 @@ import{clients,cors,json,secureDevice,randomPassword,establishSession,fail}from'
 
 const otp=()=>{const b=new Uint32Array(1);crypto.getRandomValues(b);return String(b[0]%1_000_000).padStart(6,'0')};
 
-async function sendOtp(email:string,code:string,meta:{role:string;username:string;name:string}){
+async function sendOtp(email:string,code:string,meta:{role:string;username:string;name:string;deviceType:string}){
   const endpoint=Deno.env.get('TORVO_EMAIL_OTP_ENDPOINT');
   const token=Deno.env.get('TORVO_EMAIL_OTP_TOKEN');
   if(!endpoint||!token)throw new Error('EMAIL_PROVIDER_NOT_CONFIGURED');
-  const r=await fetch(endpoint,{method:'POST',headers:{'content-type':'application/json','authorization':`Bearer ${token}`},body:JSON.stringify({to:email,template:'torvo_staff_login_otp',otp:code,expires_minutes:10,role:meta.role,user_id:meta.username,employee_name:meta.name})});
+  const r=await fetch(endpoint,{method:'POST',headers:{'content-type':'application/json','authorization':`Bearer ${token}`},body:JSON.stringify({to:email,template:'torvo_staff_login_otp',otp:code,expires_minutes:10,role:meta.role,user_id:meta.username,employee_name:meta.name,login_type:'STAFF_EMAIL_OTP',login_context:'TORVO_STAFF_SIGN_IN',device_type:meta.deviceType})});
   if(!r.ok)throw new Error('EMAIL_DELIVERY_FAILED');
 }
 
@@ -28,7 +28,7 @@ Deno.serve(async req=>{
       if(iErr||!identity)throw iErr??new Error('LOGIN_FAILED');
       const{data:staff,error:stErr}=await admin.from('staff_access_identities').select('username,employee_name,staff_role').eq('app_user_id',identity.app_user_id).single();
       if(stErr||!staff)throw stErr??new Error('LOGIN_FAILED');
-      try{await sendOtp(identity.email_normalized,code,{role:staff.staff_role,username:staff.username,name:staff.employee_name})}catch(e){
+      try{await sendOtp(identity.email_normalized,code,{role:staff.staff_role,username:staff.username,name:staff.employee_name,deviceType:['salesman','store_keeper'].includes(staff.staff_role)?'mobile_app':'desktop'})}catch(e){
         await admin.from('staff_email_otp_challenges').update({revoked_at:new Date().toISOString()}).eq('id',challenge);
         throw e;
       }
