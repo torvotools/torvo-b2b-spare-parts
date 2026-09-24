@@ -358,3 +358,10 @@
 .loginV2 .loginResend:not(:disabled){border-color:#d71920!important;color:#d71920!important;cursor:pointer!important}
 .loginV2 .loginResend:not(:disabled) b{background:#fff1f2!important;color:#d71920!important}
 .loginV2 .loginResend:disabled{opacity:1!important;cursor:default!important}
+
+
+/* Final approved OTP popup containment: modal must never clip or escape the login card. */
+.loginV2 .loginCard{overflow:hidden!important}
+.loginV2 .loginOtpOverlay{box-sizing:border-box!important;padding:clamp(10px,2vh,16px)!important;overflow:hidden!important}
+.loginV2 .loginOtpPopup{width:min(100%,420px)!important;max-width:100%!important;max-height:calc(100% - 4px)!important;overflow:auto!important;margin:auto!important;transform:none!important}
+@media(min-width:901px){.loginV2 .loginOtpPopup{transform:none!important}}
