@@ -16,20 +16,19 @@ Deno.serve(async req=>{
   try{
     const body=await req.json();
     const action=String(body.action??'');
-    const email=String(body.email??'').trim().toLowerCase();
     const username=String(body.username??'').trim();
     const device=secureDevice(body.device_id);
     const{admin,publicClient}=clients();
 
     if(action==='begin'){
       const code=otp();
-      const{data:challenge,error}=await admin.rpc('staff_email_otp_begin',{p_email:email,p_username:username,p_device_id:device,p_otp:code});
+      const{data:challenge,error}=await admin.rpc('staff_email_otp_begin',{p_username:username,p_device_id:device,p_otp:code});
       if(error||!challenge)throw error??new Error('LOGIN_FAILED');
-      const{data:identity,error:iErr}=await admin.from('staff_email_otp_challenges').select('app_user_id').eq('id',challenge).single();
+      const{data:identity,error:iErr}=await admin.from('staff_email_otp_challenges').select('app_user_id,email_normalized').eq('id',challenge).single();
       if(iErr||!identity)throw iErr??new Error('LOGIN_FAILED');
       const{data:staff,error:stErr}=await admin.from('staff_access_identities').select('username,employee_name,staff_role').eq('app_user_id',identity.app_user_id).single();
       if(stErr||!staff)throw stErr??new Error('LOGIN_FAILED');
-      try{await sendOtp(email,code,{role:staff.staff_role,username:staff.username,name:staff.employee_name})}catch(e){
+      try{await sendOtp(identity.email_normalized,code,{role:staff.staff_role,username:staff.username,name:staff.employee_name})}catch(e){
         await admin.from('staff_email_otp_challenges').update({revoked_at:new Date().toISOString()}).eq('id',challenge);
         throw e;
       }
@@ -40,7 +39,7 @@ Deno.serve(async req=>{
       const challenge=String(body.challenge_id??'').trim();
       const code=String(body.otp??'').trim();
       if(!/^[0-9]{6}$/.test(code))throw new Error('LOGIN_FAILED');
-      const{data:appUserId,error:vErr}=await admin.rpc('staff_email_otp_verify',{p_challenge_id:challenge,p_email:email,p_username:username,p_device_id:device,p_otp:code});
+      const{data:appUserId,error:vErr}=await admin.rpc('staff_email_otp_verify',{p_challenge_id:challenge,p_username:username,p_device_id:device,p_otp:code});
       if(vErr||!appUserId)throw vErr??new Error('LOGIN_FAILED');
       const{data:appUser,error:uErr}=await admin.from('app_users').select('id,auth_user_id,role,active').eq('id',appUserId).eq('active',true).single();
       if(uErr||!['admin','accountant','salesman','store_keeper'].includes(appUser.role))throw uErr??new Error('STAFF_ACCESS_DENIED');
