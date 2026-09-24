@@ -47,11 +47,11 @@ returns uuid language plpgsql security definer set search_path=public,pg_catalog
 declare i staff_access_identities%rowtype;rid uuid;e text:=lower(btrim(coalesce(p_email,'')));d text:=btrim(coalesce(p_device_id,''));
 begin
  if e !~ '^[^[:space:]@]+@[^[:space:]@]+[.][^[:space:]@]+$' or length(d)<8 or length(d)>180 or p_otp !~ '^[0-9]{6}$' then raise exception 'INVALID LOGIN'; end if;
- select i.* into i from staff_access_identities i join app_users a on a.id=i.app_user_id
- where upper(i.username)=upper(btrim(coalesce(p_username,''))) and i.active=true and a.active=true
- and lower(coalesce(a.role,'')) in('admin','accountant') and lower(coalesce(i.staff_role,''))=lower(a.role)
- and lower(coalesce(i.login_email,''))=e
- for update of i;
+ select sai.* into i from staff_access_identities sai join app_users a on a.id=sai.app_user_id
+ where upper(sai.username)=upper(btrim(coalesce(p_username,''))) and sai.active=true and a.active=true
+ and lower(coalesce(a.role,'')) in('admin','accountant') and lower(coalesce(sai.staff_role,''))=lower(a.role)
+ and lower(coalesce(sai.login_email,''))=e
+ for update of sai;
  if i.app_user_id is null then raise exception 'INVALID LOGIN'; end if;
  perform 1 from staff_authorized_devices where app_user_id=i.app_user_id and device_id=d and device_type='desktop' and revoked_at is null;
  if not found then raise exception 'DEVICE APPROVAL REQUIRED'; end if;
