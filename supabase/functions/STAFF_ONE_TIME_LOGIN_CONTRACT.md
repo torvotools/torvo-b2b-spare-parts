@@ -1,18 +1,15 @@
-# STAFF ONE-TIME LOGIN — TRUSTED WORKER CONTRACT
+# RETIRED STAFF ONE-TIME LOGIN CONTRACT
 
-Endpoint: `staff-one-time-login`.
+The legacy `staff-one-time-login` / Admin-issued password flow is retired and must not be used for normal staff login.
 
-1. Accept only `username`, `password`, `device_id`, `device_type` over HTTPS.
-2. Reject malformed username/password/device input before any privileged call.
-3. Use server-only credentials to call `staff_verify_one_time_password(username,password,device_id,device_type)`.
-4. That database call must verify the Admin-approved device and atomically consume the one-time password.
-5. Resolve the returned `app_user_id`; require active role SALESMAN, STORE_KEEPER or ACCOUNTANT.
-6. Enforce device type again server-side: SALESMAN/STORE_KEEPER=`mobile_app`; ACCOUNTANT=`desktop`.
-7. Establish/resolve the real Supabase Auth identity server-side. Never send a service-role key to browser/app.
-8. Call trusted `staff_create_verified_session(auth_user_id,device_id,'admin_one_time_password')` only after identity and role checks pass.
-9. Return only safe fields: `ok`, `session_id`, normalized role, employee display name and normal Supabase user session material required by the official client. Never return password/hash/service secrets.
-10. On failure return a generic login error; do not reveal whether username, password or employee record exists.
-11. Rate-limit repeated failures by username + device + network risk signal. Log security events without plaintext password.
-12. Logout/revoke must revoke `staff_auth_sessions`; next login requires a newly Admin-issued one-time password.
-13. A replacement device must be Admin-approved first; password knowledge alone never authorizes a new device.
-14. OWNER/ADMIN recovery is out of scope for this endpoint and must use the separately verified Owner/Admin recovery channel.
+Canonical normal staff login is `staff-email-otp`:
+1. ADMIN, ACCOUNTANT, SALESMAN and STORE_KEEPER use Staff User ID plus a server-generated 6-digit OTP.
+2. Every staff OTP is delivered only to the single Owner/Admin-controlled Master OTP Email configured server-side.
+3. The OTP email identifies role, Staff User ID, employee name, login type/context and device type.
+4. OTP lifetime is 10 minutes, single-use, with resend throttling; plaintext OTP is never stored.
+5. The exact device/installation must already be Owner/Admin-approved. SALESMAN/STORE_KEEPER require `mobile_app`; ADMIN/ACCOUNTANT require `desktop`.
+6. Native app reinstall creates a new installation identity and therefore requires new device approval plus a new OTP.
+7. SALESMAN/STORE_KEEPER sessions may last at most 30 days on the same approved installation. Desktop ADMIN/ACCOUNTANT client sessions are browser-session scoped; logout/browser close requires a fresh OTP.
+8. OTP verification and trusted session creation RPCs are service-role only. Never expose service-role credentials to browser/app.
+9. OWNER is excluded from this normal staff-email OTP flow and retains the separately controlled Owner secure-access path.
+10. The deployed legacy `staff-one-time-login` endpoint must remain fail-closed/retired and return no login session.
