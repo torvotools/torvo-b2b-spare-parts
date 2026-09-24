@@ -23,7 +23,7 @@ const checks=[
  ['CORE ONE APP USER PER DEALER',/create unique index if not exists uq_app_users_dealer_identity on app_users\(dealer_id\) where dealer_id is not null/i.test(coreCompact)],
  ['DEALER AUTH UPGRADE KEEPS CANONICAL FK',/alter table app_users add column if not exists dealer_id uuid references dealers\(id\) on delete restrict/i.test(dealerAuth)],
  ['DEALER AUTH UPGRADE KEEPS UNIQUE DEALER',/create unique index if not exists uq_app_users_dealer_identity on app_users\(dealer_id\) where dealer_id is not null/i.test(dealerAuth)],
- ['FINAL APPROVAL USES CANONICAL DEALER LINK',/dealer_id\s*=\s*p_dealer/i.test(approvalCompact)&&/DEALER AUTH IDENTITY AMBIGUOUS/i.test(finalApproval)&&/DEALER APP IDENTITY REQUIRED BEFORE APPROVAL/i.test(finalApproval)&&/canonical_identity_bound/i.test(finalApproval)],
+ ['FINAL APPROVAL USES CANONICAL DEALER LINK',/dealer_id\s*=\s*p_dealer/i.test(approvalCompact)&&/DEALER AUTH IDENTITY AMBIGUOUS/i.test(finalApproval)&&/if linked_count=0 then insert into app_users/i.test(approvalCompact)&&/canonical_identity_bound/i.test(finalApproval)],
  ['DEALER ASSERT USES DIRECT LINK',/v_user\.dealer_id is null/i.test(dealerAuth)&&/where id=v_user\.dealer_id and lower\(coalesce\(status,''\)\)='approved'/i.test(dealerAuth)],
  ['DEALER ASSERT NO MOBILE RELINK',!/v_mobile:=right\(regexp_replace\(coalesce\(v_user\.mobile/i.test(dealerAuth)&&!/where right\(regexp_replace\(coalesce\(d\.mobile/i.test(dealerAuth)],
  ['STAFF ROLE SUBSET MATCHES APP USERS',/staff_role text not null check\(staff_role in\('salesman','store_keeper','accountant','admin'\)\)/i.test(staff)&&(/target\.role<>p_staff_role/i.test(staff)||/lower\(coalesce\(target\.role,''\)\)<>lower\(coalesce\(p_staff_role,''\)\)/i.test(staff))],
