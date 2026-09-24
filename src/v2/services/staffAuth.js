@@ -1,4 +1,4 @@
-import{requireBackend}from'./supabase';
+import{requireBackend}from'./supabase';import{isNativeApp}from'./runtimePlatform';
 const digits=v=>String(v||'').replace(/\D/g,'').slice(-10);const STAFF=new Set(['owner','admin','accountant','salesman','store_keeper']);const SESSION_KEY='torvo_staff_session_id';export const DEALER_SESSION_KEY='torvo_dealer_session_token';
 const codeDigits=(v,n)=>String(v||'').replace(/\D/g,'').slice(0,n);const assertDevice=v=>{const x=String(v||'').trim();if(!x||x.length>180)throw new Error('SECURE DEVICE ID REQUIRED.');return x};
 export const normalizeStaffUsername=v=>String(v||'').trim().toUpperCase();
@@ -13,4 +13,4 @@ export async function verifyDealerPin(mobile,pin,deviceId){const client=requireB
 export async function requestDealerPinRecovery(mobile){const client=requireBackend();const m=normalizeDealerMobile(mobile);const{data,error}=await client.functions.invoke('dealer-pin-recovery-request',{body:{mobile:m}});if(error)throw error;return data}
 export function dealerSessionToken(){return localStorage.getItem(DEALER_SESSION_KEY)||''}export function clearDealerSession(){localStorage.removeItem(DEALER_SESSION_KEY)}export function clearStaffSession(){localStorage.removeItem(SESSION_KEY);sessionStorage.removeItem(SESSION_KEY)}
 export function isStaffRole(role){return STAFF.has(role)}
-export function deviceId(){let id=localStorage.getItem('torvo_device_id');if(!id){if(!globalThis.crypto?.randomUUID)throw new Error('SECURE DEVICE ID IS NOT AVAILABLE ON THIS DEVICE.');id=crypto.randomUUID();localStorage.setItem('torvo_device_id',id)}return assertDevice(id)}
+export function deviceId(){const key=isNativeApp()?'torvo_native_installation_id':'torvo_web_device_id';let id=localStorage.getItem(key);if(!id){if(!globalThis.crypto?.randomUUID)throw new Error('SECURE DEVICE ID IS NOT AVAILABLE ON THIS DEVICE.');id=crypto.randomUUID();localStorage.setItem(key,id)}return assertDevice(id)}
