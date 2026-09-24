@@ -69,10 +69,10 @@ begin
  select * into c from staff_email_otp_challenges where id=p_challenge_id for update;
  if c.id is null or c.consumed_at is not null or c.revoked_at is not null or c.expires_at<=now() or c.failed_attempts>=5
  or c.device_id<>btrim(coalesce(p_device_id,'')) or c.email_normalized<>lower(btrim(coalesce(p_email,''))) then raise exception 'INVALID OR EXPIRED OTP'; end if;
- select i.* into i from staff_access_identities i join app_users a on a.id=i.app_user_id
- where i.app_user_id=c.app_user_id and upper(i.username)=upper(btrim(coalesce(p_username,'')))
- and lower(coalesce(i.login_email,''))=lower(btrim(coalesce(p_email,''))) and i.active=true and a.active=true
- and lower(coalesce(a.role,'')) in('admin','accountant') and lower(coalesce(i.staff_role,''))=lower(a.role);
+ select sai.* into i from staff_access_identities sai join app_users a on a.id=sai.app_user_id
+ where sai.app_user_id=c.app_user_id and upper(sai.username)=upper(btrim(coalesce(p_username,'')))
+ and lower(coalesce(sai.login_email,''))=lower(btrim(coalesce(p_email,''))) and sai.active=true and a.active=true
+ and lower(coalesce(a.role,'')) in('admin','accountant') and lower(coalesce(sai.staff_role,''))=lower(a.role);
  if i.app_user_id is null then raise exception 'INVALID OR EXPIRED OTP'; end if;
  perform 1 from staff_authorized_devices where app_user_id=i.app_user_id and device_id=c.device_id and device_type='desktop' and revoked_at is null;
  if not found then raise exception 'INVALID OR EXPIRED OTP'; end if;
