@@ -2,42 +2,7 @@
 -- CREATES ONLY A PENDING DEALER REQUEST. NEVER AUTO-APPROVES OR ASSIGNS A RATE GROUP.
 -- LOCATION IS CAPTURED INTO THE AUTHORITATIVE DEALER STATE -> DISTRICT -> CITY FIELDS.
 
-create or replace function public_register_dealer(
- p_shop_name text,p_contact_person text,p_mobile text,p_pin_code text,p_business_type text default null
-) returns table(dealer_id uuid,status text)
-language plpgsql security definer set search_path=public as $$
-declare v_mobile text;v_id uuid;begin
- if length(btrim(coalesce(p_shop_name,'')))<2 then raise exception 'SHOP / FIRM NAME REQUIRED';end if;
- if length(btrim(coalesce(p_contact_person,'')))<2 then raise exception 'CONTACT PERSON REQUIRED';end if;
- v_mobile:=regexp_replace(coalesce(p_mobile,''),'\D','','g');if length(v_mobile)>10 then v_mobile:=right(v_mobile,10);end if;
- if length(v_mobile)<>10 then raise exception 'VALID 10 DIGIT MOBILE REQUIRED';end if;
- if btrim(coalesce(p_pin_code,''))!~'^[0-9]{6}$' then raise exception 'VALID 6 DIGIT PIN CODE REQUIRED';end if;
- if exists(select 1 from dealers where mobile=v_mobile and status in('pending','approved','hold')) then raise exception 'THIS MOBILE NUMBER ALREADY HAS A DEALER REGISTRATION';end if;
- insert into dealers(shop_name,contact_person,mobile,whatsapp,pin_code,address,status)
- values(upper(btrim(p_shop_name)),upper(btrim(p_contact_person)),v_mobile,v_mobile,btrim(p_pin_code),case when nullif(btrim(p_business_type),'') is null then null else 'BUSINESS TYPE: '||upper(btrim(p_business_type)) end,'pending') returning id into v_id;
- return query select v_id,'PENDING VERIFICATION'::text;
-end$$;
-
-create or replace function public_register_dealer(
- p_shop_name text,p_contact_person text,p_mobile text,p_pin_code text,p_business_type text,
- p_state text,p_district text,p_city text
-) returns table(dealer_id uuid,status text)
-language plpgsql security definer set search_path=public as $$
-declare v_mobile text;v_id uuid;v_state text;v_district text;v_city text;begin
- if length(btrim(coalesce(p_shop_name,'')))<2 then raise exception 'SHOP / FIRM NAME REQUIRED';end if;
- if length(btrim(coalesce(p_contact_person,'')))<2 then raise exception 'CONTACT PERSON REQUIRED';end if;
- v_mobile:=regexp_replace(coalesce(p_mobile,''),'\D','','g');if length(v_mobile)>10 then v_mobile:=right(v_mobile,10);end if;
- if length(v_mobile)<>10 then raise exception 'VALID 10 DIGIT MOBILE REQUIRED';end if;
- if btrim(coalesce(p_pin_code,''))!~'^[0-9]{6}$' then raise exception 'VALID 6 DIGIT PIN CODE REQUIRED';end if;
- v_state:=upper(btrim(coalesce(p_state,'')));v_district:=upper(btrim(coalesce(p_district,'')));v_city:=upper(btrim(coalesce(p_city,'')));
- if v_state='' or v_district='' or v_city='' then raise exception 'STATE, DISTRICT AND CITY REQUIRED';end if;
- if exists(select 1 from dealers where mobile=v_mobile and status in('pending','approved','hold')) then raise exception 'THIS MOBILE NUMBER ALREADY HAS A DEALER REGISTRATION';end if;
- insert into dealers(shop_name,contact_person,mobile,whatsapp,pin_code,state,district,city,address,status)
- values(upper(btrim(p_shop_name)),upper(btrim(p_contact_person)),v_mobile,v_mobile,btrim(p_pin_code),v_state,v_district,v_city,case when nullif(btrim(p_business_type),'') is null then null else 'BUSINESS TYPE: '||upper(btrim(p_business_type)) end,'pending') returning id into v_id;
- return query select v_id,'PENDING VERIFICATION'::text;
-end$$;
-
-revoke all on function public_register_dealer(text,text,text,text,text) from public;
-revoke all on function public_register_dealer(text,text,text,text,text,text,text,text) from public;
-grant execute on function public_register_dealer(text,text,text,text,text) to anon,authenticated;
+create or replace function public_register_dealer(p_shop_name text,p_contact_person text,p_mobile text,p_email text,p_pin_code text,p_business_type text,p_state text,p_district text,p_city text) returns uuid language plpgsql security definer set search_path=public as $$declare rid uuid;m text;e text;begin m:=right(regexp_replace(coalesce(p_mobile,''),'\\D','','g'),10);e:=lower(btrim(coalesce(p_email,'')));if length(btrim(coalesce(p_shop_name,'')))<2 or length(btrim(coalesce(p_contact_person,'')))<2 then raise exception 'SHOP_AND_CONTACT_REQUIRED';end if;if m!~'^[0-9]{10}$' then raise exception 'VALID_MOBILE_REQUIRED';end if;if e!~* '^[A-Z0-9._%+-]+@[A-Z0-9.-]+\\.[A-Z]{2,}$' then raise exception 'VALID_EMAIL_REQUIRED';end if;if coalesce(p_pin_code,'')!~'^[0-9]{6}$' then raise exception 'VALID_PIN_REQUIRED';end if;if nullif(btrim(p_state),'') is null or nullif(btrim(p_district),'') is null or nullif(btrim(p_city),'') is null then raise exception 'LOCATION_REQUIRED';end if;if exists(select 1 from dealers where status in('pending','approved','hold') and right(regexp_replace(coalesce(mobile,''),'\\D','','g'),10)=m) then raise exception 'MOBILE_ALREADY_REGISTERED';end if;if exists(select 1 from dealers where status in('pending','approved','hold') and lower(btrim(coalesce(email,'')))=e) then raise exception 'EMAIL_ALREADY_REGISTERED';end if;insert into dealers(shop_name,contact_person,mobile,email,pin_code,business_type,state,district,city,status) values(upper(btrim(p_shop_name)),upper(btrim(p_contact_person)),m,e,btrim(p_pin_code),upper(btrim(p_business_type)),upper(btrim(p_state)),upper(btrim(p_district)),upper(btrim(p_city)),'pending') returning id into rid;return rid;end$$;
+revoke all on function public_register_dealer(text,text,text,text,text,text,text,text,text) from public;
+grant execute on function public_register_dealer(text,text,text,text,text,text,text,text,text) to anon,authenticated;
 grant execute on function public_register_dealer(text,text,text,text,text,text,text,text) to anon,authenticated;
