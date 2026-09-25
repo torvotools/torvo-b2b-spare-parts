@@ -1,4 +1,4 @@
-import{createClient}from'https://esm.sh/@supabase/supabase-js@2';
+import{createClient}from'https://esm.sh/@supabase/supabase-js@2.57.0';
 export const cors={'Access-Control-Allow-Origin':'*','Access-Control-Allow-Headers':'authorization,x-client-info,apikey,content-type','Access-Control-Allow-Methods':'POST,OPTIONS'};
 export const json=(body:unknown,status=200)=>new Response(JSON.stringify(body),{status,headers:{...cors,'content-type':'application/json'}});
 export const env=()=>{const url=Deno.env.get('SUPABASE_URL'),service=Deno.env.get('SUPABASE_SERVICE_ROLE_KEY'),anon=Deno.env.get('SUPABASE_ANON_KEY');if(!url||!service||!anon)throw new Error('SERVER_AUTH_NOT_CONFIGURED');return{url,service,anon}};
