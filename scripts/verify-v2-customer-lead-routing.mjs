@@ -1,6 +1,7 @@
 import fs from'node:fs';
 const read=p=>fs.readFileSync(p,'utf8');
 const sql=read('supabase/v2-customer-demand-dealer-routing.sql');
+const qtySql=read('supabase/v2-customer-demand-quantity-integrity.sql');
 const service=read('src/v2/services/dealerCustomerLeads.js');
 const ui=read('src/v2/components/DealerCustomerLeads.jsx');
 const mount=read('src/v2/components/DealerPortalMounted.jsx');
@@ -30,6 +31,9 @@ const checks=[
  ['DECLINE UNIQUE DEALER IDENTITY',/dealer_decline_customer_demand_lead[\s\S]*identity_count>1 then raise exception 'DEALER AUTH IDENTITY AMBIGUOUS'[\s\S]*select id into strict au from app_users/i.test(sql)],
  ['DECLINE AUDITED',/CUSTOMER_DEMAND_LEAD_DECLINED/.test(sql)&&/declined_at=now\(\)/.test(sql)],
  ['NO FAKE DISTANCE CONTRACT',/actual 0-25\/25-50 KM routing must be supplied by a truthful geospatial\/service-area selector later/i.test(sql)],
+ ['QUANTITY CONTRACT',/quantity integer not null default 1/i.test(qtySql)&&/check\(quantity between 1 and 9999\)/i.test(qtySql)&&/p_quantity integer/i.test(qtySql)],
+ ['DEALER INBOX RETURNS QUANTITY',/dealer_customer_demand_leads[\s\S]*quantity integer/i.test(qtySql)&&/d\.quantity/i.test(qtySql)],
+ ['DEALER UI SHOWS QUANTITY',/QTY:/.test(ui)&&/REQUIREMENT QTY:/.test(ui)],
  ['CLIENT DEVICE PROOF',/assertDealerSession/.test(service)&&/p_device_id:p\.deviceId,p_session_token:p\.token/.test(service)],
  ['CLIENT ACCEPT CONTACT GATE',/acceptDealerCustomerLead/.test(service)&&/CUSTOMER CONTACT UNLOCK FAILED/.test(service)],
  ['DEALER PRIVACY MESSAGE',/CONTACT STAYS PRIVATE UNTIL YOU ACCEPT YOUR ASSIGNED LEAD/.test(ui)],
