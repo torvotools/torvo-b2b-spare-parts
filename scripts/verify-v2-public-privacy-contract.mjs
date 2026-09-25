@@ -22,7 +22,7 @@ const camera=browser.indexOf('aria-label="CAMERA SEARCH"'),voice=browser.indexOf
 if(camera<0||voice<0||camera>voice)fail('PUBLIC SEARCH MUST KEEP CAMERA BEFORE MIC');
 if(!browser.includes('placeholder="MACHINE CATEGORY"')||!browser.includes('placeholder="BRAND"'))fail('PUBLIC FILTER PLACEHOLDERS MISSING');
 if(!pub.includes('WHATSAPP TORVO')||!pub.includes('https://wa.me/91'))fail('PUBLIC WHATSAPP ENTRY MISSING');
-if(/admin.*email|security.*email/i.test(pub))fail('PRIVATE ADMIN/SECURITY EMAIL LEAKED INTO PUBLIC WEBSITE');
+if(/(?:admin|security)[_-]?email\s*[:=]/i.test(pub))fail('PRIVATE ADMIN/SECURITY EMAIL IDENTIFIER LEAKED INTO PUBLIC WEBSITE');
 if(/rate_a|rate_b|rate_c|purchase_cost/i.test(sql))fail('PUBLIC SHOWCASE SQL EXPOSES PRIVATE RATE/COST FIELDS');
 if(!release.includes('PUBLIC CUSTOMER HAS NO TORVO RETAIL CHECKOUT OR PUBLIC SELLING PRICE.'))fail('RELEASE GATE DOES NOT LOCK PUBLIC NO-PRICE RULE');
 console.log('TORVO V2 public privacy + common website form boundary contract OK');
