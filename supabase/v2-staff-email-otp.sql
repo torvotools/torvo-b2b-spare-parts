@@ -44,11 +44,21 @@ grant execute on function admin_set_staff_otp_email(text) to authenticated;
 
 create or replace function staff_email_otp_begin(p_company_email text,p_username text,p_device_id text,p_otp text)
 returns uuid language plpgsql security definer set search_path=public,pg_catalog as $$
-declare i staff_access_identities%rowtype;rid uuid;e text;provided_email text:=lower(btrim(coalesce(p_company_email,'')));d text:=btrim(coalesce(p_device_id,''));
+declare
+ i staff_access_identities%rowtype;
+ rid uuid;
+ e text;
+ provided_email text:=lower(btrim(coalesce(p_company_email,'')));
+ d text:=btrim(coalesce(p_device_id,''));
 begin
  select lower(master_email) into e from staff_otp_settings where singleton=true;
  if e is null
-    or e !~ '^[^[:space:]@]+@[^[:space:]@]+[.][^[:space:]@]+
+    or e !~ '^[^[:space:]@]+@[^[:space:]@]+[.][^[:space:]@]+$'
+    or provided_email<>e
+    or length(d)<8
+    or length(d)>180
+    or p_otp !~ '^[0-9]{6}$'
+ then raise exception 'INVALID LOGIN'; end if;
  select sai.* into i from staff_access_identities sai join app_users a on a.id=sai.app_user_id
  where upper(sai.username)=upper(btrim(coalesce(p_username,''))) and sai.active=true and a.active=true
  and lower(coalesce(a.role,'')) in('admin','accountant','salesman','store_keeper') and lower(coalesce(sai.staff_role,''))=lower(a.role)
