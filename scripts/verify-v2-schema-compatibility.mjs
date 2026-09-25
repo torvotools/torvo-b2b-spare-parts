@@ -5,7 +5,7 @@ const schema=read('supabase/v2-schema.sql');
 const coreDealerIdentity=read('supabase/v2-core-dealer-identity.sql');
 const staff=read('supabase/v2-admin-issued-staff-access.sql');
 const master=read('supabase/v2-master-salesman-access.sql');
-const dealerAuth=read('supabase/v2-dealer-pin-auth.sql');
+const dealerAuth=read('supabase/v2-dealer-email-otp.sql');
 const finalApproval=read('supabase/v2-dealer-final-approval-accountant-gate.sql');
 const demand=read('supabase/v2-customer-product-demand-leads.sql');
 const routing=read('supabase/v2-customer-demand-dealer-routing.sql');
@@ -21,11 +21,11 @@ const checks=[
  ['CATALOG ITEM DOMAIN',/item_type text not null check\(item_type in \('machine','spare_part','accessory'\)\)/i.test(schema)],
  ['CORE CANONICAL DEALER LINK FK',/alter table app_users add column if not exists dealer_id uuid references dealers\(id\) on delete restrict/i.test(coreCompact)],
  ['CORE ONE APP USER PER DEALER',/create unique index if not exists uq_app_users_dealer_identity on app_users\(dealer_id\) where dealer_id is not null/i.test(coreCompact)],
- ['DEALER AUTH UPGRADE KEEPS CANONICAL FK',/alter table app_users add column if not exists dealer_id uuid references dealers\(id\) on delete restrict/i.test(dealerAuth)],
- ['DEALER AUTH UPGRADE KEEPS UNIQUE DEALER',/create unique index if not exists uq_app_users_dealer_identity on app_users\(dealer_id\) where dealer_id is not null/i.test(dealerAuth)],
+ ['DEALER EMAIL OTP USES CANONICAL DEALER FK',/dealer_id uuid not null references public\.dealers\(id\) on delete cascade/i.test(dealerAuth)],
+ ['DEALER EMAIL OTP BINDS APP USER FK',/app_user_id uuid not null references public\.app_users\(id\) on delete cascade/i.test(dealerAuth)],
  ['FINAL APPROVAL USES CANONICAL DEALER LINK',/dealer_id\s*=\s*p_dealer/i.test(approvalCompact)&&/DEALER AUTH IDENTITY AMBIGUOUS/i.test(finalApproval)&&/if linked_count=0 then insert into app_users/i.test(approvalCompact)&&/canonical_identity_bound/i.test(finalApproval)],
- ['DEALER ASSERT USES DIRECT LINK',/v_user\.dealer_id is null/i.test(dealerAuth)&&/where id=v_user\.dealer_id and lower\(coalesce\(status,''\)\)='approved'/i.test(dealerAuth)],
- ['DEALER ASSERT NO MOBILE RELINK',!/v_mobile:=right\(regexp_replace\(coalesce\(v_user\.mobile/i.test(dealerAuth)&&!/where right\(regexp_replace\(coalesce\(d\.mobile/i.test(dealerAuth)],
+ ['DEALER EMAIL OTP APPROVED IDENTITY',/select \* into d from dealers where lower\(btrim\(coalesce\(email,''\)\)\)=e and status='approved'/i.test(dealerAuth)&&/where dealer_id=d\.id and active=true and lower\(role\)='dealer'/i.test(dealerAuth)],
+ ['DEALER EMAIL OTP SECURITY CONTRACT',/interval '45 seconds'/i.test(dealerAuth)&&/interval '10 minutes'/i.test(dealerAuth)&&/failed_attempts>=5/i.test(dealerAuth)&&/used_at=now\(\)/i.test(dealerAuth)&&!/p_mobile/i.test(dealerAuth)&&!/p_pin/i.test(dealerAuth)],
  ['STAFF ROLE SUBSET MATCHES APP USERS',/staff_role text not null check\(staff_role in\('salesman','store_keeper','accountant','admin'\)\)/i.test(staff)&&(/target\.role<>p_staff_role/i.test(staff)||/lower\(coalesce\(target\.role,''\)\)<>lower\(coalesce\(p_staff_role,''\)\)/i.test(staff))],
  ['STAFF IDENTITY APP USER FK',/staff_access_identities[\s\S]*app_user_id uuid primary key references app_users\(id\) on delete cascade/i.test(staff)],
  ['STAFF DEVICE APP USER FK',/staff_authorized_devices[\s\S]*app_user_id uuid not null references app_users\(id\) on delete cascade/i.test(staff)],
@@ -53,7 +53,7 @@ const checks=[
  ['FOUND RESULT AVAILABLE PRIVACY',/case when d\.status='available' then d\.found_dealer_id else null end/i.test(found)&&/case when d\.status='available' then d\.found_contact_note else null end/i.test(found)&&/case when d\.status='available' then d\.available_at else null end/i.test(found)],
  ['CORE DEALER IDENTITY AFTER SCHEMA',pos('v2-schema.sql')>=0&&pos('v2-core-dealer-identity.sql')>pos('v2-schema.sql')],
  ['CORE DEALER IDENTITY BEFORE FINAL APPROVAL',pos('v2-dealer-final-approval-accountant-gate.sql')>pos('v2-core-dealer-identity.sql')],
- ['CORE DEALER IDENTITY BEFORE DEALER AUTH',pos('v2-dealer-pin-auth.sql')>pos('v2-core-dealer-identity.sql')],
+ ['CORE DEALER IDENTITY BEFORE DEALER AUTH',pos('v2-dealer-email-otp.sql')>pos('v2-core-dealer-identity.sql')],
  ['CORE INSTALLED BEFORE STAFF',pos('v2-admin-issued-staff-access.sql')>pos('v2-schema.sql')],
  ['CORE INSTALLED BEFORE MASTER SALESMAN',pos('v2-master-salesman-access.sql')>pos('v2-schema.sql')],
  ['CORE INSTALLED BEFORE DEMAND',pos('v2-customer-product-demand-leads.sql')>pos('v2-schema.sql')],
