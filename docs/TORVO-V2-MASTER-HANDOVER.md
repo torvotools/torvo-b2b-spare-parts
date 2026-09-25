@@ -199,3 +199,12 @@ In a new chat, tell ChatGPT: `Continue TORVO V2 from docs/TORVO-V2-MASTER-HANDOV
 - Facebook / YouTube / Instagram must not occupy the desktop header/top strip; place them in the dedicated CONNECT WITH TORVO/footer area.
 - TORVO featured/selected YouTube video is Admin-managed and should use lazy/load-on-interaction behavior where practical.
 - Current Owner requirements in the latest master continuation override the former LOCK 1 strip preservation rule.
+
+
+### 25-09-2026 — APPROVED MOBILE FOOTER / COMPANY IDENTITY
+- Mobile duplicate hamburger/menu control removed; bottom MORE is the single mobile secondary navigation entry.
+- Mobile floating contact dock removed; approved footer is the single public contact/social surface.
+- BUSINESS USE remains desktop/web-only and is hidden from the mobile public experience.
+- Approved premium footer contains TORVO TOOLS PRIVATE LIMITED identity plus admin-managed company name, address and GST number; Call/WhatsApp/Email and official social links are icon-first.
+- Admin-managed company footer fields now have validation: company name required, address length bounded, GST optional but format-validated when supplied.
+- Runtime visual acceptance and real admin save/read acceptance remain OPEN until verified on deployed STAGING-backed runtime.
