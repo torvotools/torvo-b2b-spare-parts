@@ -92,7 +92,16 @@ jobs:
           HEADER_FILE="$(mktemp)"
           BODY_FILE="$(mktemp)"
           curl --fail --silent --show-error -D "$HEADER_FILE" -o "$BODY_FILE" -H 'Cache-Control: no-cache, no-store, max-age=0' -H 'Pragma: no-cache' "https://torvo-b2b-spare-parts.torvotools.workers.dev/torvo-build-sha.txt?verify=${GITHUB_RUN_ID}"
-          test "$(tr -d '\r\n[:space:]' < "$BODY_FILE")" = "$EXPECTED_SHA"
+          BODY_SHA="$(tr -d '\r\n[:space:]' < "$BODY_FILE")"
+          if [ "$BODY_SHA" != "$EXPECTED_SHA" ]; then
+            echo "SECOND LIVE SHA READ NOT READY: ${BODY_SHA:-EMPTY}; RETRYING"
+            for ATTEMPT in $(seq 1 12); do
+              sleep 3
+              BODY_SHA="$(curl --fail --silent --show-error --connect-timeout 10 --max-time 20 -H 'Cache-Control: no-cache, no-store, max-age=0' -H 'Pragma: no-cache' "https://torvo-b2b-spare-parts.torvotools.workers.dev/torvo-build-sha.txt?verify=${GITHUB_RUN_ID}&retry=${ATTEMPT}" | tr -d '\r\n[:space:]' || true)"
+              if [ "$BODY_SHA" = "$EXPECTED_SHA" ]; then break; fi
+            done
+          fi
+          test "$BODY_SHA" = "$EXPECTED_SHA"
           if ! tr -d '\r' < "$HEADER_FILE" | grep -qi '^cache-control:.*no-store'; then echo "LIVE SHA BODY VERIFIED; CACHE-CONTROL HEADER PROPAGATION NOT READY"; fi
           if ! tr -d '\r' < "$HEADER_FILE" | grep -qi '^x-torvo-v2:.*ACTIVE'; then echo "LIVE SHA BODY VERIFIED; X-TORVO-V2 HEADER PROPAGATION NOT READY"; fi
           MANIFEST=""
