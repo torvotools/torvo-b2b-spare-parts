@@ -208,3 +208,5 @@ In a new chat, tell ChatGPT: `Continue TORVO V2 from docs/TORVO-V2-MASTER-HANDOV
 - Approved premium footer contains TORVO TOOLS PRIVATE LIMITED identity plus admin-managed company name, address and GST number; Call/WhatsApp/Email and official social links are icon-first.
 - Admin-managed company footer fields now have validation: company name required, address length bounded, GST optional but format-validated when supplied.
 - Runtime visual acceptance and real admin save/read acceptance remain OPEN until verified on deployed STAGING-backed runtime.
+
+- 25-09-2026 mobile CSS consolidation: public-catalog-browser.css no longer owns mobile media-query presentation. Required current mobile catalog/dealer/selected-item rules moved into authoritative public-website.css mobile layer. Desktop/base catalog rules remain intact. CI guards the single-mobile-CSS-owner boundary.
