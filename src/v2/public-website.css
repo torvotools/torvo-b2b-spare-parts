@@ -114,3 +114,7 @@
 
 /* MOBILE MASTER DOM ORDER HOTFIX — reference hierarchy wins */
 @media(max-width:800px){.mobileMasterIdentity{order:0!important}.topSearchHeader{order:1!important}.publicBrandRail{order:2!important}.mobileHeroBanner{order:3!important}.mobileQuickActions{order:4!important}.mobileNeedHelp{order:5!important}.publicSite>main{display:flex!important;flex-direction:column!important}.publicSite>main>.publicCatalog,.publicSite>main>.retailFlow,.publicSite>main>.dealerBusiness,.publicSite>main>.publicSupport,.publicSite>main>.publicAbout,.publicSite>main>.torvoPremiumFooter{order:10!important}}
+
+
+/* EMERGENCY MOBILE RENDER RECOVERY — no flex reordering on main */
+@media(max-width:800px){.publicSite>main{display:block!important}.mobileMasterIdentity{display:flex!important}.topSearchHeader{display:grid!important}.publicBrandRail{display:block!important}.mobileHeroBanner{display:block!important}.mobileQuickActions{display:grid!important}.mobileNeedHelp{display:grid!important}.publicHero.compactHero{display:none!important}.desktopDiscoveryOnly{display:none!important}}
