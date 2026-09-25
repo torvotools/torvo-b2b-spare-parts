@@ -18,7 +18,6 @@ import './dealer-addon-ui.css';
 import './dealer-rewards-ui.css';
 import './product-discovery.css';
 import './login-ui.css';
-import './public-mobile-fix.css';
 import './public-product-showcase.css';
 import './smart-search-ui.css';
 import './public-catalog-browser.css';

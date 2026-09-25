@@ -1,13 +1,6 @@
 /* TORVO V2 LIVE RESPONSIVE REGRESSION FIX
    Loaded last so generic shell rules cannot turn public floating controls into a full-height sidebar. */
 .publicSite{width:100%;max-width:100vw;overflow-x:hidden}
-.publicManagedLinks{
-  position:fixed!important;left:auto!important;right:12px!important;top:auto!important;bottom:12px!important;
-  width:max-content!important;max-width:calc(100vw - 24px)!important;height:auto!important;min-height:0!important;
-  padding:0!important;margin:0!important;background:transparent!important;color:inherit!important;
-  display:grid!important;grid-template-columns:none!important;gap:5px!important;overflow:visible!important;z-index:70!important;
-}
-.publicManagedLinks .publicManagedPrimary,.publicManagedLinks .publicManagedSecondary{width:auto!important}
 .previewSwitcher{max-width:calc(100vw - 16px)!important;overflow-x:auto!important}
 
 /* Privileged preview must remain a true two-column desktop shell. */
@@ -26,7 +19,6 @@
   }
 }
 @media (max-width:820px){
-  .publicManagedLinks{left:10px!important;right:10px!important;bottom:10px!important;width:auto!important;max-width:none!important}
   .app.secureDesktopShell.adminVisualPreview{display:block!important;width:100%!important;overflow-x:hidden!important}
   .app.secureDesktopShell.adminVisualPreview>aside{
     position:fixed!important;left:-286px!important;top:0!important;width:280px!important;max-width:86vw!important;height:100dvh!important;
