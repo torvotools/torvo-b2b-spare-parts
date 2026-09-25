@@ -59,3 +59,7 @@
 
 /* RESPONSIVE ADMIN HERO MEDIA */
 .torvoHeroMedia picture{display:block;width:100%;height:100%}.torvoHeroMedia picture img{width:100%;height:100%;object-fit:cover;display:block}@media(max-width:800px){.torvoHeroMedia picture{min-height:210px}.torvoHeroMedia picture img{min-height:210px;object-fit:cover}}
+
+/* MOBILE/DESKTOP OWNERSHIP BOUNDARY — desktop-only surfaces must never leak into app view */
+@media(max-width:800px){.publicDesktopNav,.headerFilterOnly,.publicTopFinder.filtersOnly,.previewSwitcher,.torvoHeroMedia,.desktopOnly,.desktopUtility,.desktopDealerMap{display:none!important}.publicHeader.topSearchHeader{grid-template-columns:minmax(0,1fr) auto!important;grid-template-areas:"brand action" "search search"!important}.publicHeader.topSearchHeader .publicBrand{grid-area:brand!important}.publicHeader.topSearchHeader .headerSearchOnly{grid-area:search!important}.publicHeader.topSearchHeader .publicHeaderActions{grid-area:action!important}.publicSite{padding-bottom:76px!important}.mobileBottomNav{display:grid!important}.mobileMenuButton{display:grid!important}}
+@media(min-width:801px){.mobileBottomNav,.mobileMenuButton,.mobileOnly{display:none!important}.publicDesktopNav{display:flex!important}.torvoHeroMedia{display:block!important}}
