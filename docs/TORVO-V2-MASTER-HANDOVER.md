@@ -120,7 +120,7 @@ OWNER full. ADMIN operational/admin but not Owner-only confidential cost/profit.
 Website, App and Desktop share one authoritative backend; avoid conflicting duplicate business databases. Backup is a core Owner/Admin function. A backup request is not success: only trusted worker completion + integrity verification can mark it verified. Portable backup must be encrypted; secrets/passwords/service-role credentials are excluded. Full Restore Point carries DB backup + code branch/commit + schema version + checksum + restore manifest. GitHub code/migrations + verified DB backup + restore manifest together form disaster recovery. Restore must be staging-tested.
 
 ## WHATSAPP / OTP / SESSION
-Dealer onboarding preference: WhatsApp OTP. TORVO support currently 7027751533, Admin-changeable. Automatic WhatsApp sending requires real provider/API + testing. Customer promotional WhatsApp requires separate recorded opt-in and opt-out handling. Approved operational App users should support secure long-lived sessions; logout, expiry, revoked/blocked access, suspicious/new device, PIN reset or defined security events may require re-verification.
+Dealer authentication lock: registered Email -> server-generated 6-digit Email OTP. Dealer mobile/WhatsApp is business contact only, never an authentication credential. Dealer Code is permanent business identity, not a login credential. TORVO support currently 7027751533, Admin-changeable. Customer promotional WhatsApp requires separate recorded opt-in and opt-out handling. Approved Dealer App users may keep the secure device-bound session; logout, uninstall/reinstall, new device, expiry, blocked/revoked access or defined security re-auth events require a fresh Email OTP.
 
 ## APP DELIVERY STRATEGY
 Install-ready PWA/web-app foundation is retained for rapid development/testing. Native Android/iOS packaging can reuse the same backend, role/security model and business logic after core stability. Do not create duplicate native business logic/database or fake store links.
@@ -134,7 +134,7 @@ Development preview/test/migration artifacts may exist while building, but final
 - Dealer customer-facing profile/location/map/service capability management and Admin verification must be built.
 - Customer consent/marketing opt-in/opt-out audit flow must be built before promotional messaging.
 - Authenticated role routing: Dealer/Salesman/Store Keeper -> App; Owner/Admin/Accountant -> Desktop; blocked/inactive -> no private access, then runtime-test it.
-- WhatsApp OTP/provider, secure long-lived sessions and suspicious-device flow need runtime integration.
+- Dealer Email OTP provider/delivery, secure device-bound sessions and new/suspicious-device flow require real staging runtime acceptance; source presence alone is not PASS.
 - Premium CSS layering/readability regression must be corrected safely.
 - Browser alerts/confirms in remaining workspaces should become in-app validation/confirmation.
 - Backup trusted worker/storage/export and actual restore drill remain.
