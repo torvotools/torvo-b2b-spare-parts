@@ -17,12 +17,13 @@ Deno.serve(async req=>{
     const body=await req.json();
     const action=String(body.action??'');
     const username=String(body.username??'').trim();
+    const companyEmail=String(body.company_email??'').trim().toLowerCase();
     const device=secureDevice(body.device_id);
     const{admin,publicClient}=clients();
 
     if(action==='begin'){
       const code=otp();
-      const{data:challenge,error}=await admin.rpc('staff_email_otp_begin',{p_username:username,p_device_id:device,p_otp:code});
+      const{data:challenge,error}=await admin.rpc('staff_email_otp_begin',{p_company_email:companyEmail,p_username:username,p_device_id:device,p_otp:code});
       if(error||!challenge)throw error??new Error('LOGIN_FAILED');
       const{data:identity,error:iErr}=await admin.from('staff_email_otp_challenges').select('app_user_id,email_normalized').eq('id',challenge).single();
       if(iErr||!identity)throw iErr??new Error('LOGIN_FAILED');
