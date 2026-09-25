@@ -101,7 +101,10 @@ jobs:
             if printf '%s' "$MANIFEST" | grep -q "${EXPECTED_SHA}"; then break; fi
             echo "LIVE MANIFEST NOT READY (ATTEMPT ${ATTEMPT}/6)"; sleep 3
           done
-          printf '%s' "$MANIFEST" | grep -q "${EXPECTED_SHA}"
+          if [[ "$MANIFEST" != *"${EXPECTED_SHA}"* ]]; then
+            echo "LIVE MANIFEST DOES NOT CONTAIN EXPECTED SHA"
+            exit 1
+          fi
           rm -f "$HEADER_FILE" "$BODY_FILE"
           echo "LIVE CONFIG: SUPABASE + CLOUDFLARE READY"
           echo "LIVE PREVIEW: https://torvo-b2b-spare-parts.torvotools.workers.dev"
