@@ -13,7 +13,7 @@ gate('CORE IDENTITY ADDS DEALER ID',/alter table app_users[\s\S]*add column if n
 gate('CORE IDENTITY UNIQUE PER DEALER',/create unique index if not exists uq_app_users_dealer_identity[\s\S]*app_users\(dealer_id\)/i.test(core));
 gate('MOBILE NOT AUTHORIZATION KEY',core.includes('mobile is not an authorization key'));
 gate('FINAL APPROVAL USES CANONICAL IDENTITY',finalGate.includes('dealer_id')&&finalGate.includes('DEALER AUTH IDENTITY AMBIGUOUS')&&finalGate.includes('if linked_count=0 then insert into app_users'));
-gate('EMAIL OTP BINDS CANONICAL DEALER',auth.includes('dealer_id uuid not null references dealers(id)')&&auth.includes('app_user_id uuid not null references app_users(id)'));
+gate('EMAIL OTP BINDS CANONICAL DEALER',/dealer_id uuid not null references (?:public\.)?dealers\(id\)/i.test(auth)&&/app_user_id uuid not null references (?:public\.)?app_users\(id\)/i.test(auth));
 gate('INSTALL ORDER DECLARES CORE IDENTITY',has(1,'v2-core-dealer-identity.sql'));
 gate('CORE IDENTITY BEFORE FINAL APPROVAL',has(1,'v2-core-dealer-identity.sql')&&has(11,'v2-dealer-final-approval-accountant-gate.sql')&&1<11);
 gate('FINAL APPROVAL BEFORE EMAIL OTP AUTH',has(11,'v2-dealer-final-approval-accountant-gate.sql')&&has(17,'v2-dealer-email-otp.sql')&&11<17);
