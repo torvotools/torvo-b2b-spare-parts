@@ -13,7 +13,7 @@ alter table admin_managed_settings enable row level security;revoke all on admin
 insert into admin_managed_settings(setting_key,setting_group,setting_value,public_read) values
 ('website_content','website','{"announcement":"","home_notice":"","support_label":"CUSTOMER CARE","hero_image_desktop_url":"","hero_image_mobile_url":""}'::jsonb,true),
 ('social_links','social','{"facebook":"","instagram":"","youtube":""}'::jsonb,true),
-('website_top_bar','website','{"enabled":true,"mobile":"7027751533","email":"","facebook":"","youtube":"","instagram":""}'::jsonb,true),
+('website_top_bar','website','{"enabled":true,"mobile":"7027751533","email":"","facebook":"","youtube":"","instagram":"","company_name":"TORVO TOOLS PRIVATE LIMITED","company_address":"","gst_number":""}'::jsonb,true),
 ('whatsapp_channels','website','{"customer_number":"7027751533","customer_active":true,"business_number":"7027751533","business_active":true}'::jsonb,true),
 ('app_experience','app','{"maintenance":false,"maintenance_message":"","update_notice":true}'::jsonb,false),
 ('marketing_defaults','marketing','{"festival_messages":true,"product_launch_messages":true}'::jsonb,false),
