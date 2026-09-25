@@ -10,7 +10,7 @@ const normalize=r('scripts/normalize-v2-build.mjs');
 const gates=[
  ['PUBLIC BUILD INPUT',previewConfig.includes("'v2-preview.html'")],
  ['PUBLIC ENTRY ONLY',previewHtml.includes('/src/v2/preview-main.jsx')&&!previewHtml.includes('/src/v2/main.jsx')],
- ['PUBLIC MANAGED WEBSITE',previewMain.includes('PublicWebsitePreview')&&previewMain.includes('PublicManagedLinks')],
+ ['PUBLIC MANAGED WEBSITE',previewMain.includes('PublicWebsitePreview')&&!previewMain.includes('PublicManagedLinks')],
  ['NATIVE BUILD INPUT',appConfig.includes("'v2.html'")&&appConfig.includes("outDir:'dist-app'" )],
  ['NATIVE ENTRY ONLY',appHtml.includes('/src/v2/main.jsx')&&!appHtml.includes('/src/v2/preview-main.jsx')],
  ['NATIVE SECURE APP',appMain.includes("import App from './App.jsx'")],
