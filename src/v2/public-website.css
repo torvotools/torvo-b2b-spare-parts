@@ -241,3 +241,7 @@
 .mobileContactDock.open .mobileContactMenu{display:flex}.mobileContactClose{border:0;background:#17191d;color:#fff}.mobileContactDock>button,.mobileContactMenu a,.mobileContactClose{min-width:48px;min-height:48px}
 
 .useLocationButton{display:flex;align-items:center;justify-content:center;gap:8px;min-height:48px;width:100%;border:1px solid #d9d9d9;background:#fff;color:#111;font-weight:700;cursor:pointer}.useLocationButton:hover{border-color:#d71920;color:#d71920}.useLocationButton:disabled{opacity:.55;cursor:not-allowed}
+
+/* Mobile-first public navigation: fixed utility bar stays clear of selected-items CTA. */
+.mobileBottomNav{display:none}
+@media(max-width:800px){.publicSite{padding-bottom:70px}.mobileBottomNav{position:fixed;left:0;right:0;bottom:0;z-index:70;height:64px;background:#fff;border-top:1px solid #e7e8eb;display:grid;grid-template-columns:repeat(4,1fr);box-shadow:0 -8px 24px #00000012}.mobileBottomNav a,.mobileBottomNav button{border:0!important;border-radius:0!important;background:#fff!important;color:#34373d!important;text-decoration:none;min-height:64px!important;padding:7px 3px!important;display:flex;flex-direction:column;align-items:center;justify-content:center;gap:3px;font-size:8px!important;font-weight:850}.mobileBottomNav svg{width:19px;height:19px;color:var(--tr)}.floatingCart{bottom:74px!important}.mobileContactDock{bottom:146px!important}}
