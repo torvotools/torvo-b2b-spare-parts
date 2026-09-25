@@ -1,6 +1,6 @@
 # TORVO V2 MASTER HANDOVER
 
-Last updated: 19-09-2026
+Last updated: 25-09-2026
 Authoritative repository: torvotools/torvo-b2b-spare-parts
 Development branch: torvo-v2-build
 
@@ -155,6 +155,24 @@ Do not restart planning on every turn. Continue maximum safe compatible batches 
 
 ## SQL INSTALL
 `supabase/V2_INSTALL_ORDER.md` is authoritative. Never run migrations alphabetically. Update it to the Dealer Referral model before staging/production migration execution; superseded direct-public-checkout migrations must not be blindly applied.
+
+## OWNER CONTINUITY RULE — NO WORK MAY BE FORGOTTEN
+- Every started TORVO V2 workstream remains OPEN until it is implemented, verified and explicitly closed with evidence.
+- Starting another compatible workstream does NOT cancel, replace or silently abandon an earlier OPEN item.
+- Before each development batch, reconcile current repository state against this handover, install order, final acceptance evidence and known OPEN gates; resume unfinished work when safe.
+- UI redesign, code cleanup, database cleanup and runtime acceptance are parallel tracked workstreams. Cleanup must be dependency-aware; never remove a shared foundation just because current UI no longer renders it.
+- Do not mark a project/phase complete from source presence alone. CI/runtime/staging evidence required where applicable.
+
+## CURRENT ACTIVE WORKSTREAMS — 2026-09-25
+1. FULL PUBLIC UI/UX REDESIGN — OPEN. Replace the public presentation layer with the Owner-approved premium design direction; mobile must feel like a native app while desktop remains premium/responsive. Preserve working customer/dealer/backend logic.
+2. PUBLIC CUSTOMER -> DEALER JOURNEY — OPEN. Product selection, quantity, customer/location capture, approved Dealer results/profile/contact, requirement/referral tracking and privacy must remain connected through redesign.
+3. MISSING-PART CAPTURE — OPEN. Type + camera/photo selection + keyboard/device mic fallback UI exists; secure requirement-media upload backend is NOT yet enabled and must not be falsely claimed.
+4. CLEAN CODE/CSS — OPEN. Remove retired/duplicate presentation code only after dependency checks. Old crowded top contact/social strip is retired; final contact/social placement is CONNECT WITH TORVO + mobile contact action.
+5. CLEAN DATABASE/MIGRATION PATH — OPEN. Keep one authoritative backend. Retired public checkout/pricing and obsolete auth foundations require dependency-safe audit/retirement; preserve migration/recovery history as required.
+6. AUTH/RUNTIME ACCEPTANCE — OPEN. Real Dealer/Staff Email OTP, device/session/revoke and role-boundary staging acceptance remains required; no fake identities/evidence.
+7. B2B/INVENTORY/REPORTS/BACKUP — OPEN until genuine staging/runtime evidence closes each gate.
+8. ANDROID/RELEASE — OPEN. CI APK build is not real-device or production-signing acceptance.
+9. PRODUCTION/DOMAIN CUTOVER — OPEN and requires explicit Owner approval; production remains untouched during current staging/development work.
 
 ## NEW CHAT RECOVERY INSTRUCTION
 In a new chat, tell ChatGPT: `Continue TORVO V2 from docs/TORVO-V2-MASTER-HANDOVER.md on branch torvo-v2-build. Inspect current GitHub first. Never touch V27/main. Continue actual work in large safe batches and keep reports short.` This file plus current repository state is authoritative over old chat assumptions.
