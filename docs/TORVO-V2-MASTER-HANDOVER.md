@@ -174,6 +174,18 @@ Do not restart planning on every turn. Continue maximum safe compatible batches 
 8. ANDROID/RELEASE — OPEN. CI APK build is not real-device or production-signing acceptance.
 9. PRODUCTION/DOMAIN CUTOVER — OPEN and requires explicit Owner approval; production remains untouched during current staging/development work.
 
+## PUBLIC REDESIGN IMPLEMENTATION LEDGER — 2026-09-25
+- BUSINESS USE secure source route — SOURCE DONE; runtime Owner/Admin/Accountant role acceptance remains OPEN.
+- Single public presentation cleanup — SOURCE IN PROGRESS; retired PublicManagedLinks and duplicate public CSS removed; broader dependency-safe CSS consolidation remains OPEN.
+- Grouped catalog search — SOURCE DONE; responsive/runtime visual acceptance remains OPEN. Camera/mic remain UI affordances only and must not be claimed as working visual/voice search.
+- Brand-first dependent product filters — SOURCE DONE; runtime catalog-data acceptance remains OPEN.
+- Responsive hero/banner — Desktop + separate mobile Admin-managed frontend source DONE; staging settings migration/runtime visual acceptance remains OPEN.
+- Mobile/Desktop ownership boundary — SOURCE DONE and CI guarded; runtime visual acceptance remains OPEN.
+- Public machine -> public-visible spare-parts detail — SOURCE DONE and CI guarded; only public_visible mappings are exposed; runtime catalog-data acceptance remains OPEN.
+- Atomic CI workflow rule — related UI/logic/CSS/verifier changes should ship in one coherent commit where practical; do not intentionally push incomplete intermediate states that create avoidable failure mail.
+- Last verified public-redesign baseline before this ledger update: 225f12557afbe19fb6aaf360f93c3323fd14f8fa; Build #2484, Cloudflare #1815 and Android #1773 SUCCESS. Android CI success is NOT real-device or production-signing acceptance.
+- Production remains untouched.
+
 ## NEW CHAT RECOVERY INSTRUCTION
 In a new chat, tell ChatGPT: `Continue TORVO V2 from docs/TORVO-V2-MASTER-HANDOVER.md on branch torvo-v2-build. Inspect current GitHub first. Never touch V27/main. Continue actual work in large safe batches and keep reports short.` This file plus current repository state is authoritative over old chat assumptions.
 
