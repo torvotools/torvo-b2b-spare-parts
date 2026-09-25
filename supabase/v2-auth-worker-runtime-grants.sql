@@ -1,8 +1,7 @@
 -- TORVO V2 TRUSTED AUTH WORKER RUNTIME GRANTS + DEALER ASSERTION COMPATIBILITY
 -- SERVICE ROLE IS USED ONLY INSIDE SUPABASE EDGE FUNCTIONS; NEVER IN CLIENT CODE.
 
--- Dealer PIN login is legacy/retired. Canonical login is registered Email OTP.
-revoke all on function dealer_verify_pin(text,text) from public,anon,authenticated;
+-- Dealer authentication is registered Email OTP. Device sessions are provided by v2-dealer-device-session.sql.
 grant execute on function dealer_email_otp_begin(text,text,text) to service_role;
 grant execute on function dealer_email_otp_verify(uuid,text,text,text) to service_role;
 grant execute on function dealer_start_device_session(uuid,text,integer) to service_role;
@@ -13,7 +12,7 @@ grant execute on function staff_email_otp_verify(uuid,text,text,text) to service
 grant execute on function staff_create_verified_session(uuid,text,text) to service_role;
 
 -- Keep the final runtime assertion on the canonical app_users.dealer_id identity link.
--- This file is installed after v2-dealer-pin-auth.sql, so it must never restore mobile-based relinking.
+-- This file is installed after v2-dealer-device-session.sql and v2-dealer-email-otp.sql; it must never restore mobile-based relinking.
 create or replace function dealer_assert_my_device_session(p_device_id text,p_session_token text) returns uuid
 language plpgsql security definer set search_path=public as $$
 declare v_user app_users%rowtype;v_user_count integer;v_dealer_id uuid;v_ok boolean;
