@@ -82,11 +82,11 @@ jobs:
         run: |
           set -euo pipefail
           LIVE_SHA=""
-          for ATTEMPT in $(seq 1 12); do
+          for ATTEMPT in $(seq 1 24); do
             LIVE_SHA="$(curl --fail --silent --show-error --connect-timeout 10 --max-time 20 -H 'Cache-Control: no-cache, no-store, max-age=0' -H 'Pragma: no-cache' "https://torvo-b2b-spare-parts.torvotools.workers.dev/torvo-build-sha.txt?sha=${EXPECTED_SHA}&run=${GITHUB_RUN_ID}&attempt=${ATTEMPT}" || true)"
             LIVE_SHA="$(printf '%s' "$LIVE_SHA" | tr -d '\r\n[:space:]')"
             if [ "$LIVE_SHA" = "$EXPECTED_SHA" ]; then echo "VERIFIED LIVE TORVO V2 SHA: $LIVE_SHA"; break; fi
-            echo "LIVE SHA NOT READY (ATTEMPT ${ATTEMPT}/12): ${LIVE_SHA:-EMPTY}"; sleep 5
+            echo "LIVE SHA NOT READY (ATTEMPT ${ATTEMPT}/24): ${LIVE_SHA:-EMPTY}"; sleep 8
           done
           test "$LIVE_SHA" = "$EXPECTED_SHA"
           HEADER_FILE="$(mktemp)"
@@ -96,10 +96,10 @@ jobs:
           if ! tr -d '\r' < "$HEADER_FILE" | grep -qi '^cache-control:.*no-store'; then echo "LIVE SHA BODY VERIFIED; CACHE-CONTROL HEADER PROPAGATION NOT READY"; fi
           if ! tr -d '\r' < "$HEADER_FILE" | grep -qi '^x-torvo-v2:.*ACTIVE'; then echo "LIVE SHA BODY VERIFIED; X-TORVO-V2 HEADER PROPAGATION NOT READY"; fi
           MANIFEST=""
-          for ATTEMPT in $(seq 1 6); do
+          for ATTEMPT in $(seq 1 12); do
             MANIFEST="$(curl --fail --silent --show-error -H 'Cache-Control: no-cache, no-store, max-age=0' -H 'Pragma: no-cache' "https://torvo-b2b-spare-parts.torvotools.workers.dev/torvo-build-manifest.json?verify=${GITHUB_RUN_ID}&attempt=${ATTEMPT}" || true)"
             if [[ "$MANIFEST" == *"${EXPECTED_SHA}"* ]]; then break; fi
-            echo "LIVE MANIFEST NOT READY (ATTEMPT ${ATTEMPT}/6)"; sleep 3
+            echo "LIVE MANIFEST NOT READY (ATTEMPT ${ATTEMPT}/12)"; sleep 3
           done
           if [[ "$MANIFEST" != *"${EXPECTED_SHA}"* ]]; then
             echo "LIVE MANIFEST DOES NOT CONTAIN EXPECTED SHA"
