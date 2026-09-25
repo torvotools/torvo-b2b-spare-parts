@@ -114,3 +114,6 @@
 /* OWNER APPROVED MOBILE NAV + REQUIREMENT UI */
 @media(max-width:800px){.publicTopStrip{display:none!important}.mobileWelcome{display:none!important}.mobileBottomNav{grid-template-columns:repeat(5,1fr)!important}.mobileBottomNav a,.mobileBottomNav button{font-size:9px!important;position:relative!important}.mobileBottomNav b{position:absolute;top:2px;right:8px;background:#e11;color:#fff;border-radius:20px;min-width:16px;height:16px;display:grid;place-items:center;font-size:9px}.mobileQuickActions{grid-template-columns:repeat(3,1fr)!important}.mobileNeedHelp{background:#fff1f1!important;border:1px solid #ffd5d5!important}.floatingCart{bottom:72px!important}.publicHero.compactHero{display:none!important}}
 @media(min-width:801px){.publicTopStrip{display:none!important}.headerFilterOnly{display:block!important}}
+
+/* OWNER MOBILE BOTTOM NAV TYPOGRAPHY LOCK */
+@media(max-width:800px){.mobileBottomNav a span,.mobileBottomNav button span{font-weight:700!important;letter-spacing:.01em!important}}
