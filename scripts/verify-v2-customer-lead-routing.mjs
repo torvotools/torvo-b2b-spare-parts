@@ -38,6 +38,8 @@ const checks=[
  ['CLIENT ACCEPT CONTACT GATE',/acceptDealerCustomerLead/.test(service)&&/CUSTOMER CONTACT UNLOCK FAILED/.test(service)],
  ['DEALER PRIVACY MESSAGE',/CONTACT STAYS PRIVATE UNTIL YOU ACCEPT YOUR ASSIGNED LEAD/.test(ui)],
  ['DEALER EXPLICIT ACCEPT',/I CAN SUPPLY — ACCEPT/.test(ui)],
+ ['PIN AREA MAP ONLY',/const pin6=v=>\/\^\\d\{6\}\$\//.test(ui)&&/OPEN PIN AREA MAP/.test(ui)&&/maps\(r\.pin_code\)&&/.test(ui)],
+ ['UNLOCKED CONTACT SANITIZED',/contactMobile=String\(c\?\.mobile/.test(ui)&&/contactWhatsApp=String\(c\?\.whatsapp\|\|c\?\.mobile/.test(ui)&&/contactMobile\.length===10/.test(ui)&&/contactWhatsApp\.length===10/.test(ui)],
  ['CONTACT ONLY AFTER ACCEPT',/CUSTOMER CONTACT UNLOCKED/.test(ui)&&/CALL CUSTOMER/.test(ui)&&/WHATSAPP CUSTOMER/.test(ui)],
  ['DEALER LEAD REFRESH STATE',/REFRESHING…/.test(ui)&&/\[\s*loading\s*,\s*setLoading\s*\]\s*=\s*useState\(true\)/.test(ui)],
  ['DEALER LEAD ACTIONS LOCK DURING REFRESH',/disabled=\{loading\|\|!!busy\}/.test(ui)&&/if\(!id\|\|loading\|\|busy\)return/.test(ui)],
