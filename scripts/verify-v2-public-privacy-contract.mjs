@@ -2,7 +2,6 @@ import fs from'node:fs';
 const read=p=>fs.readFileSync(p,'utf8');
 const pub=read('src/v2/components/PublicWebsitePreview.jsx');
 const browser=read('src/v2/components/PublicProductBrowser.jsx');
-const managed=read('src/v2/components/PublicManagedLinks.jsx');
 const dealerForm=read('src/v2/components/PublicDealerRegistrationForm.jsx');
 const requirementForm=read('src/v2/components/PublicProductRequirementForm.jsx');
 const sql=read('supabase/v2-public-product-showcase.sql');
@@ -22,8 +21,8 @@ if(/['\"]ALL['\"]/.test(browser))fail('PUBLIC PRODUCT FINDER MUST NOT RESTORE VI
 const camera=browser.indexOf('aria-label="CAMERA SEARCH"'),voice=browser.indexOf('aria-label="VOICE SEARCH"');
 if(camera<0||voice<0||camera>voice)fail('PUBLIC SEARCH MUST KEEP CAMERA BEFORE MIC');
 if(!browser.includes('placeholder="MACHINE CATEGORY"')||!browser.includes('placeholder="BRAND"'))fail('PUBLIC FILTER PLACEHOLDERS MISSING');
-if(!managed.includes('CUSTOMER WHATSAPP'))fail('PUBLIC WHATSAPP ENTRY MISSING');
-if(/admin.*email|security.*email/i.test(managed))fail('PRIVATE ADMIN/SECURITY EMAIL LEAKED INTO PUBLIC LINKS');
+if(!pub.includes('CUSTOMER WHATSAPP'))fail('PUBLIC WHATSAPP ENTRY MISSING');
+if(/admin.*email|security.*email/i.test(pub))fail('PRIVATE ADMIN/SECURITY EMAIL LEAKED INTO PUBLIC WEBSITE');
 if(/rate_a|rate_b|rate_c|purchase_cost/i.test(sql))fail('PUBLIC SHOWCASE SQL EXPOSES PRIVATE RATE/COST FIELDS');
 if(!release.includes('PUBLIC CUSTOMER HAS NO TORVO RETAIL CHECKOUT OR PUBLIC SELLING PRICE.'))fail('RELEASE GATE DOES NOT LOCK PUBLIC NO-PRICE RULE');
 console.log('TORVO V2 public privacy + common website form boundary contract OK');
