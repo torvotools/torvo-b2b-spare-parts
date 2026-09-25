@@ -162,3 +162,16 @@
 .publicSupport{display:grid!important;grid-template-columns:48px 1fr!important;gap:18px!important;background:#fff!important;margin-top:16px!important}.publicSupport .publicHeroActions{display:flex!important;gap:10px!important}.publicAbout{background:#fff!important;margin-top:16px!important;text-align:center!important}.publicAbout h2{font-size:30px!important}
 .torvoConnect.torvoPremiumFooter{max-width:none!important;margin:20px 0 0!important;border-radius:0!important;background:#15171a!important;color:#fff!important;padding:34px max(4vw,32px)!important}.torvoFooterCompany h2{font-size:22px!important}.torvoContactActions a,.torvoSocialLinks a{width:42px!important;height:42px!important}
 }
+
+/* OWNER LIVE MOBILE COMPACT MATCH — 2026-09-25 */
+@media(max-width:800px){
+.publicHeader.compact.topSearchHeader{padding:6px 12px!important;row-gap:4px!important}.publicHeader .publicBrand{height:34px!important}.publicHeader .publicBrand>b{width:32px!important;height:32px!important;flex-basis:32px!important}.publicHeader .publicBrand strong{font-size:18px!important}.publicHeader .publicBrand small{font-size:6px!important}
+.headerSearchOnly .publicTopFinder,.headerSearchOnly .finderShell{min-height:42px!important}.headerFilterOnly button{height:42px!important}
+.publicBrandRail{display:block!important;min-height:32px!important;padding:4px 12px!important}.publicBrandRail>div{gap:18px!important}.publicBrandRail b{font-size:8px!important}
+.mobileHeroBanner{height:126px!important;margin:4px 12px 8px!important}
+.mobileQuickActions{padding:0 12px 8px!important}.mobileQuickActions button{min-height:76px!important;gap:4px!important}.mobileQuickActions svg{width:26px!important;height:26px!important}
+.mobileNeedHelp{min-height:52px!important;margin-bottom:10px!important;padding:7px 10px!important}.mobileNeedHelp span{font-size:8px!important}.mobileNeedHelp b{font-size:9px!important;white-space:normal!important}
+.publicCatalog{padding-top:10px!important}.publicCatalogHeader h2,.publicCatalogHeader h3{font-size:20px!important;line-height:1.1!important}.publicCatalogHeader p{display:none!important}
+.finderNav{margin-top:8px!important}.finderNav button{min-height:58px!important;padding:6px!important}.finderNav svg{width:23px!important;height:23px!important}.finderNav span,.finderNav b{font-size:8px!important}
+.mobileBottomNav{height:58px!important}.mobileBottomNav a,.mobileBottomNav button{min-height:58px!important}.publicSite{padding-bottom:64px!important}.floatingCart{bottom:60px!important}
+}
