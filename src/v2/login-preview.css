@@ -343,3 +343,25 @@
   border:0!important;outline:0!important;box-shadow:none!important;-webkit-box-shadow:none!important;
   text-shadow:none!important;text-decoration:none!important;
 }
+
+
+/* Dedicated USER ID field — intentionally detached from every shared input rule. */
+.businessFinalUserField{
+  min-height:48px;box-sizing:border-box;display:flex;align-items:center;gap:10px;padding:0 13px;
+  border:1.25px solid #aeb7c4;border-radius:10px;background:#fff;overflow:hidden;box-shadow:none;outline:0;
+}
+.businessFinalUserIcon{width:21px;height:21px;flex:0 0 auto;color:#475467}
+.businessFinalUserInput,
+.businessFinalUserInput:hover,
+.businessFinalUserInput:focus,
+.businessFinalUserInput:focus-visible,
+.businessFinalUserInput:active{
+  display:block;flex:1 1 auto;min-width:0;width:100%;height:24px;box-sizing:border-box;
+  margin:0;padding:0;border:0!important;border-radius:0!important;outline:0!important;
+  background:transparent!important;background-image:none!important;box-shadow:none!important;-webkit-box-shadow:none!important;
+  appearance:none!important;-webkit-appearance:none!important;filter:none!important;
+  color:#1f2937!important;-webkit-text-fill-color:#1f2937!important;caret-color:#1f2937!important;
+  font:400 15px/24px Inter,system-ui,-apple-system,BlinkMacSystemFont,"Segoe UI",sans-serif;text-transform:uppercase;
+}
+.businessFinalUserInput::placeholder{color:#7b8490!important;-webkit-text-fill-color:#7b8490!important;opacity:.72!important}
+@media(max-width:600px){.businessFinalUserField{min-height:45px;padding:0 10px;border-radius:8px}.businessFinalUserIcon{width:17px;height:17px}.businessFinalUserInput{font-size:13px!important;line-height:22px!important;height:22px}}
