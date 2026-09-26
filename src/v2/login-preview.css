@@ -384,3 +384,23 @@
   outline:0!important;
   box-shadow:none!important;
 }
+
+
+/* Final login text balance: equal readable placeholder weight across USER ID and disabled OTP. */
+.businessFinalUserInput[contenteditable="true"]:empty::before{
+  color:#89929f!important;
+  opacity:.82!important;
+  font-weight:400!important;
+}
+.businessFinalInput .businessFinalNativeInput:disabled{
+  color:#7f8996!important;
+  -webkit-text-fill-color:#7f8996!important;
+  opacity:1!important;
+  font-weight:400!important;
+}
+.businessFinalInput .businessFinalNativeInput:disabled::placeholder{
+  color:#7f8996!important;
+  -webkit-text-fill-color:#7f8996!important;
+  opacity:.82!important;
+  font-weight:400!important;
+}
