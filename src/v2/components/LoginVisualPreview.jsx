@@ -163,6 +163,9 @@ export default function LoginVisualPreview() {
               <UserRound className="businessFinalUserIcon" />
               <input className="businessFinalUserInput"
                 aria-label="USER ID"
+                data-form-type="other"
+                data-lpignore="true"
+                data-1p-ignore="true"
                 value={username}
                 onChange={(event) => changeUser(event.target.value)}
                 onKeyDown={(event) => {
