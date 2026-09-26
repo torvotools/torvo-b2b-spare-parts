@@ -7,7 +7,6 @@ import {
   Clock3,
   LockKeyhole,
   RefreshCw,
-  Send,
   Settings,
   ShieldCheck,
   UserRound,
@@ -191,7 +190,7 @@ export default function LoginVisualPreview() {
           )}
 
           <button className="businessFinalPrimary" disabled={!userValid || busy} onClick={sendOtp}>
-            <Send /> {busy && !otpSent ? 'SENDING OTP…' : 'SEND OTP'}
+            {busy && !otpSent ? 'SENDING OTP…' : 'SEND OTP'}
           </button>
 
           <label className="businessFinalLabel businessFinalOtpLabel">
