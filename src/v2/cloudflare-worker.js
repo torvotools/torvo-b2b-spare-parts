@@ -4,9 +4,9 @@ const HTML=new Set(['/','/index.html','/business-login','/business-login/','/bus
 export default{
   async fetch(request,env){
     const url=new URL(request.url);
-    if(request.method==='GET'&&(url.pathname==='/business-login'||url.pathname==='/business-login/'))return Response.redirect(new URL('/business-login.html',url).toString(),302);
     let response;
-    response=await env.ASSETS.fetch(request);
+    if(url.pathname==='/business-login'||url.pathname==='/business-login/'){const assetUrl=new URL('/business-login.html',url);response=await env.ASSETS.fetch(new Request(assetUrl,request));}
+    else response=await env.ASSETS.fetch(request);
     if(url.pathname==='/business-login.html'&&response.status===404){const assetUrl=new URL('/business-login.html',url);response=await env.ASSETS.fetch(new Request(assetUrl,request));}
     if(!EVIDENCE.has(url.pathname)&&!HTML.has(url.pathname))return response;
     const headers=new Headers(response.headers);
