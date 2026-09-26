@@ -159,9 +159,9 @@ export default function LoginVisualPreview() {
 
           <label className="businessFinalLabel">
             USER ID
-            <div className={`businessFinalInput businessFinalUserClean ${userValid ? 'isValid' : (userInvalid ? 'isInvalid' : '')}`}>
-              <UserRound />
-              <input className="businessFinalNativeInput businessFinalUserCleanInput"
+            <div className={`businessFinalUserField ${userValid ? 'isValid' : (userInvalid ? 'isInvalid' : '')}`}>
+              <UserRound className="businessFinalUserIcon" />
+              <input className="businessFinalUserInput"
                 aria-label="USER ID"
                 autoFocus
                 value={username}
