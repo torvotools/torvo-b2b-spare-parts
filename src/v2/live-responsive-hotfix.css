@@ -1130,3 +1130,32 @@
  #torvo-v2-root>.publicSite>.publicHeader .desktopPublicNav{gap:clamp(12px,1.6vw,22px)!important}
  #torvo-v2-root>.publicSite>.publicHeader .desktopPublicNav a{font-size:9px!important}
 }
+
+/* OWNER PHOTO LOCK: DESKTOP = FAR-LEFT LOGO + LONG SEARCH + NAV BELOW SEARCH */
+@media (min-width:821px){
+ #torvo-v2-root>.publicSite>.publicHeader.compact.topSearchHeader{
+  height:124px!important;min-height:124px!important;
+  padding:10px clamp(14px,2vw,30px) 8px!important;
+  grid-template-columns:clamp(185px,15vw,235px) minmax(0,1fr) 48px clamp(118px,9vw,145px)!important;
+  grid-template-rows:66px 38px!important;
+  grid-template-areas:"brand search filter actions" ". nav nav nav"!important;
+  column-gap:clamp(8px,1vw,16px)!important
+ }
+ #torvo-v2-root>.publicSite>.publicHeader .publicBrand{
+  grid-area:brand!important;justify-self:start!important;margin:0!important;padding:0!important;
+ }
+ #torvo-v2-root>.publicSite>.publicHeader .headerSearchOnly{
+  grid-area:search!important;width:100%!important;max-width:none!important;margin:0!important;padding:0!important
+ }
+ #torvo-v2-root>.publicSite>.publicHeader .headerFilterOnly{grid-area:filter!important;margin:0!important}
+ #torvo-v2-root>.publicSite>.publicHeader .publicHeaderActions{grid-area:actions!important;margin:0!important}
+ #torvo-v2-root>.publicSite>.publicHeader .desktopPublicNav{
+  grid-area:nav!important;width:100%!important;max-width:none!important;margin:0!important;padding:0!important;
+  justify-content:flex-start!important;gap:clamp(24px,3vw,52px)!important
+ }
+}
+@media (min-width:1280px){
+ #torvo-v2-root>.publicSite>.publicHeader.compact.topSearchHeader{
+  grid-template-columns:220px minmax(760px,1fr) 48px 145px!important;
+ }
+}
