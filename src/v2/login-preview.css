@@ -298,12 +298,12 @@
 }
 
 
-/* Owner correction: remove the pale red helper box; keep helper text/icon only. */
+/* Restore the intended helper message panel; this is not the USER ID red box. */
 .businessFinalInfo{
-  background:transparent!important;
+  background:#fff0f1!important;
   border:0!important;
   box-shadow:none!important;
-  border-radius:0!important;
+  border-radius:12px!important;
 }
 
 
