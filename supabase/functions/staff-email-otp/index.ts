@@ -42,7 +42,7 @@ Deno.serve(async req=>{
       const{data:appUserId,error:vErr}=await admin.rpc('staff_email_otp_verify',{p_challenge_id:challenge,p_username:username,p_device_id:device,p_otp:code});
       if(vErr||!appUserId)throw vErr??new Error('LOGIN_FAILED');
       const{data:appUser,error:uErr}=await admin.from('app_users').select('id,auth_user_id,role,active').eq('id',appUserId).eq('active',true).single();
-      if(uErr||!['admin','accountant','salesman','store_keeper'].includes(appUser.role))throw uErr??new Error('STAFF_ACCESS_DENIED');
+      if(uErr||!['owner','admin','accountant','salesman','store_keeper'].includes(appUser.role))throw uErr??new Error('STAFF_ACCESS_DENIED');
       const session=await establishSession(admin,publicClient,appUser,randomPassword());
       const{data:staffSessionId,error:sErr}=await admin.rpc('staff_create_verified_session',{p_auth_user_id:session.user.id,p_device_id:device,p_login_method:'email_otp'});
       if(sErr)throw sErr;
