@@ -1,16 +1,18 @@
 import React, { useEffect, useRef, useState } from 'react';
 import {
-  ShieldCheck,
-  MessageCircle,
-  Mail,
   ArrowRight,
-  UserRound,
-  Sparkles,
-  LockKeyhole,
+  BarChart3,
+  Check,
   CheckCircle2,
+  Clock3,
+  LockKeyhole,
+  RefreshCw,
+  Send,
+  Settings,
+  ShieldCheck,
+  UserRound,
+  UsersRound,
   XCircle,
-  Monitor,
-  Smartphone,
 } from 'lucide-react';
 import { currentAppUser, signOut } from '../services/auth';
 import {
@@ -25,45 +27,50 @@ import {
   webBusinessOnlyReason,
 } from '../services/runtimePlatform';
 
-export default function LoginVisualPreview() {
-  const userIdRef = useRef(null);
-  const continueRef = useRef(null);
-  const verifyRef = useRef(null);
+const ROLE_BY_ID = {
+  'OR@000': 'OWNER',
+  'AD@001': 'ADMIN',
+  'AC@002': 'ACCOUNTANT',
+  'AC@003': 'ACCOUNTANT',
+};
 
-  const [email, setEmail] = useState('');
+export default function LoginVisualPreview() {
+  const otpRef = useRef(null);
+  const loginRef = useRef(null);
   const [username, setUsername] = useState('');
-  const [otpOpen, setOtpOpen] = useState(false);
-  const [otp, setOtp] = useState('');
-  const [resendIn, setResendIn] = useState(45);
   const [challenge, setChallenge] = useState('');
+  const [otp, setOtp] = useState('');
+  const [otpSent, setOtpSent] = useState(false);
+  const [resendIn, setResendIn] = useState(0);
   const [busy, setBusy] = useState(false);
   const [err, setErr] = useState('');
+  const [notice, setNotice] = useState('');
 
   useEffect(() => {
-    if (!otpOpen || resendIn <= 0) return undefined;
+    if (!otpSent || resendIn <= 0) return undefined;
     const timer = setTimeout(() => setResendIn((value) => value - 1), 1000);
     return () => clearTimeout(timer);
-  }, [otpOpen, resendIn]);
+  }, [otpSent, resendIn]);
 
-  const authorizedEmail = 'torvotools@gmail.com';
-  const emailEntered = email.trim().length > 0;
-  const emailReady = email.trim().toLowerCase() === authorizedEmail;
-  const userEntered = username.trim().length > 0;
-  const userReady = isBusinessStaffUserId(username);
-  const canContinue = emailReady && userReady;
+  const normalized = normalizeStaffUsername(username);
+  const userEntered = normalized.length > 0;
+  const userValid = isBusinessStaffUserId(normalized);
+  const role = userValid ? ROLE_BY_ID[normalized] : '';
+  const otpReady = otp.length === 6;
 
-  const begin = async () => {
-    if (!canContinue || busy) return;
-    setErr('');
+  const sendOtp = async () => {
+    if (!userValid || busy) return;
     setBusy(true);
+    setErr('');
+    setNotice('');
     try {
-      const normalizedUsername = normalizeStaffUsername(username);
-      const result = await beginStaffEmailOtp(email, normalizedUsername);
-      setUsername(normalizedUsername);
+      const result = await beginStaffEmailOtp('torvotools@gmail.com', normalized);
       setChallenge(result.challenge_id);
       setOtp('');
-      setResendIn(45);
-      setOtpOpen(true);
+      setOtpSent(true);
+      setResendIn(Number(result.resend_after_seconds) || 45);
+      setNotice('OTP SENT TO THE REGISTERED TORVO SECURITY EMAIL.');
+      requestAnimationFrame(() => otpRef.current?.focus());
     } catch (error) {
       setErr(error.message || 'OTP COULD NOT BE SENT.');
     } finally {
@@ -71,33 +78,22 @@ export default function LoginVisualPreview() {
     }
   };
 
-  const resend = async () => {
-    if (busy || resendIn > 0) return;
-    setBusy(true);
-    setErr('');
-    try {
-      const result = await beginStaffEmailOtp(email, username);
-      setChallenge(result.challenge_id);
-      setOtp('');
-      setResendIn(45);
-    } catch (error) {
-      setErr(error.message || 'OTP COULD NOT BE SENT.');
-    } finally {
-      setBusy(false);
-    }
+  const resendOtp = async () => {
+    if (!otpSent || resendIn > 0 || busy) return;
+    await sendOtp();
   };
 
   const verify = async () => {
-    if (otp.length !== 6 || busy) return;
-    setErr('');
+    if (!otpReady || !challenge || busy) return;
     setBusy(true);
+    setErr('');
+    setNotice('');
     try {
-      const result = await verifyStaffEmailOtp(username, challenge, otp);
-      if (!result?.ok) throw new Error(result?.message || 'VERIFICATION FAILED.');
+      const result = await verifyStaffEmailOtp(normalized, challenge, otp);
+      if (!result?.staff_session_id) throw new Error('INCORRECT OTP. PLEASE TRY AGAIN.');
 
       const user = await currentAppUser();
       if (!user?.active) throw new Error('ACTIVE AUTHORIZED ACCOUNT REQUIRED.');
-
       if (!roleRuntimeAllowed(user.role)) {
         await signOut();
         throw new Error(
@@ -106,211 +102,143 @@ export default function LoginVisualPreview() {
             : webBusinessOnlyReason(user.role),
         );
       }
-
       location.replace('/v2.html');
     } catch (error) {
-      setErr(error.message || 'VERIFICATION FAILED.');
+      setErr(error.message || 'INCORRECT OTP. PLEASE TRY AGAIN.');
     } finally {
       setBusy(false);
     }
   };
 
+  const changeUser = (value) => {
+    setUsername(normalizeStaffUsername(value).slice(0, 15));
+    setChallenge('');
+    setOtp('');
+    setOtpSent(false);
+    setResendIn(0);
+    setErr('');
+    setNotice('');
+  };
+
   return (
-    <main className="loginPreview loginV2">
-      <section className="loginBrand">
-        <div className="loginBrandInner">
-          <div className="loginLogo">
-            <div className="mark loginMark">T</div>
-            <strong>TORVO</strong>
+    <main className="businessFinalLogin">
+      <section className="businessFinalHero">
+        <div className="businessFinalHeroShade" />
+        <div className="businessFinalHeroContent">
+          <div className="businessFinalLogo">
+            <span className="businessFinalMark">T</span>
+            <div><strong>TORVO</strong><small>TOOLS</small></div>
           </div>
-          <span className="heroPill"><Sparkles size={13} /> TORVO TOOLS B2B</span>
-          <h1>ONE TORVO PLATFORM.<br /><em>THE RIGHT WORKSPACE FOR EACH ROLE.</em></h1>
-          <p>APPROVED DEALERS AND OPERATIONAL STAFF USE THE TORVO APP. OWNER, ADMIN AND ACCOUNTANT USE THE SECURE DESKTOP / LAPTOP WORKSPACE.</p>
-          <div className="loginFeatureRow">
-            <span><CheckCircle2 size={16} />ROLE BASED</span>
-            <span><CheckCircle2 size={16} />SERVER AUTHORIZED</span>
-            <span><CheckCircle2 size={16} />SECURE WORKFLOW</span>
+          <p className="businessFinalPortal">TORVO TOOLS B2B PORTAL</p>
+          <h1>ONE TORVO<br />PLATFORM.<br /><em>THE RIGHT<br />WORKSPACE FOR<br />EACH ROLE.</em></h1>
+          <p className="businessFinalTagline">SECURE. AUTHORISED. ROLE BASED.<br />BUILT FOR POWER TOOL BUSINESS.</p>
+
+          <div className="businessFinalBenefits">
+            <div><span><UsersRound /></span><p><b>ROLE BASED</b><small>Right access for every role</small></p></div>
+            <div><span><ShieldCheck /></span><p><b>SECURE ACCESS</b><small>Verified users only</small></p></div>
+            <div><span><Settings /></span><p><b>BUSINESS READY</b><small>Designed for business operations</small></p></div>
+            <div><span><BarChart3 /></span><p><b>GROW TOGETHER</b><small>A stronger power tool network</small></p></div>
           </div>
         </div>
       </section>
 
-      <section className="loginCardWrap">
-        <div className="loginCard">
-          <div className="loginCardHead">
-            <div className="mark">T</div>
-            <div>
-              <strong>WELCOME TO TORVO</strong>
-              <span>AUTHORIZED BUSINESS ACCESS</span>
-            </div>
+      <section className="businessFinalFormSide">
+        <div className="businessFinalCard">
+          <div className="businessFinalCardLogo">
+            <span className="businessFinalMark">T</span>
+            <div><strong>TORVO</strong><small>TOOLS</small></div>
+          </div>
+          <p className="businessFinalCardPortal">TORVO TOOLS B2B PORTAL</p>
+          <h2>WELCOME</h2>
+          <p className="businessFinalSubtitle">Secure Access to Your Workspace</p>
+
+          <div className="businessFinalInfo">
+            <LockKeyhole />
+            <span>Enter your <b>User ID</b>. We will send a secure OTP to the registered TORVO security email.</span>
           </div>
 
-          <div className="loginSecureBadge"><LockKeyhole size={16} /> SECURE SIGN IN</div>
-          <h2>ACCESS YOUR WORKSPACE</h2>
-          <p className="loginIntro">ENTER THE AUTHORIZED SECURITY EMAIL AND YOUR USER ID. YOUR USER ID IDENTIFIES THE ADMIN OR ACCOUNTANT ROLE. A 6-DIGIT EMAIL OTP COMPLETES SIGN IN.</p>
-
-          <label>
-            EMAIL ID
-            <div className="loginInput">
-              <Mail size={18} />
-              <input
-                name="torvo-security-email"
-                value={email}
-                onChange={(event) => setEmail(event.target.value)}
-                onKeyDown={(event) => {
-                  if (event.key === 'Enter') {
-                    event.preventDefault();
-                    userIdRef.current?.focus();
-                  }
-                }}
-                autoComplete="off"
-                autoCorrect="off"
-                autoCapitalize="none"
-                spellCheck={false}
-                inputMode="email"
-                placeholder="ENTER AUTHORIZED EMAIL ID"
-              />
-              {emailEntered && (emailReady
-                ? <CheckCircle2 className="loginFieldVerified" size={19} />
-                : <XCircle className="loginFieldInvalid" size={19} />)}
-            </div>
-          </label>
-
-          <label>
+          <label className="businessFinalLabel">
             USER ID
-            <div className="loginInput">
-              <UserRound size={18} />
+            <div className={`businessFinalInput ${userEntered ? (userValid ? 'isValid' : 'isInvalid') : ''}`}>
+              <UserRound />
               <input
-                ref={userIdRef}
-                name="torvo-user-id"
+                autoFocus
                 value={username}
-                onChange={(event) => setUsername(event.target.value.toUpperCase())}
+                onChange={(event) => changeUser(event.target.value)}
                 onKeyDown={(event) => {
                   if (event.key === 'Enter') {
                     event.preventDefault();
-                    if (canContinue) continueRef.current?.focus();
+                    if (userValid) sendOtp();
                   }
                 }}
                 autoComplete="off"
                 autoCorrect="off"
                 autoCapitalize="characters"
                 spellCheck={false}
-                placeholder="ENTER AUTHORIZED USER ID"
+                placeholder="ENTER YOUR USER ID"
               />
-              {userEntered && (userReady
-                ? <CheckCircle2 className="loginFieldVerified" size={19} />
-                : <XCircle className="loginFieldInvalid" size={19} />)}
+              {userEntered && (userValid
+                ? <CheckCircle2 className="businessFinalGood" />
+                : <XCircle className="businessFinalBad" />)}
             </div>
           </label>
 
-          <button
-            ref={continueRef}
-            className="primary loginButton loginButtonReady"
-            disabled={!canContinue}
-            onClick={begin}
-          >
-            {busy ? 'SENDING OTP…' : 'VERIFY OTP EMAIL'} <ArrowRight size={17} />
-          </button>
-
-          {otpOpen && (
-            <div className="loginOtpOverlay" role="dialog" aria-modal="true">
-              <div className="loginOtpPopup">
-                <button
-                  type="button"
-                  className="loginOtpClose"
-                  aria-label="Close email verification"
-                  onClick={() => {
-                    setOtpOpen(false);
-                    setOtp('');
-                    setChallenge('');
-                    setErr('');
-                  }}
-                >
-                  <span aria-hidden="true">×</span>
-                </button>
-
-                <div className="loginSecureBadge"><Mail size={16} /> EMAIL VERIFICATION</div>
-                <h3>USER ID: {username || '—'}</h3>
-                <p>6-DIGIT OTP SENT TO THE AUTHORIZED SECURITY EMAIL.</p>
-
-                <label>
-                  EMAIL ID
-                  <div className="loginInput loginOtpReadonly">
-                    <Mail size={18} />
-                    <input value={email} readOnly tabIndex={-1} />
-                    <CheckCircle2 className="loginFieldVerified" size={19} />
-                  </div>
-                </label>
-
-                <label>
-                  USER ID
-                  <div className="loginInput loginOtpReadonly">
-                    <UserRound size={18} />
-                    <input value={username} readOnly tabIndex={-1} />
-                    <CheckCircle2 className="loginFieldVerified" size={19} />
-                  </div>
-                </label>
-
-                <label>
-                  EMAIL OTP
-                  <div className="loginInput">
-                    <LockKeyhole size={18} />
-                    <input
-                      autoFocus
-                      autoComplete="one-time-code"
-                      inputMode="numeric"
-                      maxLength={6}
-                      value={otp}
-                      onChange={(event) => setOtp(event.target.value.replace(/\D/g, '').slice(0, 6))}
-                      onKeyDown={(event) => {
-                        if (event.key === 'Enter') {
-                          event.preventDefault();
-                          if (otp.length === 6) verifyRef.current?.focus();
-                        }
-                      }}
-                      placeholder="ENTER 6-DIGIT OTP"
-                    />
-                    {otp.length === 6 && <XCircle className="loginFieldInvalid" size={19} />}
-                  </div>
-                </label>
-
-                <div className="loginOtpMeta">
-                  <small>OTP VALID FOR 10 MINUTES · SINGLE USE</small>
-                  <button
-                    type="button"
-                    className="loginResend"
-                    disabled={resendIn > 0}
-                    onClick={resend}
-                  >
-                    {resendIn > 0
-                      ? <><span>RESEND OTP</span><b>00:{String(resendIn).padStart(2, '0')}</b></>
-                      : <><span>RESEND OTP</span><b>READY</b></>}
-                  </button>
-                </div>
-
-                {err && <div className="inlineError" role="alert">{err}</div>}
-
-                <button
-                  ref={verifyRef}
-                  className="primary loginButton loginButtonReady"
-                  disabled={busy || otp.length !== 6}
-                  onClick={verify}
-                >
-                  {busy ? 'VERIFYING…' : 'VERIFY & LOGIN'} <ArrowRight size={17} />
-                </button>
-              </div>
+          {userEntered && (
+            <div className={`businessFinalStatus ${userValid ? 'ok' : 'bad'}`}>
+              {userValid ? <ShieldCheck /> : <XCircle />}
+              <span>{userValid ? <>VALID USER ID <i /> ROLE: <b>{role}</b></> : 'INVALID USER ID'}</span>
             </div>
           )}
 
-          {!otpOpen && err && <div className="inlineError" role="alert">{err}</div>}
+          <button className="businessFinalPrimary" disabled={!userValid || busy} onClick={sendOtp}>
+            <Send /> {busy && !otpSent ? 'SENDING OTP…' : 'SEND OTP'}
+          </button>
 
-          <div className="loginDivider"><span>ROLE DESTINATION</span></div>
-          <div className="loginTrustCards">
-            <div><Smartphone size={18} /><span><b>DEALER / SALESMAN / STORE KEEPER</b><small>TORVO APP AFTER AUTHORIZATION</small></span></div>
-            <div><Monitor size={18} /><span><b>OWNER / ADMIN / ACCOUNTANT</b><small>SECURE DESKTOP / LAPTOP</small></span></div>
-            <div><ShieldCheck size={18} /><span><b>BLOCKED / INACTIVE</b><small>NO PRIVATE BUSINESS ACCESS</small></span></div>
-            <div><MessageCircle size={18} /><span><b>DEALER WHATSAPP RECOVERY</b><small>PIN RECOVERY ON VERIFIED MOBILE</small></span></div>
+          <label className="businessFinalLabel businessFinalOtpLabel">
+            ENTER OTP
+            <div className="businessFinalInput">
+              <ShieldCheck />
+              <input
+                ref={otpRef}
+                value={otp}
+                onChange={(event) => {
+                  setOtp(event.target.value.replace(/\D/g, '').slice(0, 6));
+                  setErr('');
+                }}
+                onKeyDown={(event) => {
+                  if (event.key === 'Enter') {
+                    event.preventDefault();
+                    if (otpReady) loginRef.current?.focus();
+                  }
+                }}
+                disabled={!otpSent}
+                inputMode="numeric"
+                autoComplete="one-time-code"
+                maxLength={6}
+                placeholder={otpSent ? 'ENTER 6-DIGIT OTP' : 'SEND OTP FIRST'}
+              />
+              {otpSent && otpReady && <CheckCircle2 className="businessFinalGood" />}
+            </div>
+          </label>
+
+          {notice && !err && <div className="businessFinalOtpNotice"><CheckCircle2 />{notice}</div>}
+          {err && <div className="businessFinalError" role="alert"><XCircle />{err}</div>}
+
+          <div className="businessFinalResend">
+            <span><Clock3 />{otpSent && resendIn > 0 ? <>Resend OTP in <b>00:{String(resendIn).padStart(2, '0')}</b></> : 'OTP VALID FOR 10 MINUTES'}</span>
+            <button type="button" disabled={!otpSent || resendIn > 0 || busy} onClick={resendOtp}>
+              <RefreshCw /> RESEND OTP
+            </button>
           </div>
-          <p className="loginPreviewNote">DEVELOPMENT VISUAL PREVIEW · EMAIL OTP UI PREVIEW</p>
+
+          <button
+            ref={loginRef}
+            className="businessFinalPrimary businessFinalLoginButton"
+            disabled={!otpSent || !otpReady || busy}
+            onClick={verify}
+          >
+            <Check /> {busy && otpSent ? 'VERIFYING…' : 'LOGIN TO YOUR WORKSPACE'} <ArrowRight />
+          </button>
         </div>
       </section>
     </main>
