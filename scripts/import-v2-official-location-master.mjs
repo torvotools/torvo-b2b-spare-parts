@@ -32,15 +32,14 @@ const typedBodies=bodiesRaw.map(r=>({row:r,type:urbanType(r)}));
 if(!typedBodies.some(x=>x.type))throw new Error('LOCAL BODY TYPE COLUMN REQUIRED: REFUSING TO MAP ALL LOCAL BODIES AS CITIES');
 const unknownTypes=[...new Set(typedBodies.map(x=>x.type).filter(Boolean).filter(t=>!urbanPattern.test(t)&&!ruralPattern.test(t)))];
 if(unknownTypes.length)throw new Error('UNKNOWN LOCAL BODY TYPES: '+unknownTypes.slice(0,20).join(', '));
-const cities=typedBodies.filter(x=>urbanPattern.test(x.type)&&!ruralPattern.test(x.type)).map(({row:r,type})=>({lgd_code:digits(pick(r,['Localbody Code','Local Body Code','LocalBodyCode','LGD Code'])),district_lgd_code:digits(pick(r,['District Code','District LGD Code','DistrictCode'])),name:pick(r,['Localbody Name (In English)','Local Body Name (In English)','Local Body Name','LocalBodyName']),pincode:digits(pick(r,['PIN Code','Pincode','PINCODE'])).slice(0,6)||null,local_body_type:type})).filter(x=>x.lgd_code&&x.district_lgd_code&&x.name);
+const cities=typedBodies.filter(x=>urbanPattern.test(x.type)&&!ruralPattern.test(x.type)).map(({row:r,type})=>({lgd_code:digits(pick(r,['Localbody Code','Local Body Code','LocalBodyCode','LGD Code'])),district_lgd_code:digits(pick(r,['District Code','District LGD Code','DistrictCode'])),name:pick(r,['Localbody Name (In English)','Local Body Name (In English)','Local Body Name','LocalBodyName']),local_body_type:type})).filter(x=>x.lgd_code&&x.district_lgd_code&&x.name);
 
 const uniq=(a,f)=>{const m=new Map();for(const x of a){const k=f(x);if(m.has(k))throw new Error('DUPLICATE OFFICIAL CODE '+k);m.set(k,x)}return [...m.values()]};
 const S=uniq(states,x=>x.lgd_code),D=uniq(districts,x=>x.lgd_code),C=uniq(cities,x=>x.lgd_code);
 const badD=D.filter(x=>!stateCodes.has(x.state_lgd_code));
 const badC=C.filter(x=>!districtCodes.has(x.district_lgd_code));
-const badPins=C.filter(x=>x.pincode&&!/^[1-9][0-9]{5}$/.test(x.pincode));
 if(!S.length||!D.length||!C.length)throw new Error('OFFICIAL DATASET EMPTY OR HEADERS NOT RECOGNIZED');
-if(badD.length||badC.length||badPins.length)throw new Error(`RELATIONSHIP VALIDATION FAILED districts=${badD.length} cities=${badC.length} pins=${badPins.length}`);
+if(badD.length||badC.length)throw new Error(`RELATIONSHIP VALIDATION FAILED districts=${badD.length} cities=${badC.length}`);
 
 console.log(JSON.stringify({mode:APPLY?'APPLY':'DRY_RUN',states:S.length,districts:D.length,urban_local_bodies:C.length,rejected_rural_local_bodies:typedBodies.filter(x=>ruralPattern.test(x.type)).length,source:'GOVERNMENT_OF_INDIA_LGD_OGD'},null,2));
 if(!APPLY)process.exit(0);
@@ -59,5 +58,5 @@ for(const batch of chunks(D))await rest('location_districts?on_conflict=lgd_code
 const districtRows=await (await fetch(`${url}/rest/v1/location_districts?select=id,lgd_code`,{headers:{apikey:token,Authorization:`Bearer ${token}`}})).json();
 const districtId=new Map(districtRows.map(x=>[x.lgd_code,x.id]));
 const today=new Date().toISOString().slice(0,10);
-for(const batch of chunks(C))await rest('location_cities?on_conflict=lgd_code',batch.map((x,i)=>({lgd_code:x.lgd_code,district_id:districtId.get(x.district_lgd_code),name:x.name.toUpperCase(),pincode:x.pincode,source_kind:'LGD_LOCAL_BODY',source_updated_on:today,active:true,sort_order:i})));
+for(const batch of chunks(C))await rest('location_cities?on_conflict=lgd_code',batch.map((x,i)=>({lgd_code:x.lgd_code,district_id:districtId.get(x.district_lgd_code),name:x.name.toUpperCase(),pincode:null,source_kind:'LGD_LOCAL_BODY',source_updated_on:today,active:true,sort_order:i})));
 console.log('TORVO V2 STAGING OFFICIAL LOCATION IMPORT COMPLETE');
