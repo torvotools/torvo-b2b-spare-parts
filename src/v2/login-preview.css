@@ -139,3 +139,17 @@
 @media(max-width:600px) and (max-height:700px){
   .businessFinalCard{justify-content:space-between}
 }
+
+/* Owner mobile polish: stable black hero, strong red actions, and exactly one field boundary. */
+.businessFinalHero{background-color:#080b0f;background-image:none!important}
+.businessFinalHero:after{display:none!important}
+.businessFinalHeroShade{background:linear-gradient(120deg,rgba(255,255,255,.025),transparent 48%,rgba(255,255,255,.018))!important}
+.businessFinalPrimary,.businessFinalPrimary:disabled{background:#ed111c!important;color:#fff!important;opacity:1!important}
+.businessFinalPrimary:disabled{cursor:not-allowed;box-shadow:none!important}
+.businessFinalInput{border:1px solid #d7dde5!important;box-shadow:none!important;background:#fff!important}
+.businessFinalInput input,.businessFinalInput input:hover,.businessFinalInput input:focus,.businessFinalInput input:active,.businessFinalInput input:disabled{
+  display:block!important;width:100%!important;min-width:0!important;padding:0!important;margin:0!important;
+  border:none!important;border-width:0!important;border-style:none!important;border-color:transparent!important;
+  outline:none!important;box-shadow:none!important;background:none!important;background-color:transparent!important;
+  border-radius:0!important;-webkit-appearance:none!important;appearance:none!important;
+}
