@@ -130,8 +130,8 @@ export default function LoginVisualPreview() {
             <div><strong>TORVO</strong><small>TOOLS</small></div>
           </div>
           <p className="businessFinalPortal">TORVO TOOLS B2B PORTAL</p>
-          <h1>ONE TORVO<br />PLATFORM.<br /><em>THE RIGHT<br />WORKSPACE FOR<br />EACH ROLE.</em></h1>
-          <p className="businessFinalTagline">SECURE. AUTHORISED. ROLE BASED.<br />BUILT FOR POWER TOOL BUSINESS.</p>
+          <h1>TORVO TOOLS<br /><em>B2B PORTAL</em></h1>
+          <p className="businessFinalTagline">SECURE BUSINESS LOGIN FOR<br />OWNER · ADMIN · ACCOUNTANT</p>
 
           <div className="businessFinalBenefits">
             <div><span><UsersRound /></span><p><b>ROLE BASED</b><small>Right access for every role</small></p></div>
