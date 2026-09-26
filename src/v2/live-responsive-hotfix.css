@@ -1094,3 +1094,39 @@
 /* OWNER APPROVED DESKTOP HEADER + ADMIN BRAND LOGO MARQUEE — 2026-09-26 */
 @media (min-width:821px){#torvo-v2-root>.publicSite>.publicHeader.topSearchHeader{max-width:1540px!important;grid-template-columns:minmax(205px,245px) minmax(520px,1fr) 46px!important;column-gap:clamp(12px,1.4vw,22px)!important;padding-inline:clamp(24px,3.2vw,58px)!important}#torvo-v2-root>.publicSite>.publicHeader.topSearchHeader .publicBrand>b{width:52px!important;height:52px!important;font-size:33px!important}#torvo-v2-root>.publicSite>.publicHeader.topSearchHeader .publicBrand strong{font-size:26px!important}#torvo-v2-root>.publicSite>.publicHeader.topSearchHeader .headerSearchOnly{max-width:none!important}#torvo-v2-root>.publicSite>.publicHeader.topSearchHeader .desktopPublicNav{justify-content:center!important;overflow:visible!important}#torvo-v2-root .publicBrandRail{max-width:none!important;width:100%!important;padding:8px 0!important;border-block:1px solid #e2e4e7!important}#torvo-v2-root .publicBrandRail>.brandLogoViewport{width:100%!important;overflow:hidden!important;padding:0!important}}
 #torvo-v2-root .brandLogoViewport{overflow:hidden;width:100%}#torvo-v2-root .brandLogoTrack{width:max-content;display:flex;align-items:center;gap:clamp(24px,3vw,52px);animation:torvoBrandMarquee 30s linear infinite;will-change:transform}#torvo-v2-root .brandLogoViewport:hover .brandLogoTrack{animation-play-state:paused}#torvo-v2-root .brandLogoItem{flex:0 0 150px;width:150px;height:52px;display:flex;align-items:center;justify-content:center;padding:5px 10px;background:#fff}#torvo-v2-root .brandLogoItem img{display:block;width:100%;height:100%;object-fit:contain;object-position:center}#torvo-v2-root .brandLogoEmpty{width:100%;padding:10px 16px;text-align:center;font-size:9px;color:#747982;letter-spacing:.5px}@keyframes torvoBrandMarquee{from{transform:translateX(0)}to{transform:translateX(-50%)}}@media(max-width:820px){#torvo-v2-root .brandLogoTrack{gap:22px;animation-duration:24s}#torvo-v2-root .brandLogoItem{flex-basis:112px;width:112px;height:38px;padding:3px 7px}}@media(prefers-reduced-motion:reduce){#torvo-v2-root .brandLogoTrack{animation:none}}
+
+/* OWNER SCREENSHOT-DRIVEN DESKTOP HEADER FINAL OWNERSHIP — 2026-09-26 */
+@media (min-width:821px){
+ #torvo-v2-root>.publicSite>.publicHeader.compact.topSearchHeader{
+  box-sizing:border-box!important;display:grid!important;width:100%!important;max-width:none!important;
+  height:116px!important;min-height:116px!important;margin:0!important;padding:12px clamp(28px,5vw,88px) 8px!important;
+  grid-template-columns:clamp(210px,17vw,270px) minmax(560px,1fr) 52px clamp(120px,10vw,155px)!important;
+  grid-template-rows:62px 34px!important;grid-template-areas:"brand search filter actions" ". nav nav nav"!important;
+  column-gap:clamp(12px,1.6vw,26px)!important;row-gap:0!important;align-items:center!important;
+  background:#fff!important;position:sticky!important;top:0!important;z-index:120!important
+ }
+ #torvo-v2-root>.publicSite>.publicHeader .publicBrand{grid-area:brand!important;width:auto!important;min-width:0!important;justify-self:start!important;align-self:center!important;transform:none!important}
+ #torvo-v2-root>.publicSite>.publicHeader .publicBrand>b{width:58px!important;height:58px!important;min-width:58px!important;font-size:36px!important;border-radius:9px!important}
+ #torvo-v2-root>.publicSite>.publicHeader .publicBrand strong{font-size:30px!important;line-height:1!important}
+ #torvo-v2-root>.publicSite>.publicHeader .publicBrand small{font-size:10px!important;letter-spacing:2px!important}
+ #torvo-v2-root>.publicSite>.publicHeader .headerSearchOnly{grid-area:search!important;width:100%!important;max-width:none!important;min-width:0!important;align-self:center!important}
+ #torvo-v2-root>.publicSite>.publicHeader .headerSearchOnly .publicSmartFinder,
+ #torvo-v2-root>.publicSite>.publicHeader .headerSearchOnly .publicHeroSearch,
+ #torvo-v2-root>.publicSite>.publicHeader .headerSearchOnly .publicHeroSearchBar{width:100%!important;max-width:none!important;min-width:0!important}
+ #torvo-v2-root>.publicSite>.publicHeader .headerFilterOnly{grid-area:filter!important;position:relative!important;inset:auto!important;width:52px!important;height:44px!important;align-self:center!important}
+ #torvo-v2-root>.publicSite>.publicHeader .publicHeaderActions{grid-area:actions!important;display:flex!important;width:auto!important;min-width:120px!important;justify-self:end!important;align-self:center!important}
+ #torvo-v2-root>.publicSite>.publicHeader .publicCartButton{display:flex!important;visibility:visible!important;width:clamp(120px,10vw,155px)!important;min-width:120px!important;max-width:155px!important;height:46px!important;min-height:46px!important}
+ #torvo-v2-root>.publicSite>.publicHeader .desktopPublicNav{grid-area:nav!important;display:flex!important;width:100%!important;justify-content:flex-start!important;align-items:center!important;gap:clamp(22px,2.4vw,44px)!important;overflow:visible!important;margin:0!important}
+ #torvo-v2-root>.publicSite>.publicHeader .desktopPublicNav a{font-size:11px!important;line-height:1!important;white-space:nowrap!important}
+ #torvo-v2-root>.publicSite>main#top>.publicBrandRail{margin:0!important;min-height:66px!important;padding:7px 0!important}
+}
+@media (min-width:821px) and (max-width:1180px){
+ #torvo-v2-root>.publicSite>.publicHeader.compact.topSearchHeader{
+  grid-template-columns:190px minmax(390px,1fr) 46px 112px!important;
+  padding-inline:20px!important;column-gap:10px!important
+ }
+ #torvo-v2-root>.publicSite>.publicHeader .publicBrand>b{width:50px!important;height:50px!important;min-width:50px!important;font-size:31px!important}
+ #torvo-v2-root>.publicSite>.publicHeader .publicBrand strong{font-size:24px!important}
+ #torvo-v2-root>.publicSite>.publicHeader .desktopPublicNav{gap:clamp(12px,1.6vw,22px)!important}
+ #torvo-v2-root>.publicSite>.publicHeader .desktopPublicNav a{font-size:9px!important}
+}
