@@ -327,3 +327,9 @@ html,body,#root,#torvo-v2-root{margin:0!important;padding:0!important;min-height
 .publicSite>header .headerFilterOnly{grid-area:filter!important;width:auto!important;height:auto!important;min-height:0!important;justify-self:end!important;margin-top:-1px!important}.publicSite>header .headerFilterOnly .publicProductFilterToggle{width:auto!important;min-width:76px!important;height:30px!important;min-height:30px!important;padding:0 10px!important;border-radius:7px!important}
 .publicHeaderActions,.floatingCart{display:none!important}
 }
+
+/* DEALER FINDER MOBILE COMPACT LOCATION GRID — 2026-09-26 */
+@media(max-width:800px){
+ .dealerFinderPublic>.formTwo{display:grid!important;grid-template-columns:minmax(0,1fr) minmax(0,1fr)!important;gap:8px!important;align-items:end!important}
+ .dealerFinderPublic>.formTwo label{min-width:0!important;margin:0!important}.dealerFinderPublic>.formTwo select,.dealerFinderPublic>.formTwo input{width:100%!important;min-width:0!important;box-sizing:border-box!important}
+}
