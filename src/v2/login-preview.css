@@ -404,3 +404,12 @@
   opacity:.82!important;
   font-weight:400!important;
 }
+
+
+/* Owner-approved exact placeholder match: USER ID uses the same tone as SEND OTP FIRST. */
+.businessFinalUserInput[contenteditable="true"]:empty::before{
+  color:#7f8996!important;
+  -webkit-text-fill-color:#7f8996!important;
+  opacity:.82!important;
+  font-weight:400!important;
+}
