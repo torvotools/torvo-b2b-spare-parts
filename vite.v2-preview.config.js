@@ -8,6 +8,7 @@ export default defineConfig({
     rollupOptions: {
       input: {
         index: resolve(process.cwd(), 'v2-preview.html'),
+        businessLogin: resolve(process.cwd(), 'business-login.html'),
       },
       output: {
         entryFileNames: 'assets/[name]-[hash].js',
