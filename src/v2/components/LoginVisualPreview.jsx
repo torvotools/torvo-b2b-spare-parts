@@ -171,7 +171,15 @@ export default function LoginVisualPreview() {
                 data-placeholder="ENTER YOUR USER ID"
                 onInput={(event) => {
                   const value = normalizeStaffUsername(event.currentTarget.textContent || '').slice(0, 15);
-                  if ((event.currentTarget.textContent || '') !== value) event.currentTarget.textContent = value;
+                  if ((event.currentTarget.textContent || '') !== value) {
+                    event.currentTarget.textContent = value;
+                    const selection = window.getSelection();
+                    const range = document.createRange();
+                    range.selectNodeContents(event.currentTarget);
+                    range.collapse(false);
+                    selection?.removeAllRanges();
+                    selection?.addRange(range);
+                  }
                   changeUser(value);
                 }}
                 onKeyDown={(event) => {
@@ -184,6 +192,12 @@ export default function LoginVisualPreview() {
                   event.preventDefault();
                   const value = normalizeStaffUsername(event.clipboardData.getData('text')).slice(0, 15);
                   event.currentTarget.textContent = value;
+                  const selection = window.getSelection();
+                  const range = document.createRange();
+                  range.selectNodeContents(event.currentTarget);
+                  range.collapse(false);
+                  selection?.removeAllRanges();
+                  selection?.addRange(range);
                   changeUser(value);
                 }}
               />              {userValid ? <CheckCircle2 className="businessFinalGood" /> : (userInvalid ? <XCircle className="businessFinalBad" /> : null)}
