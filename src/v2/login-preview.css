@@ -365,3 +365,21 @@
 .loginV2 .loginOtpOverlay{box-sizing:border-box!important;padding:clamp(10px,2vh,16px)!important;overflow:hidden!important}
 .loginV2 .loginOtpPopup{width:min(100%,420px)!important;max-width:100%!important;max-height:calc(100% - 4px)!important;overflow:auto!important;margin:auto!important;transform:none!important}
 @media(min-width:901px){.loginV2 .loginOtpPopup{transform:none!important}}
+
+
+/* Owner runtime correction — 26 Sep 2026: keep the approved CTA solid TORVO red at all times and keep each field as one clean boundary only. */
+.loginV2 .loginButtonWaiting,
+.loginV2 .loginButtonWaiting:disabled,
+.loginV2 .loginButtonReady,
+.loginV2 .loginButtonReady:disabled{
+ background:#d71920!important;border-color:#d71920!important;color:#fff!important;opacity:1!important;
+ box-shadow:0 8px 18px rgba(215,25,32,.18)!important;
+}
+.loginV2 .loginInput input,
+.loginV2 .loginInput input:hover,
+.loginV2 .loginInput input:active,
+.loginV2 .loginInput input:focus,
+.loginV2 .loginInput input:focus-visible{
+ border:0!important;outline:0!important;box-shadow:none!important;background:transparent!important;background-color:transparent!important;
+}
+.loginV2 .loginInput:focus-within{border-color:#b8c2cf!important;outline:0!important;box-shadow:none!important;}
