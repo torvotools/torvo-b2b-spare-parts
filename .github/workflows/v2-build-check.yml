@@ -6,6 +6,7 @@ on:
     paths:
       - 'src/v2/**'
       - 'v2.html'
+      - 'business-login.html'
       - 'package.json'
       - 'capacitor.config.json'
       - 'scripts/**'
@@ -31,6 +32,7 @@ on:
     paths:
       - 'src/v2/**'
       - 'v2.html'
+      - 'business-login.html'
       - 'package.json'
       - 'capacitor.config.json'
       - 'scripts/**'
