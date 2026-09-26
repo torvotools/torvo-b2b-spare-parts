@@ -162,6 +162,8 @@ export default function LoginVisualPreview() {
             <div className={`businessFinalUserField ${userValid ? 'isValid' : (userInvalid ? 'isInvalid' : '')}`}>
               <UserRound className="businessFinalUserIcon" />
               <input className="businessFinalUserInput"
+                type="search"
+                name="torvo-business-user-id"
                 aria-label="USER ID"
                 data-form-type="other"
                 data-lpignore="true"
