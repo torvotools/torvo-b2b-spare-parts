@@ -1,7 +1,7 @@
-import React,{useEffect,useState} from 'react';
+import React,{lazy,Suspense,useEffect,useState} from 'react';
 import {createRoot} from 'react-dom/client';
-import App from './App.jsx';
-import BusinessLogin from './components/BusinessLogin.jsx';
+const App=lazy(()=>import('./App.jsx'));
+const BusinessLogin=lazy(()=>import('./components/BusinessLogin.jsx'));
 import LoginVisualPreview from './components/LoginVisualPreview.jsx';
 import BackupCloseModal from './components/BackupCloseModal.jsx';
 import AppUpdateNotice from './components/AppUpdateNotice.jsx';
@@ -34,5 +34,5 @@ import {forceSignOut,currentAppUser} from './services/auth.js';
 const root=document.getElementById('torvo-v2-root');
 if(!root) throw new Error('TORVO V2 root element is missing');
 const isNativeAndroid=()=>window?.Capacitor?.isNativePlatform?.()===true||window?.Capacitor?.getPlatform?.()==='android';
-function V2Root(){const[backupClose,setBackupClose]=useState(false),[nativeReady,setNativeReady]=useState(!isNativeAndroid()),[nativeSignedIn,setNativeSignedIn]=useState(false);useEffect(()=>{const stopFeedback=installGlobalUiFeedback();const stopInstall=installAppFoundation();const open=()=>setBackupClose(true);window.addEventListener('torvo:backup-close',open);if(isNativeAndroid())currentAppUser().then(u=>setNativeSignedIn(Boolean(u?.active))).catch(()=>setNativeSignedIn(false)).finally(()=>setNativeReady(true));return()=>{stopFeedback?.();stopInstall?.();window.removeEventListener('torvo:backup-close',open)}},[]);const finish=async()=>{await forceSignOut();setBackupClose(false)};const params=new URLSearchParams(location.search),path=location.pathname.replace(/\/+$/,'')||'/',webLogin=params.get('login')==='1'||path==='/business-login.html'||path==='/business-login',nativeLogin=isNativeAndroid()&&nativeReady&&!nativeSignedIn;return <>{!nativeReady?null:webLogin?<LoginVisualPreview/>:nativeLogin?<BusinessLogin/>:<App/>}<AppUpdateNotice/><BackupCloseModal open={backupClose} onCancel={()=>setBackupClose(false)} onSignOut={finish}/></>}
+function V2Root(){const[backupClose,setBackupClose]=useState(false),[nativeReady,setNativeReady]=useState(!isNativeAndroid()),[nativeSignedIn,setNativeSignedIn]=useState(false);useEffect(()=>{const stopFeedback=installGlobalUiFeedback();const stopInstall=installAppFoundation();const open=()=>setBackupClose(true);window.addEventListener('torvo:backup-close',open);if(isNativeAndroid())currentAppUser().then(u=>setNativeSignedIn(Boolean(u?.active))).catch(()=>setNativeSignedIn(false)).finally(()=>setNativeReady(true));return()=>{stopFeedback?.();stopInstall?.();window.removeEventListener('torvo:backup-close',open)}},[]);const finish=async()=>{await forceSignOut();setBackupClose(false)};const params=new URLSearchParams(location.search),path=location.pathname.replace(/\/+$/,'')||'/',webLogin=params.get('login')==='1'||path==='/business-login.html'||path==='/business-login',nativeLogin=isNativeAndroid()&&nativeReady&&!nativeSignedIn;return <><Suspense fallback={null}>{!nativeReady?null:webLogin?<LoginVisualPreview/>:nativeLogin?<BusinessLogin/>:<App/>}</Suspense><AppUpdateNotice/><BackupCloseModal open={backupClose} onCancel={()=>setBackupClose(false)} onSignOut={finish}/></>}
 createRoot(root).render(<React.StrictMode><V2Root/></React.StrictMode>);
