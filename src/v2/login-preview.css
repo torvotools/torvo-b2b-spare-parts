@@ -165,3 +165,12 @@
   font-size:14px!important;font-weight:800!important;letter-spacing:.01em!important;
 }
 .businessFinalPrimary:disabled{cursor:not-allowed;box-shadow:none!important}
+
+/* Placeholder is guidance, not entered data. Suppress WebKit text-field decoration explicitly. */
+.businessFinalInput input::-webkit-textfield-decoration-container,
+.businessFinalInput input::-webkit-inner-spin-button,
+.businessFinalInput input::-webkit-outer-spin-button{
+  border:0!important;outline:0!important;box-shadow:none!important;background:transparent!important;-webkit-appearance:none!important;
+}
+.businessFinalInput input::placeholder{color:#9ca3af!important;opacity:.72!important;font-weight:400!important;-webkit-text-fill-color:#9ca3af!important}
+.businessFinalInput input:disabled::placeholder{color:#aeb5bf!important;opacity:.62!important;-webkit-text-fill-color:#aeb5bf!important}
