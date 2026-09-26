@@ -1,6 +1,5 @@
 import React, { useEffect, useRef, useState } from 'react';
 import {
-  ArrowRight,
   BarChart3,
   Check,
   CheckCircle2,
@@ -236,7 +235,7 @@ export default function LoginVisualPreview() {
             disabled={!otpSent || !otpReady || busy}
             onClick={verify}
           >
-            <Check /> {busy && otpSent ? 'VERIFYING…' : 'LOGIN TO YOUR WORKSPACE'} <ArrowRight />
+            {busy && otpSent ? 'VERIFYING…' : 'LOGIN'}
           </button>
         </div>
       </section>
