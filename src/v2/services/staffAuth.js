@@ -2,7 +2,7 @@ import{requireBackend}from'./supabase';import{isNativeApp}from'./runtimePlatform
 const digits=v=>String(v||'').replace(/\D/g,'').slice(-10);const STAFF=new Set(['owner','admin','accountant','salesman','store_keeper']);const SESSION_KEY='torvo_staff_session_id';export const DEALER_SESSION_KEY='torvo_dealer_session_token';
 const codeDigits=(v,n)=>String(v||'').replace(/\D/g,'').slice(0,n);const assertDevice=v=>{const x=String(v||'').trim();if(!x||x.length>180)throw new Error('SECURE DEVICE ID REQUIRED.');return x};
 export const normalizeStaffUsername=v=>String(v||'').trim().toUpperCase();
-export const BUSINESS_STAFF_USER_IDS=new Set(['AD@001','AC@002','AC@003']);
+export const BUSINESS_STAFF_USER_IDS=new Set(['OR@000','AD@001','AC@002','AC@003']);
 export const isBusinessStaffUserId=v=>BUSINESS_STAFF_USER_IDS.has(normalizeStaffUsername(v));
 const staffUsername=v=>{const x=normalizeStaffUsername(v);if(!isBusinessStaffUserId(x))throw new Error('ENTER AN AUTHORIZED USER ID.');return x};
 export function normalizeDealerEmail(v){const e=String(v||'').trim().toLowerCase();if(!/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(e))throw new Error('ENTER A VALID REGISTERED EMAIL ID.');return e}
