@@ -1173,3 +1173,13 @@
  #torvo-v2-root>.publicSite>.publicBrandRail{margin:0!important;min-height:48px!important}
 }
 @media (min-width:1280px){#torvo-v2-root>.publicSite>.publicHeader.compact.topSearchHeader{grid-template-columns:230px minmax(680px,1fr) 48px 190px!important}}
+
+
+/* OWNER SCREENSHOT CORRECTION — square desktop product hero/poster */
+@media (min-width:821px){
+ #torvo-v2-root>.publicSite .publicHero.compactHero,
+ #torvo-v2-root>.publicSite .publicHero.compactHero .torvoHeroMedia,
+ #torvo-v2-root>.publicSite .publicHero.compactHero .torvoHeroMedia picture,
+ #torvo-v2-root>.publicSite .publicHero.compactHero .torvoHeroMedia img{border-radius:0!important}
+ #torvo-v2-root>.publicSite .publicHero.compactHero{overflow:hidden!important}
+}
