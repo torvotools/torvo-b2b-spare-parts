@@ -98,3 +98,30 @@ returns uuid language plpgsql security definer set search_path=public as $$decla
 grant execute on function public.torvo_admin_upsert_location_state(uuid,text,boolean,integer) to authenticated;
 grant execute on function public.torvo_admin_upsert_location_district(uuid,uuid,text,boolean,integer) to authenticated;
 grant execute on function public.torvo_admin_upsert_location_city(uuid,uuid,text,boolean,integer) to authenticated;
+
+-- OFFICIAL LOCATION PROVENANCE / IMPORT CONTRACT
+-- Trusted import workers may populate LGD codes and PIN metadata from Government of India datasets.
+-- Public OTHER city/town text must never be promoted into this authoritative master automatically.
+alter table public.location_states add column if not exists lgd_code text;
+alter table public.location_districts add column if not exists lgd_code text;
+alter table public.location_cities add column if not exists lgd_code text;
+alter table public.location_cities add column if not exists pincode text;
+alter table public.location_cities add column if not exists source_kind text not null default 'LGD_LOCAL_BODY';
+alter table public.location_cities add column if not exists source_updated_on date;
+
+create unique index if not exists location_states_lgd_code_uq on public.location_states(lgd_code) where lgd_code is not null;
+create unique index if not exists location_districts_lgd_code_uq on public.location_districts(lgd_code) where lgd_code is not null;
+create index if not exists location_cities_pincode_idx on public.location_cities(pincode) where pincode is not null;
+
+alter table public.location_cities drop constraint if exists location_cities_pincode_ck;
+alter table public.location_cities add constraint location_cities_pincode_ck
+ check (pincode is null or pincode ~ '^[1-9][0-9]{5}$');
+alter table public.location_cities drop constraint if exists location_cities_source_kind_ck;
+alter table public.location_cities add constraint location_cities_source_kind_ck
+ check (source_kind in ('LGD_LOCAL_BODY','MANUAL_VERIFIED'));
+
+comment on column public.location_states.lgd_code is 'Government of India Local Government Directory code; trusted import/admin only.';
+comment on column public.location_districts.lgd_code is 'Government of India Local Government Directory code; trusted import/admin only.';
+comment on column public.location_cities.lgd_code is 'LGD local-body code when available.';
+comment on column public.location_cities.pincode is 'Official mapped PIN where available; null is allowed.';
+comment on column public.location_cities.source_kind is 'Authoritative provenance; public OTHER free text is never auto-promoted.';
