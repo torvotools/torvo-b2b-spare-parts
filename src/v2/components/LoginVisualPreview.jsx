@@ -64,7 +64,7 @@ export default function LoginVisualPreview() {
     setErr('');
     setNotice('');
     try {
-      const result = await beginStaffEmailOtp('torvotools@gmail.com', normalized);
+      const result = await beginStaffEmailOtp(normalized);
       setChallenge(result.challenge_id);
       setOtp('');
       setOtpSent(true);
