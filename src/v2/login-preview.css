@@ -178,37 +178,20 @@
 .businessFinalInput{overflow:hidden!important}
 .businessFinalInput input{height:auto!important;min-height:0!important;background-color:transparent!important;background-clip:padding-box!important;filter:none!important;text-shadow:none!important}
 
-/* Native control is interaction-only; visible text is rendered by TORVO, so Chromium cannot paint an inner guide box. */
-.businessFinalInput{position:relative!important}
-.businessFinalFieldText{display:block;flex:1 1 auto;min-width:0;pointer-events:none;white-space:nowrap;overflow:hidden;text-overflow:clip;line-height:1.2}
-.businessFinalFieldText.hasValue{color:#1f2937;font-weight:400}
-.businessFinalFieldText.isPlaceholder{color:#7b8490;font-weight:400}
-.businessFinalNativeInput{
-  position:absolute!important;inset:0!important;z-index:2!important;width:100%!important;height:100%!important;
-  opacity:0!important;cursor:text!important;
-}
-.businessFinalNativeInput:disabled{cursor:not-allowed!important}
 
-/* Final interaction-only native field: never paint native text/placeholder on Vivo Chromium. */
-.businessFinalInput .businessFinalNativeInput,
-.businessFinalInput .businessFinalNativeInput:hover,
-.businessFinalInput .businessFinalNativeInput:focus,
-.businessFinalInput .businessFinalNativeInput:active,
-.businessFinalInput .businessFinalNativeInput:disabled,
-.businessFinalInput .businessFinalNativeInput:-webkit-autofill{
-  color:transparent!important;
-  -webkit-text-fill-color:transparent!important;
-  caret-color:#1f2937!important;
-  background:transparent!important;
-  background-image:none!important;
-  border:0!important;
-  outline:0!important;
-  box-shadow:none!important;
-  -webkit-box-shadow:none!important;
-  opacity:1!important;
+/* Final single-layer fields: outer shell owns border; native input owns text only. */
+.businessFinalInput input,
+.businessFinalInput input:hover,
+.businessFinalInput input:focus,
+.businessFinalInput input:focus-visible,
+.businessFinalInput input:active,
+.businessFinalInput input:disabled,
+.businessFinalInput input:-webkit-autofill{
+  all:unset!important;display:block!important;flex:1 1 auto!important;width:100%!important;min-width:0!important;
+  color:#1f2937!important;-webkit-text-fill-color:#1f2937!important;caret-color:#1f2937!important;
+  background:transparent!important;background-image:none!important;border:0!important;outline:0!important;
+  box-shadow:none!important;-webkit-box-shadow:none!important;border-radius:0!important;
+  font:inherit!important;line-height:1.2!important;
 }
-.businessFinalInput .businessFinalNativeInput::placeholder{
-  color:transparent!important;
-  -webkit-text-fill-color:transparent!important;
-  opacity:0!important;
-}
+.businessFinalInput input::placeholder{color:#7b8490!important;-webkit-text-fill-color:#7b8490!important;opacity:.9!important;font-weight:400!important}
+.businessFinalInput input:disabled::placeholder{color:#8d96a2!important;-webkit-text-fill-color:#8d96a2!important;opacity:.82!important}
