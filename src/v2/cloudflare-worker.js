@@ -1,10 +1,11 @@
 const NO_STORE='no-store, no-cache, must-revalidate, max-age=0';
 const EVIDENCE=new Set(['/torvo-build-sha.txt','/torvo-build-manifest.json','/torvo-build-manifest.txt']);
-const HTML=new Set(['/','/index.html']);
+const HTML=new Set(['/','/index.html','/business-login.html']);
 export default{
   async fetch(request,env){
     const url=new URL(request.url);
-    const response=await env.ASSETS.fetch(request);
+    let response=await env.ASSETS.fetch(request);
+    if(url.pathname==='/business-login.html'&&response.status===404){const assetUrl=new URL('/business-login.html',url);response=await env.ASSETS.fetch(new Request(assetUrl,request));}
     if(!EVIDENCE.has(url.pathname)&&!HTML.has(url.pathname))return response;
     const headers=new Headers(response.headers);
     headers.set('Cache-Control',NO_STORE);
