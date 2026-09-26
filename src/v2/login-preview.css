@@ -84,9 +84,6 @@
   .businessFinalCard{padding-top:7px;padding-bottom:8px}.businessFinalInfo{padding-top:4px;padding-bottom:4px}.businessFinalInput{min-height:35px}.businessFinalPrimary{min-height:35px}
 }
 
-/* Final clean field treatment: validation is shown by icon/status, never by a red/green field outline. */
-.businessFinalInput,.businessFinalInput:focus-within,.businessFinalInput.isValid,.businessFinalInput.isInvalid{border-color:#d7dde5!important;box-shadow:none!important}
-.businessFinalInput input,.businessFinalInput input:focus{border:0!important;outline:0!important;box-shadow:none!important}
 @media(max-width:600px) and (min-height:701px){
   .businessFinalFormSide{padding:10px 9px 12px}
   .businessFinalCard{padding:14px 14px 15px}
@@ -101,10 +98,6 @@
 }
 
 /* Mobile visual polish: one field shell only and a stronger, roomier TORVO hero. */
-.businessFinalInput input,.businessFinalInput input:hover,.businessFinalInput input:focus,.businessFinalInput input:active{
-  border:0!important;outline:0!important;box-shadow:none!important;background:transparent!important;border-radius:0!important;
-  -webkit-appearance:none!important;appearance:none!important;
-}
 @media(max-width:600px){
   .businessFinalHero{background-size:48% auto;background-position:right 5% center}
   .businessFinalHeroContent{padding:15px 15px 13px;gap:7px 12px}
@@ -140,34 +133,39 @@
   .businessFinalCard{justify-content:space-between}
 }
 
-/* Owner mobile polish: stable black hero, strong red actions, and exactly one field boundary. */
 .businessFinalHero{background-color:#080b0f;background-image:none!important}
 .businessFinalHero:after{display:none!important}
 .businessFinalHeroShade{background:linear-gradient(120deg,rgba(255,255,255,.025),transparent 48%,rgba(255,255,255,.018))!important}
-.businessFinalPrimary,.businessFinalPrimary:disabled{background:#ed111c!important;color:#fff!important;opacity:1!important}
-.businessFinalPrimary:disabled{cursor:not-allowed;box-shadow:none!important}
-.businessFinalInput{border:1px solid #d7dde5!important;box-shadow:none!important;background:#fff!important}
-.businessFinalInput input,.businessFinalInput input:hover,.businessFinalInput input:focus,.businessFinalInput input:active,.businessFinalInput input:disabled{
-  display:block!important;width:100%!important;min-width:0!important;padding:0!important;margin:0!important;
-  border:none!important;border-width:0!important;border-style:none!important;border-color:transparent!important;
-  outline:none!important;box-shadow:none!important;background:none!important;background-color:transparent!important;
   border-radius:0!important;-webkit-appearance:none!important;appearance:none!important;
 }
 
-/* Single-shell fields: darker outer border; neutralize browser autofill/focus inner paint. */
-.businessFinalInput,.businessFinalInput:focus-within,.businessFinalInput.isValid,.businessFinalInput.isInvalid{
-  border:1.25px solid #aeb7c4!important;outline:0!important;box-shadow:none!important;background:#fff!important;
-}
-.businessFinalInput input,.businessFinalInput input:focus,.businessFinalInput input:focus-visible,.businessFinalInput input:-webkit-autofill,.businessFinalInput input:-webkit-autofill:hover,.businessFinalInput input:-webkit-autofill:focus{
-  border:0!important;outline:0!important;outline-offset:0!important;box-shadow:0 0 0 1000px #fff inset!important;
-  -webkit-box-shadow:0 0 0 1000px #fff inset!important;background-color:#fff!important;background-image:none!important;
-}
 
-/* Final field/button cleanup: suppress inherited/global focus ring inside the single shell. */
-.businessFinalInput,.businessFinalInput *,.businessFinalInput *:focus,.businessFinalInput *:focus-visible{
-  outline:none!important;outline-width:0!important;outline-offset:0!important;
+/* Authoritative Business Login field/action style — keep one shell only. */
+.businessFinalInput,
+.businessFinalInput:focus-within,
+.businessFinalInput.isValid,
+.businessFinalInput.isInvalid{
+  border:1.25px solid #aeb7c4!important;
+  outline:none!important;
+  box-shadow:none!important;
+  background:#fff!important;
 }
-.businessFinalInput input,.businessFinalInput input:focus,.businessFinalInput input:focus-visible{
-  border:0!important;box-shadow:none!important;-webkit-box-shadow:none!important;background:transparent!important;
+.businessFinalInput input,
+.businessFinalInput input:hover,
+.businessFinalInput input:focus,
+.businessFinalInput input:focus-visible,
+.businessFinalInput input:active,
+.businessFinalInput input:disabled,
+.businessFinalInput input:-webkit-autofill,
+.businessFinalInput input:-webkit-autofill:hover,
+.businessFinalInput input:-webkit-autofill:focus{
+  width:100%!important;min-width:0!important;margin:0!important;padding:0!important;
+  border:0!important;outline:0!important;box-shadow:none!important;-webkit-box-shadow:none!important;
+  background:transparent!important;background-image:none!important;border-radius:0!important;
+  -webkit-appearance:none!important;appearance:none!important;
 }
-.businessFinalPrimary{font-weight:800!important;letter-spacing:.02em}
+.businessFinalPrimary,.businessFinalPrimary:disabled{
+  background:#ed111c!important;color:#fff!important;opacity:1!important;
+  font-size:12px!important;font-weight:800!important;letter-spacing:.01em!important;
+}
+.businessFinalPrimary:disabled{cursor:not-allowed;box-shadow:none!important}
