@@ -185,3 +185,45 @@
   background:currentColor;vertical-align:-.12em;animation:businessFinalCaretBlink 1s steps(1,end) infinite;
 }
 @keyframes businessFinalCaretBlink{0%,48%{opacity:1}49%,100%{opacity:0}}
+
+
+/* Native field rendering: browser caret follows the typed text exactly. */
+.businessFinalInput .businessFinalNativeInput,
+.businessFinalInput .businessFinalNativeInput:hover,
+.businessFinalInput .businessFinalNativeInput:focus,
+.businessFinalInput .businessFinalNativeInput:focus-visible,
+.businessFinalInput .businessFinalNativeInput:active,
+.businessFinalInput .businessFinalNativeInput:disabled,
+.businessFinalInput .businessFinalNativeInput:-webkit-autofill{
+  position:static!important;
+  inset:auto!important;
+  z-index:auto!important;
+  flex:1 1 auto!important;
+  width:100%!important;
+  height:auto!important;
+  min-width:0!important;
+  margin:0!important;
+  padding:0!important;
+  opacity:1!important;
+  color:#1f2937!important;
+  -webkit-text-fill-color:#1f2937!important;
+  caret-color:#1f2937!important;
+  background:transparent!important;
+  background-image:none!important;
+  border:0!important;
+  outline:0!important;
+  box-shadow:none!important;
+  -webkit-box-shadow:none!important;
+  appearance:none!important;
+  -webkit-appearance:none!important;
+}
+.businessFinalInput .businessFinalNativeInput::placeholder{
+  color:#7b8490!important;
+  opacity:.72!important;
+  -webkit-text-fill-color:#7b8490!important;
+}
+.businessFinalInput .businessFinalNativeInput:disabled{
+  color:#98a2b3!important;
+  -webkit-text-fill-color:#98a2b3!important;
+  caret-color:transparent!important;
+}
