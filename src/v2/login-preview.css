@@ -164,7 +164,7 @@
 .businessFinalNativeInput:-webkit-autofill{
   position:absolute!important;inset:0!important;z-index:2!important;
   width:100%!important;height:100%!important;margin:0!important;padding:0!important;
-  opacity:1!important;color:transparent!important;-webkit-text-fill-color:transparent!important;caret-color:#1f2937!important;
+  opacity:1!important;color:transparent!important;-webkit-text-fill-color:transparent!important;caret-color:transparent!important;
   background:transparent!important;background-image:none!important;
   border:0!important;outline:0!important;box-shadow:none!important;-webkit-box-shadow:none!important;
   appearance:none!important;-webkit-appearance:none!important;
@@ -179,3 +179,9 @@
 @media(max-width:600px){
   .businessFinalFieldText{font-size:13px}
 }
+
+.businessFinalCaret{
+  display:inline-block;width:1.5px;height:1.05em;margin-left:1px;
+  background:currentColor;vertical-align:-.12em;animation:businessFinalCaretBlink 1s steps(1,end) infinite;
+}
+@keyframes businessFinalCaretBlink{0%,48%{opacity:1}49%,100%{opacity:0}}
