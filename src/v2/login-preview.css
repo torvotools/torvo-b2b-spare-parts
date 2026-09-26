@@ -188,3 +188,27 @@
   opacity:0!important;cursor:text!important;
 }
 .businessFinalNativeInput:disabled{cursor:not-allowed!important}
+
+/* Final interaction-only native field: never paint native text/placeholder on Vivo Chromium. */
+.businessFinalInput .businessFinalNativeInput,
+.businessFinalInput .businessFinalNativeInput:hover,
+.businessFinalInput .businessFinalNativeInput:focus,
+.businessFinalInput .businessFinalNativeInput:active,
+.businessFinalInput .businessFinalNativeInput:disabled,
+.businessFinalInput .businessFinalNativeInput:-webkit-autofill{
+  color:transparent!important;
+  -webkit-text-fill-color:transparent!important;
+  caret-color:#1f2937!important;
+  background:transparent!important;
+  background-image:none!important;
+  border:0!important;
+  outline:0!important;
+  box-shadow:none!important;
+  -webkit-box-shadow:none!important;
+  opacity:1!important;
+}
+.businessFinalInput .businessFinalNativeInput::placeholder{
+  color:transparent!important;
+  -webkit-text-fill-color:transparent!important;
+  opacity:0!important;
+}
