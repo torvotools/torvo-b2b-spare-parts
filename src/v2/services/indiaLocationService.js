@@ -1,7 +1,24 @@
-const DISTRICTS_URL='https://raw.githubusercontent.com/KTBsomen/Indian-state-district-json/main/india-states-districts-latest.json';
-const DISTRICT_LOCALITIES_URL='https://gist.githubusercontent.com/Keshava11/aace79cf260e7955ac1768d3ad6e24bd/raw/districts_block_map.json';
-const FALLBACK_STATES=['Andaman and Nicobar Islands','Andhra Pradesh','Arunachal Pradesh','Assam','Bihar','Chandigarh','Chhattisgarh','Dadra and Nagar Haveli and Daman and Diu','Delhi','Goa','Gujarat','Haryana','Himachal Pradesh','Jammu and Kashmir','Jharkhand','Karnataka','Kerala','Ladakh','Lakshadweep','Madhya Pradesh','Maharashtra','Manipur','Meghalaya','Mizoram','Nagaland','Odisha','Puducherry','Punjab','Rajasthan','Sikkim','Tamil Nadu','Telangana','Tripura','Uttar Pradesh','Uttarakhand','West Bengal'];
+// TORVO V2 location UI must use the authoritative Supabase location master only.
+// Official source of truth for imports/refreshes: Government of India LGD / OGD datasets.
+// Do not silently fall back to third-party GitHub/Gist geography because that can mix
+// stale or incomplete districts/localities into customer and dealer records.
+//
+// This compatibility service remains only for callers that have not yet been migrated.
+// Fail closed: an unavailable authoritative master must be visible to the UI/admin
+// instead of being disguised by guessed geography.
 let cache;
-const clean=v=>String(v||'').trim();
-const key=v=>clean(v).toUpperCase().replace(/&/g,'AND').replace(/[^A-Z0-9]/g,'');
-export async function loadIndiaLocations(){if(cache)return cache;cache=(async()=>{let stateDistricts=[],districtLocalities=[];try{const r=await fetch(DISTRICTS_URL);if(!r.ok)throw new Error('district data unavailable');stateDistricts=await r.json()}catch{stateDistricts=FALLBACK_STATES.map(state=>({state,districts:[]}))}try{const r=await fetch(DISTRICT_LOCALITIES_URL);if(!r.ok)throw new Error('district locality data unavailable');districtLocalities=await r.json()}catch{districtLocalities=[]}const districtMap=new Map(stateDistricts.map(x=>[clean(x.state),[...new Set((x.districts||[]).map(clean).filter(Boolean))].sort((a,b)=>a.localeCompare(b))]));for(const s of FALLBACK_STATES)if(!districtMap.has(s))districtMap.set(s,[]);const localityMap=new Map;for(const row of districtLocalities){const districtKey=key(row.name);if(!districtKey)continue;const names=(row.blockList||[]).map(x=>clean(x.name)).filter(Boolean);if(!localityMap.has(districtKey))localityMap.set(districtKey,new Set);for(const name of names)localityMap.get(districtKey).add(name)}const haryanaMahendragarh=['ATELI','KANINA','MAHENDRAGARH','NANGAL CHAUDHRY','NARNAUL','SATNALI'];const mhKey=key('MAHENDRAGARH');if(!localityMap.has(mhKey))localityMap.set(mhKey,new Set);for(const name of haryanaMahendragarh)localityMap.get(mhKey).add(name);return{states:[...districtMap.keys()].sort((a,b)=>a.localeCompare(b)),districts:state=>districtMap.get(state)||[],cities:(state,district)=>{if(!state||!district)return[];return[...(localityMap.get(key(district))||[])].sort((a,b)=>a.localeCompare(b))},sourceStatus:{districts:stateDistricts.length>0,localities:districtLocalities.length>0}}})();return cache}
+export async function loadIndiaLocations(){
+  if(cache)return cache;
+  cache=Promise.resolve({
+    states:[],
+    districts:()=>[],
+    cities:()=>[],
+    sourceStatus:{
+      authoritative:false,
+      districts:false,
+      localities:false,
+      reason:'AUTHORITATIVE LOCATION MASTER REQUIRED'
+    }
+  });
+  return cache;
+}
