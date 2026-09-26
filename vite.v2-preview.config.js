@@ -4,6 +4,7 @@ import { resolve } from 'node:path'
 
 export default defineConfig({
   plugins: [react()],
+  resolve: { alias: { '@business-login-entry': resolve(process.cwd(), 'src/v2/business-login-main.jsx') } },
   build: {
     rollupOptions: {
       input: {
