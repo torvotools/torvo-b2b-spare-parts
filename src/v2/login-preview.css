@@ -254,3 +254,24 @@
   box-shadow:0 0 0 1000px #fff inset!important;
   border:0!important;
 }
+
+
+/* Placeholder is deliberately outside the native input to avoid Android/Chrome inner highlight paint. */
+.businessFinalPlaceholder{
+  position:absolute;
+  left:44px;
+  right:12px;
+  top:50%;
+  transform:translateY(-50%);
+  z-index:1;
+  pointer-events:none;
+  color:#7b8490;
+  opacity:.72;
+  font-size:15px;
+  font-weight:400;
+  line-height:1.2;
+  white-space:nowrap;
+  overflow:hidden;
+}
+.businessFinalInput .businessFinalNativeInput{position:relative!important;z-index:2!important}
+@media(max-width:600px){.businessFinalPlaceholder{left:37px;font-size:13px}}
