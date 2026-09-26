@@ -176,8 +176,9 @@ export default function LoginVisualPreview() {
                 autoCorrect="off"
                 autoCapitalize="characters"
                 spellCheck={false}
-                placeholder="ENTER YOUR USER ID"
+                placeholder=""
               />
+              {!username && <span className="businessFinalPlaceholder">ENTER YOUR USER ID</span>}
               {userValid ? <CheckCircle2 className="businessFinalGood" /> : (userInvalid ? <XCircle className="businessFinalBad" /> : null)}
             </div>
           </label>
@@ -215,8 +216,9 @@ export default function LoginVisualPreview() {
                 inputMode="numeric"
                 autoComplete="one-time-code"
                 maxLength={6}
-                placeholder={otpSent ? 'ENTER 6-DIGIT OTP' : 'SEND OTP FIRST'}
+                placeholder=""
               />
+              {!otp && <span className="businessFinalPlaceholder">{otpSent ? 'ENTER 6-DIGIT OTP' : 'SEND OTP FIRST'}</span>}
               {otpSent && otpReady && <CheckCircle2 className="businessFinalGood" />}
             </div>
           </label>
