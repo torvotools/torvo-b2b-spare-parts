@@ -136,10 +136,6 @@
 .businessFinalHero{background-color:#080b0f;background-image:none!important}
 .businessFinalHero:after{display:none!important}
 .businessFinalHeroShade{background:linear-gradient(120deg,rgba(255,255,255,.025),transparent 48%,rgba(255,255,255,.018))!important}
-  border-radius:0!important;-webkit-appearance:none!important;appearance:none!important;
-}
-
-
 /* Authoritative Business Login field/action style — keep one shell only. */
 .businessFinalInput,
 .businessFinalInput:focus-within,
