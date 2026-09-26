@@ -227,3 +227,30 @@
   -webkit-text-fill-color:#98a2b3!important;
   caret-color:transparent!important;
 }
+
+
+/* Root fix: keep the browser-native caret/text, but suppress every inner field paint layer. */
+.businessFinalInput .businessFinalNativeInput,
+.businessFinalInput .businessFinalNativeInput:hover,
+.businessFinalInput .businessFinalNativeInput:focus,
+.businessFinalInput .businessFinalNativeInput:focus-visible,
+.businessFinalInput .businessFinalNativeInput:active{
+  background-color:transparent!important;
+  background-image:none!important;
+  border:none!important;
+  border-color:transparent!important;
+  border-radius:0!important;
+  outline:none!important;
+  box-shadow:none!important;
+  -webkit-box-shadow:none!important;
+  filter:none!important;
+}
+.businessFinalInput .businessFinalNativeInput::before,
+.businessFinalInput .businessFinalNativeInput::after{content:none!important;display:none!important}
+.businessFinalInput .businessFinalNativeInput:-webkit-autofill,
+.businessFinalInput .businessFinalNativeInput:-webkit-autofill:hover,
+.businessFinalInput .businessFinalNativeInput:-webkit-autofill:focus{
+  -webkit-box-shadow:0 0 0 1000px #fff inset!important;
+  box-shadow:0 0 0 1000px #fff inset!important;
+  border:0!important;
+}
