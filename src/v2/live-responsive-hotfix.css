@@ -956,3 +956,22 @@
  .dealerFinderPublic>.errorText{font-size:8px!important;margin:0!important}
  .dealerFinderPublic .otherCityInput{margin-top:4px!important}
 }
+
+
+/* TORVO UNIFIED CONTROL VISIBILITY + DEALER FINDER TYPOGRAPHY — 2026-09-26 */
+#torvo-v2-root{--torvo-control-border:#aeb4bd;--torvo-control-border-focus:#d71920;--torvo-label:#41464f;--torvo-muted:#646a73}
+#torvo-v2-root input,#torvo-v2-root select,#torvo-v2-root textarea,#torvo-v2-root .publicHeroSearchBar,#torvo-v2-root .publicTopFinder input,#torvo-v2-root .publicTopFinder select{border-color:var(--torvo-control-border)!important}
+#torvo-v2-root input:focus,#torvo-v2-root select:focus,#torvo-v2-root textarea:focus{border-color:var(--torvo-control-border-focus)!important;box-shadow:0 0 0 2px rgba(215,25,32,.08)!important}
+#torvo-v2-root .publicForm label,#torvo-v2-root .smartFinderFilters label{color:var(--torvo-label)!important}
+#torvo-v2-root .dealerFinderPublic>.dealerResultNotice{background:linear-gradient(135deg,#fff4f5,#f7f8fa)!important;border:1px solid #e2aeb2!important;border-left:4px solid #d71920!important;color:#22262c!important}
+#torvo-v2-root .dealerFinderPublic>.dealerResultNotice span{display:grid!important;gap:3px!important;min-width:0!important}
+#torvo-v2-root .dealerFinderPublic>.dealerResultNotice b{color:#b9151b!important;line-height:1.25!important}
+#torvo-v2-root .dealerFinderPublic>.dealerResultNotice small{color:#555b64!important;line-height:1.4!important;letter-spacing:.05px!important}
+#torvo-v2-root .dealerFinderPublic>.dealerFinderPrivacy{display:block!important;padding:6px 8px!important;border-radius:7px!important;background:#f3f4f6!important;border-left:3px solid #d71920!important;color:#4f555e!important;line-height:1.4!important;letter-spacing:.05px!important}
+#torvo-v2-root .dealerFinderPublic>.useLocationButton{border-color:#b8bec6!important;background:#fff!important;color:#292e35!important}
+@media(max-width:820px){
+ #torvo-v2-root .dealerFinderPublic label{font-size:8px!important;font-weight:800!important;color:#3f444c!important}
+ #torvo-v2-root .dealerFinderPublic>.dealerResultNotice b{font-size:9px!important}
+ #torvo-v2-root .dealerFinderPublic>.dealerResultNotice small{font-size:7.5px!important}
+ #torvo-v2-root .dealerFinderPublic>.dealerFinderPrivacy{font-size:7.5px!important}
+}
