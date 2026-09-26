@@ -159,9 +159,9 @@ export default function LoginVisualPreview() {
 
           <label className="businessFinalLabel">
             USER ID
-            <div className={`businessFinalInput ${userValid ? 'isValid' : (userInvalid ? 'isInvalid' : '')}`}>
-              <UserRound />
-              <input className="businessFinalNativeInput"
+            <div className={`businessFinalUserField ${userValid ? 'isValid' : (userInvalid ? 'isInvalid' : '')}`}>
+              <UserRound className="businessFinalUserIcon" />
+              <input className="businessFinalUserInput"
                 aria-label="USER ID"
                 value={username}
                 onChange={(event) => changeUser(event.target.value)}
