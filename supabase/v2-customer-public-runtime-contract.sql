@@ -85,3 +85,37 @@ select '7027751533',
  coalesce(referral_enabled,true),coalesce(repair_service_enabled,true),coalesce(customer_catalog_enabled,true)
 from safe$$;
 revoke all on function public_business_settings() from public;grant execute on function public_business_settings() to anon,authenticated;
+
+
+-- PUBLIC DEALER FINDER CUSTOMER HISTORY
+create table if not exists public.customer_dealer_finder_interests(
+ id uuid primary key default gen_random_uuid(),
+ customer_id uuid not null references public.customer_contacts(id) on delete restrict,
+ state text,
+ district text,
+ city text,
+ pin_code text not null check(pin_code ~ '^[0-9]{6}$'),
+ created_at timestamptz not null default now()
+);
+alter table public.customer_dealer_finder_interests enable row level security;
+revoke all on public.customer_dealer_finder_interests from anon,authenticated;
+create index if not exists customer_dealer_finder_interests_customer_created_idx on public.customer_dealer_finder_interests(customer_id,created_at desc);
+create index if not exists customer_dealer_finder_interests_pin_created_idx on public.customer_dealer_finder_interests(pin_code,created_at desc);
+
+create or replace function public.public_record_dealer_finder_interest(p_customer_name text,p_mobile_whatsapp text,p_state text,p_district text,p_city text,p_pin_code text,p_marketing_opt_in boolean default false)
+returns table(interest_id uuid,customer_id uuid)
+language plpgsql security definer set search_path=public as $$declare m text:=right(regexp_replace(coalesce(p_mobile_whatsapp,''),'\D','','g'),10);c customer_contacts%rowtype;i uuid;begin
+ if length(m)<>10 then raise exception '10-DIGIT MOBILE / WHATSAPP REQUIRED';end if;
+ if btrim(coalesce(p_pin_code,''))!~'^[0-9]{6}$' then raise exception '6-DIGIT PIN CODE REQUIRED';end if;
+ if length(btrim(coalesce(p_customer_name,'')))<2 then raise exception 'CUSTOMER NAME REQUIRED';end if;
+ if length(btrim(coalesce(p_state,'')))<2 or length(btrim(coalesce(p_district,'')))<2 or length(btrim(coalesce(p_city,'')))<2 then raise exception 'STATE, DISTRICT AND CITY REQUIRED';end if;
+ insert into customer_contacts(full_name,mobile,whatsapp,pin_code,marketing_opt_in,marketing_opt_in_at,marketing_opt_in_source,marketing_opt_out_at,consent_updated_at,updated_at)
+ values(upper(btrim(p_customer_name)),m,m,btrim(p_pin_code),coalesce(p_marketing_opt_in,false),case when p_marketing_opt_in then now() end,'PUBLIC DEALER FINDER',case when not coalesce(p_marketing_opt_in,false) then now() end,now(),now())
+ on conflict(mobile) do update set full_name=excluded.full_name,whatsapp=excluded.whatsapp,pin_code=excluded.pin_code,marketing_opt_in=excluded.marketing_opt_in,marketing_opt_in_at=case when excluded.marketing_opt_in then coalesce(customer_contacts.marketing_opt_in_at,now()) else null end,marketing_opt_in_source='PUBLIC DEALER FINDER',marketing_opt_out_at=case when excluded.marketing_opt_in then null else now() end,consent_updated_at=now(),updated_at=now()
+ returning * into c;
+ insert into customer_marketing_consent_events(customer_id,opted_in,source) values(c.id,coalesce(p_marketing_opt_in,false),'PUBLIC DEALER FINDER');
+ insert into customer_dealer_finder_interests(customer_id,state,district,city,pin_code) values(c.id,upper(btrim(p_state)),upper(btrim(p_district)),upper(btrim(p_city)),btrim(p_pin_code)) returning id into i;
+ return query select i,c.id;
+end$$;
+revoke all on function public.public_record_dealer_finder_interest(text,text,text,text,text,text,boolean) from public;
+grant execute on function public.public_record_dealer_finder_interest(text,text,text,text,text,text,boolean) to anon,authenticated;

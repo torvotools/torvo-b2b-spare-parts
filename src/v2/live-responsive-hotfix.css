@@ -914,3 +914,22 @@
  .publicModal.customerJourney .dealerFinderPublic>.formTwo>label{display:block!important;min-width:0!important;width:auto!important;margin:0!important}
  .publicModal.customerJourney .dealerFinderPublic>.formTwo>label>select,.publicModal.customerJourney .dealerFinderPublic>.formTwo>label>input{width:100%!important;min-width:0!important;max-width:100%!important;box-sizing:border-box!important}
 }
+
+
+/* OWNER DESKTOP REGRESSION GUARD — 2026-09-26
+   Mobile overrides must never collapse or reposition the desktop public header. */
+@media(min-width:821px){
+ #torvo-v2-root>.publicSite>header.publicHeader.compact.topSearchHeader{
+  position:sticky!important;top:0!important;height:72px!important;min-height:72px!important;
+  display:grid!important;grid-template-columns:auto minmax(360px,1fr) 46px auto!important;
+  grid-template-areas:"brand search filter nav"!important;align-items:center!important;
+  gap:12px!important;padding:0 max(18px,calc((100vw - 1320px)/2))!important;
+  background:#fffffff2!important
+ }
+ #torvo-v2-root>.publicSite>header .publicBrand{grid-area:brand!important}
+ #torvo-v2-root>.publicSite>header .headerSearchOnly{grid-area:search!important;width:100%!important;min-width:0!important}
+ #torvo-v2-root>.publicSite>header .headerFilterOnly{grid-area:filter!important;position:relative!important;inset:auto!important;width:46px!important;height:40px!important}
+ #torvo-v2-root>.publicSite>header .desktopPublicNav{grid-area:nav!important;display:flex!important;margin:0!important;gap:12px!important;align-items:center!important;white-space:nowrap!important}
+ #torvo-v2-root>.publicSite>header .desktopOnly{display:flex!important}
+ #torvo-v2-root>.publicSite>header .mobileOnly{display:none!important}
+}
