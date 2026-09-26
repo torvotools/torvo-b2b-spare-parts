@@ -7,6 +7,7 @@ on:
       - 'src/v2/**'
       - 'v2.html'
       - 'business-login.html'
+      - 'wrangler.jsonc'
       - 'package.json'
       - 'capacitor.config.json'
       - 'scripts/**'
