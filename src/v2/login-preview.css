@@ -1,0 +1,367 @@
+.loginPreview{min-height:100vh;display:grid;grid-template-columns:minmax(0,1.15fr) minmax(420px,.85fr);background:linear-gradient(135deg,#101828 0%,#1d2939 48%,#f8fafc 48%,#fff 100%);color:#172033}.loginBrand{display:flex;align-items:center;padding:clamp(32px,7vw,100px);color:#fff}.loginBrandInner{max-width:650px}.loginMark{width:68px!important;height:68px!important;font-size:32px!important;margin-bottom:28px}.loginBrand h1{font-size:clamp(38px,5vw,72px);line-height:1.02;letter-spacing:-.045em;margin:15px 0 20px}.loginBrand p{max-width:580px;color:#d0d5dd;font-size:clamp(15px,1.5vw,19px);line-height:1.7}.loginTrust{display:flex;gap:10px;flex-wrap:wrap;margin-top:30px}.loginTrust span{display:inline-flex;align-items:center;gap:7px;padding:9px 12px;border:1px solid #475467;border-radius:999px;background:rgba(255,255,255,.06);font-size:10px;font-weight:800;letter-spacing:.04em}.loginCardWrap{display:grid;place-items:center;padding:clamp(20px,5vw,70px)}.loginCard{width:min(100%,470px);padding:clamp(24px,4vw,42px);border:1px solid #eaecf0;border-radius:28px;background:rgba(255,255,255,.96);box-shadow:0 30px 80px rgba(16,24,40,.16);backdrop-filter:blur(16px)}.loginCardHead{display:flex;align-items:center;gap:11px;margin-bottom:30px}.loginCardHead>div:last-child{display:grid}.loginCardHead strong{font-size:21px;letter-spacing:.04em}.loginCardHead span{font-size:10px;color:#667085;font-weight:700}.loginCard h2{font-size:32px;margin:8px 0}.loginIntro{color:#667085;line-height:1.55;margin:0 0 24px}.loginCard label{display:grid;gap:7px;margin:15px 0;font-size:11px;font-weight:800;color:#344054;letter-spacing:.03em}.loginCard input{width:100%;box-sizing:border-box;min-height:50px;border:1px solid #d0d5dd;border-radius:13px;padding:0 14px;background:#f9fafb;color:#667085}.pinPreview{display:flex;align-items:center;gap:8px;border:1px solid #d0d5dd;border-radius:13px;padding-left:13px;background:#f9fafb}.pinPreview input{border:0!important;box-shadow:none!important;background:transparent}.loginButton{width:100%;min-height:52px;margin-top:10px;display:flex;align-items:center;justify-content:center;gap:8px;border:0;color:#fff}.loginNote{display:flex;gap:9px;align-items:flex-start;margin-top:20px;padding:12px;border-radius:13px;background:#f2f4f7;color:#475467;font-size:11px;line-height:1.45}.loginNote svg{flex:0 0 auto;color:#b42318}@media(max-width:900px){.loginPreview{grid-template-columns:1fr;background:linear-gradient(180deg,#101828 0,#1d2939 36%,#f5f7fa 36%,#f5f7fa 100%)}.loginBrand{padding:36px 22px 72px}.loginBrand h1{font-size:40px}.loginBrand p{font-size:15px}.loginCardWrap{padding:0 14px 35px;margin-top:-38px}.loginCard{width:min(100%,520px);box-sizing:border-box}}@media(max-width:480px){.loginBrand{padding:26px 16px 62px}.loginMark{width:54px!important;height:54px!important;font-size:25px!important;margin-bottom:18px}.loginBrand h1{font-size:32px;margin:10px 0 14px}.loginTrust span{font-size:8px;padding:7px 9px}.loginCard{padding:22px 17px;border-radius:22px}.loginCard h2{font-size:27px}.loginCardWrap{padding-left:10px;padding-right:10px}}
+
+
+/* Desktop/laptop viewport-fit correction: keep the secure login fully visible
+   without browser zoom while preserving the existing mobile composition. */
+@media (min-width:901px){
+ .loginPreview{height:100dvh;min-height:0;overflow:hidden;grid-template-columns:minmax(0,1.08fr) minmax(360px,.92fr)}
+ .loginBrand{padding:clamp(20px,4vh,48px) clamp(28px,5vw,72px)}
+ .loginBrandInner{max-width:610px}
+ .loginMark{width:56px!important;height:56px!important;font-size:27px!important;margin-bottom:16px}
+ .loginBrand h1{font-size:clamp(30px,min(4vw,6vh),56px);margin:10px 0 14px}
+ .loginBrand p{font-size:clamp(12px,1.15vw,16px);line-height:1.5}
+ .loginTrust{margin-top:18px}
+ .loginTrust span{padding:7px 10px}
+ .loginCardWrap{padding:clamp(14px,3vh,32px) clamp(18px,3vw,44px)}
+ .loginCard{width:min(100%,440px);max-height:calc(100dvh - 28px);overflow:auto;padding:clamp(20px,3vh,32px);border-radius:24px}
+ .loginCardHead{margin-bottom:18px}
+ .loginCard h2{font-size:clamp(25px,2.2vw,31px);margin:6px 0}
+ .loginIntro{margin-bottom:15px;line-height:1.45}
+ .loginCard label{margin:10px 0}
+ .loginCard input{min-height:44px}
+ .loginButton{min-height:46px;margin-top:7px}
+ .loginNote{margin-top:13px;padding:10px}
+}
+@media (min-width:901px) and (max-height:700px){
+ .loginFeatureRow,.loginTrust{margin-top:10px}
+ .loginBrand p{line-height:1.35}
+ .loginCard{padding:16px 20px}
+ .loginCardHead{margin-bottom:12px}
+ .loginIntro{margin-bottom:10px}
+ .loginCard label{margin:7px 0}
+ .loginTrustCards{gap:6px}
+}
+
+
+/* Desktop/laptop auto-fit: scale from BOTH viewport width and height.
+   Keeps the full login composition inside common laptop displays without browser zoom. */
+@media (min-width:901px){
+ .loginPreview{grid-template-columns:minmax(0,1.12fr) minmax(330px,.88fr)}
+ .loginBrand{padding:clamp(16px,3.2vh,38px) clamp(24px,4.2vw,58px)}
+ .loginBrandInner{max-width:min(590px,92%)}
+ .loginLogo{margin-bottom:clamp(6px,1.2vh,12px)}
+ .loginMark{width:clamp(42px,5.5vh,54px)!important;height:clamp(42px,5.5vh,54px)!important;font-size:clamp(21px,2.8vh,26px)!important;margin-bottom:clamp(8px,1.5vh,14px)}
+ .heroPill{font-size:clamp(8px,1.15vh,11px)!important;padding:clamp(5px,.8vh,7px) clamp(8px,1vw,11px)!important}
+ .loginBrand h1{font-size:clamp(27px,min(3.7vw,5.4vh),52px);line-height:1.01;margin:clamp(7px,1.3vh,11px) 0 clamp(9px,1.6vh,14px)}
+ .loginBrand p{font-size:clamp(10px,min(1vw,1.65vh),14px);line-height:1.4;margin:0}
+ .loginFeatureRow{margin-top:clamp(8px,1.5vh,14px)!important;gap:clamp(5px,.7vw,9px)!important}
+ .loginFeatureRow span{font-size:clamp(7px,1vh,9px)!important}
+ .loginCardWrap{padding:clamp(10px,2vh,22px) clamp(14px,2.5vw,34px)}
+ .loginCard{width:min(100%,410px);max-height:calc(100dvh - 20px);padding:clamp(14px,2.25vh,24px);border-radius:clamp(18px,2.8vh,24px);overflow:auto}
+ .loginCardHead{margin-bottom:clamp(8px,1.6vh,15px)}
+ .loginCardHead .mark{width:clamp(30px,4.5vh,38px)!important;height:clamp(30px,4.5vh,38px)!important;font-size:clamp(16px,2.4vh,21px)!important}
+ .loginCardHead strong{font-size:clamp(14px,2vh,18px)}
+ .loginCardHead span{font-size:clamp(7px,1.1vh,9px)}
+ .loginSecureBadge{font-size:clamp(7px,1.1vh,9px)!important}
+ .loginCard h2{font-size:clamp(21px,min(2vw,3.2vh),28px);margin:clamp(3px,.7vh,6px) 0}
+ .loginIntro{font-size:clamp(8px,1.25vh,11px)!important;line-height:1.35;margin-bottom:clamp(8px,1.3vh,12px)}
+ .loginCard label{gap:clamp(3px,.6vh,6px);margin:clamp(6px,1vh,9px) 0;font-size:clamp(8px,1.15vh,10px)}
+ .loginInput{min-height:clamp(34px,5.2vh,43px)!important}
+ .loginCard input{min-height:clamp(34px,5.2vh,43px);font-size:clamp(10px,1.6vh,13px)!important}
+ .loginButton{min-height:clamp(36px,5.5vh,44px);margin-top:clamp(4px,.8vh,7px);font-size:clamp(9px,1.35vh,11px)!important}
+ .loginDivider{margin:clamp(6px,1.1vh,10px) 0!important}
+ .loginDivider span{font-size:clamp(7px,1vh,9px)!important}
+ .loginTrustCards{gap:clamp(4px,.7vh,7px)!important}
+ .loginTrustCards>div{padding:clamp(5px,.8vh,8px)!important}
+ .loginTrustCards b{font-size:clamp(7px,1.05vh,9px)!important}
+ .loginTrustCards small{font-size:clamp(6px,.95vh,8px)!important}
+ .loginPreviewNote{margin-top:clamp(6px,1vh,9px)!important;font-size:clamp(6px,.95vh,8px)!important}
+}
+@media (min-width:901px) and (max-height:620px){
+ .loginBrand p{line-height:1.28}
+ .loginFeatureRow{margin-top:6px!important}
+ .loginCard{padding:11px 16px}
+ .loginCardHead{margin-bottom:6px}
+ .loginIntro{margin-bottom:5px}
+ .loginCard label{margin:4px 0}
+ .loginDivider{margin:4px 0!important}
+ .loginTrustCards{gap:3px!important}
+ .loginPreviewNote{margin-top:4px!important}
+}
+
+
+/* Login field focus: one clean border only; prevent nested pink/red focus box. */
+.loginV2 .loginInput:focus-within{border-color:#d71920!important;box-shadow:0 0 0 2px rgba(215,25,32,.08)!important}
+.loginV2 .loginInput input:focus,.loginV2 .loginInput input:focus-visible{outline:none!important;box-shadow:none!important;border:0!important}
+
+
+/* Readability correction for the three trust labels under the left-side description. */
+@media (min-width:901px){
+ .loginFeatureRow span{font-size:clamp(9px,1.3vh,11px)!important;font-weight:800;letter-spacing:.015em}
+ .loginFeatureRow svg{width:clamp(13px,1.8vh,16px)!important;height:clamp(13px,1.8vh,16px)!important}
+}
+
+
+/* Final readability pass approved from fresh visual check:
+   stronger role-card secondary text + slightly larger left trust labels. */
+@media (min-width:901px){
+ .loginFeatureRow span{font-size:clamp(10px,1.5vh,12px)!important;font-weight:850!important;line-height:1.15}
+ .loginFeatureRow svg{width:clamp(14px,2vh,17px)!important;height:clamp(14px,2vh,17px)!important}
+ .loginTrustCards small{font-size:clamp(8px,1.2vh,10px)!important;font-weight:700!important;color:#475467!important;line-height:1.25!important;opacity:1!important}
+ .loginTrustCards b{font-size:clamp(8px,1.2vh,10px)!important;color:#1d2939!important;line-height:1.2!important}
+}
+
+
+/* Approved login input appearance: no browser/autofill inner fill; typed username stays normal weight. */
+.loginV2 .loginInput input{font-weight:400!important;background:transparent!important;background-color:transparent!important}
+.loginV2 .loginInput input:focus,.loginV2 .loginInput input:focus-visible{font-weight:400!important;background:transparent!important;background-color:transparent!important}
+.loginV2 .loginInput input:-webkit-autofill,
+.loginV2 .loginInput input:-webkit-autofill:hover,
+.loginV2 .loginInput input:-webkit-autofill:focus{
+ -webkit-text-fill-color:#101828!important;
+ -webkit-box-shadow:0 0 0 1000px #fff inset!important;
+ box-shadow:0 0 0 1000px #fff inset!important;
+ font-weight:400!important;
+ caret-color:#101828!important;
+}
+
+
+/* Owner-approved final login typography tuning. */
+.loginV2 .loginInput input{color:#344054!important;font-weight:400!important}
+.loginV2 .loginInput input::placeholder{color:#667085!important;font-weight:400!important;opacity:1!important}
+.loginV2 .loginInput input:-webkit-autofill,
+.loginV2 .loginInput input:-webkit-autofill:hover,
+.loginV2 .loginInput input:-webkit-autofill:focus{
+ -webkit-text-fill-color:#344054!important;
+ -webkit-box-shadow:0 0 0 1000px transparent inset!important;
+ box-shadow:0 0 0 1000px transparent inset!important;
+ transition:background-color 99999s ease-out 0s!important;
+ font-weight:400!important;
+}
+.loginV2 .loginDivider span{font-weight:500!important;color:#475467!important}
+@media (min-width:901px){
+ .loginTrustCards b{font-size:clamp(7px,1.08vh,9px)!important;font-weight:700!important;color:#344054!important}
+ .loginTrustCards small{font-size:clamp(7px,1.05vh,9px)!important;font-weight:500!important;color:#475467!important;line-height:1.22!important}
+}
+
+
+/* Laptop readability: typed username/email remains normal-weight but comfortably readable. */
+@media (min-width:901px){
+ .loginV2 .loginInput input{font-size:clamp(13px,1.9vh,16px)!important;font-weight:400!important;line-height:1.25!important;color:#344054!important}
+ .loginV2 .loginInput input::placeholder{font-size:clamp(11px,1.55vh,13px)!important;font-weight:400!important}
+}
+
+
+/* Password visibility control */
+.loginV2 .loginPasswordView{display:grid;place-items:center;flex:0 0 auto;width:34px;height:34px;padding:0;border:0;background:transparent;color:#667085;cursor:pointer;border-radius:8px}
+.loginV2 .loginPasswordView:hover{color:#344054;background:#f2f4f7}
+.loginV2 .loginPasswordView:focus,.loginV2 .loginPasswordView:focus-visible{outline:none;box-shadow:none}
+
+
+/* Password eye is icon-only: no square/box border or background in any state. */
+.loginV2 .loginPasswordView,
+.loginV2 .loginPasswordView:hover,
+.loginV2 .loginPasswordView:active,
+.loginV2 .loginPasswordView:focus,
+.loginV2 .loginPasswordView:focus-visible{
+ border:0!important;
+ outline:0!important;
+ background:transparent!important;
+ box-shadow:none!important;
+ border-radius:0!important;
+}
+
+
+/* Approved login CTA/icon polish */
+.loginV2 .loginButton{
+ min-height:clamp(44px,6.4vh,54px)!important;
+ font-size:clamp(12px,1.75vh,15px)!important;
+ font-weight:750!important;
+ letter-spacing:.015em!important;
+ border-radius:10px!important;
+ box-shadow:0 8px 18px rgba(215,25,32,.18)!important;
+}
+.loginV2 .loginButton svg{width:clamp(18px,2.5vh,21px)!important;height:clamp(18px,2.5vh,21px)!important;stroke-width:2.5}
+.loginV2 .loginInput>svg{color:#526b86!important;stroke-width:2.25!important}
+
+
+/* Match approved TORVO login visual: brand mark + clearly defined role cards. */
+.loginV2 .loginBrandMark,
+.loginV2 .loginBrandMarkSmall{
+ background:#ef1637!important;
+ color:#fff!important;
+ border:0!important;
+ box-shadow:0 8px 18px rgba(239,22,55,.18)!important;
+}
+.loginV2 .loginRoleCard{
+ border:1.35px solid #c7d2df!important;
+ background:#fff!important;
+ box-shadow:0 1px 2px rgba(15,23,42,.035)!important;
+}
+.loginV2 .loginRoleCard:hover{
+ border-color:#aebdcd!important;
+ background:#fff!important;
+}
+
+
+/* Exact selectors for the rendered LoginVisualPreview markup. */
+.loginV2 .loginCardHead>.mark{
+ background:#ef1637!important;
+ color:#fff!important;
+ border:0!important;
+ box-shadow:0 7px 16px rgba(239,22,55,.18)!important;
+}
+.loginV2 .loginTrustCards>div{
+ border:1.35px solid #c7d2df!important;
+ background:#fff!important;
+ border-radius:10px!important;
+ box-shadow:0 1px 2px rgba(15,23,42,.035)!important;
+}
+
+
+/* Login verification cues: verified marks sit inside fields; CTA stays pale until both fields are ready. */
+.loginV2 .loginFieldVerified{order:3;margin-left:auto;flex:0 0 auto;color:#12a150!important;stroke-width:3!important}
+.loginV2 .loginButtonWaiting,.loginV2 .loginButtonWaiting:disabled{background:#ef8b94!important;border-color:#ef8b94!important;color:#fff!important;box-shadow:none!important;cursor:not-allowed!important;opacity:1!important}
+.loginV2 .loginButtonReady{background:#d71920!important;border-color:#d71920!important;color:#fff!important;opacity:1!important;cursor:pointer!important}
+
+/* Make verified check unmistakably green and visible inside the field. */
+.loginV2 .loginFieldVerified{order:3!important;margin-left:auto!important;flex:0 0 auto!important;width:22px!important;height:22px!important;color:#079447!important;stroke:#079447!important;stroke-width:3.4!important;filter:drop-shadow(0 1px 1px rgba(7,148,71,.16))}
+.loginV2 .loginButtonReady:focus,.loginV2 .loginButtonReady:focus-visible{outline:3px solid rgba(215,25,32,.18)!important;outline-offset:3px!important}
+
+.loginV2 .loginFieldInvalid{order:3!important;margin-left:auto!important;flex:0 0 auto!important;width:22px!important;height:22px!important;color:#d71920!important;stroke:#d71920!important;stroke-width:3.4!important}
+
+
+/* OTP is a separate compact modal over the unchanged login card. */
+.loginV2 .loginOtpOverlay{position:fixed!important;inset:0!important;z-index:1000!important;display:grid!important;place-items:center!important;padding:20px!important;background:rgba(15,23,42,.32)!important;backdrop-filter:blur(2px)}
+.loginV2 .loginOtpPopup{width:min(92vw,380px)!important;background:#fff!important;border:1px solid #e4e7ec!important;border-radius:18px!important;padding:22px!important;box-shadow:0 24px 60px rgba(15,23,42,.24)!important}
+.loginV2 .loginOtpPopup h3{margin:14px 0 8px!important;font-size:20px!important;color:#101828!important}
+.loginV2 .loginOtpPopup p{margin:0 0 14px!important;font-size:12px!important;line-height:1.45!important;color:#667085!important}
+.loginV2 .loginOtpPopup small{display:block!important;margin:8px 0 4px!important;color:#667085!important;font-size:10px!important}
+.loginV2 .loginOtpPopup .loginHelp{display:block!important;margin:10px auto 0!important;border:0!important;background:transparent!important;color:#475467!important;cursor:pointer!important}
+
+.loginV2 .loginOtpPopup{position:relative!important}
+.loginV2 .loginOtpClose{position:absolute!important;top:12px!important;right:12px!important;display:grid!important;place-items:center!important;width:30px!important;height:30px!important;padding:0!important;border:0!important;background:transparent!important;color:#667085!important;cursor:pointer!important}
+.loginV2 .loginOtpClose:hover{color:#d71920!important}
+
+/* Owner-requested OTP modal alignment and simple close mark. */
+.loginV2 .loginOtpOverlay{padding:20px!important;place-items:center!important}
+.loginV2 .loginOtpPopup{position:relative!important;transform:translateX(-4%)!important}
+.loginV2 .loginOtpClose{top:12px!important;right:12px!important;left:auto!important;border:0!important;background:transparent!important;box-shadow:none!important;color:#667085!important;font-size:28px!important;font-weight:400!important;line-height:1!important}
+.loginV2 .loginOtpClose span{display:block!important;transform:translateY(-1px)}
+.loginV2 .loginOtpClose:hover{color:#d71920!important}
+@media(max-width:900px){.loginV2 .loginOtpPopup{transform:none!important}}
+
+/* Keep OTP modal exactly centered over the full login form. */
+.loginV2 .loginOtpPopup{transform:none!important}
+
+/* Center OTP against the login card itself, not the browser viewport. */
+.loginV2 .loginCard{position:relative!important}
+.loginV2 .loginOtpOverlay{position:absolute!important;inset:0!important;width:100%!important;height:100%!important;padding:16px!important;place-items:center!important;border-radius:inherit!important}
+.loginV2 .loginOtpPopup{margin:auto!important;transform:none!important}
+
+
+
+/* Final card-relative centering: no manual horizontal offset. */
+@media(min-width:901px){.loginV2 .loginOtpOverlay{left:0!important;right:0!important;margin:0!important;transform:none!important}.loginV2 .loginOtpPopup{justify-self:center!important;margin-left:auto!important;margin-right:auto!important;transform:none!important}}
+
+
+
+/* Typed values must read as entered data, not pale placeholder text. */
+.loginV2 .loginInput input:not(:placeholder-shown){color:#101828!important;-webkit-text-fill-color:#101828!important;font-weight:400!important;opacity:1!important}
+.loginV2 .loginInput input:-webkit-autofill,
+.loginV2 .loginInput input:-webkit-autofill:hover,
+.loginV2 .loginInput input:-webkit-autofill:focus{-webkit-text-fill-color:#101828!important;font-weight:400!important}
+
+/* OTP must stay fully inside the underlying login-card boundary. */
+.loginV2 .loginOtpOverlay{box-sizing:border-box!important;overflow:hidden!important}
+.loginV2 .loginOtpPopup{box-sizing:border-box!important;max-width:calc(100% - 32px)!important;justify-self:center!important;margin-left:auto!important;margin-right:auto!important;transform:none!important}
+@media(min-width:901px){.loginV2 .loginOtpPopup{left:auto!important;right:auto!important;transform:none!important}}
+
+/* Final optical calibration from owner desktop photo: tiny left correction after card-relative centering. */
+@media(min-width:901px){.loginV2 .loginOtpPopup{transform:translateX(-2.5px)!important}}
+
+
+/* Owner-approved subtle field contrast only: keep layout and validation cues unchanged. */
+.loginV2 .loginInput{border-color:#b8c2cf!important}
+.loginV2 .loginInput>svg{color:#40566f!important;stroke-width:2.35!important}
+
+
+/* FINAL APPROVED EMAIL-OTP UI — 23 Sep 2026
+   Neutral field focus (no red focus boundary), consistent validation icons,
+   45-second resend countdown and compact card-relative modal. */
+.loginV2 .loginInput:focus-within{
+ border-color:#b8c2cf!important;
+ box-shadow:none!important;
+ outline:none!important;
+}
+.loginV2 .loginInput input:focus,
+.loginV2 .loginInput input:focus-visible{
+ outline:none!important;
+ box-shadow:none!important;
+ border:0!important;
+}
+.loginV2 .loginOtpPopup{
+ width:min(92vw,420px)!important;
+ padding:24px!important;
+ border-radius:20px!important;
+}
+.loginV2 .loginOtpPopup .loginInput{
+ background:#fff!important;
+ border:1.25px solid #b8c2cf!important;
+ box-shadow:none!important;
+}
+.loginV2 .loginOtpPopup .loginInput:focus-within{
+ border-color:#9eabb9!important;
+ box-shadow:none!important;
+}
+.loginV2 .loginOtpReadonly input{
+ pointer-events:none!important;
+ color:#101828!important;
+ -webkit-text-fill-color:#101828!important;
+}
+.loginV2 .loginOtpMeta{
+ display:flex!important;
+ align-items:center!important;
+ justify-content:space-between!important;
+ gap:10px!important;
+ margin:7px 0 5px!important;
+}
+.loginV2 .loginOtpMeta small{
+ margin:0!important;
+}
+.loginV2 .loginResend{
+ border:0!important;
+ padding:0!important;
+ background:transparent!important;
+ color:#d71920!important;
+ font:inherit!important;
+ font-size:10px!important;
+ font-weight:750!important;
+ white-space:nowrap!important;
+ cursor:pointer!important;
+}
+.loginV2 .loginResend:disabled{
+ color:#667085!important;
+ cursor:default!important;
+ opacity:1!important;
+}
+
+/* Approved action behavior: CTAs always TORVO red; invalid/incomplete state is disabled by behavior only. */
+.loginV2 .loginButtonReady,
+.loginV2 .loginButtonReady:disabled{
+ background:#d71920!important;border-color:#d71920!important;color:#fff!important;opacity:1!important;
+}
+.loginV2 .loginButtonReady:disabled{cursor:not-allowed!important;box-shadow:0 8px 18px rgba(215,25,32,.18)!important}
+
+/* Refined resend control: compact status pill, not a large disabled button. */
+.loginV2 .loginResend{
+ display:inline-flex!important;align-items:center!important;gap:7px!important;
+ min-height:28px!important;padding:0 9px!important;border:1px solid #d0d5dd!important;
+ border-radius:999px!important;background:#fff!important;color:#344054!important;
+ font-size:9px!important;font-weight:700!important;letter-spacing:.01em!important;
+}
+.loginV2 .loginResend b{
+ display:inline-flex!important;align-items:center!important;justify-content:center!important;
+ min-width:43px!important;padding:3px 6px!important;border-radius:999px!important;
+ background:#f2f4f7!important;color:#667085!important;font-size:9px!important;font-weight:800!important;
+}
+.loginV2 .loginResend:not(:disabled){border-color:#d71920!important;color:#d71920!important;cursor:pointer!important}
+.loginV2 .loginResend:not(:disabled) b{background:#fff1f2!important;color:#d71920!important}
+.loginV2 .loginResend:disabled{opacity:1!important;cursor:default!important}
+
+
+/* Final approved OTP popup containment: modal must never clip or escape the login card. */
+.loginV2 .loginCard{overflow:hidden!important}
+.loginV2 .loginOtpOverlay{box-sizing:border-box!important;padding:clamp(10px,2vh,16px)!important;overflow:hidden!important}
+.loginV2 .loginOtpPopup{width:min(100%,420px)!important;max-width:100%!important;max-height:calc(100% - 4px)!important;overflow:auto!important;margin:auto!important;transform:none!important}
+@media(min-width:901px){.loginV2 .loginOtpPopup{transform:none!important}}
