@@ -136,62 +136,46 @@
 .businessFinalHero{background-color:#080b0f;background-image:none!important}
 .businessFinalHero:after{display:none!important}
 .businessFinalHeroShade{background:linear-gradient(120deg,rgba(255,255,255,.025),transparent 48%,rgba(255,255,255,.018))!important}
-/* Authoritative Business Login field/action style — keep one shell only. */
+/* Final Business Login field/action rules: one visible shell, one controlled text layer. */
 .businessFinalInput,
 .businessFinalInput:focus-within,
 .businessFinalInput.isValid,
 .businessFinalInput.isInvalid{
+  position:relative!important;
+  overflow:hidden!important;
   border:1.25px solid #aeb7c4!important;
-  outline:none!important;
+  outline:0!important;
   box-shadow:none!important;
   background:#fff!important;
 }
-.businessFinalInput input,
-.businessFinalInput input:hover,
-.businessFinalInput input:focus,
-.businessFinalInput input:focus-visible,
-.businessFinalInput input:active,
-.businessFinalInput input:disabled,
-.businessFinalInput input:-webkit-autofill,
-.businessFinalInput input:-webkit-autofill:hover,
-.businessFinalInput input:-webkit-autofill:focus{
-  all:unset!important;
-  display:block!important;flex:1 1 auto!important;width:auto!important;min-width:0!important;
-  color:#1f2937!important;font:inherit!important;line-height:1.2!important;
-  -webkit-text-fill-color:#1f2937!important;caret-color:#1f2937!important;
+.businessFinalFieldText{
+  display:block;flex:1 1 auto;min-width:0;pointer-events:none;
+  white-space:nowrap;overflow:hidden;text-overflow:clip;
+  font-size:15px;font-weight:400;line-height:1.2;
 }
+.businessFinalFieldText.hasValue{color:#1f2937}
+.businessFinalFieldText.isPlaceholder{color:#7b8490}
+.businessFinalNativeInput,
+.businessFinalNativeInput:hover,
+.businessFinalNativeInput:focus,
+.businessFinalNativeInput:focus-visible,
+.businessFinalNativeInput:active,
+.businessFinalNativeInput:disabled,
+.businessFinalNativeInput:-webkit-autofill{
+  position:absolute!important;inset:0!important;z-index:2!important;
+  width:100%!important;height:100%!important;margin:0!important;padding:0!important;
+  opacity:0!important;color:transparent!important;-webkit-text-fill-color:transparent!important;
+  background:transparent!important;background-image:none!important;
+  border:0!important;outline:0!important;box-shadow:none!important;-webkit-box-shadow:none!important;
+  appearance:none!important;-webkit-appearance:none!important;
+  cursor:text!important;
+}
+.businessFinalNativeInput:disabled{cursor:not-allowed!important}
 .businessFinalPrimary,.businessFinalPrimary:disabled{
   background:#ed111c!important;color:#fff!important;opacity:1!important;
   font-size:14px!important;font-weight:800!important;letter-spacing:.01em!important;
 }
 .businessFinalPrimary:disabled{cursor:not-allowed;box-shadow:none!important}
-
-/* Placeholder is guidance, not entered data. Suppress WebKit text-field decoration explicitly. */
-.businessFinalInput input::-webkit-textfield-decoration-container,
-.businessFinalInput input::-webkit-inner-spin-button,
-.businessFinalInput input::-webkit-outer-spin-button{
-  border:0!important;outline:0!important;box-shadow:none!important;background:transparent!important;-webkit-appearance:none!important;
+@media(max-width:600px){
+  .businessFinalFieldText{font-size:13px}
 }
-.businessFinalInput input::placeholder{color:#7b8490!important;opacity:.9!important;font-weight:400!important;-webkit-text-fill-color:#7b8490!important}
-.businessFinalInput input:disabled::placeholder{color:#8d96a2!important;opacity:.82!important;-webkit-text-fill-color:#8d96a2!important}
-
-.businessFinalInput{overflow:hidden!important}
-.businessFinalInput input{height:auto!important;min-height:0!important;background-color:transparent!important;background-clip:padding-box!important;filter:none!important;text-shadow:none!important}
-
-
-/* Final single-layer fields: outer shell owns border; native input owns text only. */
-.businessFinalInput input,
-.businessFinalInput input:hover,
-.businessFinalInput input:focus,
-.businessFinalInput input:focus-visible,
-.businessFinalInput input:active,
-.businessFinalInput input:disabled,
-.businessFinalInput input:-webkit-autofill{
-  all:unset!important;display:block!important;flex:1 1 auto!important;width:100%!important;min-width:0!important;
-  color:#1f2937!important;-webkit-text-fill-color:#1f2937!important;caret-color:#1f2937!important;
-  background:transparent!important;background-image:none!important;border:0!important;outline:0!important;
-  box-shadow:none!important;-webkit-box-shadow:none!important;border-radius:0!important;
-  font:inherit!important;line-height:1.2!important;
-}
-.businessFinalInput input::placeholder{color:#7b8490!important;-webkit-text-fill-color:#7b8490!important;opacity:.9!important;font-weight:400!important}
-.businessFinalInput input:disabled::placeholder{color:#8d96a2!important;-webkit-text-fill-color:#8d96a2!important;opacity:.82!important}
