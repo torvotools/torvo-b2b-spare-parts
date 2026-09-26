@@ -43,6 +43,7 @@ export default function LoginVisualPreview() {
   const [busy, setBusy] = useState(false);
   const [err, setErr] = useState('');
   const [notice, setNotice] = useState('');
+  const [focusedField, setFocusedField] = useState('');
 
   useEffect(() => {
     if (!otpSent || resendIn <= 0) return undefined;
@@ -161,12 +162,14 @@ export default function LoginVisualPreview() {
             USER ID
             <div className={`businessFinalInput ${userValid ? 'isValid' : (userInvalid ? 'isInvalid' : '')}`}>
               <UserRound />
-              <span className={`businessFinalFieldText ${username ? 'hasValue' : 'isPlaceholder'}`}>{username || 'ENTER YOUR USER ID'}</span>
+              <span className={`businessFinalFieldText ${username ? 'hasValue' : 'isPlaceholder'}`}>{username || 'ENTER YOUR USER ID'}{focusedField === 'user' && <i className="businessFinalCaret" />}</span>
               <input className="businessFinalNativeInput"
                 aria-label="USER ID"
                 autoFocus
                 value={username}
                 onChange={(event) => changeUser(event.target.value)}
+                onFocus={() => setFocusedField('user')}
+                onBlur={() => setFocusedField('')}
                 onKeyDown={(event) => {
                   if (event.key === 'Enter') {
                     event.preventDefault();
@@ -198,11 +201,13 @@ export default function LoginVisualPreview() {
             ENTER OTP
             <div className="businessFinalInput">
               <ShieldCheck />
-              <span className={`businessFinalFieldText ${otp ? 'hasValue' : 'isPlaceholder'}`}>{otp || (otpSent ? 'ENTER 6-DIGIT OTP' : 'SEND OTP FIRST')}</span>
+              <span className={`businessFinalFieldText ${otp ? 'hasValue' : 'isPlaceholder'}`}>{otp || (otpSent ? 'ENTER 6-DIGIT OTP' : 'SEND OTP FIRST')}{focusedField === 'otp' && otpSent && <i className="businessFinalCaret" />}</span>
               <input className="businessFinalNativeInput"
                 aria-label="ENTER OTP"
                 ref={otpRef}
                 value={otp}
+                onFocus={() => setFocusedField('otp')}
+                onBlur={() => setFocusedField('')}
                 onChange={(event) => {
                   setOtp(event.target.value.replace(/\D/g, '').slice(0, 6));
                   setErr('');
