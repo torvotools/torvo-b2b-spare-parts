@@ -1197,3 +1197,11 @@
  #torvo-v2-root>.publicSite>.publicHeader .desktopPublicNav a,#torvo-v2-root>.publicSite>.publicHeader .desktopPublicNav button{appearance:none!important;border:0!important;background:transparent!important;padding:0!important;margin:0!important;color:#17191d!important;font:inherit!important;font-size:11px!important;font-weight:700!important;line-height:1!important;text-decoration:none!important;white-space:nowrap!important;cursor:pointer!important}
 }
 @media(min-width:1280px){#torvo-v2-root>.publicSite>.publicHeader.compact.topSearchHeader{grid-template-columns:220px minmax(760px,1fr) 48px 190px!important}}
+
+/* OWNER 26 SEP — desktop TORVO DEALER is a full-width working block, not mobile-only navigation. */
+@media(min-width:821px){
+ .desktopDealerFinderBlock{width:min(1180px,calc(100% - 40px));margin:24px auto;display:grid!important;grid-template-columns:minmax(280px,.8fr) minmax(560px,1.4fr);gap:28px;padding:28px;border:1px solid #c9c9c9;background:linear-gradient(120deg,#111 0 34%,#fff 34% 100%);box-sizing:border-box}
+ .desktopDealerFinderIntro{padding:10px 20px 10px 4px;color:#fff}.desktopDealerFinderIntro span{font-size:12px;letter-spacing:.12em;color:#ff3b30}.desktopDealerFinderIntro h2{margin:8px 0 10px;font-size:clamp(24px,2.2vw,34px);line-height:1.05}.desktopDealerFinderIntro p{margin:0 0 18px;line-height:1.5;color:#ddd}
+ .desktopDealerFinderForm{background:#fff;border:1px solid #b8b8b8;padding:20px;min-width:0}.desktopDealerContactRow{display:grid;grid-template-columns:1fr 1fr;gap:14px}.desktopDealerFinderForm label{display:grid;gap:7px;font-size:12px;color:#222}.desktopDealerFinderForm input,.desktopDealerFinderForm select{width:100%;min-height:44px;border:1px solid #999;background:#fff;box-sizing:border-box}.desktopDealerFindButton{width:100%;min-height:46px;margin-top:16px}
+}
+@media(min-width:821px) and (max-width:1050px){.desktopDealerFinderBlock{grid-template-columns:1fr;}.desktopDealerFinderIntro{padding-right:4px}}
