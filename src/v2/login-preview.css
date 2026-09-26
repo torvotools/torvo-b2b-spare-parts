@@ -415,3 +415,14 @@
 }
 
 @media(max-width:600px){.businessFinalCardPortal{font-size:11px!important}}
+
+@media(max-width:600px){
+  .businessFinalHeroContent{grid-template-columns:1fr!important;gap:4px!important;align-items:start!important}
+  .businessFinalLogo{grid-column:1!important}
+  .businessFinalPortal{grid-column:1!important;margin-top:4px!important}
+  .businessFinalHero h1{grid-column:1!important;font-size:21px!important;line-height:1.02!important;margin:4px 0 5px!important;letter-spacing:-.02em!important}
+  .businessFinalHero h1 br{display:none!important}
+  .businessFinalHero h1 em{margin-left:5px!important}
+  .businessFinalTagline{grid-column:1!important;margin:2px 0 0!important;font-size:10px!important;line-height:1.25!important;letter-spacing:.06em!important}
+  .businessFinalRoles{white-space:nowrap}
+}
