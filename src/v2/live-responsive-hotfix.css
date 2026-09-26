@@ -895,3 +895,15 @@
   color:#fff!important;
  }
 }
+
+/* OWNER LIVE MOBILE HEADER CLEANUP — 2026-09-26
+   Full-width search, no upper cart, compact filter without a blank header row. */
+@media(max-width:820px){
+ #torvo-v2-root>.publicSite>header.publicHeader.compact.topSearchHeader{position:relative!important;display:grid!important;grid-template-columns:minmax(0,1fr)!important;grid-template-areas:"brand" "search"!important;padding:6px 10px 7px!important;gap:5px!important;min-height:0!important;height:auto!important}
+ #torvo-v2-root>.publicSite>header .headerSearchOnly{grid-area:search!important;width:100%!important;max-width:none!important;padding-right:0!important}
+ #torvo-v2-root>.publicSite>header .headerSearchOnly .publicTopFinder,#torvo-v2-root>.publicSite>header .headerSearchOnly .publicSmartFinder,#torvo-v2-root>.publicSite>header .headerSearchOnly .publicHeroSearch,#torvo-v2-root>.publicSite>header .headerSearchOnly .publicHeroSearchBar{width:100%!important;max-width:none!important}
+ #torvo-v2-root>.publicSite>header .publicHeaderActions,#torvo-v2-root>.publicSite>header .publicCartButton,#torvo-v2-root>.publicSite>.floatingCart{display:none!important;visibility:hidden!important;pointer-events:none!important}
+ #torvo-v2-root>.publicSite>header .headerFilterOnly{position:absolute!important;right:12px!important;top:92px!important;width:34px!important;height:34px!important;min-height:34px!important;margin:0!important;padding:0!important;z-index:35!important}
+ #torvo-v2-root>.publicSite>header .headerFilterOnly .publicProductFilterToggle{width:34px!important;min-width:34px!important;height:34px!important;min-height:34px!important;padding:0!important;border-radius:50%!important;background:#fff!important;box-shadow:0 3px 12px #0002!important}
+ #torvo-v2-root>.publicSite>main#top>.mobileHeroBanner{margin-top:0!important}
+}
