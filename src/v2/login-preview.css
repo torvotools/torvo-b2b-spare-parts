@@ -155,13 +155,13 @@
 .businessFinalInput input:-webkit-autofill,
 .businessFinalInput input:-webkit-autofill:hover,
 .businessFinalInput input:-webkit-autofill:focus{
-  width:100%!important;min-width:0!important;margin:0!important;padding:0!important;
-  border:0!important;outline:0!important;box-shadow:none!important;-webkit-box-shadow:none!important;
-  background:transparent!important;background-image:none!important;border-radius:0!important;
-  -webkit-appearance:none!important;appearance:none!important;
+  all:unset!important;
+  display:block!important;flex:1 1 auto!important;width:auto!important;min-width:0!important;
+  color:#1f2937!important;font:inherit!important;line-height:1.2!important;
+  -webkit-text-fill-color:#1f2937!important;caret-color:#1f2937!important;
 }
 .businessFinalPrimary,.businessFinalPrimary:disabled{
   background:#ed111c!important;color:#fff!important;opacity:1!important;
-  font-size:12px!important;font-weight:800!important;letter-spacing:.01em!important;
+  font-size:14px!important;font-weight:800!important;letter-spacing:.01em!important;
 }
 .businessFinalPrimary:disabled{cursor:not-allowed;box-shadow:none!important}
