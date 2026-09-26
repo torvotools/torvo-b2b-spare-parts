@@ -192,3 +192,26 @@
 .retailFlow,.dealerBusiness,.publicSupport,.publicAbout{margin-top:16px!important}.dealerBusiness{display:grid!important;grid-template-columns:.9fr 1.1fr!important;gap:28px!important;background:#17191d!important;color:#fff!important}.dealerBenefitGrid{grid-template-columns:repeat(2,minmax(0,1fr))!important}
 .torvoConnect.torvoPremiumFooter{max-width:none!important;margin:20px 0 0!important;border-radius:0!important;background:#15171a!important;color:#fff!important;padding:34px max(4vw,32px)!important}
 }
+
+/* APPROVED HOMEPAGE VISUAL FINISH — 2026-09-26 */
+@media(max-width:800px){
+.mobileQuickActions button{position:relative!important;display:grid!important;grid-template-rows:36px auto auto!important;align-content:center!important;justify-items:center!important;padding:8px 4px!important;overflow:hidden!important}
+.mobileQuickActions button:before{content:"";position:absolute;inset:0;background:linear-gradient(145deg,rgba(215,25,32,.035),transparent 58%);pointer-events:none}
+.mobileQuickActions .mobileCategoryVisual{width:36px!important;height:36px!important;display:grid!important;place-items:center!important;border-radius:50%!important;background:#111!important;color:#fff!important;z-index:1}
+.mobileQuickActions .mobileCategoryVisual svg{width:20px!important;height:20px!important;color:#fff!important}
+.mobileQuickActions button.spares .mobileCategoryVisual{background:var(--tr)!important}
+.mobileQuickActions button b{font-size:8px!important;line-height:1!important;z-index:1}.mobileQuickActions button small{font-size:5.5px!important;line-height:1!important;color:#858990!important;font-weight:750!important;z-index:1}
+.mobileNeedHelp{box-shadow:0 7px 18px rgba(215,25,32,.18)!important}
+.publicCatalogTop .publicSectionHead{margin-bottom:8px!important}.publicCatalogTop .publicSectionHead span{font-size:7px!important;letter-spacing:1px!important}.publicCategoryTabs{display:grid!important;grid-template-columns:repeat(3,1fr)!important}.publicCategoryTabs button{padding:6px 3px!important}
+.publicProductPhoto{background:linear-gradient(145deg,#fff,#f0f1f3)!important}.publicProductPhoto>svg{width:38px!important;height:38px!important;color:#c9cbd0!important}
+.publicProductBody>span{font-size:6px!important;letter-spacing:.7px!important;color:var(--tr)!important}.publicProductMeta{display:flex!important;flex-wrap:wrap!important;gap:3px!important}.publicProductMeta small{padding:3px 4px!important;border-radius:4px!important;background:#f3f3f4!important}
+.publicShowcaseEmpty svg{width:30px!important;height:30px!important;color:#c5c7cb!important}
+.torvoFooterBrand{margin-bottom:8px!important}.torvoFooterBrand>b{background:var(--tr)!important;color:#fff!important}.torvoContactActions,.torvoSocialLinks{gap:8px!important}
+.mobileBottomNav button,.mobileBottomNav a{position:relative!important}.mobileBottomNav button>b{position:absolute!important;top:5px!important;right:18%!important;min-width:14px!important;height:14px!important;border-radius:8px!important;background:var(--tr)!important;color:#fff!important;display:grid!important;place-items:center!important;font-size:6px!important}
+}
+@media(min-width:801px){
+.publicHeaderActions{display:flex!important;align-items:center!important}.dealerInquiryButton{min-height:46px!important;border-radius:9px!important}.dealerInquiryButton span{font-size:8px!important;line-height:1.05!important}
+.publicHero.compactHero{max-width:1320px!important;margin:18px auto 0!important;border-radius:18px!important;overflow:hidden!important}.publicHeroCopy em{color:#ff3038!important}.torvoHeroMedia{overflow:hidden!important}.torvoHeroMedia img{width:100%!important;height:100%!important}
+.desktopDiscoveryOnly,.publicCatalog,.retailFlow,.dealerBusiness,.publicSupport,.publicAbout{max-width:1320px!important;margin-left:auto!important;margin-right:auto!important}
+.publicCatalog{box-shadow:0 10px 35px rgba(0,0,0,.035)!important}.publicProductCard{box-shadow:0 7px 22px rgba(0,0,0,.05)!important;border:1px solid #ececef!important}
+}
