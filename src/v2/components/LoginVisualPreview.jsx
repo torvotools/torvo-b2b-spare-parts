@@ -163,7 +163,6 @@ export default function LoginVisualPreview() {
               <UserRound />
               <input className="businessFinalNativeInput"
                 aria-label="USER ID"
-                autoFocus
                 value={username}
                 onChange={(event) => changeUser(event.target.value)}
                 onKeyDown={(event) => {
