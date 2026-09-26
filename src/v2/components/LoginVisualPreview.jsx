@@ -129,8 +129,8 @@ export default function LoginVisualPreview() {
             <span className="businessFinalMark">T</span>
             <div><strong>TORVO</strong><small>TOOLS</small></div>
           </div>
-          <p className="businessFinalPortal">TORVO TOOLS B2B PORTAL</p>
-          <h1>TORVO TOOLS<br /><em>B2B PORTAL</em></h1>
+          <p className="businessFinalPortal">SECURE BUSINESS ACCESS</p>
+          <h1>TORVO TOOLS<br /><em>CONTROL CENTER</em></h1>
           <p className="businessFinalTagline"><strong className="businessFinalRoles">OWNER &nbsp;|&nbsp; ADMIN &nbsp;|&nbsp; ACCOUNTANT</strong></p>
 
           <div className="businessFinalBenefits">
