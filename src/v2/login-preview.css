@@ -365,3 +365,22 @@
 }
 .businessFinalUserInput::placeholder{color:#7b8490!important;-webkit-text-fill-color:#7b8490!important;opacity:.72!important}
 @media(max-width:600px){.businessFinalUserField{min-height:45px;padding:0 10px;border-radius:8px}.businessFinalUserIcon{width:17px;height:17px}.businessFinalUserInput{font-size:13px!important;line-height:22px!important;height:22px}}
+
+
+/* Contenteditable USER ID: placeholder + caret, with no native browser input paint layer. */
+.businessFinalUserInput[contenteditable="true"]{
+  cursor:text;
+  white-space:nowrap;
+  overflow:hidden;
+}
+.businessFinalUserInput[contenteditable="true"]:empty::before{
+  content:attr(data-placeholder);
+  color:#7b8490;
+  opacity:.72;
+  pointer-events:none;
+}
+.businessFinalUserInput[contenteditable="true"]:focus,
+.businessFinalUserInput[contenteditable="true"]:focus-visible{
+  outline:0!important;
+  box-shadow:none!important;
+}
