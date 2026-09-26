@@ -172,5 +172,8 @@
 .businessFinalInput input::-webkit-outer-spin-button{
   border:0!important;outline:0!important;box-shadow:none!important;background:transparent!important;-webkit-appearance:none!important;
 }
-.businessFinalInput input::placeholder{color:#9ca3af!important;opacity:.72!important;font-weight:400!important;-webkit-text-fill-color:#9ca3af!important}
-.businessFinalInput input:disabled::placeholder{color:#aeb5bf!important;opacity:.62!important;-webkit-text-fill-color:#aeb5bf!important}
+.businessFinalInput input::placeholder{color:#7b8490!important;opacity:.9!important;font-weight:400!important;-webkit-text-fill-color:#7b8490!important}
+.businessFinalInput input:disabled::placeholder{color:#8d96a2!important;opacity:.82!important;-webkit-text-fill-color:#8d96a2!important}
+
+.businessFinalInput{overflow:hidden!important}
+.businessFinalInput input{height:auto!important;min-height:0!important;background-color:transparent!important;background-clip:padding-box!important;filter:none!important;text-shadow:none!important}
