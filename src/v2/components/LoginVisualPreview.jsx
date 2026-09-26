@@ -159,7 +159,8 @@ export default function LoginVisualPreview() {
             USER ID
             <div className={`businessFinalInput ${userEntered ? (userValid ? 'isValid' : 'isInvalid') : ''}`}>
               <UserRound />
-              <input
+              <span className={`businessFinalFieldText ${username ? 'hasValue' : 'isPlaceholder'}`}>{username || 'ENTER YOUR USER ID'}</span>
+              <input className="businessFinalNativeInput"
                 aria-label="USER ID"
                 autoFocus
                 value={username}
@@ -197,7 +198,8 @@ export default function LoginVisualPreview() {
             ENTER OTP
             <div className="businessFinalInput">
               <ShieldCheck />
-              <input
+              <span className={`businessFinalFieldText ${otp ? 'hasValue' : 'isPlaceholder'}`}>{otp || (otpSent ? 'ENTER 6-DIGIT OTP' : 'SEND OTP FIRST')}</span>
+              <input className="businessFinalNativeInput"
                 aria-label="ENTER OTP"
                 ref={otpRef}
                 value={otp}
