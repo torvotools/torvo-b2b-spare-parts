@@ -215,3 +215,20 @@
 .desktopDiscoveryOnly,.publicCatalog,.retailFlow,.dealerBusiness,.publicSupport,.publicAbout{max-width:1320px!important;margin-left:auto!important;margin-right:auto!important}
 .publicCatalog{box-shadow:0 10px 35px rgba(0,0,0,.035)!important}.publicProductCard{box-shadow:0 7px 22px rgba(0,0,0,.05)!important;border:1px solid #ececef!important}
 }
+
+/* REQUIREMENT + RESPONSIVE COMPOSITION FINISH — 2026-09-26 */
+.desktopRequirementBand{max-width:1320px;margin:16px auto 0;padding:18px 22px;background:linear-gradient(110deg,#d71920,#b70d14);color:#fff;border-radius:14px;display:flex;align-items:center;justify-content:space-between;gap:24px;box-shadow:0 10px 28px rgba(215,25,32,.16)}
+.desktopRequirementBand>div{display:grid;gap:3px}.desktopRequirementBand span{font-size:8px;letter-spacing:1.2px;font-weight:850;opacity:.78}.desktopRequirementBand b{font-size:15px;line-height:1.25}.desktopRequirementBand button{background:#fff!important;border-color:#fff!important;color:#17191d!important;min-height:42px!important;white-space:nowrap!important}
+@media(max-width:800px){
+.desktopRequirementBand{display:none!important}
+.mobileHeroBanner{position:relative!important}.mobileHeroBanner:after{content:"";position:absolute;inset:0;background:linear-gradient(90deg,rgba(0,0,0,.12),transparent 55%);pointer-events:none}
+.mobileQuickActions{margin-top:1px!important}.mobileNeedHelp>div{min-width:0!important}.mobileNeedHelp button{border:0!important}
+.publicCatalog{border-top:1px solid #ededee!important}.catalogResultBar{background:#fff!important;border:1px solid #ececef!important}
+.publicShowcaseGrid{align-items:stretch!important}.publicProductCard{display:flex!important;flex-direction:column!important}.publicProductBody{display:flex!important;flex:1!important;flex-direction:column!important}.publicProductBody .formTwo{margin-top:auto!important}
+.torvoConnect.torvoPremiumFooter{display:grid!important}.torvoFooterCompany,.torvoFooterConnect{min-width:0!important}.torvoFooterCompany p{line-height:1.45!important}.torvoFooterCompany p svg{width:13px!important;height:13px!important;flex:none!important}
+}
+@media(min-width:801px){
+.desktopRequirementBand+ .desktopDiscoveryOnly{margin-top:16px!important}
+.publicBrandRail>div{justify-content:center!important}.publicCategoryTabs{display:grid!important;grid-template-columns:repeat(3,minmax(0,1fr))!important;gap:10px!important}.publicCategoryTabs button{min-height:58px!important}
+.publicShowcaseGrid{align-items:stretch!important}.publicProductCard{display:flex!important;flex-direction:column!important}.publicProductBody{display:flex!important;flex:1!important;flex-direction:column!important}.publicProductBody .formTwo{margin-top:auto!important}
+}
