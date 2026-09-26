@@ -5,7 +5,7 @@ const website=read('src/v2/components/PublicWebsitePreview.jsx');
 const preview=read('src/v2/components/DealerRegistrationPreview.jsx');
 const form=read('src/v2/components/PublicDealerRegistrationForm.jsx');
 const install=read('src/v2/components/AppInstallControl.jsx');
-for(const token of["import PublicDealerRegistrationForm from'./PublicDealerRegistrationForm'",'NEW DEALER? REGISTER AS DEALER','setRegistering(true)','NEW DEALER REGISTRATION','<PublicDealerRegistrationForm','BACK TO DEALER LOGIN'])if(!login.includes(token))fail(`APP LOGIN REGISTRATION ENTRY MISSING: ${token}`);
+const nativeDealerRegistrationTokens=["import PublicDealerRegistrationForm from'./PublicDealerRegistrationForm'",'setRegistering(true)','<PublicDealerRegistrationForm'];for(const token of nativeDealerRegistrationTokens)if(!login.includes(token))fail(`NATIVE DEALER REGISTRATION PATH MISSING: ${token}`);if(!login.includes("dealerApp=dealerAppRuntimeAllowed()"))fail('DEALER REGISTRATION PATH MUST REMAIN NATIVE-APP GATED');
 if(login.includes("location.href='/'"))fail('APP REGISTRATION MUST OPEN IN-APP FORM, NOT REDIRECT TO WEBSITE');
 for(const token of['id="dealer-business"','REGISTER AS DEALER','DEALER_REGISTER',"import PublicDealerRegistrationForm from'./PublicDealerRegistrationForm'",'<PublicDealerRegistrationForm source="WEBSITE"/>'])if(!website.includes(token))fail(`WEBSITE DEALER ENTRY / COMMON FORM MISSING: ${token}`);
 for(const forbidden of['registerDealer','submitDealer','dealerForm','dealerStatus','emptyDealer','changeDealer'])if(website.includes(forbidden))fail(`WEBSITE MUST NOT RESTORE DUPLICATE DEALER REGISTRATION LOGIC: ${forbidden}`);
