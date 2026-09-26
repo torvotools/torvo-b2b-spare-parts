@@ -2,7 +2,9 @@ import{requireBackend}from'./supabase';import{isNativeApp}from'./runtimePlatform
 const digits=v=>String(v||'').replace(/\D/g,'').slice(-10);const STAFF=new Set(['owner','admin','accountant','salesman','store_keeper']);const SESSION_KEY='torvo_staff_session_id';export const DEALER_SESSION_KEY='torvo_dealer_session_token';
 const codeDigits=(v,n)=>String(v||'').replace(/\D/g,'').slice(0,n);const assertDevice=v=>{const x=String(v||'').trim();if(!x||x.length>180)throw new Error('SECURE DEVICE ID REQUIRED.');return x};
 export const normalizeStaffUsername=v=>String(v||'').trim().toUpperCase();
-const staffUsername=v=>{const x=normalizeStaffUsername(v);if(!/^[A-Z]{2,8}@[0-9]{2,6}$/.test(x))throw new Error('ENTER A VALID STAFF USER ID.');return x};
+export const BUSINESS_STAFF_USER_IDS=new Set(['AD@001','AC@002','AC@003']);
+export const isBusinessStaffUserId=v=>BUSINESS_STAFF_USER_IDS.has(normalizeStaffUsername(v));
+const staffUsername=v=>{const x=normalizeStaffUsername(v);if(!isBusinessStaffUserId(x))throw new Error('ENTER AN AUTHORIZED USER ID.');return x};
 export function normalizeDealerEmail(v){const e=String(v||'').trim().toLowerCase();if(!/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(e))throw new Error('ENTER A VALID REGISTERED EMAIL ID.');return e}
 export function validateLoginIdentity(mode,value){if(mode==='dealer_email')return normalizeDealerEmail(value);if(mode==='staff_id')return staffUsername(value);throw new Error('SELECT EMAIL OR USER ID LOGIN.')}
 function keep(result){if(result?.staff_session_id){const store=['salesman','store_keeper'].includes(result.role)?localStorage:sessionStorage;store.setItem(SESSION_KEY,result.staff_session_id)}return result}
