@@ -42,19 +42,17 @@ end$$;
 revoke all on function admin_set_staff_otp_email(text) from public,anon;
 grant execute on function admin_set_staff_otp_email(text) to authenticated;
 
-create or replace function staff_email_otp_begin(p_company_email text,p_username text,p_device_id text,p_otp text)
+create or replace function staff_email_otp_begin(p_username text,p_device_id text,p_otp text)
 returns uuid language plpgsql security definer set search_path=public,pg_catalog as $$
 declare
  i staff_access_identities%rowtype;
  rid uuid;
  e text;
- provided_email text:=lower(btrim(coalesce(p_company_email,'')));
  d text:=btrim(coalesce(p_device_id,''));
 begin
  select lower(master_email) into e from staff_otp_settings where singleton=true;
  if e is null
     or e !~ '^[^[:space:]@]+@[^[:space:]@]+[.][^[:space:]@]+$'
-    or provided_email<>e
     or length(d)<8
     or length(d)>180
     or p_otp !~ '^[0-9]{6}$'
@@ -102,9 +100,10 @@ begin
 end$$;
 
 drop function if exists staff_email_otp_begin(text,text,text);
+drop function if exists staff_email_otp_begin(text,text,text,text);
 drop function if exists staff_email_otp_verify(uuid,text,text,text,text);
 
-revoke all on function staff_email_otp_begin(text,text,text,text) from public,anon,authenticated;
+revoke all on function staff_email_otp_begin(text,text,text) from public,anon,authenticated;
 revoke all on function staff_email_otp_verify(uuid,text,text,text) from public,anon,authenticated;
-grant execute on function staff_email_otp_begin(text,text,text,text) to service_role;
+grant execute on function staff_email_otp_begin(text,text,text) to service_role;
 grant execute on function staff_email_otp_verify(uuid,text,text,text) to service_role;
