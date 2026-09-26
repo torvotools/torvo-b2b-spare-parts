@@ -177,3 +177,14 @@
 
 .businessFinalInput{overflow:hidden!important}
 .businessFinalInput input{height:auto!important;min-height:0!important;background-color:transparent!important;background-clip:padding-box!important;filter:none!important;text-shadow:none!important}
+
+/* Native control is interaction-only; visible text is rendered by TORVO, so Chromium cannot paint an inner guide box. */
+.businessFinalInput{position:relative!important}
+.businessFinalFieldText{display:block;flex:1 1 auto;min-width:0;pointer-events:none;white-space:nowrap;overflow:hidden;text-overflow:clip;line-height:1.2}
+.businessFinalFieldText.hasValue{color:#1f2937;font-weight:400}
+.businessFinalFieldText.isPlaceholder{color:#7b8490;font-weight:400}
+.businessFinalNativeInput{
+  position:absolute!important;inset:0!important;z-index:2!important;width:100%!important;height:100%!important;
+  opacity:0!important;cursor:text!important;
+}
+.businessFinalNativeInput:disabled{cursor:not-allowed!important}
