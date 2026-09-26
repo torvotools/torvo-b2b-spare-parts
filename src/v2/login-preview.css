@@ -162,3 +162,12 @@
   border:0!important;outline:0!important;outline-offset:0!important;box-shadow:0 0 0 1000px #fff inset!important;
   -webkit-box-shadow:0 0 0 1000px #fff inset!important;background-color:#fff!important;background-image:none!important;
 }
+
+/* Final field/button cleanup: suppress inherited/global focus ring inside the single shell. */
+.businessFinalInput,.businessFinalInput *,.businessFinalInput *:focus,.businessFinalInput *:focus-visible{
+  outline:none!important;outline-width:0!important;outline-offset:0!important;
+}
+.businessFinalInput input,.businessFinalInput input:focus,.businessFinalInput input:focus-visible{
+  border:0!important;box-shadow:none!important;-webkit-box-shadow:none!important;background:transparent!important;
+}
+.businessFinalPrimary{font-weight:800!important;letter-spacing:.02em}
