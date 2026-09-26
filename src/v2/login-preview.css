@@ -296,3 +296,12 @@
 @media(max-width:600px){
   .businessFinalPlaceholder{left:37px!important;width:calc(100% - 49px)!important;font-size:13px!important}
 }
+
+
+/* Owner correction: remove the pale red helper box; keep helper text/icon only. */
+.businessFinalInfo{
+  background:transparent!important;
+  border:0!important;
+  box-shadow:none!important;
+  border-radius:0!important;
+}
