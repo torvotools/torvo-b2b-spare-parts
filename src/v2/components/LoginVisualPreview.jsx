@@ -53,6 +53,8 @@ export default function LoginVisualPreview() {
   const normalized = normalizeStaffUsername(username);
   const userEntered = normalized.length > 0;
   const userValid = isBusinessStaffUserId(normalized);
+  const userPossible = !userEntered || Object.keys(ROLE_BY_ID).some((id) => id.startsWith(normalized));
+  const userInvalid = userEntered && !userValid && !userPossible;
   const role = userValid ? ROLE_BY_ID[normalized] : '';
   const otpReady = otp.length === 6;
 
@@ -157,7 +159,7 @@ export default function LoginVisualPreview() {
 
           <label className="businessFinalLabel">
             USER ID
-            <div className={`businessFinalInput ${userEntered ? (userValid ? 'isValid' : 'isInvalid') : ''}`}>
+            <div className={`businessFinalInput ${userValid ? 'isValid' : (userInvalid ? 'isInvalid' : '')}`}>
               <UserRound />
               <span className={`businessFinalFieldText ${username ? 'hasValue' : 'isPlaceholder'}`}>{username || 'ENTER YOUR USER ID'}</span>
               <input className="businessFinalNativeInput"
@@ -177,13 +179,11 @@ export default function LoginVisualPreview() {
                 spellCheck={false}
                 placeholder="ENTER YOUR USER ID"
               />
-              {userEntered && (userValid
-                ? <CheckCircle2 className="businessFinalGood" />
-                : <XCircle className="businessFinalBad" />)}
+              {userValid ? <CheckCircle2 className="businessFinalGood" /> : (userInvalid ? <XCircle className="businessFinalBad" /> : null)}
             </div>
           </label>
 
-          {userEntered && (
+          {(userValid || userInvalid) && (
             <div className={`businessFinalStatus ${userValid ? 'ok' : 'bad'}`}>
               {userValid ? <ShieldCheck /> : <XCircle />}
               <span>{userValid ? <>VALID USER ID <i /> ROLE: <b>{role}</b></> : 'INVALID USER ID'}</span>
