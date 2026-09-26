@@ -161,29 +161,32 @@ export default function LoginVisualPreview() {
             USER ID
             <div className={`businessFinalUserField ${userValid ? 'isValid' : (userInvalid ? 'isInvalid' : '')}`}>
               <UserRound className="businessFinalUserIcon" />
-              <input className="businessFinalUserInput"
-                type="text"
-                name="torvo-business-user-id"
-                style={{ WebkitAppearance: 'none', appearance: 'none', outline: 'none', boxShadow: 'none', border: 0, background: 'transparent' }}
+              <span
+                className="businessFinalUserInput"
+                role="textbox"
+                tabIndex={0}
                 aria-label="USER ID"
-                data-form-type="other"
-                data-lpignore="true"
-                data-1p-ignore="true"
-                value={username}
-                onChange={(event) => changeUser(event.target.value)}
+                contentEditable
+                suppressContentEditableWarning
+                data-placeholder="ENTER YOUR USER ID"
+                onInput={(event) => {
+                  const value = normalizeStaffUsername(event.currentTarget.textContent || '').slice(0, 15);
+                  if ((event.currentTarget.textContent || '') !== value) event.currentTarget.textContent = value;
+                  changeUser(value);
+                }}
                 onKeyDown={(event) => {
                   if (event.key === 'Enter') {
                     event.preventDefault();
                     if (userValid) sendOtp();
                   }
                 }}
-                autoComplete="off"
-                autoCorrect="off"
-                autoCapitalize="characters"
-                spellCheck={false}
-                placeholder="ENTER YOUR USER ID"
-              />
-              {userValid ? <CheckCircle2 className="businessFinalGood" /> : (userInvalid ? <XCircle className="businessFinalBad" /> : null)}
+                onPaste={(event) => {
+                  event.preventDefault();
+                  const value = normalizeStaffUsername(event.clipboardData.getData('text')).slice(0, 15);
+                  event.currentTarget.textContent = value;
+                  changeUser(value);
+                }}
+              />              {userValid ? <CheckCircle2 className="businessFinalGood" /> : (userInvalid ? <XCircle className="businessFinalBad" /> : null)}
             </div>
           </label>
 
