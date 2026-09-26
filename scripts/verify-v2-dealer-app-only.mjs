@@ -4,7 +4,7 @@ const runtime=read('src/v2/services/runtimePlatform.js'),router=read('src/v2/ser
 const checks=[
  ['NATIVE PLATFORM DETECTION',runtime.includes('Capacitor.isNativePlatform()')&&runtime.includes('dealerAppRuntimeAllowed')],
  ['WEB OPERATIONAL LANDING BLOCKED',router.includes('roleRuntimeAllowed(appUser.role)')&&router.includes("['dealer','salesman','store_keeper'].includes(appUser.role)")&&router.includes('operationalAppOnlyReason(appUser.role)')],
- ['WEB LOGIN HIDES DEALER OPTION',login.includes("dealerApp=dealerAppRuntimeAllowed()")&&login.includes("useState(dealerApp?'dealer':'staff')")&&!login.includes('{dealerApp&&<button')&&login.includes('beginStaffEmailOtp(mail,u)')],
+ ['WEB LOGIN HIDES DEALER OPTION',login.includes("dealerApp=dealerAppRuntimeAllowed()")&&login.includes("useState(dealerApp?'dealer':'staff')")&&!login.includes('{dealerApp&&<button')&&login.includes('beginStaffEmailOtp(u)')],
  ['DEALER EMAIL OTP FAILS CLOSED ON WEB',login.match(/if\(!dealerApp\)throw new Error\(dealerAppOnlyReason\(\)\)/g)?.length>=2],
  ['DEALER OTP IS REGISTERED-EMAIL ONLY',login.includes("beginDealerEmailOtp(e)")&&login.includes("verifyDealerEmailOtp(identity,challenge,digits(code))")&&!login.includes('requestDealerPinRecovery')],
  ['BUSINESS USE WEB ONLY',login.includes('AUTHORIZED BUSINESS ACCESS')&&login.includes('OWNER / ADMIN / ACCOUNTANT')&&!login.includes("setKind('dealer')")],
