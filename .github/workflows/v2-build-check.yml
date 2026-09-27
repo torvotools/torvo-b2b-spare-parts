@@ -7,6 +7,8 @@ on:
       - 'src/v2/**'
       - 'v2.html'
       - 'business-login.html'
+      - 'owner-bootstrap.html'
+      - 'vite.v2-preview.config.js'
       - 'wrangler.jsonc'
       - 'package.json'
       - 'capacitor.config.json'
