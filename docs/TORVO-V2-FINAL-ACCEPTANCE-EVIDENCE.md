@@ -7,8 +7,8 @@ This file prevents source completion from being confused with production accepta
 
 | Gate | Required real evidence | Current verified state |
 | --- | --- | --- |
-| Dealer auth/device | Approved real staging Dealer; PIN/OTP path; Device B invalidates Device A; revoked device fails private reads/writes | OPEN — staging currently has no active Dealer acceptance identity |
-| Staff auth/role | Authorized staging Salesman/Store Keeper/Accountant; one-time password/device/runtime boundary tests | OPEN — staging currently has no active Staff acceptance identity |
+| Dealer auth/device | Approved real staging Dealer; registered-email OTP path; Device B invalidates Device A; revoked device fails private reads/writes | OPEN — staging currently has no active Dealer acceptance identity |
+| Staff auth/role | Authorized staging Owner/Admin/Accountant/Salesman/Store Keeper as applicable; master-email OTP/device/runtime boundary tests | OPEN — staging currently has no active Staff acceptance identity |
 | B2B transaction | Real staging PO -> Sales Order -> exact Dealer OK -> Estimate -> payment/fulfilment -> dispatch -> delivery, including retry/idempotency checks | OPEN — no qualifying staging transaction evidence recorded |
 | Purchase/inventory/returns | Real receipt/stock movement/delivery deduction/return or reversal with exactly-once and role checks | OPEN — no qualifying staging transaction evidence recorded |
 | Reports | Reports Center totals/details reconciled against the accepted staging transactions and role privacy checked | OPEN — requires accepted transaction data |
@@ -88,3 +88,12 @@ TORVO V2 is called 100% only after every applicable gate above has real PASS evi
 - `permanently_delete_catalog_master(uuid,text)`, `get_report_summary()`, canonical `get_report_detail(...)`, public Dealer registration and trusted backup completion RPC prerequisites are installed in STAGING.
 - STAGING remains clean for acceptance: no real acceptance Dealer/Staff identities, qualifying business transactions, verified backup runs/restore manifests or release-artifact rows are recorded. These gates therefore remain OPEN and must not be converted to PASS from source/CI evidence.
 - Production project `gckafjiitjocodlrwanm`, V27/main and LOCK 1 remain untouched.
+
+
+## Current auth/acceptance alignment — 2026-09-27
+- Exact source SHA before this ledger update: `ed8ab60f53652c33f2044bacea21e24946520e16`.
+- Build Check: SUCCESS; Cloudflare Preview: SUCCESS for this exact SHA. Android APK workflow was still running when this evidence note was written, so no Android PASS is claimed here.
+- Canonical Dealer authentication is registered-email OTP plus one-active-device enforcement; retired Dealer PIN wording is not acceptance evidence.
+- Canonical Staff authentication is Staff User ID plus server-generated OTP delivered only to the Owner/Admin-managed master security email; retired staff one-time-password/WhatsApp/emergency-login paths are not acceptance evidence.
+- Initial Owner bootstrap is fail-closed and CI-verified, but has not been executed with a genuine Owner desktop device. Staff runtime acceptance therefore remains OPEN.
+- Production, `main`, V27 and the locked Business Login UI remain outside this staging acceptance work.
