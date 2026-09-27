@@ -53,7 +53,12 @@ jobs:
           READY=true
           if [ -z "$VITE_SUPABASE_URL" ]; then echo "MISSING VITE_SUPABASE_URL"; READY=false; fi
           if [ -z "$VITE_SUPABASE_ANON_KEY" ]; then echo "MISSING VITE_SUPABASE_ANON_KEY"; READY=false; fi
-          if [ -n "$VITE_SUPABASE_URL" ]; then case "$VITE_SUPABASE_URL" in https://*) ;; *) echo "INVALID VITE_SUPABASE_URL"; READY=false;; esac; fi
+          if [ -n "$VITE_SUPABASE_URL" ]; then
+            case "$VITE_SUPABASE_URL" in
+              https://jvmhhngjlaqrfopfavur.supabase.co) echo "VERIFIED TORVO V2 STAGING SUPABASE URL" ;;
+              *) echo "WRONG VITE_SUPABASE_URL: TORVO V2 STAGING REQUIRED"; READY=false ;;
+            esac
+          fi
           if [ -z "$CLOUDFLARE_API_TOKEN" ]; then echo "MISSING CLOUDFLARE_API_TOKEN"; READY=false; fi
           if [ -z "$CLOUDFLARE_ACCOUNT_ID" ]; then echo "MISSING CLOUDFLARE_ACCOUNT_ID"; READY=false; fi
           echo "ready=$READY" >> "$GITHUB_OUTPUT"
