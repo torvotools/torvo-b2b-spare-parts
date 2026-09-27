@@ -8,6 +8,8 @@ if(m.package!=='com.torvotools.app'||m.channel!=='TEST-DEBUG'||m.production_sign
 if(!/^[a-f0-9]{40}$/i.test(m.commit_sha)||!/^[a-f0-9]{64}$/i.test(m.apk_sha256))fail('invalid release manifest commit/hash');
 const req=['package_id','channel','production_signed','commit_sha','apk_sha256','device_model','android_version','tested_at_utc','tester','apk_installed','app_opened','login_logout_revoke_checked','screenshots_recorded'];
 for(const k of req)if(e[k]===undefined||e[k]===null||e[k]==='')fail('evidence missing '+k);
+for(const k of ['device_model','android_version','tester']){const v=String(e[k]).trim();if(v.length<2||v.toUpperCase().includes('REPLACE_WITH'))fail(k+' must be real non-placeholder physical-test evidence');}
+if(/^0{64}$/i.test(String(e.apk_sha256)))fail('device evidence APK SHA256 cannot be placeholder');
 if(e.package_id!==m.package)fail('device evidence package does not match release manifest');
 if(e.channel!==m.channel||e.production_signed!==m.production_signed)fail('device evidence channel/signing does not match release manifest');
 if(String(e.commit_sha).toLowerCase()!==String(m.commit_sha).toLowerCase())fail('device evidence commit does not match release manifest');
