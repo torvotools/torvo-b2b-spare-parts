@@ -6,6 +6,8 @@ for(const k of ['environment_project_id','commit_sha','captured_at_utc','accepte
 if(e.environment_project_id!=='jvmhhngjlaqrfopfavur')fail('report evidence must come from TORVO V2 STAGING');
 if(!/^[a-f0-9]{40}$/i.test(e.commit_sha))fail('invalid exact commit SHA');
 if(!Array.isArray(e.accepted_transaction_refs)||e.accepted_transaction_refs.length<1)fail('no accepted real staging transaction references');
+for(const [i,ref] of e.accepted_transaction_refs.entries()){const v=String(ref||'').trim();if(v.length<3||v.toUpperCase().includes('REPLACE_WITH'))fail('accepted_transaction_refs['+i+'] must be real non-placeholder evidence');}
+if(new Set(e.accepted_transaction_refs.map(x=>String(x).trim())).size!==e.accepted_transaction_refs.length)fail('accepted_transaction_refs must be distinct');
 if(!/^\d{4}-\d{2}-\d{2}T/.test(e.captured_at_utc))fail('captured_at_utc must be ISO timestamp');
 const sales=Array.isArray(e.details.sales)?e.details.sales:fail('details.sales must be an array');
 const outstanding=Array.isArray(e.details.outstanding)?e.details.outstanding:fail('details.outstanding must be an array');
