@@ -1,11 +1,12 @@
 const NO_STORE='no-store, no-cache, must-revalidate, max-age=0';
 const EVIDENCE=new Set(['/torvo-build-sha.txt','/torvo-build-manifest.json','/torvo-build-manifest.txt']);
-const HTML=new Set(['/','/index.html','/business-login','/business-login/','/business-login.html']);
+const HTML=new Set(['/','/index.html','/business-login','/business-login/','/business-login.html','/admin-workspace','/accountant-workspace']);
 export default{
   async fetch(request,env){
     const url=new URL(request.url);
     let response;
-    if(url.pathname==='/business-login'||url.pathname==='/business-login/'){const assetUrl=new URL('/business-login.html',url);response=await env.ASSETS.fetch(new Request(assetUrl,request));}
+    if(url.pathname==='/admin-workspace'||url.pathname==='/accountant-workspace'){const assetUrl=new URL('/index.html',url);response=await env.ASSETS.fetch(new Request(assetUrl,request));}
+    else if(url.pathname==='/business-login'||url.pathname==='/business-login/'){const assetUrl=new URL('/business-login.html',url);response=await env.ASSETS.fetch(new Request(assetUrl,request));}
     else response=await env.ASSETS.fetch(request);
     if(url.pathname==='/business-login.html'&&response.status===404){const assetUrl=new URL('/business-login.html',url);response=await env.ASSETS.fetch(new Request(assetUrl,request));}
     if(!EVIDENCE.has(url.pathname)&&!HTML.has(url.pathname))return response;
