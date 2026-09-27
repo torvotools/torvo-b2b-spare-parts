@@ -54,7 +54,7 @@ Canonical flow: CUSTOMER DETAILS -> MACHINE PHOTO -> BRAND/MODEL -> STRUCTURED C
 Dealer dashboard must show machines currently IN, repair status/reason, READY and DELIVERED/history. Complaint choices should be structured and extensible rather than free-text only.
 Repair parts should link to genuine TORVO catalog items where possible. Do not invent parts, rates or fitment. Dealer financial visibility remains dealer-scoped; TORVO background analytics must remain role/privacy controlled.
 Customer data collected for repair operations is operational data; do not silently treat it as marketing consent. WhatsApp operational notifications and marketing consent remain distinct.
-This is an approved addition to Dealer App business logic. Do not build it as a separate app/project.
+This is an approved addition to Dealer App business logic. Do not build it as a separate app/project.\nImplementation foundation now exists in `supabase/v2-dealer-service-book.sql`, `src/v2/services/dealerServiceBook.js` and Dealer App `SERVICE BOOK` UI. It is intentionally distinct from routed `REPAIR REQUESTS`. Staging migration/runtime acceptance is still OPEN; UI must not fabricate saved jobs before that gate passes.
 
 ## CURRENT AUTH / SECURITY
 - Genuine staging Owner bootstrap completed for OR@000.

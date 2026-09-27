@@ -53,6 +53,7 @@ After Step 17 is installed in a fresh environment, `bootstrap_initial_owner_staf
 22. BACKUP control -> channels -> worker contract.
 23. APP RELEASE CENTER: `v2-app-release-center.sql`; release metadata writes remain CI/trusted-worker only and Owner/Admin can read verified release status.
 24. APP NOTIFICATIONS: `v2-role-push-notifications.sql` after `app_users`; Owner/Admin may publish role-targeted messages to DEALER, SALESMAN, STORE KEEPER or ACCOUNTANT. After Step 18 Customer lead routing/lifecycle and this notification foundation both exist, install `v2-customer-lead-notifications.sql`; it targets only the specifically assigned approved Dealer app user and never copies Customer name/mobile/WhatsApp into notification data.
+24.5. DEALER SERVICE BOOK: after Step 17 dealer device session and catalog/item-rate foundations, install `v2-dealer-service-book.sql`. This is the Dealer's private operational repair ledger, distinct from public/customer `REPAIR REQUESTS`. Every read/write is device-bound; browser never supplies dealer identity. Parts must reference genuine active `catalog_items`; dealer cost/rate is resolved server-side from the approved Dealer rate group. Do not treat repair-customer contact as marketing consent. Machine photo is required for a new job card. Runtime acceptance remains OPEN until applied and tested on staging.
 25. DEMO RESET after backup/audit dependencies; Dashboard/admin/business/reporting and later modules after prerequisites.
 
 ## RETIRED / DO NOT ENABLE
