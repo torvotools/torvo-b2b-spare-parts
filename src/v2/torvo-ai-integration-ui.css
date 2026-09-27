@@ -1,0 +1,19 @@
+/* TORVO AI/API UX STATES — PRESENTATION ONLY */
+#torvo-v2-root .torvoAiPanel{border:1px solid var(--t-line);border-left:3px solid var(--t-red);background:#fff;padding:14px;border-radius:var(--t-r2)}
+#torvo-v2-root .torvoAiPanel header{display:flex;justify-content:space-between;align-items:flex-start;gap:12px}
+#torvo-v2-root .torvoAiPanel h3{margin:0;color:var(--t-black)}
+#torvo-v2-root .torvoAiPanel p{margin:4px 0 0;color:var(--t-muted);line-height:1.45}
+#torvo-v2-root .integrationState{display:inline-flex;align-items:center;gap:6px;min-height:28px;padding:4px 8px;border:1px solid var(--t-line);border-radius:999px;background:#fff;font-size:10px;font-weight:700;letter-spacing:.25px}
+#torvo-v2-root .integrationState[data-state="ANALYZING"],#torvo-v2-root .integrationState[data-state="SYNCING"]{border-color:#111;color:#111}
+#torvo-v2-root .integrationState[data-state="NEEDS_REVIEW"],#torvo-v2-root .integrationState[data-state="RETRY"]{border-color:#b7791f;color:#8a5a12}
+#torvo-v2-root .integrationState[data-state="CONFIRMED"],#torvo-v2-root .integrationState[data-state="SYNCED"]{border-color:#16803b;color:#126b32}
+#torvo-v2-root .integrationState[data-state="FAILED"]{border-color:var(--t-red);color:var(--t-red)}
+#torvo-v2-root .aiConfidence{display:grid;grid-template-columns:auto minmax(90px,1fr) auto;align-items:center;gap:8px;font-size:11px}
+#torvo-v2-root .aiConfidence meter{width:100%;height:8px}
+#torvo-v2-root .aiReviewGrid{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:10px}
+#torvo-v2-root .aiReviewField{border:1px solid var(--t-line);padding:10px;border-radius:var(--t-r1);background:#fff}
+#torvo-v2-root .aiReviewField[data-review="true"]{border-color:#b7791f;background:#fffdf7}
+#torvo-v2-root .aiReviewField small{display:block;color:var(--t-muted);margin-top:4px}
+#torvo-v2-root .integrationQueue{width:100%;border-collapse:collapse}
+#torvo-v2-root .integrationQueue th,#torvo-v2-root .integrationQueue td{padding:9px 10px;border-bottom:1px solid var(--t-line);text-align:left}
+@media(max-width:820px){#torvo-v2-root .aiReviewGrid{grid-template-columns:1fr}#torvo-v2-root .torvoAiPanel{padding:11px}}
