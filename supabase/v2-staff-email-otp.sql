@@ -62,11 +62,6 @@ begin
  and lower(coalesce(a.role,'')) in('owner','admin','accountant','salesman','store_keeper') and lower(coalesce(sai.staff_role,''))=lower(a.role)
  for update of sai;
  if i.app_user_id is null then raise exception 'INVALID LOGIN'; end if;
- perform 1 from staff_authorized_devices ad join app_users au on au.id=i.app_user_id
- where ad.app_user_id=i.app_user_id and ad.device_id=d
- and ad.device_type=case when lower(au.role) in('salesman','store_keeper') then 'mobile_app' else 'desktop' end
- and ad.revoked_at is null;
- if not found then raise exception 'DEVICE APPROVAL REQUIRED'; end if;
  if exists(select 1 from staff_email_otp_challenges c where c.app_user_id=i.app_user_id and c.device_id=d and c.revoked_at is null and c.consumed_at is null and c.resend_after>now()) then raise exception 'RESEND WAIT REQUIRED'; end if;
  update staff_email_otp_challenges set revoked_at=now() where app_user_id=i.app_user_id and consumed_at is null and revoked_at is null;
  insert into staff_email_otp_challenges(app_user_id,email_normalized,otp_hash,device_id,expires_at,resend_after)
@@ -87,10 +82,6 @@ begin
  and sai.active=true and a.active=true and lower(coalesce(a.role,'')) in('owner','admin','accountant','salesman','store_keeper')
  and lower(coalesce(sai.staff_role,''))=lower(a.role);
  if i.app_user_id is null then raise exception 'INVALID OR EXPIRED OTP'; end if;
- perform 1 from staff_authorized_devices ad join app_users au on au.id=i.app_user_id
- where ad.app_user_id=i.app_user_id and ad.device_id=c.device_id
- and ad.device_type=case when lower(au.role) in('salesman','store_keeper') then 'mobile_app' else 'desktop' end and ad.revoked_at is null;
- if not found then raise exception 'INVALID OR EXPIRED OTP'; end if;
  if crypt(coalesce(p_otp,''),c.otp_hash)<>c.otp_hash then
   update staff_email_otp_challenges set failed_attempts=least(5,failed_attempts+1),revoked_at=case when failed_attempts+1>=5 then now() else revoked_at end where id=c.id;
   return null;

@@ -1,5 +1,5 @@
--- TORVO V2 STAFF ACCESS IDENTITY + DEVICE FOUNDATION
--- NORMAL STAFF LOGIN USES SERVER-GENERATED MASTER-EMAIL OTP. THIS FILE ONLY OWNS STAFF IDENTITY, APPROVED DEVICE AND ADMIN REVOKE CONTROLS.
+-- TORVO V2 STAFF ACCESS IDENTITY FOUNDATION
+-- FINAL: MASTER-EMAIL OTP + ONE ACTIVE SESSION. Manual staff device registration/approval is retired.
 drop function if exists staff_verify_one_time_password(text,text,text,text);
 drop function if exists admin_issue_staff_one_time_password(uuid,text,integer);
 drop table if exists staff_one_time_passwords;
@@ -15,16 +15,11 @@ create table if not exists staff_access_identities(
 );
 create unique index if not exists uq_staff_access_username_upper on staff_access_identities(upper(username));
 
-create table if not exists staff_authorized_devices(
- id uuid primary key default gen_random_uuid(),app_user_id uuid not null references app_users(id) on delete cascade,
- device_id text not null,device_type text not null check(device_type in('mobile_app','desktop')),
- approved_by uuid not null references app_users(id),approved_at timestamptz not null default now(),revoked_at timestamptz,
- unique(app_user_id,device_id)
-);
-create unique index if not exists uq_staff_one_active_device on staff_authorized_devices(app_user_id) where revoked_at is null;
+drop function if exists admin_approve_staff_device(uuid,text,text);
+drop table if exists staff_authorized_devices;
 
-alter table staff_access_identities enable row level security;alter table staff_authorized_devices enable row level security;
-revoke all on staff_access_identities,staff_authorized_devices from anon,authenticated;
+alter table staff_access_identities enable row level security;
+revoke all on staff_access_identities from anon,authenticated;
 
 create or replace function admin_upsert_staff_access(p_app_user_id uuid,p_username text,p_employee_name text,p_staff_role text)
 returns void language plpgsql security definer set search_path=public as $$declare actor app_users%rowtype;target app_users%rowtype;u text:=upper(btrim(coalesce(p_username,'')));n text:=upper(btrim(coalesce(p_employee_name,'')));begin
@@ -36,48 +31,32 @@ returns void language plpgsql security definer set search_path=public as $$decla
  on conflict(app_user_id) do update set username=excluded.username,employee_name=excluded.employee_name,staff_role=excluded.staff_role,active=true,updated_at=now(),updated_by=actor.id;
 end$$;
 
-create or replace function admin_approve_staff_device(p_app_user_id uuid,p_device_id text,p_device_type text)
-returns uuid language plpgsql security definer set search_path=public as $$declare actor app_users%rowtype;i staff_access_identities%rowtype;rid uuid;begin
- select * into actor from app_users where auth_user_id=auth.uid() and active=true;if actor.id is null or lower(coalesce(actor.role,'')) not in('owner','admin') then raise exception 'ADMIN REQUIRED';end if;
- select i.* into i from staff_access_identities i join app_users u on u.id=i.app_user_id where i.app_user_id=p_app_user_id and i.active=true and u.active=true and lower(coalesce(u.role,''))=i.staff_role;if i.app_user_id is null then raise exception 'STAFF ACCESS ID REQUIRED';end if;
- if length(btrim(coalesce(p_device_id,'')))<8 or length(p_device_id)>180 then raise exception 'SECURE DEVICE ID REQUIRED';end if;
- if (i.staff_role in('owner','admin','accountant') and p_device_type<>'desktop') or (i.staff_role in('salesman','store_keeper') and p_device_type<>'mobile_app') then raise exception 'DEVICE TYPE NOT ALLOWED FOR ROLE';end if;
- update staff_authorized_devices set revoked_at=now() where app_user_id=p_app_user_id and revoked_at is null;
- insert into staff_authorized_devices(app_user_id,device_id,device_type,approved_by) values(p_app_user_id,btrim(p_device_id),p_device_type,actor.id)
- on conflict(app_user_id,device_id) do update set device_type=excluded.device_type,approved_by=actor.id,approved_at=now(),revoked_at=null returning id into rid;return rid;
-end$$;
-
 create or replace function admin_revoke_staff_access(p_app_user_id uuid)
 returns void language plpgsql security definer set search_path=public as $$declare actor app_users%rowtype;begin
  select * into actor from app_users where auth_user_id=auth.uid() and active=true;if actor.id is null or lower(coalesce(actor.role,'')) not in('owner','admin') then raise exception 'ADMIN REQUIRED';end if;
  update staff_access_identities set active=false,updated_at=now(),updated_by=actor.id where app_user_id=p_app_user_id;
- update staff_authorized_devices set revoked_at=now() where app_user_id=p_app_user_id and revoked_at is null;
  update staff_auth_sessions set revoked_at=coalesce(revoked_at,now()),revoked_by=actor.id where app_user_id=p_app_user_id and revoked_at is null;
 end$$;
 
-create or replace function bootstrap_initial_owner_staff_access(p_username text,p_employee_name text,p_device_id text)
+create or replace function bootstrap_initial_owner_staff_access(p_username text,p_employee_name text)
 returns uuid language sql security definer set search_path=public as $owner_bootstrap$
 with actor as (
  select id from app_users
  where auth_user_id=auth.uid() and active=true and lower(coalesce(role,''))='owner'
    and upper(btrim(coalesce(p_username,'')))='OR@000'
    and length(upper(btrim(coalesce(p_employee_name,'')))) between 2 and 120
-   and length(btrim(coalesce(p_device_id,''))) between 8 and 180
    and not exists(select 1 from staff_access_identities)
-   and not exists(select 1 from staff_authorized_devices)
 ), identity_row as (
  insert into staff_access_identities(app_user_id,username,employee_name,staff_role,active,updated_by)
  select id,'OR@000',upper(btrim(p_employee_name)),'owner',true,id from actor
  returning app_user_id
 )
-insert into staff_authorized_devices(app_user_id,device_id,device_type,approved_by)
-select app_user_id,btrim(p_device_id),'desktop',app_user_id from identity_row
-returning id
+select app_user_id from identity_row
 $owner_bootstrap$;
 
-revoke all on function bootstrap_initial_owner_staff_access(text,text,text) from public,anon;
-grant execute on function bootstrap_initial_owner_staff_access(text,text,text) to authenticated;
+drop function if exists bootstrap_initial_owner_staff_access(text,text,text);
+revoke all on function bootstrap_initial_owner_staff_access(text,text) from public,anon;
+grant execute on function bootstrap_initial_owner_staff_access(text,text) to authenticated;
 
 revoke all on function admin_upsert_staff_access(uuid,text,text,text) from public,anon;grant execute on function admin_upsert_staff_access(uuid,text,text,text) to authenticated;
-revoke all on function admin_approve_staff_device(uuid,text,text) from public,anon;grant execute on function admin_approve_staff_device(uuid,text,text) to authenticated;
 revoke all on function admin_revoke_staff_access(uuid) from public,anon;grant execute on function admin_revoke_staff_access(uuid) to authenticated;

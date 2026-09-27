@@ -210,3 +210,18 @@ In a new chat, tell ChatGPT: `Continue TORVO V2 from docs/TORVO-V2-MASTER-HANDOV
 - Runtime visual acceptance and real admin save/read acceptance remain OPEN until verified on deployed STAGING-backed runtime.
 
 - 25-09-2026 mobile CSS consolidation: public-catalog-browser.css no longer owns mobile media-query presentation. Required current mobile catalog/dealer/selected-item rules moved into authoritative public-website.css mobile layer. Desktop/base catalog rules remain intact. CI guards the single-mobile-CSS-owner boundary.
+
+
+## FINAL AUTH UPDATE — 2026-09-27 — AUTHORITATIVE
+- Supersedes every older staff manual-device-approval rule in this handover.
+- STAFF (OWNER, ADMIN, ACCOUNTANT, SALESMAN, STORE KEEPER): USER ID -> server-generated 6-digit Email OTP to configured TORVO master security email -> verified session.
+- DEALER: registered dealer Email -> server-generated 6-digit Email OTP -> verified Dealer session.
+- ONE ID = ONE ACTIVE SESSION. A successful new OTP login revokes the previous active session for that same identity.
+- Manual device registration/approval is RETIRED and must not be rebuilt.
+- Hidden installation/device identifier remains only for OTP/session binding, replay protection, session validation and security audit; it is not an approval step.
+- Staff `staff_authorized_devices` and `admin_approve_staff_device` are obsolete and are removed by the canonical staff access migration after dependency verification.
+- Initial Owner bootstrap creates the OR@000 staff identity only; it does not approve/register a device.
+- OTP remains single-use, expiring, resend-controlled and attempt-limited. No Owner/Admin bypass.
+- Role surface remains: OWNER/ADMIN/ACCOUNTANT = secure Desktop/Laptop; SALESMAN/STORE KEEPER = TORVO App; DEALER = TORVO App.
+- Production remains untouched until explicit Owner approval and genuine staging/runtime acceptance.
+- New chats must treat this section as newer and authoritative over older device-approval wording below.
