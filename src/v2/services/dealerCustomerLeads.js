@@ -5,3 +5,5 @@ export const acceptDealerCustomerLead=async(id)=>{const expected=leadId(id),data
 export const declineDealerCustomerLead=async(id)=>{const lead=leadId(id),data=await rpc('dealer_decline_customer_demand_lead',{p_lead_id:lead});if(data!==true)throw new Error('CUSTOMER LEAD DECLINE FAILED');return{lead_id:lead,status:'declined'}};
 
 export const loadAcceptedDealerCustomerLeadMedia=async id=>{const expected=leadId(id),data=await rpc('dealer_customer_demand_media_paths',{p_lead_id:expected});return Array.isArray(data)?data:[]};
+
+export const openAcceptedDealerCustomerLeadMedia=async(lead,mediaId)=>{const l=leadId(lead),m=leadId(mediaId),p=await proof();const{data,error}=await requireBackend().functions.invoke('customer-demand-media-read',{body:{lead_id:l,media_id:m,device_id:p.deviceId,session_token:p.token}});if(error||!data?.ok||!data?.url)throw new Error(data?.error||error?.message||'PRIVATE MEDIA ACCESS FAILED');await assertDealerSession();return data};
