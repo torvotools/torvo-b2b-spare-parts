@@ -1,0 +1,56 @@
+/* TORVO V2 OPERATIONAL WORKSPACE CONSOLIDATION — UI ONLY */
+#torvo-v2-root :is(.workspace,.adminWorkspace,.accountantWorkPanel){
+ color:var(--t-ink);font-family:var(--t-font)
+}
+#torvo-v2-root :is(.workspace,.adminWorkspace,.accountantWorkPanel)>header,
+#torvo-v2-root :is(.workspaceHeader,.panelHeader,.sectionHeader){
+ display:flex;align-items:center;justify-content:space-between;gap:12px;
+ min-height:52px;padding:10px 14px;border-bottom:1px solid var(--t-line)!important
+}
+#torvo-v2-root :is(.workspace,.adminWorkspace,.accountantWorkPanel) h1{font-size:22px;line-height:1.15;letter-spacing:-.35px}
+#torvo-v2-root :is(.workspace,.adminWorkspace,.accountantWorkPanel) h2{font-size:17px;line-height:1.2;letter-spacing:-.2px}
+#torvo-v2-root :is(.workspace,.adminWorkspace,.accountantWorkPanel) h3{font-size:14px;line-height:1.25}
+#torvo-v2-root :is(.workspace,.adminWorkspace,.accountantWorkPanel) :is(h1,h2,h3){color:var(--t-black);margin-top:0}
+#torvo-v2-root :is(.workspace,.adminWorkspace,.accountantWorkPanel) :is(label,small,.muted){color:var(--t-muted)}
+#torvo-v2-root :is(.workspace,.adminWorkspace,.accountantWorkPanel) form{gap:var(--t-space-3)}
+#torvo-v2-root :is(.workspace,.adminWorkspace,.accountantWorkPanel) :is(input,select){min-height:42px;padding-inline:11px}
+#torvo-v2-root :is(.workspace,.adminWorkspace,.accountantWorkPanel) textarea{padding:10px 11px;line-height:1.45}
+#torvo-v2-root :is(.workspace,.adminWorkspace,.accountantWorkPanel) :is(.toolbar,.filters,.filterBar,.workspaceActions){
+ display:flex;align-items:center;gap:8px;flex-wrap:wrap
+}
+#torvo-v2-root :is(.workspace,.adminWorkspace,.accountantWorkPanel) :is(.card,.panel,article){
+ border:1px solid var(--t-line);border-radius:var(--t-r2);background:var(--t-surface);box-shadow:none
+}
+#torvo-v2-root :is(.workspace,.adminWorkspace,.accountantWorkPanel) :is(.primaryAction,.saveButton,.submitButton){
+ background:var(--t-red)!important;color:#fff!important;border:1px solid var(--t-red)!important
+}
+#torvo-v2-root :is(.workspace,.adminWorkspace,.accountantWorkPanel) :is(.secondaryAction,.clearButton,.cancelButton){
+ background:#fff!important;color:var(--t-ink)!important;border:1px solid var(--t-line-strong)!important
+}
+#torvo-v2-root :is(.workspace,.adminWorkspace,.accountantWorkPanel) :is(.tabs,.workspaceTabs){
+ border-bottom:1px solid var(--t-line);gap:4px
+}
+#torvo-v2-root :is(.workspace,.adminWorkspace,.accountantWorkPanel) :is(.tabs,.workspaceTabs)>button{
+ background:transparent;border:0;border-bottom:2px solid transparent!important;border-radius:0!important;padding-inline:14px
+}
+#torvo-v2-root :is(.workspace,.adminWorkspace,.accountantWorkPanel) :is(.tabs,.workspaceTabs)>button.active{
+ color:var(--t-red)!important;background:transparent!important;border-bottom-color:var(--t-red)!important
+}
+#torvo-v2-root :is(.catalogWorkspace,.dealersWorkspace,.salesWorkspace,.purchaseWorkspace,.inventoryWorkspace,.reportsWorkspace) table{
+ background:#fff;border:1px solid var(--t-line);border-radius:var(--t-r2);overflow:hidden
+}
+#torvo-v2-root :is(.catalogWorkspace,.dealersWorkspace,.salesWorkspace,.purchaseWorkspace,.inventoryWorkspace,.reportsWorkspace) thead th{
+ position:sticky;top:0;z-index:2
+}
+#torvo-v2-root :is(.catalogWorkspace,.dealersWorkspace,.salesWorkspace,.purchaseWorkspace,.inventoryWorkspace,.reportsWorkspace) :is(.empty,.emptyState){
+ min-height:160px;display:grid;place-items:center;text-align:center;color:var(--t-muted);background:#fff;border:1px dashed var(--t-line-strong);border-radius:var(--t-r2)
+}
+#torvo-v2-root :is(.modal,.dialog,.drawer,.sheet){font-family:var(--t-font);color:var(--t-ink)}
+#torvo-v2-root :is(.modal,.dialog,.drawer) header{border-bottom:1px solid var(--t-line)}
+#torvo-v2-root :is(.modal,.dialog,.drawer) footer{border-top:1px solid var(--t-line)}
+@media(max-width:820px){
+ #torvo-v2-root :is(.workspace,.adminWorkspace,.accountantWorkPanel)>header,
+ #torvo-v2-root :is(.workspaceHeader,.panelHeader,.sectionHeader){min-height:48px;padding:8px 10px}
+ #torvo-v2-root :is(.workspace,.adminWorkspace,.accountantWorkPanel) h1{font-size:19px}
+ #torvo-v2-root :is(.workspace,.adminWorkspace,.accountantWorkPanel) :is(.toolbar,.filters,.filterBar,.workspaceActions)>*{min-width:0}
+}
