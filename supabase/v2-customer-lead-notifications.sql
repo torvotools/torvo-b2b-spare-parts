@@ -5,10 +5,12 @@ returns uuid language plpgsql security definer set search_path=public as $$
 declare u app_users%rowtype;l customer_demand_dealer_leads%rowtype;d customer_product_demands%rowtype;dealer_user uuid;cid uuid;begin
  select * into u from app_users where auth_user_id=auth.uid() and active=true;
  if u.id is null or u.role not in('owner','admin') then raise exception 'OWNER OR ADMIN REQUIRED';end if;
- select * into l from customer_demand_dealer_leads where id=p_lead_id and status='sent' for update;
+ select * into l from customer_demand_dealer_leads where id=p_lead_id and status='sent';
  if l.id is null then raise exception 'OPEN ASSIGNED CUSTOMER LEAD REQUIRED';end if;
  select * into d from customer_product_demands where id=l.demand_id and status not in('closed','cancelled') for update;
  if d.id is null then raise exception 'ACTIVE CUSTOMER REQUIREMENT REQUIRED';end if;
+ select * into l from customer_demand_dealer_leads where id=p_lead_id and demand_id=d.id and status='sent' for update;
+ if l.id is null then raise exception 'OPEN ASSIGNED CUSTOMER LEAD REQUIRED';end if;
  select a.id into dealer_user from app_users a join dealers x on x.id=l.dealer_id where a.dealer_id=l.dealer_id and a.active=true and a.role='dealer' and lower(coalesce(x.status,''))='approved' and x.customer_referral_enabled=true and x.referral_profile_verified_at is not null and x.product_sales_available=true order by a.created_at desc limit 1;
  if dealer_user is null then raise exception 'ACTIVE APPROVED VERIFIED SALES DEALER APP USER REQUIRED';end if;
  -- Retry-safe: reuse the existing direct campaign and recover any missing active-device push rows.
