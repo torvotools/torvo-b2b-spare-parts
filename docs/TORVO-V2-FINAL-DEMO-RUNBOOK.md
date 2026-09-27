@@ -6,7 +6,7 @@ This is the final owner-facing order for checking and learning the system. Do no
 Check mobile first, then desktop: header/search, CAMERA before MIC, search suggestions, MACHINE / SPARE PART / ACCESSORY discovery, compatible/suitable messaging, dealer registration, nearby dealer enquiry, CALL/WHATSAPP, and no public TORVO dealer selling rate.
 
 ## 2. DEALER LOGIN AND SECURITY
-Register/approve a dealer, first login through WhatsApp OTP and 4-digit PIN setup, normal mobile + PIN login, forgot PIN, blocked/inactive behavior, suspicious/new-device verification, then prove one-device-only behavior by signing in on Device B and confirming Device A loses protected access.
+Register/approve a dealer with a valid registered email, sign in inside the native TORVO TOOLS app using a server-generated 6-digit email OTP, verify blocked/inactive behavior and approved identity binding, then prove one-device-only behavior by signing in on Device B and confirming Device A loses every protected private read/write. Mobile/WhatsApp remains business contact only and is not an authentication credential.
 
 ## 3. DEALER B2B ORDER FLOW
 Search product → enter quantity → server dealer rate → SUBMIT PURCHASE ORDER → TORVO prepares/revises SALES ORDER → dealer reviews exact revision → GIVE DEALER OK → ESTIMATE → fulfilment/dispatch → tracking → DELIVERY SUCCESSFUL. Also test MODIFY ORDER, REQUEST MODIFICATION and ADD MORE ITEMS. Old dealer OK must never survive a TORVO revision.
