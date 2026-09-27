@@ -48,6 +48,14 @@ Integration-ready scope: Product Vision/AI, Accounting, WhatsApp Business, exist
 TORVO remains system of record. Provider secrets stay server-side. AI uncertain/critical facts require review; compatibility becomes authoritative only after authorized human confirmation.
 Paid provider activation/production credentials require Owner approval.
 
+## DEALER SERVICE / REPAIR BOOK — OWNER APPROVED 2026-09-27
+Dealer App will include a private operational SERVICE / REPAIR BOOK to increase daily dealer utility and capture genuine repair-demand intelligence.
+Canonical flow: CUSTOMER DETAILS -> MACHINE PHOTO -> BRAND/MODEL -> STRUCTURED COMPLAINT + OPTIONAL NOTE -> MACHINE IN / TOKEN -> REPAIR PARTS USED -> DEALER COST + SELLING RATE VIEW -> REPAIR BILL -> CUSTOMER WHATSAPP READY/BILL NOTICE -> MACHINE OUT / DELIVERY HISTORY.
+Dealer dashboard must show machines currently IN, repair status/reason, READY and DELIVERED/history. Complaint choices should be structured and extensible rather than free-text only.
+Repair parts should link to genuine TORVO catalog items where possible. Do not invent parts, rates or fitment. Dealer financial visibility remains dealer-scoped; TORVO background analytics must remain role/privacy controlled.
+Customer data collected for repair operations is operational data; do not silently treat it as marketing consent. WhatsApp operational notifications and marketing consent remain distinct.
+This is an approved addition to Dealer App business logic. Do not build it as a separate app/project.
+
 ## CURRENT AUTH / SECURITY
 - Genuine staging Owner bootstrap completed for OR@000.
 - Staff master-email OTP path has genuine staging evidence.
