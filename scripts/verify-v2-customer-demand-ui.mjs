@@ -12,6 +12,7 @@ const checks=[
  ['DEMAND PAYLOAD BOUNDED',/cleanText\(name,120,'CUSTOMER NAME'\)/.test(svc)&&/cleanText\(searchText,200,'PRODUCT SEARCH'\)/.test(svc)&&/cleanText\(brand,120,'BRAND'\)/.test(svc)&&/cleanText\(modelNumber,120,'MODEL NUMBER'\)/.test(svc)&&/cleanText\(requirementNote,500,'REQUIREMENT NOTE'\)/.test(svc)],
  ['TORVO PAN INDIA ESCALATION',/ASK TORVO PAN-INDIA HELP/.test(ui)&&/requestTorvoProductHelp\(/.test(ui)],
  ['PRIVATE CONTACT MESSAGE',/CUSTOMER CONTACT IS NOT PUBLICLY BROADCAST TO DEALERS/.test(ui)],
+ ['DEMAND DOES NOT CLAIM MARKETING OPT IN',!/checked=\{demand\.marketing\}/.test(ui)&&/PRODUCT REQUIREMENT SUBMISSION DOES NOT ENROL YOU IN PROMOTIONAL MESSAGES/.test(ui)&&/p_marketing_opt_in:false/.test(svc)&&!/marketing=false,source=null/.test(svc)],
  ['NO UNVERIFIED AVAILABILITY PROMISE',/AVAILABILITY IS NOT GUARANTEED/.test(ui)&&!/WE FOUND YOUR ITEM|ITEM IS AVAILABLE NOW/.test(ui)],
  ['COMMON CATALOG IMPORT',/import PublicCatalogDropdowns from'\.\/PublicCatalogDropdowns'/.test(ui)],
  ['DEMAND MASTER DROPDOWNS',/open==='demand'[\s\S]*<PublicCatalogDropdowns value=\{demand\} onChange=\{setDemand\} disabled=\{busy\}/.test(ui)],
