@@ -28,8 +28,8 @@ returns table(lead_id uuid,demand_id uuid,search_text text,quantity integer,pin_
 language plpgsql security definer set search_path=public as $$declare did uuid;begin
  did:=dealer_assert_my_device_session(p_device_id,p_session_token);
  return query select l.id,d.id,d.search_text,d.quantity,d.pin_code,d.brand,d.model_number,d.requirement_note,l.routing_stage,l.status,l.sent_at
- from customer_demand_dealer_leads l join customer_product_demands d on d.id=l.demand_id
- where l.dealer_id=did and l.status in('sent','accepted') and d.status not in('closed','cancelled')
+ from customer_demand_dealer_leads l join customer_product_demands d on d.id=l.demand_id join dealers x on x.id=l.dealer_id
+ where l.dealer_id=did and l.status in('sent','accepted') and d.status not in('closed','cancelled') and lower(coalesce(x.status,''))='approved' and x.customer_referral_enabled=true and x.referral_profile_verified_at is not null and x.product_sales_available=true
  order by l.sent_at desc limit greatest(1,least(coalesce(p_limit,50),100));
 end$$;
 revoke all on function public.dealer_customer_demand_leads(text,text,integer) from public,anon;

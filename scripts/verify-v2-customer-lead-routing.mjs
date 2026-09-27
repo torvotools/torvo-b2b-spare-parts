@@ -35,6 +35,7 @@ const checks=[
  ['NO FAKE DISTANCE CONTRACT',/actual 0-25\/25-50 KM routing must be supplied by a truthful geospatial\/service-area selector later/i.test(sql)],
  ['QUANTITY CONTRACT',/quantity integer not null default 1/i.test(qtySql)&&/check\(quantity between 1 and 9999\)/i.test(qtySql)&&/p_quantity integer/i.test(qtySql)],
  ['DEALER INBOX RETURNS QUANTITY',/dealer_customer_demand_leads[\s\S]*quantity integer/i.test(qtySql)&&/d\.quantity/i.test(qtySql)],
+ ['QUANTITY OVERRIDE PRESERVES DEALER ELIGIBILITY',/join dealers x on x\.id=l\.dealer_id[\s\S]*x\.customer_referral_enabled=true[\s\S]*x\.referral_profile_verified_at is not null[\s\S]*x\.product_sales_available=true/i.test(qtySql)],
  ['DEALER UI SHOWS QUANTITY',/QTY:/.test(ui)&&/REQUIREMENT QTY:/.test(ui)],
  ['CLIENT DEVICE PROOF',/assertDealerSession/.test(service)&&/p_device_id:p\.deviceId,p_session_token:p\.token/.test(service)],
  ['CLIENT ACCEPT CONTACT GATE',/acceptDealerCustomerLead/.test(service)&&/CUSTOMER CONTACT UNLOCK FAILED/.test(service)],
