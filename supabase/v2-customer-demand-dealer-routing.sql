@@ -29,7 +29,7 @@ begin
  if d.id is null or d.status in('closed','cancelled') then raise exception 'ACTIVE CUSTOMER REQUIREMENT REQUIRED';end if;
  -- Serialize assignment with Dealer status changes using the Dealer row itself.
  select * into target_dealer from dealers where id=p_dealer_id for update;
- if target_dealer.id is null or target_dealer.status<>'approved' then raise exception 'APPROVED DEALER REQUIRED';end if;
+ if target_dealer.id is null or lower(coalesce(target_dealer.status,''))<>'approved' or target_dealer.customer_referral_enabled<>true or target_dealer.referral_profile_verified_at is null or target_dealer.product_sales_available<>true then raise exception 'APPROVED VERIFIED SALES DEALER REQUIRED';end if;
  insert into customer_demand_dealer_leads(demand_id,dealer_id,routing_stage,assigned_by) values(p_demand_id,p_dealer_id,stage,u.id)
  on conflict(demand_id,dealer_id) do update set routing_stage=excluded.routing_stage,status='sent',sent_at=now(),accepted_at=null,declined_at=null,closed_at=null,assigned_by=u.id returning id into rid;
  insert into audit_log(actor_id,action,entity_type,entity_id,details) values(u.id,'CUSTOMER_DEMAND_ROUTED','CUSTOMER_PRODUCT_DEMAND',p_demand_id::text,jsonb_build_object('dealer_id',p_dealer_id,'routing_stage',stage));
