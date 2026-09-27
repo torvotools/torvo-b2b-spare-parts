@@ -99,7 +99,7 @@ begin
  return c.app_user_id;
 end$$;
 
-drop function if exists staff_email_otp_begin(text,text,text);
+-- Retire only the legacy client-email signature. Keep the canonical 3-argument master-email function created above.
 drop function if exists staff_email_otp_begin(text,text,text,text);
 drop function if exists staff_email_otp_verify(uuid,text,text,text,text);
 
