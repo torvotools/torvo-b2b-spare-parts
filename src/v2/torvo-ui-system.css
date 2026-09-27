@@ -1,0 +1,18 @@
+/* TORVO V2 SHARED VISUAL SYSTEM — UI ONLY
+   One design language for public, Owner/Admin, Accountant and role apps.
+   Does not add or change business actions. */
+#torvo-v2-root{--torvo-red:#d71920;--torvo-black:#15191f;--torvo-ink:#20242a;--torvo-grey:#69717b;--torvo-line:#c9ced5;--torvo-soft:#f4f5f7;--torvo-white:#fff;--torvo-radius:4px}
+#torvo-v2-root button,#torvo-v2-root input,#torvo-v2-root select,#torvo-v2-root textarea{font-family:inherit}
+#torvo-v2-root input,#torvo-v2-root select,#torvo-v2-root textarea{outline:none}
+#torvo-v2-root input:focus,#torvo-v2-root select:focus,#torvo-v2-root textarea:focus{border-color:var(--torvo-red)!important;box-shadow:0 0 0 2px rgba(215,25,32,.09)}
+#torvo-v2-root .adminUniversalBar,#torvo-v2-root .accountantSharedSearch .adminUniversalBar,#torvo-v2-root .roleSharedSearch{border-color:var(--torvo-line)}
+#torvo-v2-root .adminFilterToggle,#torvo-v2-root .accountantFilterToggle,#torvo-v2-root .roleFilterToggle{border-radius:var(--torvo-radius)!important;font-weight:600!important;letter-spacing:.15px}
+#torvo-v2-root .adminFilterToggle.active,#torvo-v2-root .accountantFilterToggle.active,#torvo-v2-root .roleFilterToggle.active{background:var(--torvo-black)!important;color:#fff!important;border-color:var(--torvo-black)!important}
+#torvo-v2-root .adminProductFilters,#torvo-v2-root .accountantFilterPanel,#torvo-v2-root .roleFilterPanel{border:1px solid var(--torvo-line)!important;border-radius:var(--torvo-radius)!important;box-shadow:0 12px 32px rgba(15,19,24,.12)!important}
+#torvo-v2-root .roleApp main{background:var(--torvo-soft)}
+#torvo-v2-root .roleGrid>button,#torvo-v2-root .accountantSummary article,#torvo-v2-root .accountantWorkPanel{border-color:var(--torvo-line)!important;border-radius:var(--torvo-radius)!important}
+#torvo-v2-root .roleGrid>button:hover{border-color:var(--torvo-red)!important}
+#torvo-v2-root .workspace .smartProductFilters,#torvo-v2-root .workspace .smartFilters{border-color:var(--torvo-line)!important;border-radius:var(--torvo-radius)!important}
+@media(max-width:820px){
+ #torvo-v2-root .roleApp{--torvo-radius:3px}
+}
