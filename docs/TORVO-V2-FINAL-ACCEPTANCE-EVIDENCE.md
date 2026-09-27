@@ -95,5 +95,18 @@ TORVO V2 is called 100% only after every applicable gate above has real PASS evi
 - Build Check: SUCCESS; Cloudflare Preview: SUCCESS for this exact SHA. Android APK workflow was still running when this evidence note was written, so no Android PASS is claimed here.
 - Canonical Dealer authentication is registered-email OTP plus one-active-device enforcement; retired Dealer PIN wording is not acceptance evidence.
 - Canonical Staff authentication is Staff User ID plus server-generated OTP delivered only to the Owner/Admin-managed master security email; retired staff one-time-password/WhatsApp/emergency-login paths are not acceptance evidence.
-- Initial Owner bootstrap is fail-closed and CI-verified, but has not been executed with a genuine Owner desktop device. Staff runtime acceptance therefore remains OPEN.
+- Initial Owner bootstrap is identity-only and fail-closed: it creates the first `OR@000` staff identity only, with no manual device registration/approval. Staff runtime acceptance remains OPEN until a genuine master-email OTP begin/receive/verify/session/revoke test is completed.
 - Production, `main`, V27 and the locked Business Login UI remain outside this staging acceptance work.
+
+
+## Auth architecture cleanup CI — 2026-09-27
+- Exact Git SHA: `0a5c62721797e02586b2d3e35c35dfd9f178efa8`.
+- Build Check #2828: SUCCESS.
+- Cloudflare Preview #2159: SUCCESS.
+- Android APK #2117 was still running when this ledger note was written; no Android PASS is claimed by this note.
+- Manual Staff device registration/approval is retired. Hidden installation/device ID remains security/session metadata only.
+- Staff: User ID + server-generated 6-digit OTP to the Owner/Admin-managed master security email; one active verified session per Staff ID.
+- Dealer: registered email + server-generated 6-digit OTP; one active Dealer session.
+- Legacy staging Edge Functions `dealer-pin-login` and `staff-one-time-login` remain deployed historically but canonical source has no caller; the available recent staging log audit found no usage. Removal remains pending a supported staging-only deletion path and must not touch production.
+- Customer/Missing Product canonical public write remains `public_create_product_demand`; the legacy `public_create_product_requirement` grant is revoked. Historical support/complaint dependencies prevent blind deletion of its table/migration.
+- Runtime auth, business, backup/restore, real-device Android, production signing and production/domain gates remain OPEN.
