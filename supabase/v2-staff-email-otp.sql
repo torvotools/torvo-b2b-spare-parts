@@ -59,7 +59,7 @@ begin
  then raise exception 'INVALID LOGIN'; end if;
  select sai.* into i from staff_access_identities sai join app_users a on a.id=sai.app_user_id
  where upper(sai.username)=upper(btrim(coalesce(p_username,''))) and sai.active=true and a.active=true
- and lower(coalesce(a.role,'')) in('admin','accountant','salesman','store_keeper') and lower(coalesce(sai.staff_role,''))=lower(a.role)
+ and lower(coalesce(a.role,'')) in('owner','admin','accountant','salesman','store_keeper') and lower(coalesce(sai.staff_role,''))=lower(a.role)
  for update of sai;
  if i.app_user_id is null then raise exception 'INVALID LOGIN'; end if;
  perform 1 from staff_authorized_devices ad join app_users au on au.id=i.app_user_id
@@ -84,7 +84,7 @@ begin
  select sai.* into i from staff_access_identities sai join app_users a on a.id=sai.app_user_id
  where sai.app_user_id=c.app_user_id and upper(sai.username)=upper(btrim(coalesce(p_username,'')))
  and c.email_normalized=(select lower(master_email) from staff_otp_settings where singleton=true)
- and sai.active=true and a.active=true and lower(coalesce(a.role,'')) in('admin','accountant','salesman','store_keeper')
+ and sai.active=true and a.active=true and lower(coalesce(a.role,'')) in('owner','admin','accountant','salesman','store_keeper')
  and lower(coalesce(sai.staff_role,''))=lower(a.role);
  if i.app_user_id is null then raise exception 'INVALID OR EXPIRED OTP'; end if;
  perform 1 from staff_authorized_devices ad join app_users au on au.id=i.app_user_id
