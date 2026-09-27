@@ -55,11 +55,13 @@ returns table(lead_id uuid,customer_name text,mobile text,whatsapp text,pin_code
 language plpgsql security definer set search_path=public as $$declare did uuid;l customer_demand_dealer_leads%rowtype;d customer_product_demands%rowtype;target_dealer dealers%rowtype;au uuid;identity_count integer;
 begin
  did:=dealer_assert_my_device_session(p_device_id,p_session_token);
- select * into l from customer_demand_dealer_leads where id=p_lead_id and dealer_id=did for update;
+ select * into l from customer_demand_dealer_leads where id=p_lead_id and dealer_id=did;
  if l.id is null then raise exception 'ASSIGNED CUSTOMER LEAD REQUIRED';end if;
- if l.status not in('sent','accepted') then raise exception 'CUSTOMER LEAD IS NOT OPEN';end if;
  select * into d from customer_product_demands where id=l.demand_id for update;
  if d.id is null or d.status in('closed','cancelled') then raise exception 'ACTIVE CUSTOMER REQUIREMENT REQUIRED';end if;
+ select * into l from customer_demand_dealer_leads where id=p_lead_id and dealer_id=did and demand_id=d.id for update;
+ if l.id is null then raise exception 'ASSIGNED CUSTOMER LEAD REQUIRED';end if;
+ if l.status not in('sent','accepted') then raise exception 'CUSTOMER LEAD IS NOT OPEN';end if;
  select * into target_dealer from dealers where id=did for update;
  if target_dealer.id is null or lower(coalesce(target_dealer.status,''))<>'approved' or target_dealer.customer_referral_enabled<>true or target_dealer.referral_profile_verified_at is null or target_dealer.product_sales_available<>true then raise exception 'APPROVED VERIFIED SALES DEALER REQUIRED';end if;
  select count(*) into identity_count from app_users where auth_user_id=auth.uid() and active=true and lower(coalesce(role,''))='dealer' and dealer_id=did;
@@ -75,10 +77,12 @@ revoke all on function dealer_accept_customer_demand_lead(uuid,text,text) from p
 create or replace function dealer_decline_customer_demand_lead(p_lead_id uuid,p_device_id text,p_session_token text)
 returns boolean language plpgsql security definer set search_path=public as $$declare did uuid;l customer_demand_dealer_leads%rowtype;d customer_product_demands%rowtype;au uuid;identity_count integer;begin
  did:=dealer_assert_my_device_session(p_device_id,p_session_token);
- select * into l from customer_demand_dealer_leads where id=p_lead_id and dealer_id=did and status='sent' for update;
+ select * into l from customer_demand_dealer_leads where id=p_lead_id and dealer_id=did;
  if l.id is null then raise exception 'OPEN ASSIGNED CUSTOMER LEAD REQUIRED';end if;
  select * into d from customer_product_demands where id=l.demand_id for update;
  if d.id is null or d.status in('closed','cancelled') then raise exception 'ACTIVE CUSTOMER REQUIREMENT REQUIRED';end if;
+ select * into l from customer_demand_dealer_leads where id=p_lead_id and dealer_id=did and demand_id=d.id and status='sent' for update;
+ if l.id is null then raise exception 'OPEN ASSIGNED CUSTOMER LEAD REQUIRED';end if;
  select count(*) into identity_count from app_users where auth_user_id=auth.uid() and active=true and lower(coalesce(role,''))='dealer' and dealer_id=did;
  if identity_count=0 then raise exception 'ACTIVE DEALER APP USER REQUIRED';end if;
  if identity_count>1 then raise exception 'DEALER AUTH IDENTITY AMBIGUOUS';end if;
