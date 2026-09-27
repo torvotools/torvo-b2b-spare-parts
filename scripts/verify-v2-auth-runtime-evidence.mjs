@@ -9,7 +9,7 @@ if(!/^\d{4}-\d{2}-\d{2}T/.test(e.captured_at_utc))fail('captured_at_utc must be 
 const d=e.dealer,s=e.staff;
 for(const k of ['identity_ref','device_a_ref','device_b_ref','email_otp_login_succeeded','device_b_replaced_a','device_a_revoked_private_reads_failed','device_a_revoked_private_writes_failed','device_b_remained_valid','logout_or_revoke_failed_afterwards'])if(d[k]===undefined||d[k]===null||d[k]==='')fail('dealer missing '+k);
 for(const k of ['identity_ref','role','approved_device_ref','email_otp_consumed_once','otp_replay_failed','unapproved_device_failed','runtime_role_boundary_passed','revoke_invalidated_session'])if(s[k]===undefined||s[k]===null||s[k]==='')fail('staff missing '+k);
-if(!['SALESMAN','STORE KEEPER','ACCOUNTANT'].includes(String(s.role).toUpperCase()))fail('unsupported staff acceptance role');
+if(!['OWNER','ADMIN','ACCOUNTANT','SALESMAN','STORE KEEPER'].includes(String(s.role).toUpperCase()))fail('unsupported staff acceptance role');
 for(const [scope,obj,keys] of [['dealer',d,['email_otp_login_succeeded','device_b_replaced_a','device_a_revoked_private_reads_failed','device_a_revoked_private_writes_failed','device_b_remained_valid','logout_or_revoke_failed_afterwards']],['staff',s,['email_otp_consumed_once','otp_replay_failed','unapproved_device_failed','runtime_role_boundary_passed','revoke_invalidated_session']]])for(const k of keys)if(obj[k]!==true)fail(scope+' '+k+' is not true');
 if(String(d.identity_ref).trim().length<3||String(s.identity_ref).trim().length<3)fail('real non-secret identity references required');
 console.log('PASS TORVO V2 AUTH RUNTIME EVIDENCE');
