@@ -8,7 +8,7 @@ if(e.staging_project_id!=='jvmhhngjlaqrfopfavur')fail('wrong staging project');
 if(e.production_project_id!=='gckafjiitjocodlrwanm')fail('wrong production project');
 if(e.staging_project_id===e.production_project_id)fail('staging and production must remain separate');
 if(!/^\d{4}-\d{2}-\d{2}T/.test(e.approved_at_utc))fail('approved_at_utc must be ISO timestamp');
-if(String(e.owner_acceptance_ref).trim().length<3)fail('real Owner acceptance reference required');
+for(const k of ['owner_acceptance_ref','cloudflare_build_run_ref','cloudflare_preview_run_ref','backup_restore_rehearsal_ref','android_device_evidence_ref','android_production_evidence_ref']){const v=String(e[k]).trim();if(v.length<3||v.toUpperCase().includes('REPLACE_WITH'))fail(k+' must be real non-placeholder evidence');}
 for(const k of ['staging_runtime_gates_passed','exact_sha_build_passed','exact_sha_cloudflare_passed','backup_restore_passed','android_real_device_passed','android_production_release_passed','catalog_permanent_delete_runtime_passed','production_backup_ready','owner_explicit_cutover_approval'])if(e[k]!==true)fail(k+' is not true');
 if(e.owner_explicit_cutover_approval===true&&String(e.owner_acceptance_ref).toUpperCase().includes('REPLACE_WITH'))fail('placeholder Owner acceptance reference');
 if(e.production_migrations_applied===true||e.domain_dns_cutover_completed===true||e.post_cutover_smoke_passed===true)fail('pre-cutover evidence must not claim production mutation/cutover already completed');
