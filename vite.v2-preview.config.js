@@ -10,6 +10,7 @@ export default defineConfig({
       input: {
         index: resolve(process.cwd(), 'v2-preview.html'),
         businessLogin: resolve(process.cwd(), 'business-login.html'),
+        ownerBootstrap: resolve(process.cwd(), 'owner-bootstrap.html'),
       },
       output: {
         entryFileNames: 'assets/[name]-[hash].js',
