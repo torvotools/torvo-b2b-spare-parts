@@ -100,3 +100,19 @@ declare u app_users%rowtype;d customer_product_demands%rowtype;r text:=left(null
  return true;
 end$$;
 revoke all on function admin_close_customer_demand_lead(uuid,text) from public,anon;grant execute on function admin_close_customer_demand_lead(uuid,text) to authenticated;
+
+
+-- CANONICAL MISSING-RANGE CATALOG OPPORTUNITY LINK.
+alter table customer_product_demands add column if not exists opportunity_product_id uuid references catalog_items(id) on delete set null;
+alter table customer_product_demands add column if not exists opportunity_linked_at timestamptz;
+create or replace function admin_link_customer_demand_catalog_product(p_demand_id uuid,p_product_id uuid)
+returns boolean language plpgsql security definer set search_path=public as $$
+declare u app_users%rowtype;d customer_product_demands%rowtype;i catalog_items%rowtype;
+begin
+ select * into u from app_users where auth_user_id=auth.uid() and active=true;if u.id is null or u.role not in('owner','admin') then raise exception 'OWNER OR ADMIN REQUIRED';end if;
+ select * into d from customer_product_demands where id=p_demand_id for update;if d.id is null or d.status in('closed','cancelled') then raise exception 'ACTIVE CUSTOMER REQUIREMENT REQUIRED';end if;
+ select * into i from catalog_items where id=p_product_id and coalesce(active,true)=true for update;if i.id is null then raise exception 'ACTIVE CATALOG PRODUCT REQUIRED';end if;
+ update customer_product_demands set opportunity_product_id=i.id,opportunity_linked_at=now(),updated_at=now() where id=d.id;
+ insert into audit_log(actor_id,action,entity_type,entity_id,details) values(u.id,'CUSTOMER_DEMAND_CATALOG_LINKED','CUSTOMER_PRODUCT_DEMAND',d.id::text,jsonb_build_object('catalog_product_id',i.id));return true;
+end$$;
+revoke all on function admin_link_customer_demand_catalog_product(uuid,uuid) from public,anon;grant execute on function admin_link_customer_demand_catalog_product(uuid,uuid) to authenticated;
