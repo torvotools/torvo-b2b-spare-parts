@@ -13,6 +13,9 @@ const sales=Array.isArray(e.details.sales)?e.details.sales:fail('details.sales m
 const outstanding=Array.isArray(e.details.outstanding)?e.details.outstanding:fail('details.outstanding must be an array');
 if(sales.length<1)fail('sales detail is empty; real accepted transaction evidence required');
 const n=x=>Number(x??0);
+for(const [label,v] of [['summary.sales_total',e.summary.sales_total],['summary.payment_outstanding',e.summary.payment_outstanding]])if(!Number.isFinite(n(v))||n(v)<0)fail(label+' must be a finite non-negative number');
+for(const [i,x] of sales.entries()){const id=String(x?.id??x?.estimate_id??'').trim();if(id.length<3||id.toUpperCase().includes('REPLACE_WITH'))fail('sales['+i+'] must carry a real transaction id/estimate_id');if(!Number.isFinite(n(x.final_payable))||n(x.final_payable)<0)fail('sales['+i+'].final_payable must be finite and non-negative');}
+for(const [i,x] of outstanding.entries()){const id=String(x?.id??x?.estimate_id??x?.payment_id??'').trim();if(id.length<3||id.toUpperCase().includes('REPLACE_WITH'))fail('outstanding['+i+'] must carry a real transaction reference');if(!Number.isFinite(n(x.outstanding))||n(x.outstanding)<0)fail('outstanding['+i+'].outstanding must be finite and non-negative');}
 const salesTotal=sales.reduce((a,x)=>a+n(x.final_payable),0);
 const outstandingTotal=outstanding.reduce((a,x)=>a+n(x.outstanding),0);
 const eq=(a,b)=>Math.abs(n(a)-n(b))<0.005;
