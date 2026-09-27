@@ -67,6 +67,9 @@ declare u app_users%rowtype;s text:=lower(nullif(btrim(coalesce(p_status,'')),''
 end$$;
 revoke all on function admin_customer_lead_center(text,integer) from public,anon;grant execute on function admin_customer_lead_center(text,integer) to authenticated;
 
+-- Retire the older generic demand mutator here. Final lifecycle writes must use the serialized dedicated RPCs below/above.
+drop function if exists public.admin_update_product_demand(uuid,text,text,uuid,text);
+
 -- Recreate close RPC here so every manual Admin close records the demand close timestamp too.
 create or replace function admin_close_customer_demand_lead(p_demand_id uuid,p_reason text default null)
 returns boolean language plpgsql security definer set search_path=public as $$
