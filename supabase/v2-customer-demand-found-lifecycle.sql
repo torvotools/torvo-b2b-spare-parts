@@ -23,7 +23,7 @@ revoke all on function admin_mark_customer_demand_available(uuid,uuid,text,text)
 
 create or replace function public_customer_demand_result(p_demand_id uuid,p_mobile text)
 returns table(demand_id uuid,status text,search_text text,message text,found_dealer_id uuid,found_contact_note text,available_at timestamptz)
-language plpgsql security definer set search_path=public as $
+language plpgsql security definer set search_path=public as $$
 declare m text:=right(regexp_replace(coalesce(p_mobile,''),'\D','','g'),10);
 begin
  if length(m)<>10 then raise exception '10-DIGIT MOBILE REQUIRED';end if;
