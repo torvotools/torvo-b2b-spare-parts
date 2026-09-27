@@ -52,7 +52,7 @@ revoke all on function dealer_customer_demand_leads(text,text,integer) from publ
 -- Demand is locked and validated before the lead changes, preventing an accept/audit/contact race with Admin close/cancel.
 create or replace function dealer_accept_customer_demand_lead(p_lead_id uuid,p_device_id text,p_session_token text)
 returns table(lead_id uuid,customer_name text,mobile text,whatsapp text,pin_code text,search_text text)
-language plpgsql security definer set search_path=public as $declare did uuid;l customer_demand_dealer_leads%rowtype;d customer_product_demands%rowtype;target_dealer dealers%rowtype;au uuid;identity_count integer;
+language plpgsql security definer set search_path=public as $$declare did uuid;l customer_demand_dealer_leads%rowtype;d customer_product_demands%rowtype;target_dealer dealers%rowtype;au uuid;identity_count integer;
 begin
  did:=dealer_assert_my_device_session(p_device_id,p_session_token);
  select * into l from customer_demand_dealer_leads where id=p_lead_id and dealer_id=did for update;
