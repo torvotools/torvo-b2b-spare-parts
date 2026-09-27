@@ -1,0 +1,84 @@
+# TORVO V2 — LIVING MASTER PROJECT REPORT
+
+Status: CANONICAL CURRENT-TRUTH INDEX
+Updated: 2026-09-27
+Authoritative repository: torvotools/torvo-b2b-spare-parts
+Development branch: torvo-v2-build
+
+## RULE
+This file is the first current-state index for TORVO V2. It does not replace evidence history; it prevents old/superseded instructions from being mistaken for current requirements.
+
+Before every material change:
+1. Fetch current remote HEAD; never write from a remembered SHA.
+2. Read this report plus the relevant canonical contract.
+3. Preserve Owner-locked business logic.
+4. Update this report when a decision changes project truth.
+5. Keep audit/history in Git instead of deleting evidence needed for rollback.
+
+## CURRENT PROJECT IDENTITY
+- ONE TORVO V2 codebase.
+- ONE authoritative backend/database architecture.
+- Public Website + role-based operational apps + secure desktop.
+- V27/main are legacy/reference and are not development targets.
+- Production and domain cutover require explicit Owner approval.
+- Current preview remains Cloudflare Workers until production cutover is accepted.
+- UI rollback reference "22" = commit 47eb263662d7a4e552bbb73e18483d35435e90e7.
+
+## LOCKED BUSINESS PRINCIPLES
+- Existing Owner-approved business logic must not be changed merely for UI modernization.
+- Public Website is discovery/dealer-referral, not public e-commerce checkout.
+- Private dealer rates, private stock/financial data and role-restricted information stay protected.
+- Dealer private workspace is app-first/private.
+- B2B canonical flow remains DEALER -> PO -> SALES ORDER -> DEALER OK -> ESTIMATE -> PAYMENT/FULFILMENT -> STORE/DISPATCH -> DELIVERY/TRACKING.
+- No fake users, stock, prices, availability, distance, transactions or acceptance evidence.
+
+## CURRENT UI/UX DIRECTION
+- Entire platform uses one TORVO premium design language: RED / BLACK / WHITE / GREY.
+- Search + Filter + Fast Action are first-class.
+- Product photography is primary where genuine media exists; icon/placeholder is fallback.
+- Desktop is information-dense and clean; mobile is intentionally mobile-first.
+- Forms, borders, buttons, tables, status, spacing, Back/navigation and filters must be consistent across roles.
+- Public Website header has no old phone/email/social top strip.
+- Public top-level product categories are exactly MACHINES / SPARE PARTS / ACCESSORIES.
+- Current UI contracts: docs/TORVO-V2-UI-DESIGN-CONSTITUTION.md plus final CSS layers under src/v2.
+
+## AI/API APPROVED DIRECTION
+Canonical contract: docs/TORVO-V2-AI-API-INTEGRATION-ARCHITECTURE.md
+Integration-ready scope: Product Vision/AI, Accounting, WhatsApp Business, existing Email, GST/e-Invoice/e-Way Bill, Logistics/Tracking, Payments/Reconciliation, Maps/Address and Monitoring.
+TORVO remains system of record. Provider secrets stay server-side. AI uncertain/critical facts require review; compatibility becomes authoritative only after authorized human confirmation.
+Paid provider activation/production credentials require Owner approval.
+
+## CURRENT AUTH / SECURITY
+- Genuine staging Owner bootstrap completed for OR@000.
+- Staff master-email OTP path has genuine staging evidence.
+- Protected Owner workspace final browser runtime acceptance remains OPEN until verified.
+- Do not create fake Admin/Dealer/staff identities to close gates.
+- Production backend remains untouched until approved.
+
+## CURRENT ACCEPTANCE TRUTH
+Canonical ledger: docs/TORVO-V2-FINAL-ACCEPTANCE-EVIDENCE.md
+Runtime/external gates still OPEN include Dealer auth/device, full staff role/browser acceptance, B2B transaction, purchase/inventory/returns reconciliation, reports reconciliation, backup/restore rehearsal, Android real-device, Android production signing and production/domain cutover.
+CI success is not real-device or business-runtime acceptance.
+
+## CLEANUP / SUPERSESSION POLICY
+When a newer Owner-approved decision supersedes an older implementation:
+- mark the old path RETIRED/SUPERSEDED;
+- dependency-audit before physical deletion;
+- remove obsolete runtime/code/database paths only when safe;
+- preserve necessary Git history and acceptance evidence;
+- do not keep two active implementations of the same business capability.
+V27/legacy resources are candidates for dependency-safe retirement, not blind deletion.
+
+## DOCUMENT AUTHORITY ORDER
+For current decisions use:
+1. this Living Master Project Report;
+2. docs/TORVO-V2-MASTER-HANDOVER.md for detailed business/system requirements;
+3. docs/TORVO-V2-UI-DESIGN-CONSTITUTION.md for UI;
+4. docs/TORVO-V2-AI-API-INTEGRATION-ARCHITECTURE.md for integrations;
+5. docs/TORVO-V2-FINAL-ACCEPTANCE-EVIDENCE.md for PASS/OPEN evidence;
+6. supabase/V2_INSTALL_ORDER.md for database installation order.
+If an older note conflicts with a later explicit Owner-approved rule recorded here, the later rule controls. Do not erase historical evidence merely to hide the conflict.
+
+## REPORT MAINTENANCE
+Every future meaningful batch should update current truth when it changes one of: architecture, locked logic, active/retired path, acceptance state, production status, domain status, integration/provider decision or rollback baseline.
+Do not churn this report for cosmetic commits that do not change project truth.
