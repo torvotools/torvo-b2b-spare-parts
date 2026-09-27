@@ -58,3 +58,23 @@ RETIRED: no runtime import, retained only in Git history.
 SAFE TO DELETE: zero required selectors/dependencies + replacement verified by build/runtime checks.
 
 At this audit point, no historical CSS file is yet classified SAFE TO DELETE.
+
+
+## Automated retirement gate
+The V2 preflight now runs `scripts/verify-v2-presentation-dependencies.mjs`.
+
+A presentation layer may move from ACTIVE to SAFE TO DELETE only when all of the following are true:
+1. its required live selectors have been migrated to a named canonical owner;
+2. no live component depends on a unique selector/rule from that layer;
+3. its import is removed deliberately together with the dependency-guard inventory update;
+4. V2 Build Check passes for the exact resulting SHA;
+5. Cloudflare Preview passes for the exact resulting SHA;
+6. Android APK CI passes when the change affects shared/app presentation.
+
+Current exact-SHA evidence before any retirement:
+- SHA `b098eb955c5a690ace21a083af41e4e1cf7634aa`
+- TORVO V2 Build Check #2898 — SUCCESS
+- TORVO V2 Cloudflare Preview #2229 — SUCCESS
+- TORVO V2 Android APK #2187 — SUCCESS (build evidence only; not real-device acceptance)
+
+Current classification remains: no historical presentation file is yet proven SAFE TO DELETE.
