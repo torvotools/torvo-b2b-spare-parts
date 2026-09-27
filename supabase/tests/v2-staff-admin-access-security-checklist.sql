@@ -33,7 +33,7 @@ select
 -- 6. STORE KEEPER follows the same mobile_app installation and 30-day rule.
 -- 7. ACCOUNTANT requires an approved desktop device; mobile_app is rejected. Logout/browser close requires a fresh OTP next login.
 -- 8. ADMIN requires an approved desktop device; logout/browser close requires a fresh OTP next login.
--- 9. OWNER is excluded from normal staff-email OTP and retains the separate Owner secure-access path.
+-- 9. OWNER uses OR@000 with the same master-email OTP boundary and requires the exact approved desktop device; there is no Owner bypass.
 -- 10. Approving a replacement staff device revokes the prior active approved device.
 -- 11. Admin revoke disables staff access, revokes approved device(s), active OTP challenge(s) and active staff auth sessions.
 -- 12. OTP begin/verify and staff_create_verified_session are service_role-only; browser clients cannot call these RPCs directly.
