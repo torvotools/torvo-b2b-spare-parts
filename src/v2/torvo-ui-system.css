@@ -16,3 +16,32 @@
 @media(max-width:820px){
  #torvo-v2-root .roleApp{--torvo-radius:3px}
 }
+
+/* TORVO V2 DESIGN TOKENS — FINAL VISUAL STANDARD */
+#torvo-v2-root{
+ --t-font:Inter,ui-sans-serif,-apple-system,BlinkMacSystemFont,"Segoe UI",Arial,sans-serif;
+ --t-red:#e21b23;--t-red-dark:#bd1118;--t-black:#12161c;--t-ink:#20252c;--t-muted:#69727d;
+ --t-bg:#f5f6f8;--t-surface:#fff;--t-line:#c9ced5;--t-line-strong:#9fa7b0;
+ --t-r1:3px;--t-r2:6px;--t-control:46px;--t-shadow:0 8px 24px rgba(17,22,28,.07);
+ font-family:var(--t-font)!important
+}
+#torvo-v2-root *{box-sizing:border-box}
+#torvo-v2-root button,#torvo-v2-root input,#torvo-v2-root select,#torvo-v2-root textarea{font-family:var(--t-font)!important}
+#torvo-v2-root button{letter-spacing:.08px}
+#torvo-v2-root :is(input,select,textarea){border:1px solid var(--t-line)!important;border-radius:var(--t-r1)!important;background:#fff;color:var(--t-ink)}
+#torvo-v2-root :is(.panel,.workspace,.adminPanel,.accountantWorkPanel,.roleCard,.publicProductCard){border-color:var(--t-line)!important;border-radius:var(--t-r2)!important}
+#torvo-v2-root :is(.workspaceTabs,.publicCategoryTabs) button{min-height:42px;border-radius:var(--t-r1)!important}
+#torvo-v2-root :is(.workspaceTabs,.publicCategoryTabs) button.active{background:var(--t-black)!important;color:#fff!important;border-color:var(--t-black)!important}
+#torvo-v2-root :is(.adminFilterToggle,.accountantFilterToggle,.publicProductFilterToggle,.smartFilterToggle){min-height:var(--t-control);border:1px solid var(--t-line-strong)!important;border-radius:var(--t-r1)!important}
+#torvo-v2-root :is(.finderFilterRow,.accountantFilterPanel,.adminProductFilters,.smartProductFilters){border:1px solid var(--t-line-strong)!important;border-radius:var(--t-r2)!important;box-shadow:var(--t-shadow)!important}
+#torvo-v2-root :is(.finderFilterTitle,.smartFilterHeader){background:var(--t-black)!important;color:#fff!important}
+#torvo-v2-root :is(.finderApplyButton,.primary,.submitNeed){background:var(--t-red)!important;color:#fff!important;border-color:var(--t-red)!important}
+#torvo-v2-root :is(.finderApplyButton,.primary,.submitNeed):hover{background:var(--t-red-dark)!important}
+@media(min-width:821px){
+ #torvo-v2-root>.publicSite{background:var(--t-bg)!important}
+ #torvo-v2-root>.publicSite .publicHero.compactHero{background:linear-gradient(112deg,#171c24 0%,#11151b 62%,#202631 100%)!important}
+ #torvo-v2-root>.publicSite .publicHero.compactHero h1{font-weight:800!important;letter-spacing:-1.8px!important}
+ #torvo-v2-root>.publicSite .publicHero.compactHero p{font-weight:400!important;color:#cbd0d7!important}
+ #torvo-v2-root>.publicSite .publicBrandRail{border-top:0!important;border-bottom:1px solid var(--t-line)!important}
+ #torvo-v2-root>.publicSite .torvoPrimaryCategories>button{border-radius:var(--t-r2)!important}
+}
