@@ -14,7 +14,8 @@ begin
  select * into d from customer_product_demands where id=p_demand_id for update;
  if d.id is null then raise exception 'CUSTOMER REQUIREMENT NOT FOUND';end if;
  if d.status in('closed','cancelled') then raise exception 'CUSTOMER REQUIREMENT IS NOT ACTIVE';end if;
- if p_found_dealer_id is not null then select * into fd from dealers where id=p_found_dealer_id for update;if fd.id is null or fd.status<>'approved' then raise exception 'APPROVED DEALER REQUIRED';end if;end if;
+ if p_found_dealer_id is null and nullif(btrim(coalesce(p_found_contact_note,'')),'') is null then raise exception 'AVAILABLE RESULT REQUIRES VERIFIED DEALER OR CONTACT NOTE';end if;
+ if p_found_dealer_id is not null then select * into fd from dealers where id=p_found_dealer_id for update;if fd.id is null or lower(coalesce(fd.status,''))<>'approved' or fd.customer_referral_enabled<>true or fd.referral_profile_verified_at is null or fd.product_sales_available<>true then raise exception 'APPROVED VERIFIED SALES DEALER REQUIRED';end if;end if;
  update customer_product_demands set status='available',found_dealer_id=p_found_dealer_id,found_contact_note=upper(nullif(btrim(p_found_contact_note),'')),sourcing_note=upper(nullif(btrim(p_sourcing_note),'')),available_at=coalesce(available_at,now()),updated_at=now() where id=p_demand_id;
  insert into audit_log(actor_id,action,entity_type,entity_id,details) values(u.id,'CUSTOMER_DEMAND_AVAILABLE','CUSTOMER_PRODUCT_DEMAND',p_demand_id::text,jsonb_build_object('found_dealer_id',p_found_dealer_id));return true;
 end$$;
