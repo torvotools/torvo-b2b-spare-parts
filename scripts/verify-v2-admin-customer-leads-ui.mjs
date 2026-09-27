@@ -21,6 +21,8 @@ const checks=[
 ['MANUAL CLOSE TIMESTAMP VISIBLE',/CLOSED AT:/.test(ui)&&/r\.closed_at/.test(ui)],
 ['FOUND LIFECYCLE RPC RETURNS DETAIL',/found_dealer_name text,found_contact_note text,available_at timestamptz,converted_at timestamptz,closed_at timestamptz/.test(found)],
 ['CLOSE REASON REQUIRED',/CLOSE REASON/.test(ui)&&/closeAdminCustomerLead/.test(ui)],
+['ADMIN PRIVATE MEDIA UI',/VIEW PRIVATE PHOTOS/.test(ui)&&/loadAdminCustomerDemandMedia/.test(ui)&&/openAdminCustomerDemandMedia/.test(ui)],
+['ADMIN MEDIA USES SIGNED SERVICE',/openAdminCustomerDemandMedia/.test(svc)&&/customer-demand-media-read/.test(svc)],
 ['NO PUBLIC SEARCH RPC',!/public_create_product_demand|public_request_torvo_product_help/.test(svc)]
 ];
 const failed=checks.filter(([,ok])=>!ok);for(const[n,ok]of checks)console.log(`${ok?'PASS':'FAIL'} ${n}`);if(failed.length){console.error(`ADMIN CUSTOMER LEADS UI FAILED: ${failed.length} GATE(S)`);process.exit(1)}console.log(`PASS ADMIN CUSTOMER LEADS UI (${checks.length} GATES)`);
