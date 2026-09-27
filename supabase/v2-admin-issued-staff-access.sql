@@ -56,24 +56,24 @@ returns void language plpgsql security definer set search_path=public as $$decla
 end$$;
 
 create or replace function bootstrap_initial_owner_staff_access(p_username text,p_employee_name text,p_device_id text)
-returns uuid language sql security definer set search_path=public as '
+returns uuid language sql security definer set search_path=public as $owner_bootstrap$
 with actor as (
  select id from app_users
- where auth_user_id=auth.uid() and active=true and lower(coalesce(role,''''''))=''owner''
-   and upper(btrim(coalesce(p_username,'''''')))=''OR@000''
-   and length(upper(btrim(coalesce(p_employee_name,'''''')))) between 2 and 120
-   and length(btrim(coalesce(p_device_id,''''''))) between 8 and 180
+ where auth_user_id=auth.uid() and active=true and lower(coalesce(role,''))='owner'
+   and upper(btrim(coalesce(p_username,'')))='OR@000'
+   and length(upper(btrim(coalesce(p_employee_name,'')))) between 2 and 120
+   and length(btrim(coalesce(p_device_id,''))) between 8 and 180
    and not exists(select 1 from staff_access_identities)
    and not exists(select 1 from staff_authorized_devices)
 ), identity_row as (
  insert into staff_access_identities(app_user_id,username,employee_name,staff_role,active,updated_by)
- select id,''OR@000'',upper(btrim(p_employee_name)),''owner'',true,id from actor
+ select id,'OR@000',upper(btrim(p_employee_name)),'owner',true,id from actor
  returning app_user_id
 )
 insert into staff_authorized_devices(app_user_id,device_id,device_type,approved_by)
-select app_user_id,btrim(p_device_id),''desktop'',app_user_id from identity_row
+select app_user_id,btrim(p_device_id),'desktop',app_user_id from identity_row
 returning id
-';
+$owner_bootstrap$;
 
 revoke all on function bootstrap_initial_owner_staff_access(text,text,text) from public,anon;
 grant execute on function bootstrap_initial_owner_staff_access(text,text,text) to authenticated;
