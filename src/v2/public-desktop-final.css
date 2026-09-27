@@ -82,3 +82,18 @@
  #torvo-v2-root>.publicSite .publicHero.compactHero{grid-template-columns:1fr 380px!important;padding-inline:34px!important}
  #torvo-v2-root>.publicSite .publicHero.compactHero h1{font-size:44px!important}
 }
+
+/* OWNER-APPROVED PUBLIC HIERARCHY — UI ONLY: HERO > BRANDS > 3 PRIMARY CATEGORIES */
+@media (min-width:821px){
+ #torvo-v2-root .torvoPrimaryCategories{display:grid!important;grid-template-columns:repeat(3,minmax(0,1fr));gap:12px;width:min(1320px,calc(100% - 48px));margin:18px auto 8px}
+ #torvo-v2-root .torvoPrimaryCategories>button{min-height:116px;border:1px solid #c4c9cf;border-radius:0;background:#fff;padding:18px 20px;display:grid;grid-template-columns:68px minmax(0,1fr) 28px;align-items:center;gap:16px;text-align:left;color:#16191d;box-shadow:0 5px 18px rgba(18,22,28,.045)}
+ #torvo-v2-root .torvoPrimaryCategories>button:hover{border-color:#d71920;box-shadow:0 8px 24px rgba(18,22,28,.09)}
+ #torvo-v2-root .torvoPrimaryCategories>button>span:nth-child(2){display:grid;gap:5px}
+ #torvo-v2-root .torvoPrimaryCategories b{font-size:20px;line-height:1;letter-spacing:-.35px}
+ #torvo-v2-root .torvoPrimaryCategories small{font-size:10px;line-height:1.3;color:#666d75;letter-spacing:.35px}
+ #torvo-v2-root .torvoCategoryIcon{width:64px;height:64px;display:grid;place-items:center;background:#f1f2f4;border-left:4px solid #d71920}
+ #torvo-v2-root .torvoCategoryIcon svg{width:30px;height:30px;stroke-width:1.8}
+ #torvo-v2-root .torvoPrimaryCategories>button:nth-child(2){background:#15191f;color:#fff;border-color:#15191f}
+ #torvo-v2-root .torvoPrimaryCategories>button:nth-child(2) small{color:#cfd3d8}
+ #torvo-v2-root .torvoPrimaryCategories>button:nth-child(2) .torvoCategoryIcon{background:#d71920;color:#fff}
+}
