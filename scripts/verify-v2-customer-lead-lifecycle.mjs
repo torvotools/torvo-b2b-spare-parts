@@ -7,6 +7,7 @@ const checks=[
  ['PRIVATE CUSTOMER CONTACT',/customer_name text,mobile text/.test(sql)&&/revoke all on function admin_customer_lead_center\(text,integer\) from public,anon/.test(sql)],
  ['LEAD STATUS FILTER',/INVALID LEAD STATUS/.test(sql)&&/'submitted','sourcing','available','closed','cancelled','sent','accepted','declined','expired'/.test(sql)],
  ['DEALER ROUTING VISIBILITY',/dealer_name text,routing_stage text,lead_status text/.test(sql)],
+ ['CLOSE LOCKS DEMAND',/admin_close_customer_demand_lead[\s\S]*select \* into d from customer_product_demands where id=p_demand_id for update[\s\S]*OPEN CUSTOMER REQUIREMENT REQUIRED/i.test(sql)],
  ['AUDITED CLOSE',/CUSTOMER_DEMAND_CLOSED/.test(sql)&&/jsonb_build_object\('reason',r\)/.test(sql)],
  ['CLOSE OPEN ASSIGNMENTS',/status='closed',closed_at=now\(\).*status in\('sent','accepted'\)/s.test(sql)],
  ['NO PUBLIC GRANT',!/grant execute on function admin_customer_lead_center\(text,integer\) to anon/.test(sql)],

@@ -23,16 +23,16 @@ revoke all on function admin_mark_customer_demand_available(uuid,uuid,text,text)
 
 create or replace function public_customer_demand_result(p_demand_id uuid,p_mobile text)
 returns table(demand_id uuid,status text,search_text text,message text,found_dealer_id uuid,found_contact_note text,available_at timestamptz)
-language plpgsql security definer set search_path=public as $$
+language plpgsql security definer set search_path=public as $
 declare m text:=right(regexp_replace(coalesce(p_mobile,''),'\D','','g'),10);
 begin
  if length(m)<>10 then raise exception '10-DIGIT MOBILE REQUIRED';end if;
  return query select d.id,d.status,d.search_text,
  case when d.status='available' then 'THE ITEM YOU REQUESTED IS NOW AVAILABLE.' when d.status='closed' then 'CUSTOMER REQUIREMENT CLOSED.' else 'TORVO IS WORKING ON YOUR REQUIREMENT.' end,
- case when d.status='available' then d.found_dealer_id else null end,
+ case when d.status='available' and fd.id is not null and lower(coalesce(fd.status,''))='approved' and fd.customer_referral_enabled=true and fd.referral_profile_verified_at is not null and fd.product_sales_available=true then d.found_dealer_id else null end,
  case when d.status='available' then d.found_contact_note else null end,
  case when d.status='available' then d.available_at else null end
- from customer_product_demands d join customer_contacts c on c.id=d.customer_id
+ from customer_product_demands d join customer_contacts c on c.id=d.customer_id left join dealers fd on fd.id=d.found_dealer_id
  where d.id=p_demand_id and right(regexp_replace(coalesce(c.mobile,''),'\D','','g'),10)=m;
 end$$;
 revoke all on function public_customer_demand_result(uuid,text) from public;grant execute on function public_customer_demand_result(uuid,text) to anon,authenticated;
@@ -70,9 +70,11 @@ revoke all on function admin_customer_lead_center(text,integer) from public,anon
 -- Recreate close RPC here so every manual Admin close records the demand close timestamp too.
 create or replace function admin_close_customer_demand_lead(p_demand_id uuid,p_reason text default null)
 returns boolean language plpgsql security definer set search_path=public as $$
-declare u app_users%rowtype;r text:=left(nullif(upper(btrim(coalesce(p_reason,''))),''),500);begin
+declare u app_users%rowtype;d customer_product_demands%rowtype;r text:=left(nullif(upper(btrim(coalesce(p_reason,''))),''),500);begin
  select * into u from app_users where auth_user_id=auth.uid() and active=true;
  if u.id is null or u.role not in('owner','admin') then raise exception 'OWNER OR ADMIN REQUIRED';end if;
+ select * into d from customer_product_demands where id=p_demand_id for update;
+ if d.id is null or d.status in('closed','cancelled') then raise exception 'OPEN CUSTOMER REQUIREMENT REQUIRED';end if;
  update customer_product_demands set status='closed',closed_at=coalesce(closed_at,now()),updated_at=now() where id=p_demand_id and status not in('closed','cancelled');
  if not found then raise exception 'OPEN CUSTOMER REQUIREMENT REQUIRED';end if;
  update customer_demand_dealer_leads set status='closed',closed_at=coalesce(closed_at,now()) where demand_id=p_demand_id and status in('sent','accepted');

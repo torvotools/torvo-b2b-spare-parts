@@ -18,9 +18,11 @@ revoke all on function admin_customer_lead_center(text,integer) from public,anon
 
 create or replace function admin_close_customer_demand_lead(p_demand_id uuid,p_reason text default null)
 returns boolean language plpgsql security definer set search_path=public as $$
-declare u app_users%rowtype;r text:=left(nullif(btrim(coalesce(p_reason,'')),''),500);begin
+declare u app_users%rowtype;d customer_product_demands%rowtype;r text:=left(nullif(btrim(coalesce(p_reason,'')),''),500);begin
  select * into u from app_users where auth_user_id=auth.uid() and active=true;
  if u.id is null or u.role not in('owner','admin') then raise exception 'OWNER OR ADMIN REQUIRED';end if;
+ select * into d from customer_product_demands where id=p_demand_id for update;
+ if d.id is null or d.status in('closed','cancelled') then raise exception 'OPEN CUSTOMER REQUIREMENT REQUIRED';end if;
  update customer_product_demands set status='closed',updated_at=now() where id=p_demand_id and status not in('closed','cancelled');
  if not found then raise exception 'OPEN CUSTOMER REQUIREMENT REQUIRED';end if;
  update customer_demand_dealer_leads set status='closed',closed_at=now() where demand_id=p_demand_id and status in('sent','accepted');
