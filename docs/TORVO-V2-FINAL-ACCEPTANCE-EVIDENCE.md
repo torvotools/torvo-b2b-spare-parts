@@ -110,3 +110,15 @@ TORVO V2 is called 100% only after every applicable gate above has real PASS evi
 - Legacy staging Edge Functions `dealer-pin-login` and `staff-one-time-login` remain deployed historically but canonical source has no caller; the available recent staging log audit found no usage. Removal remains pending a supported staging-only deletion path and must not touch production.
 - Customer/Missing Product canonical public write remains `public_create_product_demand`; the legacy `public_create_product_requirement` grant is revoked. Historical support/complaint dependencies prevent blind deletion of its table/migration.
 - Runtime auth, business, backup/restore, real-device Android, production signing and production/domain gates remain OPEN.
+
+
+## Canonical Customer Demand cleanup acceptance — 2026-09-27
+- Exact Git SHA: `4eb442b4a453b9f19901398e3c1da29c85fa68b3`.
+- Build Check #2838: SUCCESS.
+- Cloudflare Preview #2169: SUCCESS.
+- Android APK #2127: SUCCESS (CI/build evidence only; physical-device installation and production signing remain OPEN).
+- Public Product Enquiry and Product Requirement service paths now persist through the canonical `public_create_product_demand` flow instead of the retired enquiry/requirement public-write RPCs.
+- Customer marketing opt-out uses the canonical global `public_stop_customer_marketing` contract.
+- Retired enquiry/requirement/referral RPC execution is blocked in STAGING for anon/authenticated callers; canonical Product Demand and global STOP remain executable as intended.
+- No fake Dealer, Staff, customer transaction, backup, restore or release evidence was created. Production, `main` and V27 remain untouched.
+- This closes source/CI/staging-grant acceptance for the canonical public-write cleanup only. Genuine auth runtime, business transaction, backup/restore, Android real-device, production signing and production/domain gates remain OPEN.
