@@ -8,6 +8,7 @@ if(!/^[a-f0-9]{40}$/i.test(e.commit_sha))fail('invalid exact commit SHA');
 if(!/^\d{4}-\d{2}-\d{2}T/.test(e.captured_at_utc))fail('captured_at_utc must be ISO timestamp');
 const check=(name,x,sign)=>{
  for(const k of ['source_ref','approval_ref','return_ref','item_ref','qty','stock_before','stock_after','movement_qty','maker_checker_distinct_or_owner_override','same_request_key_replay_no_extra_effect','over_return_rejected','unauthorized_role_rejected'])if(x[k]===undefined||x[k]===null||x[k]==='')fail(name+' missing '+k);
+ for(const k of ['source_ref','approval_ref','return_ref','item_ref']){const v=String(x[k]).trim();if(v.length<3||v.toUpperCase().includes('REPLACE_WITH'))fail(name+' '+k+' must be real non-placeholder evidence');}
  const q=Number(x.qty),b=Number(x.stock_before),a=Number(x.stock_after),m=Number(x.movement_qty);
  if(![q,b,a,m].every(Number.isFinite)||q<=0)fail(name+' invalid quantities');
  if(Math.abs(a-(b+sign*q))>0.000001)fail(name+' stock effect does not reconcile');
