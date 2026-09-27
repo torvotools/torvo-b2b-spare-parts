@@ -5,7 +5,9 @@ let e;try{e=JSON.parse(fs.readFileSync(p,'utf8'))}catch{fail('invalid evidence J
 const req=['source_backup_run_id','restore_manifest_id','source_commit_sha','source_schema_version','source_database_version','artifact_sha256','target_project_id','target_is_production','restore_started_at_utc','restore_completed_at_utc','tester_ref','restored_commit_sha','restored_schema_version','restored_database_version'];
 for(const k of req)if(e[k]===undefined||e[k]===null||e[k]==='')fail('missing '+k);
 for(const k of ['source_commit_sha','restored_commit_sha'])if(!/^[a-f0-9]{40}$/i.test(e[k]))fail('invalid '+k);
+for(const k of ['source_backup_run_id','restore_manifest_id','target_project_id','tester_ref','source_schema_version','source_database_version']){const v=String(e[k]).trim();if(v.length<2||v.toUpperCase().includes('REPLACE_WITH'))fail(k+' must be real non-placeholder evidence');}
 if(!/^[a-f0-9]{64}$/i.test(e.artifact_sha256))fail('invalid artifact_sha256');
+if(/^0{64}$/i.test(e.artifact_sha256))fail('artifact_sha256 cannot be fail-closed placeholder');
 if(e.target_is_production!==false)fail('restore target must explicitly be non-production');
 if(e.source_commit_sha!==e.restored_commit_sha)fail('restored commit does not match source manifest');
 if(String(e.source_schema_version)!==String(e.restored_schema_version))fail('restored schema version mismatch');
