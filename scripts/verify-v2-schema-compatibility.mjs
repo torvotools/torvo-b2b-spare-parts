@@ -4,6 +4,7 @@ const compact=s=>s.replace(/\s+/g,' ').trim();
 const schema=read('supabase/v2-schema.sql');
 const coreDealerIdentity=read('supabase/v2-core-dealer-identity.sql');
 const staff=read('supabase/v2-admin-issued-staff-access.sql');
+const staffSession=read('supabase/v2-staff-whatsapp-auth.sql');
 const master=read('supabase/v2-master-salesman-access.sql');
 const dealerAuth=read('supabase/v2-dealer-email-otp.sql');
 const finalApproval=read('supabase/v2-dealer-final-approval-accountant-gate.sql');
