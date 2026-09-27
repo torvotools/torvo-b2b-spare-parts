@@ -6,6 +6,8 @@ const managed=read('supabase/v2-admin-managed-experience.sql');
 const network=read('supabase/v2-customer-dealer-referral-network.sql');
 const demand=read('supabase/v2-customer-product-demand-leads.sql');
 const order=read('supabase/V2_INSTALL_ORDER.md');
+const journey=read('src/v2/services/customerDealerJourney.js');
+const demandClient=read('src/v2/services/customerProductDemand.js');
 const safeBool=(alias,key)=>new RegExp(`case lower\\(coalesce\\(${alias}\\.setting_value->>'${key}','true'\\)\\) when 'true' then true when 'false' then false else true end`,`i`).test(runtime);
 const unsafePublicBoolCast=/setting_value->>'(?:customer_active|business_active|customer_referral|repair_service|customer_catalog)'\s*\)::boolean/i.test(runtime);
 const checks=[
@@ -50,6 +52,10 @@ const checks=[
  ['CUSTOMER CATALOG SWITCH',/customer_catalog/.test(managed)],
  ['FEATURE BOOLEAN VALIDATION',/FEATURE SWITCH % MUST BE BOOLEAN/.test(managed)],
  ['RUNTIME INSTALL ORDER',order.indexOf('v2-admin-managed-experience.sql')>=0&&order.indexOf('v2-customer-public-runtime-contract.sql')>order.indexOf('v2-admin-managed-experience.sql')],
+ ['PUBLIC DEALER CLIENT EXACT PIN ONLY',journey.includes("match_type||'').toUpperCase()==='EXACT_PIN'")&&journey.includes('product_sales_available===true')],
+ ['PUBLIC DEALER PROFILE VERIFIED',journey.includes("VERIFIED DEALER PROFILE NOT AVAILABLE")&&journey.includes('product_sales_available!==true')],
+ ['PUBLIC DEMAND CLIENT VALIDATES IDENTITY INPUTS',demandClient.includes("CUSTOMER NAME REQUIRED")&&demandClient.includes("10-DIGIT MOBILE REQUIRED")&&demandClient.includes("6-DIGIT PIN CODE REQUIRED")&&demandClient.includes("PRODUCT SEARCH REQUIRED")],
+ ['PUBLIC DEMAND CLIENT USES RPC ONLY',demandClient.includes("rpc('public_create_product_demand'")&&demandClient.includes("rpc('public_request_torvo_product_help'")&&demandClient.includes("rpc('public_customer_demand_result'")],
  ['NO PUBLIC CHECKOUT RPC',!/public_(checkout|payment|place_order)/i.test(runtime)],
  ['CUSTOMER DEMAND PRIVATE TABLE',/create table if not exists customer_product_demands/i.test(demand)&&/enable row level security/i.test(demand)&&/revoke all on customer_product_demands from anon,authenticated/i.test(demand)],
  ['CONFIRMED DEMAND PUBLIC RPC',/create or replace function public_create_product_demand/i.test(demand)&&/PRODUCT SEARCH REQUIRED/.test(demand)],
