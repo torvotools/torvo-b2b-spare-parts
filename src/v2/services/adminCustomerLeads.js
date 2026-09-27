@@ -11,3 +11,5 @@ export const closeAdminCustomerLead=async(demandId,reason)=>{const d=id(demandId
 export const loadAdminCustomerDemandMedia=async demandId=>{const x=id(demandId);if(!x)throw new Error('CUSTOMER REQUIREMENT REQUIRED');const data=await rpc('admin_customer_demand_media_paths',{p_demand_id:x});return Array.isArray(data)?data:[]};
 
 export const openAdminCustomerDemandMedia=async(demandId,mediaId)=>{const d=id(demandId),m=id(mediaId);if(!d||!m)throw new Error('CUSTOMER REQUIREMENT MEDIA REQUIRED');const{data,error}=await requireBackend().functions.invoke('customer-demand-media-read',{body:{demand_id:d,media_id:m}});if(error||!data?.ok||!data?.url)throw new Error(data?.error||error?.message||'PRIVATE MEDIA ACCESS FAILED');return data};
+
+export const loadEligibleDealersForCustomerDemand=async(demandId,limit=50)=>{const d=id(demandId),n=Math.max(1,Math.min(Number(limit)||50,100));if(!d)throw new Error('CUSTOMER REQUIREMENT REQUIRED');const data=await rpc('admin_customer_demand_eligible_dealers',{p_demand_id:d,p_limit:n});return Array.isArray(data)?data:[]};

@@ -92,3 +92,17 @@ returns boolean language plpgsql security definer set search_path=public as $$de
  return true;
 end$$;
 revoke all on function dealer_decline_customer_demand_lead(uuid,text,text) from public,anon;grant execute on function dealer_decline_customer_demand_lead(uuid,text,text) to authenticated;
+
+create or replace function admin_customer_demand_eligible_dealers(p_demand_id uuid,p_limit integer default 50)
+returns table(dealer_id uuid,shop_name text,city text,district text,state text,pin_code text,match_type text)
+language plpgsql security definer set search_path=public as $$
+declare u app_users%rowtype;d customer_product_demands%rowtype;
+begin
+ select * into u from app_users where auth_user_id=auth.uid() and active=true;
+ if u.id is null or u.role not in('owner','admin') then raise exception 'OWNER OR ADMIN REQUIRED';end if;
+ select * into d from customer_product_demands where id=p_demand_id and status not in('closed','cancelled');
+ if d.id is null then raise exception 'ACTIVE CUSTOMER REQUIREMENT REQUIRED';end if;
+ return query select x.id,x.shop_name,x.city,x.district,x.state,coalesce(nullif(x.public_pin_code,''),x.pin_code),case when coalesce(nullif(x.public_pin_code,''),x.pin_code)=d.pin_code then 'EXACT_PIN'::text else 'TORVO_EXTENDED'::text end from dealers x where lower(coalesce(x.status,''))='approved' and x.customer_referral_enabled=true and x.referral_profile_verified_at is not null and x.product_sales_available=true order by (coalesce(nullif(x.public_pin_code,''),x.pin_code)=d.pin_code) desc,x.shop_name limit greatest(1,least(coalesce(p_limit,50),100));
+end$$;
+revoke all on function admin_customer_demand_eligible_dealers(uuid,integer) from public,anon;
+grant execute on function admin_customer_demand_eligible_dealers(uuid,integer) to authenticated;
