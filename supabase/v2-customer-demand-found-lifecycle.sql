@@ -27,11 +27,26 @@ language plpgsql security definer set search_path=public as $$
 declare m text:=right(regexp_replace(coalesce(p_mobile,''),'\D','','g'),10);
 begin
  if length(m)<>10 then raise exception '10-DIGIT MOBILE REQUIRED';end if;
- return query select d.id,d.status,d.search_text,
- case when d.status='available' then 'THE ITEM YOU REQUESTED IS NOW AVAILABLE.' when d.status='closed' then 'CUSTOMER REQUIREMENT CLOSED.' else 'TORVO IS WORKING ON YOUR REQUIREMENT.' end,
+ return query select d.id,
+ case when d.status='available' and not (
+   (fd.id is not null and lower(coalesce(fd.status,''))='approved' and fd.customer_referral_enabled=true and fd.referral_profile_verified_at is not null and fd.product_sales_available=true)
+   or nullif(btrim(coalesce(d.found_contact_note,'')),'') is not null
+ ) then 'sourcing' else d.status end,
+ d.search_text,
+ case
+  when d.status='available' and (
+   (fd.id is not null and lower(coalesce(fd.status,''))='approved' and fd.customer_referral_enabled=true and fd.referral_profile_verified_at is not null and fd.product_sales_available=true)
+   or nullif(btrim(coalesce(d.found_contact_note,'')),'') is not null
+  ) then 'THE ITEM YOU REQUESTED IS NOW AVAILABLE.'
+  when d.status='available' then 'TORVO IS RECHECKING AVAILABILITY FOR YOUR REQUIREMENT.'
+  when d.status='closed' then 'CUSTOMER REQUIREMENT CLOSED.'
+  else 'TORVO IS WORKING ON YOUR REQUIREMENT.' end,
  case when d.status='available' and fd.id is not null and lower(coalesce(fd.status,''))='approved' and fd.customer_referral_enabled=true and fd.referral_profile_verified_at is not null and fd.product_sales_available=true then d.found_dealer_id else null end,
- case when d.status='available' then d.found_contact_note else null end,
- case when d.status='available' then d.available_at else null end
+ case when d.status='available' and nullif(btrim(coalesce(d.found_contact_note,'')),'') is not null then d.found_contact_note else null end,
+ case when d.status='available' and (
+   (fd.id is not null and lower(coalesce(fd.status,''))='approved' and fd.customer_referral_enabled=true and fd.referral_profile_verified_at is not null and fd.product_sales_available=true)
+   or nullif(btrim(coalesce(d.found_contact_note,'')),'') is not null
+ ) then d.available_at else null end
  from customer_product_demands d join customer_contacts c on c.id=d.customer_id left join dealers fd on fd.id=d.found_dealer_id
  where d.id=p_demand_id and right(regexp_replace(coalesce(c.mobile,''),'\D','','g'),10)=m;
 end$$;
