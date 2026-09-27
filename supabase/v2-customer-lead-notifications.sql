@@ -9,8 +9,8 @@ declare u app_users%rowtype;l customer_demand_dealer_leads%rowtype;d customer_pr
  if l.id is null then raise exception 'OPEN ASSIGNED CUSTOMER LEAD REQUIRED';end if;
  select * into d from customer_product_demands where id=l.demand_id and status not in('closed','cancelled') for update;
  if d.id is null then raise exception 'ACTIVE CUSTOMER REQUIREMENT REQUIRED';end if;
- select a.id into dealer_user from app_users a join dealers x on x.id=l.dealer_id where a.dealer_id=l.dealer_id and a.active=true and a.role='dealer' and x.status='approved' order by a.created_at desc limit 1;
- if dealer_user is null then raise exception 'ACTIVE APPROVED DEALER APP USER REQUIRED';end if;
+ select a.id into dealer_user from app_users a join dealers x on x.id=l.dealer_id where a.dealer_id=l.dealer_id and a.active=true and a.role='dealer' and lower(coalesce(x.status,''))='approved' and x.customer_referral_enabled=true and x.referral_profile_verified_at is not null and x.product_sales_available=true order by a.created_at desc limit 1;
+ if dealer_user is null then raise exception 'ACTIVE APPROVED VERIFIED SALES DEALER APP USER REQUIRED';end if;
  -- Retry-safe: reuse the existing direct campaign and recover any missing active-device push rows.
  select c.id into cid from app_notification_campaigns c join app_notification_inbox i on i.campaign_id=c.id
  where c.notification_type='customer_lead' and c.action_key='CUSTOMER_LEAD' and c.action_value=l.id::text and c.status='published' and i.user_id=dealer_user
