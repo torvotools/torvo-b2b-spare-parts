@@ -1,4 +1,4 @@
-import React,{useEffect} from 'react';
+import React,{useEffect,useState} from 'react';
 import {createRoot} from 'react-dom/client';
 import PublicWebsitePreview from './components/PublicWebsitePreview';
 import RoleAppPreview from './components/RoleAppPreview';
@@ -8,10 +8,11 @@ import LoginVisualPreview from './components/LoginVisualPreview';
 import DealerRegistrationPreview from './components/DealerRegistrationPreview';
 import './styles.css';import './workspace-polish.css';import './login-preview.css';import './dealer-mobile-fix.css';import './premium-ui.css';import './compact-cloud-ui.css';import './admin-desktop-polish.css';import './admin-search-v2.css';import './accountant-search-v2.css';import './purchase-requirements-ui.css';import './public-website.css';import './public-product-showcase.css';import './public-catalog-browser.css';import './smart-search-ui.css';import './smart-product-filters.css';import './role-app-preview.css';import './secure-desktop-lock.css';import './live-responsive-hotfix.css';
 import {installGlobalUiFeedback} from './services/uiFeedback.js';
+import {currentAppUser} from './services/auth.js';
 const root=document.getElementById('torvo-v2-root');if(!root)throw new Error('TORVO V2 preview root not found');
 const params=new URLSearchParams(window.location.search);const visual=(params.get('visual')||'website').toLowerCase();
 const protectedDesktop=visual==='admin'||visual==='desktop'||visual==='accountant';
-function Preview(){if(protectedDesktop)return <LoginVisualPreview/>;if(visual==='login')return <LoginVisualPreview/>;if(visual==='register')return <DealerRegistrationPreview/>;if(visual==='salesman')return <RoleAppPreview role="salesman"/>;if(visual==='store')return <RoleAppPreview role="store"/>;if(visual==='app'||visual==='dealer')return <RoleAppPreview role="dealer"/>;return <PublicWebsitePreview/>}
+function Preview(){const[user,setUser]=useState(undefined);useEffect(()=>{let live=true;if(!protectedDesktop){setUser(null);return()=>{live=false}}currentAppUser().then(u=>{if(live)setUser(u)}).catch(()=>{if(live)setUser(null)});return()=>{live=false}},[]);if(protectedDesktop){if(user===undefined)return null;const role=String(user?.role||'').toLowerCase();if(!user?.active)return <LoginVisualPreview/>;if((visual==='admin'||visual==='desktop')&&['owner','admin'].includes(role))return <AdminVisualPreview/>;if(visual==='accountant'&&role==='accountant')return <AccountantVisualPreview/>;return <LoginVisualPreview/>;}if(visual==='login')return <LoginVisualPreview/>;if(visual==='register')return <DealerRegistrationPreview/>;if(visual==='salesman')return <RoleAppPreview role="salesman"/>;if(visual==='store')return <RoleAppPreview role="store"/>;if(visual==='app'||visual==='dealer')return <RoleAppPreview role="dealer"/>;return <PublicWebsitePreview/>}
 const links=[['website','WEBSITE'],['dealer','DEALER APP'],['salesman','SALESMAN APP'],['store','STORE APP'],['accountant','ACCOUNTANT DESKTOP'],['admin','ADMIN DESKTOP']];const build=(import.meta.env.VITE_BUILD_SHA||'LOCAL').slice(0,8).toUpperCase();
 function Switcher(){return <div className="previewSwitcher"><div className="previewSwitcherButtons">{links.map(([id,label])=><button key={id} onClick={()=>{const u=new URL(location.href);id==='website'?u.searchParams.delete('visual'):u.searchParams.set('visual',id);if(id==='admin'||id==='accountant')u.searchParams.set('auth','required');location.href=u.toString()}} className={(visual===id)||(visual==='website'&&id==='website')?'active':''}>{label}</button>)}</div><span>PREVIEW BUILD · {build}</span></div>}
 const showPreviewTools=params.get('previewTools')==='1';function PreviewRoot(){useEffect(()=>installGlobalUiFeedback(),[]);return <><Preview/>{showPreviewTools&&<Switcher/>}</>}
