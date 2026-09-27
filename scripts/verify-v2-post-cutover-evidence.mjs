@@ -7,6 +7,7 @@ if(!/^[a-f0-9]{40}$/i.test(e.accepted_commit_sha))fail('invalid accepted_commit_
 if(e.production_project_id!=='gckafjiitjocodlrwanm')fail('wrong production project');
 if(e.production_domain!=='torvotools.com')fail('wrong production domain');
 if(!/^\d{4}-\d{2}-\d{2}T/.test(e.captured_at_utc))fail('captured_at_utc must be ISO timestamp');
+for(const k of ['cloudflare_deployment_ref','production_backup_ref','cutover_approval_ref','tester_ref']){const v=String(e[k]).trim();if(v.length<3||v.toUpperCase().includes('REPLACE_WITH'))fail(k+' must be real non-placeholder evidence');}
 for(const k of ['owner_cutover_approval_verified','production_backup_verified','production_migrations_verified','domain_dns_cutover_verified','https_verified','public_website_smoke_passed','backend_identity_verified','dealer_auth_entry_health_passed','staff_auth_entry_health_passed','app_release_metadata_verified','netlify_remains_retired','post_cutover_smoke_passed'])if(e[k]!==true)fail(k+' is not true');
 if(e.deployed_commit_sha!==e.accepted_commit_sha)fail('deployed commit does not match accepted commit');
 if(e.backend_project_id!==e.production_project_id)fail('backend identity does not match production project');
