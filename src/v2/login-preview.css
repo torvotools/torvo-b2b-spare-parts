@@ -623,3 +623,19 @@
  border-color:#aebdcd!important;
  background:#fff!important;
 }
+
+/* Canonical staff login validation + inline OTP. Preserve approved card composition. */
+.loginV2 .loginInput{display:flex;align-items:center;gap:10px;border:1.35px solid #c7d2df;border-radius:10px;background:#fff;padding:0 12px;transition:border-color .15s ease,box-shadow .15s ease}
+.loginV2 .loginInput input{flex:1;min-width:0;border:0!important;outline:0!important;box-shadow:none!important;background:transparent!important}
+.loginV2 .loginInputVerified{border-color:#12b76a!important;box-shadow:0 0 0 2px rgba(18,183,106,.08)!important}
+.loginV2 .loginInputInvalid{border-color:#d71920!important;box-shadow:0 0 0 2px rgba(215,25,32,.08)!important}
+.loginV2 .loginFieldVerified{color:#12b76a!important;flex:0 0 auto}
+.loginV2 .loginFieldInvalid{color:#d71920!important;flex:0 0 auto}
+.loginV2 .loginInlineOtp{display:block}
+.loginV2 .loginOtpReadonly input{color:#344054!important}
+.loginV2 .loginOtpMeta{display:flex;align-items:center;justify-content:space-between;gap:10px;margin:8px 0 4px}
+.loginV2 .loginOtpMeta small{color:#667085;font-size:9px;line-height:1.25}
+.loginV2 .loginResend,.loginV2 .loginChangeUser{border:0;background:transparent;color:#d71920;font-weight:700;font-size:10px;cursor:pointer;padding:6px 0}
+.loginV2 .loginResend:disabled{color:#98a2b3;cursor:default}
+.loginV2 .loginChangeUser{display:flex;align-items:center;gap:5px;margin:7px auto 0}
+@media(min-width:901px){.loginV2 .loginCard{min-height:440px;box-sizing:border-box}}
