@@ -2,9 +2,17 @@ import fs from'node:fs';
 const ui=fs.readFileSync('src/v2/components/AdminCustomerLeads.jsx','utf8');
 const svc=fs.readFileSync('src/v2/services/adminCustomerLeads.js','utf8');
 const found=fs.readFileSync('supabase/v2-customer-demand-found-lifecycle.sql','utf8');
+const routing=fs.readFileSync('supabase/v2-customer-demand-dealer-routing.sql','utf8');
 const checks=[
 ['ADMIN LEADS RPC',/admin_customer_lead_center/.test(svc)],
 ['ADMIN ROUTING RPC',/admin_route_customer_demand_to_dealer/.test(svc)],
+['ELIGIBLE DEALER PICKER RPC',/admin_customer_demand_eligible_dealers/.test(routing)&&/loadEligibleDealersForCustomerDemand/.test(svc)],
+['PICKER OWNER ADMIN ONLY',/admin_customer_demand_eligible_dealers[\s\S]*u\.role not in\('owner','admin'\)/.test(routing)],
+['PICKER VERIFIED SALES ONLY',/admin_customer_demand_eligible_dealers[\s\S]*status,''\)\)='approved'[\s\S]*customer_referral_enabled=true[\s\S]*referral_profile_verified_at is not null[\s\S]*product_sales_available=true/.test(routing)],
+['PICKER ACTIVE DEMAND ONLY',/admin_customer_demand_eligible_dealers[\s\S]*status not in\('closed','cancelled'\)/.test(routing)],
+['PICKER EXACT PIN PRIORITY',/EXACT_PIN/.test(routing)&&/order by \(coalesce\(nullif\(x\.public_pin_code,''\),x\.pin_code\)=d\.pin_code\) desc/.test(routing)],
+['NO FAKE DISTANCE PICKER',!/0-25 KM|25-50 KM/.test(ui)&&/TORVO_EXTENDED/.test(routing)],
+['ASSIGN VERIFIED DEALER UI',/ASSIGN VERIFIED DEALER/.test(ui)&&/routeAdminCustomerLead/.test(ui)&&/notifyAdminCustomerLeadDealer/.test(ui)],
 ['ROUTING STAGE CLIENT VALIDATION',/\['LOCAL','EXTENDED','TORVO_ASSIGNED'\]\.includes\(s\)/.test(svc)&&/INVALID ROUTING STAGE/.test(svc)],
 ['AUDITED CLOSE RPC',/admin_close_customer_demand_lead/.test(svc)],
 ['CLOSE REASON CLIENT BOUNDS',/r\.length<3/.test(svc)&&/r\.length>500/.test(svc)],
