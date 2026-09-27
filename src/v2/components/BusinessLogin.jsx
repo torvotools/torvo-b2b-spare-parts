@@ -102,7 +102,7 @@ export default function BusinessLogin() {
             : webBusinessOnlyReason(user.role),
         );
       }
-      location.replace(result.role==='accountant'?'/?visual=accountant':'/?visual=admin');
+      location.replace(result.role==='accountant'?'/accountant-workspace':'/admin-workspace');
     } catch (error) {
       setErr(error.message || 'INCORRECT OTP. PLEASE TRY AGAIN.');
     } finally {
