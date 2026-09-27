@@ -3,6 +3,9 @@ const fail=m=>{console.error('FAIL '+m);process.exit(1)};
 const [,,evidencePath,artifactPath]=process.argv;if(!evidencePath||!artifactPath||!fs.existsSync(evidencePath)||!fs.existsSync(artifactPath))fail('usage: node scripts/verify-v2-android-production-evidence.mjs <evidence.json> <signed-artifact>');
 let e;try{e=JSON.parse(fs.readFileSync(evidencePath,'utf8'))}catch{fail('invalid evidence JSON')}
 for(const k of ['package_id','channel','production_signed','commit_sha','artifact_sha256','build_number','version','signing_identity_fingerprint','artifact_url','published_at_utc','owner_acceptance_ref'])if(e[k]===undefined||e[k]===null||e[k]==='')fail('missing '+k);
+for(const k of ['version','signing_identity_fingerprint','owner_acceptance_ref']){const v=String(e[k]).trim();if(v.length<3||v.toUpperCase().includes('REPLACE_WITH'))fail(k+' must be real non-placeholder production evidence');}
+if(/^0{64}$/i.test(String(e.artifact_sha256)))fail('artifact_sha256 cannot be placeholder');
+if(/REPLACE_WITH/i.test(String(e.artifact_url)))fail('artifact_url must be real non-placeholder evidence');
 if(e.package_id!=='com.torvotools.app')fail('wrong package_id');
 if(!['production','play','stable'].includes(String(e.channel).toLowerCase()))fail('wrong production channel');
 if(e.production_signed!==true)fail('production_signed must be true');
