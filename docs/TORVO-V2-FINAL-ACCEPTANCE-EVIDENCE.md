@@ -8,7 +8,7 @@ This file prevents source completion from being confused with production accepta
 | Gate | Required real evidence | Current verified state |
 | --- | --- | --- |
 | Dealer auth/device | Approved real staging Dealer; registered-email OTP path; Device B invalidates Device A; revoked device fails private reads/writes | OPEN — staging currently has no active Dealer acceptance identity |
-| Staff auth/role | Authorized staging Owner/Admin/Accountant/Salesman/Store Keeper as applicable; master-email OTP/device/runtime boundary tests | OPEN — staging currently has no active Staff acceptance identity |
+| Staff auth/role | Authorized staging Owner/Admin/Accountant/Salesman/Store Keeper as applicable; master-email OTP/device/runtime boundary tests | PARTIAL — genuine Owner OR@000 bootstrap and master-email OTP verification/session creation have succeeded in STAGING; protected Owner workspace runtime acceptance remains OPEN, and no fake secondary Staff identities are created |
 | B2B transaction | Real staging PO -> Sales Order -> exact Dealer OK -> Estimate -> payment/fulfilment -> dispatch -> delivery, including retry/idempotency checks | OPEN — no qualifying staging transaction evidence recorded |
 | Purchase/inventory/returns | Real receipt/stock movement/delivery deduction/return or reversal with exactly-once and role checks | OPEN — no qualifying staging transaction evidence recorded |
 | Reports | Reports Center totals/details reconciled against the accepted staging transactions and role privacy checked | OPEN — requires accepted transaction data |
@@ -122,3 +122,13 @@ TORVO V2 is called 100% only after every applicable gate above has real PASS evi
 - Retired enquiry/requirement/referral RPC execution is blocked in STAGING for anon/authenticated callers; canonical Product Demand and global STOP remain executable as intended.
 - No fake Dealer, Staff, customer transaction, backup, restore or release evidence was created. Production, `main` and V27 remain untouched.
 - This closes source/CI/staging-grant acceptance for the canonical public-write cleanup only. Genuine auth runtime, business transaction, backup/restore, Android real-device, production signing and production/domain gates remain OPEN.
+
+
+## Current protected-routing CI evidence — 2026-09-27
+- Exact Git SHA: `2ebedf21faa58e6dc14f9ccee8ec74163760d88b`.
+- Build Check: SUCCESS.
+- Cloudflare Preview: SUCCESS; exact live worker SHA verification and deployment evidence steps passed.
+- Owner/Admin post-login navigation now targets the protected `/admin-workspace?auth=required` route; Accountant targets its protected workspace.
+- STAGING has a genuine active Owner `OR@000`; Owner master-email OTP verification and authenticated session creation have been observed successfully. This is PARTIAL staff-auth evidence only: protected Owner workspace rendering still requires final runtime confirmation, and Admin/Accountant/Salesman/Store Keeper must not be fabricated merely to close acceptance.
+- Dealer Hostinger TORVO OTP source/runtime is installed, but Dealer acceptance remains OPEN until a genuine approved staging Dealer exists.
+- Production, `main`, V27 and production/domain cutover remain untouched.
