@@ -57,18 +57,34 @@ end$$;
 
 create or replace function bootstrap_initial_owner_staff_access(p_username text,p_employee_name text,p_device_id text)
 returns uuid language plpgsql security definer set search_path=public as '
-declare actor app_users%rowtype;u text:=upper(btrim(coalesce(p_username,'''''')));n text:=upper(btrim(coalesce(p_employee_name,'''''')));d text:=btrim(coalesce(p_device_id,''''''));rid uuid;
+declare
+ actor app_users%rowtype;
+ u text:=upper(btrim(coalesce(p_username,'''''')));
+ n text:=upper(btrim(coalesce(p_employee_name,'''''')));
+ d text:=btrim(coalesce(p_device_id,''''''));
+ rid uuid;
 begin
  select * into actor from app_users where auth_user_id=auth.uid() and active=true and lower(coalesce(role,''''''))=''owner'';
- if actor.id is null then raise exception ''AUTHENTICATED OWNER REQUIRED'';end if;
- if exists(select 1 from staff_access_identities) or exists(select 1 from staff_authorized_devices) then raise exception ''INITIAL OWNER BOOTSTRAP CLOSED'';end if;
- if u<>''OR@000'' then raise exception ''INITIAL OWNER USER ID REQUIRED'';end if;
- if length(n)<2 or length(n)>120 then raise exception ''EMPLOYEE NAME REQUIRED'';end if;
- if length(d)<8 or length(d)>180 then raise exception ''SECURE DEVICE ID REQUIRED'';end if;
+ if actor.id is null then
+  raise exception ''AUTHENTICATED OWNER REQUIRED'';
+ end if;
+ if exists(select 1 from staff_access_identities) or exists(select 1 from staff_authorized_devices) then
+  raise exception ''INITIAL OWNER BOOTSTRAP CLOSED'';
+ end if;
+ if u<>''OR@000'' then
+  raise exception ''INITIAL OWNER USER ID REQUIRED'';
+ end if;
+ if length(n)<2 or length(n)>120 then
+  raise exception ''EMPLOYEE NAME REQUIRED'';
+ end if;
+ if length(d)<8 or length(d)>180 then
+  raise exception ''SECURE DEVICE ID REQUIRED'';
+ end if;
  insert into staff_access_identities(app_user_id,username,employee_name,staff_role,active,updated_by) values(actor.id,u,n,''owner'',true,actor.id);
  insert into staff_authorized_devices(app_user_id,device_id,device_type,approved_by) values(actor.id,d,''desktop'',actor.id) returning id into rid;
  return rid;
-end';
+end;
+';
 
 revoke all on function bootstrap_initial_owner_staff_access(text,text,text) from public,anon;
 grant execute on function bootstrap_initial_owner_staff_access(text,text,text) to authenticated;
