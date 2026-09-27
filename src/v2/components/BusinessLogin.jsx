@@ -102,7 +102,7 @@ export default function BusinessLogin() {
             : webBusinessOnlyReason(user.role),
         );
       }
-      location.replace('/v2.html');
+      location.replace('/');
     } catch (error) {
       setErr(error.message || 'INCORRECT OTP. PLEASE TRY AGAIN.');
     } finally {
