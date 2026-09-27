@@ -45,3 +45,35 @@
  #torvo-v2-root>.publicSite .publicBrandRail{border-top:0!important;border-bottom:1px solid var(--t-line)!important}
  #torvo-v2-root>.publicSite .torvoPrimaryCategories>button{border-radius:var(--t-r2)!important}
 }
+
+/* CROSS-ROLE SHELL CONSOLIDATION */
+@media(min-width:821px){
+ #torvo-v2-root .adminVisualPreview{--side:252px!important;background:var(--t-bg)!important}
+ #torvo-v2-root .adminVisualPreview>aside{width:252px!important;background:var(--t-black)!important;box-shadow:none!important;border-right:1px solid #2a3038!important}
+ #torvo-v2-root .adminVisualPreview .brand{min-height:68px!important;background:var(--t-black)!important}
+ #torvo-v2-root .adminVisualPreview .navGroup button{min-height:40px!important;border-radius:var(--t-r1)!important;font-weight:600!important}
+ #torvo-v2-root .adminVisualPreview .navGroup button.active{background:#242a32!important;box-shadow:inset 3px 0 var(--t-red)!important}
+ #torvo-v2-root .adminVisualPreview .premiumAdminTop{min-height:76px!important;padding:9px 20px!important;grid-template-columns:170px minmax(480px,1fr) auto!important;gap:14px!important;box-shadow:none!important;border-bottom:1px solid var(--t-line)!important}
+ #torvo-v2-root .adminUniversalBar{height:48px!important;border-radius:var(--t-r1)!important;border-color:var(--t-line-strong)!important;box-shadow:none!important}
+ #torvo-v2-root .adminUniversalBar input{font-weight:400!important;font-size:12px!important}
+ #torvo-v2-root .adminFilterToggle{height:30px!important;min-height:30px!important;border:0!important;font-weight:600!important}
+ #torvo-v2-root .adminProductFilters{border-radius:var(--t-r2)!important}
+ #torvo-v2-root .adminVisualPreview .content{padding:20px 24px 40px!important}
+ #torvo-v2-root .adminVisualPreview .adminHeroV2{border-radius:var(--t-r2)!important;box-shadow:none!important}
+ #torvo-v2-root .accountantPreview .accountantFilterPanel{border-radius:var(--t-r2)!important}
+}
+#torvo-v2-root .roleApp{font-family:var(--t-font)!important;background:var(--t-bg)!important}
+#torvo-v2-root .roleApp>header{height:58px!important;background:var(--t-black)!important;box-shadow:none!important;border-bottom:1px solid #2b3037!important}
+#torvo-v2-root .roleLogo{border-radius:var(--t-r1)!important;background:var(--t-red)!important;font-style:normal!important}
+#torvo-v2-root .roleApp>header button{border-radius:var(--t-r1)!important;background:#252b33!important}
+#torvo-v2-root .roleWelcome{border-radius:var(--t-r2)!important;background:linear-gradient(120deg,#171c23,#11151a)!important;box-shadow:none!important;border:1px solid #282f38!important}
+#torvo-v2-root .roleSharedSearch .publicHeroSearchBar{border-radius:var(--t-r1)!important;border-color:var(--t-line-strong)!important;box-shadow:none!important}
+#torvo-v2-root .roleFilterToggle{min-height:36px!important;height:36px!important;border-radius:var(--t-r1)!important;font-weight:600!important}
+#torvo-v2-root .roleFilterPanel{border-radius:var(--t-r2)!important;box-shadow:var(--t-shadow)!important}
+#torvo-v2-root .roleGrid>button{border-radius:var(--t-r2)!important;box-shadow:none!important}
+#torvo-v2-root .roleSecurity,#torvo-v2-root .roleDeliveryStrip{border-radius:var(--t-r2)!important}
+#torvo-v2-root .roleApp>nav{box-shadow:0 -4px 16px rgba(17,22,28,.05)}
+#torvo-v2-root .smartFilterDesktop select,#torvo-v2-root .smartFilterDesktop input,#torvo-v2-root .smartFilterSearch>div{height:44px!important;border-radius:var(--t-r1)!important;border-color:var(--t-line-strong)!important;font-weight:400!important}
+#torvo-v2-root .smartFilterOpen{border-radius:var(--t-r1)!important;font-weight:600!important}
+#torvo-v2-root .smartFilterSheet{border-radius:12px 12px 0 0!important}
+#torvo-v2-root .smartFilterSheet footer button{border-radius:var(--t-r1)!important}
