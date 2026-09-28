@@ -2454,3 +2454,26 @@ body{margin:0;min-width:0;overflow-x:hidden}
   margin:7px 10px 0!important;border-radius:7px!important;overflow:hidden!important
  }
 }
+
+
+/* MOBILE READABILITY AUTHORITY — keep premium density without microscopic text */
+@media(max-width:820px){
+ #torvo-v2-root>.publicSite .publicCatalog .publicSectionHead>div>span{font-size:8px!important;letter-spacing:.08em!important}
+ #torvo-v2-root>.publicSite .publicCatalog .publicSectionHead h2{font-size:20px!important;line-height:1.05!important}
+ #torvo-v2-root>.publicSite .catalogResultBar{gap:7px!important;padding:7px 9px!important}
+ #torvo-v2-root>.publicSite .catalogResultBar b,
+ #torvo-v2-root>.publicSite .catalogResultBar span{font-size:8px!important}
+ #torvo-v2-root>.publicSite .publicShowcaseEmpty{padding:14px 11px!important}
+ #torvo-v2-root>.publicSite .publicShowcaseEmpty b{font-size:9px!important;line-height:1.35!important}
+ #torvo-v2-root>.publicSite .publicProductBody>span,
+ #torvo-v2-root>.publicSite .publicProductMeta small{font-size:7px!important}
+ #torvo-v2-root>.publicSite .publicProductBody h3{font-size:11px!important;line-height:1.15!important}
+ #torvo-v2-root>.publicSite .publicProductBody .formTwo button{font-size:7px!important;font-weight:700!important}
+ #torvo-v2-root>.publicSite .publicActionCard>span{font-size:7px!important;line-height:1.2!important}
+ #torvo-v2-root>.publicSite .publicActionCard h3{font-size:12px!important;line-height:1.08!important}
+ #torvo-v2-root>.publicSite .publicActionCard p{font-size:8px!important;line-height:1.35!important}
+ #torvo-v2-root>.publicSite .publicActionCard>button{font-size:7px!important}
+ #torvo-v2-root>.publicSite .premiumRetailFlow .retailSteps article h3{font-size:8px!important;line-height:1.2!important}
+ #torvo-v2-root>.publicSite .publicBenefitStrip b{font-size:9px!important;line-height:1.15!important}
+ #torvo-v2-root>.publicSite .publicBenefitStrip small{font-size:7px!important;line-height:1.2!important}
+}
