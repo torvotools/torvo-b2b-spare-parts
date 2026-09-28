@@ -795,3 +795,46 @@ body{margin:0;min-width:0;overflow-x:hidden}
 @media(max-width:390px){
  #torvo-v2-root .knowledgeChallengeGrid{grid-template-columns:1fr!important}
 }
+
+
+/* APPROVED MAIN THEME — transaction workspaces */
+#torvo-v2-root :is(.salesDocs,.inventoryList,.returnsList,.approvalList){display:grid!important;gap:8px!important}
+#torvo-v2-root :is(.salesDocs,.inventoryList,.returnsList,.approvalList)>*{
+ border:1px solid var(--tv-line)!important;border-radius:6px!important;background:#fff!important;box-shadow:none!important;
+}
+#torvo-v2-root :is(.workspaceTabs,.quickActions,.returnsTabs,.approvalTabs){
+ display:flex!important;gap:6px!important;flex-wrap:wrap!important;padding:6px!important;border:1px solid var(--tv-line)!important;border-radius:6px!important;background:#f5f6f7!important;
+}
+#torvo-v2-root :is(.workspaceTabs,.quickActions,.returnsTabs,.approvalTabs) button{min-height:36px!important;border-radius:4px!important}
+#torvo-v2-root :is(.workspaceTabs,.quickActions,.returnsTabs,.approvalTabs) button.active{background:#11151a!important;color:#fff!important;border-color:#11151a!important}
+#torvo-v2-root :is(.purchaseGuard,.approvalGuard){
+ padding:10px 12px!important;border-left:3px solid var(--tv-red)!important;border-radius:4px!important;background:#fff7f7!important;color:#565c65!important;
+}
+#torvo-v2-root :is(.purchaseTools,.approvalTools,.rowActions){display:flex!important;align-items:center!important;gap:7px!important;flex-wrap:wrap!important}
+#torvo-v2-root .purchaseCards{display:grid!important;grid-template-columns:repeat(auto-fit,minmax(240px,1fr))!important;gap:9px!important}
+#torvo-v2-root .purchaseCards>*{border:1px solid var(--tv-line)!important;border-radius:6px!important;background:#fff!important;box-shadow:none!important}
+#torvo-v2-root .purchaseEntryLayout{display:grid!important;grid-template-columns:minmax(0,1.6fr) minmax(260px,.8fr)!important;gap:12px!important}
+#torvo-v2-root .purchaseFormGrid{display:grid!important;grid-template-columns:repeat(2,minmax(0,1fr))!important;gap:9px!important}
+#torvo-v2-root .purchaseLines{display:grid!important;gap:7px!important}
+#torvo-v2-root .purchaseLine{border:1px solid var(--tv-line)!important;border-radius:5px!important;background:#fff!important}
+#torvo-v2-root .purchaseBuyingPanel{border:1px solid var(--tv-line)!important;border-radius:6px!important;background:#f7f8f9!important}
+#torvo-v2-root .purchaseBuyingItem{border-bottom:1px solid #e4e6e9!important}
+#torvo-v2-root .purchaseBuyingStats{display:grid!important;grid-template-columns:repeat(auto-fit,minmax(90px,1fr))!important;gap:6px!important}
+#torvo-v2-root :is(.purchaseModal,.returnSheet,.approvalConfirm,.dealerActionModal.salesActionModal){
+ border:1px solid var(--tv-line)!important;border-radius:7px!important;background:#fff!important;box-shadow:0 22px 60px rgba(10,15,20,.22)!important;
+}
+#torvo-v2-root .returnLines{display:grid!important;gap:7px!important}
+#torvo-v2-root .returnLines>*{border:1px solid var(--tv-line)!important;border-radius:5px!important;background:#f8f9fa!important}
+#torvo-v2-root .approvalMeta{display:flex!important;gap:6px!important;flex-wrap:wrap!important}
+#torvo-v2-root .approvalMeta>*{padding:4px 7px!important;border:1px solid #e4e6e9!important;border-radius:3px!important;background:#f7f8f9!important}
+#torvo-v2-root .approvalApprove{background:#168c46!important;color:#fff!important;border-color:#168c46!important}
+#torvo-v2-root .approvalReject{background:#fff!important;color:var(--tv-red)!important;border-color:#e6a3aa!important}
+#torvo-v2-root .status.approved{background:#eaf7ef!important;color:#14753d!important;border-color:#b9dfc8!important}
+#torvo-v2-root .status.hold{background:#fff5dd!important;color:#8a6200!important;border-color:#ecd28c!important}
+@media(max-width:800px){
+ #torvo-v2-root .purchaseEntryLayout{grid-template-columns:1fr!important}
+ #torvo-v2-root .purchaseFormGrid{grid-template-columns:1fr!important}
+ #torvo-v2-root .purchaseCards{grid-template-columns:1fr!important}
+ #torvo-v2-root :is(.workspaceTabs,.quickActions,.returnsTabs,.approvalTabs){overflow-x:auto!important;flex-wrap:nowrap!important}
+ #torvo-v2-root :is(.workspaceTabs,.quickActions,.returnsTabs,.approvalTabs) button{flex:0 0 auto!important}
+}
