@@ -278,3 +278,40 @@ body{margin:0;min-width:0;overflow-x:hidden}
  #torvo-v2-root .mobileOnly{display:none!important}
  #torvo-v2-root .desktopOnly{display:revert!important}
 }
+
+/* FLUID DESKTOP CANVAS — Owner rule 2026-09-28 */
+@media (min-width:801px){
+ #torvo-v2-root .publicSite{
+  --tv-desktop-gutter:clamp(18px,2.1vw,48px);
+  --tv-desktop-wide:min(1920px,100%);
+ }
+ #torvo-v2-root .publicSite>main{width:100%!important;max-width:none!important}
+ #torvo-v2-root :is(.publicHero,.publicBrandRail,.desktopRequirementBand,.desktopDealerFinderBlock,.retailFlow,.dealerBusiness,.publicSupport,.publicAbout,.torvoPremiumFooter){
+  width:calc(100% - (var(--tv-desktop-gutter) * 2))!important;
+  max-width:none!important;
+  margin-left:var(--tv-desktop-gutter)!important;
+  margin-right:var(--tv-desktop-gutter)!important;
+ }
+ #torvo-v2-root :is(.publicCatalog,.publicCatalogTop,.publicShowcase,.publicSectionHead,.customerJourney,.torvoConnect){
+  width:calc(100% - (var(--tv-desktop-gutter) * 2))!important;
+  max-width:none!important;
+  margin-left:auto!important;
+  margin-right:auto!important;
+ }
+ #torvo-v2-root .publicHero{
+  grid-template-columns:minmax(0,1.12fr) minmax(360px,.88fr)!important;
+  min-height:clamp(430px,54vh,680px)!important;
+ }
+ #torvo-v2-root .publicShowcaseGrid{
+  grid-template-columns:repeat(auto-fit,minmax(clamp(220px,18vw,300px),1fr))!important;
+  width:100%!important;
+ }
+}
+@media (min-width:1440px){
+ #torvo-v2-root .publicSite{--tv-desktop-gutter:clamp(28px,2.6vw,64px)}
+ #torvo-v2-root .publicHero{grid-template-columns:minmax(0,1.18fr) minmax(440px,.82fr)!important}
+}
+@media (min-width:1920px){
+ #torvo-v2-root .publicSite{--tv-desktop-gutter:clamp(40px,3vw,88px)}
+ #torvo-v2-root .publicHero{min-height:clamp(500px,56vh,760px)!important}
+}
