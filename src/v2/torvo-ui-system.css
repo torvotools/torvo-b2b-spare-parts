@@ -1961,3 +1961,35 @@ body{margin:0;min-width:0;overflow-x:hidden}
  #torvo-v2-root>.publicSite .publicHero.compactHero{min-height:310px!important}
  #torvo-v2-root>.publicSite .publicHeroCopy h1{font-size:27px!important}
 }
+
+
+/* MOBILE STOREFRONT RECOVERY — readable categories, catalog and actions */
+@media(max-width:820px){
+ #torvo-v2-root>.publicSite .torvoPrimaryCategories{display:flex!important;overflow-x:auto!important;scroll-snap-type:x mandatory!important;gap:8px!important;padding:0 0 5px!important;scrollbar-width:none!important}
+ #torvo-v2-root>.publicSite .torvoPrimaryCategories::-webkit-scrollbar{display:none!important}
+ #torvo-v2-root>.publicSite .torvoPrimaryCategories>button{flex:0 0 76vw!important;scroll-snap-align:start!important;display:grid!important;grid-template-columns:42% 58%!important;min-height:126px!important;height:126px!important;border:0!important;color:#fff!important;text-align:left!important}
+ #torvo-v2-root>.publicSite .torvoPrimaryCategories>button.machine{background:linear-gradient(125deg,#0755a0,#118bf0)!important}
+ #torvo-v2-root>.publicSite .torvoPrimaryCategories>button.spare{background:linear-gradient(125deg,#9d0714,#e31b2b)!important}
+ #torvo-v2-root>.publicSite .torvoPrimaryCategories>button.accessory{background:linear-gradient(125deg,#b36e00,#f1a500)!important}
+ #torvo-v2-root>.publicSite .torvoPrimaryCategories>button>img,#torvo-v2-root>.publicSite .torvoPrimaryCategories .categoryPhotoFallback{width:100%!important;height:126px!important;min-height:126px!important;padding:8px!important;border:0!important;background:rgba(255,255,255,.07)!important;object-fit:contain!important}
+ #torvo-v2-root>.publicSite .torvoPrimaryCategories .categoryPhotoFallback svg{width:54px!important;height:54px!important;color:#fff!important}
+ #torvo-v2-root>.publicSite .torvoPrimaryCategories .categoryCopy{align-items:flex-start!important;padding:12px 10px!important;color:#fff!important}
+ #torvo-v2-root>.publicSite .categoryCopy b{font-size:14px!important}
+ #torvo-v2-root>.publicSite .categoryCopy small{display:block!important;margin-top:5px!important;font-size:7px!important;color:rgba(255,255,255,.82)!important}
+ #torvo-v2-root>.publicSite .categoryCopy em{display:inline-flex!important;align-items:center!important;gap:5px!important;margin-top:12px!important;padding:6px 8px!important;border:1px solid rgba(255,255,255,.55)!important;border-radius:4px!important;font-size:7px!important;font-style:normal!important}
+ #torvo-v2-root>.publicSite .categoryCopy em svg{width:11px!important;height:11px!important}
+ #torvo-v2-root>.publicSite .publicCatalogTop{display:block!important}
+ #torvo-v2-root>.publicSite .publicCatalogTop .publicSectionHead{display:block!important}
+ #torvo-v2-root>.publicSite .publicCatalogTop .publicSectionHead h2{margin:3px 0 5px!important;font-size:21px!important;line-height:1!important}
+ #torvo-v2-root>.publicSite .publicCatalogTop .publicSectionHead p{margin:0!important;font-size:7px!important;line-height:1.4!important}
+ #torvo-v2-root>.publicSite .catalogResultBar{margin-top:8px!important;min-height:34px!important}
+ #torvo-v2-root>.publicSite .publicShowcaseGrid{grid-template-columns:repeat(2,minmax(0,1fr))!important;gap:7px!important;margin-top:8px!important}
+ #torvo-v2-root>.publicSite .publicProductPhoto{min-height:105px!important}
+ #torvo-v2-root>.publicSite .publicShowcaseEmpty{grid-column:1/-1!important;min-height:68px!important;padding:12px!important;text-align:center!important}
+ #torvo-v2-root>.publicSite .publicActionGrid{grid-template-columns:1fr 1fr!important;gap:7px!important}
+ #torvo-v2-root>.publicSite .publicActionCard{min-height:174px!important;padding:11px!important}
+ #torvo-v2-root>.publicSite .publicActionCard>div{width:34px!important;height:34px!important}
+ #torvo-v2-root>.publicSite .publicActionCard h3{font-size:12px!important;line-height:1.08!important}
+ #torvo-v2-root>.publicSite .publicActionCard p{font-size:7px!important;line-height:1.4!important}
+ #torvo-v2-root>.publicSite .publicActionCard>button{min-height:34px!important;font-size:7px!important}
+}
