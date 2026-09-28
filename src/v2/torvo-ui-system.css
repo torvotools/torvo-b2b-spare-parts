@@ -1,6 +1,6 @@
 /* TORVO V2 — NEW AUTHORITATIVE DESIGN SYSTEM
    Presentation only. Business/auth/data contracts stay unchanged. */
-#torvo-v2-root{--tv-red:#e11d2e;--tv-red-dark:#b80f20;--tv-black:#0b0d10;--tv-charcoal:#171a1f;--tv-ink:#17191d;--tv-muted:#69707a;--tv-page:#f3f4f6;--tv-surface:#fff;--tv-soft:#f8f8f9;--tv-line:#dedfe3;--tv-line-strong:#c7c9cf;--tv-green:#087443;--tv-danger:#b42318;--tv-radius:4px;--tv-radius-lg:8px;--tv-control:46px;--tv-shadow:0 12px 32px rgba(12,14,18,.08);--tv-font:Inter,ui-sans-serif,-apple-system,BlinkMacSystemFont,"Segoe UI",Arial,sans-serif;font-family:var(--tv-font);color:var(--tv-ink);background:var(--tv-page)}
+#torvo-v2-root{--tv-red:#e11d2e;--tv-red-dark:#b80f20;--tv-black:#0b0d10;--tv-charcoal:#171a1f;--tv-ink:#17191d;--tv-muted:#69707a;--tv-page:#f3f4f6;--tv-surface:#fff;--tv-soft:#f8f8f9;--tv-line:#dedfe3;--tv-line-strong:#c7c9cf;--tv-green:#087443;--tv-green-soft:#eaf8f0;--tv-amber:#b76e00;--tv-amber-soft:#fff7e6;--tv-blue:#1769aa;--tv-blue-soft:#eef6ff;--tv-purple:#6941c6;--tv-purple-soft:#f4f0ff;--tv-danger:#b42318;--tv-radius:4px;--tv-radius-lg:8px;--tv-control:46px;--tv-shadow:0 12px 32px rgba(12,14,18,.08);--tv-font:Inter,ui-sans-serif,-apple-system,BlinkMacSystemFont,"Segoe UI",Arial,sans-serif;font-family:var(--tv-font);color:var(--tv-ink);background:var(--tv-page)}
 #torvo-v2-root *{box-sizing:border-box}
 #torvo-v2-root :is(button,input,select,textarea){font:inherit}
 #torvo-v2-root :is(input,select,textarea){border:1px solid var(--tv-line)!important;border-radius:var(--tv-radius)!important;background:#fff!important;color:var(--tv-ink)!important;font-weight:400!important;outline:0}
@@ -80,3 +80,12 @@
  #torvo-v2-root .roleWelcome{padding:20px!important}
  #torvo-v2-root .roleWelcome h1{font-size:23px!important}
 }
+
+/* SEMANTIC OPERATIONAL COLOR — controlled accents, never alternate themes */
+#torvo-v2-root :is(.success,.statusSuccess,[data-status="success"],[data-status="delivered"],[data-status="approved"]){color:var(--tv-green)!important;background:var(--tv-green-soft)!important;border-color:#b8e3ca!important}
+#torvo-v2-root :is(.warning,.statusPending,[data-status="pending"],[data-status="ready"]){color:var(--tv-amber)!important;background:var(--tv-amber-soft)!important;border-color:#f1d59b!important}
+#torvo-v2-root :is(.info,.statusInfo,[data-status="in_shop"],[data-status="repairing"]){color:var(--tv-blue)!important;background:var(--tv-blue-soft)!important;border-color:#bcd7f2!important}
+#torvo-v2-root :is(.danger,.statusDanger,[data-status="cancelled"],[data-status="rejected"]){color:var(--tv-danger)!important;background:#fff0f0!important;border-color:#efc1c4!important}
+#torvo-v2-root :is(.modalForm,.dealerEntryCard,.publicProductCard,.serviceBookPartFinder){border-radius:var(--tv-radius-lg)!important}
+#torvo-v2-root :is(.publicModalBackdrop,.modalLayer,.roleSheetBack){background:rgba(8,10,13,.52)!important;backdrop-filter:blur(5px)}
+#torvo-v2-root .serviceBookPartFinder{background:var(--tv-blue-soft)!important;border:1px solid #c9ddf1!important}
