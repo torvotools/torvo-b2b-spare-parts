@@ -266,3 +266,86 @@
  #torvo-v2-root .publicProductBody .formTwo{grid-template-columns:1fr!important}
  #torvo-v2-root .modalForm{grid-template-columns:1fr!important}
 }
+
+
+/* OPERATIONS WORKSPACE SYSTEM — Sales / Purchase / Sale / Dispatch / Reports */
+#torvo-v2-root :is(.workspace,.purchaseWorkspace){max-width:1600px!important;margin:0 auto!important;background:#fff!important;border:1px solid var(--tv-line)!important;border-radius:12px!important;overflow:hidden!important;box-shadow:none!important}
+#torvo-v2-root .workspace>header,#torvo-v2-root .purchaseHero{min-height:84px!important;padding:16px 18px!important;border-bottom:1px solid var(--tv-line)!important;background:#fff!important;display:flex!important;align-items:center!important;justify-content:space-between!important;gap:16px!important}
+#torvo-v2-root .workspace>header h3,#torvo-v2-root .purchaseHero h2{font-size:20px!important;letter-spacing:-.4px!important;margin:3px 0!important}
+#torvo-v2-root .workspace>header p,#torvo-v2-root .purchaseHero p{font-size:9px!important;color:var(--tv-muted)!important;letter-spacing:.25px!important;margin:0!important}
+#torvo-v2-root .workspaceTabs{padding:10px 14px!important;border-bottom:1px solid var(--tv-line)!important;background:var(--tv-soft)!important;display:flex!important;gap:6px!important}
+#torvo-v2-root .workspaceTabs button{min-height:38px!important;padding:0 12px!important;border:1px solid var(--tv-line)!important;background:#fff!important;color:#4b5563!important;font-size:9px!important;font-weight:800!important;display:flex!important;align-items:center!important;gap:6px!important}
+#torvo-v2-root .workspaceTabs button.active{background:var(--tv-black)!important;border-color:var(--tv-black)!important;color:#fff!important}
+#torvo-v2-root .workFilters,#torvo-v2-root .purchaseToolbar,#torvo-v2-root .filters.reportPresetFilters{margin:12px 14px!important;padding:9px!important;border:1px solid var(--tv-line)!important;border-radius:9px!important;background:var(--tv-soft)!important;display:flex!important;align-items:center!important;gap:7px!important;flex-wrap:wrap!important}
+#torvo-v2-root .workFilters label{min-width:260px!important;flex:1!important;height:42px!important;border:1px solid var(--tv-line)!important;border-radius:7px!important;background:#fff!important;display:flex!important;align-items:center!important;padding:0 9px!important}
+#torvo-v2-root .workFilters label input{border:0!important;box-shadow:none!important;min-height:38px!important;flex:1!important}
+#torvo-v2-root :is(.workFilters,.purchaseToolbar,.reportPresetFilters) select{height:42px!important;min-width:145px!important;padding:0 9px!important}
+#torvo-v2-root :is(.workFilters,.purchaseToolbar,.reportPresetFilters)>button{min-height:40px!important;padding:0 12px!important;border:1px solid var(--tv-line)!important;background:#fff!important;font-size:9px!important;font-weight:800!important}
+#torvo-v2-root .requestList{padding:0 14px 14px!important;display:grid!important;gap:7px!important}
+#torvo-v2-root .requestList>article{min-height:74px!important;padding:11px 12px!important;border:1px solid var(--tv-line)!important;border-radius:9px!important;background:#fff!important;display:grid!important;grid-template-columns:minmax(220px,1fr) auto auto!important;gap:12px!important;align-items:center!important}
+#torvo-v2-root .requestList>article:hover{border-color:var(--tv-line-strong)!important;background:#fcfcfd!important}
+#torvo-v2-root .requestList>article>div:first-child{display:grid!important;gap:3px!important;min-width:0!important}
+#torvo-v2-root .requestList>article strong{font-size:11px!important;color:var(--tv-black)!important}
+#torvo-v2-root .requestList>article span{font-size:9px!important;color:#4b5563!important}
+#torvo-v2-root .requestList>article small{font-size:8px!important;color:var(--tv-muted)!important}
+#torvo-v2-root .status{padding:5px 8px!important;border:1px solid var(--tv-line)!important;background:#f5f6f8!important;color:#4b5563!important;font-size:8px!important;font-weight:850!important;white-space:nowrap!important}
+#torvo-v2-root .status.approved,#torvo-v2-root .status.delivered{background:#effcf5!important;border-color:#b8e8cf!important;color:var(--tv-green)!important}
+#torvo-v2-root .status.pending,#torvo-v2-root .status.pick_list,#torvo-v2-root .status.picked,#torvo-v2-root .status.packed,#torvo-v2-root .status.ready_for_dispatch{background:#fff8e8!important;border-color:#edd9a0!important;color:#805d00!important}
+#torvo-v2-root .rowActions{display:flex!important;align-items:center!important;justify-content:flex-end!important;gap:5px!important;flex-wrap:wrap!important}
+#torvo-v2-root .rowActions button{min-height:36px!important;padding:0 10px!important;font-size:8px!important;font-weight:800!important;display:flex!important;align-items:center!important;gap:5px!important}
+#torvo-v2-root .rowActions button.primary{background:var(--tv-red)!important;color:#fff!important;border-color:var(--tv-red)!important}
+#torvo-v2-root :is(button.danger,.rowActions button.danger){background:#fff5f5!important;color:var(--tv-danger)!important;border:1px solid #efc1c4!important}
+#torvo-v2-root .empty,#torvo-v2-root .chartEmpty,#torvo-v2-root .publicShowcaseEmpty{margin:14px!important;min-height:150px!important;border:1px dashed var(--tv-line-strong)!important;border-radius:10px!important;background:#fafbfc!important;display:grid!important;place-content:center!important;text-align:center!important;padding:22px!important;color:var(--tv-muted)!important}
+#torvo-v2-root .inlineError,#torvo-v2-root .inlineSuccess{margin:10px 14px!important;padding:9px 11px!important;border-radius:8px!important;font-size:9px!important}
+
+/* operational stats */
+#torvo-v2-root .knowledgeStats,#torvo-v2-root .reportGrid{padding:12px 14px!important;display:grid!important;grid-template-columns:repeat(4,minmax(0,1fr))!important;gap:8px!important}
+#torvo-v2-root .knowledgeStats article,#torvo-v2-root .reportGrid article{min-height:105px!important;padding:13px!important;border:1px solid var(--tv-line)!important;border-radius:9px!important;background:#fff!important;box-shadow:none!important}
+#torvo-v2-root .knowledgeStats article b,#torvo-v2-root .reportGrid article strong{font-size:22px!important;letter-spacing:-.6px!important;color:var(--tv-black)!important}
+#torvo-v2-root .knowledgeStats article span,#torvo-v2-root .reportGrid article>span{font-size:8px!important;font-weight:850!important;letter-spacing:.45px!important;color:var(--tv-muted)!important}
+#torvo-v2-root .reportGrid article small{display:block!important;margin:7px 0!important;min-height:30px!important;font-size:8px!important;line-height:1.4!important;color:var(--tv-muted)!important}
+#torvo-v2-root .reportGrid article button{min-height:34px!important;padding:0 10px!important;font-size:8px!important;font-weight:800!important}
+
+/* purchase uses same visual language while keeping its stronger inventory semantics */
+#torvo-v2-root .purchaseWorkspace{padding:0!important}
+#torvo-v2-root .purchaseHero{margin:0!important;border-radius:0!important}
+#torvo-v2-root .purchaseGuard{margin:12px 14px!important;padding:10px 12px!important;border:1px solid #d7e0e9!important;border-radius:9px!important;background:#f7fafc!important;display:flex!important;align-items:center!important;gap:8px!important}
+#torvo-v2-root .purchaseGuard b{font-size:9px!important}
+#torvo-v2-root .purchaseGuard span{font-size:8px!important;color:var(--tv-muted)!important}
+#torvo-v2-root .purchasePrimary{min-height:42px!important;padding:0 14px!important;font-size:9px!important;font-weight:850!important;display:flex!important;align-items:center!important;gap:6px!important}
+
+/* detail reports */
+#torvo-v2-root .detailReport{margin:12px 14px 14px!important;border:1px solid var(--tv-line)!important;border-radius:10px!important;overflow:hidden!important}
+#torvo-v2-root .detailReport>header{padding:12px!important;background:var(--tv-soft)!important;border-bottom:1px solid var(--tv-line)!important;display:flex!important;align-items:center!important;justify-content:space-between!important;gap:10px!important}
+#torvo-v2-root .tableWrap{overflow:auto!important;max-height:62dvh!important}
+#torvo-v2-root .tableWrap table{min-width:820px!important}
+#torvo-v2-root .tableWrap thead{position:sticky!important;top:0!important;z-index:2!important}
+
+/* action dialogs used by Sales/Marg/Dispatch */
+#torvo-v2-root :is(.dealerActionModal,.salesActionModal,.compactEntryModal){width:min(760px,calc(100vw - 24px))!important;max-height:90dvh!important;overflow:auto!important;padding:20px!important}
+#torvo-v2-root :is(.dealerActionModal,.salesActionModal,.compactEntryModal)>header{display:flex!important;align-items:flex-start!important;justify-content:space-between!important;gap:12px!important;padding-bottom:13px!important;border-bottom:1px solid var(--tv-line)!important}
+#torvo-v2-root .dealerDetailGrid{display:grid!important;grid-template-columns:repeat(4,1fr)!important;gap:7px!important;padding:12px 0!important}
+#torvo-v2-root .dealerDetailGrid>div{padding:10px!important;border:1px solid var(--tv-line)!important;border-radius:8px!important;background:var(--tv-soft)!important;display:grid!important;gap:4px!important}
+#torvo-v2-root .dealerDetailGrid svg{width:16px!important;height:16px!important;color:var(--tv-red)!important}
+#torvo-v2-root .dealerDetailGrid span{font-size:7px!important;font-weight:800!important;color:var(--tv-muted)!important}
+#torvo-v2-root .dealerDetailGrid b{font-size:9px!important}
+#torvo-v2-root .modalNotice{padding:10px 11px!important;border:1px solid #d7e0e9!important;border-radius:8px!important;background:#f7fafc!important;color:#53606e!important;font-size:8px!important;line-height:1.45!important}
+#torvo-v2-root .salesRevisionLine{display:grid!important;grid-template-columns:minmax(180px,1fr) 90px 110px 38px!important;gap:7px!important;align-items:end!important;padding:8px 0!important;border-bottom:1px solid #edf0f3!important}
+
+@media(max-width:1050px){
+ #torvo-v2-root .knowledgeStats,#torvo-v2-root .reportGrid{grid-template-columns:repeat(2,minmax(0,1fr))!important}
+ #torvo-v2-root .requestList>article{grid-template-columns:minmax(180px,1fr) auto!important}
+ #torvo-v2-root .requestList>article>.rowActions{grid-column:1/-1!important;justify-content:flex-start!important}
+}
+@media(max-width:820px){
+ #torvo-v2-root :is(.workspace,.purchaseWorkspace){border-left:0!important;border-right:0!important;border-radius:0!important}
+ #torvo-v2-root .workspace>header,#torvo-v2-root .purchaseHero{min-height:72px!important;padding:12px!important}
+ #torvo-v2-root .workFilters,#torvo-v2-root .purchaseToolbar,#torvo-v2-root .filters.reportPresetFilters{margin:8px!important}
+ #torvo-v2-root .workFilters label{min-width:100%!important}
+ #torvo-v2-root .requestList{padding:0 8px 10px!important}
+ #torvo-v2-root .requestList>article{display:grid!important;grid-template-columns:1fr auto!important;padding:11px!important}
+ #torvo-v2-root .knowledgeStats,#torvo-v2-root .reportGrid{padding:8px!important;grid-template-columns:1fr 1fr!important}
+ #torvo-v2-root :is(.dealerActionModal,.salesActionModal,.compactEntryModal){width:100%!important;max-height:92dvh!important;border-radius:14px 14px 0 0!important}
+ #torvo-v2-root .dealerDetailGrid{grid-template-columns:1fr 1fr!important}
+ #torvo-v2-root .salesRevisionLine{grid-template-columns:1fr 80px 36px!important}
+}
