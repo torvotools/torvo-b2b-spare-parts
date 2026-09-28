@@ -82,3 +82,11 @@ Mobile is intentionally designed, not a squeezed desktop. Desktop is intentional
 No new business logic is introduced as part of UI modernization unless Owner explicitly requests it.
 LOCKed business/UI requirements remain respected.
 "22" means restore/reference the pre-redesign visual baseline at commit `47eb263662d7a4e552bbb73e18483d35435e90e7`.
+
+## OWNER RULE — NO DUPLICATE UI ACTIONS (2026-09-28)
+- New UI/UX must REPLACE or CONSOLIDATE an older button/option when both perform the same job on the same surface.
+- Never stack a new presentation control on top of an older equivalent merely to preserve historical UI.
+- Preserve the underlying business capability; remove only redundant presentation entry points after confirming equivalent access remains.
+- The same capability may appear in genuinely different contexts (for example desktop finder vs modal/mobile flow) when each context needs its own entry point; this is not a duplicate.
+- One surface should have one clear primary action for one job. Secondary entry points must have a distinct context or purpose.
+- Before final UI acceptance, audit Website, Dealer, Salesman, Store Keeper, Owner/Admin and Accountant for duplicate buttons, duplicate navigation, duplicate cards and obsolete presentation layers.
