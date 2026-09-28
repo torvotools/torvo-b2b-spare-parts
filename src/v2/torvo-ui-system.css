@@ -189,3 +189,41 @@
  #torvo-v2-root :is(.adminProductFilters,.accountantFilterPanel,.roleFilterPanel){border-radius:var(--ui-panel-radius)!important}
  #torvo-v2-root :is(.publicModal,.modal,.dealerActionModal,.dealerRegModal){width:100%!important;max-width:100%!important}
 }
+
+
+/* TORVO V2 UNIFIED ECOSYSTEM THEME — 2026-09-28
+   Final shared visual layer for Website + Owner/Admin + Accountant + Dealer + Salesman + Store.
+   Presentation only; role/business/security contracts remain authoritative. */
+#torvo-v2-root{
+ --torvo-brand:#d71920;--torvo-brand-strong:#b51218;--torvo-night:#11151a;--torvo-night-2:#1b2129;
+ --torvo-page:#f5f6f8;--torvo-card:#fff;--torvo-text:#1d232b;--torvo-sub:#66707c;
+ --torvo-border:#d5d9df;--torvo-border-strong:#aeb5bf;--torvo-focus:rgba(215,25,32,.10);
+ --torvo-control-radius:6px;--torvo-panel-radius:9px;--torvo-card-radius:9px;
+ --torvo-shadow-float:0 16px 42px rgba(17,21,26,.12);
+}
+#torvo-v2-root :is(.publicSite,.adminVisualPreview,.accountantPreview,.roleApp,.dealerEntry){background:var(--torvo-page)!important;color:var(--torvo-text)!important}
+#torvo-v2-root :is(.publicHeader,.premiumAdminTop,.accountantTopFinder,.roleApp>header){min-height:58px;border-bottom:1px solid var(--torvo-border)!important}
+#torvo-v2-root :is(.adminVisualPreview>aside,.accountantSideNav,.roleApp>header){background:var(--torvo-night)!important}
+#torvo-v2-root :is(.panel,.workspace,.accountantWorkPanel,.roleWelcome,.roleSecurity,.roleDeliveryStrip,.publicProductCard,.dealerEntryCard){background:var(--torvo-card)!important;border:1px solid var(--torvo-border)!important;border-radius:var(--torvo-panel-radius)!important;box-shadow:none!important}
+#torvo-v2-root :is(button,.button,[role="button"]){border-radius:var(--torvo-control-radius)!important}
+#torvo-v2-root :is(.primary,.finderApplyButton,.submitNeed,.purchasePrimary){background:var(--torvo-brand)!important;border-color:var(--torvo-brand)!important;color:#fff!important}
+#torvo-v2-root :is(.primary,.finderApplyButton,.submitNeed,.purchasePrimary):hover:not(:disabled){background:var(--torvo-brand-strong)!important;border-color:var(--torvo-brand-strong)!important}
+#torvo-v2-root :is(input,select,textarea){border-color:var(--torvo-border)!important;border-radius:var(--torvo-control-radius)!important;background:#fff!important;color:var(--torvo-text)!important;font-weight:400!important}
+#torvo-v2-root :is(input,select,textarea):focus{border-color:var(--torvo-brand)!important;box-shadow:0 0 0 3px var(--torvo-focus)!important}
+#torvo-v2-root :is(.adminUniversalBar,.publicHeroSearchBar,.roleSharedSearch .publicHeroSearchBar){border:1px solid var(--torvo-border-strong)!important;border-radius:var(--torvo-control-radius)!important;background:#fff!important;box-shadow:none!important}
+#torvo-v2-root :is(.adminUniversalBar,.publicHeroSearchBar,.roleSharedSearch .publicHeroSearchBar):focus-within{border-color:var(--torvo-brand)!important;box-shadow:0 0 0 3px var(--torvo-focus)!important}
+#torvo-v2-root :is(.navGroup button,.accountantSideNav>button:not(.accountantIdentity)).active{background:var(--torvo-night-2)!important;color:#fff!important;box-shadow:inset 3px 0 var(--torvo-brand)!important}
+#torvo-v2-root .roleApp>nav button.active{color:var(--torvo-brand)!important}
+#torvo-v2-root :is(.status,.chip,.badge){border-radius:999px!important}
+#torvo-v2-root :is(.publicModal,.modal,.dealerActionModal,.dealerRegModal,.purchaseModal,.filterSheet,.smartFilterSheet){background:#fff!important;border:1px solid var(--torvo-border)!important;border-radius:var(--torvo-panel-radius)!important;box-shadow:var(--torvo-shadow-float)!important}
+#torvo-v2-root :is(.roleGrid>button,.adminActionGrid>button,.accountantSummary article,.premiumKpis article){background:#fff!important;border:1px solid var(--torvo-border)!important;border-radius:var(--torvo-card-radius)!important;box-shadow:none!important}
+#torvo-v2-root :is(.roleGrid>button,.adminActionGrid>button,.accountantSummary article,.premiumKpis article):hover{border-color:var(--torvo-border-strong)!important;transform:translateY(-1px)}
+#torvo-v2-root table thead{background:#f7f8fa!important}
+#torvo-v2-root table :is(th,td){border-bottom-color:#e5e8ec!important}
+#torvo-v2-root .previewSwitcher{font-family:var(--t-font);background:rgba(17,21,26,.96)!important;border-color:#2d343d!important;box-shadow:0 12px 32px rgba(0,0,0,.18)!important}
+#torvo-v2-root .previewSwitcher button{border-radius:4px!important}
+#torvo-v2-root .previewSwitcher button.active{background:var(--torvo-brand)!important;color:#fff!important;border-color:var(--torvo-brand)!important}
+@media(max-width:820px){
+ #torvo-v2-root{--torvo-control-radius:6px;--torvo-panel-radius:8px;--torvo-card-radius:8px}
+ #torvo-v2-root :is(.publicModal,.modal,.dealerActionModal,.dealerRegModal,.purchaseModal,.filterSheet,.smartFilterSheet){border-radius:12px 12px 0 0!important}
+}
