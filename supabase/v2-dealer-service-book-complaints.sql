@@ -30,3 +30,21 @@ language plpgsql security definer set search_path=public as $$begin
 end$$;
 revoke all on function dealer_service_complaints_read(text,text) from public,anon;
 grant execute on function dealer_service_complaints_read(text,text) to authenticated;
+
+
+-- Owner/Admin management stays behind authenticated RPCs; Dealers retain read-only device-bound access.
+create or replace function admin_service_complaints_read()
+returns setof dealer_service_complaints language plpgsql security definer set search_path=public as $$declare a app_users%rowtype;begin
+ select * into a from app_users where auth_user_id=auth.uid() and active=true;if a.id is null or lower(coalesce(a.role,'')) not in('owner','admin') then raise exception 'ADMIN ACCESS REQUIRED';end if;
+ return query select * from dealer_service_complaints order by sort_order,label;
+end$$;
+revoke all on function admin_service_complaints_read() from public,anon;grant execute on function admin_service_complaints_read() to authenticated;
+
+create or replace function admin_service_complaint_upsert(p_id uuid,p_code text,p_label text,p_sort_order integer,p_active boolean,p_reason text)
+returns uuid language plpgsql security definer set search_path=public as $$declare a app_users%rowtype;rid uuid;v_code text:=upper(btrim(coalesce(p_code,'')));v_label text:=upper(btrim(coalesce(p_label,'')));begin
+ select * into a from app_users where auth_user_id=auth.uid() and active=true;if a.id is null or lower(coalesce(a.role,'')) not in('owner','admin') then raise exception 'ADMIN ACCESS REQUIRED';end if;
+ if v_code!~'^[A-Z0-9][A-Z0-9 /&+()._-]{1,59}$' then raise exception 'VALID COMPLAINT CODE REQUIRED';end if;if length(v_label)<2 or length(v_label)>120 then raise exception 'VALID COMPLAINT LABEL REQUIRED';end if;if coalesce(p_sort_order,-1)<0 then raise exception 'VALID SORT ORDER REQUIRED';end if;if nullif(btrim(p_reason),'') is null then raise exception 'CHANGE REASON REQUIRED';end if;
+ if p_id is null then insert into dealer_service_complaints(code,label,sort_order,active) values(v_code,v_label,p_sort_order,coalesce(p_active,true)) returning id into rid;else update dealer_service_complaints set code=v_code,label=v_label,sort_order=p_sort_order,active=coalesce(p_active,true),updated_at=now() where id=p_id returning id into rid;if rid is null then raise exception 'COMPLAINT NOT FOUND';end if;end if;
+ insert into audit_log(actor_id,action,entity_type,entity_id,details) values(a.id,'SERVICE_COMPLAINT_UPSERTED','dealer_service_complaint',rid::text,jsonb_build_object('code',v_code,'label',v_label,'sort_order',p_sort_order,'active',coalesce(p_active,true),'reason',upper(btrim(p_reason))));return rid;
+end$$;
+revoke all on function admin_service_complaint_upsert(uuid,text,text,integer,boolean,text) from public,anon;grant execute on function admin_service_complaint_upsert(uuid,text,text,integer,boolean,text) to authenticated;
