@@ -6,7 +6,7 @@
 create sequence if not exists public.torvo_estimate_number_seq start 1;
 alter table public.sales_documents add column if not exists estimate_number text;
 create unique index if not exists uq_sales_documents_estimate_number on public.sales_documents(estimate_number) where estimate_number is not null;
-create or replace function public.torvo_assign_estimate_number() returns trigger language plpgsql set search_path=public as $begin if new.doc_type='estimate' and new.estimate_number is null then new.estimate_number:='EST-'||to_char(current_date,'YYYY')||'-'||lpad(nextval('public.torvo_estimate_number_seq')::text,6,'0');end if;return new;end$;
+create or replace function public.torvo_assign_estimate_number() returns trigger language plpgsql set search_path=public as $torvo$ begin if new.doc_type='estimate' and new.estimate_number is null then new.estimate_number:='EST-'||to_char(current_date,'YYYY')||'-'||lpad(nextval('public.torvo_estimate_number_seq')::text,6,'0');end if;return new;end $torvo$;
 drop trigger if exists trg_torvo_assign_estimate_number on public.sales_documents;
 create trigger trg_torvo_assign_estimate_number before insert on public.sales_documents for each row execute function public.torvo_assign_estimate_number();
 update public.sales_documents set estimate_number='EST-'||to_char(created_at,'YYYY')||'-LEGACY-'||upper(substr(replace(id::text,'-',''),1,8)) where doc_type='estimate' and estimate_number is null;
