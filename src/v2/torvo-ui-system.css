@@ -404,3 +404,16 @@ body{margin:0;min-width:0;overflow-x:hidden}
  #torvo-v2-root :is(.publicHeaderInner,.topSearchHeader,.publicHero,.publicCatalog,.publicShowcaseGrid){overflow:visible}
  #torvo-v2-root .publicShowcaseGrid>*{min-width:0!important}
 }
+
+/* LARGE-SCREEN READABILITY WITH FULL-CANVAS SECTIONS */
+@media (min-width:1200px){
+ #torvo-v2-root .publicHeroCopy{max-width:min(760px,52vw)!important}
+ #torvo-v2-root .publicHeroCopy :is(h1,h2,p){max-width:100%!important}
+ #torvo-v2-root :is(.publicAbout p,.publicSupport p,.dealerBusiness p,.retailFlow p){max-width:78ch}
+ #torvo-v2-root :is(.publicForm,.publicModal .publicForm){max-width:760px}
+ #torvo-v2-root .publicSectionHead>div{max-width:850px}
+}
+@media (min-width:2000px){
+ #torvo-v2-root .publicHeroCopy{max-width:860px!important}
+ #torvo-v2-root :is(.publicAbout p,.publicSupport p,.dealerBusiness p,.retailFlow p){max-width:86ch}
+}
