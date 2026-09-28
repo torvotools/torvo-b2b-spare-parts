@@ -3245,3 +3245,218 @@ body{margin:0;min-width:0;overflow-x:hidden}
   #torvo-v2-root>.publicSite .publicHeroCopy p{max-width:76%!important}
   #torvo-v2-root>.publicSite .publicBrandRail{margin-left:7px!important;margin-right:7px!important}
 }
+
+
+/* PUBLIC LOWER-HOMEPAGE + MOBILE ACTION CONTRACT — 2026-09-28 authoritative */
+#torvo-v2-root>.publicSite .publicActionGrid,
+#torvo-v2-root>.publicSite .premiumRetailFlow,
+#torvo-v2-root>.publicSite .publicAbout,
+#torvo-v2-root>.publicSite .torvoPremiumFooter{
+  box-sizing:border-box!important;
+  min-width:0!important;
+}
+#torvo-v2-root>.publicSite .publicActionCard{
+  box-sizing:border-box!important;
+  display:flex!important;
+  flex-direction:column!important;
+  min-width:0!important;
+  overflow:hidden!important;
+}
+#torvo-v2-root>.publicSite .publicActionCard>button{
+  margin-top:auto!important;
+}
+#torvo-v2-root>.publicSite .premiumRetailFlow .retailSteps{
+  display:grid!important;
+  min-width:0!important;
+}
+#torvo-v2-root>.publicSite .premiumRetailFlow .retailSteps article,
+#torvo-v2-root>.publicSite .publicAboutProof article{
+  box-sizing:border-box!important;
+  min-width:0!important;
+}
+#torvo-v2-root>.publicSite .torvoPremiumFooter{
+  overflow:hidden!important;
+}
+@media(min-width:1025px){
+  #torvo-v2-root>.publicSite .publicActionGrid{
+    display:grid!important;
+    grid-template-columns:repeat(4,minmax(0,1fr))!important;
+    gap:10px!important;
+    margin:14px 4.2vw 0!important;
+  }
+  #torvo-v2-root>.publicSite .publicActionCard{
+    min-height:176px!important;
+    padding:14px!important;
+    border-radius:8px!important;
+  }
+  #torvo-v2-root>.publicSite .publicActionCard>button{
+    width:auto!important;
+    align-self:flex-start!important;
+  }
+  #torvo-v2-root>.publicSite .premiumRetailFlow{
+    margin:12px 4.2vw 0!important;
+    padding:18px!important;
+  }
+  #torvo-v2-root>.publicSite .premiumRetailFlow .retailSteps{
+    grid-template-columns:repeat(4,minmax(0,1fr))!important;
+    gap:8px!important;
+  }
+  #torvo-v2-root>.publicSite .premiumRetailFlow .retailSteps article{
+    min-height:76px!important;
+  }
+  #torvo-v2-root>.publicSite .publicAbout{
+    display:grid!important;
+    grid-template-columns:minmax(0,1.15fr) minmax(420px,.85fr)!important;
+    gap:28px!important;
+    align-items:center!important;
+    margin:12px 4.2vw 0!important;
+    padding:22px!important;
+  }
+  #torvo-v2-root>.publicSite .publicAboutProof{
+    display:grid!important;
+    grid-template-columns:repeat(2,minmax(0,1fr))!important;
+    gap:7px!important;
+    margin:0!important;
+  }
+  #torvo-v2-root>.publicSite .torvoPremiumFooter{
+    display:grid!important;
+    grid-template-columns:minmax(260px,1.05fr) minmax(280px,.9fr) minmax(320px,1.05fr)!important;
+    gap:30px!important;
+    width:100%!important;
+    margin:14px 0 0!important;
+    padding:30px 4.2vw!important;
+    border-radius:0!important;
+  }
+  #torvo-v2-root>.publicSite .mobileBottomNav{display:none!important}
+  #torvo-v2-root>.publicSite .torvoFloatingWhatsApp{
+    right:22px!important;
+    bottom:22px!important;
+  }
+  #torvo-v2-root>.publicSite .floatingCart{
+    left:auto!important;
+    right:22px!important;
+    bottom:78px!important;
+    max-width:min(520px,calc(100vw - 44px))!important;
+  }
+}
+@media(max-width:1024px){
+  #torvo-v2-root>.publicSite{
+    padding-bottom:70px!important;
+  }
+  #torvo-v2-root>.publicSite .publicActionGrid{
+    display:grid!important;
+    grid-template-columns:repeat(2,minmax(0,1fr))!important;
+    gap:7px!important;
+    margin:8px 10px 0!important;
+  }
+  #torvo-v2-root>.publicSite .publicActionCard{
+    min-height:146px!important;
+    padding:10px!important;
+    border-radius:7px!important;
+  }
+  #torvo-v2-root>.publicSite .publicActionCard>button{
+    width:100%!important;
+    min-height:32px!important;
+  }
+  #torvo-v2-root>.publicSite .premiumRetailFlow{
+    margin:8px 10px 0!important;
+    padding:12px 9px!important;
+    border-radius:7px!important;
+  }
+  #torvo-v2-root>.publicSite .premiumRetailFlow .retailSteps{
+    grid-template-columns:repeat(2,minmax(0,1fr))!important;
+    gap:5px!important;
+  }
+  #torvo-v2-root>.publicSite .premiumRetailFlow .retailSteps article{
+    min-height:60px!important;
+    padding:8px!important;
+  }
+  #torvo-v2-root>.publicSite .publicAbout{
+    display:block!important;
+    margin:8px 10px 0!important;
+    padding:13px 11px!important;
+  }
+  #torvo-v2-root>.publicSite .publicAboutProof{
+    display:grid!important;
+    grid-template-columns:repeat(2,minmax(0,1fr))!important;
+    gap:5px!important;
+    margin-top:10px!important;
+  }
+  #torvo-v2-root>.publicSite .torvoPremiumFooter{
+    display:block!important;
+    width:auto!important;
+    margin:8px 10px 0!important;
+    padding:17px 14px 78px!important;
+    border-radius:7px 7px 0 0!important;
+  }
+  #torvo-v2-root>.publicSite .mobileBottomNav{
+    position:fixed!important;
+    z-index:190!important;
+    left:0!important;
+    right:0!important;
+    bottom:0!important;
+    display:grid!important;
+    grid-template-columns:repeat(5,minmax(0,1fr))!important;
+    width:100%!important;
+    height:60px!important;
+    min-height:60px!important;
+    padding:0 env(safe-area-inset-right) env(safe-area-inset-bottom) env(safe-area-inset-left)!important;
+    box-sizing:content-box!important;
+    background:rgba(255,255,255,.98)!important;
+    border-top:1px solid #d9dde2!important;
+    box-shadow:0 -6px 18px rgba(15,23,42,.09)!important;
+    backdrop-filter:blur(10px)!important;
+  }
+  #torvo-v2-root>.publicSite .mobileBottomNav :is(a,button){
+    display:flex!important;
+    flex-direction:column!important;
+    align-items:center!important;
+    justify-content:center!important;
+    gap:3px!important;
+    min-width:0!important;
+    min-height:60px!important;
+    padding:5px 2px!important;
+    border:0!important;
+    background:transparent!important;
+    color:#3d4249!important;
+    text-decoration:none!important;
+  }
+  #torvo-v2-root>.publicSite .mobileBottomNav :is(a,button)>svg{
+    width:19px!important;
+    height:19px!important;
+  }
+  #torvo-v2-root>.publicSite .mobileBottomNav :is(a,button)>span{
+    max-width:100%!important;
+    overflow:hidden!important;
+    text-overflow:ellipsis!important;
+    white-space:nowrap!important;
+    font-size:7px!important;
+    line-height:1!important;
+    font-weight:650!important;
+  }
+  #torvo-v2-root>.publicSite .torvoFloatingWhatsApp{
+    z-index:192!important;
+    right:12px!important;
+    bottom:72px!important;
+    width:46px!important;
+    height:46px!important;
+  }
+  #torvo-v2-root>.publicSite .floatingCart{
+    z-index:189!important;
+    left:10px!important;
+    right:68px!important;
+    bottom:72px!important;
+    width:auto!important;
+    max-width:none!important;
+    min-height:46px!important;
+  }
+}
+@media(max-width:374px){
+  #torvo-v2-root>.publicSite .publicActionGrid{gap:5px!important;margin-left:7px!important;margin-right:7px!important}
+  #torvo-v2-root>.publicSite .publicActionCard{min-height:140px!important;padding:8px!important}
+  #torvo-v2-root>.publicSite .premiumRetailFlow,
+  #torvo-v2-root>.publicSite .publicAbout,
+  #torvo-v2-root>.publicSite .torvoPremiumFooter{margin-left:7px!important;margin-right:7px!important}
+  #torvo-v2-root>.publicSite .mobileBottomNav :is(a,button)>span{font-size:6px!important}
+  #torvo-v2-root>.publicSite .floatingCart{left:7px!important;right:65px!important}
+}
