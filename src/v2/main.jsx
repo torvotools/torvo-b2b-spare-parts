@@ -1,7 +1,6 @@
 import React,{useEffect,useState} from 'react';
 import {createRoot} from 'react-dom/client';
 import App from './App.jsx';
-import BusinessLogin from './components/BusinessLogin.jsx';
 import OperationalStaffLogin from './components/OperationalStaffLogin.jsx';
 import DealerAppEntry from './components/DealerAppEntry.jsx';
 import LoginVisualPreview from './components/LoginVisualPreview.jsx';
