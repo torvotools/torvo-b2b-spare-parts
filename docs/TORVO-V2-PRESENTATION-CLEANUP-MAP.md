@@ -95,3 +95,45 @@ Retired from runtime imports (files retained temporarily only as historical/refe
 Active structural compatibility layers remain only where current component structure still depends on them. Final visual authority is now `torvo-ui-system.css`, loaded last. New presentation work must modify/consolidate the authoritative system instead of adding another FINAL/HOTFIX/PREMIUM override layer.
 
 Theme rule after Owner final acceptance: keep the accepted TORVO design language fixed; future screens/features must use its components/tokens rather than replacing the theme.
+
+
+## 2026-09-28 — DUAL ENTRY OWNERSHIP AUDIT
+
+Runtime presentation ownership is now checked across BOTH V2 entries:
+- `src/v2/preview-main.jsx` — Cloudflare/public preview entry.
+- `src/v2/main.jsx` — app/Android operational entry.
+
+Both entries now load the canonical presentation chain in this order:
+1. `torvo-component-contract.css`
+2. `torvo-operational-ui.css`
+3. `torvo-ai-integration-ui.css`
+4. `torvo-ui-system.css` (last/final authority)
+
+Removed from the app entry on 2026-09-28:
+- `workspace-polish.css`
+- `secure-desktop-lock.css`
+- `live-responsive-hotfix.css`
+
+The automated dependency guard now fails if any retired override is imported by either entry, if the canonical app ownership order changes, or if `torvo-ui-system.css` stops loading last.
+
+### Current app-only compatibility layers — NOT YET SAFE TO DELETE
+- `accountant-admin-parity-fix.css`
+- `app-install-ui.css`
+- `backup-ui.css`
+- `backup-close-ui.css`
+- `dealer-addon-ui.css`
+- `dealer-rewards-ui.css`
+- `product-discovery.css`
+- `login-ui.css`
+- `dealer-search-lock.css`
+- `final-ui-balance.css`
+
+These remain dependency-audit candidates. Their presence does NOT make them final visual authority; the canonical chain loads after them. Do not remove them until unique live selectors are migrated or proven unused.
+
+### Current preview-only structural layers
+- `public-website.css`
+- `role-app-preview.css`
+
+They remain structural compatibility layers and are not deletion candidates without component-selector proof.
+
+This dual-entry audit supersedes the older statement that the presentation verifier only represents the preview entry.
