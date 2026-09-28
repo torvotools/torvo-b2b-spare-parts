@@ -1,7 +1,7 @@
 # TORVO V2 — LIVING MASTER PROJECT REPORT
 
 Status: CANONICAL CURRENT-TRUTH INDEX
-Updated: 2026-09-27
+Updated: 2026-09-28
 Authoritative repository: torvotools/torvo-b2b-spare-parts
 Development branch: torvo-v2-build
 
@@ -54,7 +54,7 @@ Canonical flow: CUSTOMER DETAILS -> MACHINE PHOTO -> BRAND/MODEL -> STRUCTURED C
 Dealer dashboard must show machines currently IN, repair status/reason, READY and DELIVERED/history. Complaint choices should be structured and extensible rather than free-text only.
 Repair parts should link to genuine TORVO catalog items where possible. Do not invent parts, rates or fitment. Dealer financial visibility remains dealer-scoped; TORVO background analytics must remain role/privacy controlled.
 Customer data collected for repair operations is operational data; do not silently treat it as marketing consent. WhatsApp operational notifications and marketing consent remain distinct.
-This is an approved addition to Dealer App business logic. Do not build it as a separate app/project.\nImplementation foundation now exists in `supabase/v2-dealer-service-book.sql`, `src/v2/services/dealerServiceBook.js` and Dealer App `SERVICE BOOK` UI. It is intentionally distinct from routed `REPAIR REQUESTS`. Staging migration/runtime acceptance is still OPEN; UI must not fabricate saved jobs before that gate passes.
+This is an approved addition to Dealer App business logic. Do not build it as a separate app/project.\nImplementation foundation now exists in `supabase/v2-dealer-service-book.sql`, private-media contracts/workers, `src/v2/services/dealerServiceBook.js` and Dealer App `SERVICE BOOK` UI. The core Service Book migration and private-media boundary are installed in STAGING, but genuine Dealer runtime acceptance remains OPEN. Owner direction on 2026-09-28: keep Service Book as PENDING / PARALLEL work and do not let it block the main TORVO V2 completion path. `supabase/v2-dealer-service-book-bill-integrity.sql` is source-only/pending and must not be treated as installed until a later fresh-HEAD staging action. UI must not fabricate saved jobs or acceptance.
 
 ## CURRENT AUTH / SECURITY
 - Genuine staging Owner bootstrap completed for OR@000.
