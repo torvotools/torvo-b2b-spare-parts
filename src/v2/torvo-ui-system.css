@@ -1573,3 +1573,66 @@ body{margin:0;min-width:0;overflow-x:hidden}
  #torvo-v2-root>.publicSite .publicDiscoverySection .productDiscovery>header h3{font-size:15px!important}
  #torvo-v2-root>.publicSite .publicDiscoverySection .productDiscovery>header p{font-size:7px!important;line-height:1.4!important}
 }
+
+
+/* TORVO CONTROLLED ACCENT PALETTE — industrial, semantic, never rainbow */
+#torvo-v2-root>.publicSite{
+ --torvo-blue:#1769aa;
+ --torvo-blue-soft:#eef6fc;
+ --torvo-green:#16834b;
+ --torvo-green-soft:#edf8f1;
+ --torvo-amber:#c98500;
+ --torvo-amber-soft:#fff7e5;
+ --torvo-purple:#6f4aa8;
+ --torvo-purple-soft:#f5f0fb;
+}
+
+/* Product categories: distinct accents while TORVO red remains primary */
+#torvo-v2-root>.publicSite .torvoPrimaryCategories>button:nth-child(1){border-top:3px solid var(--torvo-blue)!important;background:linear-gradient(180deg,#fff 0%,var(--torvo-blue-soft) 100%)!important}
+#torvo-v2-root>.publicSite .torvoPrimaryCategories>button:nth-child(2){border-top:3px solid #e31b2b!important;background:linear-gradient(180deg,#fff 0%,#fff1f2 100%)!important}
+#torvo-v2-root>.publicSite .torvoPrimaryCategories>button:nth-child(3){border-top:3px solid var(--torvo-amber)!important;background:linear-gradient(180deg,#fff 0%,var(--torvo-amber-soft) 100%)!important}
+#torvo-v2-root>.publicSite .torvoPrimaryCategories>button:nth-child(1) span{color:#14558a!important}
+#torvo-v2-root>.publicSite .torvoPrimaryCategories>button:nth-child(3) span{color:#9b6500!important}
+
+/* Customer journey: color communicates each stage */
+#torvo-v2-root>.publicSite .retailSteps>article:nth-child(1) svg{color:var(--torvo-blue)!important}
+#torvo-v2-root>.publicSite .retailSteps>article:nth-child(2) svg{color:var(--torvo-amber)!important}
+#torvo-v2-root>.publicSite .retailSteps>article:nth-child(3) svg{color:var(--torvo-green)!important}
+#torvo-v2-root>.publicSite .retailSteps>article:nth-child(4) svg{color:#e31b2b!important}
+#torvo-v2-root>.publicSite .retailSteps>article:nth-child(1){border-top-color:var(--torvo-blue)!important}
+#torvo-v2-root>.publicSite .retailSteps>article:nth-child(2){border-top-color:var(--torvo-amber)!important}
+#torvo-v2-root>.publicSite .retailSteps>article:nth-child(3){border-top-color:var(--torvo-green)!important}
+#torvo-v2-root>.publicSite .retailSteps>article:nth-child(4){border-top-color:#e31b2b!important}
+
+/* Dealer actions: approved-network green accent, CTA remains strong */
+#torvo-v2-root>.publicSite .dealerFinderLaunch{border-left-color:var(--torvo-green)!important;background:linear-gradient(105deg,#111 0%,#171b19 58%,#10251b 100%)!important}
+#torvo-v2-root>.publicSite .dealerFinderLaunchIcon{background:var(--torvo-green)!important}
+#torvo-v2-root>.publicSite .dealerFinderLaunchCopy>span{color:#77d9a3!important}
+#torvo-v2-root>.publicSite .dealerBusinessLaunch{border-left-color:var(--torvo-blue)!important;background:linear-gradient(105deg,#fff 0%,#fff 72%,var(--torvo-blue-soft) 100%)!important}
+#torvo-v2-root>.publicSite .dealerBusinessLaunch .dealerBusinessIntro>span{color:var(--torvo-blue)!important}
+#torvo-v2-root>.publicSite .dealerBusinessTrust span:nth-child(1) svg{color:var(--torvo-blue)!important}
+#torvo-v2-root>.publicSite .dealerBusinessTrust span:nth-child(2) svg{color:var(--torvo-green)!important}
+#torvo-v2-root>.publicSite .dealerBusinessTrust span:nth-child(3) svg{color:var(--torvo-amber)!important}
+#torvo-v2-root>.publicSite .dealerBusinessTrust span:nth-child(4) svg{color:#e31b2b!important}
+
+/* Requirement / featured / support accents */
+#torvo-v2-root>.publicSite .desktopRequirementBand{border-left:4px solid var(--torvo-amber)!important;background:linear-gradient(90deg,#111 0%,#181611 100%)!important}
+#torvo-v2-root>.publicSite .desktopRequirementBand>div span{color:#f0bb50!important}
+#torvo-v2-root>.publicSite .publicHelpLaunch{border-left:4px solid var(--torvo-purple)!important;background:linear-gradient(100deg,var(--torvo-purple-soft) 0%,#fff 42%,#f8f8f6 100%)!important}
+#torvo-v2-root>.publicSite .publicHelpIcon{background:var(--torvo-purple)!important}
+#torvo-v2-root>.publicSite .publicHelpLaunch>div:nth-child(2)>span{color:var(--torvo-purple)!important}
+#torvo-v2-root>.publicSite .publicHelpButton:hover{border-color:var(--torvo-purple)!important;color:var(--torvo-purple)!important}
+
+/* Product discovery receives a warm featured cue without recoloring products */
+#torvo-v2-root>.publicSite .publicDiscoverySection>.productDiscovery{border-top:3px solid var(--torvo-amber)!important;background:linear-gradient(180deg,#fffdf8 0%,#fff 38%)!important}
+
+/* Status/interaction polish */
+#torvo-v2-root>.publicSite .dealerResultNotice{border-left-color:var(--torvo-green)!important;background:var(--torvo-green-soft)!important}
+#torvo-v2-root>.publicSite .useLocationButton{border-color:var(--torvo-blue)!important;color:var(--torvo-blue)!important;background:var(--torvo-blue-soft)!important}
+#torvo-v2-root>.publicSite .machinePublicSpares{border-left:3px solid var(--torvo-blue)!important;background:var(--torvo-blue-soft)!important}
+#torvo-v2-root>.publicSite .dealerRegistrationSuccess svg{color:var(--torvo-green)!important}
+
+@media(max-width:820px){
+ #torvo-v2-root>.publicSite .mobileNeedHelp{border-left:3px solid var(--torvo-amber)!important}
+ #torvo-v2-root>.publicSite .publicHelpLaunch{border-left-width:3px!important}
+}
