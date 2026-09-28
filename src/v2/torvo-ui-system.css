@@ -357,3 +357,17 @@ body{margin:0;min-width:0;overflow-x:hidden}
  #torvo-v2-root .publicProductCard .formTwo{grid-template-columns:1fr!important}
  #torvo-v2-root .publicProductCard .formTwo button{min-height:38px!important}
 }
+
+/* RESPONSIVE PRODUCT DENSITY — laptop to ultra-wide */
+@media (min-width:801px) and (max-width:1199px){
+ #torvo-v2-root .publicShowcaseGrid{grid-template-columns:repeat(3,minmax(0,1fr))!important}
+}
+@media (min-width:1200px) and (max-width:1599px){
+ #torvo-v2-root .publicShowcaseGrid{grid-template-columns:repeat(4,minmax(0,1fr))!important}
+}
+@media (min-width:1600px) and (max-width:1999px){
+ #torvo-v2-root .publicShowcaseGrid{grid-template-columns:repeat(5,minmax(0,1fr))!important}
+}
+@media (min-width:2000px){
+ #torvo-v2-root .publicShowcaseGrid{grid-template-columns:repeat(6,minmax(0,1fr))!important}
+}
