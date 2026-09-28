@@ -435,3 +435,15 @@ body{margin:0;min-width:0;overflow-x:hidden}
  #torvo-v2-root .torvoPrimaryCategories button:hover{border-color:var(--tv-red)!important;background:#fff7f7!important;transform:translateY(-1px)}
  #torvo-v2-root .publicHeaderActions{display:none!important}
 }
+
+/* TOP CATEGORY STRIP — stronger product navigation hierarchy */
+@media (min-width:801px){
+ #torvo-v2-root .torvoPrimaryCategories{position:relative!important;z-index:2!important;margin-top:clamp(12px,1.2vw,20px)!important;margin-bottom:clamp(16px,1.6vw,26px)!important}
+ #torvo-v2-root .torvoPrimaryCategories button{position:relative!important;overflow:hidden!important;justify-content:flex-start!important;padding-left:clamp(18px,1.8vw,30px)!important;background:linear-gradient(180deg,#fff 0%,#f8f9fa 100%)!important}
+ #torvo-v2-root .torvoPrimaryCategories button:before{content:"";position:absolute;left:0;top:0;bottom:0;width:4px;background:var(--tv-red)}
+ #torvo-v2-root .torvoPrimaryCategories button:after{content:"VIEW RANGE";margin-left:auto;color:#747a84;font-size:9px;font-weight:900;letter-spacing:.08em}
+ #torvo-v2-root .torvoPrimaryCategories button:hover:after{color:var(--tv-red)}
+}
+@media (min-width:1600px){
+ #torvo-v2-root .torvoPrimaryCategories button{min-height:70px!important}
+}
