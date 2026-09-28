@@ -349,3 +349,21 @@
  #torvo-v2-root .dealerDetailGrid{grid-template-columns:1fr 1fr!important}
  #torvo-v2-root .salesRevisionLine{grid-template-columns:1fr 80px 36px!important}
 }
+
+
+/* SERVICE BOOK — follows the shared app/operations contract */
+#torvo-v2-root .serviceBookPartAdder{margin:12px 0;padding:12px;border:1px solid var(--tv-line);border-radius:10px;background:var(--tv-soft)}
+#torvo-v2-root .serviceBookPartAdder .sectionTitle{display:flex;align-items:center;justify-content:space-between;margin-bottom:8px}
+#torvo-v2-root .serviceBookPartAdder .sectionTitle>div{display:grid;gap:3px}
+#torvo-v2-root .serviceBookPartFinder{display:grid;grid-template-columns:minmax(220px,1.3fr) minmax(220px,1.2fr) 90px 120px auto;gap:7px;align-items:center}
+#torvo-v2-root .serviceBookPartFinder label{min-height:42px;display:flex;align-items:center;gap:7px;padding:0 9px;border:1px solid var(--tv-line);border-radius:7px;background:#fff}
+#torvo-v2-root .serviceBookPartFinder label input{border:0!important;box-shadow:none!important;min-width:0;width:100%}
+#torvo-v2-root .serviceBookPartFinder :is(select,input){min-height:42px;padding:0 8px}
+#torvo-v2-root .serviceBookPartFinder>button{min-height:42px;padding:0 12px;font-size:8px;font-weight:850;display:flex;align-items:center;justify-content:center;gap:5px}
+#torvo-v2-root .serviceBookPartNote{display:block;margin-top:7px;color:var(--tv-muted);font-size:8px;line-height:1.4}
+#torvo-v2-root .serviceBookParts{padding:0!important;margin-top:8px}
+#torvo-v2-root .serviceBookParts>article{grid-template-columns:minmax(0,1fr) auto!important}
+#torvo-v2-root .serviceBookActions{padding:10px 0;border-top:1px solid var(--tv-line);border-bottom:1px solid var(--tv-line)}
+#torvo-v2-root .serviceBookEntry .modalForm .full{grid-column:1/-1}
+@media(max-width:900px){#torvo-v2-root .serviceBookPartFinder{grid-template-columns:1fr 1fr 80px 110px}#torvo-v2-root .serviceBookPartFinder label{grid-column:1/-1}#torvo-v2-root .serviceBookPartFinder>button{grid-column:1/-1}}
+@media(max-width:560px){#torvo-v2-root .serviceBookPartFinder{grid-template-columns:1fr 1fr}#torvo-v2-root .serviceBookPartFinder label,#torvo-v2-root .serviceBookPartFinder select,#torvo-v2-root .serviceBookPartFinder>button{grid-column:1/-1}#torvo-v2-root .serviceBookPartFinder>input{width:100%}}
