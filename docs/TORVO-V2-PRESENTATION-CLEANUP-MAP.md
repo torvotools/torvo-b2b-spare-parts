@@ -78,3 +78,20 @@ Current exact-SHA evidence before any retirement:
 - TORVO V2 Android APK #2187 — SUCCESS (build evidence only; not real-device acceptance)
 
 Current classification remains: no historical presentation file is yet proven SAFE TO DELETE.
+
+
+## 2026-09-28 — NEW TORVO DESIGN OWNERSHIP
+Owner requested a genuine full-system presentation replacement rather than continued old-theme polishing.
+
+Retired from runtime imports (files retained temporarily only as historical/reference until dependency-safe deletion):
+- workspace-polish.css
+- dealer-mobile-fix.css
+- premium-ui.css
+- compact-cloud-ui.css
+- secure-desktop-lock.css
+- live-responsive-hotfix.css
+- public-desktop-final.css
+
+Active structural compatibility layers remain only where current component structure still depends on them. Final visual authority is now `torvo-ui-system.css`, loaded last. New presentation work must modify/consolidate the authoritative system instead of adding another FINAL/HOTFIX/PREMIUM override layer.
+
+Theme rule after Owner final acceptance: keep the accepted TORVO design language fixed; future screens/features must use its components/tokens rather than replacing the theme.
