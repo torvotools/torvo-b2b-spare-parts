@@ -385,3 +385,22 @@ body{margin:0;min-width:0;overflow-x:hidden}
 @media (min-width:1600px){
  #torvo-v2-root .publicHero{min-height:clamp(430px,50vh,650px)!important}
 }
+
+/* PUBLIC DESKTOP GRID ALIGNMENT — one shared edge rhythm */
+@media (min-width:801px){
+ #torvo-v2-root .publicSite{
+  --tv-public-edge:var(--tv-desktop-gutter);
+  --tv-public-width:calc(100% - (var(--tv-public-edge) * 2));
+ }
+ #torvo-v2-root :is(.publicHeaderInner,.topSearchHeader,.publicHero,.publicBrandRail,.desktopRequirementBand,.desktopDealerFinderBlock,.publicCatalog,.publicCatalogTop,.catalogResultBar,.publicShowcaseGrid,.publicSectionHead,.smartFinderFilters,.desktopDiscoveryOnly,.retailFlow,.dealerBusiness,.publicSupport,.publicAbout,.customerJourney,.torvoConnect,.dealerBenefitGrid,.torvoPremiumFooter){
+  box-sizing:border-box!important;
+  width:var(--tv-public-width)!important;
+  max-width:none!important;
+  margin-left:auto!important;
+  margin-right:auto!important;
+ }
+ #torvo-v2-root .publicHero{padding-left:clamp(18px,2vw,38px)!important;padding-right:clamp(18px,2vw,38px)!important}
+ #torvo-v2-root :is(.publicCatalogTop,.catalogResultBar,.publicSectionHead){min-width:0!important}
+ #torvo-v2-root :is(.publicHeaderInner,.topSearchHeader,.publicHero,.publicCatalog,.publicShowcaseGrid){overflow:visible}
+ #torvo-v2-root .publicShowcaseGrid>*{min-width:0!important}
+}
