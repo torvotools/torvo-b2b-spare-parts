@@ -3,7 +3,7 @@ const digits=v=>String(v||'').replace(/\D/g,'').slice(-10);const STAFF=new Set([
 const codeDigits=(v,n)=>String(v||'').replace(/\D/g,'').slice(0,n);const assertDevice=v=>{const x=String(v||'').trim();if(!x||x.length>180)throw new Error('SECURE DEVICE ID REQUIRED.');return x};
 export const normalizeStaffUsername=v=>String(v||'').trim().toUpperCase();
 export const BUSINESS_STAFF_USER_IDS=new Set(['OR@000','AD@001','AC@002','AC@003']);
-export const isStaffUserIdFormat=v=>/^[A-Z]{2}@[0-9]{3}$/.test(normalizeStaffUsername(v));
+export const isStaffUserIdFormat=v=>/^[A-Z]{2,8}@[0-9]{2,6}$/.test(normalizeStaffUsername(v));
 export const isBusinessStaffUserId=v=>BUSINESS_STAFF_USER_IDS.has(normalizeStaffUsername(v));
 const staffUsername=v=>{const x=normalizeStaffUsername(v);if(!isStaffUserIdFormat(x))throw new Error('ENTER A VALID TORVO USER ID.');return x};
 export function normalizeDealerEmail(v){const e=String(v||'').trim().toLowerCase();if(!/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(e))throw new Error('ENTER A VALID REGISTERED EMAIL ID.');return e}
