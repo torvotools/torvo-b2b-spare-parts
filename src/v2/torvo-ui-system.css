@@ -1384,3 +1384,34 @@ body{margin:0;min-width:0;overflow-x:hidden}
  #torvo-v2-root>.publicSite .dealerBenefitGrid article{padding:10px!important}
  #torvo-v2-root>.publicSite .publicSupport{grid-template-columns:32px minmax(0,1fr)!important;gap:10px!important}
 }
+
+
+/* PUBLIC HOME COMPOSITION — header to catalog */
+#torvo-v2-root>.publicSite>.publicHeader .headerSearchOnly,
+#torvo-v2-root>.publicSite>.publicHeader .headerFilterOnly{position:relative!important}
+#torvo-v2-root>.publicSite>.publicHeader .publicHeroSearchBar{overflow:hidden!important}
+#torvo-v2-root>.publicSite>.publicHeader .publicHeroSearchBar input::placeholder{color:#8b8e92!important;opacity:1!important}
+#torvo-v2-root>.publicSite>.publicHeader .headerFilterOnly svg{width:20px!important;height:20px!important}
+@media(min-width:821px){
+ #torvo-v2-root>.publicSite>.publicHeader.compact.topSearchHeader{position:sticky!important;top:0!important;z-index:170!important}
+ #torvo-v2-root>.publicSite>.publicHeader .headerSearchOnly{align-self:center!important}
+ #torvo-v2-root>.publicSite>.publicHeader .headerFilterOnly{align-self:center!important}
+ #torvo-v2-root>.publicSite>.publicHeader .publicHeroSearchBar{height:46px!important}
+ #torvo-v2-root>.publicSite>.publicHeader .publicHeroSearchBar input{font-size:12px!important;padding-left:14px!important}
+ #torvo-v2-root>.publicSite>.publicHeader .publicHeroSearchBar button{width:44px!important;min-width:44px!important}
+ #torvo-v2-root>.publicSite .publicHero.compactHero{align-items:center!important}
+ #torvo-v2-root>.publicSite .torvoHeroClaims{left:0!important;right:0!important;bottom:0!important;min-height:54px!important}
+ #torvo-v2-root>.publicSite .torvoHeroClaims b{font-size:9px!important;line-height:1.25!important;letter-spacing:.035em!important}
+ #torvo-v2-root>.publicSite .publicBrandRail{display:grid!important;grid-template-columns:205px minmax(0,1fr)!important;align-items:center!important;gap:12px!important}
+ #torvo-v2-root>.publicSite .brandLogoViewport{min-width:0!important}
+ #torvo-v2-root>.publicSite .torvoPrimaryCategories{position:relative!important}
+ #torvo-v2-root>.publicSite .torvoPrimaryCategories:before{content:"SHOP BY PRODUCT TYPE";position:absolute!important;left:0!important;top:-17px!important;font-size:8px!important;font-weight:900!important;letter-spacing:.09em!important;color:#777!important}
+}
+@media(max-width:820px){
+ #torvo-v2-root>.publicSite>.publicHeader .publicHeroSearchBar{background:#f8f8f7!important}
+ #torvo-v2-root>.publicSite>.publicHeader .publicHeroSearchBar input{background:transparent!important}
+ #torvo-v2-root>.publicSite .publicBrandRail{overflow:hidden!important}
+ #torvo-v2-root>.publicSite .brandLogoViewport{width:100%!important}
+ #torvo-v2-root>.publicSite .torvoPrimaryCategories{padding-top:13px!important;position:relative!important}
+ #torvo-v2-root>.publicSite .torvoPrimaryCategories:before{content:"PRODUCT RANGE";position:absolute!important;left:0!important;top:0!important;font-size:7px!important;font-weight:900!important;letter-spacing:.08em!important;color:#777!important}
+}
