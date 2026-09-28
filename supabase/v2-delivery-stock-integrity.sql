@@ -68,31 +68,36 @@ begin
  select * into d from sales_documents where id=p_estimate and doc_type='estimate' for update;
  if not found then raise exception 'Estimate not found';end if;
  select coalesce(sum(amount),0) into paid from payments where estimate_id=p_estimate and status in('cash','received');
- if paid<d.final_payable then raise exception 'Full required payment not received';end if;
+ if to_regclass('public.sale_bill_approvals') is null then
+   if paid<d.final_payable then raise exception 'Full required payment not received';end if;
+ else
+   if not exists(select 1 from sale_bill_approvals where estimate_id=p_estimate and status='approved') then raise exception 'Marg Bill approved Sale required';end if;
+ end if;
  select * into disp from dispatches where estimate_id=p_estimate for update;
  if not found then raise exception 'Dispatch not found';end if;
  if disp.status not in('ready_for_dispatch','dispatched') then raise exception 'Order is not ready for actual delivery';end if;
  if not exists(select 1 from sales_document_lines where document_id=p_estimate) then raise exception 'Estimate has no items';end if;
 
- for ln in select item_id,sum(qty) qty from sales_document_lines where document_id=p_estimate group by item_id order by item_id loop
-   select current_qty into current_stock from inventory where item_id=ln.item_id for update;
-   if not found then raise exception 'Inventory row missing for item %',ln.item_id;end if;
-   if current_stock<ln.qty then raise exception 'Insufficient stock for item %',ln.item_id;end if;
- end loop;
-
- for ln in select item_id,sum(qty) qty from sales_document_lines where document_id=p_estimate group by item_id order by item_id loop
-   update inventory set current_qty=current_qty-ln.qty,updated_at=now() where item_id=ln.item_id;
-   insert into inventory_movements(item_id,qty_change,reason,reference_type,reference_id,created_by)
-   values(ln.item_id,-ln.qty,'ACTUAL DELIVERY','estimate',p_estimate,a.id);
- end loop;
+ if to_regclass('public.sale_bill_approvals') is null then
+  for ln in select item_id,sum(qty) qty from sales_document_lines where document_id=p_estimate group by item_id order by item_id loop
+    select current_qty into current_stock from inventory where item_id=ln.item_id for update;
+    if not found then raise exception 'Inventory row missing for item %',ln.item_id;end if;
+    if current_stock<ln.qty then raise exception 'Insufficient stock for item %',ln.item_id;end if;
+  end loop;
+  for ln in select item_id,sum(qty) qty from sales_document_lines where document_id=p_estimate group by item_id order by item_id loop
+    update inventory set current_qty=current_qty-ln.qty,updated_at=now() where item_id=ln.item_id;
+    insert into inventory_movements(item_id,qty_change,reason,reference_type,reference_id,created_by)
+    values(ln.item_id,-ln.qty,'ACTUAL DELIVERY','estimate',p_estimate,a.id);
+  end loop;
+ end if;
 
  update dispatches set status='delivered',tracking_code=coalesce(nullif(trim(p_tracking_code),''),tracking_code),delivered_at=coalesce(delivered_at,now()),stock_deducted_at=coalesce(stock_deducted_at,now()),updated_by=a.id where id=disp.id;
  update sales_documents set status='delivered' where id=p_estimate;
  insert into delivery_stock_finalizations(estimate_id,request_key,finalized_by,paid_amount_snapshot,payable_snapshot,tracking_code_snapshot,details)
- values(p_estimate,trim(p_request_key),a.id,paid,d.final_payable,coalesce(nullif(trim(p_tracking_code),''),disp.tracking_code),jsonb_build_object('stock_deducted',true,'deduction_point','actual_delivery','canonical_ledger','inventory_movements'));
+ values(p_estimate,trim(p_request_key),a.id,paid,d.final_payable,coalesce(nullif(trim(p_tracking_code),''),disp.tracking_code),jsonb_build_object('stock_deducted',true,'deduction_point',case when to_regclass('public.sale_bill_approvals') is null then 'actual_delivery' else 'marg_bill_approval' end,'canonical_ledger','inventory_movements'));
  perform recalculate_dealer_scheme_progress(d.dealer_id);
  insert into audit_log(actor_id,action,entity_type,entity_id,details)
- values(a.id,'ACTUAL_DELIVERY_FINALIZED','estimate',p_estimate::text,jsonb_build_object('payment_received',paid,'payable',d.final_payable,'stock_deducted_once',true,'request_key',trim(p_request_key),'scheme_progress_refreshed',true));
+ values(a.id,'ACTUAL_DELIVERY_FINALIZED','estimate',p_estimate::text,jsonb_build_object('payment_received',paid,'payable',d.final_payable,'stock_deducted_once',true,'stock_already_posted_at_sale',to_regclass('public.sale_bill_approvals') is not null,'request_key',trim(p_request_key),'scheme_progress_refreshed',true));
 end;$$;
 revoke all on function public.finalize_actual_delivery(uuid,text,text) from public,anon;
 grant execute on function public.finalize_actual_delivery(uuid,text,text) to authenticated;
