@@ -2078,3 +2078,28 @@ body{margin:0;min-width:0;overflow-x:hidden}
  #torvo-v2-root>.publicSite .torvoFeaturedVideo{margin-top:15px!important}
  #torvo-v2-root>.publicSite .torvoFeaturedVideo iframe{max-height:210px!important;border-radius:6px!important}
 }
+
+
+/* PUBLIC HEADER REBUILD — brand/navigation above, search below */
+#torvo-v2-root>.publicSite .publicHeader.topSearchHeader{display:block!important}
+#torvo-v2-root>.publicSite .publicHeaderPrimary{display:flex!important;align-items:center!important}
+#torvo-v2-root>.publicSite .publicHeaderSearchRow{display:grid!important;grid-template-columns:minmax(0,1fr) auto!important;align-items:center!important}
+@media(min-width:821px){
+ #torvo-v2-root>.publicSite .publicHeader.topSearchHeader{min-height:0!important;padding:0 4.2vw 10px!important}
+ #torvo-v2-root>.publicSite .publicHeaderPrimary{min-height:62px!important;justify-content:space-between!important;gap:28px!important}
+ #torvo-v2-root>.publicSite .publicHeaderPrimary .publicBrand{flex:0 0 auto!important}
+ #torvo-v2-root>.publicSite .publicHeaderPrimary .desktopPublicNav{display:flex!important;margin-left:auto!important}
+ #torvo-v2-root>.publicSite .publicHeaderSearchRow{gap:8px!important}
+ #torvo-v2-root>.publicSite .publicHeaderSearchRow .headerSearchOnly{width:100%!important}
+ #torvo-v2-root>.publicSite .publicHeaderSearchRow .headerFilterOnly{display:block!important}
+}
+@media(max-width:820px){
+ #torvo-v2-root>.publicSite .publicHeader.topSearchHeader{min-height:0!important;padding:0 10px 8px!important}
+ #torvo-v2-root>.publicSite .publicHeaderPrimary{justify-content:space-between!important;min-height:58px!important;gap:12px!important}
+ #torvo-v2-root>.publicSite .publicHeaderPrimary .publicBrand{display:flex!important;align-items:center!important}
+ #torvo-v2-root>.publicSite .publicHeaderPrimary .mobileHeaderMark{position:static!important;display:flex!important;flex:0 0 38px!important;width:38px!important;height:38px!important;border:0!important}
+ #torvo-v2-root>.publicSite .publicHeaderSearchRow{grid-template-columns:1fr!important;width:100%!important}
+ #torvo-v2-root>.publicSite .publicHeaderSearchRow .headerSearchOnly{width:100%!important;min-width:0!important}
+ #torvo-v2-root>.publicSite .publicHeaderSearchRow .headerFilterOnly{display:none!important}
+ #torvo-v2-root>.publicSite .publicHeaderSearchRow .searchShell,#torvo-v2-root>.publicSite .publicHeaderSearchRow .publicSearchShell{width:100%!important;max-width:none!important}
+}
