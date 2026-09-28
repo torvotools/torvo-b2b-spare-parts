@@ -27,6 +27,9 @@ begin
 end
 $torvo$;
 
+drop policy if exists schemes_read on public.schemes;
+drop policy if exists scheme_slabs_read on public.scheme_slabs;
+
 drop table if exists public.reward_redemption_allocations;
 drop table if exists public.reward_point_lots;
 drop table if exists public.reward_ledger;
