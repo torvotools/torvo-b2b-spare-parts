@@ -1,0 +1,3 @@
+import{requireBackend}from'./supabase';const fail=e=>{if(e)throw e};
+export async function loadAdminServiceComplaints(){const{data,error}=await requireBackend().rpc('admin_service_complaints_read');fail(error);return Array.isArray(data)?data:[]}
+export async function saveAdminServiceComplaint(row,reason){if(!String(reason||'').trim())throw new Error('CHANGE REASON REQUIRED');const{data,error}=await requireBackend().rpc('admin_service_complaint_upsert',{p_id:row?.id||null,p_code:String(row?.code||'').trim(),p_label:String(row?.label||'').trim(),p_sort_order:Number(row?.sort_order||0),p_active:row?.active!==false,p_reason:String(reason).trim()});fail(error);return data}
