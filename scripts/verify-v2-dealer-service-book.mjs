@@ -1,6 +1,6 @@
 import fs from'node:fs';
 const read=p=>fs.readFileSync(p,'utf8');
-const svc=read('src/v2/services/dealerServiceBook.js'),ui=read('src/v2/components/DealerServiceBookWorkspace.jsx'),mount=read('src/v2/components/DealerPortalMounted.jsx'),sql=read('supabase/v2-dealer-service-book.sql');
+const svc=read('src/v2/services/dealerServiceBook.js'),ui=read('src/v2/components/DealerServiceBookWorkspace.jsx'),mount=read('src/v2/components/DealerPortalMounted.jsx'),sql=read('supabase/v2-dealer-service-book.sql'),billSql=read('supabase/v2-dealer-service-book-bill-integrity.sql');
 const checks=[
  ['DEVICE-BOUND SERVICE RPC CLIENT',svc.includes('assertDealerSession')&&svc.includes('p_device_id:s.deviceId')&&svc.includes('p_session_token:s.token')],
  ['SERVICE BOOK CREATE + STATUS',svc.includes("rpc('dealer_service_job_create'")&&svc.includes("rpc('dealer_service_job_set_status'")],
@@ -15,6 +15,6 @@ const checks=[
  ['WHATSAPP OPERATIONAL NOTICE',ui.includes('serviceBookWhatsAppText')&&ui.includes('WHATSAPP')],
  ['DELIVERY WORKFLOW',ui.includes("move('ready')")&&ui.includes("move('delivered')")],
  ['SERVER SQL DEVICE ASSERTION',sql.includes('dealer_assert_my_device_session')],
- ['SERVER SQL BILL FOUNDATION',sql.includes('dealer_service_job_bill_read')]
+ ['SERVER SQL BILL FOUNDATION',billSql.includes('dealer_service_job_bill_read')&&billSql.includes('CLOSED SERVICE JOB IS IMMUTABLE')]
 ];
 const failed=checks.filter(([,ok])=>!ok);for(const[n,ok]of checks)console.log(`${ok?'PASS':'FAIL'} ${n}`);if(failed.length){console.error(`DEALER SERVICE BOOK CONTRACT FAILED: ${failed.length}`);process.exit(1)}console.log(`TORVO V2 DEALER SERVICE BOOK VERIFIED (${checks.length} GATES)`);
