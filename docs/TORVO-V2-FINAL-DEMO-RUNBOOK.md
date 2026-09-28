@@ -2,8 +2,8 @@
 
 This is the final owner-facing order for checking and learning the system. Do not switch the main production domain until the owner accepts the demo.
 
-## 1. PUBLIC WEBSITE
-Check mobile first, then desktop: header/search, CAMERA before MIC, search suggestions, MACHINE / SPARE PART / ACCESSORY discovery, compatible/suitable messaging, dealer registration, nearby dealer enquiry, CALL/WHATSAPP, and no public TORVO dealer selling rate.
+## 1. PUBLIC WEBeITE
+Check mobile first, then desktop: header/search, CAMERA before MIC, search suggestions, MACHINE / ePARE PART / ACCESSORY discovery, compatible/suitable messaging, dealer registration, nearby dealer enquiry, CALL/WHATSAPP, and no public TORVO dealer selling rate.
 
 ## 2. DEALER LOGIN AND SECURITY
 Register/approve a dealer with a valid registered email, sign in inside the native TORVO TOOLS app using a server-generated 6-digit email OTP, verify blocked/inactive behavior and approved identity binding, then prove one-device-only behavior by signing in on Device B and confirming Device A loses every protected private read/write. Mobile/WhatsApp remains business contact only and is not an authentication credential.
