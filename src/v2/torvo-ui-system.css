@@ -367,3 +367,6 @@
 #torvo-v2-root .serviceBookEntry .modalForm .full{grid-column:1/-1}
 @media(max-width:900px){#torvo-v2-root .serviceBookPartFinder{grid-template-columns:1fr 1fr 80px 110px}#torvo-v2-root .serviceBookPartFinder label{grid-column:1/-1}#torvo-v2-root .serviceBookPartFinder>button{grid-column:1/-1}}
 @media(max-width:560px){#torvo-v2-root .serviceBookPartFinder{grid-template-columns:1fr 1fr}#torvo-v2-root .serviceBookPartFinder label,#torvo-v2-root .serviceBookPartFinder select,#torvo-v2-root .serviceBookPartFinder>button{grid-column:1/-1}#torvo-v2-root .serviceBookPartFinder>input{width:100%}}
+
+/* SERVICE BOOK → ORDER BAG */
+.serviceBookReorder{align-items:center;flex-wrap:wrap}.serviceBookReorder input{width:92px;min-height:38px;text-align:center}.serviceBookBagActions,.dealerBagActions{justify-content:flex-end;margin-top:12px}.serviceBookParts>article{align-items:center}@media(max-width:620px){.serviceBookReorder{width:100%;display:grid;grid-template-columns:82px 1fr auto}.serviceBookReorder input{width:100%}.serviceBookBagActions .primary,.dealerBagActions .secondary{width:100%;justify-content:center}}
