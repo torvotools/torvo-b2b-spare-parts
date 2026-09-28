@@ -97,3 +97,9 @@ LOCKed business/UI requirements remain respected.
 - Images/product cards reserve stable geometry so loading does not cause avoidable layout jumps.
 - Final responsive visibility ownership is deterministic: mobile and desktop variants must never be visible together at the same breakpoint.
 - Historical CSS/presentation rules that conflict with the final design system must be quarantined, consolidated, or retired dependency-safely rather than layered indefinitely.
+
+## OWNER RULE — FULL DESKTOP CANVAS (2026-09-28)
+- Public Website must use the available desktop/laptop viewport instead of behaving like a fixed narrow centered page.
+- Laptop, standard desktop, large desktop and ultra-wide layouts must fluidly adjust gutters, columns, hero proportions and product grids to the actual viewport.
+- Full-width does not mean stretched text: readable copy widths and component proportions remain controlled while sections use the available canvas.
+- Mobile/tablet responsive behavior remains independently protected.
