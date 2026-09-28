@@ -81,3 +81,34 @@ begin
  end if;
 end;$$;
 revoke all on function public.assert_sale_stock_not_already_posted(uuid) from public,anon,authenticated;
+
+-- Final delivery compatibility wrapper for the new Sale-posting model.
+-- Marg-posted Sales have already reduced stock, so delivery only closes Dispatch/Estimate.
+-- Legacy non-Marg transactions retain the old finalization path until historical cutover is complete.
+create or replace function public.finalize_actual_delivery(p_estimate uuid,p_request_key text,p_tracking_code text default null)
+returns void language plpgsql security definer set search_path=public as $$
+declare a public.app_users%rowtype;d public.sales_documents%rowtype;disp public.dispatches%rowtype;s public.marg_bill_sales%rowtype;
+begin
+ select * into a from public.app_users where auth_user_id=auth.uid() and active=true;
+ if not found or a.role not in('owner','admin','store_keeper') then raise exception 'NOT AUTHORIZED';end if;
+ if nullif(btrim(coalesce(p_request_key,'')),'') is null then raise exception 'DELIVERY REQUEST KEY REQUIRED';end if;
+ select * into d from public.sales_documents where id=p_estimate and doc_type='estimate' for update;
+ if not found then raise exception 'ESTIMATE NOT FOUND';end if;
+ select * into s from public.marg_bill_sales where estimate_id=d.id and status in('posted','corrected');
+ if not found then raise exception 'MARG BILL APPROVED SALE REQUIRED BEFORE DELIVERY';end if;
+ select * into disp from public.dispatches where estimate_id=d.id for update;
+ if not found then raise exception 'DISPATCH NOT FOUND';end if;
+ if disp.status='delivered' then return;end if;
+ if disp.status not in('ready_for_dispatch') then raise exception 'ORDER IS NOT READY FOR DELIVERY';end if;
+ update public.dispatches set status='delivered',
+   tracking_code=coalesce(nullif(upper(btrim(coalesce(p_tracking_code,''))),''),tracking_code),
+   delivered_at=coalesce(delivered_at,now()),stock_deducted_at=coalesce(stock_deducted_at,s.approved_at),updated_by=a.id
+ where id=disp.id;
+ update public.sales_documents set status='delivered' where id=d.id;
+ perform public.recalculate_dealer_scheme_progress(d.dealer_id);
+ insert into public.audit_log(actor_id,action,entity_type,entity_id,details)
+ values(a.id,'ACTUAL_DELIVERY_FINALIZED','estimate',d.id::text,
+   jsonb_build_object('marg_bill_sale_id',s.id,'marg_bill_no',s.marg_bill_no,'stock_deduction_point','marg_bill_sale','stock_deducted_again',false,'request_key',btrim(p_request_key)));
+end;$$;
+revoke all on function public.finalize_actual_delivery(uuid,text,text) from public,anon;
+grant execute on function public.finalize_actual_delivery(uuid,text,text) to authenticated;
