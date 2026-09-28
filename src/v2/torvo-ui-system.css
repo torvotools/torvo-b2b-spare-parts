@@ -2477,3 +2477,32 @@ body{margin:0;min-width:0;overflow-x:hidden}
  #torvo-v2-root>.publicSite .publicBenefitStrip b{font-size:9px!important;line-height:1.15!important}
  #torvo-v2-root>.publicSite .publicBenefitStrip small{font-size:7px!important;line-height:1.2!important}
 }
+
+
+/* HOMEPAGE LOWER-HALF FINISH — compact, aligned and readable */
+@media(min-width:821px){
+ #torvo-v2-root>.publicSite .publicActionGrid,
+ #torvo-v2-root>.publicSite .premiumRetailFlow,
+ #torvo-v2-root>.publicSite .publicAbout,
+ #torvo-v2-root>.publicSite .torvoPremiumFooter{margin-left:24px!important;margin-right:24px!important}
+ #torvo-v2-root>.publicSite .publicActionGrid{gap:10px!important;margin-top:12px!important}
+ #torvo-v2-root>.publicSite .premiumRetailFlow{margin-top:10px!important;padding:16px!important}
+ #torvo-v2-root>.publicSite .publicAbout{margin-top:10px!important;padding:20px 22px!important}
+ #torvo-v2-root>.publicSite .torvoPremiumFooter{margin-top:10px!important;padding:24px!important}
+}
+@media(max-width:820px){
+ #torvo-v2-root>.publicSite .publicAbout{padding:12px 11px!important}
+ #torvo-v2-root>.publicSite .publicAboutLead>span{font-size:8px!important;letter-spacing:.08em!important}
+ #torvo-v2-root>.publicSite .publicAboutLead h2{margin:4px 0 7px!important;font-size:17px!important}
+ #torvo-v2-root>.publicSite .publicAboutLead p{margin:0!important;font-size:9px!important;line-height:1.4!important}
+ #torvo-v2-root>.publicSite .publicAboutProof{margin-top:10px!important}
+ #torvo-v2-root>.publicSite .publicAboutProof article b{font-size:9px!important;line-height:1.15!important}
+ #torvo-v2-root>.publicSite .publicAboutProof article small{font-size:7px!important}
+ #torvo-v2-root>.publicSite .torvoPremiumFooter{padding:15px 13px 17px!important}
+ #torvo-v2-root>.publicSite .torvoFooterBrand strong{font-size:19px!important}
+ #torvo-v2-root>.publicSite .torvoFooterCompany h2{font-size:13px!important;line-height:1.2!important}
+ #torvo-v2-root>.publicSite .torvoFooterCompany p{font-size:8px!important;line-height:1.35!important}
+ #torvo-v2-root>.publicSite .torvoFooterConnect h3,
+ #torvo-v2-root>.publicSite .torvoFollowBlock h3{font-size:11px!important}
+ #torvo-v2-root>.publicSite .mobileBottomNav span{font-size:7px!important;font-weight:650!important}
+}
