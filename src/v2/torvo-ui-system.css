@@ -2562,3 +2562,57 @@ body{margin:0;min-width:0;overflow-x:hidden}
  #torvo-v2-root>.publicSite .mobileHeaderSearch{display:none!important;visibility:hidden!important;pointer-events:none!important}
  #torvo-v2-root>.publicSite .desktopHeroSearch{display:grid!important;visibility:visible!important}
 }
+
+
+/* SINGLE PUBLIC SEARCH AUTHORITY — 2026-09-28 photo correction */
+#torvo-v2-root>.publicSite .mobileHeaderSearch>.publicSmartFinder,
+#torvo-v2-root>.publicSite .desktopHeroSearch>.publicSmartFinder{
+ display:grid!important;grid-template-columns:minmax(0,1fr) 42px!important;gap:6px!important;
+ width:100%!important;max-width:none!important;margin:0!important;padding:0!important;
+ position:relative!important;align-items:stretch!important
+}
+#torvo-v2-root>.publicSite :is(.mobileHeaderSearch,.desktopHeroSearch) .publicHeroSearch{
+ width:100%!important;min-width:0!important;margin:0!important;padding:0!important
+}
+#torvo-v2-root>.publicSite :is(.mobileHeaderSearch,.desktopHeroSearch) .publicHeroSearchBar{
+ width:100%!important;max-width:none!important;margin:0!important;box-sizing:border-box!important;
+ border-radius:6px!important;overflow:hidden!important
+}
+#torvo-v2-root>.publicSite :is(.mobileHeaderSearch,.desktopHeroSearch) .publicProductFilterToggle{
+ display:flex!important;align-items:center!important;justify-content:center!important;
+ width:42px!important;min-width:42px!important;height:42px!important;margin:0!important;padding:0!important;
+ border-radius:6px!important;position:static!important;transform:none!important
+}
+#torvo-v2-root>.publicSite :is(.mobileHeaderSearch,.desktopHeroSearch) .publicProductFilterToggle:not(.iconOnly){
+ font-size:0!important
+}
+#torvo-v2-root>.publicSite :is(.mobileHeaderSearch,.desktopHeroSearch) .publicProductFilterToggle:not(.iconOnly)>svg:first-child{
+ width:19px!important;height:19px!important;margin:0!important
+}
+#torvo-v2-root>.publicSite :is(.mobileHeaderSearch,.desktopHeroSearch) .publicProductFilterToggle:not(.iconOnly)>svg:last-child{
+ display:none!important
+}
+#torvo-v2-root>.publicSite :is(.mobileHeaderSearch,.desktopHeroSearch) .finderFilterRow{
+ position:absolute!important;z-index:80!important;right:0!important;top:calc(100% + 6px)!important;
+ width:min(760px,calc(100vw - 20px))!important
+}
+@media(min-width:1025px){
+ #torvo-v2-root>.publicSite .desktopHeroSearch{
+  grid-template-columns:1fr!important;width:min(520px,46vw)!important;height:42px!important
+ }
+ #torvo-v2-root>.publicSite .desktopHeroSearch>.publicSmartFinder{grid-template-columns:minmax(0,1fr) 42px!important}
+}
+@media(max-width:1024px){
+ #torvo-v2-root>.publicSite .publicHeader.topSearchHeader{
+  height:94px!important;min-height:94px!important;padding:0 8px 5px!important
+ }
+ #torvo-v2-root>.publicSite .publicHeaderPrimary{height:46px!important;min-height:46px!important}
+ #torvo-v2-root>.publicSite .mobileHeaderSearch{
+  display:block!important;width:100%!important;height:43px!important;margin:0!important;padding:0!important
+ }
+ #torvo-v2-root>.publicSite .mobileHeaderSearch>.publicSmartFinder{
+  grid-template-columns:minmax(0,1fr) 40px!important;gap:5px!important
+ }
+ #torvo-v2-root>.publicSite .mobileHeaderSearch .publicHeroSearchBar{height:43px!important;min-height:43px!important;border-radius:6px!important}
+ #torvo-v2-root>.publicSite .mobileHeaderSearch .publicProductFilterToggle{width:40px!important;min-width:40px!important;height:43px!important;border-radius:6px!important}
+}
