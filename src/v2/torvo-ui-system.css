@@ -166,3 +166,5 @@
  #torvo-v2-root .roleGrid>button>svg:first-child{width:23px!important;height:23px!important}
  #torvo-v2-root .roleWelcome:after{font-size:56px!important}
 }
+
+#torvo-v2-root .rolePulse{min-height:34px;display:flex;align-items:center;gap:9px;margin-bottom:8px;padding:0 11px;background:#fff;border:1px solid var(--tv-line);border-left:4px solid var(--tv-red);font-size:9px;letter-spacing:.07em}#torvo-v2-root .rolePulse span{color:var(--tv-muted);font-weight:700}#torvo-v2-root .rolePulse b{font-size:9px}#torvo-v2-root .rolePulse i{margin-left:auto;font-style:normal;color:var(--tv-green);font-weight:800}@media(max-width:520px){#torvo-v2-root .rolePulse span{display:none}}
