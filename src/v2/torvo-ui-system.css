@@ -243,3 +243,38 @@
 #torvo-v2-root .publicProductCard .formTwo .primary{width:100%!important;background:var(--tv-red)!important;color:#fff!important;border-color:var(--tv-red)!important}
 @media(max-width:760px){#torvo-v2-root{--tv-page-pad:12px}#torvo-v2-root .publicShowcaseGrid{grid-template-columns:repeat(2,minmax(0,1fr))!important;gap:8px!important}#torvo-v2-root .publicProductBody{padding:10px!important}#torvo-v2-root .publicProductBody h3{font-size:14px!important}#torvo-v2-root .publicProductBody p{font-size:11px!important}#torvo-v2-root .publicProductCard .formTwo button{font-size:10px!important;padding:8px 6px!important}}
 @media(max-width:390px){#torvo-v2-root .publicShowcaseGrid{grid-template-columns:1fr!important}}
+
+/* DETERMINISTIC RESPONSIVE OWNERSHIP — refresh-safe final presentation */
+html{overflow-x:hidden}
+body{margin:0;min-width:0;overflow-x:hidden}
+#torvo-v2-root{width:100%;min-width:0;min-height:100dvh;isolation:isolate}
+#torvo-v2-root *{box-sizing:border-box}
+#torvo-v2-root .publicSite{width:100%;min-width:0;min-height:100dvh;background:#fff}
+#torvo-v2-root .publicSite main{width:100%;min-width:0}
+#torvo-v2-root :is(.publicHero,.publicBrandRail,.desktopRequirementBand,.desktopDealerFinderBlock,.retailFlow,.dealerBusiness,.publicSupport,.publicAbout,.torvoPremiumFooter){width:min(calc(100% - (var(--tv-page-pad) * 2)),var(--tv-content))!important;margin-left:auto!important;margin-right:auto!important}
+#torvo-v2-root .publicHeader{width:100%!important;min-width:0!important}
+#torvo-v2-root .publicHeader>*{min-width:0}
+#torvo-v2-root :is(.publicHero,.desktopDealerFinderBlock,.dealerBusiness,.publicSupport,.torvoPremiumFooter){grid-template-columns:minmax(0,1fr) minmax(0,1fr)}
+#torvo-v2-root .publicHeroCopy,#torvo-v2-root .torvoHeroMedia{min-width:0}
+#torvo-v2-root .torvoHeroMedia img{display:block;width:100%;height:100%;object-fit:cover}
+#torvo-v2-root .brandLogoViewport{min-width:0;overflow:hidden}
+#torvo-v2-root .publicShowcaseGrid>*{min-width:0}
+#torvo-v2-root .publicProductPhoto{display:grid!important}
+#torvo-v2-root .publicProductPhoto img{display:block!important}
+#torvo-v2-root .mobileOnly{display:none!important}
+#torvo-v2-root .desktopOnly{display:revert}
+@media(max-width:800px){
+ #torvo-v2-root .mobileOnly{display:flex!important}
+ #torvo-v2-root .desktopOnly{display:none!important}
+ #torvo-v2-root :is(.publicHero,.desktopDealerFinderBlock,.dealerBusiness,.publicSupport,.torvoPremiumFooter){grid-template-columns:1fr!important}
+ #torvo-v2-root :is(.publicHero,.publicBrandRail,.retailFlow,.dealerBusiness,.publicSupport,.publicAbout,.torvoPremiumFooter){width:calc(100% - 24px)!important}
+ #torvo-v2-root .publicHero{min-height:0!important}
+ #torvo-v2-root .publicHeroCopy{padding:20px 16px!important}
+ #torvo-v2-root .torvoHeroMedia{min-height:210px!important}
+ #torvo-v2-root .mobileHeroBanner{width:100%!important;overflow:hidden!important}
+ #torvo-v2-root .mobileHeroBanner img{display:block!important;width:100%!important;aspect-ratio:16/7!important;object-fit:cover!important}
+}
+@media(min-width:801px){
+ #torvo-v2-root .mobileOnly{display:none!important}
+ #torvo-v2-root .desktopOnly{display:revert!important}
+}
