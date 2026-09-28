@@ -3,7 +3,7 @@ const entryPaths=['src/v2/preview-main.jsx','src/v2/main.jsx'];
 const entries=entryPaths.map(path=>({path,content:fs.readFileSync(path,'utf8')}));
 const cssImports=content=>[...content.matchAll(/import\s+['"]\.\/([^'"]+\.css)['"]/g)].map(m=>m[1]);
 const canonical=['torvo-component-contract.css','torvo-operational-ui.css','torvo-ai-integration-ui.css','torvo-ui-system.css'];
-const retired=['workspace-polish.css','dealer-mobile-fix.css','premium-ui.css','compact-cloud-ui.css','secure-desktop-lock.css','live-responsive-hotfix.css','public-desktop-final.css'];
+const retired=['workspace-polish.css','dealer-mobile-fix.css','premium-ui.css','compact-cloud-ui.css','secure-desktop-lock.css','live-responsive-hotfix.css','public-desktop-final.css','dealer-search-lock.css','final-ui-balance.css','dealer-rewards-ui.css'];
 const structural=['styles.css','login-preview.css','purchase-requirements-ui.css','public-website.css','public-product-showcase.css','public-catalog-browser.css','smart-search-ui.css','smart-product-filters.css','role-app-preview.css','admin-desktop-polish.css','admin-search-v2.css','accountant-search-v2.css'];
 const previewImported=cssImports(entries[0].content);
 const appImported=cssImports(entries[1].content);
