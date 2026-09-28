@@ -417,3 +417,21 @@ body{margin:0;min-width:0;overflow-x:hidden}
  #torvo-v2-root .publicHeroCopy{max-width:860px!important}
  #torvo-v2-root :is(.publicAbout p,.publicSupport p,.dealerBusiness p,.retailFlow p){max-width:86ch}
 }
+
+/* OWNER-PREFERRED TOP PRODUCT CATEGORY STRIP */
+@media (min-width:801px){
+ #torvo-v2-root .torvoPrimaryCategories{
+  display:grid!important;grid-template-columns:repeat(3,minmax(0,1fr))!important;
+  width:var(--tv-public-width)!important;max-width:none!important;margin:clamp(14px,1.5vw,24px) auto!important;
+  gap:clamp(8px,1vw,14px)!important;
+ }
+ #torvo-v2-root .torvoPrimaryCategories button{
+  display:flex!important;align-items:center!important;justify-content:center!important;gap:10px!important;
+  min-height:clamp(54px,4vw,66px)!important;padding:10px 16px!important;
+  border:1px solid #d7dbe1!important;border-radius:6px!important;background:#fff!important;color:#15171b!important;
+  box-shadow:0 5px 16px rgba(16,24,40,.045)!important;font-size:clamp(12px,.9vw,14px)!important;font-weight:900!important;letter-spacing:.035em!important;
+ }
+ #torvo-v2-root .torvoPrimaryCategories button svg{color:var(--tv-red)!important}
+ #torvo-v2-root .torvoPrimaryCategories button:hover{border-color:var(--tv-red)!important;background:#fff7f7!important;transform:translateY(-1px)}
+ #torvo-v2-root .publicHeaderActions{display:none!important}
+}
