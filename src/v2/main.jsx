@@ -23,8 +23,6 @@ import './public-product-showcase.css';
 import './smart-search-ui.css';
 import './public-catalog-browser.css';
 import './smart-product-filters.css';
-import './dealer-search-lock.css';
-import './final-ui-balance.css';
 import './torvo-component-contract.css';
 import './torvo-operational-ui.css';
 import './torvo-ai-integration-ui.css';
