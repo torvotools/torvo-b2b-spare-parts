@@ -20,6 +20,7 @@ begin
 end$$;
 revoke all on function get_store_fulfilment_queue() from public,anon;grant execute on function get_store_fulfilment_queue() to authenticated;
 
+drop function if exists advance_dispatch(uuid,text,text);
 create or replace function advance_dispatch(p_estimate uuid,p_status text,p_tracking_code text default null,p_courier_company text default null)
 returns void language plpgsql security definer set search_path=public as $$
 declare u app_users%rowtype;d dispatches%rowtype;v_next text;v_tracking text;v_courier text;
@@ -36,7 +37,7 @@ begin
  update dispatches set status=p_status,tracking_code=case when p_status='ready_for_dispatch' then coalesce(v_tracking,tracking_code) else tracking_code end,courier_company=case when p_status='ready_for_dispatch' then coalesce(v_courier,courier_company) else courier_company end,updated_by=u.id where id=d.id;
  insert into audit_log(actor_id,action,entity_type,entity_id,details) values(u.id,'DISPATCH_STAGE_CHANGED','dispatch',d.id::text,jsonb_build_object('from',d.status,'to',p_status,'estimate_id',p_estimate,'courier_company',case when p_status='ready_for_dispatch' then coalesce(v_courier,d.courier_company) else d.courier_company end));
 end$$;
-revoke all on function advance_dispatch(uuid,text,text,text) from public,anon;grant execute on function advance_dispatch(uuid,text,text) to authenticated;
+revoke all on function advance_dispatch(uuid,text,text,text) from public,anon;grant execute on function advance_dispatch(uuid,text,text,text) to authenticated;
 
 -- Direct financial tables are not part of Store Keeper UI/API contract.
--- deliver_estimate() may internally verify payment, but returns no financial data.
+-- Sale/Dispatch/Delivery are payment-independent. Payment remains accounting/history only.
