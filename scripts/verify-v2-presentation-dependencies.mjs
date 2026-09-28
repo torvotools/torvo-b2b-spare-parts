@@ -13,7 +13,10 @@ if(new Set(imported).size!==imported.length)fail('duplicate CSS imports are forb
 if(new Set(appImported).size!==appImported.length)fail('duplicate CSS imports are forbidden in app entry');else pass('no duplicate CSS imports in app entry');
 for(const file of retired){
   for(const {path,content} of entries)if(cssImports(content).includes(file))fail(`retired override layer must not remain imported by ${path}: ${file}`);
+}for(const {path,content} of entries){
+  for(const file of cssImports(content))if(!fs.existsSync(`src/v2/${file}`))fail(`CSS import target missing from ${path}: ${file}`);
 }
+
 for(const file of canonical){
   if(!appImported.includes(file))fail(`canonical presentation layer missing from app entry: ${file}`);
 }
