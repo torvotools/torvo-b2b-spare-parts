@@ -16,8 +16,8 @@ declare a app_users%rowtype;r jsonb:='{}'::jsonb;begin
  if a.role in('owner','admin') then
   r:=r||jsonb_build_object(
    'query_count',(select count(*) from sales_documents where doc_type='query'),
-   'quotation_count',(select count(*) from sales_documents where doc_type='quotation'),
-   'accepted_quotation_count',(select count(*) from sales_documents where doc_type='quotation' and status in('accepted','converted')),
+   'quotation_count',(select count(*) from sales_documents where doc_type='sales_order'),
+   'accepted_quotation_count',(select count(*) from sales_documents where doc_type='sales_order' and status in('dealer_ok','confirmed','final','approved')),
    'active_dealers',(select count(*) from dealers where status='approved'),
    'inactive_dealers',(select count(*) from dealers where status in('inactive','suspended')),
    'catalog_items',(select count(*) from catalog_items where active=true),
