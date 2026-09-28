@@ -958,3 +958,23 @@ body{margin:0;min-width:0;overflow-x:hidden}
 @media(max-width:390px){
  #torvo-v2-root .suitableFilterGrid{grid-template-columns:1fr!important}
 }
+
+
+/* APPROVED MAIN THEME — operational login, repair, settings audit */
+#torvo-v2-root .dealerEntry{background:#f4f5f6!important}
+#torvo-v2-root .dealerEntryBrand{color:#11151a!important}
+#torvo-v2-root .dealerEntryCard{border:1px solid var(--tv-line)!important;border-radius:8px!important;background:#fff!important;box-shadow:0 18px 48px rgba(10,15,20,.12)!important}
+#torvo-v2-root .dealerEntryCard .eyebrow{color:var(--tv-red)!important}
+#torvo-v2-root .dealerEntryResend{color:var(--tv-red)!important}
+#torvo-v2-root .dealerRepairWorkspace .quickActions{margin-bottom:10px!important}
+#torvo-v2-root .dealerRepairWorkspace .requestList>*{border:1px solid var(--tv-line)!important;border-radius:6px!important;background:#fff!important}
+#torvo-v2-root .panel.modalForm{border:1px solid var(--tv-line)!important;border-radius:6px!important;background:#f8f9fa!important;box-shadow:none!important}
+#torvo-v2-root .checkRow{padding:9px!important;border:1px solid #e1e4e7!important;border-radius:5px!important;background:#fff!important}
+#torvo-v2-root button.danger,#torvo-v2-root .danger{background:#fff!important;color:#b4232d!important;border-color:#e1a4a9!important}
+#torvo-v2-root button.danger:hover,#torvo-v2-root .danger:hover{background:#fff2f3!important}
+#torvo-v2-root :is(button.primary,.primary){border-radius:4px!important}
+#torvo-v2-root :is(button.secondary,.secondary){border-radius:4px!important}
+#torvo-v2-root :is(input,select,textarea){accent-color:var(--tv-red)}
+@media(max-width:800px){
+ #torvo-v2-root .dealerEntryCard{border-radius:7px!important;box-shadow:0 12px 32px rgba(10,15,20,.1)!important}
+}
