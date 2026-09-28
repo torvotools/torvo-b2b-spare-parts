@@ -17,7 +17,7 @@ begin
  if nullif(trim(p_request_key),'') is null then raise exception 'Payment request key required';end if;
  select * into e from sales_documents where id=p_estimate and doc_type='estimate' for update;
  if not found then raise exception 'Estimate not found';end if;
- perform public.assert_estimate_delivery_finalized_for_payment(e.id);
+ if not exists(select 1 from public.marg_bill_sales where estimate_id=e.id and status in('posted','corrected')) then raise exception 'POSTED MARG BILL SALE REQUIRED BEFORE PAYMENT ACCOUNTING';end if;
  if e.final_payable is null or e.final_payable<=0 then raise exception 'Estimate final payable is invalid';end if;
  select * into existing from payments where request_key=trim(p_request_key);if found then raise exception 'Payment request key already used';end if;
  select coalesce(sum(amount) filter(where status in('cash','received')),0),coalesce(sum(amount) filter(where status='pending'),0) into paid,pending_total from payments where estimate_id=e.id;
