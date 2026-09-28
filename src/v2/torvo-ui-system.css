@@ -315,3 +315,19 @@ body{margin:0;min-width:0;overflow-x:hidden}
  #torvo-v2-root .publicSite{--tv-desktop-gutter:clamp(40px,3vw,88px)}
  #torvo-v2-root .publicHero{min-height:clamp(500px,56vh,760px)!important}
 }
+
+/* FULL-CANVAS ACTIVE PUBLIC SURFACES */
+@media (min-width:801px){
+ #torvo-v2-root :is(.publicHeaderInner,.topSearchHeader,.publicCatalog,.publicCatalogTop,.catalogResultBar,.publicShowcaseGrid,.publicSectionHead,.publicHeroSearchBar,.smartFinderFilters,.desktopDiscoveryOnly,.customerJourney,.torvoConnect,.dealerBenefitGrid){
+  width:calc(100% - (var(--tv-desktop-gutter) * 2))!important;
+  max-width:none!important;
+  margin-left:auto!important;
+  margin-right:auto!important;
+ }
+ #torvo-v2-root .publicHeaderInner{min-height:clamp(68px,5vw,86px)}
+ #torvo-v2-root .topSearchHeader{min-width:0}
+ #torvo-v2-root :is(.topSearchHeader,.publicHeroSearchBar) input{min-width:0;width:100%}
+ #torvo-v2-root .publicCatalog{min-width:0}
+ #torvo-v2-root .publicShowcaseGrid{gap:clamp(14px,1.4vw,24px)!important}
+ #torvo-v2-root .publicProductCard{width:100%;min-width:0}
+}
