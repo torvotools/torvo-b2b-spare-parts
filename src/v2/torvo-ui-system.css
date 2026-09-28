@@ -1705,3 +1705,43 @@ body{margin:0;min-width:0;overflow-x:hidden}
  #torvo-v2-root>.publicSite .categoryPhotoFallback svg{width:30px!important;height:30px!important;opacity:.4!important}
  #torvo-v2-root>.publicSite .publicShowcaseEmpty{min-height:84px!important;padding:14px!important}
 }
+
+
+/* PREMIUM PUBLIC ACTION COMPOSITION — mockup-quality hierarchy, real TORVO rules */
+#torvo-v2-root>.publicSite .publicActionGrid{display:grid!important;grid-template-columns:repeat(4,minmax(0,1fr))!important;gap:10px!important;margin:14px 18px 0!important}
+#torvo-v2-root>.publicSite .publicActionCard{position:relative!important;display:grid!important;grid-template-columns:54px minmax(0,1fr)!important;grid-template-rows:auto auto auto 1fr auto!important;column-gap:12px!important;min-height:178px!important;padding:17px!important;border:1px solid #dedfe3!important;border-radius:8px!important;overflow:hidden!important}
+#torvo-v2-root>.publicSite .publicActionCard>div{grid-row:1/5;display:grid!important;place-items:center!important;width:54px!important;height:54px!important;border-radius:8px!important;color:#fff!important}
+#torvo-v2-root>.publicSite .publicActionCard>div svg{width:26px!important;height:26px!important}
+#torvo-v2-root>.publicSite .publicActionCard>span{font-size:7px!important;font-weight:900!important;letter-spacing:.1em!important}
+#torvo-v2-root>.publicSite .publicActionCard>h3{margin:4px 0!important;font-size:17px!important;line-height:1.05!important;color:#17191d!important}
+#torvo-v2-root>.publicSite .publicActionCard>p{margin:0!important;font-size:8px!important;line-height:1.5!important;color:#626871!important}
+#torvo-v2-root>.publicSite .publicActionCard>button{grid-column:2!important;align-self:end!important;justify-self:start!important;display:inline-flex!important;align-items:center!important;gap:7px!important;min-height:36px!important;padding:0 13px!important;border:0!important;border-radius:4px!important;color:#fff!important;font-size:8px!important;font-weight:900!important}
+#torvo-v2-root>.publicSite .publicActionCard.quick{background:linear-gradient(135deg,#fff1f2,#fff)!important}
+#torvo-v2-root>.publicSite .publicActionCard.quick>div,#torvo-v2-root>.publicSite .publicActionCard.quick>button{background:#e31b2b!important}
+#torvo-v2-root>.publicSite .publicActionCard.quick>span{color:#c81725!important}
+#torvo-v2-root>.publicSite .publicActionCard.dealer{background:linear-gradient(135deg,var(--torvo-green-soft),#fff)!important}
+#torvo-v2-root>.publicSite .publicActionCard.dealer>div,#torvo-v2-root>.publicSite .publicActionCard.dealer>button{background:var(--torvo-green)!important}
+#torvo-v2-root>.publicSite .publicActionCard.dealer>span{color:var(--torvo-green)!important}
+#torvo-v2-root>.publicSite .publicActionCard.register{background:linear-gradient(135deg,var(--torvo-blue-soft),#fff)!important}
+#torvo-v2-root>.publicSite .publicActionCard.register>div,#torvo-v2-root>.publicSite .publicActionCard.register>button{background:var(--torvo-blue)!important}
+#torvo-v2-root>.publicSite .publicActionCard.register>span{color:var(--torvo-blue)!important}
+#torvo-v2-root>.publicSite .publicActionCard.help{background:linear-gradient(135deg,var(--torvo-purple-soft),#fff)!important}
+#torvo-v2-root>.publicSite .publicActionCard.help>div,#torvo-v2-root>.publicSite .publicActionCard.help>button{background:var(--torvo-purple)!important}
+#torvo-v2-root>.publicSite .publicActionCard.help>span{color:var(--torvo-purple)!important}
+#torvo-v2-root>.publicSite .premiumRetailFlow{margin-top:12px!important;padding:18px!important;border:1px solid #e1e2e5!important;border-radius:7px!important;background:#fff!important}
+#torvo-v2-root>.publicSite .premiumRetailFlow .publicSectionHead{display:flex!important;align-items:end!important;justify-content:space-between!important;gap:20px!important;margin-bottom:12px!important}
+#torvo-v2-root>.publicSite .premiumRetailFlow .publicSectionHead h2{font-size:clamp(20px,2vw,30px)!important}
+#torvo-v2-root>.publicSite .premiumRetailFlow .publicSectionHead p{max-width:420px!important;margin:0!important;text-align:right!important;font-size:8px!important;color:#666!important}
+@media(max-width:1100px) and (min-width:821px){#torvo-v2-root>.publicSite .publicActionGrid{grid-template-columns:repeat(2,minmax(0,1fr))!important}}
+@media(max-width:820px){
+ #torvo-v2-root>.publicSite .publicActionGrid{grid-template-columns:1fr 1fr!important;gap:8px!important;margin:10px!important}
+ #torvo-v2-root>.publicSite .publicActionCard{display:flex!important;flex-direction:column!important;min-height:180px!important;padding:11px!important}
+ #torvo-v2-root>.publicSite .publicActionCard>div{width:40px!important;height:40px!important}
+ #torvo-v2-root>.publicSite .publicActionCard>div svg{width:20px!important;height:20px!important}
+ #torvo-v2-root>.publicSite .publicActionCard>h3{font-size:12px!important}
+ #torvo-v2-root>.publicSite .publicActionCard>p{font-size:7px!important}
+ #torvo-v2-root>.publicSite .publicActionCard>button{width:100%!important;margin-top:auto!important;justify-content:center!important}
+ #torvo-v2-root>.publicSite .premiumRetailFlow{margin:8px 10px!important;padding:11px!important}
+ #torvo-v2-root>.publicSite .premiumRetailFlow .publicSectionHead{display:block!important}
+ #torvo-v2-root>.publicSite .premiumRetailFlow .publicSectionHead p{text-align:left!important;margin-top:5px!important}
+}
