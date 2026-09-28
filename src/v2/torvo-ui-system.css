@@ -1179,3 +1179,46 @@ body{margin:0;min-width:0;overflow-x:hidden}
  #torvo-v2-root>.publicSite .smartFinderFilters.dynamic{grid-template-columns:1fr!important}
  #torvo-v2-root>.publicSite .smartFinderFoot{position:sticky!important;bottom:0!important;z-index:2!important}
 }
+
+
+/* PUBLIC HOME VISUAL FINISH — stronger hierarchy, less dashboard feel */
+#torvo-v2-root>.publicSite .publicCatalog{padding:22px 0 6px}
+#torvo-v2-root>.publicSite .desktopDiscoveryOnly{margin-top:26px}
+#torvo-v2-root>.publicSite .productDiscovery{padding:18px!important}
+#torvo-v2-root>.publicSite .productDiscovery>header{display:flex!important;align-items:end!important;justify-content:space-between!important;gap:16px!important;margin-bottom:12px!important}
+#torvo-v2-root>.publicSite .productDiscovery>header h3{margin:4px 0 0!important;font-size:18px!important}
+#torvo-v2-root>.publicSite .productDiscovery>header p{margin:5px 0 0!important;font-size:8px!important;color:#777!important}
+#torvo-v2-root>.publicSite .promoRail,#torvo-v2-root>.publicSite .popularRail{gap:8px!important}
+#torvo-v2-root>.publicSite .promoRail article,#torvo-v2-root>.publicSite .popularRail article{border:1px solid #e0e0dc!important;border-radius:3px!important;background:#fff!important;box-shadow:none!important}
+#torvo-v2-root>.publicSite .promoRail article:hover,#torvo-v2-root>.publicSite .popularRail article:hover{border-color:#999!important}
+#torvo-v2-root>.publicSite .retailFlow{margin-top:30px!important;border-left:4px solid #171717!important}
+#torvo-v2-root>.publicSite .desktopRequirementBand{margin-top:12px!important}
+#torvo-v2-root>.publicSite .desktopDealerFinderBlock{margin-top:12px!important}
+#torvo-v2-root>.publicSite .dealerBusiness{margin-top:32px!important}
+#torvo-v2-root>.publicSite .publicSupport{margin-top:14px!important}
+#torvo-v2-root>.publicSite .publicAbout{margin-top:0!important}
+#torvo-v2-root>.publicSite .torvoPremiumFooter{margin-top:0!important}
+#torvo-v2-root>.publicSite .publicHeroActions button:hover,
+#torvo-v2-root>.publicSite .desktopRequirementBand button:hover,
+#torvo-v2-root>.publicSite .desktopDealerFindButton:hover,
+#torvo-v2-root>.publicSite .dealerBusinessIntro .primary:hover,
+#torvo-v2-root>.publicSite .publicProductBody .formTwo button.primary:hover{background:#c81725!important;border-color:#c81725!important;color:#fff!important}
+#torvo-v2-root>.publicSite .torvoPrimaryCategories button:focus-visible,
+#torvo-v2-root>.publicSite .publicProductCard:focus-within{outline:3px solid rgba(227,27,43,.16)!important;outline-offset:2px!important}
+@media(min-width:821px){
+ #torvo-v2-root>.publicSite .publicHeroCopy{max-width:760px!important}
+ #torvo-v2-root>.publicSite .publicHeroActions{display:flex!important;gap:8px!important}
+ #torvo-v2-root>.publicSite .publicCatalogTop{padding-bottom:4px!important;border-bottom:1px solid #d8d8d4!important}
+ #torvo-v2-root>.publicSite .publicShowcaseGrid{align-items:stretch!important}
+ #torvo-v2-root>.publicSite .publicProductCard{transition:transform .15s ease,border-color .15s ease!important}
+ #torvo-v2-root>.publicSite .publicProductCard:hover{transform:translateY(-2px)!important;border-color:#999!important}
+}
+@media(max-width:820px){
+ #torvo-v2-root>.publicSite .publicCatalog{padding-top:14px!important}
+ #torvo-v2-root>.publicSite .desktopDiscoveryOnly{margin-top:18px!important}
+ #torvo-v2-root>.publicSite .productDiscovery{padding:10px!important}
+ #torvo-v2-root>.publicSite .productDiscovery>header p{display:none!important}
+ #torvo-v2-root>.publicSite .productDiscovery>header h3{font-size:14px!important}
+ #torvo-v2-root>.publicSite .retailFlow{margin-top:18px!important;border-left:3px solid #171717!important}
+ #torvo-v2-root>.publicSite .publicAbout{padding:18px 0!important}
+}
