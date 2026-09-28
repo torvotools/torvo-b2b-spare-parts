@@ -978,3 +978,45 @@ body{margin:0;min-width:0;overflow-x:hidden}
 @media(max-width:800px){
  #torvo-v2-root .dealerEntryCard{border-radius:7px!important;box-shadow:0 12px 32px rgba(10,15,20,.1)!important}
 }
+
+
+/* APPROVED MAIN THEME — operational edge screens */
+#torvo-v2-root :is(.releaseCenter,.backupCenter,.salesmanAttendance,.lowStockDrilldown){
+ border:1px solid var(--tv-line)!important;border-radius:7px!important;background:#fff!important;box-shadow:none!important;
+}
+#torvo-v2-root :is(.releaseGrid,.backupChannelGrid,.movementKpis){
+ display:grid!important;grid-template-columns:repeat(auto-fit,minmax(150px,1fr))!important;gap:8px!important;
+}
+#torvo-v2-root :is(.releaseGrid,.backupChannelGrid,.movementKpis)>*{
+ border:1px solid var(--tv-line)!important;border-radius:6px!important;background:#f8f9fa!important;box-shadow:none!important;
+}
+#torvo-v2-root :is(.testReleaseCard,.projectBackup,.backupSettings,.backupRules,.movementPrivacy){
+ border:1px solid var(--tv-line)!important;border-radius:6px!important;background:#f7f8f9!important;
+}
+#torvo-v2-root .releaseLocked{border-left:3px solid #d49b15!important;background:#fff8e8!important}
+#torvo-v2-root .backupHeroIcon{background:var(--tv-red)!important;color:#fff!important;border-radius:5px!important}
+#torvo-v2-root :is(.backupHistory,.movementList,.lowStockList){display:grid!important;gap:7px!important}
+#torvo-v2-root :is(.backupHistory,.movementList,.lowStockList)>*{border:1px solid var(--tv-line)!important;border-radius:5px!important;background:#fff!important}
+#torvo-v2-root :is(.movementFilters,.lowStockFilters){
+ display:grid!important;grid-template-columns:repeat(auto-fit,minmax(135px,1fr))!important;gap:7px!important;padding:9px!important;border:1px solid var(--tv-line)!important;border-radius:6px!important;background:#f7f8f9!important;
+}
+#torvo-v2-root .movementMoney{font-variant-numeric:tabular-nums;font-weight:800!important}
+#torvo-v2-root .lowStockHero{padding-bottom:10px!important;border-bottom:1px solid #eceef1!important}
+#torvo-v2-root .lowStockQty{font-variant-numeric:tabular-nums}
+#torvo-v2-root .productDiscovery{min-width:0}
+#torvo-v2-root .filterChips{display:flex!important;gap:5px!important;flex-wrap:wrap!important}
+#torvo-v2-root .filterChips>*{border-radius:99px!important}
+#torvo-v2-root .discoveryMeta{padding:8px 10px!important;border:1px solid var(--tv-line)!important;border-radius:5px!important;background:#f7f8f9!important}
+#torvo-v2-root .dealerCatalog{display:grid!important;grid-template-columns:repeat(auto-fit,minmax(220px,1fr))!important;gap:9px!important}
+#torvo-v2-root .dealerCatalog>*{border:1px solid var(--tv-line)!important;border-radius:6px!important;background:#fff!important}
+#torvo-v2-root .attendanceToday{border:1px solid var(--tv-line)!important;border-radius:6px!important;background:#f7f8f9!important}
+#torvo-v2-root .attendanceHistory>*{border:1px solid var(--tv-line)!important;border-radius:5px!important;background:#fff!important}
+#torvo-v2-root .notificationPanel{border:1px solid var(--tv-line)!important;border-radius:6px!important;background:#fff!important;box-shadow:0 16px 36px rgba(10,15,20,.14)!important}
+@media(max-width:800px){
+ #torvo-v2-root :is(.releaseGrid,.backupChannelGrid,.movementKpis){grid-template-columns:repeat(2,minmax(0,1fr))!important}
+ #torvo-v2-root :is(.movementFilters,.lowStockFilters){grid-template-columns:1fr 1fr!important}
+ #torvo-v2-root .dealerCatalog{grid-template-columns:repeat(2,minmax(0,1fr))!important}
+}
+@media(max-width:390px){
+ #torvo-v2-root :is(.releaseGrid,.backupChannelGrid,.movementKpis,.movementFilters,.lowStockFilters,.dealerCatalog){grid-template-columns:1fr!important}
+}
