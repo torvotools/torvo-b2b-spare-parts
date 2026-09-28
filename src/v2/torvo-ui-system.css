@@ -752,3 +752,46 @@ body{margin:0;min-width:0;overflow-x:hidden}
  #torvo-v2-root :is(.content,.accountantMain){background:#f5f6f7!important}
  #torvo-v2-root :is(.panel.workspace,.purchaseWorkspace,.returnsWorkspace,.approvalWorkspace,.accountantWorkPanel,.accountantDashboardPanel){border-radius:6px!important}
 }
+
+
+/* APPROVED MAIN THEME — role screens, service book, fitment, referral */
+#torvo-v2-root :is(.roleApp,.dealerKnowledge,.serviceBookWorkspace,.adminMobileWorkspace){min-width:0}
+#torvo-v2-root .roleApp{background:#f5f6f7!important}
+#torvo-v2-root .roleLogo{display:flex!important;align-items:center!important;gap:9px!important}
+#torvo-v2-root .rolePulse{background:var(--tv-red)!important;box-shadow:0 0 0 4px rgba(225,29,46,.1)!important}
+#torvo-v2-root :is(.roleWelcome,.knowledgeHero){
+ border:1px solid var(--tv-line)!important;border-radius:7px!important;background:#fff!important;box-shadow:none!important;
+}
+#torvo-v2-root :is(.roleWelcome,.knowledgeHero) .eyebrow{color:var(--tv-red)!important}
+#torvo-v2-root :is(.roleFeature,.knowledgeCard){
+ overflow:hidden!important;border:1px solid var(--tv-line)!important;border-radius:6px!important;background:#fff!important;box-shadow:none!important;
+}
+#torvo-v2-root .knowledgeChallengeGrid{display:grid!important;grid-template-columns:repeat(auto-fit,minmax(210px,1fr))!important;gap:10px!important}
+#torvo-v2-root .knowledgePhoto{display:grid!important;place-items:center!important;aspect-ratio:4/3!important;background:#f5f6f7!important;overflow:hidden!important}
+#torvo-v2-root .knowledgePhoto img{width:100%!important;height:100%!important;object-fit:contain!important}
+#torvo-v2-root :is(.serviceBookStats,.knowledgeStats){grid-template-columns:repeat(auto-fit,minmax(130px,1fr))!important}
+#torvo-v2-root :is(.serviceBookStats,.knowledgeStats)>*{padding:12px!important}
+#torvo-v2-root :is(.workFilters,.adminProductFilters){
+ display:flex!important;align-items:end!important;gap:8px!important;flex-wrap:wrap!important;padding:10px!important;border:1px solid var(--tv-line)!important;border-radius:6px!important;background:#f7f8f9!important;
+}
+#torvo-v2-root :is(.workFilters,.adminProductFilters)>*{min-width:140px;flex:1 1 160px}
+#torvo-v2-root :is(.serviceBookMachineFinder,.serviceBookPartAdder,.serviceBookPartFinder){
+ padding:12px!important;border:1px solid var(--tv-line)!important;border-radius:6px!important;background:#f7f8f9!important;
+}
+#torvo-v2-root .serviceBookMachineResults{max-height:300px;overflow:auto}
+#torvo-v2-root .serviceBookPartNote{padding:9px 10px!important;border-left:3px solid var(--tv-red)!important;background:#fff7f7!important;color:#5d626a!important}
+#torvo-v2-root :is(.serviceBookActions,.serviceBookReorder,.serviceBookBagActions){padding-top:10px!important;border-top:1px solid #eceef1!important}
+#torvo-v2-root .dealerDetailGrid{display:grid!important;grid-template-columns:repeat(2,minmax(0,1fr))!important}
+#torvo-v2-root :is(.inlineError,.inlineSuccess,.modalNotice,.securityNote,.roleHint){font-size:10px!important;line-height:1.45!important}
+#torvo-v2-root .securityNote{border-left:3px solid var(--tv-red)!important;background:#fff7f7!important}
+#torvo-v2-root .roleSecurity{border:1px solid var(--tv-line)!important;border-radius:6px!important;background:#fff!important}
+@media(max-width:800px){
+ #torvo-v2-root .knowledgeChallengeGrid{grid-template-columns:repeat(2,minmax(0,1fr))!important}
+ #torvo-v2-root :is(.workFilters,.adminProductFilters){display:grid!important;grid-template-columns:1fr!important}
+ #torvo-v2-root :is(.workFilters,.adminProductFilters)>*{min-width:0;width:100%}
+ #torvo-v2-root .dealerDetailGrid{grid-template-columns:1fr!important}
+ #torvo-v2-root :is(.serviceBookActions,.serviceBookReorder,.serviceBookBagActions)>button{flex:1 1 auto}
+}
+@media(max-width:390px){
+ #torvo-v2-root .knowledgeChallengeGrid{grid-template-columns:1fr!important}
+}
