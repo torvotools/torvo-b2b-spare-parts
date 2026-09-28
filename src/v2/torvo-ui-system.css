@@ -728,3 +728,27 @@ body{margin:0;min-width:0;overflow-x:hidden}
  #torvo-v2-root .publicProductBody .formTwo{grid-template-columns:1fr!important}
  #torvo-v2-root .publicProductBody p{min-height:0}
 }
+
+
+/* APPROVED MAIN THEME — shared app/workspace shell */
+#torvo-v2-root :is(.side,.accountantSideNav){
+ background:#0d1014!important;color:#fff!important;border-right:1px solid #20242a!important;
+}
+#torvo-v2-root :is(.brand,.accountantBrand){border-bottom:1px solid #252a31!important}
+#torvo-v2-root :is(.brand .mark,.accountantMark){background:var(--tv-red)!important;color:#fff!important;border-radius:4px!important}
+#torvo-v2-root :is(.side button,.accountantSideNav button){border-radius:4px!important}
+#torvo-v2-root :is(.side button.active,.accountantSideNav button.active){background:var(--tv-red)!important;color:#fff!important}
+#torvo-v2-root :is(.top.premiumAdminTop,.accountantTopFinder){
+ border-bottom:1px solid var(--tv-line)!important;background:#fff!important;box-shadow:none!important;
+}
+#torvo-v2-root :is(.content,.accountantMain){background:#f5f6f7!important}
+#torvo-v2-root :is(.panel.workspace,.purchaseWorkspace,.returnsWorkspace,.approvalWorkspace,.accountantWorkPanel,.accountantDashboardPanel){
+ border:1px solid var(--tv-line)!important;border-radius:7px!important;background:#fff!important;box-shadow:none!important;
+}
+#torvo-v2-root :is(.workspaceTitle,.purchaseHero,.returnsHero,.approvalHero){padding-bottom:12px!important;border-bottom:1px solid #eceef1!important}
+#torvo-v2-root :is(.workspaceTitle h2,.purchaseHero h2,.returnsHero h2,.approvalHero h2){letter-spacing:-.02em!important}
+#torvo-v2-root :is(.mobileBottomNav,.roleApp nav){border-top:1px solid var(--tv-line)!important;box-shadow:0 -6px 20px rgba(10,15,20,.07)!important}
+@media(max-width:800px){
+ #torvo-v2-root :is(.content,.accountantMain){background:#f5f6f7!important}
+ #torvo-v2-root :is(.panel.workspace,.purchaseWorkspace,.returnsWorkspace,.approvalWorkspace,.accountantWorkPanel,.accountantDashboardPanel){border-radius:6px!important}
+}
