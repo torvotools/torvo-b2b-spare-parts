@@ -1381,8 +1381,8 @@ body{margin:0;min-width:0;overflow-x:hidden}
  #torvo-v2-root>.publicSite .mobileBottomNav{display:none!important}
 }
 @media(max-width:820px){
- #torvo-v2-root>.publicSite .mobileOnly{display:revert!important}
  #torvo-v2-root>.publicSite .desktopOnly{display:none!important}
+ #torvo-v2-root>.publicSite :is(.mobileHeaderMark,.mobileHeroBanner,.mobileNeedHelp){display:grid!important}
  #torvo-v2-root>.publicSite .mobileBottomNav{display:grid!important;grid-template-columns:repeat(5,1fr)!important;align-items:stretch!important}
  #torvo-v2-root>.publicSite .mobileBottomNav :is(a,button){display:flex!important;flex-direction:column!important;align-items:center!important;justify-content:center!important;gap:2px!important;min-width:0!important;padding:5px 2px!important;border:0!important;background:#fff!important;color:#444!important;text-decoration:none!important}
  #torvo-v2-root>.publicSite .mobileBottomNav :is(a,button)>svg{width:18px!important;height:18px!important}
@@ -1401,4 +1401,25 @@ body{margin:0;min-width:0;overflow-x:hidden}
  #torvo-v2-root>.publicSite .publicProductBody h3{font-size:10px!important}
  #torvo-v2-root>.publicSite .floatingCart span{font-size:7px!important}
  #torvo-v2-root>.publicSite .floatingCart b{display:none!important}
+}
+
+
+/* PUBLIC HOME REFRESH-SAFE VISIBILITY + COMPACT HEADER */
+@media(min-width:821px){
+ #torvo-v2-root>.publicSite :is(.mobileHeaderMark,.mobileHeroBanner,.mobileNeedHelp){display:none!important}
+ #torvo-v2-root>.publicSite .desktopOnly{display:revert!important}
+}
+@media(min-width:1101px){
+ #torvo-v2-root>.publicSite>.publicHeader.compact.topSearchHeader{grid-template-columns:auto minmax(360px,1fr) 44px auto!important}
+ #torvo-v2-root>.publicSite .desktopPublicNav{gap:13px!important}
+}
+@media(min-width:821px) and (max-width:1100px){
+ #torvo-v2-root>.publicSite>.publicHeader.compact.topSearchHeader{grid-template-columns:auto minmax(0,1fr) 44px!important}
+ #torvo-v2-root>.publicSite .desktopPublicNav{display:none!important}
+}
+@media(max-width:820px){
+ #torvo-v2-root>.publicSite .mobileHeaderMark{cursor:pointer!important}
+ #torvo-v2-root>.publicSite .mobileHeroBanner{width:100%!important}
+ #torvo-v2-root>.publicSite .floatingCart{max-width:calc(100vw - 80px)!important}
+ #torvo-v2-root>.publicSite .torvoFloatingWhatsApp{z-index:181!important}
 }
