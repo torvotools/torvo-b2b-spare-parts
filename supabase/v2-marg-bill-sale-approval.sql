@@ -34,7 +34,7 @@ create table if not exists public.sale_bill_approvals(
 alter table public.sale_bill_approvals enable row level security;
 revoke all on public.sale_bill_approvals from anon,authenticated;
 
-create or replace function public.approve_marg_bill_sale(p_estimate uuid,p_marg_bill_number text)
+create or replace function public.approve_marg_bill_sale(p_estimate_number text,p_marg_bill_number text)
 returns uuid language plpgsql security definer set search_path=public as $$
 declare a app_users%rowtype;e sales_documents%rowtype;bill text;estno text;sid uuid;ln record;q numeric;
 begin
@@ -42,7 +42,8 @@ begin
  if not found or a.role not in('owner','admin','accountant') then raise exception 'Owner/Admin/Accountant authorization required';end if;
  bill:=upper(btrim(coalesce(p_marg_bill_number,'')));
  if bill='' or length(bill)>80 then raise exception 'Valid Marg bill number required';end if;
- select * into e from sales_documents where id=p_estimate and doc_type='estimate' for update;
+ if nullif(upper(btrim(coalesce(p_estimate_number,''))),'') is null then raise exception 'Estimate number required';end if;
+ select * into e from sales_documents where estimate_number=upper(btrim(p_estimate_number)) and doc_type='estimate' for update;
  if not found then raise exception 'Estimate not found';end if;
  if not exists(select 1 from sales_document_lines where document_id=e.id) then raise exception 'Estimate has no items';end if;
  select id into sid from sale_bill_approvals where estimate_id=e.id;
@@ -70,7 +71,7 @@ begin
  values(a.id,'MARG_BILL_SALE_APPROVED','estimate',e.id::text,jsonb_build_object('sale_bill_approval_id',sid,'estimate_number',estno,'marg_bill_number',bill,'stock_deducted_once',true,'dispatch_created',true));
  return sid;
 end$$;
-revoke all on function public.approve_marg_bill_sale(uuid,text) from public,anon;
+revoke all on function public.approve_marg_bill_sale(text,text) from public,anon;
 grant execute on function public.approve_marg_bill_sale(uuid,text) to authenticated;
 
 create or replace function public.get_marg_bill_sale_queue()
