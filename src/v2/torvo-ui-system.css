@@ -2208,3 +2208,40 @@ body{margin:0;min-width:0;overflow-x:hidden}
  #torvo-v2-root>.publicSite .torvoSocialLinks{min-height:0!important;margin-top:6px!important}
  #torvo-v2-root>.publicSite .torvoFeaturedVideo{display:none!important}
 }
+
+
+/* APPROVED PUBLIC TOP COMPOSITION — 2026-09-28 */
+#torvo-v2-root>.publicSite .publicHeaderSearchRow .publicHeroSearchBar{
+ border-radius:8px!important;overflow:hidden!important;border:1px solid #cbd3dc!important;background:#fff!important;
+ box-shadow:0 2px 8px rgba(15,23,42,.06)!important
+}
+#torvo-v2-root>.publicSite .publicHeaderSearchRow .publicHeroSearchBar input{border-radius:0!important}
+#torvo-v2-root>.publicSite .publicHeaderSearchRow .publicHeroSearchBar>button{border-radius:0!important}
+#torvo-v2-root>.publicSite .publicHeaderSearchRow .publicHeroSearchBar>.publicSearchAction{border-radius:0 7px 7px 0!important}
+#torvo-v2-root>.publicSite .publicHeaderPrimary .publicBrand{letter-spacing:.01em!important}
+#torvo-v2-root>.publicSite .publicHeaderPrimary .publicBrand>b{border-radius:3px!important;box-shadow:4px 5px 0 rgba(17,24,39,.2)!important}
+#torvo-v2-root>.publicSite .publicHeaderPrimary .publicBrand strong{font-weight:800!important;letter-spacing:.035em!important}
+@media(min-width:821px){
+ #torvo-v2-root>.publicSite .publicHeaderSearchRow{margin-top:0!important}
+ #torvo-v2-root>.publicSite .publicHeaderSearchRow .publicHeroSearchBar{min-height:48px!important}
+}
+@media(max-width:820px){
+ #torvo-v2-root>.publicSite .publicHeader.topSearchHeader{padding:0 10px 9px!important}
+ #torvo-v2-root>.publicSite .publicHeaderPrimary{height:62px!important;min-height:62px!important}
+ #torvo-v2-root>.publicSite .publicHeaderPrimary .publicBrand>b{width:42px!important;height:42px!important}
+ #torvo-v2-root>.publicSite .publicHeaderPrimary .publicBrand strong{font-size:18px!important}
+ #torvo-v2-root>.publicSite .publicHeaderPrimary .mobileHeaderMark{width:42px!important;height:42px!important;flex-basis:42px!important;border-radius:7px!important}
+ #torvo-v2-root>.publicSite .publicHeaderSearchRow{margin:0!important;padding:0!important}
+ #torvo-v2-root>.publicSite .publicHeaderSearchRow .publicHeroSearchBar{height:50px!important;min-height:50px!important;border-radius:7px!important}
+ #torvo-v2-root>.publicSite .publicHeaderSearchRow .publicHeroSearchBar input{min-width:0!important;padding-left:13px!important;font-size:10px!important}
+ #torvo-v2-root>.publicSite .publicHeaderSearchRow .publicHeroSearchBar>button{width:43px!important;min-width:43px!important}
+ #torvo-v2-root>.publicSite .publicHeaderSearchRow .publicHeroSearchBar>.publicSearchAction{width:50px!important;min-width:50px!important;border-radius:0 6px 6px 0!important}
+ #torvo-v2-root>.publicSite .publicHero.compactHero{margin-top:8px!important}
+ #torvo-v2-root>.publicSite .torvoPrimaryCategories{display:grid!important;grid-template-columns:1fr!important;gap:7px!important;padding:0!important;overflow:visible!important}
+ #torvo-v2-root>.publicSite .torvoPrimaryCategories>button{width:100%!important;max-width:none!important;min-width:0!important;flex-basis:auto!important;height:126px!important;min-height:126px!important}
+ #torvo-v2-root>.publicSite .torvoPrimaryCategories>button>img,#torvo-v2-root>.publicSite .torvoPrimaryCategories .categoryPhotoFallback{height:126px!important;min-height:126px!important}
+ #torvo-v2-root>.publicSite .categoryCopy{padding:12px 14px!important}
+ #torvo-v2-root>.publicSite .categoryCopy b{font-size:16px!important}
+ #torvo-v2-root>.publicSite .categoryCopy small{font-size:7px!important}
+ #torvo-v2-root>.publicSite .categoryCopy em{margin-top:8px!important;min-height:28px!important}
+}
