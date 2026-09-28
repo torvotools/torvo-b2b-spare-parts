@@ -17,4 +17,8 @@ const cleanup=fs.readFileSync('docs/TORVO-V2-PRESENTATION-CLEANUP-MAP.md','utf8'
 for(const file of [...canonical,...structural,...retired])if(!cleanup.includes(file))fail(`cleanup map missing audited layer: ${file}`);
 if(!process.exitCode)pass('cleanup map covers active and retired presentation layers');
 if(process.exitCode)process.exit(process.exitCode);
+
+const designConstitution=read('docs/TORVO-V2-UI-DESIGN-CONSTITUTION.md');
+if(!designConstitution.includes('NO DUPLICATE UI ACTIONS')||!designConstitution.includes('REPLACE or CONSOLIDATE'))fail('owner no-duplicate UI rule missing');
+pass('owner no-duplicate UI action rule locked');
 console.log(`TORVO V2 presentation dependency guard passed (${imported.length} active CSS imports; ${retired.length} retired override imports blocked).`);
