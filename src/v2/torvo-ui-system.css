@@ -447,3 +447,41 @@ body{margin:0;min-width:0;overflow-x:hidden}
 @media (min-width:1600px){
  #torvo-v2-root .torvoPrimaryCategories button{min-height:70px!important}
 }
+
+
+/* PRIMARY PRODUCT CATEGORIES — genuine catalog photography, desktop + mobile */
+#torvo-v2-root .torvoPrimaryCategories{
+ display:grid!important;grid-template-columns:repeat(3,minmax(0,1fr))!important;
+ gap:clamp(8px,1vw,14px)!important;width:calc(100% - 24px)!important;margin:14px auto 18px!important;
+}
+#torvo-v2-root .torvoPrimaryCategories button{
+ position:relative!important;display:grid!important;grid-template-columns:clamp(58px,8vw,104px) minmax(0,1fr)!important;
+ align-items:center!important;min-width:0!important;min-height:clamp(72px,8vw,104px)!important;padding:8px 12px!important;
+ overflow:hidden!important;border:1px solid #d7dbe1!important;border-radius:6px!important;background:#fff!important;color:#15171b!important;
+ box-shadow:0 5px 16px rgba(16,24,40,.045)!important;text-align:left!important;
+}
+#torvo-v2-root .torvoPrimaryCategories button img{
+ display:block!important;width:100%!important;height:clamp(56px,7vw,88px)!important;object-fit:contain!important;
+ padding:4px!important;background:#f7f8f9!important;border-right:1px solid #eceef1!important;
+}
+#torvo-v2-root .torvoPrimaryCategories button span{
+ padding-left:clamp(8px,1vw,16px)!important;font-size:clamp(11px,.9vw,14px)!important;font-weight:900!important;letter-spacing:.035em!important;
+}
+#torvo-v2-root .torvoPrimaryCategories button:has(img):before{content:none!important}
+#torvo-v2-root .torvoPrimaryCategories button:not(:has(img)){grid-template-columns:1fr!important;border-style:dashed!important}
+#torvo-v2-root .torvoPrimaryCategories button:not(:has(img)) span{padding-left:0!important;text-align:center!important}
+@media(min-width:801px){
+ #torvo-v2-root .torvoPrimaryCategories{width:var(--tv-public-width)!important;margin:clamp(12px,1.2vw,20px) auto clamp(16px,1.6vw,26px)!important}
+ #torvo-v2-root .torvoPrimaryCategories button{grid-template-columns:clamp(76px,7vw,112px) minmax(0,1fr) auto!important;min-height:clamp(82px,7vw,112px)!important;padding:8px 14px 8px 8px!important}
+ #torvo-v2-root .torvoPrimaryCategories button img{height:clamp(66px,6vw,96px)!important}
+ #torvo-v2-root .torvoPrimaryCategories button:after{content:"VIEW RANGE";margin-left:auto;color:#747a84;font-size:9px;font-weight:900;letter-spacing:.08em}
+ #torvo-v2-root .torvoPrimaryCategories button:hover{border-color:var(--tv-red)!important;transform:translateY(-1px)}
+ #torvo-v2-root .torvoPrimaryCategories button:hover:after{color:var(--tv-red)}
+}
+@media(max-width:800px){
+ #torvo-v2-root .torvoPrimaryCategories{grid-template-columns:repeat(3,minmax(0,1fr))!important}
+ #torvo-v2-root .torvoPrimaryCategories button{grid-template-columns:1fr!important;grid-template-rows:58px auto!important;gap:5px!important;padding:6px!important;text-align:center!important}
+ #torvo-v2-root .torvoPrimaryCategories button img{width:100%!important;height:58px!important;border-right:0!important;border-bottom:1px solid #eceef1!important}
+ #torvo-v2-root .torvoPrimaryCategories button span{padding:0!important;font-size:10px!important;text-align:center!important;line-height:1.15!important}
+ #torvo-v2-root .torvoPrimaryCategories button:after{content:none!important}
+}
