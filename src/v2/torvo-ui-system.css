@@ -1273,3 +1273,17 @@ body{margin:0;min-width:0;overflow-x:hidden}
  #torvo-v2-root>.publicSite .publicSupport{padding:16px!important;background:#fff!important;border:1px solid #ddd!important}
  #torvo-v2-root>.publicSite .publicAbout{padding:18px 4px!important}
 }
+
+
+/* PUBLIC HOME PRODUCT-FIRST ORDER REFINEMENT */
+@media(min-width:821px){
+ #torvo-v2-root>.publicSite .desktopDiscoveryOnly{margin-top:10px!important}
+ #torvo-v2-root>.publicSite .publicCatalog{padding-bottom:8px!important}
+ #torvo-v2-root>.publicSite .retailFlow{margin-top:24px!important;margin-bottom:14px!important}
+ #torvo-v2-root>.publicSite .desktopRequirementBand{margin-top:14px!important;margin-bottom:14px!important}
+ #torvo-v2-root>.publicSite .desktopDealerFinderBlock{margin-top:0!important;margin-bottom:30px!important}
+}
+@media(max-width:820px){
+ #torvo-v2-root>.publicSite .desktopDiscoveryOnly{margin-top:8px!important}
+ #torvo-v2-root>.publicSite .retailFlow{margin-top:18px!important}
+}
