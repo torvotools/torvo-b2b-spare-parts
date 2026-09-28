@@ -3,6 +3,15 @@
 -- STAGING ONLY until genuine transaction acceptance. Production requires Owner approval.
 -- Internal legacy sales_order names remain compatibility identifiers; user-facing terminology is QUOTATION.
 
+create sequence if not exists public.torvo_estimate_number_seq start 1;
+alter table public.sales_documents add column if not exists estimate_number text;
+create unique index if not exists uq_sales_documents_estimate_number on public.sales_documents(estimate_number) where estimate_number is not null;
+create or replace function public.torvo_assign_estimate_number() returns trigger language plpgsql set search_path=public as $begin if new.doc_type='estimate' and new.estimate_number is null then new.estimate_number:='EST-'||to_char(current_date,'YYYY')||'-'||lpad(nextval('public.torvo_estimate_number_seq')::text,6,'0');end if;return new;end$;
+drop trigger if exists trg_torvo_assign_estimate_number on public.sales_documents;
+create trigger trg_torvo_assign_estimate_number before insert on public.sales_documents for each row execute function public.torvo_assign_estimate_number();
+update public.sales_documents set estimate_number='EST-'||to_char(created_at,'YYYY')||'-LEGACY-'||upper(substr(replace(id::text,'-',''),1,8)) where doc_type='estimate' and estimate_number is null;
+
+
 create table if not exists public.marg_bill_sales(
   id uuid primary key default gen_random_uuid(),
   estimate_id uuid not null unique references public.sales_documents(id) on delete restrict,
@@ -19,7 +28,7 @@ create unique index if not exists uq_marg_bill_sales_bill_no on public.marg_bill
 alter table public.marg_bill_sales enable row level security;
 revoke all on public.marg_bill_sales from anon,authenticated;
 
-create or replace function public.approve_marg_bill_sale(p_estimate uuid,p_marg_bill_no text)
+create or replace function public.approve_marg_bill_sale(p_estimate_number text,p_marg_bill_no text)
 returns uuid language plpgsql security definer set search_path=public as $$
 declare
  a public.app_users%rowtype;e public.sales_documents%rowtype;ln record;
@@ -30,7 +39,8 @@ begin
  bill:=upper(btrim(coalesce(p_marg_bill_no,'')));
  if bill='' or length(bill)>80 then raise exception 'VALID MARG BILL NUMBER REQUIRED';end if;
 
- select * into e from public.sales_documents where id=p_estimate and doc_type='estimate' for update;
+ if nullif(upper(btrim(coalesce(p_estimate_number,''))),'') is null then raise exception 'ESTIMATE NUMBER REQUIRED';end if;
+ select * into e from public.sales_documents where estimate_number=upper(btrim(p_estimate_number)) and doc_type='estimate' for update;
  if not found then raise exception 'ESTIMATE NOT FOUND';end if;
  if e.status in('delivered') then raise exception 'DELIVERED ESTIMATE CANNOT BE POSTED AS A NEW SALE';end if;
  if exists(select 1 from public.marg_bill_sales where estimate_id=e.id) then raise exception 'ESTIMATE ALREADY POSTED AS SALE';end if;
@@ -66,10 +76,10 @@ begin
  return sid;
 end;$$;
 
-revoke all on function public.approve_marg_bill_sale(uuid,text) from public,anon;
-grant execute on function public.approve_marg_bill_sale(uuid,text) to authenticated;
+revoke all on function public.approve_marg_bill_sale(text,text) from public,anon;
+grant execute on function public.approve_marg_bill_sale(text,text) to authenticated;
 
-comment on function public.approve_marg_bill_sale(uuid,text) is
+comment on function public.approve_marg_bill_sale(text,text) is
 'TORVO V2 atomic Marg Bill approval boundary. Validates unique bill + stock, posts Sale, deducts stock exactly in the same transaction and creates Dispatch pick-list.';
 
 -- Legacy actual-delivery stock deduction must not double-deduct a Marg-posted Sale.
@@ -112,3 +122,7 @@ begin
 end;$$;
 revoke all on function public.finalize_actual_delivery(uuid,text,text) from public,anon;
 grant execute on function public.finalize_actual_delivery(uuid,text,text) to authenticated;
+
+
+create or replace function public.get_marg_bill_sale_queue() returns table(estimate_id uuid,estimate_number text,dealer_id uuid,final_payable numeric,marg_bill_number text,sale_status text,dispatch_status text,approved_at timestamptz) language plpgsql stable security definer set search_path=public as $$declare a app_users%rowtype;begin select * into a from app_users where auth_user_id=auth.uid() and active=true;if not found or a.role not in('owner','admin','accountant','store_keeper') then raise exception 'STAFF AUTHORIZATION REQUIRED';end if;return query select e.id,e.estimate_number,e.dealer_id,e.final_payable,s.marg_bill_no,s.status,d.status,s.approved_at from marg_bill_sales s join sales_documents e on e.id=s.estimate_id left join dispatches d on d.estimate_id=e.id where s.status in('posted','corrected') order by s.approved_at desc;end$$;
+revoke all on function public.get_marg_bill_sale_queue() from public,anon;grant execute on function public.get_marg_bill_sale_queue() to authenticated;
