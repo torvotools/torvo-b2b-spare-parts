@@ -90,3 +90,10 @@ LOCKed business/UI requirements remain respected.
 - The same capability may appear in genuinely different contexts (for example desktop finder vs modal/mobile flow) when each context needs its own entry point; this is not a duplicate.
 - One surface should have one clear primary action for one job. Secondary entry points must have a distinct context or purpose.
 - Before final UI acceptance, audit Website, Dealer, Salesman, Store Keeper, Owner/Admin and Accountant for duplicate buttons, duplicate navigation, duplicate cards and obsolete presentation layers.
+
+## OWNER RULE — FLUID RESPONSIVE + REFRESH STABILITY (2026-09-28)
+- Every TORVO page and component must adapt to the actual viewport; no desktop-sized content on small screens and no unnecessarily narrow mobile-sized shell on large screens.
+- Refresh must preserve the same canonical structure: no white flash caused by competing presentation owners, no duplicate/vanishing sections, no stray content, and no breakpoint-dependent stacking surprises.
+- Images/product cards reserve stable geometry so loading does not cause avoidable layout jumps.
+- Final responsive visibility ownership is deterministic: mobile and desktop variants must never be visible together at the same breakpoint.
+- Historical CSS/presentation rules that conflict with the final design system must be quarantined, consolidated, or retired dependency-safely rather than layered indefinitely.
