@@ -5,7 +5,7 @@ Branch: `torvo-v2-build`.
 
 This file prevents source completion from being confused with production acceptance. A gate becomes PASS only when the listed real evidence exists. Never manufacture identities, transactions, backup artifacts, signing evidence or deployment evidence merely to mark a gate complete.
 
-| Gate | Required real evidence | Current verified state |
+  Gate   Required real evidence | Current verified state |
 | --- | --- | --- |
 | Dealer auth/device | Approved real staging Dealer; registered-email OTP path; Device B invalidates Device A; revoked device fails private reads/writes | OPEN — staging currently has no active Dealer acceptance identity |
 | Staff auth/role | Authorized staging Owner/Admin/Accountant/Salesman/Store Keeper as applicable; master-email OTP/device/runtime boundary tests | PARTIAL — genuine Owner OR@000 bootstrap and master-email OTP verification/session creation have succeeded in STAGING; protected Owner workspace runtime acceptance remains OPEN, and no fake secondary Staff identities are created |
