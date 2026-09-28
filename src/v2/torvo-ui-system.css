@@ -113,3 +113,23 @@
  #torvo-v2-root :is(button,.button):not(.iconBtn):not(.iconOnly){min-height:44px}
  #torvo-v2-root :is(.dealerActionModal,.dealerRegModal,.filterSheet,.smartFilterSheet){border-radius:10px 10px 0 0!important}
 }
+
+/* TORVO V2 UNIVERSAL TYPOGRAPHY + FEEDBACK CONTRACT — UI ONLY */
+#torvo-v2-root{--ui-title-xl:clamp(25px,2.4vw,36px);--ui-title-lg:22px;--ui-title-md:17px;--ui-body:12px;--ui-small:10px;--ui-label:9px}
+#torvo-v2-root :is(.publicSite,.roleApp,.adminVisualPreview,.accountantPreview) h1{font-size:var(--ui-title-xl);line-height:1.08;letter-spacing:-.7px}
+#torvo-v2-root :is(.publicSite,.roleApp,.adminVisualPreview,.accountantPreview) h2{font-size:var(--ui-title-lg);line-height:1.15;letter-spacing:-.35px}
+#torvo-v2-root :is(.publicSite,.roleApp,.adminVisualPreview,.accountantPreview) h3{font-size:var(--ui-title-md);line-height:1.2}
+#torvo-v2-root :is(.publicSite,.roleApp,.adminVisualPreview,.accountantPreview) p{line-height:1.5}
+#torvo-v2-root :is(.eyebrow,.publicKicker){font-size:var(--ui-label)!important;font-weight:750!important;letter-spacing:.9px!important;text-transform:uppercase;color:var(--ui-red)}
+#torvo-v2-root :is(.errorText,.inlineError){color:#a40e15!important;background:#fff5f5!important;border:1px solid #f0b8bb!important;padding:9px 11px!important}
+#torvo-v2-root :is(.inlineSuccess,.dealerRegistrationSuccess){color:#05603a!important;background:#ecfdf3!important;border:1px solid #abefc6!important;padding:9px 11px!important}
+#torvo-v2-root :is(.inlineNotice,.accountantNotice,.adminNotice){border:1px solid #e4e7ec!important;background:#fafbfc!important;color:#475467!important}
+#torvo-v2-root :is(.empty,.workspaceEmpty,.adminSearchState){color:var(--ui-muted)!important}
+#torvo-v2-root :is(.publicModal,.modal,.dealerActionModal,.dealerRegModal) header{border-bottom:1px solid #e4e7ec}
+#torvo-v2-root :is(.publicModal,.modal,.dealerActionModal,.dealerRegModal) footer{border-top:1px solid #e4e7ec}
+#torvo-v2-root :is(.iconBtn,.iconOnly){display:inline-grid!important;place-items:center!important;aspect-ratio:1/1;padding:0!important}
+#torvo-v2-root :is(.iconBtn,.iconOnly) svg{width:18px;height:18px}
+#torvo-v2-root :is(.publicSite,.roleApp,.adminVisualPreview,.accountantPreview) table th{font-size:10px!important;font-weight:750!important;color:#475467!important;text-transform:uppercase;letter-spacing:.3px}
+#torvo-v2-root :is(.publicSite,.roleApp,.adminVisualPreview,.accountantPreview) table td{font-size:11px!important;color:#344054!important}
+#torvo-v2-root :is(.publicSite,.roleApp,.adminVisualPreview,.accountantPreview) :is(button,input,select,textarea){font-size:11px}
+@media(max-width:820px){#torvo-v2-root{--ui-title-xl:27px;--ui-title-lg:20px;--ui-title-md:16px;--ui-body:12px}#torvo-v2-root :is(.publicSite,.roleApp) :is(button,input,select,textarea){font-size:12px}}
