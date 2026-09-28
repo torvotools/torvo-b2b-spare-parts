@@ -2506,3 +2506,18 @@ body{margin:0;min-width:0;overflow-x:hidden}
  #torvo-v2-root>.publicSite .torvoFollowBlock h3{font-size:11px!important}
  #torvo-v2-root>.publicSite .mobileBottomNav span{font-size:7px!important;font-weight:650!important}
 }
+
+
+/* PRODUCT CARD READABILITY FINISH — premium without oversized mobile cards */
+#torvo-v2-root>.publicSite .publicProductCard{overflow:hidden!important;border:1px solid #e1e4e8!important;background:#fff!important;box-shadow:0 4px 14px rgba(15,23,42,.055)!important}
+#torvo-v2-root>.publicSite .publicProductCard:hover{border-color:#cfd4da!important;box-shadow:0 8px 22px rgba(15,23,42,.09)!important}
+#torvo-v2-root>.publicSite .publicProductPhoto{background:linear-gradient(180deg,#fff,#f7f8fa)!important}
+#torvo-v2-root>.publicSite .publicProductPhoto img{max-width:90%!important;max-height:90%!important;object-fit:contain!important}
+@media(max-width:820px){
+ #torvo-v2-root>.publicSite .publicProductPhoto{height:122px!important;min-height:122px!important}
+ #torvo-v2-root>.publicSite .publicProductBody{padding:9px!important}
+ #torvo-v2-root>.publicSite .publicProductBody>span{font-size:7px!important;line-height:1.15!important;letter-spacing:.04em!important}
+ #torvo-v2-root>.publicSite .publicProductBody h3{font-size:11px!important;line-height:1.16!important;margin:4px 0!important}
+ #torvo-v2-root>.publicSite .publicProductMeta small{font-size:7px!important;line-height:1.2!important}
+ #torvo-v2-root>.publicSite .publicProductBody .formTwo button{min-height:32px!important;font-size:7.5px!important;font-weight:700!important}
+}
