@@ -218,3 +218,28 @@
 #torvo-v2-root :is(button,a){-webkit-tap-highlight-color:transparent}
 @media(max-width:1180px){#torvo-v2-root .adminActionGrid,#torvo-v2-root :is(.kpis,.premiumKpis){grid-template-columns:repeat(2,minmax(0,1fr))!important}}
 @media(max-width:620px){#torvo-v2-root .adminActionGrid,#torvo-v2-root :is(.kpis,.premiumKpis){grid-template-columns:1fr!important}}
+
+/* FLUID RESPONSIVE + PREMIUM ITEM CARD CONTRACT */
+#torvo-v2-root{--tv-page-pad:clamp(12px,2.2vw,34px);--tv-content:1420px}
+#torvo-v2-root :is(.publicSite,.roleApp,.accountantPreview,.adminPreview){max-width:100%;overflow-x:clip}
+#torvo-v2-root :is(img,video,iframe){max-width:100%}
+#torvo-v2-root :is(input,select,textarea,button){max-width:100%;min-width:0}
+#torvo-v2-root .publicShowcase{padding:clamp(24px,4vw,54px) var(--tv-page-pad)!important}
+#torvo-v2-root .publicShowcaseGrid{display:grid!important;grid-template-columns:repeat(auto-fit,minmax(min(100%,250px),1fr))!important;gap:clamp(10px,1.4vw,18px)!important;max-width:var(--tv-content)!important;margin:18px auto 0!important}
+#torvo-v2-root .publicProductCard{position:relative!important;min-width:0!important;border:1px solid #dfe3e8!important;border-radius:6px!important;background:#fff!important;overflow:hidden!important;box-shadow:0 8px 24px rgba(16,24,40,.06)!important;transition:transform .18s ease,border-color .18s ease,box-shadow .18s ease!important}
+#torvo-v2-root .publicProductCard:hover{transform:translateY(-3px)!important;border-color:#c9cdd3!important;box-shadow:0 16px 36px rgba(16,24,40,.1)!important}
+#torvo-v2-root .publicProductPhoto{aspect-ratio:1/1!important;width:100%!important;border:0!important;border-bottom:1px solid #eceef1!important;border-radius:0!important;background:linear-gradient(145deg,#f4f5f6,#fff)!important;padding:clamp(10px,1.5vw,18px)!important;overflow:hidden!important}
+#torvo-v2-root .publicProductPhoto img{width:100%!important;height:100%!important;object-fit:contain!important;transition:transform .22s ease!important}
+#torvo-v2-root .publicProductCard:hover .publicProductPhoto img{transform:scale(1.035)}
+#torvo-v2-root .publicProductBody{padding:clamp(12px,1.5vw,17px)!important;gap:8px!important}
+#torvo-v2-root .publicProductBody>span{width:max-content!important;max-width:100%!important;padding:4px 7px!important;border-radius:3px!important;background:#fff0f0!important;color:var(--tv-red)!important;font-size:9px!important;font-weight:850!important;letter-spacing:.08em!important}
+#torvo-v2-root .publicProductBody h3{font-size:clamp(15px,1.25vw,18px)!important;line-height:1.25!important;color:var(--tv-black)!important;min-height:2.5em!important}
+#torvo-v2-root .publicProductMeta{gap:6px!important}
+#torvo-v2-root .publicProductMeta small{padding:5px 7px!important;border-radius:3px!important;background:#f2f4f6!important;border:1px solid #e5e7eb!important;color:#343a40!important;font-size:9px!important;font-weight:750!important}
+#torvo-v2-root .publicProductBody p{font-size:12px!important;line-height:1.5!important;color:#69717b!important;display:-webkit-box!important;-webkit-line-clamp:2!important;-webkit-box-orient:vertical!important;overflow:hidden!important;min-height:36px!important}
+#torvo-v2-root .publicProductCard .formTwo{grid-template-columns:1fr!important;gap:7px!important;margin-top:auto!important}
+#torvo-v2-root .publicProductCard .formTwo button{min-height:40px!important;border-radius:4px!important}
+#torvo-v2-root .publicProductCard .formTwo button:first-child{width:100%!important;background:#fff!important;color:var(--tv-black)!important;border:1px solid #cfd4da!important}
+#torvo-v2-root .publicProductCard .formTwo .primary{width:100%!important;background:var(--tv-red)!important;color:#fff!important;border-color:var(--tv-red)!important}
+@media(max-width:760px){#torvo-v2-root{--tv-page-pad:12px}#torvo-v2-root .publicShowcaseGrid{grid-template-columns:repeat(2,minmax(0,1fr))!important;gap:8px!important}#torvo-v2-root .publicProductBody{padding:10px!important}#torvo-v2-root .publicProductBody h3{font-size:14px!important}#torvo-v2-root .publicProductBody p{font-size:11px!important}#torvo-v2-root .publicProductCard .formTwo button{font-size:10px!important;padding:8px 6px!important}}
+@media(max-width:390px){#torvo-v2-root .publicShowcaseGrid{grid-template-columns:1fr!important}}
