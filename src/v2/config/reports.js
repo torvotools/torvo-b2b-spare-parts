@@ -11,7 +11,6 @@ export const REPORT_CATALOG=[
 {id:'reorder',name:'Low Stock & Reorder',roles:['owner','admin','store_keeper'],metrics:['low','out','required','ordered']},
 {id:'dispatch',name:'Dispatch Turnaround',roles:['owner','admin','store_keeper'],metrics:['pending','ready','delivered','turnaround']},
 {id:'attendance',name:'Salesman Attendance',roles:['owner','admin'],metrics:['present','late','leave','absent','check_in','check_out']},
-{id:'scheme',name:'Scheme Progress',roles:['owner','admin'],metrics:['participants','achieved','points','rewards']},
 {id:'opportunity',name:'Missing Range Opportunity',roles:['owner','admin'],metrics:['searches','requests','sourced','open']},
 {id:'audit',name:'Audit & Activity',roles:['owner','admin'],metrics:['actions','users','sensitive_actions','changes']}
 ];
