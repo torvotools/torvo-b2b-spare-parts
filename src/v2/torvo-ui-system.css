@@ -583,3 +583,34 @@ body{margin:0;min-width:0;overflow-x:hidden}
  #torvo-v2-root :is(.workspaceTabs,.quickActions,.returnsTabs,.approvalTabs)>button{flex:0 0 auto;white-space:nowrap}
  #torvo-v2-root th,#torvo-v2-root td{padding:9px 8px}
 }
+
+
+/* ROLE + ADMIN + ACCOUNTANT VISUAL RHYTHM — presentation only */
+#torvo-v2-root :is(.adminVisualPreview,.accountantPreview,.roleApp){min-width:0}
+#torvo-v2-root :is(.adminMetricShell,.kpis,.knowledgeStats,.accountantSummary,.roleMiniGrid){
+ display:grid;grid-template-columns:repeat(auto-fit,minmax(150px,1fr));gap:9px!important;min-width:0;
+}
+#torvo-v2-root :is(.adminMetricShell>*,.kpis>*,.knowledgeStats>*,.accountantSummary>*,.roleMiniGrid>*){
+ min-width:0;border:1px solid var(--tv-line)!important;border-radius:6px!important;background:#fff!important;box-shadow:none!important;
+}
+#torvo-v2-root :is(.adminActionGrid,.roleGrid,.dealerBenefitGrid){
+ display:grid;grid-template-columns:repeat(auto-fit,minmax(160px,1fr));gap:9px!important;
+}
+#torvo-v2-root :is(.adminActionGrid,.roleGrid)>button{
+ min-height:76px;padding:12px;border:1px solid var(--tv-line)!important;border-radius:6px!important;background:#fff!important;color:var(--tv-ink)!important;text-align:left;
+}
+#torvo-v2-root :is(.adminActionGrid,.roleGrid)>button:hover{border-color:var(--tv-red)!important;background:#fffafa!important}
+#torvo-v2-root :is(.adminUniversalBar,.accountantSharedSearch,.roleSharedSearch){
+ min-width:0;border:1px solid var(--tv-line-strong)!important;border-radius:5px!important;background:#fff!important;box-shadow:none!important;
+}
+#torvo-v2-root :is(.adminUniversalResults,.accountantAlertDetail,.accountantFilterPanel,.roleFilterPanel){
+ border:1px solid var(--tv-line)!important;border-radius:6px!important;background:#fff!important;box-shadow:var(--tv-shadow)!important;
+}
+#torvo-v2-root :is(.previewBadge,.approvalCount){border-radius:999px!important}
+@media(max-width:800px){
+ #torvo-v2-root :is(.adminMetricShell,.kpis,.knowledgeStats,.accountantSummary,.roleMiniGrid){grid-template-columns:repeat(2,minmax(0,1fr))}
+ #torvo-v2-root :is(.adminActionGrid,.roleGrid){grid-template-columns:repeat(2,minmax(0,1fr))}
+}
+@media(max-width:390px){
+ #torvo-v2-root :is(.adminMetricShell,.kpis,.knowledgeStats,.accountantSummary,.roleMiniGrid,.adminActionGrid,.roleGrid){grid-template-columns:1fr}
+}
