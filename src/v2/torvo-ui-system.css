@@ -331,3 +331,29 @@ body{margin:0;min-width:0;overflow-x:hidden}
  #torvo-v2-root .publicShowcaseGrid{gap:clamp(14px,1.4vw,24px)!important}
  #torvo-v2-root .publicProductCard{width:100%;min-width:0}
 }
+
+/* PREMIUM PUBLIC ITEM CARD — product-first, privacy-safe */
+#torvo-v2-root .publicShowcaseGrid{align-items:stretch!important}
+#torvo-v2-root .publicProductCard{display:flex!important;flex-direction:column!important;height:100%!important;border:1px solid #d9dde3!important;border-radius:8px!important;background:#fff!important;box-shadow:0 7px 22px rgba(16,24,40,.055)!important}
+#torvo-v2-root .publicProductPhoto{position:relative!important;display:grid!important;place-items:center!important;width:100%!important;aspect-ratio:1/1!important;padding:clamp(14px,1.6vw,24px)!important;background:linear-gradient(180deg,#fff 0%,#f5f6f8 100%)!important;border:0!important;border-bottom:1px solid #e5e7eb!important;overflow:hidden!important}
+#torvo-v2-root .publicProductPhoto:after{content:"TORVO";position:absolute;right:10px;bottom:8px;font-size:9px;font-weight:900;letter-spacing:.16em;color:#b9bdc4}
+#torvo-v2-root .publicProductPhoto img{width:100%!important;height:100%!important;object-fit:contain!important;transition:transform .18s ease!important}
+#torvo-v2-root .publicProductPhoto>svg{width:28%!important;height:28%!important;max-width:74px;color:#c4c8ce}
+#torvo-v2-root .publicProductBody{display:flex!important;flex:1!important;flex-direction:column!important;padding:clamp(13px,1.25vw,18px)!important;min-width:0!important}
+#torvo-v2-root .publicProductBody>span{align-self:flex-start!important;margin:0 0 8px!important;padding:4px 7px!important;background:#111318!important;color:#fff!important;border-left:3px solid var(--tv-red)!important;font-size:9px!important;font-weight:900!important;line-height:1!important;letter-spacing:.09em!important}
+#torvo-v2-root .publicProductBody h3{margin:0 0 9px!important;color:#111318!important;font-size:clamp(15px,1.05vw,18px)!important;line-height:1.24!important;font-weight:850!important;letter-spacing:.01em!important}
+#torvo-v2-root .publicProductMeta{display:flex!important;flex-wrap:wrap!important;gap:6px!important;margin:0 0 9px!important}
+#torvo-v2-root .publicProductMeta small{display:inline-flex!important;align-items:center!important;min-height:25px!important;padding:4px 7px!important;background:#f1f2f4!important;border:1px solid #e0e3e7!important;color:#343840!important;font-size:10px!important;font-weight:800!important;letter-spacing:.035em!important}
+#torvo-v2-root .publicProductBody>p{margin:0 0 13px!important;color:#626873!important;font-size:11px!important;line-height:1.45!important;display:-webkit-box!important;-webkit-line-clamp:2!important;-webkit-box-orient:vertical!important;overflow:hidden!important}
+#torvo-v2-root .publicProductCard .formTwo{margin-top:auto!important;grid-template-columns:1fr 1fr!important;gap:7px!important}
+#torvo-v2-root .publicProductCard .formTwo button{min-height:42px!important;padding:8px 9px!important;font-size:10px!important;font-weight:900!important;letter-spacing:.025em!important}
+#torvo-v2-root .publicProductCard .formTwo button:first-child{background:#fff!important;color:#111318!important;border:1px solid #bcc2ca!important}
+#torvo-v2-root .publicProductCard .formTwo .primary{background:var(--tv-red)!important;color:#fff!important;border:1px solid var(--tv-red)!important}
+#torvo-v2-root .publicProductCard .formTwo .primary:hover{filter:brightness(.93)}
+@media(max-width:760px){
+ #torvo-v2-root .publicProductBody{padding:11px!important}
+ #torvo-v2-root .publicProductBody h3{font-size:13px!important}
+ #torvo-v2-root .publicProductBody>p{font-size:10px!important}
+ #torvo-v2-root .publicProductCard .formTwo{grid-template-columns:1fr!important}
+ #torvo-v2-root .publicProductCard .formTwo button{min-height:38px!important}
+}
