@@ -891,3 +891,36 @@ body{margin:0;min-width:0;overflow-x:hidden}
  #torvo-v2-root .businessFinalCard{border-radius:7px!important;box-shadow:0 14px 36px rgba(0,0,0,.16)!important}
  #torvo-v2-root .dealerRegModal{border-radius:7px!important}
 }
+
+
+/* APPROVED MAIN THEME — catalog, dealer/user management, messages */
+#torvo-v2-root .shortcutStrip{display:flex!important;gap:6px!important;flex-wrap:wrap!important;padding:7px!important;border:1px solid var(--tv-line)!important;border-radius:6px!important;background:#f5f6f7!important}
+#torvo-v2-root .catalogFilters{display:grid!important;grid-template-columns:repeat(auto-fit,minmax(150px,1fr))!important;gap:8px!important;padding:10px!important;border:1px solid var(--tv-line)!important;border-radius:6px!important;background:#f7f8f9!important}
+#torvo-v2-root .catalogThumb{display:grid!important;place-items:center!important;width:54px!important;height:54px!important;border:1px solid #e2e5e8!important;border-radius:5px!important;background:#f7f8f9!important;overflow:hidden!important}
+#torvo-v2-root .catalogThumb img{width:100%!important;height:100%!important;object-fit:contain!important}
+#torvo-v2-root .formGrid{display:grid!important;grid-template-columns:repeat(2,minmax(0,1fr))!important;gap:9px!important}
+#torvo-v2-root .formGrid .wide{grid-column:1/-1!important}
+#torvo-v2-root :is(.dealerManageList,.requestList){gap:8px!important}
+#torvo-v2-root .dealerManageList>*{border:1px solid var(--tv-line)!important;border-radius:6px!important;background:#fff!important}
+#torvo-v2-root :is(.localTools,.approvalPermissionPanel,.rateChangeFlow){
+ padding:10px!important;border:1px solid var(--tv-line)!important;border-radius:6px!important;background:#f7f8f9!important;
+}
+#torvo-v2-root .approvalPermissionRow{padding:9px 0!important;border-bottom:1px solid #e6e8eb!important}
+#torvo-v2-root .customerDataHead{padding-bottom:9px!important;border-bottom:1px solid #eceef1!important}
+#torvo-v2-root .sectionLabel{color:var(--tv-red)!important;font-size:9px!important;font-weight:900!important;letter-spacing:.08em!important}
+#torvo-v2-root :is(.empty,.miniEmpty){
+ border:1px dashed #cbd0d6!important;border-radius:6px!important;background:#fafbfc!important;color:#747a84!important;
+}
+#torvo-v2-root :is(.inlineError,.businessFinalError,.errorText){border-left:3px solid #c62828!important;background:#fff1f1!important;color:#8e2020!important}
+#torvo-v2-root :is(.inlineSuccess,.businessFinalGood){border-left:3px solid #168c46!important;background:#edf8f1!important;color:#146d3b!important}
+#torvo-v2-root .businessFinalBad{color:#a92525!important}
+#torvo-v2-root .modalLayer{backdrop-filter:blur(2px)}
+#torvo-v2-root :is(.modal,.dealerActionModal){border-radius:7px!important}
+@media(max-width:800px){
+ #torvo-v2-root .catalogFilters{grid-template-columns:1fr 1fr!important}
+ #torvo-v2-root .formGrid{grid-template-columns:1fr!important}
+ #torvo-v2-root .formGrid .wide{grid-column:auto!important}
+}
+@media(max-width:390px){
+ #torvo-v2-root .catalogFilters{grid-template-columns:1fr!important}
+}
