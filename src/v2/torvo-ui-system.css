@@ -1323,3 +1323,59 @@ body{margin:0;min-width:0;overflow-x:hidden}
  #torvo-v2-root>.publicSite .torvoPrimaryCategories{gap:5px!important}
  #torvo-v2-root>.publicSite .torvoPrimaryCategories button{min-height:96px!important}
 }
+
+
+/* TORVO PUBLIC JOURNEY BULK SYSTEM — detail, cart, dealer, requirement, support */
+#torvo-v2-root>.publicSite .publicModalBackdrop{background:rgba(12,14,16,.68)!important;backdrop-filter:blur(3px)!important}
+#torvo-v2-root>.publicSite :is(.publicModal,.publicMiniTip){border:1px solid #d6d6d3!important;border-radius:5px!important;background:#fff!important;box-shadow:0 24px 70px rgba(0,0,0,.22)!important}
+#torvo-v2-root>.publicSite .publicModal{padding:0!important;overflow:hidden!important}
+#torvo-v2-root>.publicSite .publicModal>header{position:sticky!important;top:0!important;z-index:3!important;display:flex!important;align-items:center!important;justify-content:space-between!important;gap:12px!important;min-height:54px!important;padding:10px 14px!important;background:#fff!important;border-bottom:1px solid #dededb!important}
+#torvo-v2-root>.publicSite .publicModal>header h2{margin:0!important;font-size:16px!important;line-height:1.2!important;color:#181818!important}
+#torvo-v2-root>.publicSite .publicModal>header button{display:grid!important;place-items:center!important;width:34px!important;height:34px!important;padding:0!important;border:1px solid #d1d1ce!important;border-radius:3px!important;background:#fafaf9!important;color:#222!important}
+#torvo-v2-root>.publicSite .publicModal>:not(header){margin-left:14px!important;margin-right:14px!important}
+#torvo-v2-root>.publicSite .publicModal>:last-child{margin-bottom:14px!important}
+#torvo-v2-root>.publicSite :is(.publicForm,.dealerResult,.dealerRegistrationSuccess,.requirementChoice){border:1px solid #dededb!important;border-radius:4px!important;background:#fff!important;box-shadow:none!important}
+#torvo-v2-root>.publicSite .publicForm{padding:14px!important}
+#torvo-v2-root>.publicSite .publicForm label{display:grid!important;gap:5px!important;font-size:8px!important;font-weight:850!important;letter-spacing:.04em!important;color:#555!important}
+#torvo-v2-root>.publicSite .publicForm :is(input,select,textarea){width:100%!important;min-height:42px!important;border:1px solid #c9c9c6!important;border-radius:3px!important;background:#fff!important;color:#1b1b1b!important;font-size:11px!important;font-weight:500!important;outline:0!important}
+#torvo-v2-root>.publicSite .publicForm textarea{min-height:90px!important;resize:vertical!important}
+#torvo-v2-root>.publicSite .publicForm :is(input,select,textarea):focus{border-color:#777!important;box-shadow:0 0 0 3px rgba(0,0,0,.05)!important}
+#torvo-v2-root>.publicSite .publicForm .primary,
+#torvo-v2-root>.publicSite .cartStepActions .primary,
+#torvo-v2-root>.publicSite .dealerActions .primary{background:#e31b2b!important;color:#fff!important;border:1px solid #e31b2b!important}
+#torvo-v2-root>.publicSite :is(.cartStepActions,.dealerActions){display:flex!important;gap:7px!important;flex-wrap:wrap!important}
+#torvo-v2-root>.publicSite :is(.cartStepActions,.dealerActions)>*{min-height:40px!important}
+#torvo-v2-root>.publicSite .requirementChoice{display:grid!important;grid-template-columns:1fr 1fr!important;gap:8px!important;padding:12px!important}
+#torvo-v2-root>.publicSite .requirementChoice button{min-height:72px!important;padding:10px!important;border:1px solid #d3d3d0!important;border-radius:3px!important;background:#fafaf9!important;color:#222!important;font-size:9px!important;font-weight:900!important}
+#torvo-v2-root>.publicSite .requirementChoice button:hover{border-color:#888!important;background:#fff!important}
+#torvo-v2-root>.publicSite .dealerResult{padding:12px!important}
+#torvo-v2-root>.publicSite .dealerResult h3{margin:0 0 5px!important;font-size:13px!important;color:#181818!important}
+#torvo-v2-root>.publicSite .dealerResult p{margin:3px 0!important;font-size:9px!important;line-height:1.45!important;color:#666!important}
+#torvo-v2-root>.publicSite :is(.dealerResultNotice,.dealerFinderPrivacy){padding:9px 11px!important;border-left:3px solid #e31b2b!important;background:#f7f7f6!important;font-size:8px!important;line-height:1.5!important;color:#555!important}
+#torvo-v2-root>.publicSite .dealerRegistrationSuccess{padding:16px!important;border-left:4px solid #1f9d55!important}
+#torvo-v2-root>.publicSite .dealerRegistrationSuccess h3{margin:0 0 5px!important;font-size:14px!important}
+#torvo-v2-root>.publicSite .dealerRegistrationSuccess p{font-size:9px!important;line-height:1.5!important;color:#555!important}
+#torvo-v2-root>.publicSite .publicMiniTip{max-width:430px!important;padding:22px!important;text-align:center!important}
+#torvo-v2-root>.publicSite .publicMiniTip>svg{width:34px!important;height:34px!important;color:#1f9d55!important}
+#torvo-v2-root>.publicSite .publicMiniTip h3{margin:10px 0 5px!important;font-size:18px!important}
+#torvo-v2-root>.publicSite .publicMiniTip p{font-size:10px!important;line-height:1.55!important;color:#555!important}
+#torvo-v2-root>.publicSite .publicMiniTip strong{display:block!important;margin:9px 0 14px!important;font-size:8px!important;letter-spacing:.04em!important}
+#torvo-v2-root>.publicSite .publicMiniTip .primary{width:100%!important;min-height:42px!important;background:#e31b2b!important;color:#fff!important}
+@media(min-width:821px){
+ #torvo-v2-root>.publicSite .publicModal{width:min(760px,calc(100vw - 48px))!important;max-height:88vh!important;overflow:auto!important}
+ #torvo-v2-root>.publicSite .publicModal.customerJourney{width:min(860px,calc(100vw - 48px))!important}
+ #torvo-v2-root>.publicSite .publicForm .formTwo{display:grid!important;grid-template-columns:1fr 1fr!important;gap:9px!important}
+}
+@media(max-width:820px){
+ #torvo-v2-root>.publicSite .publicModalBackdrop{align-items:flex-end!important;padding:0!important}
+ #torvo-v2-root>.publicSite :is(.publicModal,.publicMiniTip){width:100%!important;max-width:none!important;border-radius:8px 8px 0 0!important;border-bottom:0!important}
+ #torvo-v2-root>.publicSite .publicModal{max-height:92dvh!important}
+ #torvo-v2-root>.publicSite .publicModal>header{min-height:50px!important;padding:8px 10px!important}
+ #torvo-v2-root>.publicSite .publicModal>header h2{font-size:14px!important}
+ #torvo-v2-root>.publicSite .publicModal>:not(header){margin-left:10px!important;margin-right:10px!important}
+ #torvo-v2-root>.publicSite .publicForm{padding:10px!important}
+ #torvo-v2-root>.publicSite .publicForm .formTwo{grid-template-columns:1fr!important}
+ #torvo-v2-root>.publicSite .requirementChoice{grid-template-columns:1fr!important}
+ #torvo-v2-root>.publicSite :is(.cartStepActions,.dealerActions){display:grid!important;grid-template-columns:1fr!important}
+ #torvo-v2-root>.publicSite .publicMiniTip{padding:20px 14px 24px!important}
+}
