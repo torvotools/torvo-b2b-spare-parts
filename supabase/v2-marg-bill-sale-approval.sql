@@ -3,6 +3,21 @@
 -- Install after Estimate, inventory, dispatch and audit foundations.
 -- Payment is NOT a prerequisite. Stock posts exactly once when an authorized Marg bill is approved.
 
+create sequence if not exists public.torvo_estimate_number_seq start 1;
+alter table public.sales_documents add column if not exists estimate_number text;
+create unique index if not exists uq_sales_documents_estimate_number on public.sales_documents(estimate_number) where estimate_number is not null;
+
+create or replace function public.torvo_assign_estimate_number() returns trigger language plpgsql set search_path=public as $
+begin
+ if new.doc_type='estimate' and new.estimate_number is null then new.estimate_number:='EST-'||to_char(current_date,'YYYY')||'-'||lpad(nextval('public.torvo_estimate_number_seq')::text,6,'0');end if;
+ return new;
+end$;
+drop trigger if exists trg_torvo_assign_estimate_number on public.sales_documents;
+create trigger trg_torvo_assign_estimate_number before insert on public.sales_documents for each row execute function public.torvo_assign_estimate_number();
+
+-- Existing Estimates receive a durable number once; no renumbering afterward.
+update public.sales_documents set estimate_number='EST-'||to_char(created_at,'YYYY')||'-LEGACY-'||upper(substr(replace(id::text,'-',''),1,8)) where doc_type='estimate' and estimate_number is null;
+
 create table if not exists public.sale_bill_approvals(
  id uuid primary key default gen_random_uuid(),
  estimate_id uuid not null unique references public.sales_documents(id) on delete restrict,
@@ -33,7 +48,8 @@ begin
  select id into sid from sale_bill_approvals where estimate_id=e.id;
  if sid is not null then raise exception 'Estimate already posted as Sale';end if;
  if exists(select 1 from sale_bill_approvals where marg_bill_number=bill) then raise exception 'Marg bill number already used';end if;
- estno:='EST-'||upper(substr(replace(e.id::text,'-',''),1,12));
+ estno:=e.estimate_number;
+ if estno is null then raise exception 'Estimate number missing';end if;
  for ln in select item_id,sum(qty) qty from sales_document_lines where document_id=e.id group by item_id order by item_id loop
   select current_qty into q from inventory where item_id=ln.item_id for update;
   if not found then raise exception 'Inventory row missing for item %',ln.item_id;end if;
