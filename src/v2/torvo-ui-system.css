@@ -1438,3 +1438,53 @@ body{margin:0;min-width:0;overflow-x:hidden}
 @media(max-width:390px){
  #torvo-v2-root>.publicSite .publicShowcaseGrid{grid-template-columns:repeat(2,minmax(0,1fr))!important}
 }
+
+
+/* PUBLIC INTERACTION SURFACES — product detail, selection, dealer results */
+#torvo-v2-root>.publicSite .publicModal>header{position:sticky!important;top:0!important;z-index:3!important;display:flex!important;align-items:center!important;justify-content:space-between!important;gap:12px!important;min-height:58px!important;padding:12px 16px!important;border-bottom:1px solid #ddd!important;background:#fff!important}
+#torvo-v2-root>.publicSite .publicModal>header h2{margin:0!important;font-size:14px!important;line-height:1.2!important}
+#torvo-v2-root>.publicSite .publicModal>header button{display:grid!important;place-items:center!important;width:34px!important;height:34px!important;padding:0!important;border:1px solid #d6d6d2!important;border-radius:3px!important;background:#fafaf8!important;color:#222!important}
+#torvo-v2-root>.publicSite .publicProductDetail{display:grid!important;grid-template-columns:minmax(260px,.9fr) minmax(320px,1.1fr)!important;gap:24px!important;padding:18px!important}
+#torvo-v2-root>.publicSite .publicProductDetail>.publicProductPhoto{aspect-ratio:1!important;border:1px solid #e0e0dc!important;border-radius:3px!important;background:#fafaf8!important}
+#torvo-v2-root>.publicSite .publicProductDetail>.publicProductPhoto img{width:100%!important;height:100%!important;padding:18px!important;object-fit:contain!important}
+#torvo-v2-root>.publicSite .publicProductDetailCopy{display:flex!important;flex-direction:column!important;align-items:stretch!important}
+#torvo-v2-root>.publicSite .publicProductDetailCopy h3{margin:2px 0 10px!important;font-size:22px!important;line-height:1.15!important}
+#torvo-v2-root>.publicSite .torvoItemCode{display:inline-grid!important;align-self:flex-start!important;gap:2px!important;padding:7px 9px!important;border-left:3px solid #e31b2b!important;background:#f4f4f1!important}
+#torvo-v2-root>.publicSite .torvoItemCode small{font-size:6px!important;color:#777!important}.publicSite .torvoItemCode b{font-size:10px!important}
+#torvo-v2-root>.publicSite .publicProductDetailCopy>p{font-size:9px!important;line-height:1.65!important;color:#666!important}
+#torvo-v2-root>.publicSite .publicProductDetailCopy>.primary{margin-top:auto!important;min-height:44px!important;border:0!important;border-radius:3px!important;background:#e31b2b!important;color:#fff!important;font-size:9px!important;font-weight:900!important}
+#torvo-v2-root>.publicSite .machinePublicSpares{margin:10px 0 16px!important;padding:12px!important;border:1px solid #e0e0dc!important;background:#fafaf8!important}
+#torvo-v2-root>.publicSite .machinePublicSpares h4{margin:0 0 8px!important;font-size:8px!important}
+#torvo-v2-root>.publicSite .machinePublicSpares>div{display:grid!important;gap:5px!important}
+#torvo-v2-root>.publicSite .machinePublicSpares button{display:grid!important;grid-template-columns:90px 1fr!important;gap:8px!important;min-height:34px!important;padding:6px 8px!important;border:1px solid #ddd!important;background:#fff!important;text-align:left!important}
+#torvo-v2-root>.publicSite .selectedList{display:grid!important;gap:7px!important}
+#torvo-v2-root>.publicSite .selectedList>div{display:grid!important;grid-template-columns:32px minmax(0,1fr) auto auto!important;align-items:center!important;gap:9px!important;padding:9px!important;border:1px solid #deded9!important;border-radius:3px!important;background:#fff!important}
+#torvo-v2-root>.publicSite .selectedList>div>svg{width:22px!important;color:#e31b2b!important}
+#torvo-v2-root>.publicSite .selectedList>div>span{display:grid!important;gap:3px!important;min-width:0!important}.publicSite .selectedList>div>span b{overflow:hidden!important;text-overflow:ellipsis!important;white-space:nowrap!important;font-size:9px!important}.publicSite .selectedList>div>span small{font-size:6px!important;color:#777!important}
+#torvo-v2-root>.publicSite .selectedQty{display:grid!important;grid-template-columns:30px 32px 30px!important;align-items:center!important;border:1px solid #d4d4d0!important;border-radius:3px!important;overflow:hidden!important}
+#torvo-v2-root>.publicSite .selectedQty button{display:grid!important;place-items:center!important;width:30px!important;height:30px!important;padding:0!important;border:0!important;background:#f7f7f5!important}.publicSite .selectedQty b{display:grid!important;place-items:center!important;height:30px!important;border-inline:1px solid #ddd!important;font-size:9px!important}
+#torvo-v2-root>.publicSite .selectedList>div>button{min-height:30px!important;padding:0 9px!important;border:1px solid #ddd!important;background:#fff!important;color:#a31924!important;font-size:7px!important;font-weight:900!important}
+#torvo-v2-root>.publicSite .cartStepActions{display:grid!important;grid-template-columns:1fr 1fr!important;gap:8px!important;margin-top:8px!important}
+#torvo-v2-root>.publicSite .dealerResult{display:grid!important;grid-template-columns:36px minmax(0,1fr) auto!important;align-items:center!important;gap:10px!important;padding:12px!important;border:1px solid #deded9!important;border-radius:3px!important;background:#fff!important}
+#torvo-v2-root>.publicSite .dealerResult>svg{width:24px!important;color:#e31b2b!important}
+#torvo-v2-root>.publicSite .dealerResult>div:nth-child(2){display:grid!important;gap:3px!important;min-width:0!important}.publicSite .dealerResult>div:nth-child(2)>b{font-size:10px!important}.publicSite .dealerResult>div:nth-child(2)>span{font-size:7px!important;color:#555!important}.publicSite .dealerResult>div:nth-child(2)>small{font-size:6px!important;color:#777!important}
+#torvo-v2-root>.publicSite .dealerActions{display:flex!important;gap:5px!important;flex-wrap:wrap!important;justify-content:flex-end!important}
+#torvo-v2-root>.publicSite .dealerActions :is(a,button){display:inline-flex!important;align-items:center!important;justify-content:center!important;gap:4px!important;min-height:34px!important;padding:0 9px!important;border:1px solid #cfcfcb!important;border-radius:3px!important;background:#fff!important;color:#222!important;text-decoration:none!important;font-size:7px!important;font-weight:900!important}
+#torvo-v2-root>.publicSite .dealerActions a:last-child{border-color:#25d366!important;background:#25d366!important;color:#fff!important}
+#torvo-v2-root>.publicSite .dealerProfile>h3{margin:4px 0!important;font-size:18px!important}.publicSite .dealerProfile>p{font-size:9px!important;line-height:1.6!important;color:#666!important}
+@media(max-width:820px){
+ #torvo-v2-root>.publicSite .publicModal>header{min-height:52px!important;padding:9px 11px!important}
+ #torvo-v2-root>.publicSite .publicModal>header h2{font-size:12px!important}
+ #torvo-v2-root>.publicSite .publicProductDetail{grid-template-columns:1fr!important;gap:12px!important;padding:11px!important}
+ #torvo-v2-root>.publicSite .publicProductDetail>.publicProductPhoto{max-height:42dvh!important}
+ #torvo-v2-root>.publicSite .publicProductDetailCopy h3{font-size:17px!important}
+ #torvo-v2-root>.publicSite .selectedList>div{grid-template-columns:26px minmax(0,1fr) auto!important}
+ #torvo-v2-root>.publicSite .selectedList>div>button{grid-column:2 / -1!important;justify-self:end!important}
+ #torvo-v2-root>.publicSite .selectedQty{grid-template-columns:28px 28px 28px!important}
+ #torvo-v2-root>.publicSite .selectedQty button{width:28px!important;height:28px!important}
+ #torvo-v2-root>.publicSite .selectedQty b{height:28px!important}
+ #torvo-v2-root>.publicSite .cartStepActions{grid-template-columns:1fr!important}
+ #torvo-v2-root>.publicSite .dealerResult{grid-template-columns:28px minmax(0,1fr)!important}
+ #torvo-v2-root>.publicSite .dealerActions{grid-column:1 / -1!important;display:grid!important;grid-template-columns:repeat(2,minmax(0,1fr))!important;justify-content:stretch!important}
+ #torvo-v2-root>.publicSite .dealerActions :is(a,button){width:100%!important;padding:0 5px!important}
+}
