@@ -54,3 +54,14 @@ returns boolean language plpgsql security definer set search_path=public as $$de
 end$$;
 revoke all on function dealer_service_job_remove_part(text,text,uuid,uuid) from public,anon;
 grant execute on function dealer_service_job_remove_part(text,text,uuid,uuid) to authenticated;
+
+-- Dealer-private dashboard counts are server-derived and are not limited by the job-list page size.
+create or replace function dealer_service_jobs_summary(p_device_id text,p_session_token text)
+returns table(in_shop bigint,repairing bigint,ready bigint,delivered bigint,cancelled bigint,total bigint)
+language plpgsql security definer set search_path=public as $$declare did uuid;begin
+ if auth.uid() is null then raise exception 'AUTHENTICATED DEALER REQUIRED';end if;
+ did:=dealer_assert_my_device_session(p_device_id,p_session_token);
+ return query select count(*) filter(where j.status='in_shop'),count(*) filter(where j.status='repairing'),count(*) filter(where j.status='ready'),count(*) filter(where j.status='delivered'),count(*) filter(where j.status='cancelled'),count(*) from dealer_service_jobs j where j.dealer_id=did;
+end$$;
+revoke all on function dealer_service_jobs_summary(text,text) from public,anon;
+grant execute on function dealer_service_jobs_summary(text,text) to authenticated;
