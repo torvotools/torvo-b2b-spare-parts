@@ -1287,3 +1287,19 @@ body{margin:0;min-width:0;overflow-x:hidden}
  #torvo-v2-root>.publicSite .desktopDiscoveryOnly{margin-top:8px!important}
  #torvo-v2-root>.publicSite .retailFlow{margin-top:18px!important}
 }
+
+
+/* PUBLIC HOME ABOVE-THE-FOLD CLARITY */
+@media(max-width:820px){
+ #torvo-v2-root>.publicSite .mobileHeroBanner{max-height:220px!important;overflow:hidden!important}
+ #torvo-v2-root>.publicSite .mobileHeroBanner img{height:220px!important;max-height:220px!important;object-fit:contain!important}
+ #torvo-v2-root>.publicSite .publicBrandRail>span{display:none!important}
+ #torvo-v2-root>.publicSite .publicBrandRail{min-height:46px!important}
+ #torvo-v2-root>.publicSite .torvoPrimaryCategories{margin-top:8px!important}
+ #torvo-v2-root>.publicSite .mobileNeedHelp{margin-top:18px!important}
+ #torvo-v2-root>.publicSite .mobileDealerJoin{margin-top:8px!important}
+}
+@media(min-width:821px){
+ #torvo-v2-root>.publicSite .publicHero.compactHero{max-height:440px!important}
+ #torvo-v2-root>.publicSite .publicBrandRail>span{min-width:205px!important;font-size:8px!important;letter-spacing:.06em!important}
+}
