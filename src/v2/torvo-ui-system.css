@@ -685,3 +685,46 @@ body{margin:0;min-width:0;overflow-x:hidden}
 @media(max-width:390px){
  #torvo-v2-root .dealerBenefitGrid{grid-template-columns:1fr!important}
 }
+
+
+/* APPROVED MAIN THEME — search, catalog, product cards, footer */
+#torvo-v2-root .publicHeroSearch{width:100%;min-width:0}
+#torvo-v2-root .publicHeroSearchBar{
+ min-height:50px!important;border:1px solid #bfc4cb!important;border-radius:5px!important;background:#fff!important;box-shadow:0 5px 18px rgba(10,15,20,.06)!important;overflow:hidden;
+}
+#torvo-v2-root .publicHeroSearchBar input{border:0!important;box-shadow:none!important;min-height:50px!important;font-size:12px!important}
+#torvo-v2-root .publicHeroSearchBar button{min-width:48px!important;border:0!important;border-left:1px solid #eceef1!important;border-radius:0!important;background:#fff!important;color:#252a31!important}
+#torvo-v2-root .publicHeroSearchBar .publicSearchAction{background:var(--tv-red)!important;color:#fff!important;min-width:58px!important}
+#torvo-v2-root .publicHeroSuggestions{border:1px solid var(--tv-line)!important;border-radius:0 0 6px 6px!important;background:#fff!important;box-shadow:0 16px 34px rgba(10,15,20,.12)!important}
+#torvo-v2-root .publicSearchTypeIcon{display:grid!important;place-items:center!important;width:44px!important;height:44px!important;overflow:hidden!important;border:1px solid #eceef1!important;background:#f7f8f9!important}
+#torvo-v2-root .publicSearchTypeIcon img{width:100%!important;height:100%!important;object-fit:contain!important;padding:3px!important}
+#torvo-v2-root .publicCatalog{width:var(--tv-public-width)!important;margin-left:auto!important;margin-right:auto!important}
+#torvo-v2-root .publicCatalogTop{padding-top:clamp(24px,3vw,42px)!important}
+#torvo-v2-root .publicSectionHead h2{letter-spacing:-.02em!important}
+#torvo-v2-root .catalogResultBar{border:1px solid var(--tv-line)!important;border-radius:5px!important;background:#f7f8f9!important}
+#torvo-v2-root .publicShowcaseGrid{gap:12px!important}
+#torvo-v2-root .publicProductCard{
+ overflow:hidden!important;border:1px solid var(--tv-line)!important;border-radius:7px!important;background:#fff!important;box-shadow:0 5px 16px rgba(10,15,20,.045)!important;transition:transform .15s ease,border-color .15s ease,box-shadow .15s ease;
+}
+#torvo-v2-root .publicProductCard:hover{transform:translateY(-2px);border-color:#c7cbd1!important;box-shadow:0 12px 26px rgba(10,15,20,.09)!important}
+#torvo-v2-root .publicProductPhoto{display:grid!important;place-items:center!important;width:100%!important;aspect-ratio:1/1!important;padding:12px!important;background:#f7f8f9!important;border:0!important;border-bottom:1px solid #eceef1!important}
+#torvo-v2-root .publicProductPhoto img{width:100%!important;height:100%!important;object-fit:contain!important}
+#torvo-v2-root .publicProductBody{padding:13px!important}
+#torvo-v2-root .publicProductBody>span{display:inline-flex!important;padding:4px 7px!important;border-radius:3px!important;background:#f1f2f4!important;color:#555b64!important;font-size:8px!important;font-weight:900!important;letter-spacing:.06em!important}
+#torvo-v2-root .publicProductBody h3{min-height:2.4em;margin:8px 0!important;font-size:13px!important;line-height:1.2!important}
+#torvo-v2-root .publicProductMeta{display:flex!important;flex-wrap:wrap!important;gap:5px!important}
+#torvo-v2-root .publicProductMeta small{padding:4px 6px!important;border:1px solid #e4e6e9!important;border-radius:3px!important;background:#fff!important;color:#4c525b!important;font-size:8px!important;font-weight:800!important}
+#torvo-v2-root .publicProductBody p{min-height:2.8em;color:#747a84!important;font-size:10px!important;line-height:1.4!important}
+#torvo-v2-root .publicProductBody .formTwo{grid-template-columns:1fr 1fr!important}
+#torvo-v2-root .publicProductBody .formTwo button{min-height:38px!important;border-radius:4px!important;font-size:9px!important;font-weight:900!important}
+#torvo-v2-root .torvoPremiumFooter a{transition:opacity .15s ease,transform .15s ease}
+#torvo-v2-root .torvoPremiumFooter a:hover{opacity:.86;transform:translateY(-1px)}
+@media(max-width:800px){
+ #torvo-v2-root .publicHeroSearchBar{min-height:46px!important}
+ #torvo-v2-root .publicHeroSearchBar input{min-height:46px!important;font-size:11px!important;padding-left:10px!important}
+ #torvo-v2-root .publicHeroSearchBar button{min-width:42px!important}
+ #torvo-v2-root .publicHeroSearchBar .publicSearchAction{min-width:48px!important}
+ #torvo-v2-root .publicProductBody{padding:10px!important}
+ #torvo-v2-root .publicProductBody .formTwo{grid-template-columns:1fr!important}
+ #torvo-v2-root .publicProductBody p{min-height:0}
+}
