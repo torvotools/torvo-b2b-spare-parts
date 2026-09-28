@@ -1935,3 +1935,29 @@ body{margin:0;min-width:0;overflow-x:hidden}
  #torvo-v2-root>.publicSite .publicAboutProof b{display:flex!important;flex-direction:column!important;font-size:7px!important}
  #torvo-v2-root>.publicSite .publicAboutProof small{font-size:6px!important;color:#737880!important}
 }
+
+
+/* MOBILE HERO RECOVERY — one composition only; prevents desktop hero/trust collisions */
+@media(max-width:820px){
+ #torvo-v2-root>.publicSite .mobileHeroBanner{display:none!important}
+ #torvo-v2-root>.publicSite .publicHero.compactHero{position:relative!important;display:block!important;width:auto!important;min-height:330px!important;margin:8px 10px 0!important;border:0!important;border-radius:8px!important;overflow:hidden!important;background:linear-gradient(155deg,#11151b 0%,#1d232b 58%,#090b0e 100%)!important}
+ #torvo-v2-root>.publicSite .publicHeroCopy{position:relative!important;z-index:3!important;width:auto!important;max-width:none!important;padding:25px 18px 22px!important}
+ #torvo-v2-root>.publicSite .publicKicker{display:inline-flex!important;max-width:100%!important;margin:0 0 11px!important;padding:6px 8px!important;border:1px solid rgba(255,255,255,.16)!important;border-radius:999px!important;background:rgba(255,255,255,.06)!important;color:#fff!important;font-size:6px!important;line-height:1!important;white-space:normal!important}
+ #torvo-v2-root>.publicSite .publicHeroCopy h1{max-width:310px!important;margin:0 0 10px!important;font-size:30px!important;line-height:.94!important;letter-spacing:-.045em!important;color:#fff!important}
+ #torvo-v2-root>.publicSite .publicHeroCopy h1 em{display:block!important;color:#ff3343!important;font-style:normal!important}
+ #torvo-v2-root>.publicSite .publicHeroCopy p{max-width:285px!important;margin:0!important;font-size:8px!important;line-height:1.55!important;color:#c9ced5!important}
+ #torvo-v2-root>.publicSite .publicHeroTrust{display:none!important}
+ #torvo-v2-root>.publicSite .publicHeroActions{position:relative!important;z-index:4!important;margin-top:16px!important}
+ #torvo-v2-root>.publicSite .publicHeroActions button{min-height:40px!important;padding:0 14px!important;border-radius:4px!important;font-size:8px!important}
+ #torvo-v2-root>.publicSite .torvoHeroMedia{position:absolute!important;z-index:1!important;inset:auto -35px -5px auto!important;display:block!important;width:58%!important;height:68%!important;opacity:.34!important;pointer-events:none!important}
+ #torvo-v2-root>.publicSite .torvoHeroMedia picture,#torvo-v2-root>.publicSite .torvoHeroMedia img{display:block!important;width:100%!important;height:100%!important;object-fit:contain!important}
+ #torvo-v2-root>.publicSite .torvoHeroClaims{display:none!important}
+ #torvo-v2-root>.publicSite .publicBrandRail{position:relative!important;z-index:2!important}
+ #torvo-v2-root>.publicSite main{padding-bottom:72px!important}
+ #torvo-v2-root>.publicSite .mobileBottomNav{position:fixed!important;z-index:190!important;left:0!important;right:0!important;bottom:0!important;height:60px!important;background:rgba(255,255,255,.98)!important;backdrop-filter:blur(10px)!important}
+ #torvo-v2-root>.publicSite .torvoFloatingWhatsApp{right:12px!important;bottom:72px!important}
+}
+@media(max-width:390px){
+ #torvo-v2-root>.publicSite .publicHero.compactHero{min-height:310px!important}
+ #torvo-v2-root>.publicSite .publicHeroCopy h1{font-size:27px!important}
+}
