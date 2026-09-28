@@ -371,3 +371,17 @@ body{margin:0;min-width:0;overflow-x:hidden}
 @media (min-width:2000px){
  #torvo-v2-root .publicShowcaseGrid{grid-template-columns:repeat(6,minmax(0,1fr))!important}
 }
+
+/* ABOVE-THE-FOLD DESKTOP BALANCE */
+@media (min-width:801px){
+ #torvo-v2-root .publicHeaderInner{min-height:clamp(64px,4.2vw,78px)!important}
+ #torvo-v2-root .publicHero{padding:clamp(32px,3.4vw,52px) var(--tv-desktop-gutter) clamp(34px,3.6vw,56px)!important;min-height:clamp(390px,48vh,610px)!important;align-items:center!important}
+ #torvo-v2-root .publicHeroCopy{padding:0!important;align-self:center!important}
+ #torvo-v2-root .publicHeroCopy>p{max-width:720px!important;margin-bottom:clamp(14px,1.4vw,22px)!important}
+ #torvo-v2-root .publicHeroActions{margin-top:clamp(14px,1.4vw,22px)!important}
+ #torvo-v2-root .publicHeroSearch{margin-top:clamp(12px,1.3vw,20px)!important}
+ #torvo-v2-root .publicCatalog{padding-top:clamp(28px,3vw,46px)!important}
+}
+@media (min-width:1600px){
+ #torvo-v2-root .publicHero{min-height:clamp(430px,50vh,650px)!important}
+}
