@@ -7,6 +7,7 @@ import LoginVisualPreview from './components/LoginVisualPreview.jsx';
 import BackupCloseModal from './components/BackupCloseModal.jsx';
 import AppUpdateNotice from './components/AppUpdateNotice.jsx';
 import './styles.css';
+import './torvo-ui-system.css';
 import './workspace-polish.css';
 import './admin-desktop-polish.css';
 import './admin-search-v2.css';
