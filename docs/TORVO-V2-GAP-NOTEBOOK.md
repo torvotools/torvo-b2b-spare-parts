@@ -1,11 +1,11 @@
 # TORVO V2 — GAP / COMPLETION NOTEBOOK
 
-Status: ACTIVE WORKING REGISTER
+Status: INTERNAL DEVELOPMENT-CONTINUITY REGISTER — NOT A TORVO PRODUCT FEATURE
 Updated: 2026-09-28
 Branch: `torvo-v2-build`
 
 ## PURPOSE
-Permanent working register for gaps found while completing TORVO V2. Do not hide or forget a gap because another feature is being developed. Move entries through OPEN -> IN PROGRESS -> SOURCE VERIFIED -> RUNTIME VERIFIED -> CLOSED. Runtime/external gates cannot be closed by source or CI alone. Never create fake users, transactions or evidence.
+Internal ChatGPT/development continuity register for gaps found while completing TORVO V2. This is NOT a TORVO app/website/admin feature and must never be exposed in product navigation or runtime UI. Do not hide or forget a gap because another feature is being developed. Move entries through OPEN -> IN PROGRESS -> SOURCE VERIFIED -> RUNTIME VERIFIED -> CLOSED. Runtime/external gates cannot be closed by source or CI alone. Never create fake users, transactions or evidence.
 
 ## OWNER EXECUTION RULE
 - Work in the largest safe compatible bulk.
@@ -43,4 +43,4 @@ Permanent working register for gaps found while completing TORVO V2. Do not hide
 - Latest fully verified baseline before current work: `1db787767c844ef979e2846e2a589e4b17c41434` — Build #2992, Cloudflare #2323, Android #2281 SUCCESS.
 
 ## RULE FOR FUTURE BULKS
-Every meaningful bulk should consult this register. Add newly discovered gaps immediately. Close an entry only with the level of evidence its state requires. Update the Living Master when project truth changes; do not use this notebook to supersede canonical Owner rules.
+Every meaningful development bulk and every new-chat continuation should consult this register before choosing work. Add newly discovered gaps immediately. Close an entry only with the level of evidence its state requires. Update the Living Master when project truth changes; do not use this notebook to supersede canonical Owner rules.
