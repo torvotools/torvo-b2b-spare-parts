@@ -1,6 +1,6 @@
 -- TORVO V2 EXPENSE + PROFIT INTEGRITY
--- Install after delivered Sales, Purchase Cost History and Sales Return foundations.
--- Financial tables are private; profit is OWNER-only and never invents missing historical cost.
+-- Install after Marg Bill Sale posting, Purchase Cost History and Sales Return foundations.
+-- Financial tables are private; profit is OWNER-only, recognizes revenue at posted Marg Bill Sale, and never invents missing historical cost.
 
 create table if not exists public.business_expenses(
  id uuid primary key default gen_random_uuid(),
@@ -67,12 +67,12 @@ declare a app_users%rowtype;rev numeric:=0;ret_rev numeric:=0;cost numeric:=0;re
  select * into a from app_users where auth_user_id=auth.uid() and active=true;
  if not found or a.role<>'owner' then raise exception 'Owner only profit report';end if;
  if p_from is not null and p_to is not null and p_from>=p_to then raise exception 'Invalid report date range';end if;
- with delivered as(
-  select e.id,coalesce(f.finalized_at,e.created_at) delivered_at from sales_documents e join delivery_stock_finalizations f on f.estimate_id=e.id where e.doc_type='estimate' and(p_from is null or coalesce(f.finalized_at,e.created_at)>=p_from)and(p_to is null or coalesce(f.finalized_at,e.created_at)<p_to)
+ with posted_sales as(
+  select e.id,s.approved_at sale_posted_at from sales_documents e join marg_bill_sales s on s.estimate_id=e.id where e.doc_type='estimate' and s.status='posted' and(p_from is null or s.approved_at>=p_from)and(p_to is null or s.approved_at<p_to)
  ), lines as(
-  select d.id estimate_id,d.delivered_at,l.item_id,l.qty,coalesce(l.amount,l.qty*coalesce(l.rate,0)) line_revenue,l.rate,
-   (select pl.purchase_rate from purchase_lines pl join purchase_headers ph on ph.id=pl.purchase_id where pl.item_id=l.item_id and ph.invoice_date<=d.delivered_at::date order by ph.invoice_date desc,ph.created_at desc limit 1) unit_cost
-  from delivered d join sales_document_lines l on l.document_id=d.id
+  select s.id estimate_id,s.sale_posted_at,l.item_id,l.qty,coalesce(l.amount,l.qty*coalesce(l.rate,0)) line_revenue,l.rate,
+   (select pl.purchase_rate from purchase_lines pl join purchase_headers ph on ph.id=pl.purchase_id where pl.item_id=l.item_id and ph.invoice_date<=s.sale_posted_at::date order by ph.invoice_date desc,ph.created_at desc limit 1) unit_cost
+  from posted_sales s join sales_document_lines l on l.document_id=s.id
  ), returned as(
   select r.source_id estimate_id,rl.item_id,sum(rl.qty)::numeric qty from transaction_returns r join transaction_return_lines rl on rl.return_id=r.id where r.return_type='sales_return' and r.status='completed' and(p_from is null or r.completed_at>=p_from)and(p_to is null or r.completed_at<p_to) group by r.source_id,rl.item_id
  )
