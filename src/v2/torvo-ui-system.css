@@ -637,3 +637,51 @@ body{margin:0;min-width:0;overflow-x:hidden}
  #torvo-v2-root .torvoFloatingWhatsApp span{display:none}
  #torvo-v2-root .torvoFloatingWhatsApp svg{width:22px;height:22px}
 }
+
+
+/* APPROVED MAIN THEME — lower public sections */
+#torvo-v2-root :is(.retailFlow,.dealerBusiness,.publicSupport,.publicAbout){
+ width:var(--tv-public-width)!important;margin-left:auto!important;margin-right:auto!important;
+}
+#torvo-v2-root .retailFlow{padding:clamp(24px,3vw,44px) 0!important}
+#torvo-v2-root .retailSteps{display:grid!important;grid-template-columns:repeat(4,minmax(0,1fr))!important;gap:10px!important}
+#torvo-v2-root .retailSteps article{
+ position:relative!important;min-height:116px!important;padding:16px!important;border:1px solid var(--tv-line)!important;border-radius:6px!important;background:#fff!important;box-shadow:none!important;
+}
+#torvo-v2-root .retailSteps article svg{width:25px;height:25px;color:var(--tv-red)}
+#torvo-v2-root .retailSteps article>b{position:absolute;right:12px;top:10px;color:#c9cdd3;font-size:22px}
+#torvo-v2-root .retailSteps article h3{margin:14px 0 0!important;font-size:12px!important}
+#torvo-v2-root .dealerBusiness{
+ display:grid!important;grid-template-columns:minmax(260px,.85fr) minmax(0,1.65fr)!important;gap:14px!important;
+ padding:clamp(18px,2.2vw,30px)!important;border:1px solid var(--tv-line)!important;border-radius:7px!important;background:#f7f8f9!important;
+}
+#torvo-v2-root .dealerBusinessIntro{padding:6px!important}
+#torvo-v2-root .dealerBusinessIntro>span,#torvo-v2-root .publicAbout>span{color:var(--tv-red)!important;font-size:10px!important;font-weight:900!important;letter-spacing:.08em!important}
+#torvo-v2-root .dealerBusinessIntro h2,#torvo-v2-root .publicAbout h2{letter-spacing:-.02em!important}
+#torvo-v2-root .dealerBenefitGrid{display:grid!important;grid-template-columns:repeat(2,minmax(0,1fr))!important;gap:9px!important}
+#torvo-v2-root .dealerBenefitGrid article{padding:15px!important;min-height:118px!important}
+#torvo-v2-root .dealerBenefitGrid article svg{width:24px;height:24px;color:var(--tv-red)}
+#torvo-v2-root .publicSupport{
+ display:grid!important;grid-template-columns:auto 1fr!important;align-items:center!important;gap:18px!important;
+ padding:clamp(20px,2.5vw,34px)!important;border:1px solid var(--tv-line)!important;border-radius:7px!important;background:#101317!important;color:#fff!important;
+}
+#torvo-v2-root .publicSupport>svg{width:42px;height:42px;color:var(--tv-red)}
+#torvo-v2-root .publicSupport p{color:#c7cbd1!important}
+#torvo-v2-root .publicSupport .publicHeroActions button{background:var(--tv-red)!important;color:#fff!important;border-color:var(--tv-red)!important}
+#torvo-v2-root .publicAbout{
+ padding:clamp(28px,4vw,54px) 0!important;max-width:min(920px,var(--tv-public-width))!important;text-align:center!important;
+}
+#torvo-v2-root .publicAbout p{max-width:760px;margin:0 auto;color:var(--tv-muted)!important;line-height:1.65!important}
+@media(max-width:800px){
+ #torvo-v2-root .retailSteps{grid-template-columns:repeat(2,minmax(0,1fr))!important}
+ #torvo-v2-root .retailSteps article{min-height:100px!important;padding:12px!important}
+ #torvo-v2-root .dealerBusiness{grid-template-columns:1fr!important;padding:14px!important}
+ #torvo-v2-root .dealerBenefitGrid{grid-template-columns:repeat(2,minmax(0,1fr))!important}
+ #torvo-v2-root .dealerBenefitGrid article{min-height:104px!important;padding:12px!important}
+ #torvo-v2-root .publicSupport{grid-template-columns:1fr!important;gap:10px!important;padding:18px!important}
+ #torvo-v2-root .publicSupport>svg{width:30px;height:30px}
+ #torvo-v2-root .publicAbout{padding:30px 10px!important}
+}
+@media(max-width:390px){
+ #torvo-v2-root .dealerBenefitGrid{grid-template-columns:1fr!important}
+}
