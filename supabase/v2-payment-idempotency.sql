@@ -6,7 +6,7 @@ create unique index if not exists ux_payments_request_key on payments(request_ke
 drop function if exists record_payment(uuid,text,numeric);
 drop function if exists record_payment(uuid,text,numeric,text);
 create or replace function record_payment(p_estimate uuid,p_status text,p_amount numeric,p_request_key text) returns uuid language plpgsql security definer set search_path=public as $$
-declare a app_users%rowtype;pid uuid;f numeric;paid numeric;pending numeric;d_status text;k text;existing_estimate uuid;existing_status text;existing_amount numeric;
+declare a app_users%rowtype;pid uuid;f numeric;paid numeric;pending numeric;k text;existing_estimate uuid;existing_status text;existing_amount numeric;
 begin
  select * into a from app_users where auth_user_id=auth.uid() and active=true;
  if not found or a.role not in('owner','admin','accountant') then raise exception 'Not authorized';end if;
@@ -20,8 +20,7 @@ begin
  select final_payable into f from sales_documents where id=p_estimate and doc_type='estimate' for update;
  if not found then raise exception 'Estimate not found';end if;
  if f is null or f<=0 then raise exception 'Estimate final payable is invalid';end if;
- select status into d_status from dispatches where estimate_id=p_estimate for update;
- if d_status='delivered' then raise exception 'Cannot record payment after delivery';end if;
+ if not exists(select 1 from public.marg_bill_sales where estimate_id=p_estimate and status in('posted','corrected')) then raise exception 'POSTED MARG BILL SALE REQUIRED BEFORE PAYMENT ACCOUNTING';end if;
  select coalesce(sum(amount) filter(where status in('cash','received')),0),coalesce(sum(amount) filter(where status='pending'),0) into paid,pending from payments where estimate_id=p_estimate;
  if p_status in('cash','received') and paid+p_amount>f then raise exception 'Payment exceeds outstanding amount';end if;
  if p_status='pending' and paid+pending+p_amount>f then raise exception 'Pending payment exceeds outstanding amount';end if;
