@@ -1488,3 +1488,28 @@ body{margin:0;min-width:0;overflow-x:hidden}
  #torvo-v2-root>.publicSite .dealerActions{grid-column:1 / -1!important;display:grid!important;grid-template-columns:repeat(2,minmax(0,1fr))!important;justify-content:stretch!important}
  #torvo-v2-root>.publicSite .dealerActions :is(a,button){width:100%!important;padding:0 5px!important}
 }
+
+
+/* PUBLIC DEALER FINDER LAUNCH — homepage stays clean; full form opens on demand */
+#torvo-v2-root>.publicSite .dealerFinderLaunch{display:grid!important;grid-template-columns:86px minmax(0,1fr) auto!important;align-items:center!important;gap:20px!important;margin-top:14px!important;padding:22px 24px!important;border:1px solid #2b2b2b!important;border-radius:4px!important;background:linear-gradient(115deg,#111 0%,#1d1d1d 66%,#151515 100%)!important;color:#fff!important;box-shadow:0 12px 32px rgba(0,0,0,.08)!important}
+#torvo-v2-root>.publicSite .dealerFinderLaunchIcon{position:relative!important;display:grid!important;place-items:center!important;width:76px!important;height:76px!important;border:1px solid #3a3a3a!important;border-radius:4px!important;background:#090909!important}
+#torvo-v2-root>.publicSite .dealerFinderLaunchIcon>svg:first-child{width:34px!important;height:34px!important;color:#fff!important}
+#torvo-v2-root>.publicSite .dealerFinderLaunchIcon>svg:last-child{position:absolute!important;right:8px!important;bottom:8px!important;width:18px!important;height:18px!important;color:#e31b2b!important}
+#torvo-v2-root>.publicSite .dealerFinderLaunchCopy{min-width:0!important}
+#torvo-v2-root>.publicSite .dealerFinderLaunchCopy>span{font-size:7px!important;font-weight:900!important;letter-spacing:.12em!important;color:#e31b2b!important}
+#torvo-v2-root>.publicSite .dealerFinderLaunchCopy h2{margin:5px 0 5px!important;font-size:clamp(18px,1.8vw,28px)!important;line-height:1.08!important;letter-spacing:-.025em!important;color:#fff!important}
+#torvo-v2-root>.publicSite .dealerFinderLaunchCopy p{max-width:720px!important;margin:0!important;font-size:8px!important;line-height:1.55!important;color:#bdbdbd!important}
+#torvo-v2-root>.publicSite .dealerFinderLaunchButton{display:inline-flex!important;align-items:center!important;justify-content:center!important;gap:7px!important;min-width:210px!important;min-height:48px!important;padding:0 17px!important;border:1px solid #e31b2b!important;border-radius:3px!important;background:#e31b2b!important;color:#fff!important;font-size:9px!important;font-weight:950!important;letter-spacing:.025em!important;cursor:pointer!important}
+#torvo-v2-root>.publicSite .dealerFinderLaunchButton:hover{background:#c81725!important;border-color:#c81725!important}
+#torvo-v2-root>.publicSite .dealerFinderLaunchButton svg{width:16px!important;height:16px!important}
+#torvo-v2-root>.publicSite .dealerFinderPublic .useLocationButton{min-height:42px!important;border:1px solid #cfcfcb!important;border-radius:3px!important;background:#f7f7f5!important;color:#222!important;font-weight:850!important}
+#torvo-v2-root>.publicSite .dealerFinderPublic>.primary{min-height:44px!important;background:#e31b2b!important;border-color:#e31b2b!important;color:#fff!important}
+@media(max-width:820px){
+ #torvo-v2-root>.publicSite .dealerFinderLaunch{grid-template-columns:52px minmax(0,1fr)!important;gap:10px!important;margin-top:12px!important;padding:13px!important}
+ #torvo-v2-root>.publicSite .dealerFinderLaunchIcon{width:50px!important;height:50px!important}
+ #torvo-v2-root>.publicSite .dealerFinderLaunchIcon>svg:first-child{width:23px!important;height:23px!important}
+ #torvo-v2-root>.publicSite .dealerFinderLaunchIcon>svg:last-child{right:5px!important;bottom:5px!important;width:13px!important;height:13px!important}
+ #torvo-v2-root>.publicSite .dealerFinderLaunchCopy h2{font-size:15px!important}
+ #torvo-v2-root>.publicSite .dealerFinderLaunchCopy p{font-size:7px!important;line-height:1.45!important}
+ #torvo-v2-root>.publicSite .dealerFinderLaunchButton{grid-column:1 / -1!important;width:100%!important;min-width:0!important;min-height:42px!important;font-size:8px!important}
+}
