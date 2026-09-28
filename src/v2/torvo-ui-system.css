@@ -2616,3 +2616,279 @@ body{margin:0;min-width:0;overflow-x:hidden}
  #torvo-v2-root>.publicSite .mobileHeaderSearch .publicHeroSearchBar{height:43px!important;min-height:43px!important;border-radius:6px!important}
  #torvo-v2-root>.publicSite .mobileHeaderSearch .publicProductFilterToggle{width:40px!important;min-width:40px!important;height:43px!important;border-radius:6px!important}
 }
+
+
+/* PUBLIC HEADER + SEARCH GEOMETRY CONTRACT — 2026-09-28 authoritative */
+#torvo-v2-root>.publicSite{
+  width:100%!important;
+  max-width:100%!important;
+  overflow-x:clip!important;
+}
+#torvo-v2-root>.publicSite>.publicHeader.topSearchHeader{
+  box-sizing:border-box!important;
+  width:100%!important;
+  max-width:100%!important;
+  margin:0!important;
+  background:#fff!important;
+  overflow:visible!important;
+}
+#torvo-v2-root>.publicSite .publicHeaderPrimary,
+#torvo-v2-root>.publicSite :is(.mobileHeaderSearch,.desktopHeroSearch),
+#torvo-v2-root>.publicSite :is(.mobileHeaderSearch,.desktopHeroSearch)>.publicSmartFinder,
+#torvo-v2-root>.publicSite :is(.mobileHeaderSearch,.desktopHeroSearch) .publicHeroSearch,
+#torvo-v2-root>.publicSite :is(.mobileHeaderSearch,.desktopHeroSearch) .publicHeroSearchBar{
+  box-sizing:border-box!important;
+  min-width:0!important;
+  max-width:100%!important;
+}
+#torvo-v2-root>.publicSite :is(.mobileHeaderSearch,.desktopHeroSearch)>.publicSmartFinder{
+  position:relative!important;
+  display:grid!important;
+  grid-template-columns:minmax(0,1fr) 42px!important;
+  align-items:stretch!important;
+  gap:6px!important;
+  width:100%!important;
+  margin:0!important;
+  padding:0!important;
+  transform:none!important;
+}
+#torvo-v2-root>.publicSite :is(.mobileHeaderSearch,.desktopHeroSearch) .publicHeroSearch{
+  position:relative!important;
+  display:block!important;
+  width:100%!important;
+  margin:0!important;
+  padding:0!important;
+  transform:none!important;
+}
+#torvo-v2-root>.publicSite :is(.mobileHeaderSearch,.desktopHeroSearch) .publicHeroSearchBar{
+  position:relative!important;
+  display:flex!important;
+  align-items:stretch!important;
+  width:100%!important;
+  margin:0!important;
+  padding:0!important;
+  overflow:hidden!important;
+  border:1px solid #d9dde3!important;
+  border-radius:8px!important;
+  background:#fff!important;
+}
+#torvo-v2-root>.publicSite :is(.mobileHeaderSearch,.desktopHeroSearch) .publicHeroSearchBar>input{
+  order:1!important;
+  flex:1 1 0!important;
+  width:1%!important;
+  min-width:0!important;
+  max-width:none!important;
+  margin:0!important;
+  border:0!important;
+  outline:0!important;
+  background:#fff!important;
+  font-weight:400!important;
+}
+#torvo-v2-root>.publicSite :is(.mobileHeaderSearch,.desktopHeroSearch) .publicHeroSearchBar>button{
+  position:static!important;
+  top:auto!important;
+  right:auto!important;
+  bottom:auto!important;
+  left:auto!important;
+  transform:none!important;
+  flex:0 0 auto!important;
+  margin:0!important;
+  border-radius:0!important;
+}
+#torvo-v2-root>.publicSite :is(.mobileHeaderSearch,.desktopHeroSearch) .publicHeroSearchBar>button[aria-label="CAMERA SEARCH"]{order:2!important}
+#torvo-v2-root>.publicSite :is(.mobileHeaderSearch,.desktopHeroSearch) .publicHeroSearchBar>button[aria-label="VOICE SEARCH"]{order:3!important}
+#torvo-v2-root>.publicSite :is(.mobileHeaderSearch,.desktopHeroSearch) .publicHeroSearchBar>button[aria-label="SEARCH"]{order:4!important}
+#torvo-v2-root>.publicSite :is(.mobileHeaderSearch,.desktopHeroSearch) .publicProductFilterToggle{
+  position:static!important;
+  display:flex!important;
+  align-items:center!important;
+  justify-content:center!important;
+  box-sizing:border-box!important;
+  margin:0!important;
+  padding:0!important;
+  transform:none!important;
+  border-radius:8px!important;
+}
+#torvo-v2-root>.publicSite :is(.mobileHeaderSearch,.desktopHeroSearch) .publicHeroSuggestions{
+  z-index:90!important;
+  width:100%!important;
+  max-width:100%!important;
+  box-sizing:border-box!important;
+}
+
+@media(max-width:1024px){
+  #torvo-v2-root>.publicSite>.publicHeader.topSearchHeader{
+    position:relative!important;
+    z-index:100!important;
+    display:grid!important;
+    grid-template-rows:48px 44px!important;
+    grid-template-columns:minmax(0,1fr)!important;
+    gap:0!important;
+    height:97px!important;
+    min-height:97px!important;
+    padding:0 10px 5px!important;
+    border:0!important;
+    border-bottom:1px solid #e5e7eb!important;
+  }
+  #torvo-v2-root>.publicSite .publicHeaderPrimary{
+    grid-row:1!important;
+    display:flex!important;
+    align-items:center!important;
+    justify-content:space-between!important;
+    width:100%!important;
+    height:48px!important;
+    min-height:48px!important;
+    margin:0!important;
+    padding:0!important;
+    overflow:visible!important;
+  }
+  #torvo-v2-root>.publicSite .publicHeaderPrimary .publicBrand{
+    position:static!important;
+    display:flex!important;
+    align-items:center!important;
+    min-width:0!important;
+    height:44px!important;
+    margin:0!important;
+    transform:none!important;
+  }
+  #torvo-v2-root>.publicSite .publicHeaderPrimary .mobileHeaderMark{
+    position:static!important;
+    display:flex!important;
+    flex:0 0 38px!important;
+    align-items:center!important;
+    justify-content:center!important;
+    width:38px!important;
+    height:38px!important;
+    margin:0!important;
+    transform:none!important;
+  }
+  #torvo-v2-root>.publicSite .mobileHeaderSearch{
+    position:relative!important;
+    grid-row:2!important;
+    display:block!important;
+    visibility:visible!important;
+    width:100%!important;
+    height:44px!important;
+    min-height:44px!important;
+    margin:0!important;
+    padding:0!important;
+    overflow:visible!important;
+    transform:none!important;
+  }
+  #torvo-v2-root>.publicSite .mobileHeaderSearch>.publicSmartFinder{
+    grid-template-columns:minmax(0,1fr) 40px!important;
+    gap:5px!important;
+    height:44px!important;
+  }
+  #torvo-v2-root>.publicSite .mobileHeaderSearch .publicHeroSearchBar,
+  #torvo-v2-root>.publicSite .mobileHeaderSearch .publicProductFilterToggle{
+    height:44px!important;
+    min-height:44px!important;
+  }
+  #torvo-v2-root>.publicSite .mobileHeaderSearch .publicHeroSearchBar>input{
+    padding:0 9px!important;
+    font-size:10px!important;
+  }
+  #torvo-v2-root>.publicSite .mobileHeaderSearch .publicHeroSearchBar>button[aria-label="CAMERA SEARCH"],
+  #torvo-v2-root>.publicSite .mobileHeaderSearch .publicHeroSearchBar>button[aria-label="VOICE SEARCH"]{
+    width:34px!important;
+    min-width:34px!important;
+  }
+  #torvo-v2-root>.publicSite .mobileHeaderSearch .publicHeroSearchBar>button[aria-label="SEARCH"]{
+    width:40px!important;
+    min-width:40px!important;
+  }
+  #torvo-v2-root>.publicSite .mobileHeaderSearch .publicProductFilterToggle{
+    width:40px!important;
+    min-width:40px!important;
+  }
+  #torvo-v2-root>.publicSite .desktopHeroSearch{
+    display:none!important;
+    visibility:hidden!important;
+    pointer-events:none!important;
+  }
+  #torvo-v2-root>.publicSite main#top,
+  #torvo-v2-root>.publicSite .publicHero.compactHero{
+    margin-top:0!important;
+  }
+}
+@media(max-width:374px){
+  #torvo-v2-root>.publicSite>.publicHeader.topSearchHeader{padding-left:7px!important;padding-right:7px!important}
+  #torvo-v2-root>.publicSite .mobileHeaderSearch>.publicSmartFinder{grid-template-columns:minmax(0,1fr) 38px!important;gap:4px!important}
+  #torvo-v2-root>.publicSite .mobileHeaderSearch .publicHeroSearchBar>input{font-size:9px!important;padding-left:7px!important;padding-right:5px!important}
+  #torvo-v2-root>.publicSite .mobileHeaderSearch .publicHeroSearchBar>button[aria-label="CAMERA SEARCH"],
+  #torvo-v2-root>.publicSite .mobileHeaderSearch .publicHeroSearchBar>button[aria-label="VOICE SEARCH"]{width:31px!important;min-width:31px!important}
+  #torvo-v2-root>.publicSite .mobileHeaderSearch .publicHeroSearchBar>button[aria-label="SEARCH"]{width:37px!important;min-width:37px!important}
+  #torvo-v2-root>.publicSite .mobileHeaderSearch .publicProductFilterToggle{width:38px!important;min-width:38px!important}
+}
+@media(min-width:1025px){
+  #torvo-v2-root>.publicSite>.publicHeader.topSearchHeader{
+    position:relative!important;
+    z-index:100!important;
+    display:block!important;
+    height:54px!important;
+    min-height:54px!important;
+    padding:0 24px!important;
+    border:0!important;
+    border-bottom:1px solid #e5e7eb!important;
+  }
+  #torvo-v2-root>.publicSite .publicHeaderPrimary{
+    display:flex!important;
+    align-items:center!important;
+    justify-content:space-between!important;
+    width:100%!important;
+    height:53px!important;
+    min-height:53px!important;
+    margin:0!important;
+    padding:0!important;
+  }
+  #torvo-v2-root>.publicSite .mobileHeaderSearch{
+    display:none!important;
+    visibility:hidden!important;
+    pointer-events:none!important;
+  }
+  #torvo-v2-root>.publicSite .publicHero.compactHero{
+    position:relative!important;
+    margin:0!important;
+    border-radius:0!important;
+  }
+  #torvo-v2-root>.publicSite .desktopHeroSearch{
+    position:absolute!important;
+    z-index:20!important;
+    top:24px!important;
+    right:24px!important;
+    display:block!important;
+    visibility:visible!important;
+    width:min(520px,46vw)!important;
+    height:42px!important;
+    margin:0!important;
+    padding:0!important;
+    transform:none!important;
+  }
+  #torvo-v2-root>.publicSite .desktopHeroSearch>.publicSmartFinder{
+    grid-template-columns:minmax(0,1fr) 42px!important;
+    height:42px!important;
+  }
+  #torvo-v2-root>.publicSite .desktopHeroSearch .publicHeroSearchBar,
+  #torvo-v2-root>.publicSite .desktopHeroSearch .publicProductFilterToggle{
+    height:42px!important;
+    min-height:42px!important;
+  }
+  #torvo-v2-root>.publicSite .desktopHeroSearch .publicHeroSearchBar>input{
+    padding:0 12px!important;
+    font-size:11px!important;
+  }
+  #torvo-v2-root>.publicSite .desktopHeroSearch .publicHeroSearchBar>button[aria-label="CAMERA SEARCH"],
+  #torvo-v2-root>.publicSite .desktopHeroSearch .publicHeroSearchBar>button[aria-label="VOICE SEARCH"]{
+    width:38px!important;
+    min-width:38px!important;
+  }
+  #torvo-v2-root>.publicSite .desktopHeroSearch .publicHeroSearchBar>button[aria-label="SEARCH"]{
+    width:42px!important;
+    min-width:42px!important;
+  }
+  #torvo-v2-root>.publicSite .desktopHeroSearch .publicProductFilterToggle{
+    width:42px!important;
+    min-width:42px!important;
+  }
+}
