@@ -38,3 +38,39 @@ revoke all on function reverse_purchase_entry(uuid,text) from public,anon;grant 
 create or replace function get_item_purchase_rate_history(p_item uuid,p_limit integer default 20) returns table(purchase_id uuid,invoice_no text,invoice_date date,supplier_name text,qty numeric,purchase_rate numeric,line_amount numeric,created_at timestamptz) language plpgsql stable security definer set search_path=public as $$
 declare a app_users%rowtype;begin select * into a from app_users where auth_user_id=auth.uid() and active=true;if not found or a.role<>'owner' then raise exception 'Owner authorization required';end if;if p_item is null then raise exception 'Item required';end if;return query select h.id,h.invoice_no,h.invoice_date,s.supplier_name,l.qty,l.purchase_rate,l.line_amount,h.created_at from purchase_lines l join purchase_headers h on h.id=l.purchase_id left join suppliers s on s.id=h.supplier_id where l.item_id=p_item and not exists(select 1 from audit_log al where al.entity_type='purchase' and al.entity_id=h.id::text and al.action='PURCHASE_REVERSED') order by h.invoice_date desc,h.created_at desc limit greatest(1,least(coalesce(p_limit,20),100));end;$$;
 revoke all on function get_item_purchase_rate_history(uuid,integer) from public,anon;grant execute on function get_item_purchase_rate_history(uuid,integer) to authenticated;
+
+
+-- CONTROLLED PURCHASE MODIFY: OWNER only; adjusts stock by line delta, never silent overwrite.
+create or replace function public.modify_purchase_entry(p_purchase uuid,p_invoice_no text,p_invoice_date date,p_lines jsonb,p_reason text)
+returns void language plpgsql security definer set search_path=public as $$
+declare a app_users%rowtype;h purchase_headers%rowtype;x jsonb;i uuid;q numeric;rate numeric;total numeric:=0;oldq numeric;delta numeric;stock numeric;before_json jsonb;
+begin
+ select * into a from app_users where auth_user_id=auth.uid() and active=true;
+ if not found or a.role<>'owner' then raise exception 'OWNER AUTHORIZATION REQUIRED';end if;
+ if nullif(trim(coalesce(p_reason,'')),'') is null then raise exception 'MODIFICATION REASON REQUIRED';end if;
+ select * into h from purchase_headers where id=p_purchase for update;if not found then raise exception 'PURCHASE NOT FOUND';end if;
+ if exists(select 1 from audit_log where entity_type='purchase' and entity_id=p_purchase::text and action='PURCHASE_REVERSED') then raise exception 'REVERSED PURCHASE CANNOT BE MODIFIED';end if;
+ if nullif(trim(coalesce(p_invoice_no,'')),'') is null or p_invoice_date is null or p_invoice_date>current_date then raise exception 'VALID INVOICE DETAILS REQUIRED';end if;
+ if exists(select 1 from purchase_headers where supplier_id=h.supplier_id and id<>h.id and upper(trim(invoice_no))=upper(trim(p_invoice_no))) then raise exception 'DUPLICATE SUPPLIER INVOICE';end if;
+ if jsonb_typeof(p_lines)<>'array' or jsonb_array_length(p_lines)=0 then raise exception 'PURCHASE ITEMS REQUIRED';end if;
+ if exists(select 1 from(select e->>'item_id' i,count(*) c from jsonb_array_elements(p_lines)e group by e->>'item_id')s where i is null or c>1) then raise exception 'DUPLICATE/MISSING PURCHASE ITEM';end if;
+ select coalesce(jsonb_agg(jsonb_build_object('item_id',item_id,'qty',qty,'purchase_rate',purchase_rate) order by id),'[]'::jsonb) into before_json from purchase_lines where purchase_id=h.id;
+ create temporary table if not exists pg_temp.torvo_purchase_modify(item_id uuid,qty numeric,rate numeric) on commit drop;truncate pg_temp.torvo_purchase_modify;
+ for x in select * from jsonb_array_elements(p_lines) loop
+  begin i:=(x->>'item_id')::uuid;q:=(x->>'qty')::numeric;rate:=(x->>'purchase_rate')::numeric;exception when others then raise exception 'INVALID PURCHASE LINE';end;
+  if q<=0 or rate<0 or not exists(select 1 from catalog_items where id=i and active=true) then raise exception 'INVALID PURCHASE LINE/ITEM';end if;
+  total:=total+q*rate;insert into pg_temp.torvo_purchase_modify values(i,q,rate);
+ end loop;
+ -- Validate negative deltas before changing anything.
+ for i,oldq in select z.item_id,coalesce(o.qty,0)-coalesce(n.qty,0) from (select item_id from purchase_lines where purchase_id=h.id union select item_id from pg_temp.torvo_purchase_modify)z left join (select item_id,sum(qty)qty from purchase_lines where purchase_id=h.id group by item_id)o using(item_id) left join (select item_id,sum(qty)qty from pg_temp.torvo_purchase_modify group by item_id)n using(item_id) loop
+  if oldq>0 then select current_qty into stock from inventory where item_id=i for update;if coalesce(stock,0)<oldq then raise exception 'CANNOT REDUCE PURCHASE: CURRENT STOCK TOO LOW FOR ITEM %',i;end if;end if;
+ end loop;
+ for i,delta in select z.item_id,coalesce(n.qty,0)-coalesce(o.qty,0) from (select item_id from purchase_lines where purchase_id=h.id union select item_id from pg_temp.torvo_purchase_modify)z left join (select item_id,sum(qty)qty from purchase_lines where purchase_id=h.id group by item_id)o using(item_id) left join (select item_id,sum(qty)qty from pg_temp.torvo_purchase_modify group by item_id)n using(item_id) loop
+  if delta<>0 then insert into inventory(item_id,current_qty,updated_at) values(i,delta,now()) on conflict(item_id) do update set current_qty=inventory.current_qty+excluded.current_qty,updated_at=now();insert into inventory_movements(item_id,qty_change,reason,reference_type,reference_id,created_by) values(i,delta,'PURCHASE MODIFICATION: '||upper(trim(p_reason)),'purchase',h.id,a.id);end if;
+ end loop;
+ delete from purchase_lines where purchase_id=h.id;insert into purchase_lines(purchase_id,item_id,qty,purchase_rate) select h.id,item_id,qty,rate from pg_temp.torvo_purchase_modify;
+ update purchase_headers set invoice_no=upper(trim(p_invoice_no)),invoice_date=p_invoice_date,total_reference_amount=total where id=h.id;
+ insert into audit_log(actor_id,action,entity_type,entity_id,details) values(a.id,'PURCHASE_MODIFIED','purchase',h.id::text,jsonb_build_object('reason',upper(trim(p_reason)),'before_lines',before_json,'invoice_no_before',h.invoice_no,'invoice_no_after',upper(trim(p_invoice_no)),'invoice_date_before',h.invoice_date,'invoice_date_after',p_invoice_date,'new_total',total));
+end;$$;
+revoke all on function public.modify_purchase_entry(uuid,text,date,jsonb,text) from public,anon;
+grant execute on function public.modify_purchase_entry(uuid,text,date,jsonb,text) to authenticated;
