@@ -485,3 +485,36 @@ body{margin:0;min-width:0;overflow-x:hidden}
  #torvo-v2-root .torvoPrimaryCategories button span{padding:0!important;font-size:10px!important;text-align:center!important;line-height:1.15!important}
  #torvo-v2-root .torvoPrimaryCategories button:after{content:none!important}
 }
+
+
+/* UNIVERSAL TORVO FORM SYSTEM — all active V2 surfaces */
+#torvo-v2-root :is(form,.publicForm,.formGrid,.formTwo,.workspaceForm,.modalForm,.dealerForm,.roleForm,.accountantForm){
+ min-width:0;
+}
+#torvo-v2-root :is(form,.publicForm,.workspaceForm,.modalForm,.dealerForm,.roleForm,.accountantForm) label{
+ display:grid;gap:6px;min-width:0;color:#343840;font-size:10px;font-weight:800;letter-spacing:.045em;
+}
+#torvo-v2-root :is(input,select,textarea){
+ width:100%;min-width:0;padding:10px 12px!important;border:1px solid var(--tv-line-strong)!important;
+ border-radius:5px!important;background:#fff!important;color:var(--tv-ink)!important;font-weight:400!important;
+ transition:border-color .15s ease,box-shadow .15s ease,background .15s ease;
+}
+#torvo-v2-root :is(input,select){min-height:44px!important}
+#torvo-v2-root textarea{min-height:112px!important;resize:vertical}
+#torvo-v2-root :is(input,textarea)::placeholder{color:#9298a2;opacity:1}
+#torvo-v2-root :is(input,select,textarea):hover:not(:disabled){border-color:#aeb4bd!important}
+#torvo-v2-root :is(input,select,textarea):focus{border-color:var(--tv-red)!important;box-shadow:0 0 0 3px rgba(225,29,46,.09)!important;background:#fff!important}
+#torvo-v2-root :is(input,select,textarea):disabled{background:#f1f2f4!important;color:#777e88!important;cursor:not-allowed}
+#torvo-v2-root input[type="checkbox"],#torvo-v2-root input[type="radio"]{width:18px!important;height:18px!important;min-height:18px!important;padding:0!important;accent-color:var(--tv-red)}
+#torvo-v2-root :is(.formTwo,.formGrid){gap:12px!important}
+#torvo-v2-root .formTwo{grid-template-columns:repeat(2,minmax(0,1fr))}
+#torvo-v2-root :is(.publicModal,.modal,.workspaceModal,.sheet,.drawer) :is(.publicForm,.formGrid,.formTwo){min-width:0}
+#torvo-v2-root :is(.publicModal,.modal,.workspaceModal,.sheet,.drawer) button{min-height:40px}
+#torvo-v2-root :is(.errorText,.inlineError){padding:9px 11px!important;border-radius:5px!important;line-height:1.4}
+#torvo-v2-root :is(.inlineSuccess,.dealerRegistrationSuccess){padding:10px 12px!important;border-radius:5px!important}
+@media(max-width:800px){
+ #torvo-v2-root :is(.formTwo,.formGrid){grid-template-columns:1fr!important;gap:10px!important}
+ #torvo-v2-root :is(input,select){min-height:46px!important}
+ #torvo-v2-root textarea{min-height:104px!important}
+ #torvo-v2-root :is(form,.publicForm,.workspaceForm,.modalForm,.dealerForm,.roleForm,.accountantForm) label{font-size:10px}
+}
