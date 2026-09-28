@@ -2103,3 +2103,31 @@ body{margin:0;min-width:0;overflow-x:hidden}
  #torvo-v2-root>.publicSite .publicHeaderSearchRow .headerFilterOnly{display:none!important}
  #torvo-v2-root>.publicSite .publicHeaderSearchRow .searchShell,#torvo-v2-root>.publicSite .publicHeaderSearchRow .publicSearchShell{width:100%!important;max-width:none!important}
 }
+
+
+/* STOREFRONT TOP FINAL PASS — single hero and premium category proportions */
+@media(min-width:821px){
+ #torvo-v2-root>.publicSite .publicHero.compactHero{display:grid!important;grid-template-columns:minmax(0,1.05fr) minmax(420px,.95fr)!important;align-items:center!important;min-height:410px!important}
+ #torvo-v2-root>.publicSite .publicHeroCopy{padding-top:48px!important;padding-bottom:48px!important}
+ #torvo-v2-root>.publicSite .torvoHeroMedia{position:relative!important;inset:auto!important;width:100%!important;height:410px!important;z-index:2!important}
+ #torvo-v2-root>.publicSite .torvoHeroMedia picture,#torvo-v2-root>.publicSite .torvoHeroMedia img{width:100%!important;height:100%!important;object-fit:contain!important}
+ #torvo-v2-root>.publicSite .torvoPrimaryCategories>button{height:166px!important;min-height:166px!important}
+ #torvo-v2-root>.publicSite .torvoPrimaryCategories>button>img,#torvo-v2-root>.publicSite .torvoPrimaryCategories .categoryPhotoFallback{height:166px!important;min-height:166px!important}
+ #torvo-v2-root>.publicSite .categoryCopy b{font-size:20px!important}
+ #torvo-v2-root>.publicSite .categoryCopy small{font-size:8px!important;max-width:180px!important}
+}
+@media(max-width:820px){
+ #torvo-v2-root>.publicSite .publicHeader.topSearchHeader{display:block!important}
+ #torvo-v2-root>.publicSite .mobileHeroBanner{display:none!important}
+ #torvo-v2-root>.publicSite .publicHero.compactHero{display:block!important;min-height:320px!important;margin:7px 10px 0!important}
+ #torvo-v2-root>.publicSite .publicHeroCopy{padding:23px 17px 20px!important}
+ #torvo-v2-root>.publicSite .publicHeroCopy h1{max-width:290px!important;font-size:29px!important}
+ #torvo-v2-root>.publicSite .publicHeroCopy p{max-width:270px!important}
+ #torvo-v2-root>.publicSite .torvoHeroMedia{right:-28px!important;bottom:-8px!important;width:60%!important;height:64%!important}
+ #torvo-v2-root>.publicSite .publicBrandRail{margin:8px 10px 0!important}
+ #torvo-v2-root>.publicSite .torvoPrimaryCategories{margin:8px 10px 0!important;padding:0 18vw 5px 0!important}
+ #torvo-v2-root>.publicSite .torvoPrimaryCategories>button{flex-basis:82vw!important;min-height:132px!important;height:132px!important;border-radius:7px!important}
+ #torvo-v2-root>.publicSite .torvoPrimaryCategories>button>img,#torvo-v2-root>.publicSite .torvoPrimaryCategories .categoryPhotoFallback{height:132px!important;min-height:132px!important}
+ #torvo-v2-root>.publicSite .publicBenefitStrip{margin:7px 10px 0!important}
+ #torvo-v2-root>.publicSite .publicCatalog,#torvo-v2-root>.publicSite .publicDiscoverySection,#torvo-v2-root>.publicSite .publicActionGrid,#torvo-v2-root>.publicSite .premiumRetailFlow,#torvo-v2-root>.publicSite .publicAbout{margin-left:10px!important;margin-right:10px!important}
+}
