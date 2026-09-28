@@ -865,3 +865,29 @@ body{margin:0;min-width:0;overflow-x:hidden}
 @media(max-width:390px){
  #torvo-v2-root .reportsCompact .filters.reportPresetFilters{grid-template-columns:1fr!important}
 }
+
+
+/* APPROVED MAIN THEME — authentication and registration */
+#torvo-v2-root .businessFinalLogin{background:#0c0f12!important}
+#torvo-v2-root .businessFinalHero{background:#0c0f12!important}
+#torvo-v2-root .businessFinalHeroShade{background:linear-gradient(90deg,rgba(5,7,9,.96),rgba(5,7,9,.72))!important}
+#torvo-v2-root .businessFinalMark{background:var(--tv-red)!important;color:#fff!important;border-radius:5px!important}
+#torvo-v2-root .businessFinalPortal{color:var(--tv-red)!important;letter-spacing:.08em!important}
+#torvo-v2-root .businessFinalCard{
+ border:1px solid var(--tv-line)!important;border-radius:8px!important;background:#fff!important;box-shadow:0 24px 70px rgba(0,0,0,.22)!important;
+}
+#torvo-v2-root :is(.businessFinalUserInput,.businessFinalInput,.businessFinalNativeInput){
+ min-height:46px!important;border:1px solid #cbd0d6!important;border-radius:5px!important;background:#fff!important;box-shadow:none!important;
+}
+#torvo-v2-root :is(.businessFinalUserInput,.businessFinalInput,.businessFinalNativeInput):focus-within{border-color:#777e88!important;box-shadow:0 0 0 3px rgba(20,24,29,.06)!important}
+#torvo-v2-root .businessFinalPrimary{min-height:45px!important;border-radius:5px!important;background:var(--tv-red)!important;color:#fff!important}
+#torvo-v2-root .businessFinalOtpNotice{border-left:3px solid var(--tv-red)!important;background:#fff7f7!important}
+#torvo-v2-root .dealerRegModal{border:1px solid var(--tv-line)!important;border-radius:8px!important;box-shadow:0 24px 70px rgba(10,15,20,.22)!important}
+#torvo-v2-root .dealerRegistration{border:0!important;box-shadow:none!important}
+#torvo-v2-root :is(.dealerResultNotice,.dealerRegistrationSuccess,.dealerAppAccess){border-radius:6px!important}
+#torvo-v2-root .dealerRegistrationSuccess{border:1px solid #b9dfc8!important;background:#edf8f1!important}
+#torvo-v2-root .dealerAppInstallSlot{border:1px dashed #c8cdd3!important;border-radius:6px!important;background:#f8f9fa!important}
+@media(max-width:800px){
+ #torvo-v2-root .businessFinalCard{border-radius:7px!important;box-shadow:0 14px 36px rgba(0,0,0,.16)!important}
+ #torvo-v2-root .dealerRegModal{border-radius:7px!important}
+}
