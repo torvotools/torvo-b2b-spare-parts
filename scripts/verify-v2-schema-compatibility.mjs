@@ -33,7 +33,7 @@ const checks=[
  ['STAFF ONE ACTIVE SESSION',/uq_staff_one_active_session[\s\S]*staff_auth_sessions\(app_user_id\) where revoked_at is null/i.test(staffSession)],
  ['MASTER SALESMAN APP ROLE COMPATIBLE',/target\.role not in\('owner','salesman'\)/i.test(master)&&/u\.role in\('owner','salesman'\)/i.test(master)],
  ['MASTER SALESMAN APP USER FK',/master_salesman_access[\s\S]*app_user_id uuid primary key references app_users\(id\) on delete cascade/i.test(master)],
- ['DEALER MAP ACTIVE SEMANTICS',/dealer_salesman_map/i.test(master)&&/x\.active=true/i.test(master)&&/x\.dealer_id=d\.id/i.test(master)&&/x\.salesman_user_id=u\.id/i.test(master)],
+ ['DEALER MAP ACTIVE SEMANTICS',/salesman_dealer_mappings/i.test(master)&&/x\.active=true/i.test(master)&&/x\.dealer_id=d\.id/i.test(master)&&/x\.salesman_id=u\.id/i.test(master)],
  ['DEMAND APP USER AUTH DOMAIN',/u\.role not in\('owner','admin'\)/i.test(demand)],
  ['DEMAND CUSTOMER FK PRIVATE',/customer_id uuid not null references customer_contacts\(id\) on delete restrict/i.test(demand)&&/revoke all on customer_product_demands from anon,authenticated/i.test(demand)],
  ['DEMAND PRODUCT FK RESTRICTED',/product_id uuid references catalog_items\(id\) on delete restrict/i.test(demand)],
