@@ -61,7 +61,7 @@ jobs:
         shell: bash
         run: |
           set -o pipefail
-          npm run build:v2 2>&1 | tee /tmp/torvo-native-build.log || {
+          npm run build:app 2>&1 | tee /tmp/torvo-native-build.log || {
             echo "::group::TORVO NATIVE BUILD ROOT ERROR"
             grep -n -B 15 -A 20 -E "ERROR|Error:|error:|failed|FAILED|Expected|Unexpected|Transform failed|Build failed|✗" /tmp/torvo-native-build.log | tail -n 300 || true
             echo "---- FINAL BUILD OUTPUT ----"
@@ -74,14 +74,18 @@ jobs:
           cp -R dist/. dist-app/
           test -f dist-app/index.html
           test -d dist-app/assets
-          cp dist-app/index.html dist-app/v2.html
+          test -f dist-app/v2.html
           grep -q 'torvo-v2-root' dist-app/v2.html
       - name: VERIFY CURRENT LOGIN UI
         run: |
           test -d dist-app/assets
           test -n "$(find dist-app/assets -maxdepth 1 -type f -name '*.js' -print -quit)"
           if grep -R -q 'LOGIN SERVICE IS NOT CONNECTED YET' dist-app/assets; then echo 'PLACEHOLDER LOGIN FOUND IN COMPILED APP'; exit 1; fi
-          echo "COMPILED APP ASSETS PRESENT; SOURCE LOGIN CONTRACT ALREADY VERIFIED BY V2 PREFLIGHT."
+          if grep -R -q 'REGISTERED MOBILE NUMBER\|STAFF LOGIN USES WHATSAPP OTP\|10-DIGIT MOBILE NUMBER' dist-app/assets; then echo 'RETIRED MOBILE/WHATSAPP LOGIN FOUND IN COMPILED APP'; exit 1; fi
+          grep -R -q 'REGISTERED EMAIL' dist-app/assets
+          grep -R -q 'USER ID' dist-app/assets
+          grep -R -q 'NEW DEALER REGISTRATION' dist-app/assets
+          echo "COMPILED NATIVE APP HAS DEALER EMAIL + STAFF USER ID + REGISTRATION LOGIN CONTRACT."
       - name: VERIFY NATIVE ENTRY AND EXACT SHA
         run: |
           test -f dist-app/v2.html
@@ -112,6 +116,13 @@ jobs:
             echo 'PLACEHOLDER LOGIN FOUND IN SYNCED ANDROID ASSET'
             exit 1
           fi
+          if grep -R -q 'REGISTERED MOBILE NUMBER\|STAFF LOGIN USES WHATSAPP OTP\|10-DIGIT MOBILE NUMBER' android/app/src/main/assets/public/assets; then
+            echo 'RETIRED MOBILE/WHATSAPP LOGIN FOUND IN SYNCED ANDROID ASSET'
+            exit 1
+          fi
+          grep -R -q 'REGISTERED EMAIL' android/app/src/main/assets/public/assets
+          grep -R -q 'USER ID' android/app/src/main/assets/public/assets
+          grep -R -q 'NEW DEALER REGISTRATION' android/app/src/main/assets/public/assets
       - name: VERIFY ANDROID ASSET
         run: |
           test -f android/app/src/main/assets/public/index.html
