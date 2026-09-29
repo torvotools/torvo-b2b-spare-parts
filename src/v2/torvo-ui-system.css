@@ -3545,3 +3545,25 @@ body{margin:0;min-width:0;overflow-x:hidden}
 @media(max-width:820px){.dealerPortal .productFinder .catalogFilters{padding-inline:0;gap:4px;min-height:22px;margin-top:2px}.dealerPortal .smartSearchWrap,.dealerPortal .smartSearch{width:100%;max-width:100%}}
 @media(max-width:480px){.dealerPortal .productFinder .catalogFilters{min-height:18px}.dealerPortal .smartSearchWrap{margin-inline:0}}
 
+
+/* 2026-09-30 — cross-surface UI audit hardening: responsive tables, safe dialogs, touch targets */
+#torvo-v2-root :is(.modal,.dealerActionModal,.roleSheet){overscroll-behavior:contain}
+#torvo-v2-root :is(.modal,.dealerActionModal,.roleSheet) header{position:sticky;top:0;z-index:4;background:#fff}
+#torvo-v2-root :is(.modal,.dealerActionModal,.roleSheet) footer{position:sticky;bottom:0;z-index:4;background:#fff}
+#torvo-v2-root :is(button,a,[role="button"]):focus-visible{outline:3px solid rgba(225,29,46,.18)!important;outline-offset:2px}
+#torvo-v2-root :is(.workspace,.panel,.accountantWorkPanel){min-width:0}
+#torvo-v2-root :is(.workspace,.panel,.accountantWorkPanel) table{display:block;max-width:100%;overflow-x:auto;white-space:nowrap;-webkit-overflow-scrolling:touch}
+#torvo-v2-root :is(.workspaceTabs,.rowActions,.workFilters){scrollbar-width:thin}
+@media(max-width:820px){
+ #torvo-v2-root :is(button,a,[role="button"]){min-height:42px}
+ #torvo-v2-root :is(input,select){min-height:46px}
+ #torvo-v2-root :is(.modalLayer,.modalBack,.roleSheetBack){padding:0!important;align-items:end!important}
+ #torvo-v2-root :is(.modal,.dealerActionModal,.roleSheet){width:100%!important;max-width:none!important;max-height:92dvh!important;border-radius:14px 14px 0 0!important;padding:14px!important}
+ #torvo-v2-root :is(.formGrid,.modalForm){grid-template-columns:1fr!important;gap:9px!important}
+ #torvo-v2-root :is(.formGrid,.modalForm) :is(.wide,.modalNotice,.inlineError,.inlineSuccess){grid-column:1!important}
+ #torvo-v2-root .inlineForm{grid-template-columns:1fr!important;gap:8px!important}
+ #torvo-v2-root .dataList article{grid-template-columns:1fr!important;gap:5px!important}
+ #torvo-v2-root .requestList article{grid-template-columns:1fr!important;gap:9px!important}
+ #torvo-v2-root :is(.modal,.dealerActionModal,.roleSheet) footer{display:grid!important;grid-template-columns:1fr!important}
+ #torvo-v2-root :is(.modal,.dealerActionModal,.roleSheet) footer button{width:100%!important}
+}
