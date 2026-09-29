@@ -69,12 +69,8 @@ jobs:
             echo "::endgroup::"
             exit 1
           }
-          rm -rf dist-app
-          mkdir -p dist-app
-          cp -R dist/. dist-app/
-          test -f dist-app/index.html
-          test -d dist-app/assets
           test -f dist-app/v2.html
+          test -d dist-app/assets
           grep -q 'torvo-v2-root' dist-app/v2.html
       - name: VERIFY CURRENT LOGIN UI
         run: |
