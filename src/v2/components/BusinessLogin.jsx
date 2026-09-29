@@ -102,8 +102,8 @@ export default function BusinessLogin() {
             : webBusinessOnlyReason(user.role),
         );
       }
-      const destination=result.role==='accountant'?'/accountant-workspace':'/admin-workspace';
-      const target=new URL(destination,window.location.origin);
+      const target=new URL('/',window.location.origin);
+      target.searchParams.set('visual',result.role==='accountant'?'accountant':'admin');
       target.searchParams.set('auth','required');
       window.location.assign(target.href);
     } catch (error) {
