@@ -33,7 +33,7 @@ language plpgsql security definer set search_path=public as $$declare u app_user
  select * into u from app_users where auth_user_id=auth.uid() and active=true;
  if u.id is null or u.role not in('owner','salesman') then raise exception 'SALESMAN ACCESS REQUIRED';end if;
  master:=is_master_salesman();
- return query select d.id,d.shop_name,d.mobile,d.status from dealers d where d.status='approved' and (master or exists(select 1 from dealer_salesman_map x where x.dealer_id=d.id and x.salesman_user_id=u.id and x.active=true)) order by d.shop_name;
+ return query select d.id,d.shop_name,d.mobile,d.status from dealers d where d.status='approved' and (master or exists(select 1 from salesman_dealer_mappings x where x.dealer_id=d.id and x.salesman_id=u.id and x.active=true)) order by d.shop_name;
 end$$;
 
 revoke all on function admin_set_master_salesman(uuid,boolean) from public,anon;grant execute on function admin_set_master_salesman(uuid,boolean) to authenticated;
