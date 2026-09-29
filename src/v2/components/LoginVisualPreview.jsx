@@ -102,7 +102,10 @@ export default function LoginVisualPreview() {
             : webBusinessOnlyReason(user.role),
         );
       }
-      location.replace('/v2.html');
+      const destination=result.role==='accountant'?'/accountant-workspace':'/admin-workspace';
+      const target=new URL(destination,window.location.origin);
+      target.searchParams.set('auth','required');
+      window.location.replace(target.href);
     } catch (error) {
       setErr(error.message || 'INCORRECT OTP. PLEASE TRY AGAIN.');
     } finally {
