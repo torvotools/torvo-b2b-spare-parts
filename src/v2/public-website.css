@@ -333,3 +333,6 @@ html,body,#root,#torvo-v2-root{margin:0!important;padding:0!important;min-height
  .dealerFinderPublic>.formTwo{display:grid!important;grid-template-columns:minmax(0,1fr) minmax(0,1fr)!important;gap:8px!important;align-items:end!important}
  .dealerFinderPublic>.formTwo label{min-width:0!important;margin:0!important}.dealerFinderPublic>.formTwo select,.dealerFinderPublic>.formTwo input{width:100%!important;min-width:0!important;box-sizing:border-box!important}
 }
+
+/* TORVO DEALER DELIVERY POLICY — private B2B rule, not public retail pricing */
+.dealerDeliveryPolicy{max-width:1280px;margin:12px auto 26px;padding:12px 18px;border:1px solid #dedfe2;display:grid;grid-template-columns:auto 1fr auto;align-items:center;gap:14px;background:#fff}.dealerDeliveryPolicy b{font-size:15px;color:#111}.dealerDeliveryPolicy b::first-letter{color:var(--tr)}.dealerDeliveryPolicy span{font-size:10px;font-weight:800;color:var(--tr)}.dealerDeliveryPolicy small{font-size:8px;color:#6f747c;text-align:right}@media(max-width:800px){.dealerDeliveryPolicy{margin:8px 10px 18px;padding:11px 12px;grid-template-columns:1fr;gap:3px;border-radius:12px}.dealerDeliveryPolicy b{font-size:13px}.dealerDeliveryPolicy span{font-size:8px}.dealerDeliveryPolicy small{text-align:left;font-size:7px}}
