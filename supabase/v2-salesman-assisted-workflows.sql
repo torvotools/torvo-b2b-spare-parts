@@ -76,9 +76,9 @@ create or replace function salesman_submit_dealer_order(p_dealer uuid,p_lines js
 returns uuid language plpgsql security definer set search_path=public as $$declare u app_users%rowtype;d dealers%rowtype;ln jsonb;v_doc uuid;v_item uuid;v_qty numeric;v_rate numeric;v_sub numeric:=0;v_method text;begin
  select * into u from app_users where auth_user_id=auth.uid() and active=true;if u.id is null or u.role<>'salesman' then raise exception 'SALESMAN ACCESS REQUIRED';end if;
  select * into d from dealers where id=p_dealer and status='approved';if d.id is null then raise exception 'APPROVED DEALER REQUIRED';end if;
- if not exists(select 1 from salesman_dealer_mappings m where m.salesman_id=u.id and m.dealer_id=d.id and m.active=true) then raise exception 'DEALER NOT MAPPED TO SALESMAN';end if;
+ if not is_master_salesman() and not exists(select 1 from salesman_dealer_mappings m where m.salesman_id=u.id and m.dealer_id=d.id and m.active=true) then raise exception 'DEALER NOT MAPPED TO SALESMAN';end if;
  if jsonb_typeof(p_lines)<>'array' or jsonb_array_length(p_lines)=0 then raise exception 'ORDER LINES REQUIRED';end if;
- v_method:=lower(btrim(coalesce(p_consent_method,'')));if v_method not in('whatsapp_confirmation','phone','written_slip','in_person') then raise exception 'VALID DEALER CONSENT METHOD REQUIRED';end if;
+ v_method:=lower(btrim(coalesce(p_consent_method,'')));if v_method not in('whatsapp_confirmation','phone','written_slip','in_person') then raise exception 'VALID DEALER CONSENT METHOD REQUIRED';end if;if nullif(btrim(coalesce(p_consent_note,'')),'') is null then raise exception 'DEALER CONSENT REFERENCE / NOTE REQUIRED';end if;
  insert into sales_documents(dealer_id,doc_type,status,subtotal,final_payable,created_by,order_source,assisted_by,dealer_consent_method,dealer_consent_note) values(d.id,'sales_order','submitted',0,0,u.id,'salesman_assisted',u.id,v_method,nullif(btrim(p_consent_note),'')) returning id into v_doc;
  for ln in select * from jsonb_array_elements(p_lines) loop
   v_item:=(ln->>'item_id')::uuid;v_qty:=(ln->>'qty')::numeric;
@@ -90,8 +90,8 @@ returns uuid language plpgsql security definer set search_path=public as $$decla
   insert into sales_document_lines(document_id,item_id,qty,rate,amount) values(v_doc,v_item,v_qty,v_rate,v_qty*v_rate);v_sub:=v_sub+(v_qty*v_rate);
  end loop;
  update sales_documents set subtotal=v_sub,final_payable=v_sub where id=v_doc;
- insert into dealer_consent_events(dealer_id,salesman_id,entity_type,entity_id,method,verified,verification_reference,verified_at) values(d.id,u.id,'purchase_order',v_doc,v_method,true,nullif(btrim(p_consent_note),''),now());
- insert into audit_log(actor_id,action,entity_type,entity_id,details) values(u.id,'SALESMAN_ASSISTED_ORDER_SUBMITTED','sales_document',v_doc::text,jsonb_build_object('dealer_id',d.id,'consent_method',v_method,'line_count',jsonb_array_length(p_lines)));
+ insert into dealer_consent_events(dealer_id,salesman_id,entity_type,entity_id,method,verified,verification_reference,verified_at) values(d.id,u.id,'purchase_order',v_doc,v_method,false,nullif(btrim(p_consent_note),''),null);
+ insert into audit_log(actor_id,action,entity_type,entity_id,details) values(u.id,'SALESMAN_ASSISTED_ORDER_SUBMITTED','sales_document',v_doc::text,jsonb_build_object('dealer_id',d.id,'consent_method',v_method,'consent_verified',false,'line_count',jsonb_array_length(p_lines)));
  return v_doc;
 end$$;
 revoke all on function salesman_submit_dealer_order(uuid,jsonb,text,text) from public,anon;grant execute on function salesman_submit_dealer_order(uuid,jsonb,text,text) to authenticated;
