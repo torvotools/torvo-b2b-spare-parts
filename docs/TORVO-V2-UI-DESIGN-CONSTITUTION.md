@@ -80,8 +80,9 @@ Mobile is intentionally designed, not a squeezed desktop. Desktop is intentional
 
 ## 12. Change control
 No new business logic is introduced as part of UI modernization unless Owner explicitly requests it.
-LOCKed business/UI requirements remain respected.
-"22" means restore/reference the pre-redesign visual baseline at commit `47eb263662d7a4e552bbb73e18483d35435e90e7`.
+Business, security, privacy, data-integrity and production-safety constraints remain authoritative.
+The Owner has explicitly unlocked prior visual/UI locks for the current deep-audit modernization: obsolete, inconsistent or weaker visual presentation may be corrected without preserving historical styling merely because it was previously visually locked. Functional/business behavior must not be changed merely for cosmetics.
+"22" remains a historical rollback/reference baseline at commit `47eb263662d7a4e552bbb73e18483d35435e90e7`; it is not the current visual ceiling.
 
 ## OWNER RULE — NO DUPLICATE UI ACTIONS (2026-09-28)
 - New UI/UX must REPLACE or CONSOLIDATE an older button/option when both perform the same job on the same surface.
