@@ -15,6 +15,7 @@ const gates=[
  ['NATIVE ENTRY ONLY',appHtml.includes('/src/v2/main.jsx')&&!appHtml.includes('/src/v2/preview-main.jsx')],
  ['NATIVE SECURE APP',appMain.includes("import App from './App.jsx'")],
  ['SECURE APP HAS NO PREVIEW QUERY BYPASS',!r('src/v2/App.jsx').includes("visual=params.get('visual')")&&!r('src/v2/App.jsx').includes("if(visual==='admin')")&&!r('src/v2/App.jsx').includes("if(visual==='accountant')")&&!r('src/v2/App.jsx').includes("if(visual==='dealer')")],
+ ['STAFF LOGIN USES CANONICAL SECURE ROUTES',r('src/v2/components/BusinessLogin.jsx').includes("'/accountant-workspace'")&&r('src/v2/components/BusinessLogin.jsx').includes("'/admin-workspace'")&&!r('src/v2/components/BusinessLogin.jsx').includes("searchParams.set('visual'")],
  ['PUBLIC NORMALIZATION',normalize.includes("const source='dist/v2-preview.html',target='dist/index.html'")&&normalize.includes('await copyFile(source,target)')],
  ['PUBLIC BUILD STAMP',normalize.includes('torvo-build-sha.txt')&&normalize.includes('torvo-build-manifest.json')],
  ['BOUNDARIES SEPARATE',!previewConfig.includes('vite.app.config.js')&&!appConfig.includes('v2-preview.html')]
