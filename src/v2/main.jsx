@@ -6,6 +6,7 @@ import LoginVisualPreview from './components/LoginVisualPreview.jsx';
 import BackupCloseModal from './components/BackupCloseModal.jsx';
 import AppUpdateNotice from './components/AppUpdateNotice.jsx';
 import './styles.css';
+import './role-app-preview.css';
 import './admin-desktop-polish.css';
 import './admin-search-v2.css';
 import './accountant-search-v2.css';
