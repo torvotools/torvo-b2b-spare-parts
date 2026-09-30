@@ -1,0 +1,14 @@
+import fs from'node:fs';
+const read=p=>fs.readFileSync(p,'utf8'),fail=m=>{console.error(`PUBLIC PRICE-FREE CATALOG CONTRACT FAILED: ${m}`);process.exit(1)};
+const sql=read('supabase/v2-public-price-free-catalog-runtime.sql');
+const service=read('src/v2/services/publicWebsite.js');
+const install=read('supabase/V2_INSTALL_ORDER.md');
+for(const token of['public_customer_catalog(','public_customer_catalog_filtered(','public_product_showcase(','c.active=true','c.oem_code','oem_no','security definer','set search_path=public'])if(!sql.toLowerCase().includes(token.toLowerCase()))fail(`SQL CONTRACT MISSING: ${token}`);
+for(const token of["rpc('public_customer_catalog'","rpc('public_customer_catalog_filtered'","rpc('public_product_showcase'","p_search:q||null","p_machine_id:id","p_available_only:false","p_sort:'RELEVANT'","p_limit:60"])if(!service.includes(token))fail(`FRONTEND/RPC CONTRACT MISSING: ${token}`);
+for(const forbidden of['dealer_rate','purchase_cost','rate_a','rate_b','rate_c','inventory','gst_rate','hsn_code','box_offer_value','required_qty','notes'])if(sql.toLowerCase().includes(forbidden))fail(`PRIVATE FIELD REFERENCE PRESENT: ${forbidden}`);
+if(!/m\.public_visible\s*=\s*true/i.test(sql))fail('MACHINE -> SPARE MUST REQUIRE public_visible=true');
+if(!/grant execute on function public\.public_customer_catalog\(text,integer\) to anon,authenticated/i.test(sql))fail('PUBLIC SEARCH EXECUTE GRANT MISSING');
+if(!/grant execute on function public\.public_customer_catalog_filtered\(text,text,text,text,text,uuid,boolean,text,integer\) to anon,authenticated/i.test(sql))fail('PUBLIC FILTER EXECUTE GRANT MISSING');
+if(!/grant execute on function public\.public_product_showcase\(integer\) to anon,authenticated/i.test(sql))fail('PUBLIC SHOWCASE EXECUTE GRANT MISSING');
+if(!install.includes('v2-public-price-free-catalog-runtime.sql'))fail('CANONICAL INSTALL ORDER MISSING');
+console.log('TORVO V2 public price-free catalog frontend/SQL/privacy contract OK');
