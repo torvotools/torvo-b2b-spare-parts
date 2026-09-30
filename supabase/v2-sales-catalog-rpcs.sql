@@ -36,9 +36,8 @@ begin
  v_final:=s.subtotal+p_freight+p_other_charges;
  insert into sales_documents(dealer_id,doc_type,status,parent_id,root_order_id,subtotal,freight,other_charges,final_payable,created_by,revision_no) values(s.dealer_id,'estimate','final',s.id,s.id,s.subtotal,p_freight,p_other_charges,v_final,a.id,s.revision_no) returning id into v_doc;
  insert into sales_document_lines(document_id,item_id,qty,rate,amount) select v_doc,item_id,qty,rate,amount from sales_document_lines where document_id=s.id;
- insert into dispatches(estimate_id,status,updated_by) values(v_doc,'pick_list',a.id);
  update sales_documents set status='converted',estimate_created_at=now(),locked_at=now(),lock_reason='ESTIMATE CREATED AFTER DEALER OK' where id=s.id;
- insert into audit_log(actor_id,action,entity_type,entity_id,details) values(a.id,'ESTIMATE_CREATED','sales_document',v_doc::text,jsonb_build_object('sales_order_id',s.id,'revision_no',s.revision_no,'dealer_ok_revision',s.dealer_ok_revision,'freight',p_freight,'other_charges',p_other_charges,'final_payable',v_final,'stock_deducted',false));return v_doc;
+ insert into audit_log(actor_id,action,entity_type,entity_id,details) values(a.id,'ESTIMATE_CREATED','sales_document',v_doc::text,jsonb_build_object('sales_order_id',s.id,'revision_no',s.revision_no,'dealer_ok_revision',s.dealer_ok_revision,'freight',p_freight,'other_charges',p_other_charges,'final_payable',v_final,'stock_deducted',false,'dispatch_created',false));return v_doc;
 end;$$;
 revoke all on function sales_order_to_estimate(uuid,numeric,numeric) from public,anon;
 grant execute on function sales_order_to_estimate(uuid,numeric,numeric) to authenticated;
