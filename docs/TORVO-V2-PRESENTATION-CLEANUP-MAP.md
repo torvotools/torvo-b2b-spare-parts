@@ -1,7 +1,7 @@
 # TORVO V2 — PRESENTATION LAYER CLEANUP MAP
 
 Status: ACTIVE CLEANUP AUDIT
-Updated: 2026-09-27
+Updated: 2026-10-01
 Scope: presentation dependencies only. No business logic change.
 
 ## Current finding
@@ -13,35 +13,25 @@ The V2 entry currently loads a historical CSS chain plus four canonical consolid
 - torvo-operational-ui.css — operational workspace presentation
 - torvo-ai-integration-ui.css — AI/integration state presentation
 
-## Historical layers still ACTIVE BY IMPORT
-styles.css
-workspace-polish.css
-login-preview.css
-dealer-mobile-fix.css
-premium-ui.css
-compact-cloud-ui.css
-admin-desktop-polish.css
-admin-search-v2.css
-accountant-search-v2.css
-purchase-requirements-ui.css
-public-website.css
-public-product-showcase.css
-public-catalog-browser.css
-smart-search-ui.css
-smart-product-filters.css
-role-app-preview.css
-secure-desktop-lock.css
-live-responsive-hotfix.css
-public-desktop-final.css
+## Current runtime classification (2026-10-01)
 
-These are NOT safe-to-delete merely because newer layers load after them.
+The authoritative runtime entries are `src/v2/preview-main.jsx` and `src/v2/main.jsx`. Both finish with the same canonical ownership chain and `torvo-ui-system.css` last.
 
-## Risk finding
-live-responsive-hotfix.css and public-website.css are very large and likely contain accumulated regression ownership. Removing or merging them blindly is high risk.
-secure-desktop-lock.css explicitly protects privileged desktop geometry.
-login-preview.css remains role/auth presentation-specific.
-dealer-mobile-fix.css remains responsive/registration-specific.
-Therefore the safe strategy is selector-by-selector consolidation, not bulk deletion.
+RETIRED FROM RUNTIME (blocked by automated guard, including indirect runtime references):
+- workspace-polish.css
+- dealer-mobile-fix.css
+- premium-ui.css
+- compact-cloud-ui.css
+- secure-desktop-lock.css
+- live-responsive-hotfix.css
+- public-desktop-final.css
+- dealer-search-lock.css
+- final-ui-balance.css
+- dealer-rewards-ui.css
+
+ACTIVE STRUCTURAL / FEATURE-SPECIFIC LAYERS remain only where live components still depend on them, including styles.css, login-preview.css, purchase-requirements-ui.css, public-website.css, public-product-showcase.css, public-catalog-browser.css, smart-search-ui.css, smart-product-filters.css, role-app-preview.css, admin-desktop-polish.css, admin-search-v2.css and accountant-search-v2.css. Filename age is not deletion proof.
+
+Current risk rule: do not bulk-delete or bulk-rewrite structural CSS. Some live structural files still contain dense historical override rules. Consolidate selector ownership only with dependency evidence, exact-SHA build verification and responsive regression checks.
 
 ## Cleanup protocol
 1. Inventory actual component class names.
