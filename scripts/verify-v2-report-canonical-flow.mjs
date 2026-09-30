@@ -11,7 +11,7 @@ const checks=[
  ['STALE QUOTATION DOC TYPE REMOVED FROM SUMMARY',!summary.includes("doc_type='quotation'")],
  ['SALES DETAIL USES POSTED MARG BILL SALES',detail.includes("join marg_bill_sales s on s.estimate_id=e.id")&&detail.includes("s.status='posted'")],
  ['ORDER VS ESTIMATE USES SALES_ORDER',detail.includes("so.doc_type='sales_order'")],
- ['REPORT CATALOG LABELS QUOTATION CONVERSION',reports.includes("name:'Quotation Conversion'")],
+ ['REPORT CATALOG USES CANONICAL SALES ORDER TERMINOLOGY',reports.includes("name:'Sales Order Conversion'")],
  ['LEGACY REPORT SUMMARY OVERLAP REMAINS EXPLICIT',legacy.includes('create or replace function get_report_summary()')],
  ['INSTALL ORDER BLOCKS LEGACY SUMMARY AFTER AUTHORITATIVE SUMMARY',installOrder.includes('v2-reporting-rpc.sql')&&installOrder.includes('MUST NOT be installed after the authoritative summary RPC')]
 ];
