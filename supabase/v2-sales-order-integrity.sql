@@ -152,5 +152,6 @@ begin
   return eid;
 end;$$;
 
-revoke all on function public.convert_sales_order_to_estimate(uuid) from public;
-grant execute on function public.convert_sales_order_to_estimate(uuid) to authenticated;
+-- Legacy conversion retained only for migration/history compatibility. The active V2 UI uses sales_order_to_estimate(uuid,numeric,numeric).
+-- Keep this older mutation surface fail-closed so there is only one live Estimate conversion contract.
+revoke all on function public.convert_sales_order_to_estimate(uuid) from public,anon,authenticated;
