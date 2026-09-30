@@ -146,3 +146,11 @@ TORVO V2 is called 100% only after every applicable gate above has real PASS evi
 - B2B runtime contract inspection confirms latest exact Dealer OK before Estimate, no stock deduction at Estimate creation, stock deduction at approved Marg Bill Sale, payment is not a sale gate, ordered dispatch stages, and no second stock deduction at delivery. STAGING currently has no qualifying Sales Order/Estimate/Marg Bill/dispatch transaction, so business E2E remains OPEN.
 - Backup/restore, App Release Center and catalog destructive behavior remain OPEN: no verified backup run/restore manifest, production release artifact, or genuine trashed catalog master exists in STAGING. Source/RPC presence is not acceptance evidence.
 - Production Supabase, `main`, V27 and production/domain cutover remain untouched.
+
+
+## Dealer workspace history privacy hardening — 2026-09-30
+- `dealer_workspace_order_history(text,text)` remains device/session-bound and dealer-owned.
+- Return contract is explicit and limited to dealer-visible document identity/status/revision, totals, timestamps, and order linkage; it no longer returns `SETOF sales_documents` / `d.*`.
+- Internal fields such as creator/lock/assistance/consent metadata are not part of this Dealer RPC contract.
+- STAGING runtime verified: anonymous EXECUTE=false, authenticated EXECUTE=true, and no full-row `select d.*` remains.
+- Production, main, V27, and production-domain cutover were not touched.
