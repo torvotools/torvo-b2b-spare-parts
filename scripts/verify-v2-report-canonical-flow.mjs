@@ -6,8 +6,8 @@ const legacy=fs.readFileSync('supabase/v2-reporting-rpc.sql','utf8');
 const installOrder=fs.readFileSync('supabase/V2_INSTALL_ORDER.md','utf8');
 const checks=[
  ['SALES TOTAL USES POSTED MARG BILL SALES',summary.includes("join marg_bill_sales s on s.estimate_id=e.id where e.doc_type='estimate' and s.status='posted'")],
- ['QUOTATION COUNT USES CANONICAL INTERNAL SALES_ORDER',summary.includes("'quotation_count',(select count(*) from sales_documents where doc_type='sales_order')")],
- ['ACCEPTED QUOTATION USES DEALER OK SALES_ORDER',summary.includes("'accepted_quotation_count',(select count(*) from sales_documents where doc_type='sales_order' and status in('dealer_ok','confirmed','final','approved'))")],
+ ['SALES ORDER COUNT IS CANONICAL',summary.includes("'sales_order_count',(select count(*) from sales_documents where doc_type='sales_order')")],
+ ['DEALER OK SALES ORDER COUNT USES DEALER OK EVIDENCE',summary.includes("'dealer_ok_sales_order_count',(select count(*) from sales_documents where doc_type='sales_order' and dealer_ok_at is not null)")],
  ['STALE QUOTATION DOC TYPE REMOVED FROM SUMMARY',!summary.includes("doc_type='quotation'")],
  ['SALES DETAIL USES POSTED MARG BILL SALES',detail.includes("join marg_bill_sales s on s.estimate_id=e.id")&&detail.includes("s.status='posted'")],
  ['ORDER VS ESTIMATE USES SALES_ORDER',detail.includes("so.doc_type='sales_order'")],
