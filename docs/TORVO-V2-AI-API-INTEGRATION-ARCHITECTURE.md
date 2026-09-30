@@ -19,6 +19,20 @@ Every external call must pass through a server-side TORVO integration gateway wi
 - Owner/Admin operational visibility
 Provider outage must not corrupt the TORVO transaction.
 
+## Canonical integration registry and queue
+Future providers must plug into a provider-neutral server-side registry rather than page-specific code. The canonical integration layer should model:
+- capability key (ACCOUNTING / WHATSAPP / EMAIL / AI_VISION / GST / LOGISTICS / PAYMENT / MAPS / MONITORING)
+- provider + adapter version + enabled environment
+- secret reference only, never secret value in browser/database-readable public configuration
+- health/last-success/last-failure state
+- outbound sync/event queue with idempotency key, canonical entity ID, retry count and next retry time
+- dead-letter / NEEDS_REVIEW state after bounded retries
+- inbound webhook event ID/signature verification/replay protection before any TORVO mutation
+- provider-to-canonical ID mapping so switching ERP/mail/logistics providers does not rewrite TORVO business IDs
+- Owner/Admin diagnostics with redacted payload/error details
+
+Provider activation remains configuration-driven and must not create a second source of truth. TORVO commits its canonical business state according to TORVO rules; external sync success/failure is tracked separately unless a specific legally required external submission is explicitly defined as a workflow gate.
+
 ## AI Product Assistant
 Product entry flow:
 PHOTO(S) -> AI ANALYSIS -> STRUCTURED DRAFT -> CONFIDENCE -> QUESTIONS/REVIEW -> HUMAN CONFIRM -> PRODUCT SAVE.
