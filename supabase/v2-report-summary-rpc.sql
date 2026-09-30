@@ -18,6 +18,7 @@ declare a app_users%rowtype;r jsonb:='{}'::jsonb;begin
    'query_count',(select count(*) from sales_documents where doc_type='query'),
    'quotation_count',(select count(*) from sales_documents where doc_type='sales_order'),
    'accepted_quotation_count',(select count(*) from sales_documents where doc_type='sales_order' and status in('dealer_ok','confirmed','final','approved')),
+   'dealer_ok_sales_order_count',(select count(*) from sales_documents where doc_type='sales_order' and dealer_ok_at is not null),
    'active_dealers',(select count(*) from dealers where status='approved'),
    'inactive_dealers',(select count(*) from dealers where status in('inactive','suspended')),
    'catalog_items',(select count(*) from catalog_items where active=true),
