@@ -10,7 +10,7 @@ declare a app_users%rowtype;r jsonb:='{}'::jsonb;begin
    'sales_order_count',(select count(*) from sales_documents where doc_type='sales_order'),
    'posted_sale_count',(select count(*) from marg_bill_sales where status='posted'),
    'payment_received',(select coalesce(sum(amount),0) from payments where status in('cash','received')),
-   'payment_outstanding',(select coalesce(sum(greatest(coalesce(e.final_payable,0)-coalesce((select sum(p.amount) from payments p where p.estimate_id=e.id and p.status in('cash','received')),0),0)),0) from sales_documents e where e.doc_type='estimate')
+   'payment_outstanding',(select coalesce(sum(greatest(coalesce(e.final_payable,0)-coalesce((select sum(p.amount) from payments p where p.estimate_id=e.id and p.status in('cash','received')),0),0)),0) from sales_documents e join marg_bill_sales s on s.estimate_id=e.id where e.doc_type='estimate' and s.status='posted')
   );
  end if;
  if a.role in('owner','admin') then
