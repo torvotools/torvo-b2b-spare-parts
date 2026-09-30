@@ -132,3 +132,17 @@ TORVO V2 is called 100% only after every applicable gate above has real PASS evi
 - STAGING has a genuine active Owner `OR@000`; Owner master-email OTP verification and authenticated session creation have been observed successfully. This is PARTIAL staff-auth evidence only: protected Owner workspace rendering still requires final runtime confirmation, and Admin/Accountant/Salesman/Store Keeper must not be fabricated merely to close acceptance.
 - Dealer Hostinger TORVO OTP source/runtime is installed, but Dealer acceptance remains OPEN until a genuine approved staging Dealer exists.
 - Production, `main`, V27 and production/domain cutover remain untouched.
+
+
+## Current exact-HEAD acceptance refresh — 2026-09-30
+- Exact Git SHA: `4065f4e00ab865f7bdc9d7bda1b03951992cea00`.
+- Build Check #3440: SUCCESS.
+- Cloudflare Preview #2771: SUCCESS; exact live SHA evidence passed.
+- Android APK #2729: SUCCESS (CI/build evidence only; production signing remains OPEN). Earlier real-device TEST-DEBUG install/launch evidence does not substitute for Dealer OTP/business-flow acceptance.
+- Accountant runtime routing source defect was corrected so ACCOUNTANT remains Desktop/Laptop-only; this exact fix is covered by the three-way CI evidence above.
+- STAGING project `jvmhhngjlaqrfopfavur`: legacy-named `dealer-pin-login` and `staff-one-time-login` Edge Functions are verified fail-closed tombstones returning HTTP 410 RETIRED. They do not provide legacy authentication and are intentionally safe to retain for old-client failure behavior.
+- Dealer Email OTP/device contract is installed and runtime-inspected: approved registered email only, 6-digit OTP, 10-minute expiry, 45-second resend guard, maximum five failed attempts, single-use challenge, and new-device login revokes prior active Dealer sessions. Genuine Dealer E2E remains OPEN because STAGING has no real Dealer acceptance identity; no fake Dealer is created.
+- Service Book media runtime is dealer-session-bound and dealer-path/job-bound; genuine Dealer photo E2E remains OPEN until a real approved Dealer is available.
+- B2B runtime contract inspection confirms latest exact Dealer OK before Estimate, no stock deduction at Estimate creation, stock deduction at approved Marg Bill Sale, payment is not a sale gate, ordered dispatch stages, and no second stock deduction at delivery. STAGING currently has no qualifying Sales Order/Estimate/Marg Bill/dispatch transaction, so business E2E remains OPEN.
+- Backup/restore, App Release Center and catalog destructive behavior remain OPEN: no verified backup run/restore manifest, production release artifact, or genuine trashed catalog master exists in STAGING. Source/RPC presence is not acceptance evidence.
+- Production Supabase, `main`, V27 and production/domain cutover remain untouched.
