@@ -1,6 +1,6 @@
 import fs from'node:fs';
 const read=p=>fs.readFileSync(p,'utf8'),fail=m=>{console.error(`DEALER REGISTRATION ENTRY CONTRACT FAILED: ${m}`);process.exit(1)};
-const login=read('src/v2/components/BusinessLogin.jsx');
+const login=read('src/v2/components/LoginVisualPreview.jsx');
 const website=read('src/v2/components/PublicWebsitePreview.jsx');
 const preview=read('src/v2/components/DealerRegistrationPreview.jsx');
 const form=read('src/v2/components/PublicDealerRegistrationForm.jsx');
