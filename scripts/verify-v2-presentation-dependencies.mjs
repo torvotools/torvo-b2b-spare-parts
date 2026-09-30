@@ -3,7 +3,7 @@ const entryPaths=['src/v2/preview-main.jsx','src/v2/main.jsx'];
 const entries=entryPaths.map(path=>({path,content:fs.readFileSync(path,'utf8')}));
 const cssImports=content=>[...content.matchAll(/import\s+['"]\.\/([^'"]+\.css)['"]/g)].map(m=>m[1]);
 const canonical=['torvo-component-contract.css','torvo-operational-ui.css','torvo-ai-integration-ui.css','torvo-ui-system.css'];
-const retired=['workspace-polish.css','dealer-mobile-fix.css','premium-ui.css','compact-cloud-ui.css','secure-desktop-lock.css','live-responsive-hotfix.css','public-desktop-final.css','dealer-search-lock.css','final-ui-balance.css','dealer-rewards-ui.css'];
+const retired=['workspace-polish.css','dealer-mobile-fix.css','premium-ui.css','compact-cloud-ui.css','secure-desktop-lock.css','live-responsive-hotfix.css','public-desktop-final.css','dealer-search-lock.css','final-ui-balance.css','dealer-rewards-ui.css','login-ui.css'];
 const runtimeSourcePaths=[];
 const collectRuntimeSources=dir=>{for(const entry of fs.readdirSync(dir,{withFileTypes:true})){const path=dir+'/'+entry.name;if(entry.isDirectory())collectRuntimeSources(path);else if(/\.(?:js|jsx|mjs)$/.test(entry.name))runtimeSourcePaths.push(path)}};
 collectRuntimeSources('src/v2');
@@ -24,6 +24,8 @@ for(const file of retired){
   for(const {path,content} of runtimeSourceContent)if(content.includes(file))fail(`retired presentation layer referenced by runtime source ${path}: ${file}`);
 }
 pass(`full src/v2 runtime graph blocks retired presentation layers (${runtimeSourcePaths.length} JS/JSX/MJS files scanned)`);
+for(const file of retired){if(fs.existsSync(`src/v2/${file}`))fail(`retired presentation file must be physically absent: ${file}`)}
+pass('retired presentation files are physically absent');
 
 for(const file of canonical){
   if(!appImported.includes(file))fail(`canonical presentation layer missing from app entry: ${file}`);
