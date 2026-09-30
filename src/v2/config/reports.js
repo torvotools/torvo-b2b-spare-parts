@@ -2,7 +2,7 @@ export const REPORT_CATALOG=[
 {id:'sales',name:'Sales Report',roles:['owner','admin','accountant'],metrics:['gross_sales','net_sales','orders','avg_order']},
 {id:'profit',name:'Profit & Margin',roles:['owner'],metrics:['sales','cost','profit','margin']},
 {id:'expenses',name:'Expenses',roles:['owner','admin','accountant'],metrics:['expense_date','category','description','amount','status']},
-{id:'conversion',name:'Sales Order Conversion',roles:['owner','admin'],metrics:['queries','quotations','accepted','conversion_rate']},
+{id:'conversion',name:'Sales Order Conversion',roles:['owner','admin'],metrics:['queries','sales_orders','dealer_ok','conversion_rate']},
 {id:'order-estimate',name:'Order vs Estimate',roles:['owner','admin','accountant'],metrics:['orders','estimates','variance']},
 {id:'outstanding',name:'Payment Outstanding & Aging',roles:['owner','admin','accountant'],metrics:['pending','0_30','31_60','61_plus']},
 {id:'dealer',name:'Dealer Performance',roles:['owner','admin'],metrics:['active','inactive','sales','orders']},
