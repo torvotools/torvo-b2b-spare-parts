@@ -1,5 +1,6 @@
 import fs from'node:fs';
-const login=fs.readFileSync('src/v2/components/BusinessLogin.jsx','utf8');
+const login=fs.readFileSync('src/v2/components/LoginVisualPreview.jsx','utf8');
+if(fs.existsSync('src/v2/components/BusinessLogin.jsx'))throw new Error('BUSINESS LOGIN LOCK REGRESSION: duplicate retired BusinessLogin.jsx returned');
 const css=fs.readFileSync('src/v2/login-preview.css','utf8');
 const fail=m=>{throw new Error('BUSINESS LOGIN LOCK REGRESSION: '+m)};
 const required=[
