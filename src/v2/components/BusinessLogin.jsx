@@ -102,10 +102,8 @@ export default function BusinessLogin() {
             : webBusinessOnlyReason(user.role),
         );
       }
-      const target=new URL('/',window.location.origin);
-      target.searchParams.set('visual',result.role==='accountant'?'accountant':'admin');
-      target.searchParams.set('auth','required');
-      window.location.assign(target.href);
+      const target = result.role === 'accountant' ? '/accountant-workspace' : '/admin-workspace';
+      window.location.assign(target);
     } catch (error) {
       setErr(error.message || 'INCORRECT OTP. PLEASE TRY AGAIN.');
     } finally {
@@ -164,44 +162,21 @@ export default function BusinessLogin() {
             USER ID
             <div className={`businessFinalUserField ${userValid ? 'isValid' : (userInvalid ? 'isInvalid' : '')}`}>
               <UserRound className="businessFinalUserIcon" />
-              <span
+              <input
                 className="businessFinalUserInput"
-                role="textbox"
-                tabIndex={0}
+                ref={loginRef}
                 aria-label="USER ID"
-                contentEditable
-                suppressContentEditableWarning
-                data-placeholder="ENTER YOUR USER ID"
-                onInput={(event) => {
-                  const value = normalizeStaffUsername(event.currentTarget.textContent || '').slice(0, 15);
-                  if ((event.currentTarget.textContent || '') !== value) {
-                    event.currentTarget.textContent = value;
-                    const selection = window.getSelection();
-                    const range = document.createRange();
-                    range.selectNodeContents(event.currentTarget);
-                    range.collapse(false);
-                    selection?.removeAllRanges();
-                    selection?.addRange(range);
-                  }
-                  changeUser(value);
-                }}
+                value={username}
+                autoCapitalize="characters"
+                autoComplete="username"
+                spellCheck={false}
+                placeholder="ENTER YOUR USER ID"
+                onChange={(event) => changeUser(event.target.value)}
                 onKeyDown={(event) => {
                   if (event.key === 'Enter') {
                     event.preventDefault();
                     if (userValid) sendOtp();
                   }
-                }}
-                onPaste={(event) => {
-                  event.preventDefault();
-                  const value = normalizeStaffUsername(event.clipboardData.getData('text')).slice(0, 15);
-                  event.currentTarget.textContent = value;
-                  const selection = window.getSelection();
-                  const range = document.createRange();
-                  range.selectNodeContents(event.currentTarget);
-                  range.collapse(false);
-                  selection?.removeAllRanges();
-                  selection?.addRange(range);
-                  changeUser(value);
                 }}
               />              {userValid ? <CheckCircle2 className="businessFinalGood" /> : (userInvalid ? <XCircle className="businessFinalBad" /> : null)}
             </div>
@@ -233,7 +208,7 @@ export default function BusinessLogin() {
                 onKeyDown={(event) => {
                   if (event.key === 'Enter') {
                     event.preventDefault();
-                    if (otpReady) loginRef.current?.focus();
+                    if (otpReady) verify();
                   }
                 }}
                 disabled={!otpSent}
@@ -257,7 +232,6 @@ export default function BusinessLogin() {
           </div>
 
           <button
-            ref={loginRef}
             className="businessFinalPrimary businessFinalLoginButton"
             disabled={!otpSent || !otpReady || busy}
             onClick={verify}
