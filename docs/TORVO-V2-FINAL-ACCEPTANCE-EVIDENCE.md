@@ -5,6 +5,16 @@ Branch: `torvo-v2-build`.
 
 This file prevents source completion from being confused with production acceptance. A gate becomes PASS only when the listed real evidence exists. Never manufacture identities, transactions, backup artifacts, signing evidence or deployment evidence merely to mark a gate complete.
 
+## Current staging truth — 2026-10-01
+- This section is the current runtime snapshot; older table counts below are historical evidence and must not be read as the current schema count.
+- STAGING project: `jvmhhngjlaqrfopfavur`.
+- Public regular tables: **123**; RLS enabled: **123/123**.
+- Current acceptance data remains intentionally sparse: Dealers=0, qualifying Sales/Purchase/Payment/Dispatch/Return/Service-Book transactions=0, verified backup runs=0, restore manifests=0, production release artifacts=0. A genuine Owner bootstrap identity exists separately and does not close the full Staff runtime gate.
+- Duplicate historical payment request-key index `idx_payments_request_key_uq` was removed from STAGING; canonical `ux_payments_request_key` remains. Reproducible cleanup source: `supabase/v2-payment-index-cleanup.sql`.
+- Security advisor `rls_enabled_no_policy` notices are not blanket defects in TORVO's intentional deny-by-default/RPC-only tables; each exception must be assessed by actual access path. Performance advisor foreign-key index notices likewise require query-path evidence rather than blanket indexing.
+- Production, `main`, V27 and production/domain cutover remain untouched.
+
+
   Gate   Required real evidence | Current verified state |
 | --- | --- | --- |
 | Dealer auth/device | Approved real staging Dealer; registered-email OTP path; Device B invalidates Device A; revoked device fails private reads/writes | OPEN — staging currently has no active Dealer acceptance identity |
