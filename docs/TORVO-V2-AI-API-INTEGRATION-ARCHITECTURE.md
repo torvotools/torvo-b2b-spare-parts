@@ -33,6 +33,11 @@ Future providers must plug into a provider-neutral server-side registry rather t
 
 Provider activation remains configuration-driven and must not create a second source of truth. TORVO commits its canonical business state according to TORVO rules; external sync success/failure is tracked separately unless a specific legally required external submission is explicitly defined as a workflow gate.
 
+## Public integration abuse boundary
+Anonymous/public write capabilities (Dealer registration, Customer requirement/referral/repair/support/complaint, marketing preference and promotion telemetry) must be treated as internet-facing abuse surfaces even when the database RPC validates fields. Production routing should prefer a trusted TORVO gateway/Edge boundary that adds per-IP/session/identity rate limits, bounded request size, replay/idempotency protection where appropriate, bot/challenge protection for suspicious traffic, and privacy-safe abuse telemetry before invoking canonical database RPCs. Browser-only throttling is not a security control.
+
+Do not revoke a currently required public RPC merely to satisfy this rule; migrate callers to the protected gateway with compatibility evidence, then narrow direct grants only after zero-caller/runtime proof.
+
 ## AI Product Assistant
 Product entry flow:
 PHOTO(S) -> AI ANALYSIS -> STRUCTURED DRAFT -> CONFIDENCE -> QUESTIONS/REVIEW -> HUMAN CONFIRM -> PRODUCT SAVE.
