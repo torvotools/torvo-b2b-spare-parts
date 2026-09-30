@@ -69,6 +69,8 @@ declare u app_users%rowtype; d dealers%rowtype;begin
    if d.status not in('approved','inactive','suspended') then raise exception 'DEALER STATUS CANNOT BE SUSPENDED';end if;
    update dealers set status='suspended',suspended_at=coalesce(suspended_at,now()),suspended_by=u.id,suspension_reason=btrim(p_reason) where id=p_dealer_id;
    update app_users set active=false where dealer_id=p_dealer_id and role='dealer';
+   update dealer_device_sessions set revoked_at=coalesce(revoked_at,now()),revoke_reason='DEALER_SUSPENDED' where dealer_id=p_dealer_id and revoked_at is null;
+   update dealer_email_otp_challenges set revoked_at=coalesce(revoked_at,now()) where dealer_id=p_dealer_id and used_at is null and revoked_at is null;
    update dealer_active_sessions set forced_logout_at=coalesce(forced_logout_at,now()),forced_logout_by=u.id where dealer_id=p_dealer_id and forced_logout_at is null;
    insert into audit_log(actor_id,action,entity_type,entity_id,details) values(u.id,'DEALER_SUSPENDED','dealer',p_dealer_id::text,jsonb_build_object('reason',btrim(p_reason)));
    return 'suspended';
