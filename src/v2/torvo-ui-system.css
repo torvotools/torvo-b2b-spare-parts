@@ -3567,3 +3567,18 @@ body{margin:0;min-width:0;overflow-x:hidden}
  #torvo-v2-root :is(.modal,.dealerActionModal,.roleSheet) footer{display:grid!important;grid-template-columns:1fr!important}
  #torvo-v2-root :is(.modal,.dealerActionModal,.roleSheet) footer button{width:100%!important}
 }
+
+
+/* TORVO V2 — UNIFIED THEME CONTRACT: LOGIN + ALL ROLE SURFACES */
+#torvo-v2-root :is(.businessFinalLogin,.publicSite,.roleApp,.adminVisualPreview,.accountantPreview,.dealerEntry){font-family:var(--tv-font)!important;color:var(--tv-ink)}
+#torvo-v2-root :is(.businessFinalCard,.businessFinalInfo,.businessFinalInput,.businessFinalUserField,.businessFinalStatus,.businessFinalOtpNotice,.businessFinalError){border-radius:var(--tv-radius-lg)!important}
+#torvo-v2-root :is(.businessFinalPrimary,.businessFinalResend button,.dealerEntry button){border-radius:var(--tv-radius)!important}
+#torvo-v2-root .businessFinalCard{border:1px solid var(--tv-line)!important;box-shadow:var(--tv-shadow)!important}
+#torvo-v2-root :is(.businessFinalInput,.businessFinalUserField){border:1px solid var(--tv-line-strong)!important;background:#fff!important;box-shadow:none!important}
+#torvo-v2-root :is(.businessFinalInput,.businessFinalUserField):focus-within{border-color:var(--tv-red)!important;box-shadow:0 0 0 3px rgba(225,29,46,.08)!important}
+#torvo-v2-root .businessFinalPrimary{background:var(--tv-red)!important;border:1px solid var(--tv-red)!important;color:#fff!important;box-shadow:none!important}
+#torvo-v2-root .businessFinalPrimary:hover:not(:disabled){background:var(--tv-red-dark)!important;border-color:var(--tv-red-dark)!important}
+#torvo-v2-root :is(.businessFinalSubtitle,.businessFinalResend,.businessFinalInfo){color:var(--tv-muted)!important}
+#torvo-v2-root :is(.businessFinalLabel,.publicSite label,.roleApp label,.adminVisualPreview label,.accountantPreview label){font-weight:700!important;letter-spacing:.035em}
+#torvo-v2-root :is(.businessFinalNativeInput,.businessFinalUserInput,.publicSite input,.roleApp input,.adminVisualPreview input,.accountantPreview input){font-weight:400!important}
+#torvo-v2-root :is(.publicSite,.roleApp,.adminVisualPreview,.accountantPreview,.businessFinalLogin) :is(button,a,[role="button"]):focus-visible{outline:3px solid rgba(225,29,46,.18)!important;outline-offset:2px}
