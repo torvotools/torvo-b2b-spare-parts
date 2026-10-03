@@ -127,3 +127,17 @@ transform:translateZ(0);
 backface-visibility:hidden;
 }
 }
+
+
+/* OWNER PHYSICAL FINAL TUNE — FOOTER BUTTONS + WHATSAPP POSITION — 2026-10-03 */
+@media(max-width:520px){
+.dealerWhatsapp{bottom:calc(58px + 55px + 18px)!important}
+.dealerEntryFooter{display:grid!important;grid-template-columns:minmax(108px,1.25fr) repeat(4,28px) 34px 34px!important;column-gap:8px!important;align-items:center!important;padding:5px 9px!important}
+.dealerUseVideo{order:0!important;width:100%!important;height:36px!important;padding:3px 5px!important;gap:5px!important;border:1px solid #ffffff80!important;border-radius:5px!important;background:#111!important;justify-content:flex-start!important;box-sizing:border-box!important}
+.dealerUseVideo>svg{width:18px!important;height:18px!important;flex:none!important}.dealerUseVideo span{font-size:8px!important}.dealerUseVideo small{font-size:5.5px!important}
+.dealerSocial{display:contents!important}
+.dealerSocial button{width:28px!important;height:28px!important;min-width:28px!important;margin:0!important}
+.dealerContactIcon{width:34px!important;height:34px!important;min-width:34px!important;margin:0!important;border:1px solid #ffffff55!important;border-radius:50%!important;background:#0b0c0e!important;color:#fff!important;display:grid!important;place-items:center!important}
+.dealerContactIcon:first-of-type{background:#0b0c0e!important;color:#fff!important}
+.dealerContactIcon svg{width:19px!important;height:19px!important;stroke-width:2.2!important}
+}
