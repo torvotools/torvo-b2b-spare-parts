@@ -63,3 +63,19 @@
 .dealerContactIcon{width:28px!important;height:28px!important;min-width:28px!important;background:transparent!important;color:#fff!important}.dealerContactIcon:first-of-type{background:transparent!important;color:#fff!important}.dealerContactIcon svg{width:17px!important;height:17px!important}
 .dealerWhatsapp{width:44px!important;height:44px!important;right:7px!important;top:-21px!important}.dealerWhatsapp svg{width:27px!important;height:27px!important}.dealerWhatsapp:after{display:none!important}
 }
+
+
+/* OWNER PHYSICAL CORRECTION — HERO / ACTIONS / SCREEN FILL — 2026-10-03 */
+@media(max-width:520px){
+.dealerEntry{height:100dvh!important;min-height:100dvh!important;overflow:hidden!important}
+.dealerEntryBrand{height:auto!important;max-height:none!important;min-height:0!important;display:flex!important;flex-direction:column!important;overflow:hidden!important;background:#050607!important}
+.dealerHeroLockedImage{display:none!important}
+.dealerHeroMainSlice,.dealerHeroNavSlice{display:block!important;width:100%!important;flex:none!important;background-image:url('/torvo-hero-mechanical.jpg?v=locked-7fb9bf5')!important;background-repeat:no-repeat!important;background-size:100% auto!important;background-color:#050607!important}
+.dealerHeroMainSlice{aspect-ratio:691/445!important;background-position:center top!important}
+.dealerHeroNavSlice{aspect-ratio:691/72!important;background-position:center bottom!important}
+.dealerEntryCard .primary,.dealerEntryCard .primary[aria-disabled="true"]{background:#e30613!important;background-color:#e30613!important;color:#fff!important;opacity:1!important;filter:none!important;-webkit-appearance:none!important;appearance:none!important}
+.dealerEntryCard .primary[aria-disabled="true"]{cursor:default!important}
+.dealerEntryCard{margin-top:5px!important}
+.dealerTrustStrip{margin-top:5px!important}
+.dealerEntryFooter{margin-top:5px!important}
+}
