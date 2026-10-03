@@ -85,3 +85,15 @@
 @media(max-width:520px){
 .dealerWhatsapp{position:fixed!important;right:7px!important;top:auto!important;bottom:calc(58px + 55px + 16px)!important;width:44px!important;height:44px!important;z-index:20!important}
 }
+
+
+/* OWNER FINAL POLISH — HERO CLARITY WITHOUT ALTERING BRAND ART — 2026-10-03 */
+@media(max-width:520px){
+.dealerHeroMainSlice,.dealerHeroNavSlice{
+background-image:linear-gradient(rgba(0,0,0,0),rgba(0,0,0,0)),url('/torvo-hero-mechanical.jpg?v=locked-7fb9bf5')!important;
+filter:contrast(1.06) saturate(1.08) brightness(1.04)!important;
+image-rendering:auto!important;
+}
+.dealerHeroMainSlice{background-size:100% auto!important;background-position:center top!important}
+.dealerHeroNavSlice{background-size:100% auto!important;background-position:center bottom!important}
+}
