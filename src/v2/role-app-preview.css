@@ -97,3 +97,13 @@ image-rendering:auto!important;
 .dealerHeroMainSlice{background-size:100% auto!important;background-position:center top!important}
 .dealerHeroNavSlice{background-size:100% auto!important;background-position:center bottom!important}
 }
+
+
+/* OWNER PHYSICAL TUNE — WHATSAPP + FOOTER CONTACT SPACING — 2026-10-03 */
+@media(max-width:520px){
+.dealerWhatsapp{bottom:calc(58px + 55px + 28px)!important}
+.dealerEntryFooter{padding-right:9px!important}
+.dealerSocial{gap:9px!important;margin-right:auto!important}
+.dealerContactIcon{width:30px!important;height:30px!important;min-width:30px!important;margin-left:3px!important;display:grid!important;place-items:center!important;color:#fff!important}
+.dealerContactIcon svg{width:19px!important;height:19px!important;stroke-width:2.4!important}
+}
