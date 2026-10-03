@@ -141,3 +141,36 @@ backface-visibility:hidden;
 .dealerContactIcon:first-of-type{background:#0b0c0e!important;color:#fff!important}
 .dealerContactIcon svg{width:19px!important;height:19px!important;stroke-width:2.2!important}
 }
+
+
+/* OWNER SCREENSHOT CORRECTION — STABLE FOOTER LAYOUT / FIELD ICON CLEARANCE — 2026-10-03 */
+@media(max-width:520px){
+.dealerEntryFooter{
+display:flex!important;
+align-items:center!important;
+justify-content:space-between!important;
+gap:7px!important;
+padding:5px 9px!important;
+overflow:hidden!important;
+}
+.dealerUseVideo{
+order:0!important;
+flex:0 0 116px!important;
+width:116px!important;
+height:36px!important;
+min-width:116px!important;
+padding:3px 6px!important;
+display:flex!important;
+align-items:center!important;
+justify-content:flex-start!important;
+white-space:nowrap!important;
+overflow:hidden!important;
+}
+.dealerUseVideo span{display:flex!important;flex-direction:column!important;align-items:flex-start!important;line-height:1.05!important;white-space:nowrap!important;font-size:8px!important}
+.dealerUseVideo small{display:block!important;white-space:nowrap!important;font-size:5.5px!important;line-height:1.05!important}
+.dealerSocial{display:flex!important;align-items:center!important;justify-content:center!important;gap:7px!important;margin:0!important;flex:0 0 auto!important}
+.dealerSocial button{flex:0 0 28px!important}
+.dealerContactIcon{flex:0 0 32px!important;width:32px!important;height:32px!important;min-width:32px!important;min-height:32px!important}
+.dealerIdentityField input,.dealerOtpField input{padding-left:48px!important}
+.dealerFieldIcon{left:16px!important}
+}
