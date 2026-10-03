@@ -115,3 +115,15 @@ image-rendering:auto!important;
 .dealerIdentityField{margin-bottom:3px!important}
 .dealerOtpField{margin-bottom:3px!important}
 }
+
+
+/* OWNER LOCK — ORIGINAL HERO ONLY / CLARITY-SAFE RENDERING — 2026-10-03 */
+@media(max-width:520px){
+.dealerHeroMainSlice,.dealerHeroNavSlice{
+filter:none!important;
+image-rendering:auto!important;
+-webkit-transform:translateZ(0);
+transform:translateZ(0);
+backface-visibility:hidden;
+}
+}
