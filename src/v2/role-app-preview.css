@@ -107,3 +107,11 @@ image-rendering:auto!important;
 .dealerContactIcon{width:30px!important;height:30px!important;min-width:30px!important;margin-left:3px!important;display:grid!important;place-items:center!important;color:#fff!important}
 .dealerContactIcon svg{width:19px!important;height:19px!important;stroke-width:2.4!important}
 }
+
+
+/* OWNER PHYSICAL TUNE — STATUS BAR SAFE AREA + FIELD/ACTION MICRO GAPS — 2026-10-03 */
+@media(max-width:520px){
+.dealerEntry{padding-top:env(safe-area-inset-top)!important;box-sizing:border-box!important}
+.dealerIdentityField{margin-bottom:3px!important}
+.dealerOtpField{margin-bottom:3px!important}
+}
