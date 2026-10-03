@@ -79,3 +79,9 @@
 .dealerTrustStrip{margin-top:5px!important}
 .dealerEntryFooter{margin-top:5px!important}
 }
+
+
+/* OWNER LOCK — WHATSAPP ABOVE DEALER SUPPORT — 2026-10-03 */
+@media(max-width:520px){
+.dealerWhatsapp{position:fixed!important;right:7px!important;top:auto!important;bottom:calc(58px + 55px + 16px)!important;width:44px!important;height:44px!important;z-index:20!important}
+}
