@@ -283,3 +283,19 @@ touch-action:manipulation!important;
 .dealerContactIcon{position:relative!important;z-index:2!important}
 .dealerWhatsapp{position:absolute!important;right:7px!important;top:auto!important;bottom:125px!important;width:42px!important;height:42px!important;z-index:20!important}
 }
+
+
+/* OWNER FINAL SCREEN FIT — ICONLESS INPUTS / FOOTER WHATSAPP — 2026-10-04 */
+@media(max-width:520px){
+.dealerEntry{height:100dvh!important;min-height:100dvh!important;max-height:100dvh!important;overflow:hidden!important;display:flex!important;flex-direction:column!important}
+.dealerEntryBrand{flex:0 0 auto!important}
+.dealerEntryCard{flex:0 0 auto!important}
+.dealerIdentityField,.dealerOtpField{display:block!important;height:40px!important}
+.dealerEntryCard .dealerIdentityField input,.dealerEntryCard .dealerOtpField input{display:block!important;width:100%!important;height:40px!important;min-height:40px!important;padding:7px 14px!important;border:0!important;box-shadow:none!important}
+.dealerTrustStrip{flex:0 0 51px!important}
+.dealerEntryFooter{position:relative!important;flex:0 0 54px!important;height:54px!important;min-height:54px!important;grid-template-columns:104px minmax(0,1fr) 31px 31px 42px!important;column-gap:7px!important;padding:4px 8px!important;overflow:hidden!important}
+.dealerUseVideo{width:104px!important;min-width:104px!important;overflow:hidden!important}
+.dealerSocial{min-width:0!important}
+.dealerContactIcon{width:31px!important;height:31px!important;min-width:31px!important;min-height:31px!important}
+.dealerWhatsapp{position:static!important;width:42px!important;height:42px!important;min-width:42px!important;min-height:42px!important;margin:0!important;z-index:2!important}
+}
