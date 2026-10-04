@@ -174,3 +174,18 @@ overflow:hidden!important;
 .dealerIdentityField input,.dealerOtpField input{padding-left:48px!important}
 .dealerFieldIcon{left:16px!important}
 }
+
+
+/* OWNER PHYSICAL SCREENSHOT FIX — ICON CLEARANCE + COMPACT VIDEO — 2026-10-04 */
+@media(max-width:520px){
+.dealerFieldIcon{left:18px!important;width:16px!important;height:16px!important}
+.dealerIdentityField input,.dealerOtpField input{padding-left:54px!important}
+.dealerEntryFooter{gap:6px!important;padding-left:9px!important;padding-right:9px!important}
+.dealerUseVideo{flex:0 0 106px!important;width:106px!important;min-width:106px!important;padding:3px 5px!important;gap:4px!important}
+.dealerUseVideo>svg{width:16px!important;height:16px!important}
+.dealerUseVideo span{font-size:7.5px!important}
+.dealerUseVideo small{font-size:5px!important;letter-spacing:-.05px!important}
+.dealerSocial{gap:6px!important}
+.dealerSocial button{width:27px!important;height:27px!important;min-width:27px!important;flex-basis:27px!important}
+.dealerContactIcon{width:32px!important;height:32px!important;min-width:32px!important;flex-basis:32px!important}
+}
