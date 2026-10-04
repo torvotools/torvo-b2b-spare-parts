@@ -368,3 +368,15 @@ touch-action:manipulation!important;
 .dealerContactIcon:nth-of-type(2){background:#e62b22!important;color:#fff!important}
 .dealerWhatsapp{width:42px!important;height:42px!important;min-width:42px!important;min-height:42px!important;border-radius:9px!important;background:#20c85a!important;color:#fff!important}
 }
+
+
+/* OWNER-SUPPLIED CONTACT ASSETS — EXACT FOOTER SET */
+@media(max-width:520px){
+.dealerContactAsset{padding:0!important;overflow:hidden!important;border:0!important;background:transparent!important}
+.dealerContactAsset img{display:block!important;width:100%!important;height:100%!important;object-fit:cover!important;border-radius:inherit!important}
+.dealerContactIcon.dealerContactAsset{width:34px!important;height:34px!important;min-width:34px!important;min-height:34px!important;border-radius:8px!important}
+.dealerWhatsapp.dealerContactAsset{width:42px!important;height:42px!important;min-width:42px!important;min-height:42px!important;border-radius:9px!important}
+.dealerEntryFooter{grid-template-columns:112px minmax(0,1fr) 34px 34px 42px!important;column-gap:7px!important}
+.dealerUseVideo{width:112px!important;min-width:112px!important}
+.dealerUseVideo small{font-size:4.5px!important;letter-spacing:-.12px!important}
+}
