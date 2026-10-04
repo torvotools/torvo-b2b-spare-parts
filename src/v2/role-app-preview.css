@@ -189,3 +189,22 @@ overflow:hidden!important;
 .dealerSocial button{width:27px!important;height:27px!important;min-width:27px!important;flex-basis:27px!important}
 .dealerContactIcon{width:32px!important;height:32px!important;min-width:32px!important;flex-basis:32px!important}
 }
+
+
+/* OWNER SAFE SELF-AUDIT — ACCESSIBILITY + TOUCH + LOCKED RED ACTIONS — 2026-10-04 */
+@media(max-width:520px){
+.dealerEntryCard .primary:disabled{
+background:#e30613!important;
+background-color:#e30613!important;
+color:#fff!important;
+opacity:1!important;
+filter:none!important;
+-webkit-text-fill-color:#fff!important;
+}
+.dealerSocial button,.dealerContactIcon,.dealerUseVideo,.dealerWhatsapp,.dealerEntryRegister{
+-webkit-tap-highlight-color:transparent!important;
+touch-action:manipulation!important;
+}
+.dealerSocial button,.dealerContactIcon{display:grid!important;place-items:center!important}
+.dealerEntryFooter a,.dealerEntryFooter button{text-decoration:none!important}
+}
