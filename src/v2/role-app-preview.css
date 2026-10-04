@@ -208,3 +208,39 @@ touch-action:manipulation!important;
 .dealerSocial button,.dealerContactIcon{display:grid!important;place-items:center!important}
 .dealerEntryFooter a,.dealerEntryFooter button{text-decoration:none!important}
 }
+
+
+/* OWNER AUTHORITATIVE DEALER LOGIN MOBILE — CONSOLIDATED FINAL OVERRIDE — 2026-10-04 */
+@media(max-width:520px){
+.dealerEntry{height:100dvh!important;min-height:100dvh!important;overflow:hidden!important;box-sizing:border-box!important;padding-top:env(safe-area-inset-top)!important;background:#f4f5f7!important}
+.dealerEntryBrand{width:100%!important;height:auto!important;min-height:0!important;max-height:none!important;display:flex!important;flex-direction:column!important;overflow:hidden!important;background:#050607!important}
+.dealerHeroLockedImage,.dealerHeroContent{display:none!important}
+.dealerHeroMainSlice,.dealerHeroNavSlice{display:block!important;width:100%!important;flex:none!important;background-image:url('/torvo-hero-mechanical.jpg?v=locked-7fb9bf5')!important;background-repeat:no-repeat!important;background-size:100% auto!important;background-color:#050607!important;filter:none!important;image-rendering:auto!important}
+.dealerHeroMainSlice{aspect-ratio:691/445!important;background-position:center top!important}
+.dealerHeroNavSlice{aspect-ratio:691/72!important;background-position:center bottom!important}
+
+.dealerEntryCard{width:calc(100% - 24px)!important;margin:5px auto 0!important;padding:8px 14px 7px!important;gap:3px!important;border-radius:10px!important}
+.dealerEntryCard .eyebrow{font-size:11px!important;line-height:1!important}.dealerEntryCard h2{font-size:32px!important;line-height:.94!important;margin:0!important}
+.dealerEntryCard>p{font-size:10px!important;line-height:1.18!important;margin:1px 0 2px!important}.dealerEntryCard label{font-size:10px!important;gap:3px!important}
+.dealerIdentityField,.dealerOtpField{position:relative!important;display:block!important;margin-bottom:3px!important}
+.dealerFieldIcon{position:absolute!important;left:15px!important;top:50%!important;transform:translateY(-50%)!important;width:16px!important;height:16px!important;color:#536273!important;z-index:2!important;pointer-events:none!important}
+.dealerEntryCard input,.dealerIdentityField input,.dealerOtpField input{height:43px!important;min-height:43px!important;font-size:11.5px!important;padding:8px 12px 8px 46px!important}
+.dealerEntryCard .primary,.dealerEntryCard .primary[aria-disabled="true"]{height:40px!important;min-height:40px!important;font-size:17px!important;background:#e30613!important;background-color:#e30613!important;color:#fff!important;opacity:1!important;filter:none!important;-webkit-appearance:none!important;appearance:none!important;-webkit-text-fill-color:#fff!important}
+.dealerEntryCard .primary[aria-disabled="true"]{cursor:default!important}
+.dealerEntryDivider{height:17px!important;margin:0!important}.dealerEntryDivider span{font-size:9.5px!important}
+.dealerEntryRegister{height:35px!important;min-height:35px!important;font-size:13px!important}
+.dealerEntryCard>small{font-size:7px!important;line-height:1.25!important;margin:2px 5px 0!important}
+
+.dealerTrustStrip{width:calc(100% - 24px)!important;height:55px!important;margin:5px auto 0!important;padding:4px 2px!important;border-radius:9px!important}
+.dealerTrustStrip span{min-height:45px!important;font-size:7.5px!important;line-height:1.04!important}.dealerTrustStrip svg{width:22px!important;height:22px!important;margin-bottom:2px!important}
+
+.dealerEntryFooter{width:100%!important;height:58px!important;min-height:58px!important;margin:5px auto 0!important;padding:5px 9px!important;background:#050607!important;display:grid!important;grid-template-columns:100px minmax(0,1fr) 32px 32px!important;column-gap:8px!important;align-items:center!important;box-sizing:border-box!important;overflow:hidden!important}
+.dealerUseVideo{order:0!important;width:100px!important;min-width:100px!important;height:36px!important;padding:3px 5px!important;gap:4px!important;border:1px solid #ffffff80!important;border-radius:5px!important;background:#111!important;display:flex!important;align-items:center!important;justify-content:flex-start!important;box-sizing:border-box!important;white-space:nowrap!important;overflow:hidden!important;text-decoration:none!important}
+.dealerUseVideo>svg{width:15px!important;height:15px!important;flex:none!important}.dealerUseVideo span{display:flex!important;flex-direction:column!important;align-items:flex-start!important;font-size:7px!important;line-height:1.05!important;white-space:nowrap!important}.dealerUseVideo small{display:block!important;font-size:4.7px!important;line-height:1.05!important;white-space:nowrap!important}
+.dealerSocial{display:flex!important;align-items:center!important;justify-content:space-evenly!important;gap:4px!important;margin:0!important;min-width:0!important}
+.dealerSocial button{width:27px!important;height:27px!important;min-width:27px!important;min-height:27px!important;padding:0!important;margin:0!important;border-radius:5px!important;display:grid!important;place-items:center!important}
+.dealerContactIcon{width:32px!important;height:32px!important;min-width:32px!important;min-height:32px!important;margin:0!important;border:1px solid #ffffff55!important;border-radius:50%!important;background:#0b0c0e!important;color:#fff!important;display:grid!important;place-items:center!important;text-decoration:none!important}
+.dealerContactIcon svg{width:18px!important;height:18px!important;stroke-width:2.2!important}
+.dealerWhatsapp{position:fixed!important;right:7px!important;top:auto!important;bottom:calc(58px + 55px + 18px)!important;width:44px!important;height:44px!important;z-index:20!important}
+.dealerWhatsapp svg{width:27px!important;height:27px!important}.dealerWhatsapp:after{display:none!important}
+}
