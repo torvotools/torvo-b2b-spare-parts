@@ -3589,3 +3589,12 @@ body{margin:0;min-width:0;overflow-x:hidden}
  --t-bg:var(--tv-bg);--t-surface:var(--tv-surface);--t-line:var(--tv-line);--t-line-strong:var(--tv-line-strong);
  --t-r1:var(--tv-radius);--t-r2:var(--tv-radius-lg);--t-font:var(--tv-font);
 }
+
+/* FINAL UNIFIED ROLE-SURFACE BASELINE */
+#torvo-v2-root :is(.publicSite,.roleApp,.adminVisualPreview,.accountantPreview,.dealerEntry){background:var(--tv-page)!important;color:var(--tv-ink)!important}
+#torvo-v2-root :is(.adminVisualPreview,.accountantPreview,.roleApp) :is(.sidebar,.sideNav,aside){background:var(--tv-black)!important;color:#fff}
+#torvo-v2-root :is(.adminVisualPreview,.accountantPreview,.roleApp) :is(.topbar,.toolbar,header){border-color:var(--tv-line)!important;box-shadow:none!important}
+#torvo-v2-root :is(button,.button,[role="button"]){font-family:inherit}
+#torvo-v2-root :is(input,select,textarea,button){min-height:var(--tv-control)}
+#torvo-v2-root :is(input,select,textarea):focus-visible{outline:2px solid color-mix(in srgb,var(--tv-red) 28%,transparent)!important;outline-offset:1px}
+@media(max-width:760px){#torvo-v2-root :is(input,select,textarea,button){min-height:44px}#torvo-v2-root :is(.publicSite,.roleApp,.dealerEntry){overflow-x:hidden}}
