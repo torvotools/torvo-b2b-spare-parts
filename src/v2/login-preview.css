@@ -1,5 +1,5 @@
 .businessFinalLogin{min-height:100dvh;display:grid;grid-template-columns:minmax(0,1.12fr) minmax(430px,.88fr);background:#f5f7fa;color:#101828;font-family:Inter,system-ui,-apple-system,BlinkMacSystemFont,"Segoe UI",sans-serif;overflow:hidden}
-.businessFinalHero{position:relative;min-width:0;color:#fff;background:#080b0f url('/torvo-hero-mechanical.svg') right 12% center/56% auto no-repeat;overflow:hidden}
+.businessFinalHero{position:relative;min-width:0;color:#fff;background:#080b0f none right 12% center/56% auto no-repeat;overflow:hidden}
 .businessFinalHero:before{content:"";position:absolute;inset:0;background:linear-gradient(115deg,#090b0e 0%,#090b0ef5 43%,#111820c7 72%,#090b0eeb 100%)}
 .businessFinalHero:after{content:"";position:absolute;width:260px;height:120%;right:-110px;top:-10%;transform:skew(-16deg);background:linear-gradient(180deg,#ed1b24 0 13%,transparent 13% 62%,#ed1b24 62% 100%);opacity:.9}
 .businessFinalHeroShade{position:absolute;inset:0;background:linear-gradient(145deg,rgba(215,25,32,.24),transparent 20%,transparent 75%,rgba(215,25,32,.2))}
