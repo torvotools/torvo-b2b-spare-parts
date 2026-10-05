@@ -7,7 +7,7 @@ import AdminVisualPreview from './components/AdminVisualPreview';
 import AccountantVisualPreview from './components/AccountantVisualPreview';
 import LoginVisualPreview from './components/LoginVisualPreview';
 import DealerRegistrationPreview from './components/DealerRegistrationPreview';
-import './styles.css';import './login-preview.css';import './purchase-requirements-ui.css';import './public-website.css';import './public-product-showcase.css';import './public-catalog-browser.css';import './smart-search-ui.css';import './smart-product-filters.css';import './role-app-preview.css';import './torvo-component-contract.css';import './torvo-operational-ui.css';import './torvo-ai-integration-ui.css';import './torvo-ui-system.css';
+import './styles.css';import './login-preview.css';import './purchase-requirements-ui.css';import './public-website.css';import './public-product-showcase.css';import './public-catalog-browser.css';import './smart-search-ui.css';import './smart-product-filters.css';import './role-app-preview.css';import './accountant-admin-parity-fix.css';import './torvo-component-contract.css';import './torvo-operational-ui.css';import './torvo-ai-integration-ui.css';import './torvo-ui-system.css';
 import {installGlobalUiFeedback} from './services/uiFeedback.js';
 import {currentVerifiedStaff} from './services/auth.js';
 const root=document.getElementById('torvo-v2-root');if(!root)throw new Error('TORVO V2 preview root not found');
