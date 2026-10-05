@@ -54,3 +54,11 @@
  #torvo-v2-root .filterSheet{width:100%!important;max-height:92vh!important;border-radius:14px 14px 0 0!important}
  #torvo-v2-root .filterSheet .modalForm{grid-template-columns:1fr!important}
 }
+
+/* TORVO V2 CANONICAL CROSS-SURFACE CONTRACT */
+#torvo-v2-root :is(.publicSite,.roleApp,.adminVisualPreview,.accountantPreview,.dealerEntry,.workspace,.returnsWorkspace){font-family:var(--tv-font,var(--t-font))!important;color:var(--tv-ink,var(--t-ink))}
+#torvo-v2-root :is(.publicSite,.roleApp,.adminVisualPreview,.accountantPreview,.dealerEntry,.workspace,.returnsWorkspace) :is(input,select,textarea){border:1px solid var(--tv-line,var(--t-line))!important;border-radius:var(--tv-radius,var(--t-r1))!important;background:#fff!important;box-shadow:none!important;font-weight:400!important}
+#torvo-v2-root :is(.publicSite,.roleApp,.adminVisualPreview,.accountantPreview,.dealerEntry,.workspace,.returnsWorkspace) :is(.panel,.card,article,.returnSheet,.returnsEmpty){border-color:var(--tv-line,var(--t-line))!important;box-shadow:none!important}
+#torvo-v2-root .returnsHero{border-radius:var(--tv-radius-lg,var(--t-r2))!important;background:var(--tv-black,var(--t-black))!important}
+#torvo-v2-root :is(.returnsTabs button,.returnSheet button){border-radius:var(--tv-radius,var(--t-r1))!important}
+#torvo-v2-root :is(.returnsTabs button.active,.returnSheet .primary){background:var(--tv-red,var(--t-red))!important;border-color:var(--tv-red,var(--t-red))!important;color:#fff!important}
