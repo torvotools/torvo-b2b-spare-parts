@@ -3582,3 +3582,10 @@ body{margin:0;min-width:0;overflow-x:hidden}
 #torvo-v2-root :is(.businessFinalLabel,.publicSite label,.roleApp label,.adminVisualPreview label,.accountantPreview label){font-weight:700!important;letter-spacing:.035em}
 #torvo-v2-root :is(.businessFinalNativeInput,.businessFinalUserInput,.publicSite input,.roleApp input,.adminVisualPreview input,.accountantPreview input){font-weight:400!important}
 #torvo-v2-root :is(.publicSite,.roleApp,.adminVisualPreview,.accountantPreview,.businessFinalLogin) :is(button,a,[role="button"]):focus-visible{outline:3px solid rgba(225,29,46,.18)!important;outline-offset:2px}
+
+/* CANONICAL TOKEN BRIDGE — legacy components inherit the TORVO V2 design system */
+#torvo-v2-root{
+ --t-red:var(--tv-red);--t-black:var(--tv-black);--t-ink:var(--tv-ink);--t-muted:var(--tv-muted);
+ --t-bg:var(--tv-bg);--t-surface:var(--tv-surface);--t-line:var(--tv-line);--t-line-strong:var(--tv-line-strong);
+ --t-r1:var(--tv-radius);--t-r2:var(--tv-radius-lg);--t-font:var(--tv-font);
+}
