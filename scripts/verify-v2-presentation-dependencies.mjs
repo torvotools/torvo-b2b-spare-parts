@@ -8,7 +8,7 @@ const runtimeSourcePaths=[];
 const collectRuntimeSources=dir=>{for(const entry of fs.readdirSync(dir,{withFileTypes:true})){const path=dir+'/'+entry.name;if(entry.isDirectory())collectRuntimeSources(path);else if(/\.(?:js|jsx|mjs)$/.test(entry.name))runtimeSourcePaths.push(path)}};
 collectRuntimeSources('src/v2');
 const runtimeSourceContent=runtimeSourcePaths.map(path=>({path,content:fs.readFileSync(path,'utf8')}));
-const structural=['styles.css','login-preview.css','purchase-requirements-ui.css','public-website.css','public-product-showcase.css','public-catalog-browser.css','smart-search-ui.css','smart-product-filters.css','role-app-preview.css'];
+const structural=['styles.css','login-preview.css','purchase-requirements-ui.css','public-website.css','public-product-showcase.css','public-catalog-browser.css','smart-search-ui.css','smart-product-filters.css','role-app-preview.css','accountant-admin-parity-fix.css'];
 const previewImported=cssImports(entries[0].content);
 const appImported=cssImports(entries[1].content);
 const imported=previewImported;
