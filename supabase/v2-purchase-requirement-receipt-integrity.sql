@@ -102,6 +102,9 @@ begin
  if exists(select 1 from purchase_requirement_links where purchase_id=p_purchase and reversed_at is null) then
    raise exception 'Reverse active Purchase Requirement links before reversing Purchase stock';
  end if;
+ if exists(select 1 from transaction_returns where return_type='purchase_return' and source_id=p_purchase and status='completed') then
+   raise exception 'Purchase with completed Purchase Return cannot be fully reversed';
+ end if;
  for l in select item_id,sum(qty) qty from purchase_lines where purchase_id=p_purchase group by item_id order by item_id loop
    select current_qty into current_stock from inventory where item_id=l.item_id for update;
    if not found or current_stock<l.qty then raise exception 'Cannot reverse: current stock is lower than received Purchase quantity';end if;
