@@ -160,3 +160,73 @@
   #torvo-v2-root .mobileBottomNav :is(a,button){min-height:56px}
   #torvo-v2-root .mobileBottomNav span{font-size:.6875rem}
 }
+
+
+/* 06 OCT 2026 — OPERATIONAL APP + REGISTRATION UNIFICATION
+   Dealer, Salesman and Store Keeper deliberately share one shell language. */
+#torvo-v2-root :is(.dealerShell,.dealerHomePreview){
+  min-height:100dvh;background:var(--torvo-page);color:var(--torvo-ink);
+}
+#torvo-v2-root .dealerTop{
+  min-height:64px;background:var(--torvo-surface);border-bottom:1px solid var(--torvo-border);
+  box-shadow:var(--torvo-shadow-sm);
+}
+#torvo-v2-root .dealerTop .brand .mark,
+#torvo-v2-root .app aside .brand .mark{
+  background:var(--torvo-red);color:#fff;border-radius:var(--torvo-radius-sm);
+}
+#torvo-v2-root .dealerTop .brand strong,
+#torvo-v2-root .app aside .brand strong{color:var(--torvo-black);letter-spacing:.03em}
+#torvo-v2-root .dealerTop .brand span{color:var(--torvo-muted)}
+#torvo-v2-root .dealerMain{width:100%;min-width:0}
+#torvo-v2-root .dealerPortal{width:min(100%,var(--torvo-content));margin-inline:auto}
+#torvo-v2-root :is(.dealerHeroV2,.homeSearchCard,.machineSparePanel,.dealerSupportGrid .panel,.dealerRegistration,.dealerRegistrationSuccess){
+  border:1px solid var(--torvo-border);border-radius:var(--torvo-radius);background:var(--torvo-surface);
+}
+#torvo-v2-root :is(.dealerHeroV2,.homeSearchCard,.machineSparePanel){box-shadow:var(--torvo-shadow-sm)}
+#torvo-v2-root .dealerHeroV2 h1{color:var(--torvo-black);letter-spacing:-.025em}
+#torvo-v2-root .dealerHeroV2 p{color:var(--torvo-muted)}
+#torvo-v2-root .heroPill{color:var(--torvo-red);background:rgba(215,25,32,.07);border:1px solid rgba(215,25,32,.18)}
+#torvo-v2-root .homeSearch{border:1px solid var(--torvo-border-strong);border-radius:var(--torvo-radius-sm);background:var(--torvo-surface)}
+#torvo-v2-root .homeSearch:focus-within{border-color:var(--torvo-red);box-shadow:0 0 0 3px rgba(215,25,32,.10)}
+#torvo-v2-root .homeSearch input{border:0;background:transparent;box-shadow:none;outline:0}
+#torvo-v2-root .homeSearch button{border:0;background:transparent;color:var(--torvo-ink)}
+#torvo-v2-root .homeSearch button:last-child{background:var(--torvo-red);color:#fff}
+#torvo-v2-root .categoryLaunchGrid{gap:var(--torvo-space-4)}
+#torvo-v2-root .categoryLaunch{
+  border:1px solid var(--torvo-border);border-radius:var(--torvo-radius);background:var(--torvo-surface);box-shadow:var(--torvo-shadow-sm);
+}
+#torvo-v2-root .categoryLaunch h3{color:var(--torvo-black)}
+#torvo-v2-root .categoryLaunch p{color:var(--torvo-muted)}
+#torvo-v2-root .dealerBottomNav{
+  background:rgba(255,255,255,.98);border-top:1px solid var(--torvo-border);
+}
+#torvo-v2-root .dealerBottomNav button{color:var(--torvo-muted)}
+#torvo-v2-root .dealerBottomNav button.active{color:var(--torvo-red)}
+#torvo-v2-root .publicForm.dealerRegistration{
+  padding:var(--torvo-space-5);box-shadow:none;
+}
+#torvo-v2-root .dealerRegistration :is(input,select){
+  width:100%;min-height:48px;padding:0 12px;background:var(--torvo-surface);
+}
+#torvo-v2-root .dealerRegistration label{color:var(--torvo-ink);font-size:.8125rem;font-weight:700}
+#torvo-v2-root .dealerRegistration .primary{width:100%;background:var(--torvo-red);border-color:var(--torvo-red);color:#fff}
+#torvo-v2-root .dealerRegistration .primary:hover:not(:disabled){background:var(--torvo-red-hover);border-color:var(--torvo-red-hover)}
+#torvo-v2-root .dealerResultNotice{border:1px solid var(--torvo-border);background:var(--torvo-soft);border-radius:var(--torvo-radius-sm)}
+#torvo-v2-root .dealerRegistrationSuccess{padding:var(--torvo-space-6)}
+#torvo-v2-root .dealerRegistrationSuccess>svg{color:var(--torvo-success)}
+
+/* Secure desktop uses the same primitives rather than a separate visual brand. */
+#torvo-v2-root .secureDesktopShell{background:var(--torvo-page);color:var(--torvo-ink)}
+#torvo-v2-root .secureDesktopShell aside{background:var(--torvo-black);color:#fff}
+#torvo-v2-root .secureDesktopShell>main>.top{background:var(--torvo-surface);border-bottom:1px solid var(--torvo-border)}
+#torvo-v2-root .secureDesktopShell .content :is(.panel,.workspace){border-color:var(--torvo-border);border-radius:var(--torvo-radius)}
+#torvo-v2-root .secureDesktopShell aside nav button.active{background:var(--torvo-red);color:#fff}
+
+@media(max-width:820px){
+  #torvo-v2-root .dealerTop{min-height:58px}
+  #torvo-v2-root .dealerPortal{padding-inline:12px}
+  #torvo-v2-root .publicForm.dealerRegistration{padding:16px}
+  #torvo-v2-root .dealerRegistration .formTwo{grid-template-columns:1fr}
+  #torvo-v2-root .categoryLaunchGrid{gap:12px}
+}
