@@ -676,3 +676,14 @@
  #torvo-v2-root .formTwo{grid-template-columns:1fr;gap:9px}
  #torvo-v2-root .formTwo :is(input,select){min-height:50px;font-size:16px}
 }
+
+/* TORVO AURORA INTERACTION CONTRACT — actions must look actionable; information stays visually neutral. */
+:where(.publicSite,.adminVisualPreview,.accountantPreview,.dealerShell,.roleApp) :where(button,a[href],[role="button"],summary){cursor:pointer}
+:where(.publicSite,.adminVisualPreview,.accountantPreview,.dealerShell,.roleApp) :where(button,a[href],[role="button"],summary):focus-visible{outline:3px solid color-mix(in srgb,var(--t-red,#e32636) 28%,transparent);outline-offset:2px}
+:where(.publicSite,.adminVisualPreview,.accountantPreview,.dealerShell,.roleApp) button:disabled{cursor:not-allowed;opacity:.52;box-shadow:none;transform:none}
+:where(.publicSite,.adminVisualPreview,.accountantPreview,.dealerShell,.roleApp) :where(button,a[href],[role="button"]){transition:background-color .16s ease,border-color .16s ease,color .16s ease,box-shadow .16s ease,transform .12s ease}
+@media(hover:hover){:where(.publicSite,.adminVisualPreview,.accountantPreview,.dealerShell,.roleApp) :where(button,a[href],[role="button"]):not(:disabled):hover{filter:brightness(.985)}}
+:where(.publicSite,.adminVisualPreview,.accountantPreview,.dealerShell,.roleApp) :where(button,[role="button"]):not(:disabled):active{transform:translateY(1px)}
+:where(.publicSite,.adminVisualPreview,.accountantPreview,.dealerShell,.roleApp) :where(input,select,textarea){cursor:text}
+:where(.publicSite,.adminVisualPreview,.accountantPreview,.dealerShell,.roleApp) select{cursor:pointer}
+:where(.publicSite,.adminVisualPreview,.accountantPreview,.dealerShell,.roleApp) :where(article,section,div):not([role="button"]){-webkit-tap-highlight-color:transparent}
