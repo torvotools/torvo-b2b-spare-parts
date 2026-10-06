@@ -123,3 +123,6 @@
 @media(min-width:801px){.publicMain{width:100%;max-width:none;margin-left:0;margin-right:0;padding-left:0;padding-right:0}.publicBrandRail,.torvoPrimaryCategories,.publicBenefitStrip,.publicDiscoverySection,.publicActionGrid,.auroraDealerJourney,.publicAbout{width:calc(100% - 32px);max-width:none;margin-left:16px;margin-right:16px}.torvoConnect{width:100vw;margin-left:calc(50% - 50vw);margin-right:calc(50% - 50vw)}}
 @media(max-width:800px){.torvoConnect{width:100vw;margin:18px calc(50% - 50vw) 0;padding:24px 14px calc(76px + env(safe-area-inset-bottom));border-radius:0}}
 html,body,#root{margin-bottom:0!important;padding-bottom:0!important}
+
+/* FOOTER SQUARE CORNERS — owner lock 06 OCT 2026 */
+.torvoConnect,.torvoConnect::before,.torvoConnect::after{border-radius:0!important}
