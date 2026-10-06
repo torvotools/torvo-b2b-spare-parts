@@ -486,3 +486,43 @@
 #torvo-v2-root :is(.dealerBottomNav,.mobileBottomNav){
   background:rgba(255,255,255,.96);backdrop-filter:blur(18px);border-color:var(--torvo-border);
 }
+
+
+/* 06 OCT 2026 — BUSINESS WORKSPACE MIGRATION
+   Purchase, returns and dense operational screens inherit the same Aurora language. */
+#torvo-v2-root :is(.purchaseHero,.returnsHero){
+  background:#fff;color:var(--torvo-ink);border:1px solid var(--torvo-border);border-radius:18px;box-shadow:var(--torvo-shadow-sm);
+}
+#torvo-v2-root :is(.purchaseHero,.returnsHero) :is(h2){color:var(--torvo-black)}
+#torvo-v2-root :is(.purchaseHero,.returnsHero) :is(p){color:var(--torvo-muted);font-size:.8125rem}
+#torvo-v2-root :is(.purchaseHero,.returnsHero)>svg{color:var(--torvo-red)}
+#torvo-v2-root :is(.purchaseHero span,.purchaseModal header span,.purchaseItemFinder header span,.returnsHero span){color:var(--torvo-accent-cool);font-size:.75rem}
+#torvo-v2-root :is(.purchaseCard,.returnsList article,.purchaseBuyingPanel,.returnSheet,.purchaseModal){
+  background:#fff;border:1px solid var(--torvo-border);border-radius:14px;box-shadow:var(--torvo-shadow-sm);
+}
+#torvo-v2-root :is(.purchaseCard strong,.purchaseBuyingItem b,.purchaseHistoryRows strong){color:var(--torvo-black)}
+#torvo-v2-root :is(.purchaseCard span,.purchaseBuyingItem small,.returnsList small){color:var(--torvo-muted)}
+#torvo-v2-root :is(.purchaseTools label,.purchaseFormGrid input,.purchaseFormGrid select,.purchaseNote textarea,.purchaseLine input,.returnSheet select,.returnSheet textarea,.returnSheet input){
+  border-color:var(--torvo-border-strong);background:#fff;border-radius:9px;
+}
+#torvo-v2-root :is(.purchaseGuard){background:#eaf8f2;border-color:#b7dfcf;color:#116b49}
+#torvo-v2-root :is(.purchaseError,.returnsError){background:#fff1f2;border-color:#f5c7cc;color:var(--torvo-danger)}
+#torvo-v2-root :is(.purchaseEmpty,.returnsEmpty){background:#fafbfc;border-color:var(--torvo-border-strong);color:var(--torvo-muted)}
+#torvo-v2-root :is(.returnsTabs button.active,.returnSheet .primary){background:var(--torvo-red);border-color:var(--torvo-red);color:#fff}
+#torvo-v2-root :is(.purchaseModalBack,.returnModal){background:rgba(17,19,23,.58);backdrop-filter:blur(5px)}
+#torvo-v2-root :is(.purchaseModal,.returnSheet){box-shadow:0 28px 80px rgba(17,19,23,.22)}
+@media(max-width:650px){
+  #torvo-v2-root .returnsHero{padding:14px;border-radius:14px;min-height:auto}
+  #torvo-v2-root .returnsHero span{font-size:.6875rem}
+  #torvo-v2-root .returnsHero h2{font-size:1.125rem}
+  #torvo-v2-root .returnsHero p{font-size:.75rem;line-height:1.4}
+  #torvo-v2-root .returnsTabs button{min-height:44px;font-size:.75rem}
+  #torvo-v2-root .returnsEmpty b{font-size:.8125rem}
+  #torvo-v2-root .returnsEmpty span{font-size:.75rem}
+  #torvo-v2-root .returnsList b{font-size:.8125rem}
+  #torvo-v2-root .returnsList span{font-size:.75rem}
+  #torvo-v2-root .returnsList small{font-size:.6875rem}
+  #torvo-v2-root .returnSheet label{font-size:.75rem}
+  #torvo-v2-root .returnSheet select,#torvo-v2-root .returnSheet textarea,#torvo-v2-root .returnSheet input{font-size:1rem}
+  #torvo-v2-root .returnSheet footer button{font-size:.75rem;min-height:44px}
+}
