@@ -133,10 +133,14 @@ html,body,#root{margin-bottom:0!important;padding-bottom:0!important}
 .publicSite>.torvoConnect:last-child{margin-bottom:0!important}
 body:has(.publicSite){padding-bottom:0!important}
 
-/* FOOTER CONTACT + SOCIAL ICON IDENTITY — owner visual lock 06 OCT 2026 */
-.torvoPremiumFooter .torvoFollowBlock>.eyebrow,.torvoPremiumFooter .torvoSocialPending{display:none!important}
-.torvoPremiumFooter .torvoContactActions a,.torvoPremiumFooter .torvoSocialLinks a{box-shadow:none!important;text-shadow:none!important;filter:none!important;background:#fff!important;border:1px solid rgba(255,255,255,.18)!important}
-.torvoPremiumFooter .torvoContactActions a svg,.torvoPremiumFooter .torvoSocialLinks a svg{filter:none!important;stroke-width:2.2}
-.torvoPremiumFooter .contactPhone{color:#2873b9!important}.torvoPremiumFooter .contactWhatsapp{color:#25D366!important}.torvoPremiumFooter .contactEmail{color:#c93636!important}
-.torvoPremiumFooter .socialFacebook{color:#1877F2!important}.torvoPremiumFooter .socialInstagram{color:#E4405F!important}.torvoPremiumFooter .socialYoutube{color:#FF0000!important}
+
+/* FOOTER CONTACT + SOCIAL IDENTITY — TORVO AURORA canonical */
+.torvoPremiumFooter .torvoFollowBlock>.eyebrow,.torvoPremiumFooter .torvoSocialPending{display:none}
+.torvoPremiumFooter .torvoContactActions,.torvoPremiumFooter .torvoSocialLinks{display:flex;align-items:center;gap:10px;flex-wrap:wrap}
+.torvoPremiumFooter .torvoContactActions a,.torvoPremiumFooter .torvoSocialLinks a{display:grid;place-items:center;width:42px;height:42px;padding:0;border-radius:10px;background:#fff;border:1px solid #dce1e7;box-shadow:none;text-shadow:none;filter:none;text-decoration:none}
+.torvoPremiumFooter .torvoContactActions a svg,.torvoPremiumFooter .torvoSocialLinks a svg{display:block;width:22px;height:22px;filter:none;stroke-width:2.2}
+.torvoPremiumFooter .contactPhone{color:#2873b9}.torvoPremiumFooter .contactWhatsapp{color:#25D366}.torvoPremiumFooter .contactEmail{color:#c93636}
+.torvoPremiumFooter .socialFacebook{color:#1877F2}.torvoPremiumFooter .socialInstagram{color:#E4405F}.torvoPremiumFooter .socialYoutube{color:#FF0000}
+.torvoPremiumFooter .torvoSocialLinks a span{position:absolute;width:1px;height:1px;padding:0;margin:-1px;overflow:hidden;clip:rect(0,0,0,0);white-space:nowrap;border:0}
 .torvoPremiumFooter .torvoSocialLinks a[href="#contact"]{opacity:.72;cursor:default}
+@media(max-width:800px){.torvoPremiumFooter .torvoContactActions a,.torvoPremiumFooter .torvoSocialLinks a{width:38px;height:38px;border-radius:9px}.torvoPremiumFooter .torvoContactActions a svg,.torvoPremiumFooter .torvoSocialLinks a svg{width:20px;height:20px}}
