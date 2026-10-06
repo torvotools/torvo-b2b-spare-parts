@@ -431,3 +431,22 @@
 @media(max-width:820px){
   #torvo-v2-root :is(.panel,.workspace,.accountantWorkPanel,.loginCard,.dealerRegistrationCard,.dealerHeroV2,.homeSearchCard,.publicProductCard){border-radius:12px}
 }
+
+
+/* 06 OCT 2026 — TORVO AURORA INDUSTRIAL PALETTE
+   Premium unified palette: graphite + porcelain + signal red + restrained teal/amber accents.
+   Accents are semantic, not separate page themes. */
+#torvo-v2-root{
+  --torvo-red:#e32636;--torvo-red-hover:#c71929;
+  --torvo-black:#171a20;--torvo-ink:#242933;--torvo-muted:#6d7582;
+  --torvo-page:#f4f5f7;--torvo-surface:#ffffff;--torvo-soft:#edf0f3;
+  --torvo-border:#dce1e7;--torvo-border-strong:#c2c9d2;
+  --torvo-success:#16845b;--torvo-warning:#c17a16;--torvo-danger:#c93636;--torvo-info:#2873b9;
+  --torvo-accent-cool:#167d86;--torvo-accent-warm:#c17a16;
+}
+#torvo-v2-root :is(.publicKicker,.heroPill,.eyebrow){background:#fff0f2;color:var(--torvo-red);border-color:#f5c7cc}
+#torvo-v2-root :is(.status.approved,.approvalStatus.approved){color:#116b49;background:#eaf8f2;border-color:#b7dfcf}
+#torvo-v2-root :is(.status.pending,.status.hold,.approvalStatus.pending){color:#8b570d;background:#fff6e6;border-color:#ecd29f}
+#torvo-v2-root :is(.status.info,.infoChip){color:#175d93;background:#edf6fd;border-color:#bddaf0}
+#torvo-v2-root :is(.publicActionCard.dealer,.dealerResultNotice){border-top-color:rgba(22,125,134,.5)}
+#torvo-v2-root :is(.publicActionCard.help,.roleDeliveryStrip){border-top-color:rgba(193,122,22,.45)}
