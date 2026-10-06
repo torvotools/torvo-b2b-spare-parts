@@ -157,3 +157,25 @@ body:has(.publicSite){padding-bottom:0!important}
 .torvoPrimaryCategories .categoryCopy em svg{width:15px;height:15px}
 @media(min-width:801px){.torvoPrimaryCategories{gap:14px}.torvoPrimaryCategories>button{height:auto;min-height:0;max-height:none}.torvoPrimaryCategories>button>img,.torvoPrimaryCategories>button>.categoryPhotoPending{height:100%;object-fit:contain}}
 @media(max-width:800px){.torvoPrimaryCategories{grid-template-columns:1fr;gap:8px;padding:0 9px}.torvoPrimaryCategories>button{width:100%;height:auto;min-height:0;aspect-ratio:2.35/1;border-radius:10px}.torvoPrimaryCategories>button>img,.torvoPrimaryCategories>button>.categoryPhotoPending{left:45%;width:55%;height:100%;object-fit:contain;padding:5px}.torvoPrimaryCategories .categoryCopy{width:50%;height:100%;padding:10px 4px 9px 11px;justify-content:flex-start}.torvoPrimaryCategories .categoryCopy b{font-size:15px;line-height:1}.torvoPrimaryCategories .categoryCopy small{display:block;margin-top:5px;font-size:7.5px;line-height:1.3;white-space:nowrap}.torvoPrimaryCategories .categoryCopy em{margin-top:auto;min-height:28px;padding:0 10px;font-size:8px;border-radius:6px}.torvoPrimaryCategories .categoryCopy em svg{width:10px;height:10px}}
+
+
+/* FOOTER AURORA FINAL COMPOSITION — owner review 06 OCT 2026 */
+.torvoPremiumFooter{position:relative;display:grid;grid-template-columns:minmax(300px,1.15fr) minmax(260px,.85fr);align-items:start;gap:clamp(36px,7vw,110px);min-height:270px;padding-top:42px;padding-bottom:42px;background:linear-gradient(115deg,#171a20 0%,#202631 58%,#15191f 100%);color:#fff;border-top:3px solid #e32636}
+.torvoPremiumFooter .torvoFooterCompany{align-self:start;max-width:680px}
+.torvoPremiumFooter .torvoFooterBrand{margin-bottom:18px}
+.torvoPremiumFooter .torvoFooterCompany h2{margin:0 0 13px;color:#fff;font-size:14px;letter-spacing:.35px}
+.torvoPremiumFooter .torvoFooterCompany p{display:flex;align-items:center;gap:8px;margin:7px 0;color:#cbd2dc;font-size:12px;line-height:1.4}
+.torvoPremiumFooter .torvoFooterCompany p svg{flex:0 0 16px;width:16px;height:16px;color:#e32636}
+.torvoPremiumFooter .torvoFooterCompany p b{color:#fff}
+.torvoPremiumFooter .torvoFooterConnect{display:grid;grid-template-columns:1fr 1fr;gap:12px 24px;align-content:start}
+.torvoPremiumFooter .torvoFooterConnect>h3{grid-column:1;margin:0 0 2px;color:#fff;font-size:12px;letter-spacing:.7px}
+.torvoPremiumFooter .torvoContactActions{grid-column:1}
+.torvoPremiumFooter .torvoFollowBlock{grid-column:2;grid-row:1 / span 2}
+.torvoPremiumFooter .torvoFollowBlock h3{margin:0 0 10px;color:#ff5965;font-size:12px;letter-spacing:.7px}
+.torvoPremiumFooter .torvoContactActions a,.torvoPremiumFooter .torvoSocialLinks a{transition:transform .16s ease,border-color .16s ease,background .16s ease}
+.torvoPremiumFooter .torvoContactActions a:hover,.torvoPremiumFooter .torvoSocialLinks a:hover{transform:translateY(-2px);background:#2b323d;border-color:#596270}
+.torvoPremiumFooter .torvoStaffGate{position:absolute;right:12px;bottom:10px;opacity:.45}
+.torvoPremiumFooter .torvoStaffGate:hover{opacity:1}
+.torvoPremiumFooter .torvoFeaturedVideo{grid-column:1/-1}
+@media(max-width:800px){.torvoPremiumFooter{grid-template-columns:1fr;gap:22px;min-height:0;padding-top:28px;padding-bottom:calc(84px + env(safe-area-inset-bottom));border-top-width:2px}.torvoPremiumFooter .torvoFooterCompany{max-width:none}.torvoPremiumFooter .torvoFooterConnect{grid-template-columns:1fr 1fr;gap:12px 16px}.torvoPremiumFooter .torvoFooterCompany h2{font-size:12px}.torvoPremiumFooter .torvoFooterCompany p{font-size:10px}.torvoPremiumFooter .torvoFollowBlock{grid-column:2;grid-row:1 / span 2}.torvoPremiumFooter .torvoFooterConnect>h3{grid-column:1}.torvoPremiumFooter .torvoContactActions{grid-column:1}}
+@media(max-width:420px){.torvoPremiumFooter .torvoFooterConnect{grid-template-columns:1fr}.torvoPremiumFooter .torvoFooterConnect>h3,.torvoPremiumFooter .torvoContactActions,.torvoPremiumFooter .torvoFollowBlock{grid-column:1;grid-row:auto}.torvoPremiumFooter .torvoFollowBlock{margin-top:5px}}
