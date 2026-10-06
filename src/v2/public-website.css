@@ -126,3 +126,9 @@ html,body,#root{margin-bottom:0!important;padding-bottom:0!important}
 
 /* FOOTER SQUARE CORNERS — owner lock 06 OCT 2026 */
 .torvoConnect,.torvoConnect::before,.torvoConnect::after{border-radius:0!important}
+
+/* FOOTER BOTTOM FLUSH — remove page white tail without changing footer width */
+.torvoConnect{margin-bottom:0!important}
+.publicSite,.publicMain{padding-bottom:0!important;margin-bottom:0!important}
+.publicSite>.torvoConnect:last-child{margin-bottom:0!important}
+body:has(.publicSite){padding-bottom:0!important}
