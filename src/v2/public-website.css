@@ -195,3 +195,26 @@ body:has(.publicSite){padding-bottom:0!important}
 .torvoPremiumFooter .torvoFooterConnect>h3{color:#e7ebf0}
 .torvoPremiumFooter .torvoFollowBlock h3{color:#ff5965}
 @media(max-width:800px){.torvoPremiumFooter{min-height:0;padding-top:26px}.torvoPremiumFooter .torvoFooterConnect{grid-template-columns:1fr 1fr;column-gap:18px}.torvoPremiumFooter .torvoContactActions a,.torvoPremiumFooter .torvoSocialLinks a{width:40px;height:40px}}
+
+
+/* FOOTER COMPLETE INFORMATION GRID — owner NEXT 06 OCT 2026 */
+@media(min-width:801px){
+.torvoPremiumFooter{grid-template-columns:minmax(280px,1.05fr) minmax(300px,.9fr) minmax(420px,1.15fr);gap:clamp(28px,4vw,72px);align-items:start}
+.torvoPremiumFooter .torvoFooterExplore{align-self:start}
+.torvoPremiumFooter .torvoFooterExplore h3,.torvoPremiumFooter .torvoFooterConnect>h3{margin:0 0 12px;color:#fff;font-size:12px;letter-spacing:.7px}
+.torvoPremiumFooter .torvoFooterExplore nav{display:grid;grid-template-columns:1fr 1fr;gap:8px 18px}
+.torvoPremiumFooter .torvoFooterExplore nav a{color:#d8dee7;font-size:11px;font-weight:700;text-decoration:none;letter-spacing:.2px}
+.torvoPremiumFooter .torvoFooterExplore nav a:hover{color:#ff5965}
+.torvoPremiumFooter .torvoFooterExplore p{display:flex;flex-wrap:wrap;gap:6px;margin:18px 0 0;color:#aeb8c6;font-size:9px;font-weight:700;letter-spacing:.35px}
+.torvoPremiumFooter .torvoFooterExplore p span:nth-of-type(2){color:#ff5965}.torvoPremiumFooter .torvoFooterExplore p b{color:#596574}
+.torvoPremiumFooter .torvoFooterConnect{grid-template-columns:minmax(160px,1fr) minmax(160px,1fr);column-gap:26px;justify-content:stretch}
+}
+@media(max-width:800px){
+.torvoPremiumFooter .torvoFooterExplore{order:2}
+.torvoPremiumFooter .torvoFooterConnect{order:3}
+.torvoPremiumFooter .torvoFooterExplore h3{margin:0 0 10px;color:#fff;font-size:11px;letter-spacing:.7px}
+.torvoPremiumFooter .torvoFooterExplore nav{display:grid;grid-template-columns:1fr 1fr;gap:8px 14px}
+.torvoPremiumFooter .torvoFooterExplore nav a{color:#d8dee7;font-size:10px;font-weight:700;text-decoration:none}
+.torvoPremiumFooter .torvoFooterExplore p{display:flex;flex-wrap:wrap;gap:5px;margin:13px 0 0;color:#aeb8c6;font-size:8px;font-weight:700}
+.torvoPremiumFooter .torvoFooterExplore p span:nth-of-type(2){color:#ff5965}.torvoPremiumFooter .torvoFooterExplore p b{color:#596574}
+}
