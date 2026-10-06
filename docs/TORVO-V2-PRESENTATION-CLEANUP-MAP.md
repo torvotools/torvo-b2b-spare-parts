@@ -127,3 +127,21 @@ These remain dependency-audit candidates. Their presence does NOT make them fina
 They remain structural compatibility layers and are not deletion candidates without component-selector proof.
 
 This dual-entry audit supersedes the older statement that the presentation verifier only represents the preview entry.
+
+
+## 2026-10-06 — CLEAN FOUNDATION MIGRATION
+
+Owner cancelled all historical visual locks and authorized a new unified TORVO presentation system.
+
+Current final presentation primitive owner:
+- `torvo-design-foundation.css` — tokens, typography, controls, accessibility, responsive baseline, and shared visual language.
+
+Runtime rule:
+- Both `main.jsx` and `preview-main.jsx` load `torvo-design-foundation.css` last.
+- Historical/feature CSS may remain temporarily for structural selectors only.
+- Do not add new FINAL/HOTFIX/PREMIUM layers.
+- Migrate required selectors into explicit canonical owners, verify exact-SHA build/runtime, then remove obsolete imports/files.
+- Public, Login/Registration, Dealer, Salesman, Store Keeper, Owner/Admin and Accountant must share one design language.
+- Business/auth/data contracts remain unchanged by presentation migration.
+
+First unified migration applied to public + authentication primitives at commit 0c5969b122e0d62129cf39597ddb0a4713f36d3e.
