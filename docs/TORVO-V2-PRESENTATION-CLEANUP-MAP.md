@@ -8,14 +8,14 @@ Scope: presentation dependencies only. No business logic change.
 The V2 entry currently loads a historical CSS chain plus four canonical consolidation layers. Several historical files are large and contain regression fixes or role-specific selectors, so filename age alone is NOT proof that deletion is safe.
 
 ## Canonical consolidation layers
-- torvo-ui-system.css — shared design tokens/foundation
+- torvo-ui-system.css (RETIRED 06 OCT 2026 — historical visual overrides; must not be runtime-imported) — shared design tokens/foundation
 - torvo-component-contract.css — shared controls/product/filter contract
 - torvo-operational-ui.css — operational workspace presentation
 - torvo-ai-integration-ui.css — AI/integration state presentation
 
 ## Current runtime classification (2026-10-01)
 
-The authoritative runtime entries are `src/v2/preview-main.jsx` and `src/v2/main.jsx`. Both finish with the same canonical ownership chain and `torvo-ui-system.css` last.
+The authoritative runtime entries are `src/v2/preview-main.jsx` and `src/v2/main.jsx`. Both finish with the same canonical ownership chain and `torvo-ui-system.css (RETIRED 06 OCT 2026 — historical visual overrides; must not be runtime-imported)` last.
 
 RETIRED FROM RUNTIME (blocked by automated guard, including indirect runtime references):
 - workspace-polish.css
@@ -82,7 +82,7 @@ Retired from runtime imports (files retained temporarily only as historical/refe
 - live-responsive-hotfix.css
 - public-desktop-final.css
 
-Active structural compatibility layers remain only where current component structure still depends on them. Final visual authority is now `torvo-ui-system.css`, loaded last. New presentation work must modify/consolidate the authoritative system instead of adding another FINAL/HOTFIX/PREMIUM override layer.
+Active structural compatibility layers remain only where current component structure still depends on them. Final visual authority is now `torvo-ui-system.css (RETIRED 06 OCT 2026 — historical visual overrides; must not be runtime-imported)`, loaded last. New presentation work must modify/consolidate the authoritative system instead of adding another FINAL/HOTFIX/PREMIUM override layer.
 
 Theme rule after Owner final acceptance: keep the accepted TORVO design language fixed; future screens/features must use its components/tokens rather than replacing the theme.
 
@@ -97,14 +97,14 @@ Both entries now load the canonical presentation chain in this order:
 1. `torvo-component-contract.css`
 2. `torvo-operational-ui.css`
 3. `torvo-ai-integration-ui.css`
-4. `torvo-ui-system.css` (last/final authority)
+4. `torvo-ui-system.css (RETIRED 06 OCT 2026 — historical visual overrides; must not be runtime-imported)` (last/final authority)
 
 Removed from the app entry on 2026-09-28:
 - `workspace-polish.css`
 - `secure-desktop-lock.css`
 - `live-responsive-hotfix.css`
 
-The automated dependency guard now fails if any retired override is imported by either entry, if the canonical app ownership order changes, or if `torvo-ui-system.css` stops loading last.
+The automated dependency guard now fails if any retired override is imported by either entry, if the canonical app ownership order changes, or if `torvo-ui-system.css (RETIRED 06 OCT 2026 — historical visual overrides; must not be runtime-imported)` stops loading last.
 
 ### Current app-only compatibility layers — NOT YET SAFE TO DELETE
 - `accountant-admin-parity-fix.css`
@@ -155,3 +155,7 @@ First unified migration applied to public + authentication primitives at commit 
 - Public search/filter must never expose private dealer rates, private stock, proprietary fitment/compatibility, or other private B2B data.
 - Internal search must not broaden a role's existing authorization.
 - Mobile search must remain full-width/reachable with touch-safe controls; desktop search must use the available horizontal workspace efficiently.
+
+
+## 06 OCT 2026 — LEGACY VISUAL AUTHORITY RETIRED
+`torvo-ui-system.css` is now a non-runtime archive. It contained historical FINAL/APPROVED/HARD-LOCK public and role presentation overrides that conflicted with the Owner-directed clean rebuild. Runtime visual ownership is structural feature CSS plus `torvo-component-contract.css`, `torvo-operational-ui.css`, `torvo-ai-integration-ui.css`, with `torvo-design-foundation.css` loaded last. Business, auth, data and security contracts are unchanged.
