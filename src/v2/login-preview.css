@@ -1,11 +1,11 @@
-.businessFinalLogin{min-height:100dvh;display:grid;grid-template-columns:minmax(0,1.12fr) minmax(430px,.88fr);background:#f5f7fa;color:#101828;font-family:Inter,system-ui,-apple-system,BlinkMacSystemFont,"Segoe UI",sans-serif;overflow:hidden}
-.businessFinalHero{position:relative;min-width:0;color:#fff;background:#080b0f none right 12% center/56% auto no-repeat;overflow:hidden}
-.businessFinalHero:before{content:"";position:absolute;inset:0;background:linear-gradient(115deg,#090b0e 0%,#090b0ef5 43%,#111820c7 72%,#090b0eeb 100%)}
-.businessFinalHero:after{content:"";position:absolute;width:260px;height:120%;right:-110px;top:-10%;transform:skew(-16deg);background:linear-gradient(180deg,#ed1b24 0 13%,transparent 13% 62%,#ed1b24 62% 100%);opacity:.9}
-.businessFinalHeroShade{position:absolute;inset:0;background:linear-gradient(145deg,rgba(215,25,32,.24),transparent 20%,transparent 75%,rgba(215,25,32,.2))}
+.businessFinalLogin{min-height:100dvh;display:grid;grid-template-columns:minmax(0,1fr) minmax(430px,.82fr);background:#f4f5f7;color:#242933;font-family:Inter,system-ui,-apple-system,BlinkMacSystemFont,"Segoe UI",sans-serif;overflow:hidden}
+.businessFinalHero{position:relative;min-width:0;color:#fff;background:#171a20;overflow:hidden}
+.businessFinalHero:before{content:"";position:absolute;inset:0;background:radial-gradient(circle at 18% 18%,rgba(22,125,134,.24),transparent 28%),radial-gradient(circle at 82% 74%,rgba(227,38,54,.20),transparent 30%)}
+.businessFinalHero:after{content:"";position:absolute;width:320px;height:320px;right:-120px;bottom:-120px;border:1px solid rgba(255,255,255,.10);border-radius:50%}
+.businessFinalHeroShade{position:absolute;inset:0;background:linear-gradient(145deg,rgba(255,255,255,.03),transparent 55%)}
 .businessFinalHeroContent{position:relative;z-index:2;width:min(680px,88%);min-height:100%;box-sizing:border-box;padding:clamp(30px,5vh,62px) clamp(36px,5vw,78px);display:flex;flex-direction:column;justify-content:center}
 .businessFinalLogo,.businessFinalCardLogo{display:flex;align-items:center;gap:14px}
-.businessFinalMark{display:grid;place-items:center;width:58px;height:58px;border-radius:9px;background:#ed1b24;color:#fff;font-size:34px;font-weight:900;box-shadow:0 9px 22px rgba(237,27,36,.24)}
+.businessFinalMark{display:grid;place-items:center;width:58px;height:58px;border-radius:12px;background:#e32636;color:#fff;font-size:34px;font-weight:900;box-shadow:0 10px 28px rgba(227,38,54,.22)}
 .businessFinalLogo>div,.businessFinalCardLogo>div{display:grid;line-height:.82}
 .businessFinalLogo strong{font-size:clamp(34px,4vw,54px);letter-spacing:.01em}
 .businessFinalLogo small{font-size:14px;letter-spacing:.42em;text-align:right;margin-top:12px}
@@ -20,8 +20,8 @@
 .businessFinalBenefits p{display:grid;gap:3px;margin:0}
 .businessFinalBenefits b{font-size:14px}
 .businessFinalBenefits small{font-size:12px;color:#d0d5dd;line-height:1.3}
-.businessFinalFormSide{display:grid;place-items:center;padding:clamp(18px,3vw,48px);background:linear-gradient(135deg,#fff 0%,#eef2f6 100%)}
-.businessFinalCard{width:min(100%,560px);box-sizing:border-box;padding:clamp(24px,3.2vh,38px) clamp(24px,3vw,44px);border:1px solid #e4e7ec;border-radius:28px;background:#fff;box-shadow:0 24px 65px rgba(16,24,40,.14)}
+.businessFinalFormSide{display:grid;place-items:center;padding:clamp(18px,3vw,48px);background:#f4f5f7}
+.businessFinalCard{width:min(100%,560px);box-sizing:border-box;padding:clamp(24px,3.2vh,38px) clamp(24px,3vw,44px);border:1px solid #dce1e7;border-radius:22px;background:#fff;box-shadow:0 22px 60px rgba(17,19,23,.10)}
 .businessFinalCardLogo{justify-content:center}
 .businessFinalCardLogo .businessFinalMark{width:48px;height:48px;font-size:28px}
 .businessFinalCardLogo strong{font-size:30px}
@@ -32,8 +32,8 @@
 .businessFinalInfo{display:flex;align-items:center;gap:13px;padding:13px 16px;border-radius:12px;background:#fff0f1;color:#344054;font-size:13px;line-height:1.35;margin-bottom:16px}
 .businessFinalInfo svg{color:#ed1b24;flex:0 0 auto}
 .businessFinalLabel{display:grid;gap:7px;margin:10px 0;font-size:12px;font-weight:800;color:#101828}
-.businessFinalInput{min-height:48px;border:1.5px solid #cbd5e1;border-radius:10px;display:flex;align-items:center;gap:10px;padding:0 13px;background:#fff;transition:.18s}
-.businessFinalInput:focus-within{border-color:#cbd5e1;box-shadow:none}
+.businessFinalInput{min-height:50px;border:1px solid #c2c9d2;border-radius:10px;display:flex;align-items:center;gap:10px;padding:0 13px;background:#fff;transition:.18s}
+.businessFinalInput:focus-within{border-color:#e32636;box-shadow:0 0 0 3px rgba(227,38,54,.10)}
 .businessFinalInput.isValid,.businessFinalInput.isInvalid{border-color:#cbd5e1}
 .businessFinalInput>svg:first-child{width:21px;color:#475467;flex:0 0 auto}
 .businessFinalInput input{width:100%;min-width:0;border:0;outline:0;box-shadow:none;background:transparent;color:#1d2939;font-size:15px;font-weight:400;text-transform:uppercase}
@@ -43,7 +43,7 @@
 .businessFinalStatus svg,.businessFinalOtpNotice svg,.businessFinalError svg{width:17px;height:17px;flex:0 0 auto}
 .businessFinalStatus.ok,.businessFinalOtpNotice{background:#e9f9ef;color:#137a39}.businessFinalStatus.bad,.businessFinalError{background:#fff0f0;color:#b42318}
 .businessFinalStatus i{display:inline-block;height:12px;border-left:1px solid #98a2b3;margin:0 8px;vertical-align:-2px}
-.businessFinalPrimary{width:100%;min-height:52px;border:0;border-radius:10px;background:#ed111c;color:#fff;display:flex;align-items:center;justify-content:center;gap:10px;font-size:14px;font-weight:800;letter-spacing:.01em;margin:12px 0;cursor:pointer;box-shadow:0 8px 18px rgba(237,17,28,.18)}
+.businessFinalPrimary{width:100%;min-height:52px;border:0;border-radius:10px;background:#e32636;color:#fff;display:flex;align-items:center;justify-content:center;gap:10px;font-size:14px;font-weight:800;letter-spacing:.01em;margin:12px 0;cursor:pointer;box-shadow:0 9px 22px rgba(227,38,54,.18)}
 .businessFinalPrimary:hover:not(:disabled){background:#cf0d16}.businessFinalPrimary:disabled{opacity:.42;cursor:not-allowed;box-shadow:none}
 .businessFinalPrimary svg{width:20px;height:20px}
 .businessFinalOtpLabel{margin-top:11px}
