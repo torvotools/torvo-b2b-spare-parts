@@ -450,3 +450,39 @@
 #torvo-v2-root :is(.status.info,.infoChip){color:#175d93;background:#edf6fd;border-color:#bddaf0}
 #torvo-v2-root :is(.publicActionCard.dealer,.dealerResultNotice){border-top-color:rgba(22,125,134,.5)}
 #torvo-v2-root :is(.publicActionCard.help,.roleDeliveryStrip){border-top-color:rgba(193,122,22,.45)}
+
+
+/* 06 OCT 2026 — CROSS-SURFACE COMPONENT FINISH
+   One component family for public, auth, dealer mobile and secure desktop. */
+#torvo-v2-root :is(.publicHeader,.dealerTop,.secureDesktopShell>main>.top){
+  backdrop-filter:blur(16px);box-shadow:0 1px 0 rgba(17,19,23,.04);
+}
+#torvo-v2-root :is(.publicProductCard,.categoryLaunch,.publicActionCard,.requestList>article,.panel,.workspace){
+  transition:transform .18s ease,box-shadow .18s ease,border-color .18s ease;
+}
+@media(hover:hover){
+  #torvo-v2-root :is(.publicProductCard,.categoryLaunch,.publicActionCard):hover{
+    transform:translateY(-2px);border-color:var(--torvo-border-strong);box-shadow:0 16px 38px rgba(17,19,23,.09);
+  }
+}
+#torvo-v2-root :is(.workspaceTabs,.localTools,.approvalTools,.purchaseGuard,.approvalGuard){
+  background:rgba(255,255,255,.82);border-color:var(--torvo-border);box-shadow:0 4px 18px rgba(17,19,23,.035);
+}
+#torvo-v2-root :is(.workspaceTabs button.active,.tabButton.active){
+  background:var(--torvo-black);color:#fff;
+}
+#torvo-v2-root :is(.searchBar,.homeSearch,.torvoSmartSearch,.publicHeroSearchBar){
+  background:#fff;border:1px solid var(--torvo-border-strong);border-radius:12px;box-shadow:0 5px 18px rgba(17,19,23,.045);
+}
+#torvo-v2-root :is(.searchBar,.homeSearch,.torvoSmartSearch,.publicHeroSearchBar):focus-within{
+  border-color:var(--torvo-red);box-shadow:0 0 0 3px rgba(227,38,54,.10),0 8px 24px rgba(17,19,23,.06);
+}
+#torvo-v2-root :is(.modalLayer,.approvalBack,.purchaseModalBack)>:is(.dealerActionModal,.approvalConfirm,.purchaseModal,.purchaseConfirm){
+  border-radius:20px;box-shadow:0 28px 80px rgba(17,19,23,.22);
+}
+#torvo-v2-root :is(.emptyState,.noResults,.emptyPanel){
+  border:1px dashed var(--torvo-border-strong);border-radius:14px;background:#fafbfc;color:var(--torvo-muted);
+}
+#torvo-v2-root :is(.dealerBottomNav,.mobileBottomNav){
+  background:rgba(255,255,255,.96);backdrop-filter:blur(18px);border-color:var(--torvo-border);
+}
