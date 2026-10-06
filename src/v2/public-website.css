@@ -144,3 +144,16 @@ body:has(.publicSite){padding-bottom:0!important}
 .torvoPremiumFooter .torvoSocialLinks a span{position:absolute;width:1px;height:1px;padding:0;margin:-1px;overflow:hidden;clip:rect(0,0,0,0);white-space:nowrap;border:0}
 .torvoPremiumFooter .torvoSocialLinks a[href="#contact"]{opacity:.72;cursor:default}
 @media(max-width:800px){.torvoPremiumFooter .torvoContactActions a,.torvoPremiumFooter .torvoSocialLinks a{width:38px;height:38px;border-radius:9px}.torvoPremiumFooter .torvoContactActions a svg,.torvoPremiumFooter .torvoSocialLinks a svg{width:20px;height:20px}}
+
+
+/* APPROVED CATEGORY BANNERS — owner reference 06 OCT 2026 */
+.torvoPrimaryCategories>button{height:auto;min-height:0;aspect-ratio:2.12/1;background:#fff;border:1px solid #d6d9de;border-radius:13px;box-shadow:0 5px 14px rgba(23,26,32,.06)}
+.torvoPrimaryCategories>button:after{display:none}
+.torvoPrimaryCategories>button>img,.torvoPrimaryCategories>button>.categoryPhotoPending{left:43%;right:0;width:57%;height:100%;object-fit:contain;object-position:center;padding:8px;background:#fff}
+.torvoPrimaryCategories .categoryCopy{position:absolute;z-index:2;inset:0 auto 0 0;width:48%;height:100%;box-sizing:border-box;padding:16px 8px 14px 18px;display:flex;flex-direction:column;align-items:flex-start;justify-content:flex-start;text-align:left;color:#171a20;background:linear-gradient(90deg,#fff 82%,rgba(255,255,255,.9) 94%,rgba(255,255,255,0))}
+.torvoPrimaryCategories .categoryCopy b{margin:0;color:#111;font-size:clamp(18px,1.55vw,25px);line-height:1;font-weight:800;white-space:nowrap}
+.torvoPrimaryCategories .categoryCopy small{display:block;margin-top:9px;color:#4e5661;font-size:clamp(9px,.72vw,12px);line-height:1.45;font-weight:600;white-space:nowrap}
+.torvoPrimaryCategories .categoryCopy em{margin-top:auto;display:inline-flex;align-items:center;gap:8px;min-height:38px;padding:0 15px;border-radius:8px;background:#e32636;color:#fff;font-size:11px;font-weight:800;font-style:normal;white-space:nowrap}
+.torvoPrimaryCategories .categoryCopy em svg{width:15px;height:15px}
+@media(min-width:801px){.torvoPrimaryCategories{gap:14px}.torvoPrimaryCategories>button{height:auto;min-height:0;max-height:none}.torvoPrimaryCategories>button>img,.torvoPrimaryCategories>button>.categoryPhotoPending{height:100%;object-fit:contain}}
+@media(max-width:800px){.torvoPrimaryCategories{grid-template-columns:1fr;gap:8px;padding:0 9px}.torvoPrimaryCategories>button{width:100%;height:auto;min-height:0;aspect-ratio:2.35/1;border-radius:10px}.torvoPrimaryCategories>button>img,.torvoPrimaryCategories>button>.categoryPhotoPending{left:45%;width:55%;height:100%;object-fit:contain;padding:5px}.torvoPrimaryCategories .categoryCopy{width:50%;height:100%;padding:10px 4px 9px 11px;justify-content:flex-start}.torvoPrimaryCategories .categoryCopy b{font-size:15px;line-height:1}.torvoPrimaryCategories .categoryCopy small{display:block;margin-top:5px;font-size:7.5px;line-height:1.3;white-space:nowrap}.torvoPrimaryCategories .categoryCopy em{margin-top:auto;min-height:28px;padding:0 10px;font-size:8px;border-radius:6px}.torvoPrimaryCategories .categoryCopy em svg{width:10px;height:10px}}
