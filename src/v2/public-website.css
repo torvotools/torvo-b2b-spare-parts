@@ -242,3 +242,43 @@ body:has(.publicSite){padding-bottom:0!important}
 .torvoPremiumFooter .torvoFollowBlock h3{margin:0;white-space:nowrap}
 .torvoPremiumFooter .torvoSocialLinks{margin:0;flex-wrap:nowrap}
 }
+
+
+/* FOOTER CLEAN FINAL LAYOUT — screenshot correction 06 OCT 2026 */
+.torvoPremiumFooter{background:linear-gradient(112deg,#11151b 0%,#1d232d 54%,#161b22 100%);border-top:3px solid #e32636}
+.torvoPremiumFooter .torvoFooterCompany p svg{flex:0 0 20px;width:20px;height:20px;stroke-width:2.6}
+.torvoPremiumFooter .torvoFooterCompany p:first-of-type svg{color:#ff3347}
+.torvoPremiumFooter .torvoFooterCompany p:nth-of-type(2) svg{color:#f4a52c}
+.torvoPremiumFooter .torvoFooterRanges span{background:#161b22;border-color:#4a5665;color:#fff}
+.torvoPremiumFooter .torvoFooterRanges span:nth-child(1){border-color:#2873b9;color:#72b7f0}
+.torvoPremiumFooter .torvoFooterRanges span:nth-child(2){border-color:#e32636;color:#ff6672}
+.torvoPremiumFooter .torvoFooterRanges span:nth-child(3){border-color:#16845b;color:#63d5a8}
+.torvoPremiumFooter .torvoContactActions a,.torvoPremiumFooter .torvoSocialLinks a{background:#f7f9fb;border-color:#fff}
+.torvoPremiumFooter .contactPhone{color:#2873b9}.torvoPremiumFooter .contactWhatsapp{color:#25D366}.torvoPremiumFooter .contactEmail{color:#EA4335}
+.torvoPremiumFooter .socialFacebook{color:#1877F2}.torvoPremiumFooter .socialYoutube{color:#FF0000}.torvoPremiumFooter .socialInstagram{color:#E4405F}
+.torvoPremiumFooter .torvoContactActions a svg,.torvoPremiumFooter .torvoSocialLinks a svg{stroke:currentColor!important;color:inherit!important}
+.torvoPremiumFooter .torvoStaffGate{right:14px;bottom:14px;opacity:.68;z-index:5}
+.torvoPremiumFooter .torvoStaffGateIcon{width:30px;height:30px;border-radius:8px;border:1px solid #46515f;background:#11161d;color:#98a3b2}
+@media(min-width:801px){
+.torvoPremiumFooter{grid-template-columns:minmax(310px,1fr) minmax(300px,.82fr) minmax(510px,1.28fr);gap:clamp(34px,4vw,70px);padding:34px max(28px,3vw)}
+.torvoPremiumFooter .torvoFooterConnect{display:flex;align-items:center;justify-content:flex-end;gap:13px;white-space:nowrap}
+.torvoPremiumFooter .torvoFooterConnect>h3,.torvoPremiumFooter .torvoFollowBlock h3{margin:0}
+.torvoPremiumFooter .torvoContactActions,.torvoPremiumFooter .torvoSocialLinks{display:flex;flex-wrap:nowrap;margin:0;gap:8px}
+.torvoPremiumFooter .torvoFollowBlock{display:flex;align-items:center;gap:10px;margin-left:8px}
+.torvoPremiumFooter .torvoContactActions a,.torvoPremiumFooter .torvoSocialLinks a{width:38px;height:38px}
+}
+@media(max-width:800px){
+.torvoPremiumFooter{display:grid;grid-template-columns:1fr;gap:24px;padding:28px 18px calc(92px + env(safe-area-inset-bottom))}
+.torvoPremiumFooter .torvoFooterCompany{order:1}
+.torvoPremiumFooter .torvoFooterExplore{order:2}
+.torvoPremiumFooter .torvoFooterConnect{order:3;display:grid;grid-template-columns:1fr;gap:12px}
+.torvoPremiumFooter .torvoFooterConnect>h3{grid-column:1;grid-row:auto;margin:0}
+.torvoPremiumFooter .torvoContactActions{grid-column:1;grid-row:auto;margin:0;display:flex;gap:10px;flex-wrap:nowrap}
+.torvoPremiumFooter .torvoFollowBlock{grid-column:1;grid-row:auto;margin:4px 0 0;display:grid;grid-template-columns:1fr;gap:10px}
+.torvoPremiumFooter .torvoFollowBlock h3{margin:0}
+.torvoPremiumFooter .torvoSocialLinks{margin:0;display:flex;gap:10px;flex-wrap:nowrap}
+.torvoPremiumFooter .torvoContactActions a,.torvoPremiumFooter .torvoSocialLinks a{width:44px;height:44px;border-radius:11px}
+.torvoPremiumFooter .torvoFooterRanges{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:6px}
+.torvoPremiumFooter .torvoFooterRanges span{justify-content:center;padding:0 5px;font-size:8px;white-space:nowrap}
+.torvoPremiumFooter .torvoStaffGate{right:12px;bottom:calc(72px + env(safe-area-inset-bottom))}
+}
