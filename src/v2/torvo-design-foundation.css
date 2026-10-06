@@ -230,3 +230,68 @@
   #torvo-v2-root .dealerRegistration .formTwo{grid-template-columns:1fr}
   #torvo-v2-root .categoryLaunchGrid{gap:12px}
 }
+
+
+/* 06 OCT 2026 — SECURE DESKTOP WORKSPACE PRIMITIVES */
+#torvo-v2-root :is(.workspace,.approvalWorkspace,.purchaseWorkspace){
+  min-width:0;color:var(--torvo-ink);
+}
+#torvo-v2-root :is(.workspace>header,.purchaseWorkspace>header){
+  display:flex;align-items:flex-start;justify-content:space-between;gap:16px;
+}
+#torvo-v2-root :is(.workspace h3,.approvalWorkspace h2,.purchaseWorkspace h2){color:var(--torvo-black)}
+#torvo-v2-root :is(.workspace header p,.approvalWorkspace p,.purchaseWorkspace p){color:var(--torvo-muted)}
+#torvo-v2-root :is(.localTools,.approvalTools,.workspaceTabs,.purchaseGuard,.approvalGuard){
+  border:1px solid var(--torvo-border);border-radius:var(--torvo-radius-sm);background:var(--torvo-surface);
+}
+#torvo-v2-root :is(.localTools,.approvalTools){display:flex;align-items:center;gap:10px;padding:10px}
+#torvo-v2-root :is(.localTools label,.approvalTools label){
+  min-width:0;flex:1;display:flex;align-items:center;gap:8px;
+}
+#torvo-v2-root :is(.localTools input,.approvalTools input){width:100%;border:0;background:transparent;outline:0;box-shadow:none}
+#torvo-v2-root .workspaceTabs{display:flex;gap:6px;padding:6px;overflow-x:auto}
+#torvo-v2-root .workspaceTabs button{white-space:nowrap;border:0;border-radius:var(--torvo-radius-sm);background:transparent;color:var(--torvo-muted)}
+#torvo-v2-root .workspaceTabs button.active{background:var(--torvo-black);color:#fff}
+#torvo-v2-root .requestList{display:grid;gap:10px}
+#torvo-v2-root .requestList>article{
+  display:grid;gap:12px;border:1px solid var(--torvo-border);border-radius:var(--torvo-radius);background:var(--torvo-surface);padding:16px;
+}
+#torvo-v2-root .requestList>article strong{color:var(--torvo-black)}
+#torvo-v2-root .requestList>article :is(span,small){color:var(--torvo-muted)}
+#torvo-v2-root .rowActions{display:flex;align-items:center;gap:8px;flex-wrap:wrap}
+#torvo-v2-root .rowActions button{border:1px solid var(--torvo-border);border-radius:var(--torvo-radius-sm);background:var(--torvo-surface);color:var(--torvo-ink);padding-inline:12px}
+#torvo-v2-root .rowActions button.primary{background:var(--torvo-red);border-color:var(--torvo-red);color:#fff}
+#torvo-v2-root :is(button.danger,.purchaseDanger,.approvalReject){background:#fff;border-color:#f1b5b0;color:var(--torvo-danger)}
+#torvo-v2-root :is(.status,.approvalStatus,.rateGroupBadge){
+  display:inline-flex;align-items:center;justify-content:center;gap:5px;padding:5px 9px;border:1px solid var(--torvo-border);font-size:.75rem;font-weight:750;
+}
+#torvo-v2-root :is(.status.approved,.approvalStatus.approved){color:var(--torvo-success);background:#eef9f3;border-color:#b7e2cc}
+#torvo-v2-root :is(.status.pending,.status.hold,.approvalStatus.pending){color:var(--torvo-warning);background:#fff8e8;border-color:#ecd39a}
+#torvo-v2-root :is(.status.rejected,.approvalStatus.rejected){color:var(--torvo-danger);background:#fff1f0;border-color:#f1b5b0}
+#torvo-v2-root :is(.modalLayer,.approvalBack,.purchaseModalBack){
+  position:fixed;inset:0;z-index:1000;display:grid;place-items:center;padding:20px;background:rgba(17,19,23,.58);backdrop-filter:blur(4px);
+}
+#torvo-v2-root :is(.dealerActionModal,.approvalConfirm,.purchaseModal,.purchaseConfirm){
+  width:min(100%,760px);max-height:calc(100dvh - 40px);overflow:auto;background:var(--torvo-surface);
+  border:1px solid var(--torvo-border);border-radius:var(--torvo-radius-lg);box-shadow:var(--torvo-shadow);padding:20px;
+}
+#torvo-v2-root :is(.dealerActionModal,.purchaseModal) label{display:grid;gap:6px;color:var(--torvo-ink);font-size:.8125rem;font-weight:700}
+#torvo-v2-root :is(.dealerActionModal,.purchaseModal) :is(input,select,textarea){width:100%;padding:10px 12px}
+#torvo-v2-root :is(.dealerActionModal,.purchaseModal)>footer{display:flex;justify-content:flex-end;gap:8px;margin-top:18px}
+#torvo-v2-root .approvalHero{
+  display:flex;align-items:center;justify-content:space-between;gap:18px;padding:20px;border:1px solid var(--torvo-border);border-radius:var(--torvo-radius);background:var(--torvo-surface);
+}
+#torvo-v2-root .approvalCount{display:grid;place-items:center;min-width:96px;padding:12px;border-radius:var(--torvo-radius);background:var(--torvo-soft)}
+#torvo-v2-root .approvalApprove{background:var(--torvo-red);border-color:var(--torvo-red);color:#fff}
+#torvo-v2-root :is(.purchaseGuard,.approvalGuard){display:flex;align-items:center;gap:9px;padding:12px;color:var(--torvo-muted)}
+#torvo-v2-root :is(.purchaseGuard,.approvalGuard)>b{color:var(--torvo-black)}
+#torvo-v2-root .empty{border:1px dashed var(--torvo-border-strong);border-radius:var(--torvo-radius);background:var(--torvo-surface);color:var(--torvo-muted)}
+
+@media(max-width:760px){
+ #torvo-v2-root :is(.workspace>header,.purchaseWorkspace>header,.approvalHero){align-items:stretch;flex-direction:column}
+ #torvo-v2-root :is(.localTools,.approvalTools){align-items:stretch;flex-wrap:wrap}
+ #torvo-v2-root :is(.localTools label,.approvalTools label){flex-basis:100%}
+ #torvo-v2-root .requestList>article{padding:14px}
+ #torvo-v2-root :is(.modalLayer,.approvalBack,.purchaseModalBack){padding:10px}
+ #torvo-v2-root :is(.dealerActionModal,.approvalConfirm,.purchaseModal,.purchaseConfirm){max-height:calc(100dvh - 20px);padding:16px}
+}
