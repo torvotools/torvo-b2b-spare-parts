@@ -99,3 +99,64 @@
     transition-duration:.01ms!important;
   }
 }
+
+
+/* 06 OCT 2026 — UNIFIED SURFACE CONTRACT
+   Shared visual language for public, authentication and role surfaces.
+   Feature CSS may provide structure while migration is in progress; visual primitives live here. */
+#torvo-v2-root{
+  --torvo-space-1:4px;--torvo-space-2:8px;--torvo-space-3:12px;--torvo-space-4:16px;
+  --torvo-space-5:20px;--torvo-space-6:24px;--torvo-space-8:32px;--torvo-space-10:40px;
+}
+#torvo-v2-root :is(.publicSite,.loginPreview,.dealerRegistrationPreview,.roleApp,.adminVisualPreview,.accountantPreview){
+  color:var(--torvo-ink);background:var(--torvo-page);
+}
+#torvo-v2-root :is(.publicHeader,.loginCard,.dealerRegistrationCard,.roleApp main,.adminMain,.accountantWorkPanel){
+  border-color:var(--torvo-border);
+}
+#torvo-v2-root :is(.publicHeader,.loginCard,.dealerRegistrationCard){
+  box-shadow:var(--torvo-shadow-sm);
+}
+#torvo-v2-root :is(.publicKicker,.eyebrow,.loginCard label,.dealerRegistrationPreview label){
+  letter-spacing:.045em;
+}
+#torvo-v2-root :is(.publicHero h1,.publicSectionHead h2,.publicAbout h2,.loginCard h2,.dealerRegistrationPreview h1){
+  color:var(--torvo-black);letter-spacing:-.025em;
+}
+#torvo-v2-root :is(.publicHero h1 em,.publicSectionHead span,.publicAboutLead>span){
+  color:var(--torvo-red);
+}
+#torvo-v2-root :is(.publicHero p,.publicSectionHead p,.publicAbout p,.loginIntro){
+  color:var(--torvo-muted);
+}
+#torvo-v2-root :is(.publicHeroActions button,.publicActionCard button,.loginButton,.dealerRegistrationPreview button[type="submit"]){
+  min-height:48px;border-radius:var(--torvo-radius-sm);font-weight:700;
+}
+#torvo-v2-root :is(.publicActionCard,.torvoPrimaryCategories>button,.publicAboutProof article,.retailSteps article){
+  border:1px solid var(--torvo-border);border-radius:var(--torvo-radius);background:var(--torvo-surface);
+}
+#torvo-v2-root :is(.publicActionCard,.torvoPrimaryCategories>button){box-shadow:var(--torvo-shadow-sm)}
+#torvo-v2-root .torvoPrimaryCategories>button{overflow:hidden}
+#torvo-v2-root .torvoPrimaryCategories img{display:block;width:100%;object-fit:cover}
+#torvo-v2-root .publicHeader{background:rgba(255,255,255,.98)}
+#torvo-v2-root .publicBrand strong{color:var(--torvo-black)}
+#torvo-v2-root .publicBrand>b{background:var(--torvo-red);color:#fff}
+#torvo-v2-root .desktopPublicNav a{color:var(--torvo-ink);font-weight:650}
+#torvo-v2-root .desktopPublicNav a:hover{color:var(--torvo-red)}
+#torvo-v2-root .loginPreview{background:linear-gradient(135deg,var(--torvo-black) 0 48%,var(--torvo-page) 48% 100%)}
+#torvo-v2-root .loginCard{background:var(--torvo-surface);border:1px solid var(--torvo-border);border-radius:var(--torvo-radius-lg)}
+#torvo-v2-root .loginCard input{background:var(--torvo-surface);color:var(--torvo-ink);border-color:var(--torvo-border-strong)}
+#torvo-v2-root .loginButton{background:var(--torvo-red);color:#fff}
+#torvo-v2-root .loginButton:hover:not(:disabled){background:var(--torvo-red-hover)}
+#torvo-v2-root .loginNote{background:var(--torvo-soft);color:var(--torvo-muted)}
+
+@media(max-width:900px){
+  #torvo-v2-root .loginPreview{background:linear-gradient(180deg,var(--torvo-black) 0 34%,var(--torvo-page) 34% 100%)}
+}
+@media(max-width:600px){
+  #torvo-v2-root :is(.publicKicker,.eyebrow){font-size:.75rem}
+  #torvo-v2-root :is(.publicHero p,.publicSectionHead p,.publicAbout p,.loginIntro){font-size:.875rem}
+  #torvo-v2-root :is(.publicActionCard p,.retailSteps h3,.torvoPrimaryCategories small){font-size:.8125rem}
+  #torvo-v2-root .mobileBottomNav :is(a,button){min-height:56px}
+  #torvo-v2-root .mobileBottomNav span{font-size:.6875rem}
+}
