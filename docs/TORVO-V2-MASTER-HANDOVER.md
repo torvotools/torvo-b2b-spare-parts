@@ -7,6 +7,18 @@ Development branch: torvo-v2-build
 ## START HERE IN EVERY NEW CHAT
 Continue actual development from `torvo-v2-build`. Fetch current repository state before changing anything. V27/main is old/live and MUST remain untouched. Do not merge/replace main without full verification plus explicit Owner permission. Work in large compatible batches where safe. Premium modern responsive UI is non-negotiable.
 
+
+## OFFICIAL UI/UX THEME — TORVO AURORA (OWNER LOCKED 06-10-2026)
+TORVO V2 has one official project-wide design family named **TORVO AURORA**. This name is the canonical shorthand for the exact shared UI/UX system used across Public Website, Owner/Admin, Accountant, Dealer App, Salesman App, Store Keeper App, Login/OTP, Registration, Search/Product, PO/Quotation/Estimate/Sale, Purchase/Inventory/Returns, Reports, Service Book, Backup and Release surfaces.
+
+Rules:
+- Keep TORVO AURORA visually consistent project-wide; role permissions and data may differ, the design language must not.
+- Do not replace TORVO AURORA with another theme or materially change its core design direction without explicit Owner approval.
+- Future polish must improve/consolidate TORVO AURORA rather than create stacked FINAL/HOTFIX/PREMIUM themes or restore retired legacy visual layers.
+- Canonical presentation foundation remains `torvo-design-foundation.css`; feature CSS owns necessary layout/structure and inherits the shared theme.
+- The theme includes the shared palette/tokens, typography, spacing, borders/radii, buttons, cards, forms, searchable/cascading dropdowns, TORVO search, Smart Filter, tables, modals, status states, responsive behavior and accessible touch/readability standards.
+- Public/private data visibility and business/security rules are independent of theme and must never be weakened for visual consistency.
+
 ## FINAL PRODUCT STRUCTURE — OWNER APPROVED
 TORVO V2 is one business platform with three role-separated experiences over one authoritative backend/database.
 
