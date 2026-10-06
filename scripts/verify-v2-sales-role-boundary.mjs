@@ -4,7 +4,7 @@ const modules=fs.readFileSync('src/v2/config/modules.js','utf8');
 const sales=fs.readFileSync('src/v2/components/SalesWorkspace.jsx','utf8');
 const checks=[
  ['APP PASSES ROLE TO SALES WORKSPACE',app.includes("<SalesWorkspace role={role}/>")],
- ['ACCOUNTANT HAS DEDICATED MARG BILL MODULE',modules.includes("{id:'marg-bill-sale',label:'Marg Bill / Confirm Sale',roles:['accountant']}")],
+ ['ACCOUNTANT HAS DEDICATED MARG BILL MODULE',modules.includes("{id:'marg-bill-sale',label:'Marg Bill / Confirm Sale',roles:['owner','admin','accountant']}")],
  ['ACCOUNTANT MARG BILL ROUTE REUSES CANONICAL COMPONENT',app.includes("active==='marg-bill-sale')page=<MargBillSaleWorkspace/>")],
  ['SALESMAN SALES MODULE PRESERVED',modules.includes("{id:'sales',label:'Sales Workspace',roles:['owner','admin','salesman']}")],
  ['SALESMAN NOT GRANTED DEDICATED MARG BILL MODULE',!modules.includes("roles:['salesman']},{id:'marg-bill-sale'")&&!modules.includes("'marg-bill-sale',label:'Marg Bill / Confirm Sale',roles:['salesman']")],
