@@ -54,3 +54,42 @@
  #torvo-v2-root :is(.workspace,.adminWorkspace,.accountantWorkPanel) h1{font-size:19px}
  #torvo-v2-root :is(.workspace,.adminWorkspace,.accountantWorkPanel) :is(.toolbar,.filters,.filterBar,.workspaceActions)>*{min-width:0}
 }
+
+
+/* 06 OCT 2026 — SALES / INVENTORY / DISPATCH / DELIVERY / REPORTS UNIFIED OPERATIONS */
+#torvo-v2-root :is(.salesWorkspace,.inventoryWorkspace,.dispatchWorkspace,.deliveryWorkspace,.reportsWorkspace){
+ width:100%;max-width:100%;min-width:0;display:grid;gap:12px
+}
+#torvo-v2-root :is(.salesWorkspace,.inventoryWorkspace,.dispatchWorkspace,.deliveryWorkspace,.reportsWorkspace)
+:is(input,select,textarea){min-height:46px;border:1px solid var(--t-line-strong);border-radius:10px;background:#fff;font-size:14px}
+#torvo-v2-root :is(.salesWorkspace,.inventoryWorkspace,.dispatchWorkspace,.deliveryWorkspace,.reportsWorkspace)
+:is(button,.primaryAction,.secondaryAction){min-height:44px;border-radius:10px}
+#torvo-v2-root :is(.salesWorkspace,.inventoryWorkspace,.dispatchWorkspace,.deliveryWorkspace,.reportsWorkspace)
+:is(.toolbar,.filters,.filterBar,.workspaceActions){display:flex;gap:8px;align-items:center;flex-wrap:wrap;background:#fff}
+#torvo-v2-root :is(.salesWorkspace,.inventoryWorkspace,.dispatchWorkspace,.deliveryWorkspace,.reportsWorkspace)
+:is(.toolbar,.filters,.filterBar) :is(input,select){flex:1 1 180px;min-width:0}
+#torvo-v2-root :is(.salesWorkspace,.inventoryWorkspace,.dispatchWorkspace,.deliveryWorkspace,.reportsWorkspace) table{
+ width:100%;border-collapse:separate;border-spacing:0;font-size:13px
+}
+#torvo-v2-root :is(.salesWorkspace,.inventoryWorkspace,.dispatchWorkspace,.deliveryWorkspace,.reportsWorkspace) th{
+ min-height:44px;padding:11px 12px;background:#f7f8fa;color:var(--t-muted);font-size:12px;text-align:left
+}
+#torvo-v2-root :is(.salesWorkspace,.inventoryWorkspace,.dispatchWorkspace,.deliveryWorkspace,.reportsWorkspace) td{
+ padding:12px;border-top:1px solid var(--t-line);vertical-align:middle
+}
+#torvo-v2-root :is(.salesWorkspace,.inventoryWorkspace,.dispatchWorkspace,.deliveryWorkspace,.reportsWorkspace)
+:is(.status,.badge,.chip){min-height:26px;display:inline-flex;align-items:center;padding:4px 8px;border-radius:999px;font-size:12px}
+@media(min-width:1440px){
+ #torvo-v2-root :is(.salesWorkspace,.inventoryWorkspace,.dispatchWorkspace,.deliveryWorkspace,.reportsWorkspace){gap:16px}
+}
+@media(max-width:820px){
+ #torvo-v2-root :is(.salesWorkspace,.inventoryWorkspace,.dispatchWorkspace,.deliveryWorkspace,.reportsWorkspace)
+ :is(input,select,textarea){min-height:48px;font-size:16px}
+ #torvo-v2-root :is(.salesWorkspace,.inventoryWorkspace,.dispatchWorkspace,.deliveryWorkspace,.reportsWorkspace)
+ :is(button,.primaryAction,.secondaryAction){min-height:46px}
+ #torvo-v2-root :is(.salesWorkspace,.inventoryWorkspace,.dispatchWorkspace,.deliveryWorkspace,.reportsWorkspace)
+ :is(.toolbar,.filters,.filterBar,.workspaceActions)>*{flex:1 1 100%;width:100%}
+ #torvo-v2-root :is(.salesWorkspace,.inventoryWorkspace,.dispatchWorkspace,.deliveryWorkspace,.reportsWorkspace) table{
+  display:block;max-width:100%;overflow-x:auto;white-space:nowrap;-webkit-overflow-scrolling:touch
+ }
+}
