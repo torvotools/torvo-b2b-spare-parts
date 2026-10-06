@@ -145,3 +145,13 @@ Runtime rule:
 - Business/auth/data contracts remain unchanged by presentation migration.
 
 First unified migration applied to public + authentication primitives at commit 0c5969b122e0d62129cf39597ddb0a4713f36d3e.
+
+
+### Global Search + Filter acceptance rule — 2026-10-06
+- Every primary page/workspace must keep search immediately reachable: PUBLIC WEBSITE, OWNER/ADMIN, ACCOUNTANT, DEALER, SALESMAN and STORE KEEPER.
+- Use one TORVO search presentation pattern. Product-oriented search keeps INPUT → CAMERA → MIC → SEARCH where those capabilities are supported.
+- Search scope is role/page-aware and server permissions remain authoritative.
+- Product/data-heavy lists should pair search with the shared Smart Filter pattern where useful.
+- Public search/filter must never expose private dealer rates, private stock, proprietary fitment/compatibility, or other private B2B data.
+- Internal search must not broaden a role's existing authorization.
+- Mobile search must remain full-width/reachable with touch-safe controls; desktop search must use the available horizontal workspace efficiently.
