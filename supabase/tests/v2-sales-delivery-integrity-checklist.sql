@@ -66,34 +66,33 @@ select to_regclass('public.stock_movements') as legacy_parallel_stock_movements;
 -- Reuse same request_key with different amount/estimate/status.
 -- Expected: rejection.
 
--- 8) DELIVERY / STOCK EXACTLY-ONCE TEST
--- Capture inventory quantities and inventory_movements count before delivery.
--- Attempt finalize_actual_delivery before required payment: must fail and stock must be unchanged.
--- Attempt while dispatch status is PICKED/PACKED (or otherwise not ready): must fail and stock must be unchanged.
--- Attempt with insufficient stock: entire transaction must fail; no item may be partially deducted.
--- With full required payment + ready/dispatched state + sufficient stock, finalize delivery once.
--- Expected: each item deducted exactly ordered quantity, one negative ACTUAL DELIVERY inventory_movements row/item,
--- finalization ledger row created, Estimate/dispatch marked delivered.
--- Replay same request_key: expected no further stock movement.
--- Replay different request_key for same Estimate: expected rejection/no further stock movement.
+-- 8) MARG BILL SALE POSTING / STOCK EXACTLY-ONCE TEST
+-- Owner rule: entering/saving the Marg Bill number is the final Sale code. There is no separate payment or approval gate.
+-- Capture inventory quantities and inventory_movements count before posting the Marg Bill.
+-- Attempt approve_marg_bill_sale with insufficient stock: entire transaction must fail; no item may be partially deducted and no Dispatch may be created.
+-- Post one valid unique Marg Bill number for an eligible Estimate.
+-- Expected in the SAME transaction: Sale posted, each item deducted exactly ordered quantity,
+-- one negative MARG BILL APPROVED SALE inventory_movements row/item, Dispatch created at PICK_LIST, Estimate marked SALE_POSTED.
+-- Replay the same Estimate or Marg Bill number: expected rejection and no further stock movement.
 
--- 9) LEGACY DELIVERY COMPATIBILITY TEST
--- Call deliver_estimate(uuid) only on a separate fully-paid READY staging Estimate.
--- Expected: it delegates to finalize_actual_delivery and creates the same finalization marker/canonical movement rows.
--- Calling deliver_estimate again must not deduct stock again.
--- Inspect pg_proc after full migration install and ensure no later migration replaced this wrapper with an older direct-deduction implementation.
+-- 9) DELIVERY AFTER MARG BILL POSTING
+-- Advance the Dispatch through its authorized stages to READY_FOR_DISPATCH, then call finalize_actual_delivery.
+-- Expected: delivery closes Dispatch/Estimate only; stock is NOT deducted again because stock already moved at Marg Bill Sale posting.
+-- Calling delivery finalization again must not create another stock deduction.
+-- Legacy non-Marg compatibility paths, if retained for historical rows, must never double-deduct a Marg-posted Sale.
 
--- 10) PURCHASE -> DELIVERY LEDGER CONTINUITY
+-- 10) PURCHASE -> SALE -> DELIVERY LEDGER CONTINUITY
 -- For one staging item:
 -- A) RECEIVE PURCHASE STOCK once and verify positive inventory_movements entry.
--- B) Deliver a paid/ready Estimate and verify negative ACTUAL DELIVERY entry.
--- C) Reconcile current inventory quantity to opening + all canonical inventory_movements changes.
+-- B) Post a valid Marg Bill and verify the negative sale inventory movement.
+-- C) Complete delivery and verify there is no second negative stock movement.
+-- D) Reconcile current inventory quantity to opening + all canonical inventory_movements changes.
 -- Expected: no hidden/parallel stock mutation.
 
 -- 11) AUDIT TEST
 -- Confirm SALES_ORDER_REVISED, DEALER_OK, ESTIMATE_CREATED,
 -- ADDITIONAL_PURCHASE_ORDER_REQUESTED/APPROVED/REJECTED,
--- INTERNAL_PAYMENT_NOTED and ACTUAL_DELIVERY_FINALIZED events are present as applicable.
+-- MARG_BILL_SALE_POSTED and ACTUAL_DELIVERY_FINALIZED events are present as applicable.
 
 -- 12) RELEASE RULE
 -- Do not mark payment/delivery/stock flow runtime verified until all applicable tests above pass
