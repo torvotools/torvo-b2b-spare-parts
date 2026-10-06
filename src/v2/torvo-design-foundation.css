@@ -393,3 +393,41 @@
   .roleApp,.dealerHomePreview,.loginPreview,.dealerLoginLocked,.publicSite,.dealerPortal
  ) :is(p,span,small,label,a){font-size:max(.8125rem,1em)}
 }
+
+
+/* 06 OCT 2026 — ONE TORVO THEME / ALL SURFACES
+   Owner directive: every public, auth, dealer and secure workspace uses one visual language.
+   Feature styles may own layout only; these primitives own visual identity. */
+#torvo-v2-root{
+  --torvo-page:#f4f5f7;--torvo-surface:#fff;--torvo-soft:#eef0f3;
+  --torvo-black:#111317;--torvo-ink:#20242a;--torvo-muted:#68717d;
+  --torvo-border:#dfe3e8;--torvo-border-strong:#c6ccd4;
+  --torvo-radius-sm:8px;--torvo-radius:14px;--torvo-radius-lg:20px;
+  --torvo-shadow-sm:0 6px 22px rgba(17,19,23,.055);
+  --torvo-shadow:0 20px 60px rgba(17,19,23,.10);
+}
+#torvo-v2-root :is(.publicSite,.loginPreview,.dealerRegistrationPreview,.roleApp,.adminVisualPreview,.accountantPreview,.secureDesktopShell,.dealerShell){background:var(--torvo-page);color:var(--torvo-ink)}
+#torvo-v2-root :is(.panel,.workspace,.accountantWorkPanel,.loginCard,.dealerRegistrationCard,.dealerHeroV2,.homeSearchCard,.machineSparePanel,.publicProductCard,.publicActionCard,.categoryLaunch,.requestList>article,.dealerActionModal,.approvalConfirm,.purchaseModal,.purchaseConfirm){
+  background:var(--torvo-surface);border:1px solid var(--torvo-border);border-radius:var(--torvo-radius);box-shadow:var(--torvo-shadow-sm);
+}
+#torvo-v2-root :is(h1,h2,h3,h4,.workspaceTitle,.sectionTitle){color:var(--torvo-black);letter-spacing:-.02em}
+#torvo-v2-root :is(p,.muted,.subtext,.helperText){color:var(--torvo-muted)}
+#torvo-v2-root :is(input,select,textarea){
+  background:#fff;border:1px solid var(--torvo-border-strong);border-radius:var(--torvo-radius-sm);box-shadow:none;
+}
+#torvo-v2-root :is(input,select,textarea):focus{border-color:var(--torvo-red);box-shadow:0 0 0 3px rgba(215,25,32,.10);outline:0}
+#torvo-v2-root :is(button,.button,[role="button"]){border-radius:var(--torvo-radius-sm)}
+#torvo-v2-root :is(button.primary,.primaryButton,.submitNeed,.finderApplyButton,.purchasePrimary,.loginButton){background:var(--torvo-red);border-color:var(--torvo-red);color:#fff}
+#torvo-v2-root :is(.secondaryButton,button.secondary){background:#fff;border:1px solid var(--torvo-border-strong);color:var(--torvo-black)}
+#torvo-v2-root :is(.app aside,.secureDesktopShell aside){background:var(--torvo-black);color:#fff}
+#torvo-v2-root :is(.app aside nav button.active,.secureDesktopShell aside nav button.active){background:var(--torvo-red);color:#fff}
+#torvo-v2-root :is(.dealerTop,.secureDesktopShell>main>.top,.publicHeader){background:rgba(255,255,255,.98);border-color:var(--torvo-border)}
+#torvo-v2-root :is(table,.dataTable){border-collapse:separate;border-spacing:0;background:#fff}
+#torvo-v2-root :is(th,.dataTable th){background:#f7f8fa;color:var(--torvo-muted);font-size:.75rem;letter-spacing:.025em}
+#torvo-v2-root :is(td,th,.dataTable td,.dataTable th){border-bottom:1px solid var(--torvo-border)}
+#torvo-v2-root :is(.modalLayer,.approvalBack,.purchaseModalBack){background:rgba(17,19,23,.58);backdrop-filter:blur(5px)}
+#torvo-v2-root :is(.status,.chip,.badge,.approvalStatus,.rateGroupBadge){border-radius:999px;font-weight:700}
+#torvo-v2-root :is(.publicBrand strong,.dealerTop .brand strong,.app aside .brand strong){letter-spacing:.02em}
+@media(max-width:820px){
+  #torvo-v2-root :is(.panel,.workspace,.accountantWorkPanel,.loginCard,.dealerRegistrationCard,.dealerHeroV2,.homeSearchCard,.publicProductCard){border-radius:12px}
+}
