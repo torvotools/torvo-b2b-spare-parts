@@ -368,3 +368,28 @@
  #torvo-v2-root :is(.smartSearch,.adminUniversalBar,.accountantSharedSearch .adminUniversalBar){min-height:50px}
  #torvo-v2-root :is(.adminWebsiteSearch,.accountantSharedSearch,.roleSharedSearch){width:100%}
 }
+
+
+/* 06 OCT 2026 — LEGACY MICRO-TYPOGRAPHY SAFETY NET
+   Temporary migration guard while old role/login presentation files are reduced.
+   Final foundation loads last and prevents unreadable historical 7–11px copy. */
+#torvo-v2-root :is(
+ .roleApp,.dealerHomePreview,.loginPreview,.dealerLoginLocked,.adminVisualPreview,.accountantPreview,
+ .publicSite,.dealerPortal,.serviceBookWorkspace,.purchaseWorkspace,.approvalWorkspace
+) :is(p,span,small,label,button,a,input,select,textarea,td,th){
+  font-size:max(.8125rem,1em);
+}
+#torvo-v2-root :is(.eyebrow,.status,.chip,.badge,.suggestionCopy small,.smartSuggestions>button>strong){
+  font-size:.75rem;
+}
+#torvo-v2-root :is(.suggestionCopy b,.smartFilterTop,.smartFilterDesktop label,.smartFilterSheetBody label){
+  font-size:.8125rem;
+}
+@media(max-width:820px){
+ #torvo-v2-root :is(
+  .roleApp,.dealerHomePreview,.loginPreview,.dealerLoginLocked,.publicSite,.dealerPortal
+ ) :is(button,input,select,textarea){font-size:1rem}
+ #torvo-v2-root :is(
+  .roleApp,.dealerHomePreview,.loginPreview,.dealerLoginLocked,.publicSite,.dealerPortal
+ ) :is(p,span,small,label,a){font-size:max(.8125rem,1em)}
+}
