@@ -104,3 +104,6 @@
 /* DEALER JOURNEY ICON GLYPH OPTICAL ALIGNMENT */
 .auroraDealerJourney .retailSteps article:nth-child(2) .journeyIcon svg{transform:translateY(-2px)}
 @media(max-width:800px){.auroraDealerJourney .retailSteps article:nth-child(2) .journeyIcon svg{transform:translateY(-2px)}}
+
+/* NEW HERO REBUILD SLOT — legacy hero retired. Full bleed on desktop/mobile. */
+.publicHeroNew{display:block;width:100vw;max-width:none;height:0;margin:0 calc(50% - 50vw);padding:0;border:0;background:transparent;overflow:hidden}
