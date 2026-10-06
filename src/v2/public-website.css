@@ -100,3 +100,7 @@
 /* DEALER JOURNEY FIXED ROW ALIGNMENT */
 .auroraDealerJourney .retailSteps article{display:grid;grid-template-rows:46px 16px 34px minmax(38px,auto);align-content:center;justify-items:center;row-gap:6px}.auroraDealerJourney .journeyIcon{grid-row:1;width:46px;height:46px;margin:0;align-self:start}.auroraDealerJourney .retailSteps article>b{grid-row:2;margin:0;align-self:center}.auroraDealerJourney .retailSteps h3{grid-row:3;margin:0;align-self:center}.auroraDealerJourney .retailSteps small{grid-row:4;align-self:start}
 @media(max-width:800px){.auroraDealerJourney .retailSteps article{grid-template-rows:42px 15px 30px minmax(34px,auto);row-gap:5px;align-content:center}.auroraDealerJourney .journeyIcon{width:42px;height:42px;margin:0}.auroraDealerJourney .retailSteps article>b,.auroraDealerJourney .retailSteps h3,.auroraDealerJourney .retailSteps small{margin:0}}
+
+/* DEALER JOURNEY ICON GLYPH OPTICAL ALIGNMENT */
+.auroraDealerJourney .retailSteps article:nth-child(2) .journeyIcon svg{transform:translateY(-2px)}
+@media(max-width:800px){.auroraDealerJourney .retailSteps article:nth-child(2) .journeyIcon svg{transform:translateY(-2px)}}
