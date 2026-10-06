@@ -115,3 +115,11 @@
 /* DESKTOP FULL-BLEED CONTENT ALIGNMENT — remove one-sided empty gutter */
 @media(min-width:801px){.publicBrandRail,.torvoPrimaryCategories,.publicBenefitStrip,.publicDiscoverySection,.publicActionGrid,.auroraDealerJourney,.publicAbout{box-sizing:border-box;width:calc(100% - 48px);max-width:none;margin-left:24px;margin-right:24px}.publicBrandRail,.torvoPrimaryCategories{padding-left:0;padding-right:0}.publicDiscoverySection{grid-template-columns:1fr}.publicActionGrid{grid-template-columns:repeat(4,minmax(0,1fr))}.auroraDealerJourney .retailSteps{grid-template-columns:repeat(4,minmax(0,1fr))}}
 @media(min-width:1400px){.publicBrandRail,.torvoPrimaryCategories,.publicBenefitStrip,.publicDiscoverySection,.publicActionGrid,.auroraDealerJourney,.publicAbout{width:calc(100% - 64px);margin-left:32px;margin-right:32px}}
+
+
+/* PUBLIC EDGE-TO-EDGE FRAME + FINAL FOOTER — owner visual audit 06 OCT 2026 */
+.publicSite{width:100%;max-width:none;margin:0;overflow-x:hidden}
+.torvoConnect{box-sizing:border-box;width:100vw;max-width:none;margin:28px calc(50% - 50vw) 0;padding-left:max(24px,calc((100vw - var(--content))/2 + 24px));padding-right:max(24px,calc((100vw - var(--content))/2 + 24px));margin-bottom:0;border-radius:0}
+@media(min-width:801px){.publicMain{width:100%;max-width:none;margin-left:0;margin-right:0;padding-left:0;padding-right:0}.publicBrandRail,.torvoPrimaryCategories,.publicBenefitStrip,.publicDiscoverySection,.publicActionGrid,.auroraDealerJourney,.publicAbout{width:calc(100% - 32px);max-width:none;margin-left:16px;margin-right:16px}.torvoConnect{width:100vw;margin-left:calc(50% - 50vw);margin-right:calc(50% - 50vw)}}
+@media(max-width:800px){.torvoConnect{width:100vw;margin:18px calc(50% - 50vw) 0;padding:24px 14px calc(76px + env(safe-area-inset-bottom));border-radius:0}}
+html,body,#root{margin-bottom:0!important;padding-bottom:0!important}
