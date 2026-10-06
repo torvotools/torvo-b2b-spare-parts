@@ -282,3 +282,18 @@ body:has(.publicSite){padding-bottom:0!important}
 .torvoPremiumFooter .torvoFooterRanges span{justify-content:center;padding:0 5px;font-size:8px;white-space:nowrap}
 .torvoPremiumFooter .torvoStaffGate{right:12px;bottom:calc(72px + env(safe-area-inset-bottom))}
 }
+
+
+/* FOOTER LEGIBILITY + TRUE BRAND BUTTONS — owner correction 06 OCT 2026 */
+.torvoPremiumFooter .torvoFooterCompany p{font-weight:650;color:#e5e9ef}
+.torvoPremiumFooter .torvoFooterCompany p b{font-weight:800;color:#fff}
+.torvoPremiumFooter .torvoFooterCompany p:nth-of-type(2){font-weight:700;color:#eef1f5}
+.torvoPremiumFooter .torvoContactActions a,.torvoPremiumFooter .torvoSocialLinks a{border:0;box-shadow:0 4px 12px rgba(0,0,0,.22)}
+.torvoPremiumFooter .contactPhone{background:#2873b9;color:#fff}
+.torvoPremiumFooter .contactWhatsapp{background:#25D366;color:#fff}
+.torvoPremiumFooter .contactEmail{background:#EA4335;color:#fff}
+.torvoPremiumFooter .socialFacebook{background:#1877F2;color:#fff}
+.torvoPremiumFooter .socialYoutube{background:#FF0000;color:#fff}
+.torvoPremiumFooter .socialInstagram{background:linear-gradient(135deg,#833AB4 0%,#E1306C 52%,#F77737 100%);color:#fff}
+.torvoPremiumFooter .torvoContactActions a svg,.torvoPremiumFooter .torvoSocialLinks a svg{stroke:#fff!important;color:#fff!important;filter:none}
+.torvoPremiumFooter .torvoContactActions a:hover,.torvoPremiumFooter .torvoSocialLinks a:hover{filter:brightness(1.08);background-color:inherit}
