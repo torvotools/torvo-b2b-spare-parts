@@ -21,7 +21,7 @@ import './smart-product-filters.css';
 import './torvo-component-contract.css';
 import './torvo-operational-ui.css';
 import './torvo-ai-integration-ui.css';
-import './torvo-ui-system.css';
+
 import './torvo-design-foundation.css';
 import {installGlobalUiFeedback} from './services/uiFeedback.js';
 import {installAppFoundation} from './services/appInstall.js';
