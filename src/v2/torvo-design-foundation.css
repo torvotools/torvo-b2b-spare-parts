@@ -295,3 +295,35 @@
  #torvo-v2-root :is(.modalLayer,.approvalBack,.purchaseModalBack){padding:10px}
  #torvo-v2-root :is(.dealerActionModal,.approvalConfirm,.purchaseModal,.purchaseConfirm){max-height:calc(100dvh - 20px);padding:16px}
 }
+
+
+/* 06 OCT 2026 — SHARED SMART FILTER CONTRACT */
+#torvo-v2-root .smartProductFilters{
+  width:100%;padding:12px;border:1px solid var(--torvo-border);border-radius:var(--torvo-radius);background:var(--torvo-surface);
+}
+#torvo-v2-root .smartFilterTop{min-height:40px;gap:10px;color:var(--torvo-muted)}
+#torvo-v2-root .smartFilterTop strong{color:var(--torvo-black)}
+#torvo-v2-root .smartFilterClear{color:var(--torvo-red)}
+#torvo-v2-root .smartFilterDesktop{gap:10px}
+#torvo-v2-root :is(.smartFilterDesktop,.smartFilterSheetBody) label>span{color:var(--torvo-muted);font-size:.75rem;font-weight:750;letter-spacing:.035em}
+#torvo-v2-root :is(.smartFilterDesktop,.smartFilterSheetBody) :is(select,input){
+  min-height:46px;border:1px solid var(--torvo-border-strong);border-radius:var(--torvo-radius-sm);background:var(--torvo-surface);color:var(--torvo-ink);font-size:.8125rem;font-weight:600;
+}
+#torvo-v2-root .smartFilterSearch>div{
+  min-height:46px;border:1px solid var(--torvo-border-strong);border-radius:var(--torvo-radius-sm);background:var(--torvo-surface);
+}
+#torvo-v2-root .smartFilterSearch>div:focus-within{border-color:var(--torvo-red);box-shadow:0 0 0 3px rgba(215,25,32,.10)}
+#torvo-v2-root .smartFilterOpen{
+  min-height:44px;border:1px solid var(--torvo-border-strong);border-radius:var(--torvo-radius-sm);background:var(--torvo-surface);color:var(--torvo-ink);
+}
+#torvo-v2-root .smartFilterOpen b{background:var(--torvo-red);color:#fff}
+#torvo-v2-root .smartFilterSheet{background:var(--torvo-page);border-radius:var(--torvo-radius-lg) var(--torvo-radius-lg) 0 0}
+#torvo-v2-root .smartFilterSheet :is(header,footer){background:var(--torvo-surface)}
+#torvo-v2-root .smartFilterSheet footer .primary{background:var(--torvo-red);border-color:var(--torvo-red);color:#fff}
+
+@media(max-width:800px){
+ #torvo-v2-root .smartProductFilters{padding:10px}
+ #torvo-v2-root .smartFilterSheetBody{grid-template-columns:1fr}
+ #torvo-v2-root .smartFilterSheet{max-height:90dvh}
+ #torvo-v2-root .smartFilterSheet footer button{min-height:48px}
+}
