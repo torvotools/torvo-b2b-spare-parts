@@ -85,3 +85,7 @@
 /* ABOUT TORVO WHITE AURORA */
 .publicAbout{background:#fff;color:#171a20;border:1px solid #dce1e7;box-shadow:0 10px 28px rgba(23,26,32,.05)}.publicAboutLead>span{color:#e32636}.publicAbout h2{color:#171a20!important}.publicAbout p{color:#5f6875!important}.publicAboutProof article{background:#f8f9fa;color:#171a20;border:1px solid #dce1e7}.publicAboutProof svg{color:#e32636}.publicAboutProof article b{color:#171a20}.publicAboutProof article small{color:#6d7582}
 @media(max-width:800px){.publicAbout{background:#fff}.publicAboutProof article{background:#f8f9fa}}
+
+/* DEALER JOURNEY ICON ALIGNMENT */
+.auroraDealerJourney .journeyIcon{flex:0 0 46px;width:46px;height:46px;margin:0 auto 10px;align-self:center;display:grid;place-items:center}.auroraDealerJourney .journeyIcon svg{display:block;width:24px;height:24px;stroke-width:2}.auroraDealerJourney .retailSteps article:nth-child(1) .journeyIcon{background:#eef4ff;color:#2873b9}.auroraDealerJourney .retailSteps article:nth-child(2) .journeyIcon{background:#fff0f1;color:#e32636}.auroraDealerJourney .retailSteps article:nth-child(3) .journeyIcon{background:#eef8f6;color:#167d86}.auroraDealerJourney .retailSteps article:nth-child(4) .journeyIcon{background:#fff6e9;color:#c17a16}.auroraDealerJourney .retailSteps article>b{margin-top:0}
+@media(max-width:800px){.auroraDealerJourney .journeyIcon{flex-basis:42px;width:42px;height:42px;margin:0 auto 8px}.auroraDealerJourney .journeyIcon svg{width:22px;height:22px}}
