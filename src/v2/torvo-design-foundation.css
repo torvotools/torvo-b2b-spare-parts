@@ -327,3 +327,44 @@
  #torvo-v2-root .smartFilterSheet{max-height:90dvh}
  #torvo-v2-root .smartFilterSheet footer button{min-height:48px}
 }
+
+
+/* 06 OCT 2026 — GLOBAL SEARCH CONTRACT
+   Every primary TORVO surface exposes an immediately reachable search entry.
+   Search scope remains role/page-authorized; presentation stays consistent. */
+#torvo-v2-root :is(.smartSearch,.adminUniversalBar,.accountantSharedSearch .adminUniversalBar,.publicCommonSearch .searchBar,.roleSharedSearch [role="search"]){
+  min-height:48px;border:1px solid var(--torvo-border-strong);border-radius:var(--torvo-radius-sm);
+  background:var(--torvo-surface);box-shadow:none;color:var(--torvo-ink);
+}
+#torvo-v2-root :is(.smartSearch,.adminUniversalBar,.accountantSharedSearch .adminUniversalBar):focus-within{
+  border-color:var(--torvo-red);box-shadow:0 0 0 3px rgba(215,25,32,.10);
+}
+#torvo-v2-root :is(.smartSearch,.adminUniversalBar,.accountantSharedSearch .adminUniversalBar) input{
+  min-width:0;min-height:46px;border:0;background:transparent;color:var(--torvo-ink);font-weight:500;outline:0;box-shadow:none;
+}
+#torvo-v2-root :is(.smartSearch,.adminUniversalBar,.accountantSharedSearch .adminUniversalBar) input::placeholder{
+  color:#8a929d;font-weight:500;
+}
+#torvo-v2-root :is(.smartSearch,.adminUniversalBar,.accountantSharedSearch .adminUniversalBar)>button{
+  min-width:44px;min-height:44px;border:0;background:transparent;color:var(--torvo-ink);
+}
+#torvo-v2-root :is(.smartSearch,.adminUniversalBar,.accountantSharedSearch .adminUniversalBar)>button:last-child{
+  color:var(--torvo-red);
+}
+#torvo-v2-root :is(.adminWebsiteSearch,.accountantSharedSearch,.roleSharedSearch){
+  width:100%;min-width:0;
+}
+#torvo-v2-root .roleSharedSearch{display:grid;gap:10px}
+#torvo-v2-root .smartSuggestions{
+  border:1px solid var(--torvo-border);border-radius:0 0 var(--torvo-radius) var(--torvo-radius);
+  background:var(--torvo-surface);box-shadow:var(--torvo-shadow);overflow:hidden;
+}
+#torvo-v2-root .smartSuggestionHeading{color:var(--torvo-muted);background:var(--torvo-soft)}
+#torvo-v2-root .smartSuggestions button:hover,
+#torvo-v2-root .smartSuggestions button.active{background:#fff4f4}
+#torvo-v2-root .smartSuggestions button.active strong{color:var(--torvo-red)}
+
+@media(max-width:760px){
+ #torvo-v2-root :is(.smartSearch,.adminUniversalBar,.accountantSharedSearch .adminUniversalBar){min-height:50px}
+ #torvo-v2-root :is(.adminWebsiteSearch,.accountantSharedSearch,.roleSharedSearch){width:100%}
+}
