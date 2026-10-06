@@ -84,7 +84,7 @@ After Step 17 is installed in a fresh environment, `bootstrap_initial_owner_staf
 ## MANDATORY DEALER DEVICE GATE
 - Dealer item-rate resolution and Purchase Order submission require current device proof server-side; browser cannot select another Dealer/rate group.
 - Private Dealer workspace catalog reads require current device proof; revoked old mobile must not keep browsing the private ordering workspace.
-- Purchase Order quantities are integer 1..9999 and duplicate catalog item lines fail.
+- Purchase Order quantities are integer 1..9999 and duplicate catalog item lines fail. Initial Dealer Purchase Order submission also requires a client-generated request key; `dealer_purchase_order_requests` keeps that key private and server-side so automatic or manual retry of the same confirmed request returns the same Sales Order instead of creating a duplicate, while reuse of the key with a different payload fails closed.
 - Machine-spare, fitment, referral, missing-part, repair inbox/update and protected order actions require current device proof.
 - Sales Order confirmation, revision, modification request, approved Add More Items read/create, Additional Purchase Order request and 30-day order history require current device proof.
 - Dealer payment/fulfilment and delivery/tracking reads require current device proof and return only that Dealer's own Estimate/order status. Tracking codes are display data only and are never accepted from the browser as authorization.
