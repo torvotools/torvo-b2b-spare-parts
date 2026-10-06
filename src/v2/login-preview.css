@@ -25,7 +25,7 @@
 .businessFinalCardLogo{justify-content:center}
 .businessFinalCardLogo .businessFinalMark{width:48px;height:48px;font-size:28px}
 .businessFinalCardLogo strong{font-size:30px}
-.businessFinalCardLogo small{font-size:8px;letter-spacing:.42em;text-align:right;margin-top:8px}
+.businessFinalCardLogo small{font-size:12px;letter-spacing:.42em;text-align:right;margin-top:8px}
 .businessFinalCardPortal{text-align:center;font-size:14px;font-weight:800;letter-spacing:.16em;margin:14px 0 18px}
 .businessFinalCard h2{text-align:center;font-size:34px;margin:0;font-weight:900}
 .businessFinalSubtitle{text-align:center;color:#667085;font-size:17px;margin:3px 0 18px}
@@ -36,9 +36,9 @@
 .businessFinalInput:focus-within{border-color:#cbd5e1;box-shadow:none}
 .businessFinalInput.isValid,.businessFinalInput.isInvalid{border-color:#cbd5e1}
 .businessFinalInput>svg:first-child{width:21px;color:#475467;flex:0 0 auto}
-.businessFinalInput input{width:100%;min-width:0;border:0!important;outline:0!important;box-shadow:none!important;background:transparent!important;color:#1d2939!important;font-size:15px!important;font-weight:400!important;text-transform:uppercase}
-.businessFinalInput input:disabled{color:#98a2b3!important;cursor:not-allowed}
-.businessFinalGood{color:#16a34a!important;flex:0 0 auto}.businessFinalBad{color:#dc2626!important;flex:0 0 auto}
+.businessFinalInput input{width:100%;min-width:0;border:0;outline:0;box-shadow:none;background:transparent;color:#1d2939;font-size:15px;font-weight:400;text-transform:uppercase}
+.businessFinalInput input:disabled{color:#98a2b3;cursor:not-allowed}
+.businessFinalGood{color:#16a34a;flex:0 0 auto}.businessFinalBad{color:#dc2626;flex:0 0 auto}
 .businessFinalStatus,.businessFinalOtpNotice,.businessFinalError{display:flex;align-items:center;gap:8px;border-radius:8px;padding:8px 11px;font-size:12px;margin-top:-3px}
 .businessFinalStatus svg,.businessFinalOtpNotice svg,.businessFinalError svg{width:17px;height:17px;flex:0 0 auto}
 .businessFinalStatus.ok,.businessFinalOtpNotice{background:#e9f9ef;color:#137a39}.businessFinalStatus.bad,.businessFinalError{background:#fff0f0;color:#b42318}
@@ -55,7 +55,7 @@
 .businessFinalResend button:not(:disabled){color:#ed1b24}.businessFinalResend button:disabled{opacity:.55;cursor:not-allowed}
 .businessFinalLoginButton{margin-bottom:0}
 @media(max-width:1000px){.businessFinalLogin{grid-template-columns:1fr}.businessFinalHero{min-height:auto}.businessFinalHeroContent{width:100%;padding:30px 28px}.businessFinalHero h1{font-size:48px}.businessFinalBenefits{margin-top:25px}.businessFinalFormSide{padding:24px}.businessFinalCard{width:min(100%,620px)}}
-@media(max-width:600px){.businessFinalHeroContent{padding:24px 18px}.businessFinalLogo strong{font-size:34px}.businessFinalPortal{font-size:15px;margin:18px 0 12px}.businessFinalHero h1{font-size:38px}.businessFinalTagline{font-size:12px}.businessFinalBenefits{grid-template-columns:1fr 1fr;gap:15px 12px}.businessFinalBenefits>div>span{width:42px;height:42px}.businessFinalBenefits b{font-size:11px}.businessFinalBenefits small{font-size:9px}.businessFinalFormSide{padding:14px 10px 24px}.businessFinalCard{padding:22px 16px;border-radius:20px}.businessFinalCard h2{font-size:28px}.businessFinalSubtitle{font-size:14px}.businessFinalInfo{font-size:11px}.businessFinalResend{align-items:flex-start;flex-direction:column;gap:3px}.businessFinalPrimary{min-height:48px}}
+@media(max-width:600px){.businessFinalHeroContent{padding:24px 18px}.businessFinalLogo strong{font-size:34px}.businessFinalPortal{font-size:15px;margin:18px 0 12px}.businessFinalHero h1{font-size:38px}.businessFinalTagline{font-size:12px}.businessFinalBenefits{grid-template-columns:1fr 1fr;gap:15px 12px}.businessFinalBenefits>div>span{width:42px;height:42px}.businessFinalBenefits b{font-size:13px}.businessFinalBenefits small{font-size:12px}.businessFinalFormSide{padding:14px 10px 24px}.businessFinalCard{padding:22px 16px;border-radius:20px}.businessFinalCard h2{font-size:28px}.businessFinalSubtitle{font-size:14px}.businessFinalInfo{font-size:13px}.businessFinalResend{align-items:flex-start;flex-direction:column;gap:3px}.businessFinalPrimary{min-height:48px}}
 @media(min-width:1001px) and (max-height:760px){.businessFinalHeroContent{padding-top:22px;padding-bottom:22px}.businessFinalHero h1{font-size:min(5vw,52px)}.businessFinalBenefits{margin-top:22px;gap:14px 34px}.businessFinalCard{padding-top:20px;padding-bottom:20px}.businessFinalCardPortal{margin:9px 0 10px}.businessFinalCard h2{font-size:28px}.businessFinalSubtitle{margin-bottom:10px}.businessFinalInfo{padding:9px 13px;margin-bottom:9px}.businessFinalLabel{margin:7px 0}.businessFinalInput{min-height:42px}.businessFinalPrimary{min-height:44px;margin:8px 0}.businessFinalResend{margin-top:6px}}
 
 
@@ -65,19 +65,19 @@
   .businessFinalHero:after{width:120px;right:-72px}
   .businessFinalHeroContent{padding:10px 14px 9px;display:grid;grid-template-columns:auto 1fr;align-items:center;gap:5px 12px}
   .businessFinalLogo{gap:9px}.businessFinalMark{width:38px;height:38px;font-size:23px;border-radius:7px}
-  .businessFinalLogo strong{font-size:24px}.businessFinalLogo small{font-size:8px;margin-top:6px}
-  .businessFinalPortal{font-size:10px;margin:0;align-self:end}
+  .businessFinalLogo strong{font-size:24px}.businessFinalLogo small{font-size:12px;margin-top:6px}
+  .businessFinalPortal{font-size:13px;margin:0;align-self:end}
   .businessFinalHero h1{grid-column:1/-1;font-size:22px;line-height:.94;margin:1px 0}.businessFinalHero h1 br{display:none}.businessFinalHero h1 em{margin-left:6px}
-  .businessFinalTagline{grid-column:1/-1;font-size:8px;line-height:1.25;margin:1px 0;letter-spacing:.08em}.businessFinalTagline br{display:none}
+  .businessFinalTagline{grid-column:1/-1;font-size:12px;line-height:1.25;margin:1px 0;letter-spacing:.08em}.businessFinalTagline br{display:none}
   .businessFinalBenefits{display:none}
   .businessFinalFormSide{min-height:0;align-items:start;padding:7px 8px 8px;overflow:auto}
   .businessFinalCard{width:100%;padding:10px 12px 11px;border-radius:15px;box-shadow:0 10px 28px rgba(16,24,40,.12)}
-  .businessFinalCardLogo{display:none}.businessFinalCardPortal{font-size:9px;margin:0 0 2px}.businessFinalCard h2{font-size:22px;line-height:1.05}.businessFinalSubtitle{font-size:11px;margin:1px 0 6px}
-  .businessFinalInfo{gap:8px;padding:6px 9px;margin-bottom:5px;border-radius:8px;font-size:9px;line-height:1.25}.businessFinalInfo svg{width:15px;height:15px}
-  .businessFinalLabel{gap:3px;margin:4px 0;font-size:10px}.businessFinalInput{min-height:38px;padding:0 10px;border-radius:8px}.businessFinalInput>svg:first-child{width:17px}.businessFinalInput input{font-size:13px!important}
-  .businessFinalStatus,.businessFinalOtpNotice,.businessFinalError{padding:5px 8px;font-size:9px;margin-top:2px}.businessFinalStatus svg,.businessFinalOtpNotice svg,.businessFinalError svg{width:14px;height:14px}
-  .businessFinalPrimary{min-height:38px;margin:5px 0;border-radius:8px;font-size:11px}.businessFinalPrimary svg{width:16px;height:16px}
-  .businessFinalOtpLabel{margin-top:4px}.businessFinalResend{flex-direction:row;align-items:center;gap:6px;margin:4px 1px 1px;font-size:9px}.businessFinalResend svg{width:13px;height:13px}.businessFinalResend b{font-size:10px}.businessFinalResend button{font-size:9px;padding:3px}
+  .businessFinalCardLogo{display:none}.businessFinalCardPortal{font-size:12px;margin:0 0 2px}.businessFinalCard h2{font-size:22px;line-height:1.05}.businessFinalSubtitle{font-size:13px;margin:1px 0 6px}
+  .businessFinalInfo{gap:8px;padding:6px 9px;margin-bottom:5px;border-radius:8px;font-size:12px;line-height:1.25}.businessFinalInfo svg{width:15px;height:15px}
+  .businessFinalLabel{gap:3px;margin:4px 0;font-size:13px}.businessFinalInput{min-height:38px;padding:0 10px;border-radius:8px}.businessFinalInput>svg:first-child{width:17px}.businessFinalInput input{font-size:13px}
+  .businessFinalStatus,.businessFinalOtpNotice,.businessFinalError{padding:5px 8px;font-size:12px;margin-top:2px}.businessFinalStatus svg,.businessFinalOtpNotice svg,.businessFinalError svg{width:14px;height:14px}
+  .businessFinalPrimary{min-height:38px;margin:5px 0;border-radius:8px;font-size:13px}.businessFinalPrimary svg{width:16px;height:16px}
+  .businessFinalOtpLabel{margin-top:4px}.businessFinalResend{flex-direction:row;align-items:center;gap:6px;margin:4px 1px 1px;font-size:12px}.businessFinalResend svg{width:13px;height:13px}.businessFinalResend b{font-size:13px}.businessFinalResend button{font-size:12px;padding:3px}
 }
 @media(max-width:600px) and (max-height:700px){
   .businessFinalHeroContent{padding-top:7px;padding-bottom:6px}.businessFinalHero h1{font-size:19px}.businessFinalTagline{display:none}
@@ -87,14 +87,14 @@
 @media(max-width:600px) and (min-height:701px){
   .businessFinalFormSide{padding:10px 9px 12px}
   .businessFinalCard{padding:14px 14px 15px}
-  .businessFinalCardPortal{font-size:10px;margin-bottom:3px}
+  .businessFinalCardPortal{font-size:13px;margin-bottom:3px}
   .businessFinalCard h2{font-size:24px}
   .businessFinalSubtitle{font-size:12px;margin-bottom:8px}
-  .businessFinalInfo{padding:8px 10px;margin-bottom:7px;font-size:10px}
-  .businessFinalLabel{margin:6px 0;font-size:11px}
+  .businessFinalInfo{padding:8px 10px;margin-bottom:7px;font-size:13px}
+  .businessFinalLabel{margin:6px 0;font-size:13px}
   .businessFinalInput{min-height:42px}
   .businessFinalPrimary{min-height:42px;margin:7px 0;font-size:12px}
-  .businessFinalResend{margin-top:6px;font-size:10px}
+  .businessFinalResend{margin-top:6px;font-size:13px}
 }
 
 /* Mobile visual polish: one field shell only and a stronger, roomier TORVO hero. */
@@ -102,17 +102,17 @@
   .businessFinalHero{background-size:48% auto;background-position:right 5% center}
   .businessFinalHeroContent{padding:15px 15px 13px;gap:7px 12px}
   .businessFinalLogo{grid-column:1/-1}.businessFinalLogo .businessFinalMark{width:42px;height:42px;font-size:25px}
-  .businessFinalLogo strong{font-size:27px}.businessFinalLogo small{font-size:8px;margin-top:6px}
-  .businessFinalPortal{grid-column:1/-1;font-size:10px;margin:1px 0 0;align-self:auto}
+  .businessFinalLogo strong{font-size:27px}.businessFinalLogo small{font-size:12px;margin-top:6px}
+  .businessFinalPortal{grid-column:1/-1;font-size:13px;margin:1px 0 0;align-self:auto}
   .businessFinalHero h1{font-size:24px;line-height:.96;margin:1px 0 2px;max-width:96%}
   .businessFinalHero h1 em{margin-left:5px}
-  .businessFinalTagline{font-size:9px;margin:0;line-height:1.3}
+  .businessFinalTagline{font-size:12px;margin:0;line-height:1.3}
   .businessFinalFormSide{padding-top:8px}
 }
 @media(max-width:600px) and (max-height:700px){
   .businessFinalHeroContent{padding:9px 13px 8px;gap:4px 10px}
   .businessFinalLogo{grid-column:auto}.businessFinalLogo .businessFinalMark{width:36px;height:36px;font-size:22px}
-  .businessFinalLogo strong{font-size:22px}.businessFinalPortal{grid-column:auto;font-size:9px}
+  .businessFinalLogo strong{font-size:22px}.businessFinalPortal{grid-column:auto;font-size:12px}
   .businessFinalHero h1{grid-column:1/-1;font-size:20px}.businessFinalTagline{display:none}
 }
 
@@ -133,9 +133,9 @@
   .businessFinalCard{justify-content:space-between}
 }
 
-.businessFinalHero{background-color:#080b0f;background-image:none!important}
-.businessFinalHero:after{display:none!important}
-.businessFinalHeroShade{background:linear-gradient(120deg,rgba(255,255,255,.025),transparent 48%,rgba(255,255,255,.018))!important}
+.businessFinalHero{background-color:#080b0f;background-image:none}
+.businessFinalHero:after{display:none}
+.businessFinalHeroShade{background:linear-gradient(120deg,rgba(255,255,255,.025),transparent 48%,rgba(255,255,255,.018))}
 /* Current OTP field shell and helper panel. */
 .businessFinalInput{position:relative;overflow:hidden;border:1.25px solid #aeb7c4;outline:0;box-shadow:none;background:#fff}
 .businessFinalInput:focus-within{border-color:#d71920;box-shadow:0 0 0 2px rgba(215,25,32,.08)}
@@ -157,43 +157,43 @@
 .businessFinalUserInput:focus-visible,
 .businessFinalUserInput:active{
   display:block;flex:1 1 auto;min-width:0;width:100%;height:24px;box-sizing:border-box;
-  margin:0;padding:0;border:0!important;border-radius:0!important;outline:0!important;
-  background:transparent!important;background-image:none!important;box-shadow:none!important;-webkit-box-shadow:none!important;
-  appearance:none!important;-webkit-appearance:none!important;filter:none!important;
-  color:#1f2937!important;-webkit-text-fill-color:#1f2937!important;caret-color:#1f2937!important;
+  margin:0;padding:0;border:0;border-radius:0;outline:0;
+  background:transparent;background-image:none;box-shadow:none;-webkit-box-shadow:none;
+  appearance:none;-webkit-appearance:none;filter:none;
+  color:#1f2937;-webkit-text-fill-color:#1f2937;caret-color:#1f2937;
   font:400 15px/24px Inter,system-ui,-apple-system,BlinkMacSystemFont,"Segoe UI",sans-serif;text-transform:uppercase;
 }
-.businessFinalUserInput::placeholder{color:#7b8490!important;-webkit-text-fill-color:#7b8490!important;opacity:.72!important}
-@media(max-width:600px){.businessFinalUserField{min-height:45px;padding:0 10px;border-radius:8px}.businessFinalUserIcon{width:17px;height:17px}.businessFinalUserInput{font-size:13px!important;line-height:22px!important;height:22px}}
+.businessFinalUserInput::placeholder{color:#7b8490;-webkit-text-fill-color:#7b8490;opacity:.72}
+@media(max-width:600px){.businessFinalUserField{min-height:45px;padding:0 10px;border-radius:8px}.businessFinalUserIcon{width:17px;height:17px}.businessFinalUserInput{font-size:13px;line-height:22px;height:22px}}
 
 
 
 
 .businessFinalInput .businessFinalNativeInput:disabled{
-  color:#7f8996!important;
-  -webkit-text-fill-color:#7f8996!important;
-  opacity:1!important;
-  font-weight:400!important;
+  color:#7f8996;
+  -webkit-text-fill-color:#7f8996;
+  opacity:1;
+  font-weight:400;
 }
 .businessFinalInput .businessFinalNativeInput:disabled::placeholder{
-  color:#7f8996!important;
-  -webkit-text-fill-color:#7f8996!important;
-  opacity:.82!important;
-  font-weight:400!important;
+  color:#7f8996;
+  -webkit-text-fill-color:#7f8996;
+  opacity:.82;
+  font-weight:400;
 }
 
 
 
-@media(max-width:600px){.businessFinalCardPortal{font-size:11px!important}}
+@media(max-width:600px){.businessFinalCardPortal{font-size:13px}}
 
 @media(max-width:600px){
-  .businessFinalHeroContent{grid-template-columns:1fr!important;gap:4px!important;align-items:start!important}
-  .businessFinalLogo{grid-column:1!important}
-  .businessFinalPortal{grid-column:1!important;margin-top:4px!important}
-  .businessFinalHero h1{grid-column:1!important;font-size:21px!important;line-height:1.02!important;margin:4px 0 5px!important;letter-spacing:-.02em!important}
-  .businessFinalHero h1 br{display:none!important}
-  .businessFinalHero h1 em{margin-left:5px!important}
-  .businessFinalTagline{grid-column:1!important;margin:2px 0 0!important;font-size:10px!important;line-height:1.25!important;letter-spacing:.06em!important}
+  .businessFinalHeroContent{grid-template-columns:1fr;gap:4px;align-items:start}
+  .businessFinalLogo{grid-column:1}
+  .businessFinalPortal{grid-column:1;margin-top:4px}
+  .businessFinalHero h1{grid-column:1;font-size:21px;line-height:1.02;margin:4px 0 5px;letter-spacing:-.02em}
+  .businessFinalHero h1 br{display:none}
+  .businessFinalHero h1 em{margin-left:5px}
+  .businessFinalTagline{grid-column:1;margin:2px 0 0;font-size:13px;line-height:1.25;letter-spacing:.06em}
   .businessFinalRoles{white-space:nowrap}
 }
 
