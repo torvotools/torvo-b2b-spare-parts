@@ -46,3 +46,6 @@
 
 /* MOBILE BOTTOM NAV — four owner-approved primary actions. */
 @media(max-width:800px){.mobileBottomNav{grid-template-columns:repeat(4,minmax(0,1fr));height:64px;padding-left:6px;padding-right:6px}.mobileBottomNav a,.mobileBottomNav button{min-height:56px;font-size:10px}.mobileBottomNav span{font-size:10px;overflow:visible}.mobileBottomNav svg{width:20px;height:20px}.mobileBottomNav b{top:1px;margin-left:8px}.torvoFloatingWhatsApp{bottom:80px}}
+
+/* FOOTER CONTACT IDENTITY — keep WhatsApp visually recognizable. */
+.torvoContactActions a[aria-label="WHATSAPP TORVO"]{background:#25D366;color:#fff;box-shadow:0 7px 18px rgba(37,211,102,.22)}.torvoContactActions a[aria-label="WHATSAPP TORVO"]:hover,.torvoContactActions a[aria-label="WHATSAPP TORVO"]:focus-visible{background:#1ebe5d;color:#fff}.torvoContactActions a[aria-label="WHATSAPP TORVO"] svg{color:#fff}
