@@ -153,3 +153,61 @@ body:has(.publicSite){padding-bottom:0!important}
 .torvoPremiumFooter .torvoFooterConnect{display:flex;align-items:center;justify-content:flex-end;gap:13px;padding:14px 16px;white-space:nowrap;border:1px solid rgba(255,255,255,.12);border-radius:12px;background:rgba(12,15,20,.92);box-shadow:0 10px 26px rgba(0,0,0,.26)}.torvoPremiumFooter .torvoContactActions,.torvoPremiumFooter .torvoSocialLinks{display:flex;align-items:center;flex-wrap:nowrap;gap:8px;margin:0}.torvoPremiumFooter .torvoFollowBlock{display:flex;align-items:center;gap:10px;margin-left:8px}.torvoPremiumFooter .torvoFollowBlock h3{margin:0;color:#fff;white-space:nowrap}.torvoPremiumFooter .torvoFollowBlock>.eyebrow,.torvoPremiumFooter .torvoSocialPending{display:none}.torvoPremiumFooter .torvoContactActions a,.torvoPremiumFooter .torvoSocialLinks a{display:grid;place-items:center;width:38px;height:38px;padding:0;border:0;border-radius:10px;color:#fff;text-decoration:none;box-shadow:0 4px 12px rgba(0,0,0,.22);transition:transform .16s ease,filter .16s ease}.torvoPremiumFooter .torvoContactActions a:hover,.torvoPremiumFooter .torvoSocialLinks a:hover{transform:translateY(-2px);filter:brightness(1.08)}
 .torvoPremiumFooter .contactPhone{background:#2873b9}.torvoPremiumFooter .contactWhatsapp{background:#25D366}.torvoPremiumFooter .contactEmail{background:#EA4335}.torvoPremiumFooter .socialFacebook{background:#1877F2}.torvoPremiumFooter .socialYoutube{background:#FF0000}.torvoPremiumFooter .socialInstagram{background:linear-gradient(135deg,#833AB4 0%,#E1306C 52%,#F77737 100%)}.torvoPremiumFooter .torvoContactActions a svg,.torvoPremiumFooter .torvoSocialLinks a svg{display:block;width:20px;height:20px;stroke:#fff;color:#fff;stroke-width:2.5;fill:none;filter:none}.torvoPremiumFooter .torvoSocialLinks a span{position:absolute;width:1px;height:1px;padding:0;margin:-1px;overflow:hidden;clip:rect(0,0,0,0);white-space:nowrap;border:0}.torvoPremiumFooter .torvoSocialLinks a[href="#contact"]{opacity:.72;cursor:default}.torvoPremiumFooter .torvoStaffGate{position:absolute;right:14px;bottom:14px;z-index:5;opacity:.68}.torvoPremiumFooter .torvoStaffGate:hover{opacity:1}.torvoPremiumFooter .torvoStaffGateIcon{width:30px;height:30px;border-radius:8px;border:1px solid #46515f;background:#11161d;color:#98a3b2}.torvoPremiumFooter .torvoFeaturedVideo{grid-column:1/-1}
 @media(max-width:800px){.torvoPremiumFooter{grid-template-columns:1fr;gap:18px;min-height:0;padding:25px 18px calc(88px + env(safe-area-inset-bottom));border-top-width:2px;background:linear-gradient(180deg,#151a22 0%,#151a22 70%,#9f1724 70.2%,#c42131 100%)}.torvoPremiumFooter .torvoFooterCompany{order:1;max-width:none}.torvoPremiumFooter .torvoFooterCompany h2{font-size:12px}.torvoPremiumFooter .torvoFooterCompany p{font-size:10px}.torvoPremiumFooter .torvoFooterExplore{order:2;padding-bottom:2px}.torvoPremiumFooter .torvoFooterExplore h3{margin:0 0 10px;font-size:11px}.torvoPremiumFooter .torvoFooterExplore nav{grid-template-columns:1fr 1fr;gap:8px 14px}.torvoPremiumFooter .torvoFooterExplore nav a{font-size:10px}.torvoPremiumFooter .torvoFooterRanges{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:6px;margin-top:12px}.torvoPremiumFooter .torvoFooterRanges span{justify-content:center;padding:0 5px;font-size:8px;white-space:nowrap}.torvoPremiumFooter .torvoFooterConnect{order:3;display:grid;grid-template-columns:1fr;gap:10px;padding:14px;white-space:normal;border-color:#303945;background:#11161d;box-shadow:0 10px 24px rgba(0,0,0,.30)}.torvoPremiumFooter .torvoFooterConnect>h3,.torvoPremiumFooter .torvoContactActions,.torvoPremiumFooter .torvoFollowBlock,.torvoPremiumFooter .torvoSocialLinks{grid-column:1;grid-row:auto;margin:0}.torvoPremiumFooter .torvoFollowBlock{display:grid;grid-template-columns:1fr;gap:10px}.torvoPremiumFooter .torvoContactActions,.torvoPremiumFooter .torvoSocialLinks{gap:9px}.torvoPremiumFooter .torvoContactActions a,.torvoPremiumFooter .torvoSocialLinks a{width:42px;height:42px}.torvoPremiumFooter .torvoStaffGate{left:12px;right:auto;bottom:calc(70px + env(safe-area-inset-bottom))}}
+
+
+/* 07 OCT 2026 — HOME PAGE AURORA RECOVERY
+   Restores the missing hero and fixes oversized/empty category cards seen on physical devices. */
+.publicHeroNew{width:calc(100% - 32px);max-width:none;margin:16px 16px 0;display:grid;grid-template-columns:minmax(0,1.08fr) minmax(360px,.92fr);min-height:390px;overflow:hidden;border:1px solid #dfe3e8;border-radius:18px;background:#fff;box-shadow:0 12px 34px rgba(17,19,23,.075)}
+.publicHeroNewCopy{padding:clamp(34px,4.4vw,68px);display:flex;flex-direction:column;justify-content:center;background:linear-gradient(135deg,#fff 0%,#fff 70%,#fff5f5 100%)}
+.publicHeroNewKicker{width:max-content;max-width:100%;color:#d71920;font-size:12px;font-weight:800;letter-spacing:1.15px}
+.publicHeroNew h1{margin:15px 0 15px;color:#111317;font-size:clamp(42px,4.8vw,68px);line-height:.98;letter-spacing:-2.8px}
+.publicHeroNew h1 em{color:#d71920;font-style:normal}
+.publicHeroNewCopy>p{max-width:690px;margin:0;color:#59616b;font-size:14px;line-height:1.65}
+.publicHeroNewActions{display:flex;gap:10px;flex-wrap:wrap;margin-top:25px}
+.publicHeroNewActions button{min-height:48px;padding:0 18px;border-radius:9px;font-size:12px;font-weight:800}
+.publicHeroNewActions button:not(.primary){background:#15181d;border-color:#15181d;color:#fff}
+.publicHeroNewActions svg{width:17px}
+.publicHeroNewTrust{display:flex;gap:18px;flex-wrap:wrap;margin-top:27px;padding-top:20px;border-top:1px solid #e7eaee}
+.publicHeroNewTrust span{display:flex;align-items:center;gap:7px;color:#30363e;font-size:10px}
+.publicHeroNewTrust svg{width:18px;color:#d71920}
+.publicHeroNewMedia{position:relative;min-height:390px;overflow:hidden;background:#e9edf1}
+.publicHeroNewMedia>img{width:100%;height:100%;display:block;object-fit:cover}
+.publicHeroNewMedia>div{position:absolute;left:18px;right:18px;bottom:18px;padding:13px 15px;border:1px solid rgba(255,255,255,.16);border-radius:10px;background:rgba(17,19,23,.88);color:#fff;backdrop-filter:blur(8px)}
+.publicHeroNewMedia span{display:block;color:#ff6269;font-size:10px;font-weight:800;letter-spacing:1px}
+.publicHeroNewMedia b{display:block;margin-top:3px;font-size:12px}
+
+/* Category banners: balanced photo/text on desktop, compact landscape on mobile. */
+.torvoPrimaryCategories>button{aspect-ratio:2.28/1;min-height:0!important;border-color:#dfe3e8!important;box-shadow:0 7px 20px rgba(17,19,23,.055)!important;transition:transform .16s ease,border-color .16s ease,box-shadow .16s ease}
+@media(hover:hover){.torvoPrimaryCategories>button:hover{transform:translateY(-2px);border-color:#c8cdd4!important;box-shadow:0 12px 26px rgba(17,19,23,.09)!important}}
+.torvoPrimaryCategories>button>img,.torvoPrimaryCategories>button>.categoryPhotoPending{box-sizing:border-box;position:absolute;top:0;bottom:0;left:46%;width:54%;min-height:0!important;height:100%!important;padding:10px;background:linear-gradient(135deg,#fafbfc,#f1f3f5);object-fit:contain}
+.torvoPrimaryCategories>button>.categoryPhotoPending svg{width:40px;height:40px;color:#a0a7b0;stroke-width:1.6}
+.torvoPrimaryCategories .categoryCopy{width:52%;padding:18px 10px 15px 18px;background:linear-gradient(90deg,#fff 83%,rgba(255,255,255,.94) 94%,rgba(255,255,255,0))}
+.torvoPrimaryCategories .categoryCopy b{font-size:clamp(18px,1.45vw,23px)}
+.torvoPrimaryCategories .categoryCopy small{font-size:clamp(9px,.68vw,11px);line-height:1.4}
+.torvoPrimaryCategories .categoryCopy em{min-height:34px;padding:0 13px;border-radius:7px;background:#ed1230;font-size:10px}
+
+@media(max-width:800px){
+ .publicHeroNew{width:calc(100% - 18px);margin:9px 9px 0;grid-template-columns:1fr;min-height:0;border-radius:12px}
+ .publicHeroNewCopy{padding:22px 17px 20px}
+ .publicHeroNewKicker{font-size:8.5px;letter-spacing:.7px}
+ .publicHeroNew h1{margin:10px 0;font-size:clamp(29px,8.3vw,36px);line-height:1;letter-spacing:-1.35px}
+ .publicHeroNewCopy>p{font-size:11px;line-height:1.55}
+ .publicHeroNewActions{margin-top:16px;display:grid;grid-template-columns:1fr 1fr;gap:7px}
+ .publicHeroNewActions button{min-height:40px;padding:0 8px;font-size:9px}
+ .publicHeroNewTrust{display:grid;grid-template-columns:1fr;gap:7px;margin-top:16px;padding-top:13px}
+ .publicHeroNewTrust span{font-size:8.5px}
+ .publicHeroNewTrust svg{width:15px}
+ .publicHeroNewMedia{min-height:185px;max-height:220px}
+ .publicHeroNewMedia>div{left:10px;right:10px;bottom:10px;padding:9px 10px}
+ .publicHeroNewMedia span{font-size:8px}.publicHeroNewMedia b{font-size:9px}
+ .publicBrandRail{margin-top:10px}
+ .torvoPrimaryCategories{margin-top:10px!important;gap:8px!important;padding:0 9px!important}
+ .torvoPrimaryCategories>button{aspect-ratio:2.55/1!important;min-height:132px!important;max-height:158px!important;border-radius:11px!important}
+ .torvoPrimaryCategories>button>img,.torvoPrimaryCategories>button>.categoryPhotoPending{left:48%!important;width:52%!important;padding:5px!important}
+ .torvoPrimaryCategories>button>.categoryPhotoPending svg{width:32px;height:32px}
+ .torvoPrimaryCategories .categoryCopy{width:53%!important;padding:13px 5px 11px 12px!important}
+ .torvoPrimaryCategories .categoryCopy b{font-size:17px!important}
+ .torvoPrimaryCategories .categoryCopy small{margin-top:6px!important;font-size:8px!important;line-height:1.35!important}
+ .torvoPrimaryCategories .categoryCopy em{min-height:30px!important;padding:0 10px!important;font-size:8px!important}
+ .publicBenefitStrip{margin-top:9px!important}
+}
