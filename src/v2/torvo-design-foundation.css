@@ -748,3 +748,41 @@
  #torvo-v2-root .dealerRegModal .dealerResultNotice small{font-size:.75rem}
  #torvo-v2-root .dealerRegModal>footer{bottom:-20px;margin:16px -14px -20px;padding:10px 14px}
 }
+
+/* 07 OCT 2026 — DEALER LOGIN PHYSICAL-DEVICE COMPACT PASS
+   Screenshot-led mobile correction. Presentation only; auth/session logic unchanged. */
+@media(max-width:600px){
+ #torvo-v2-root .dealerLoginLocked{min-height:100dvh;padding:0 12px 20px;gap:10px;justify-content:flex-start}
+ #torvo-v2-root .dealerLoginLocked .dealerLockedHero{display:block;order:1;height:82px;min-height:82px;margin:0 -12px 0;background:linear-gradient(110deg,#111318 0%,#1b1e24 72%,#3b1017 100%);border-bottom:3px solid var(--torvo-red)}
+ #torvo-v2-root .dealerLoginLocked .dealerLockedHeroImage:before{left:16px;top:14px;font-size:28px;line-height:1}
+ #torvo-v2-root .dealerLoginLocked .dealerLockedHeroImage:after{left:17px;top:49px;font-size:9px;letter-spacing:.06em}
+ #torvo-v2-root .dealerLoginLocked .dealerLockedCard{order:2;margin:-10px 0 0;padding:15px 13px 14px;border-radius:12px;box-shadow:0 10px 24px rgba(16,24,40,.08)}
+ #torvo-v2-root .dealerLoginLocked .dealerLockedCard>header{align-items:center;margin-bottom:11px;gap:8px}
+ #torvo-v2-root .dealerLoginLocked .dealerLockedCard h1{font-size:23px;white-space:nowrap}
+ #torvo-v2-root .dealerLoginLocked .dealerLanguage{min-height:30px;font-size:11px;gap:5px}
+ #torvo-v2-root .dealerLoginLocked .dealerLockedIdentity{position:relative;display:block}
+ #torvo-v2-root .dealerLoginLocked .dealerLockedIdentity input{display:block;box-sizing:border-box;width:100%;height:48px;min-height:48px;padding:0 12px;border:1.5px solid var(--torvo-border-strong);border-radius:9px;background:#fff;font-size:16px;line-height:48px;color:var(--torvo-ink)}
+ #torvo-v2-root .dealerLoginLocked .dealerLockedIdentity input::placeholder{color:#777f89;opacity:1}
+ #torvo-v2-root .dealerLoginLocked .dealerLockedIdentity svg{position:absolute;right:12px;top:50%;width:19px;height:19px;transform:translateY(-50%)}
+ #torvo-v2-root .dealerLoginLocked .dealerLockedApproval{margin-top:5px;font-size:10px}
+ #torvo-v2-root .dealerLoginLocked .dealerLockedApproval.valid{color:var(--torvo-success)}
+ #torvo-v2-root .dealerLoginLocked .dealerLockedApproval.invalid{color:var(--torvo-danger)}
+ #torvo-v2-root .dealerLoginLocked .dealerLockedOtpRow{grid-template-columns:minmax(0,1fr) 104px;gap:7px;margin-top:8px}
+ #torvo-v2-root .dealerLoginLocked .dealerLockedOtpRow>input{min-height:46px;height:46px;padding:0 12px;border:1.5px solid var(--torvo-border-strong);border-radius:9px;font-size:16px}
+ #torvo-v2-root .dealerLoginLocked .dealerSendOtp,#torvo-v2-root .dealerLoginLocked .dealerOtpTimer{min-height:42px;height:42px;font-size:11px}
+ #torvo-v2-root .dealerLoginLocked .dealerOtpTimer{display:flex;align-items:center;justify-content:center;gap:4px;overflow:hidden}
+ #torvo-v2-root .dealerLoginLocked .dealerOtpTimer svg{width:14px;height:14px}
+ #torvo-v2-root .dealerLoginLocked .dealerOtpTimer small{display:none}
+ #torvo-v2-root .dealerLoginLocked .dealerLockedLogin{min-height:46px;height:46px;margin-top:8px;font-size:14px}
+ #torvo-v2-root .dealerLoginLocked .dealerLockedNotice{margin-top:7px;padding:7px;font-size:10px}
+ #torvo-v2-root .dealerLoginLocked .dealerLockedVideo{order:3;min-height:62px;margin:0;padding:9px 11px;gap:9px;border-radius:10px}
+ #torvo-v2-root .dealerLoginLocked .dealerLockedVideo>svg:first-child{flex:0 0 22px;width:22px;height:22px}
+ #torvo-v2-root .dealerLoginLocked .dealerLockedVideo>svg:last-child{flex:0 0 20px;width:20px;height:20px;margin-left:auto}
+ #torvo-v2-root .dealerLoginLocked .dealerLockedVideo span{min-width:0;display:grid;gap:2px}
+ #torvo-v2-root .dealerLoginLocked .dealerLockedVideo span b{font-size:12px}
+ #torvo-v2-root .dealerLoginLocked .dealerLockedVideo small{font-size:9px;line-height:1.3}
+ #torvo-v2-root .dealerLoginLocked .dealerLockedBottom{order:4;grid-template-columns:1fr 1fr;gap:7px}
+ #torvo-v2-root .dealerLoginLocked .dealerLockedBottom>*{min-height:64px;padding:8px 9px;border-radius:10px;font-size:10px;line-height:1.25;gap:5px}
+ #torvo-v2-root .dealerLoginLocked .dealerLockedBottom span{min-width:0;display:grid}
+ #torvo-v2-root .dealerLoginLocked .dealerLockedBottom small{font-size:10px;white-space:nowrap}
+}
