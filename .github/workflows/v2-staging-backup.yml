@@ -77,7 +77,8 @@ jobs:
           CHECKSUM="$(cut -d' ' -f1 backup/SHA256SUMS)"
           DB_VERSION="$(psql "$PGURL" -Atqc "show server_version")"
           SCHEMA_VERSION="$(psql "$PGURL" -Atqc "select coalesce(max(version::text),'unknown') from supabase_migrations.schema_migrations")"
-          printf '{"backup_run_id":"%s","code_branch":"%s","code_commit":"%s","database_version":"%s","schema_version":"%s","checksum_sha256":"%s","file_size_bytes":%s,"encrypted":true,"includes_secrets":false}\n'             "$BACKUP_ID" "$CODE_BRANCH" "$CODE_COMMIT" "$DB_VERSION" "$SCHEMA_VERSION" "$CHECKSUM" "$FILE_SIZE" > backup/manifest.json
+          ARTIFACT_REFERENCE="github-actions:torvo-v2-staging-backup-${BACKUP_ID}"
+          printf '{"backup_run_id":"%s","code_branch":"%s","code_commit":"%s","database_version":"%s","schema_version":"%s","checksum_sha256":"%s","artifact_reference":"%s","file_size_bytes":%s,"encrypted":true,"includes_secrets":false}\\n'             "$BACKUP_ID" "$CODE_BRANCH" "$CODE_COMMIT" "$DB_VERSION" "$SCHEMA_VERSION" "$CHECKSUM" "$ARTIFACT_REFERENCE" "$FILE_SIZE" > backup/manifest.json
 
       - name: Upload encrypted restore package
         id: artifact
