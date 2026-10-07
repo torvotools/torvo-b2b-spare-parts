@@ -1,4 +1,4 @@
--- TORVO V2 MARG BILL APPROVAL -> SALE -> STOCK OUT -> DISPATCH
+-- TORVO V2 MARG BILL NUMBER SAVE -> SALE POSTED -> STOCK OUT -> DISPATCH
 -- Owner-approved replacement for Payment-gated outbound sale posting.
 -- STAGING ONLY until genuine transaction acceptance. Production requires Owner approval.
 -- Internal legacy sales_order names remain compatibility identifiers; user-facing terminology is QUOTATION.
@@ -60,7 +60,7 @@ begin
  for ln in select item_id,sum(qty) qty from public.sales_document_lines where document_id=e.id group by item_id order by item_id loop
    update public.inventory set current_qty=current_qty-ln.qty,updated_at=now() where item_id=ln.item_id;
    insert into public.inventory_movements(item_id,qty_change,reason,reference_type,reference_id,created_by)
-   values(ln.item_id,-ln.qty,'MARG BILL APPROVED SALE','marg_bill_sale',sid,a.id);
+   values(ln.item_id,-ln.qty,'MARG BILL SALE POSTED','marg_bill_sale',sid,a.id);
  end loop;
 
  insert into public.dispatches(estimate_id,status,updated_by)
@@ -80,7 +80,7 @@ revoke all on function public.approve_marg_bill_sale(text,text) from public,anon
 grant execute on function public.approve_marg_bill_sale(text,text) to authenticated;
 
 comment on function public.approve_marg_bill_sale(text,text) is
-'TORVO V2 atomic Marg Bill approval boundary. Validates unique bill + stock, posts Sale, deducts stock exactly in the same transaction and creates Dispatch pick-list.';
+'TORVO V2 atomic Marg Bill sale-posting boundary. Saving a unique Marg Bill number posts Sale, deducts stock exactly in the same transaction and creates Dispatch pick-list; payment is not a gate.';
 
 -- Legacy actual-delivery stock deduction must not double-deduct a Marg-posted Sale.
 create or replace function public.assert_sale_stock_not_already_posted(p_estimate uuid)
@@ -105,7 +105,7 @@ begin
  select * into d from public.sales_documents where id=p_estimate and doc_type='estimate' for update;
  if not found then raise exception 'ESTIMATE NOT FOUND';end if;
  select * into s from public.marg_bill_sales where estimate_id=d.id and status in('posted','corrected');
- if not found then raise exception 'MARG BILL APPROVED SALE REQUIRED BEFORE DELIVERY';end if;
+ if not found then raise exception 'POSTED MARG BILL SALE REQUIRED BEFORE DELIVERY';end if;
  select * into disp from public.dispatches where estimate_id=d.id for update;
  if not found then raise exception 'DISPATCH NOT FOUND';end if;
  if disp.status='delivered' then return;end if;
