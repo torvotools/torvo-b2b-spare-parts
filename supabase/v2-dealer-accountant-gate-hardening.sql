@@ -42,4 +42,8 @@ begin
 end$$;
 revoke all on function public.approve_dealer(uuid,text) from public,anon;
 grant execute on function public.approve_dealer(uuid,text) to authenticated;
-revoke all on function public.approve_dealer(uuid,text,text) from public,anon,authenticated;
+do $ begin
+  if to_regprocedure('public.approve_dealer(uuid,text,text)') is not null then
+    execute 'revoke all on function public.approve_dealer(uuid,text,text) from public,anon,authenticated';
+  end if;
+end $;
