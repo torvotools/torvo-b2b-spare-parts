@@ -211,3 +211,61 @@ body:has(.publicSite){padding-bottom:0!important}
  .torvoPrimaryCategories .categoryCopy em{min-height:30px!important;padding:0 10px!important;font-size:8px!important}
  .publicBenefitStrip{margin-top:9px!important}
 }
+
+
+/* 07 OCT 2026 — HOME PAGE PHYSICAL DEVICE POLISH */
+.publicHeader{box-shadow:0 3px 14px rgba(17,19,23,.045)}
+.publicHeaderSearchRow .publicHeroSearchBar{border-color:#cfd5dc;box-shadow:0 5px 16px rgba(17,19,23,.055)}
+.publicHeaderSearchRow .publicHeroSearchBar:focus-within{border-color:#aeb6c0;box-shadow:0 0 0 3px rgba(215,25,32,.06),0 6px 18px rgba(17,19,23,.06)}
+.publicProductFilterToggle{border-color:#cfd5dc!important;background:#fff!important;color:#252a31!important;box-shadow:0 3px 10px rgba(17,19,23,.035)}
+.publicProductFilterToggle svg{color:#d71920}
+.publicBrandRail>span{color:#555d68;font-weight:750}
+.brandLogoViewport{border-color:#e1e4e8;background:#fff;box-shadow:0 3px 12px rgba(17,19,23,.035)}
+.categoryPhotoPending{position:relative!important;left:auto!important;right:auto!important;margin-left:auto!important;border-left:1px solid #edf0f3;color:#8d959f!important}
+.categoryPhotoPending:after{content:"PHOTO";position:absolute;bottom:12px;left:0;right:0;text-align:center;color:#a0a7b0;font-size:8px;font-weight:800;letter-spacing:1px}
+.publicBenefitStrip article{border-color:#dfe3e8;box-shadow:0 4px 14px rgba(17,19,23,.035)}
+.publicBenefitStrip article svg{flex:0 0 auto}
+.publicCatalog{border-color:#e1e4e8!important;background:#fff!important;box-shadow:0 7px 24px rgba(17,19,23,.04)}
+.publicCatalogTop .publicSectionHead span{color:#d71920;font-weight:800}
+.publicCatalogTop .publicSectionHead h2{color:#171a20;letter-spacing:-.5px}
+.publicShowcaseEmpty{border:1px dashed #d7dce2!important;border-radius:12px!important;background:#fafbfc!important}
+.publicShowcaseEmpty b{font-weight:700!important}
+
+@media(min-width:801px){
+ .topSearchHeader{min-height:64px}
+ .publicHeaderSearchRow{padding-bottom:9px}
+ .publicBenefitStrip{margin-top:12px}
+ .publicCatalog{margin-top:16px!important;padding-top:28px!important}
+}
+
+@media(max-width:800px){
+ .publicHeaderPrimary{height:64px!important;padding:0 20px!important}
+ .torvoWordmark strong{font-size:25px!important;font-weight:500!important;letter-spacing:.7px}
+ .torvoWordmark small{margin-top:7px!important;font-size:12px!important;letter-spacing:4px!important}
+ .mobileHeaderMark{width:42px!important;height:42px!important;border:1px solid #d9dde3!important;border-radius:10px!important;background:#fff!important}
+ .publicHeaderSearchRow{padding:0 20px 10px!important}
+ .publicHeaderSearchRow .publicHeroSearchBar{height:48px!important;border-radius:10px!important;grid-template-columns:minmax(0,1fr) 44px 44px 44px!important}
+ .publicHeaderSearchRow .publicHeroSearchBar input{padding:0 12px!important;font-size:12px!important}
+ .publicTopFinder{padding:0 20px 10px!important;background:#fff!important;border-top:0!important}
+ .publicProductFilterToggle{min-height:42px!important;border-radius:9px!important;font-size:11px!important}
+ .publicBrandRail{padding:0 9px!important}
+ .publicBrandRail>span{margin-bottom:6px!important;font-size:8px!important;letter-spacing:.7px!important}
+ .brandLogoViewport{padding:8px!important;border-radius:9px!important}
+ .brandLogoItem{width:82px!important;height:28px!important}
+ .brandLogoItem img{max-height:25px!important}
+ .categoryPhotoPending:after{bottom:7px;font-size:7px}
+ .publicBenefitStrip{grid-template-columns:repeat(2,1fr)!important;gap:6px!important;padding:0 9px!important}
+ .publicBenefitStrip article{min-height:58px!important;padding:9px!important;border-radius:8px!important;gap:7px!important}
+ .publicBenefitStrip svg{width:17px!important}
+ .publicBenefitStrip b{font-size:9px!important}.publicBenefitStrip small{font-size:8px!important}
+ .publicCatalog{width:calc(100% - 18px)!important;max-width:none!important;margin:9px 9px 0!important;padding:18px 12px!important;border-radius:12px!important}
+ .publicCatalogTop .publicSectionHead span{font-size:9px!important}
+ .publicCatalogTop .publicSectionHead h2{margin:4px 0!important;font-size:21px!important}
+ .publicCatalogTop .publicSectionHead p{font-size:9px!important}
+ .publicCatalogTop .catalogResultBar b,.publicCatalogTop .catalogResultBar span{font-size:9px!important}
+ .publicShowcaseEmpty{min-height:86px!important;padding:12px 9px!important}
+ .publicShowcaseEmpty svg{width:23px!important;height:23px!important}
+ .publicShowcaseEmpty b{font-size:9px!important}
+ .torvoFloatingWhatsApp{right:14px!important;bottom:86px!important;width:48px!important;height:48px!important;min-height:48px!important;padding:0!important;border-radius:50%!important;justify-content:center!important}
+ .torvoFloatingWhatsApp span{display:none!important}
+}
