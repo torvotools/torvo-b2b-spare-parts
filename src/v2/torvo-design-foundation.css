@@ -878,3 +878,51 @@
 #torvo-v2-root .ownerBootstrapSuccess{background:#effaf3;border:1px solid #b8e5c7;color:#176b38}
 #torvo-v2-root .ownerBootstrapError{background:#fff4f4;border:1px solid #f3c4c6;color:#a61b22}
 @media(max-width:560px){#torvo-v2-root .ownerBootstrap{padding:12px}#torvo-v2-root .ownerBootstrapCard{border-radius:12px}#torvo-v2-root .ownerBootstrapCard>header,#torvo-v2-root .ownerBootstrapForm{padding:18px}#torvo-v2-root .ownerBootstrapCard h1{font-size:22px}}
+
+
+/* TORVO AURORA — SYSTEM-WIDE FINAL CONSISTENCY LAYER, 07 OCT 2026
+   Canonical shared visual authority only. No business/auth/data behavior. */
+#torvo-v2-root{
+ --aurora-red:#e32636;--aurora-red-dark:#c71929;--aurora-black:#171a20;--aurora-ink:#242933;
+ --aurora-muted:#6d7582;--aurora-page:#f4f5f7;--aurora-surface:#fff;--aurora-soft:#edf0f3;
+ --aurora-line:#dce1e7;--aurora-line-strong:#c2c9d2;--aurora-r-sm:8px;--aurora-r:12px;
+ --aurora-shadow:0 8px 24px rgba(17,19,23,.065);
+ background:var(--aurora-page);color:var(--aurora-ink);
+}
+#torvo-v2-root :is(.app,.dealerShell,.secureDesktopShell,.roleApp,.adminVisualPreview,.accountantPreview,.dealerEntry,.loginPreview){background:var(--aurora-page);color:var(--aurora-ink)}
+#torvo-v2-root :is(.content,.dealerMain,.roleMain,.workspaceBody){min-width:0}
+#torvo-v2-root :is(.panel,.workspace,.accountantWorkPanel,.card,.requestList>article,.dataList>article,.reportGrid>article,.dealerCatalog>article,.homeSearchCard,.machineSparePanel,.approvalConfirm,.purchaseConfirm){
+ border-color:var(--aurora-line);background:var(--aurora-surface);box-shadow:none;
+}
+#torvo-v2-root :is(.panel,.workspace,.accountantWorkPanel,.homeSearchCard,.machineSparePanel,.approvalConfirm,.purchaseConfirm){border-radius:var(--aurora-r)}
+#torvo-v2-root :is(input,select,textarea){background:#fff;color:var(--aurora-ink);border-color:var(--aurora-line-strong);font-weight:400}
+#torvo-v2-root :is(input,select,textarea):focus{outline:0;border-color:var(--aurora-red);box-shadow:0 0 0 3px rgba(227,38,54,.09)}
+#torvo-v2-root :is(input,textarea)::placeholder{color:#929aa5;font-weight:400}
+#torvo-v2-root :is(button,.button,[role="button"]){font-weight:700}
+#torvo-v2-root :is(.primary,button.primary,.primaryButton,.submitNeed,.finderApplyButton,.purchasePrimary,.loginButton){background:var(--aurora-red)!important;border-color:var(--aurora-red)!important;color:#fff!important}
+#torvo-v2-root :is(.primary,button.primary,.primaryButton,.submitNeed,.finderApplyButton,.purchasePrimary,.loginButton):hover:not(:disabled){background:var(--aurora-red-dark)!important;border-color:var(--aurora-red-dark)!important}
+#torvo-v2-root :is(.workspaceTabs,.roleTabs){border-bottom:1px solid var(--aurora-line)}
+#torvo-v2-root :is(.workspaceTabs,.roleTabs) button.active{background:var(--aurora-black);border-color:var(--aurora-black);color:#fff}
+#torvo-v2-root :is(.modalBack,.modalLayer,.purchaseModalBack,.roleModalBack){background:rgba(17,19,23,.62);backdrop-filter:blur(2px)}
+#torvo-v2-root :is(.modal,.dealerActionModal,.purchaseModal,.roleSheet){border:1px solid var(--aurora-line);background:#fff;box-shadow:0 24px 64px rgba(17,19,23,.18)}
+#torvo-v2-root :is(.empty,.returnsEmpty,.miniEmpty){color:var(--aurora-muted);background:#fafbfc;border-color:var(--aurora-line-strong)}
+#torvo-v2-root :is(.inlineError,.errorText){background:#fff4f4;border-color:#f1b5b8;color:#a9232a}
+#torvo-v2-root :is(.inlineSuccess,.dealerRegistrationSuccess){background:#effaf3;border-color:#b8e5c7;color:#176b38}
+#torvo-v2-root :is(table,.dataTable){width:100%;border-collapse:collapse;background:#fff}
+#torvo-v2-root :is(th,.dataTable th){background:#f6f7f9;color:var(--aurora-muted);font-weight:750}
+#torvo-v2-root :is(td,th,.dataTable td,.dataTable th){border-bottom:1px solid var(--aurora-line)}
+#torvo-v2-root :is(.top,.dealerTop){border-bottom:1px solid var(--aurora-line);box-shadow:0 2px 10px rgba(17,19,23,.04)}
+#torvo-v2-root :is(.app aside,.secureDesktopShell aside){background:var(--aurora-black)}
+#torvo-v2-root :is(.app aside nav button.active,.secureDesktopShell aside nav button.active){background:var(--aurora-red);color:#fff}
+#torvo-v2-root :is(.status,.badge,.chip,.approvalStatus,.rateGroupBadge){font-weight:700}
+@media(max-width:820px){
+ #torvo-v2-root :is(.content,.dealerMain){padding:12px}
+ #torvo-v2-root :is(.panel,.workspace,.accountantWorkPanel){border-radius:10px}
+ #torvo-v2-root :is(.modal,.dealerActionModal,.purchaseModal,.roleSheet){max-height:92dvh;border-radius:14px 14px 0 0}
+ #torvo-v2-root :is(input,select,textarea){font-size:16px}
+ #torvo-v2-root :is(button,.button,[role="button"]){min-height:44px}
+}
+@media(max-width:430px){
+ #torvo-v2-root :is(.content,.dealerMain){padding:10px}
+ #torvo-v2-root :is(.panel,.workspace,.accountantWorkPanel){padding:13px}
+}
