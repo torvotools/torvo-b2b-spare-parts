@@ -1,0 +1,124 @@
+name: TORVO V2 Staging Backup Worker
+
+on:
+  workflow_dispatch:
+    inputs:
+      backup_id:
+        description: "Existing STAGING backup_runs UUID in requested/running state"
+        required: true
+        type: string
+
+permissions:
+  contents: read
+
+concurrency:
+  group: torvo-v2-staging-backup
+  cancel-in-progress: false
+
+jobs:
+  backup:
+    if: github.ref_name == 'torvo-v2-build'
+    runs-on: ubuntu-latest
+    timeout-minutes: 30
+    env:
+      PGURL: ${{ secrets.TORVO_V2_STAGING_DB_URL }}
+      BACKUP_KEY: ${{ secrets.TORVO_V2_BACKUP_ENCRYPTION_KEY }}
+      BACKUP_ID: ${{ inputs.backup_id }}
+      CODE_COMMIT: ${{ github.sha }}
+      CODE_BRANCH: torvo-v2-build
+    steps:
+      - name: Checkout exact branch commit
+        uses: actions/checkout@v4
+
+      - name: Validate trusted worker configuration
+        shell: bash
+        run: |
+          set -euo pipefail
+          test -n "$PGURL" || { echo "::error::TORVO_V2_STAGING_DB_URL is not configured"; exit 1; }
+          test -n "$BACKUP_KEY" || { echo "::error::TORVO_V2_BACKUP_ENCRYPTION_KEY is not configured"; exit 1; }
+          [[ "$BACKUP_ID" =~ ^[0-9a-fA-F-]{36}$ ]] || { echo "::error::Invalid backup UUID"; exit 1; }
+          case "$PGURL" in
+            *jvmhhngjlaqrfopfavur*) ;;
+            *) echo "::error::Refusing non-STAGING database URL"; exit 1 ;;
+          esac
+
+      - name: Install PostgreSQL client
+        shell: bash
+        run: |
+          set -euo pipefail
+          sudo apt-get update -qq
+          sudo apt-get install -y postgresql-client
+
+      - name: Verify requested backup and mark running
+        shell: bash
+        run: |
+          set -euo pipefail
+          JOB_ID="gh-${GITHUB_RUN_ID}-${GITHUB_RUN_ATTEMPT}"
+          psql "$PGURL" -v ON_ERROR_STOP=1 -v backup_id="$BACKUP_ID" -v job_id="$JOB_ID" <<'SQL'
+          select public.worker_start_backup(:'backup_id'::uuid, :'job_id');
+          SQL
+
+      - name: Create database dump
+        shell: bash
+        run: |
+          set -euo pipefail
+          mkdir -p backup
+          pg_dump "$PGURL" --format=custom --no-owner --no-privileges --file=backup/torvo-v2-staging.dump
+
+      - name: Encrypt artifact and verify ciphertext
+        shell: bash
+        run: |
+          set -euo pipefail
+          openssl enc -aes-256-cbc -pbkdf2 -salt             -in backup/torvo-v2-staging.dump             -out backup/torvo-v2-staging.dump.enc             -pass env:BACKUP_KEY
+          rm -f backup/torvo-v2-staging.dump
+          test -s backup/torvo-v2-staging.dump.enc
+          sha256sum backup/torvo-v2-staging.dump.enc | tee backup/SHA256SUMS
+          FILE_SIZE="$(stat -c%s backup/torvo-v2-staging.dump.enc)"
+          CHECKSUM="$(cut -d' ' -f1 backup/SHA256SUMS)"
+          DB_VERSION="$(psql "$PGURL" -Atqc "show server_version")"
+          SCHEMA_VERSION="$(psql "$PGURL" -Atqc "select coalesce(max(version::text),'unknown') from supabase_migrations.schema_migrations")"
+          printf '{"backup_id":"%s","code_branch":"%s","code_commit":"%s","database_version":"%s","schema_version":"%s","checksum_sha256":"%s","file_size_bytes":%s,"encrypted":true,"includes_secrets":false}\n'             "$BACKUP_ID" "$CODE_BRANCH" "$CODE_COMMIT" "$DB_VERSION" "$SCHEMA_VERSION" "$CHECKSUM" "$FILE_SIZE" > backup/manifest.json
+
+      - name: Upload encrypted restore package
+        id: artifact
+        uses: actions/upload-artifact@v4
+        with:
+          name: torvo-v2-staging-backup-${{ inputs.backup_id }}
+          path: |
+            backup/torvo-v2-staging.dump.enc
+            backup/SHA256SUMS
+            backup/manifest.json
+          if-no-files-found: error
+          retention-days: 30
+
+      - name: Mark backup verified
+        shell: bash
+        env:
+          ARTIFACT_URL: ${{ steps.artifact.outputs.artifact-url }}
+        run: |
+          set -euo pipefail
+          JOB_ID="gh-${GITHUB_RUN_ID}-${GITHUB_RUN_ATTEMPT}"
+          CHECKSUM="$(cut -d' ' -f1 backup/SHA256SUMS)"
+          FILE_SIZE="$(stat -c%s backup/torvo-v2-staging.dump.enc)"
+          DB_VERSION="$(psql "$PGURL" -Atqc "show server_version")"
+          SCHEMA_VERSION="$(psql "$PGURL" -Atqc "select coalesce(max(version::text),'unknown') from supabase_migrations.schema_migrations")"
+          psql "$PGURL" -v ON_ERROR_STOP=1             -v backup_id="$BACKUP_ID" -v job_id="$JOB_ID" -v artifact="$ARTIFACT_URL"             -v checksum="$CHECKSUM" -v file_size="$FILE_SIZE" -v db_version="$DB_VERSION"             -v schema_version="$SCHEMA_VERSION" -v code_branch="$CODE_BRANCH" -v code_commit="$CODE_COMMIT" <<'SQL'
+          select public.worker_complete_backup(
+            :'backup_id'::uuid, :'job_id', 'github_actions', :'artifact', :'checksum',
+            :'file_size'::bigint, :'db_version', :'schema_version', :'code_branch', :'code_commit',
+            jsonb_build_object('artifact_kind','encrypted_pg_dump','retention_days',30,'restore_command','pg_restore'),
+            jsonb_build_object('sha256_verified',true,'size_verified',true,'worker','github_actions')
+          );
+          SQL
+
+      - name: Mark failed backup
+        if: failure()
+        shell: bash
+        run: |
+          set +e
+          if [ -n "${PGURL:-}" ] && [ -n "${BACKUP_ID:-}" ]; then
+            JOB_ID="gh-${GITHUB_RUN_ID}-${GITHUB_RUN_ATTEMPT}"
+            psql "$PGURL" -v ON_ERROR_STOP=1 -v backup_id="$BACKUP_ID" -v job_id="$JOB_ID" <<'SQL'
+            select public.worker_fail_backup(:'backup_id'::uuid, :'job_id', 'Trusted backup worker failed; inspect GitHub Actions logs.');
+          SQL
+          fi
