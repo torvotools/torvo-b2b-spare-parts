@@ -71,7 +71,7 @@ begin
     'inactivity_warning_at',d.inactivity_warning_at,'suspended_at',d.suspended_at
   ),
   'sales',jsonb_build_object(
-    'po_count',(select count(*) from public.sales_documents x where x.dealer_id=d.id and x.doc_type='order'),
+    'po_count',(select count(*) from public.sales_documents x where x.dealer_id=d.id and x.doc_type='query'),
     'estimate_count',(select count(*) from public.sales_documents x where x.dealer_id=d.id and x.doc_type='estimate'),
     'posted_sales_count',(select count(distinct x.id) from public.sales_documents x join public.marg_bill_sales m on m.estimate_id=x.id and m.status in('posted','corrected') where x.dealer_id=d.id and x.doc_type='estimate'),
     'delivered_sales_count',(select count(distinct x.id) from public.sales_documents x join public.dispatches dp on dp.estimate_id=x.id and dp.status='delivered' where x.dealer_id=d.id and x.doc_type='estimate'),
@@ -92,12 +92,12 @@ begin
     'parts_used_qty',(select coalesce(sum(p.qty),0) from public.dealer_service_job_parts p join public.dealer_service_jobs j on j.id=p.job_id where j.dealer_id=d.id)
   ),
   'activity',jsonb_build_object(
-    'last_business_activity_at',greatest(
+    'last_business_activity_at',nullif(greatest(
       coalesce((select max(x.created_at) from public.sales_documents x where x.dealer_id=d.id),'-infinity'::timestamptz),
       coalesce((select max(x.created_at) from public.missing_part_requests x where x.dealer_id=d.id),'-infinity'::timestamptz),
       coalesce((select max(x.created_at) from public.non_available_requests x where x.dealer_id=d.id),'-infinity'::timestamptz),
       coalesce((select max(j.created_at) from public.dealer_service_jobs j where j.dealer_id=d.id),'-infinity'::timestamptz)
-    )
+    ),'-infinity'::timestamptz)
   ),
   'privacy',jsonb_build_object('service_customer_details_exposed',false,'financial_payment_rows_exposed',false)
  ) into r;
