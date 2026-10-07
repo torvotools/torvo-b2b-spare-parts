@@ -289,3 +289,32 @@ body:has(.publicSite){padding-bottom:0!important}
  .publicModal:has(.dealerRegistration) .dealerRegistration input,
  .publicModal:has(.dealerRegistration) .dealerRegistration select{font-size:16px}
 }
+
+
+/* TORVO V2 — DEALER REGISTRATION PREVIEW / APP ROUTE: ACTIVE WRAPPER */
+.dealerRegModal{width:min(760px,calc(100% - 28px));max-height:92dvh;overflow:auto;background:#fff;border:1px solid #d7dbe0;border-radius:12px;box-shadow:0 20px 54px rgba(17,20,24,.22)}
+.dealerRegModal>header{position:sticky;top:0;z-index:4;background:#fff;padding:16px 18px;border-bottom:1px solid #d7dbe0;display:flex;align-items:flex-start;justify-content:space-between;gap:14px}
+.dealerRegModal>header .eyebrow{display:block;margin:0 0 4px;font-size:11px;line-height:1.2;letter-spacing:.08em;color:#c71920}
+.dealerRegModal>header h2{margin:0;font-size:22px;line-height:1.15}
+.dealerRegModal>header p{margin:6px 0 0;font-size:12px;line-height:1.45;color:#60666f}
+.dealerRegModal>header .iconBtn{flex:0 0 38px;width:38px;height:38px;min-height:38px;padding:0;display:grid;place-items:center}
+.dealerRegModal .dealerRegistration{padding:18px;display:grid;gap:12px}
+.dealerRegModal .dealerRegistration .formTwo{display:grid;grid-template-columns:1fr 1fr;gap:12px}
+.dealerRegModal .dealerRegistration label{display:grid;gap:5px;height:auto;min-height:0;margin:0;align-content:start}
+.dealerRegModal .dealerRegistration input,.dealerRegModal .dealerRegistration select{width:100%;height:48px;min-height:48px;margin:0;padding:0 12px;box-sizing:border-box}
+.dealerRegModal .dealerResultNotice,.dealerRegModal .dealerWhatsAppHint{margin:0;min-height:0}
+.dealerRegModal>footer{padding:12px 18px;border-top:1px solid #d7dbe0;background:#fff}
+@media(max-width:800px){
+ .modalLayer:has(.dealerRegModal){padding:0;align-items:stretch;background:#fff}
+ .dealerRegModal{width:100%;max-width:none;height:100dvh;max-height:100dvh;border:0;border-radius:0;box-shadow:none}
+ .dealerRegModal>header{padding:11px 14px}
+ .dealerRegModal>header .eyebrow{font-size:10px}
+ .dealerRegModal>header h2{font-size:21px}
+ .dealerRegModal>header p{font-size:12px;margin-top:4px}
+ .dealerRegModal .dealerRegistration{padding:13px 14px;gap:11px}
+ .dealerRegModal .dealerRegistration .formTwo{grid-template-columns:1fr;gap:11px}
+ .dealerRegModal .dealerRegistration label{gap:4px;font-size:12px}
+ .dealerRegModal .dealerRegistration input,.dealerRegModal .dealerRegistration select{height:46px;min-height:46px;font-size:16px}
+ .dealerRegModal .compactDealerNotice{padding:10px;gap:8px}
+ .dealerRegModal>footer{padding:10px 14px}
+}
