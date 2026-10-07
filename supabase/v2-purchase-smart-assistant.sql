@@ -177,6 +177,12 @@ begin
     from public.inventory_movements m
     where m.created_at>=now()-make_interval(days=>d)
     group by m.item_id
+  ), mv_history as(
+    select m.item_id,
+      max(m.created_at) filter(where m.reason='MARG BILL APPROVED SALE' and m.qty_change<0) last_sale,
+      max(m.created_at) last_move
+    from public.inventory_movements m
+    group by m.item_id
   ), demand as(
     select x.matched_item_id item_id,max(x.opportunity_score)::numeric score
     from public.admin_demand_intelligence(d,500) x
@@ -187,10 +193,11 @@ begin
       coalesce(i.current_qty,0)::numeric stock,coalesce(i.reorder_level,0)::numeric reorder,
       coalesce(m.sold,0)::numeric sold,coalesce(m.sales_ret,0)::numeric sales_ret,coalesce(m.sale_rev,0)::numeric sale_rev,
       greatest(coalesce(m.sold,0)-coalesce(m.sales_ret,0)-coalesce(m.sale_rev,0),0)::numeric net_out,
-      m.last_sale,m.last_move,coalesce(dm.score,0)::numeric demand_score
+      mh.last_sale,mh.last_move,coalesce(dm.score,0)::numeric demand_score
     from public.catalog_items c
     left join public.inventory i on i.item_id=c.id
     left join mv m on m.item_id=c.id
+    left join mv_history mh on mh.item_id=c.id
     left join demand dm on dm.item_id=c.id
     where coalesce(c.active,true)=true
   )
