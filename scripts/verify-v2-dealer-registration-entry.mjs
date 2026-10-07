@@ -5,6 +5,7 @@ const website=read('src/v2/components/PublicWebsitePreview.jsx');
 const preview=read('src/v2/components/DealerRegistrationPreview.jsx');
 const form=read('src/v2/components/PublicDealerRegistrationForm.jsx');
 const install=read('src/v2/components/AppInstallControl.jsx');
+const css=read('src/v2/public-website.css');
 if(login.includes('beginDealerEmailOtp')||login.includes('verifyDealerEmailOtp')||login.includes("setKind('dealer')"))fail('WEB BUSINESS LOGIN MUST NOT EXPOSE DEALER PRIVATE AUTH');
 if(login.includes("location.href='/'"))fail('APP REGISTRATION MUST OPEN IN-APP FORM, NOT REDIRECT TO WEBSITE');
 for(const token of['id="dealer-business"','REGISTER AS A DEALER','DEALER_REGISTER',"import PublicDealerRegistrationForm from'./PublicDealerRegistrationForm'",'<PublicDealerRegistrationForm source="WEBSITE"/>'])if(!website.includes(token))fail(`WEBSITE DEALER ENTRY / COMMON FORM MISSING: ${token}`);
@@ -13,5 +14,6 @@ for(const token of["import PublicDealerRegistrationForm from'./PublicDealerRegis
 for(const forbidden of['loadIndiaLocations','setOtp(true)','OTP SENT','UPLOAD VISITING CARD','VERIFY OTP'])if(preview.includes(forbidden))fail(`DEALER REGISTRATION PREVIEW MUST NOT RESTORE DEMO/FAKE FLOW: ${forbidden}`);
 for(const token of['SHOP / FIRM NAME','CONTACT PERSON','REGISTERED EMAIL ID','MOBILE / WHATSAPP (+91)','BUSINESS TYPE','PublicLocationDropdowns','SUBMIT FOR VERIFICATION','PENDING VERIFICATION','TORVO BUSINESS APP','APP ACCESS IS FOR APPROVED DEALERS, SALESMEN AND AUTHORIZED STORE / BUSINESS STAFF','GENERAL CUSTOMERS CAN USE THE TORVO WEBSITE',"import AppInstallControl from'./AppInstallControl'",'<AppInstallControl/>','INSTALL IS SHOWN HERE ONLY WHEN THIS DEVICE HAS A VERIFIED TORVO INSTALL OPTION','const businessTypes=[',"!/^[0-9]{6}$/.test(pin)",'businessTypes.includes(businessType)','SELECT A VALID BUSINESS TYPE','pattern="[0-9]{10}"','required','registerDealer({shopName,contactPerson,mobile,email,pin,state,district,city,businessType})'])if(!form.includes(token))fail(`COMMON DEALER REGISTRATION / VALIDATION MISSING: ${token}`);
 for(const token of['canInstallTorvoApp','promptTorvoAppInstall','if(!ready)return null'])if(!install.includes(token))fail(`VERIFIED INSTALL CONTROL SAFETY MISSING: ${token}`);
+for(const token of['.dealerRegModal{','.dealerRegModal .dealerRegistration{','.dealerRegModal .dealerRegistration .formTwo{','@media(max-width:800px){',' .dealerRegModal{width:100%;max-width:none;height:100dvh',' .dealerRegModal .dealerRegistration .formTwo{grid-template-columns:1fr;gap:11px}'])if(!css.includes(token))fail(`ACTIVE DEALER REGISTRATION RESPONSIVE CSS MISSING: ${token}`);
 for(const forbidden of['DOWNLOAD APP','INSTALL APP','PLAY STORE','APP STORE'])if(website.includes(forbidden))fail(`PUBLIC CUSTOMER WEBSITE MUST NOT EXPOSE GENERIC APP DOWNLOAD CTA: ${forbidden}`);
 console.log('TORVO V2 website/app/preview common dealer registration + strict validation + business-only install control contract OK');
