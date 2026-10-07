@@ -978,3 +978,49 @@
  #torvo-v2-root .dealerTop{min-height:58px;padding-inline:10px}
  #torvo-v2-root :is(.dealerShell,.secureDesktopShell) :is(th,td){padding:9px 10px}
 }
+
+
+/* 07 OCT 2026 — ACTIVE OPERATIONAL APP AURORA
+   Dealer, Salesman and Store Keeper runtime surfaces. Presentation only. */
+#torvo-v2-root :is(.dealerPortal,.salesmanAppWorkspace,.salesmanHub,.salesmanAttendance){min-width:0}
+#torvo-v2-root :is(.productFinder,.salesmanHub>.panel,.salesmanAttendance,.dealerPortal>.panel){border:1px solid var(--torvo-divider);background:#fff;box-shadow:var(--torvo-shadow-sm);border-radius:12px}
+#torvo-v2-root :is(.catalogFilters,.salesmanWorkspaceSearch){display:flex;align-items:center;gap:8px;flex-wrap:wrap;background:#f8f9fb;border:1px solid var(--torvo-divider);border-radius:10px;padding:9px}
+#torvo-v2-root .catalogFilters>span{display:inline-flex;align-items:center;gap:6px;font-weight:800;color:var(--torvo-graphite)}
+#torvo-v2-root .catalogFilters :is(select,button){min-height:40px;border:1px solid var(--torvo-border);border-radius:8px;background:#fff}
+#torvo-v2-root .catalogFilters b{margin-left:auto;color:var(--torvo-muted);font-size:12px;white-space:nowrap}
+#torvo-v2-root .dealerCatalog{display:grid;gap:8px}
+#torvo-v2-root .dealerCatalog article{border:1px solid var(--torvo-divider);border-radius:10px;background:#fff;box-shadow:none}
+#torvo-v2-root .dealerCatalog article>input{min-width:76px;min-height:42px;border:1px solid var(--torvo-border);border-radius:8px}
+#torvo-v2-root .dealerCatalog .dealerRate{color:var(--torvo-graphite)}
+#torvo-v2-root .dealerCatalog .dealerRate strong{color:var(--torvo-red)}
+#torvo-v2-root :is(.knowledgeStats,.attendanceToday){display:grid;grid-template-columns:repeat(4,minmax(0,1fr));gap:10px}
+#torvo-v2-root :is(.knowledgeStats,.attendanceToday)>article{min-width:0;border:1px solid var(--torvo-divider);border-radius:10px;background:#fff;box-shadow:var(--torvo-shadow-sm)}
+#torvo-v2-root .attendanceToday{grid-template-columns:repeat(3,minmax(0,1fr))}
+#torvo-v2-root .salesmanGrid{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:12px}
+#torvo-v2-root .dealerCards{display:grid;grid-template-columns:repeat(auto-fit,minmax(240px,1fr));gap:10px}
+#torvo-v2-root .dealerCards article{min-width:0;border:1px solid var(--torvo-divider);border-radius:10px;background:#fff;box-shadow:var(--torvo-shadow-sm)}
+#torvo-v2-root .dealerCardActions{display:flex;gap:7px;flex-wrap:wrap}
+#torvo-v2-root .dealerCardActions :is(a,button){min-height:38px;border:1px solid var(--torvo-border);border-radius:8px;background:#fff;color:var(--torvo-ink)}
+#torvo-v2-root .salesmanAttendance>label{display:grid;gap:6px;font-weight:700}
+#torvo-v2-root .salesmanAttendance>label input{min-height:42px;border:1px solid var(--torvo-border);border-radius:8px;background:#fff}
+#torvo-v2-root .dealerShell .requestList article{min-width:0}
+#torvo-v2-root .dealerShell .requestList article>div{min-width:0}
+#torvo-v2-root .dealerShell .requestList :is(strong,span,small){overflow-wrap:anywhere}
+@media(max-width:820px){
+ #torvo-v2-root :is(.knowledgeStats,.attendanceToday){grid-template-columns:repeat(2,minmax(0,1fr))}
+ #torvo-v2-root .attendanceToday>article:first-child{grid-column:1/-1}
+ #torvo-v2-root .salesmanGrid{grid-template-columns:1fr}
+ #torvo-v2-root .catalogFilters{display:grid;grid-template-columns:1fr 1fr}
+ #torvo-v2-root .catalogFilters>span,#torvo-v2-root .catalogFilters>b{grid-column:1/-1;margin-left:0}
+ #torvo-v2-root .catalogFilters :is(select,button){width:100%;min-width:0}
+ #torvo-v2-root .dealerCards{grid-template-columns:1fr}
+}
+@media(max-width:480px){
+ #torvo-v2-root :is(.productFinder,.salesmanHub>.panel,.salesmanAttendance,.dealerPortal>.panel){border-radius:10px}
+ #torvo-v2-root .catalogFilters{grid-template-columns:1fr;padding:8px}
+ #torvo-v2-root .catalogFilters>span,#torvo-v2-root .catalogFilters>b{grid-column:auto}
+ #torvo-v2-root :is(.knowledgeStats,.attendanceToday){gap:7px}
+ #torvo-v2-root :is(.knowledgeStats,.attendanceToday)>article{border-radius:8px}
+ #torvo-v2-root .dealerCatalog article{border-radius:8px}
+ #torvo-v2-root .dealerCardActions :is(a,button){flex:1 1 auto;justify-content:center}
+}
