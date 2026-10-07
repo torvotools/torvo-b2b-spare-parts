@@ -47,3 +47,61 @@ declare a app_users%rowtype;r jsonb:='{}'::jsonb;begin
  return r;
 end;$$;
 revoke all on function get_report_summary() from public,anon;grant execute on function get_report_summary() to authenticated;
+
+
+-- DEALER 360
+-- Owner/Admin consolidated business view. Dealer Service Book contributes aggregates only;
+-- customer identity/contact/photo fields are intentionally excluded.
+create or replace function public.get_dealer_360(p_dealer uuid)
+returns jsonb
+language plpgsql stable security definer set search_path=public as $$
+declare a public.app_users%rowtype;d public.dealers%rowtype;r jsonb;
+begin
+ select * into a from public.app_users where auth_user_id=auth.uid() and active=true;
+ if not found or lower(coalesce(a.role,'')) not in('owner','admin') then raise exception 'Owner/Admin authorization required';end if;
+ select * into d from public.dealers where id=p_dealer;
+ if not found then raise exception 'Dealer not found';end if;
+
+ select jsonb_build_object(
+  'dealer',jsonb_build_object(
+    'id',d.id,'dealer_code',d.dealer_code,'shop_name',d.shop_name,'contact_person',d.contact_person,
+    'city',d.city,'district',d.district,'state',d.state,'pin_code',d.pin_code,
+    'rate_group',d.rate_group,'status',d.status,'approved_at',d.approved_at,
+    'accountant_verification_status',d.accountant_verification_status,
+    'inactivity_warning_at',d.inactivity_warning_at,'suspended_at',d.suspended_at
+  ),
+  'sales',jsonb_build_object(
+    'po_count',(select count(*) from public.sales_documents x where x.dealer_id=d.id and x.doc_type='order'),
+    'estimate_count',(select count(*) from public.sales_documents x where x.dealer_id=d.id and x.doc_type='estimate'),
+    'posted_sales_count',(select count(distinct x.id) from public.sales_documents x join public.marg_bill_sales m on m.estimate_id=x.id and m.status in('posted','corrected') where x.dealer_id=d.id and x.doc_type='estimate'),
+    'delivered_sales_count',(select count(distinct x.id) from public.sales_documents x join public.dispatches dp on dp.estimate_id=x.id and dp.status='delivered' where x.dealer_id=d.id and x.doc_type='estimate'),
+    'delivered_sales_value',(select coalesce(sum(x.final_payable),0) from public.sales_documents x where x.dealer_id=d.id and x.doc_type='estimate' and exists(select 1 from public.dispatches dp where dp.estimate_id=x.id and dp.status='delivered')),
+    'last_document_at',(select max(x.created_at) from public.sales_documents x where x.dealer_id=d.id)
+  ),
+  'demand',jsonb_build_object(
+    'missing_part_requests',(select count(*) from public.missing_part_requests x where x.dealer_id=d.id),
+    'open_missing_part_requests',(select count(*) from public.missing_part_requests x where x.dealer_id=d.id and lower(coalesce(x.status,'')) not in('closed','resolved','rejected','cancelled')),
+    'non_available_requests',(select count(*) from public.non_available_requests x where x.dealer_id=d.id),
+    'requested_qty',(select coalesce(sum(x.requested_qty),0) from public.missing_part_requests x where x.dealer_id=d.id)
+      +(select coalesce(sum(x.qty),0) from public.non_available_requests x where x.dealer_id=d.id)
+  ),
+  'service_book',jsonb_build_object(
+    'jobs_total',(select count(*) from public.dealer_service_jobs j where j.dealer_id=d.id),
+    'jobs_last_90_days',(select count(*) from public.dealer_service_jobs j where j.dealer_id=d.id and j.created_at>=now()-interval '90 days'),
+    'last_job_at',(select max(j.created_at) from public.dealer_service_jobs j where j.dealer_id=d.id),
+    'parts_used_qty',(select coalesce(sum(p.qty),0) from public.dealer_service_job_parts p join public.dealer_service_jobs j on j.id=p.job_id where j.dealer_id=d.id)
+  ),
+  'activity',jsonb_build_object(
+    'last_business_activity_at',greatest(
+      coalesce((select max(x.created_at) from public.sales_documents x where x.dealer_id=d.id),'-infinity'::timestamptz),
+      coalesce((select max(x.created_at) from public.missing_part_requests x where x.dealer_id=d.id),'-infinity'::timestamptz),
+      coalesce((select max(x.created_at) from public.non_available_requests x where x.dealer_id=d.id),'-infinity'::timestamptz),
+      coalesce((select max(j.created_at) from public.dealer_service_jobs j where j.dealer_id=d.id),'-infinity'::timestamptz)
+    )
+  ),
+  'privacy',jsonb_build_object('service_customer_details_exposed',false,'financial_payment_rows_exposed',false)
+ ) into r;
+ return r;
+end;$$;
+revoke all on function public.get_dealer_360(uuid) from public,anon;
+grant execute on function public.get_dealer_360(uuid) to authenticated;
