@@ -19,6 +19,25 @@
   --torvo-warning:#a96300;
   --torvo-danger:#b42318;
   --torvo-info:#1769aa;
+  /* Semantic accents: one meaning = one visual identity across every TORVO surface. */
+  --torvo-location:#0f766e;
+  --torvo-product:#3157b7;
+  --torvo-dealer:#6d3cc3;
+  --torvo-order:#b45309;
+  --torvo-stock:#087f5b;
+  --torvo-dispatch:#0369a1;
+  --torvo-report:#475569;
+  --torvo-finance:#8a5a00;
+  --torvo-service:#a21caf;
+  --torvo-location-soft:#e8f7f4;
+  --torvo-product-soft:#edf2ff;
+  --torvo-dealer-soft:#f3edff;
+  --torvo-order-soft:#fff4df;
+  --torvo-stock-soft:#e9f8f1;
+  --torvo-dispatch-soft:#e8f5fb;
+  --torvo-report-soft:#eef2f6;
+  --torvo-finance-soft:#fff6dc;
+  --torvo-service-soft:#faeefa;
   --torvo-radius-sm:6px;
   --torvo-radius:10px;
   --torvo-radius-lg:14px;
@@ -74,6 +93,24 @@
 #torvo-v2-root :is(.status,.chip,.badge){min-height:28px;border-radius:999px}
 #torvo-v2-root :is(.inlineError,.errorText){color:var(--torvo-danger)}
 #torvo-v2-root :is(.inlineSuccess,.dealerRegistrationSuccess){color:var(--torvo-success)}
+
+/* TORVO SEMANTIC VISUAL CONTRACT
+   Apply these semantic hooks wherever a feature icon/chip is rendered.
+   Feature meaning owns the accent; individual pages must not invent a competing color. */
+#torvo-v2-root :is([data-torvo-semantic="location"],.torvoSemanticLocation){--torvo-semantic:var(--torvo-location);--torvo-semantic-soft:var(--torvo-location-soft)}
+#torvo-v2-root :is([data-torvo-semantic="product"],.torvoSemanticProduct){--torvo-semantic:var(--torvo-product);--torvo-semantic-soft:var(--torvo-product-soft)}
+#torvo-v2-root :is([data-torvo-semantic="dealer"],.torvoSemanticDealer){--torvo-semantic:var(--torvo-dealer);--torvo-semantic-soft:var(--torvo-dealer-soft)}
+#torvo-v2-root :is([data-torvo-semantic="order"],.torvoSemanticOrder){--torvo-semantic:var(--torvo-order);--torvo-semantic-soft:var(--torvo-order-soft)}
+#torvo-v2-root :is([data-torvo-semantic="stock"],.torvoSemanticStock){--torvo-semantic:var(--torvo-stock);--torvo-semantic-soft:var(--torvo-stock-soft)}
+#torvo-v2-root :is([data-torvo-semantic="dispatch"],.torvoSemanticDispatch){--torvo-semantic:var(--torvo-dispatch);--torvo-semantic-soft:var(--torvo-dispatch-soft)}
+#torvo-v2-root :is([data-torvo-semantic="report"],.torvoSemanticReport){--torvo-semantic:var(--torvo-report);--torvo-semantic-soft:var(--torvo-report-soft)}
+#torvo-v2-root :is([data-torvo-semantic="finance"],.torvoSemanticFinance){--torvo-semantic:var(--torvo-finance);--torvo-semantic-soft:var(--torvo-finance-soft)}
+#torvo-v2-root :is([data-torvo-semantic="service"],.torvoSemanticService){--torvo-semantic:var(--torvo-service);--torvo-semantic-soft:var(--torvo-service-soft)}
+#torvo-v2-root [data-torvo-semantic] :is(svg,.semanticIcon),
+#torvo-v2-root :is(.torvoSemanticLocation,.torvoSemanticProduct,.torvoSemanticDealer,.torvoSemanticOrder,.torvoSemanticStock,.torvoSemanticDispatch,.torvoSemanticReport,.torvoSemanticFinance,.torvoSemanticService) :is(svg,.semanticIcon){color:var(--torvo-semantic)}
+#torvo-v2-root [data-torvo-semantic].semanticChip,
+#torvo-v2-root :is(.torvoSemanticLocation,.torvoSemanticProduct,.torvoSemanticDealer,.torvoSemanticOrder,.torvoSemanticStock,.torvoSemanticDispatch,.torvoSemanticReport,.torvoSemanticFinance,.torvoSemanticService).semanticChip{color:var(--torvo-semantic);background:var(--torvo-semantic-soft);border:1px solid color-mix(in srgb,var(--torvo-semantic) 24%,transparent)}
+
 
 /* Global readability contract: final UI must never depend on microscopic copy. */
 #torvo-v2-root :is(p,li,label,input,select,textarea,button,a,td,th,small){line-height:1.4}
