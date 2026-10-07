@@ -63,3 +63,39 @@ begin
 end;$$;
 revoke all on function public.get_owner_exception_center(integer) from public,anon;
 grant execute on function public.get_owner_exception_center(integer) to authenticated;
+
+
+-- SYSTEM HEALTH / GO-LIVE CENTER
+-- Owner-only, read-only evidence. Physical UI and production cutover never auto-pass.
+create or replace function public.get_system_health_go_live()
+returns table(gate_key text,gate_name text,status text,evidence text,checked_at timestamptz)
+language plpgsql stable security definer set search_path=public as $$
+declare a public.app_users%rowtype;
+begin
+ select * into a from public.app_users where auth_user_id=auth.uid() and active=true;
+ if not found or lower(coalesce(a.role,''))<>'owner' then raise exception 'Owner authorization required';end if;
+ return query
+ with f as(select
+  exists(select 1 from public.dealer_active_sessions s where s.forced_logout_at is null) dealer_session,
+  exists(select 1 from public.staff_auth_sessions s where s.revoked_at is null and s.expires_at>now()) staff_session,
+  exists(select 1 from public.marg_bill_sales m where m.status in('posted','corrected')) sale_posted,
+  exists(select 1 from public.dispatches d where d.status='delivered' and d.delivered_at is not null) delivery_done,
+  exists(select 1 from public.purchase_headers) purchase_seen,
+  exists(select 1 from public.backup_runs b where lower(coalesce(b.status,''))='completed' and b.verified_at is not null and b.encrypted=true and b.includes_secrets=false) backup_ok,
+  exists(select 1 from public.backup_restore_manifests m where m.verified_at is not null and m.encrypted=true and m.includes_secrets=false) restore_ok,
+  exists(select 1 from public.app_release_artifacts r where lower(coalesce(r.platform,''))='android' and r.production_signed=true and r.verified_at is not null and nullif(r.artifact_sha256,'') is not null) android_ok)
+ select * from(
+  select 'DEALER_AUTH_E2E','Dealer auth/device E2E',case when dealer_session then 'PASS' else 'OPEN' end,case when dealer_session then 'Active dealer session evidence exists' else 'Real dealer runtime session evidence required' end,now() from f
+  union all select 'STAFF_AUTH_E2E','Staff auth/role E2E',case when staff_session then 'PASS' else 'OPEN' end,case when staff_session then 'Active staff session evidence exists' else 'Real staff runtime session evidence required' end,now() from f
+  union all select 'B2B_TRANSACTION_E2E','B2B sale/delivery E2E',case when sale_posted and delivery_done then 'PASS' else 'OPEN' end,case when sale_posted and delivery_done then 'Posted sale and delivered dispatch evidence exists' else 'Posted sale plus delivered dispatch evidence required' end,now() from f
+  union all select 'PURCHASE_RUNTIME','Purchase/inventory runtime',case when purchase_seen then 'WARN' else 'OPEN' end,case when purchase_seen then 'Purchase evidence exists; full return/reversal acceptance still required' else 'Real purchase runtime evidence required' end,now() from f
+  union all select 'BACKUP_VERIFIED','Verified backup',case when backup_ok then 'PASS' else 'OPEN' end,case when backup_ok then 'Verified encrypted backup without secrets exists' else 'Verified backup evidence required' end,now() from f
+  union all select 'RESTORE_PROOF','Restore proof',case when restore_ok then 'PASS' else 'OPEN' end,case when restore_ok then 'Verified encrypted restore manifest without secrets exists' else 'Verified restore proof required' end,now() from f
+  union all select 'ANDROID_PRODUCTION','Android production artifact',case when android_ok then 'PASS' else 'OPEN' end,case when android_ok then 'Production-signed verified artifact with SHA-256 exists' else 'Production-signed verified Android artifact required' end,now() from f
+  union all select 'PHYSICAL_UI_ACCEPTANCE','Physical UI acceptance','OPEN','Requires Owner acceptance on laptop and physical mobiles',now() from f
+  union all select 'PRODUCTION_DOMAIN_CUTOVER','Production domain cutover','OPEN','Requires explicit Owner approval',now() from f
+ )g(gate_key,gate_name,status,evidence,checked_at)
+ order by case status when 'BLOCKED' then 1 when 'OPEN' then 2 when 'WARN' then 3 else 4 end,gate_key;
+end;$$;
+revoke all on function public.get_system_health_go_live() from public,anon;
+grant execute on function public.get_system_health_go_live() to authenticated;
