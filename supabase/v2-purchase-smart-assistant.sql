@@ -143,3 +143,92 @@ begin
 end;$$;
 revoke all on function public.check_purchase_rate_against_history(uuid,uuid,numeric) from public,anon;
 grant execute on function public.check_purchase_rate_against_history(uuid,uuid,numeric) to authenticated;
+
+
+-- SMART STOCK / REORDER INTELLIGENCE
+-- Owner-only advisory. Uses canonical inventory + movement ledger; never creates a Purchase Order.
+create or replace function public.get_smart_stock_intelligence(
+  p_days integer default 90,
+  p_limit integer default 200
+) returns table(
+  item_id uuid,item_code text,item_name text,brand text,item_type text,
+  current_qty numeric,reorder_level numeric,
+  sold_qty numeric,sales_return_qty numeric,sale_reversal_qty numeric,net_outbound_qty numeric,
+  avg_daily_outbound numeric,days_of_stock numeric,
+  last_sale_at timestamptz,last_movement_at timestamptz,
+  demand_signal_score numeric,stock_class text,suggested_reorder_qty numeric,reason text
+)
+language plpgsql stable security definer set search_path=public as $$
+declare
+  a public.app_users%rowtype;
+  d integer:=greatest(30,least(coalesce(p_days,90),365));
+begin
+  select * into a from public.app_users where auth_user_id=auth.uid() and active=true;
+  if not found or lower(coalesce(a.role,''))<>'owner' then raise exception 'Owner authorization required';end if;
+
+  return query
+  with mv as(
+    select m.item_id,
+      coalesce(sum(-m.qty_change) filter(where m.reason='MARG BILL APPROVED SALE' and m.qty_change<0),0)::numeric sold,
+      coalesce(sum(m.qty_change) filter(where m.reason='SALES RETURN' and m.qty_change>0),0)::numeric sales_ret,
+      coalesce(sum(m.qty_change) filter(where m.reason='MARG BILL SALE REVERSAL' and m.qty_change>0),0)::numeric sale_rev,
+      max(m.created_at) filter(where m.reason='MARG BILL APPROVED SALE' and m.qty_change<0) last_sale,
+      max(m.created_at) last_move
+    from public.inventory_movements m
+    where m.created_at>=now()-make_interval(days=>d)
+    group by m.item_id
+  ), demand as(
+    select x.matched_item_id item_id,max(x.opportunity_score)::numeric score
+    from public.admin_demand_intelligence(d,500) x
+    where x.matched_item_id is not null
+    group by x.matched_item_id
+  ), base as(
+    select c.id,c.item_code,c.name,c.brand,c.item_type,
+      coalesce(i.current_qty,0)::numeric stock,coalesce(i.reorder_level,0)::numeric reorder,
+      coalesce(m.sold,0)::numeric sold,coalesce(m.sales_ret,0)::numeric sales_ret,coalesce(m.sale_rev,0)::numeric sale_rev,
+      greatest(coalesce(m.sold,0)-coalesce(m.sales_ret,0)-coalesce(m.sale_rev,0),0)::numeric net_out,
+      m.last_sale,m.last_move,coalesce(dm.score,0)::numeric demand_score
+    from public.catalog_items c
+    left join public.inventory i on i.item_id=c.id
+    left join mv m on m.item_id=c.id
+    left join demand dm on dm.item_id=c.id
+    where coalesce(c.active,true)=true
+  )
+  select b.id,b.item_code,b.name,b.brand,b.item_type,b.stock,b.reorder,b.sold,b.sales_ret,b.sale_rev,b.net_out,
+    round((b.net_out/d)::numeric,4),
+    case when b.net_out>0 then round((b.stock/(b.net_out/d))::numeric,1) else null end,
+    b.last_sale,b.last_move,b.demand_score,
+    case
+      when b.stock<=0 and (b.net_out>0 or b.demand_score>0) then 'ZERO STOCK + DEMAND'
+      when b.stock<=b.reorder and (b.net_out>0 or b.demand_score>0) then 'REORDER NOW'
+      when b.last_sale is null and b.stock>0 and b.last_move is not null and b.last_move<now()-interval '180 days' then 'DEAD STOCK'
+      when b.net_out >= greatest(b.reorder,1)*2 then 'FAST MOVING'
+      when b.net_out>0 then 'SLOW MOVING'
+      else 'NEW / NO HISTORY'
+    end,
+    greatest(
+      case when b.net_out>0 then ceil((b.net_out/d)*45 + b.reorder - b.stock) else b.reorder-b.stock end,
+      0
+    )::numeric,
+    case
+      when b.stock<=0 and (b.net_out>0 or b.demand_score>0) then 'NO STOCK WITH VERIFIED SALES/DEMAND SIGNAL'
+      when b.stock<=b.reorder and (b.net_out>0 or b.demand_score>0) then 'AT OR BELOW REORDER LEVEL WITH ACTIVE DEMAND'
+      when b.last_sale is null and b.stock>0 and b.last_move is not null and b.last_move<now()-interval '180 days' then 'STOCK EXISTS BUT NO SALE IN OBSERVED HISTORY'
+      when b.net_out >= greatest(b.reorder,1)*2 then 'HIGH NET OUTBOUND VELOCITY'
+      when b.net_out>0 then 'POSITIVE NET OUTBOUND, BELOW FAST-MOVING THRESHOLD'
+      else 'INSUFFICIENT REAL MOVEMENT HISTORY'
+    end
+  from base b
+  order by
+    case
+      when b.stock<=0 and (b.net_out>0 or b.demand_score>0) then 1
+      when b.stock<=b.reorder and (b.net_out>0 or b.demand_score>0) then 2
+      when b.net_out >= greatest(b.reorder,1)*2 then 3
+      when b.net_out>0 then 4
+      when b.last_sale is null and b.stock>0 and b.last_move is not null and b.last_move<now()-interval '180 days' then 5
+      else 6 end,
+    b.demand_score desc,b.net_out desc,b.name
+  limit greatest(1,least(coalesce(p_limit,200),500));
+end;$$;
+revoke all on function public.get_smart_stock_intelligence(integer,integer) from public,anon;
+grant execute on function public.get_smart_stock_intelligence(integer,integer) to authenticated;
