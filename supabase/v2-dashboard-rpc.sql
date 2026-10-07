@@ -34,19 +34,20 @@ begin
     concat_ws(' | ',r.module,r.action_type,r.summary),'approval_request',r.id::text,r.created_at
    from public.approval_requests r where lower(coalesce(r.status,''))='pending'
  ),dispatch as(
-   select case when d.status='ready_for_dispatch' and d.updated_at<now()-interval '48 hours' then 'HIGH' else 'MEDIUM' end,
+   select case when d.status='ready_for_dispatch' and e.created_at<now()-interval '48 hours' then 'HIGH' else 'MEDIUM' end,
     'DISPATCH','DISPATCH NEEDS ATTENTION',
     concat_ws(' | ','STATUS '||upper(coalesce(d.status,'')),nullif(d.courier_company,''),nullif(d.tracking_code,'')),
-    'dispatch',d.id::text,d.updated_at
+    'dispatch',d.id::text,e.created_at
    from public.dispatches d
-   where d.status<>'delivered' and d.updated_at<now()-interval '24 hours'
+   join public.sales_documents e on e.id=d.estimate_id
+   where d.status<>'delivered' and e.created_at<now()-interval '24 hours'
  ),backup as(
    select 'CRITICAL','BACKUP','BACKUP FAILED OR UNVERIFIED',
     concat_ws(' | ',upper(coalesce(b.status,'')),nullif(b.error_message,'')),
     'backup_run',b.id::text,coalesce(b.completed_at,b.started_at,b.requested_at)
    from public.backup_runs b
-   where lower(coalesce(b.status,'')) in('failed','error')
-      or (lower(coalesce(b.status,'')) in('completed','success') and b.verified_at is null)
+   where lower(coalesce(b.status,''))='failed'
+      or (lower(coalesce(b.status,''))='completed' and b.verified_at is null)
  ),notes as(
    select 'MEDIUM','NOTIFICATION',upper(coalesce(n.title,'UNREAD NOTIFICATION')),
     coalesce(n.body,''),'notification',n.id::text,n.created_at
