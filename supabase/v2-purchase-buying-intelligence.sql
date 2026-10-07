@@ -17,3 +17,78 @@ begin
  select la.invoice_date,la.supplier_id,la.supplier_name,la.purchase_rate,la.qty,ls.invoice_date,ls.purchase_rate,ls.qty,lo.purchase_rate,lo.supplier_name,st.hi,st.cnt,re.j from stats st cross join recent re left join last_any la on true left join last_sel ls on true left join low lo on true;
 end;$$;
 revoke all on function public.get_purchase_buying_intelligence(uuid,uuid,integer) from public,anon;grant execute on function public.get_purchase_buying_intelligence(uuid,uuid,integer) to authenticated;
+
+
+-- TORVO PURCHASE BRAIN
+-- Owner-only advisory combining stock intelligence, private aggregate Service Book usage,
+-- and real received Purchase history. It never creates or approves a Purchase Order.
+create or replace function public.get_torvo_purchase_brain(
+  p_days integer default 90,
+  p_limit integer default 100
+) returns table(
+  item_id uuid,item_code text,item_name text,brand text,item_type text,
+  current_qty numeric,reorder_level numeric,net_outbound_qty numeric,
+  service_parts_used_qty numeric,demand_signal_score numeric,stock_class text,
+  suggested_reorder_qty numeric,last_purchase_date date,last_supplier_name text,
+  last_purchase_rate numeric,lowest_recent_rate numeric,recommendation text
+)
+language plpgsql stable security definer set search_path=public as $$
+declare a public.app_users%rowtype;d integer:=greatest(30,least(coalesce(p_days,90),365));
+begin
+ select * into a from public.app_users where auth_user_id=auth.uid() and active=true;
+ if not found or lower(coalesce(a.role,''))<>'owner' then raise exception 'Owner authorization required';end if;
+
+ return query
+ with stock as(
+   select * from public.get_smart_stock_intelligence(d,500)
+ ),svc as(
+   select p.item_id,coalesce(sum(p.qty),0)::numeric used_qty
+   from public.dealer_service_job_parts p
+   join public.dealer_service_jobs j on j.id=p.job_id
+   where p.created_at>=now()-make_interval(days=>d)
+     and lower(coalesce(j.status,'')) not in('cancelled','canceled')
+   group by p.item_id
+ ),hist as(
+   select l.item_id,h.invoice_date,h.created_at,s.supplier_name,l.purchase_rate,
+     row_number() over(partition by l.item_id order by h.invoice_date desc,h.created_at desc,l.id desc) rn,
+     min(l.purchase_rate) over(partition by l.item_id) low_rate
+   from public.purchase_lines l
+   join public.purchase_headers h on h.id=l.purchase_id
+   join public.purchase_stock_receipts r on r.purchase_id=h.id and r.reversed_at is null
+   left join public.suppliers s on s.id=h.supplier_id
+   where h.invoice_date>=current_date-interval '180 days'
+     and not exists(select 1 from public.audit_log al where al.entity_type='purchase' and al.entity_id=h.id::text and al.action='PURCHASE_REVERSED')
+ ),last_hist as(
+   select item_id,invoice_date,supplier_name,purchase_rate,low_rate from hist where rn=1
+ )
+ select st.item_id,st.item_code,st.item_name,st.brand,st.item_type,
+   st.current_qty,st.reorder_level,st.net_outbound_qty,
+   coalesce(sv.used_qty,0)::numeric,st.demand_signal_score,st.stock_class,
+   greatest(st.suggested_reorder_qty,
+     case when coalesce(sv.used_qty,0)>0
+       then ceil((coalesce(sv.used_qty,0)/d)*45 + st.reorder_level - st.current_qty)
+       else 0 end,0)::numeric,
+   lh.invoice_date,lh.supplier_name,lh.purchase_rate,lh.low_rate,
+   case
+    when st.stock_class='ZERO STOCK + DEMAND' then 'URGENT BUY REVIEW'
+    when st.stock_class='REORDER NOW' then 'BUY REVIEW'
+    when st.stock_class='FAST MOVING' and st.days_of_stock is not null and st.days_of_stock<=45 then 'PLAN PURCHASE'
+    when coalesce(sv.used_qty,0)>0 and st.current_qty<=st.reorder_level then 'SERVICE DEMAND - BUY REVIEW'
+    when st.stock_class='DEAD STOCK' then 'DO NOT REORDER WITHOUT OWNER REVIEW'
+    else 'MONITOR'
+   end
+ from stock st
+ left join svc sv on sv.item_id=st.item_id
+ left join last_hist lh on lh.item_id=st.item_id
+ order by
+   case
+    when st.stock_class='ZERO STOCK + DEMAND' then 1
+    when st.stock_class='REORDER NOW' then 2
+    when st.stock_class='FAST MOVING' then 3
+    when coalesce(sv.used_qty,0)>0 then 4
+    when st.stock_class='DEAD STOCK' then 6 else 5 end,
+   st.demand_signal_score desc,st.net_outbound_qty desc,st.item_name
+ limit greatest(1,least(coalesce(p_limit,100),500));
+end;$$;
+revoke all on function public.get_torvo_purchase_brain(integer,integer) from public,anon;
+grant execute on function public.get_torvo_purchase_brain(integer,integer) to authenticated;
