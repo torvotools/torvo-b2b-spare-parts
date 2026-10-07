@@ -87,7 +87,7 @@ DESKTOP = OWNER/ADMIN + ACCOUNTANT CONTROL.
 - Public Customer data/referral history is protected; public endpoints must not expose an enumerable Customer/Dealer database.
 
 ## SALES FLOW — DEALER B2B
-Purchase Order -> Sales Order -> controlled revision -> exact latest Dealer OK -> Estimate -> internal payment/fulfilment -> Delivery. Dealer rates are server-calculated. TORVO revision invalidates old Dealer OK. Estimate locks direct revision. ADD MORE ITEMS creates a separate linked Additional Purchase Order after TORVO approval and never mutates the original order/Estimate. Duplicate catalog item lines are blocked in UI and database integrity.
+Dealer PO -> Quotation -> controlled revision -> exact latest Dealer OK -> Estimate -> Marg Bill number save -> Sale posted + Stock Out -> Dispatch -> Delivery. Payment is recordable accounting data after Sale and is not a Sale, Dispatch or Delivery gate. Dealer rates are server-calculated. TORVO revision invalidates old Dealer OK. Estimate locks direct revision. ADD MORE ITEMS creates a separate linked Additional Purchase Order after TORVO approval and never mutates the original order/Estimate. Duplicate catalog item lines are blocked in UI and database integrity.
 
 ## DEALER PRIVACY
 Dealer App shows no Owner-only confidential cost/profit. Private Suitable/cross-compatibility remains TORVO-private unless explicitly shared. Dealer pricing is never exposed through public referral. Final Customer/Dealer retail price is not required in TORVO referral analytics.
