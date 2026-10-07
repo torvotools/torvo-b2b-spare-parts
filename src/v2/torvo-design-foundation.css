@@ -833,3 +833,29 @@
 #torvo-v2-root .dealerBottomNav button.active:before{content:"";position:absolute;top:0;left:28%;right:28%;height:3px;border-radius:0 0 3px 3px;background:var(--torvo-red)}
 @media(max-width:820px){#torvo-v2-root :is(.content,.adminMain,.accountantMain){padding:12px}#torvo-v2-root :is(.panel,.workspace,.reportGrid article,.kpis article){border-radius:10px}#torvo-v2-root .kpis{gap:9px}#torvo-v2-root .kpis article{padding:14px}}
 @media(max-width:430px){#torvo-v2-root :is(.content,.adminMain,.accountantMain){padding:9px}#torvo-v2-root :is(.panel,.workspace){padding:13px}#torvo-v2-root .kpis article:before{width:2px}#torvo-v2-root :is(.dataList article,.requestList article){border-radius:9px}}
+
+
+/* 07 OCT 2026 — SPECIALIZED WORKSPACE AURORA HARMONIZATION */
+#torvo-v2-root :is(.purchaseHero,.returnsHero,.approvalHero){background:linear-gradient(135deg,#14171b 0%,#20242a 72%,#391116 100%);border:1px solid #2b2f35;box-shadow:0 10px 28px rgba(17,19,23,.09)}
+#torvo-v2-root :is(.purchaseCard,.returnsList article,.serviceBookStats article,.serviceJobForm section,.backupChannelGrid article,.backupSettings,.projectBackup,.backupActions article,.backupHistory,.releaseCenter .releaseGrid article,.testReleaseCard){border-color:var(--torvo-divider);box-shadow:var(--torvo-shadow-sm)}
+#torvo-v2-root :is(.purchaseCard,.returnsList article,.serviceBookStats article,.serviceJobForm section,.backupChannelGrid article,.backupSettings,.projectBackup,.backupActions article,.backupHistory,.releaseCenter .releaseGrid article){background:#fff}
+#torvo-v2-root :is(.purchaseModal,.purchaseItemFinder,.returnSheet,.roleSheet){border:1px solid var(--torvo-divider);box-shadow:0 28px 70px rgba(17,19,23,.22)}
+#torvo-v2-root :is(.purchaseFormGrid input,.purchaseFormGrid select,.purchaseNote textarea,.purchaseLine input,.purchaseFinderTools label,.purchaseFinderTools select,.returnSheet select,.returnSheet textarea,.returnSheet input,.serviceJobForm input,.serviceJobForm select,.serviceJobForm textarea,.backupEmailFields input){border-color:var(--torvo-border)}
+#torvo-v2-root :is(.purchaseFormGrid input,.purchaseFormGrid select,.purchaseNote textarea,.purchaseLine input,.returnSheet select,.returnSheet textarea,.returnSheet input,.serviceJobForm input,.serviceJobForm select,.serviceJobForm textarea,.backupEmailFields input):focus{border-color:var(--torvo-red);box-shadow:0 0 0 3px rgba(215,25,32,.09);outline:0}
+#torvo-v2-root :is(.purchaseCard,.returnsList article,.serviceBookStats article,.backupChannelGrid article,.backupActions article,.releaseCenter .releaseGrid article){transition:border-color .16s ease,box-shadow .16s ease,transform .16s ease}
+@media(hover:hover){#torvo-v2-root :is(.purchaseCard,.returnsList article,.serviceBookStats article,.backupChannelGrid article,.backupActions article,.releaseCenter .releaseGrid article):hover{border-color:var(--torvo-border-strong);box-shadow:var(--torvo-elevated)}}
+#torvo-v2-root :is(.purchasePrimary,.returnSheet .primary,.backupSettings>button,.roleClose){background:var(--torvo-red);color:#fff}
+#torvo-v2-root :is(.backupHero button,.backupChannelGrid button,.projectBackup button,.backupActions button){background:var(--torvo-graphite);color:#fff}
+#torvo-v2-root .backupHero{border-color:var(--torvo-divider);border-radius:16px;box-shadow:var(--torvo-shadow-sm)}
+#torvo-v2-root :is(.backupChannelGrid article,.backupSettings,.projectBackup,.backupActions article,.backupHistory){border-radius:12px}
+#torvo-v2-root .serviceBookStats article{border-radius:10px}
+#torvo-v2-root .serviceBookTabs button.active{background:var(--torvo-graphite);border-color:var(--torvo-graphite);color:#fff}
+#torvo-v2-root .servicePhoto{background:#fafbfc;border-color:var(--torvo-border-strong)}
+#torvo-v2-root .roleSheet{background:#fff}
+#torvo-v2-root .roleApp>nav{border-color:var(--torvo-divider);box-shadow:0 -8px 24px rgba(17,19,23,.06)}
+#torvo-v2-root .roleApp>nav button.active{color:var(--torvo-red)}
+@media(max-width:720px){
+ #torvo-v2-root :is(.purchaseHero,.returnsHero,.approvalHero){border-radius:10px}
+ #torvo-v2-root :is(.purchaseModal,.purchaseItemFinder,.returnSheet,.roleSheet){border-radius:16px 16px 0 0}
+ #torvo-v2-root .backupHero{border-radius:12px}
+}
