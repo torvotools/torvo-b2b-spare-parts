@@ -5,6 +5,16 @@ Branch: `torvo-v2-build`.
 
 This file prevents source completion from being confused with production acceptance. A gate becomes PASS only when the listed real evidence exists. Never manufacture identities, transactions, backup artifacts, signing evidence or deployment evidence merely to mark a gate complete.
 
+## Current staging truth — 2026-10-07
+- STAGING project: `jvmhhngjlaqrfopfavur`; production remains untouched.
+- Public regular tables: **125**; RLS enabled: **125/125**.
+- Current acceptance data: Dealers=1; Dealer device sessions=0; Staff auth sessions=11 total / 1 active; Sales documents=0; Purchases=0; Dispatches=0; Returns=0; verified backup runs=0; restore manifests=0; App Release artifacts=0.
+- Official location master remains unpopulated: States=0, Districts=0, Cities=0. The GoI LGD/OGD city-only import remains an OPEN deployment/readiness gate; no guessed or partial location data may be substituted.
+- A genuine pending Dealer exists, but no Owner/Admin commercial rate-group decision or genuine Dealer Email-OTP/device acceptance is fabricated from that row. Dealer auth/device and B2B transaction gates therefore remain OPEN.
+- The older 2026-10-01 snapshot below is historical and is superseded by this section for current runtime counts.
+- Exact source CI evidence must always be recorded against the then-current branch HEAD; a later commit supersedes an earlier exact-SHA CI result without converting runtime/external gates to PASS.
+
+
 ## Current staging truth — 2026-10-01
 - This section is the current runtime snapshot; older table counts below are historical evidence and must not be read as the current schema count.
 - STAGING project: `jvmhhngjlaqrfopfavur`.
