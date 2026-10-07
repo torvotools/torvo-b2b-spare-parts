@@ -31,6 +31,7 @@ on:
       - '.github/workflows/v2-build-check.yml'
       - '.github/workflows/v2-cloudflare-preview.yml'
       - '.github/workflows/v2-android-apk.yml'
+      - '.github/workflows/v2-staging-backup.yml'
   pull_request:
     branches: [main]
     paths:
