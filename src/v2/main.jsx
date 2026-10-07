@@ -7,6 +7,8 @@ import BackupCloseModal from './components/BackupCloseModal.jsx';
 import AppUpdateNotice from './components/AppUpdateNotice.jsx';
 import './styles.css';
 import './role-app-preview.css';
+import './admin-desktop-polish.css';
+import './accountant-admin-parity-fix.css';
 import './purchase-requirements-ui.css';
 import './app-install-ui.css';
 import './backup-ui.css';
