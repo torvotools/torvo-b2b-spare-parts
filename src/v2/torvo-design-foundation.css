@@ -926,3 +926,55 @@
  #torvo-v2-root :is(.content,.dealerMain){padding:10px}
  #torvo-v2-root :is(.panel,.workspace,.accountantWorkPanel){padding:13px}
 }
+
+
+/* 07 OCT 2026 — AURORA ACTIVE-SURFACE AUTHORITY
+   Final visual normalization for live role workspaces. Presentation only. */
+#torvo-v2-root :is(.secureDesktopShell,.dealerShell) :is(.workspaceTabs,.quickActions,.salesmanAppTabs){
+  display:flex;align-items:center;gap:8px;flex-wrap:wrap;padding:8px;
+  border:1px solid var(--aurora-line);border-radius:10px;background:#fff;
+}
+#torvo-v2-root :is(.secureDesktopShell,.dealerShell) :is(.workspaceTabs,.quickActions,.salesmanAppTabs)>button{
+  min-height:40px;padding:0 13px;border:1px solid var(--aurora-line);border-radius:8px;
+  background:#fff;color:var(--aurora-ink);box-shadow:none;
+}
+#torvo-v2-root :is(.secureDesktopShell,.dealerShell) :is(.workspaceTabs,.quickActions,.salesmanAppTabs)>button.active{
+  background:var(--aurora-black);border-color:var(--aurora-black);color:#fff;
+}
+#torvo-v2-root :is(.secureDesktopShell,.dealerShell) :is(.workFilters,.filterBar,.finderFilters,.reportFilters,.purchaseFinderTools){
+  border-color:var(--aurora-line);background:#f8f9fa;border-radius:10px;
+}
+#torvo-v2-root :is(.secureDesktopShell,.dealerShell) :is(input,select,textarea){
+  border:1px solid var(--aurora-line-strong);border-radius:8px;box-shadow:none;
+}
+#torvo-v2-root :is(.secureDesktopShell,.dealerShell) :is(button,.button,[role="button"]){
+  border-radius:8px;box-shadow:none;
+}
+#torvo-v2-root .secureDesktopShell .top{
+  min-height:64px;padding-inline:18px;background:rgba(255,255,255,.98);
+}
+#torvo-v2-root .secureDesktopShell .top h1{margin:0;color:var(--aurora-black);font-size:clamp(18px,2vw,24px);letter-spacing:-.02em}
+#torvo-v2-root .secureDesktopShell .content{width:100%;max-width:1600px;margin-inline:auto}
+#torvo-v2-root .secureDesktopShell aside nav .navGroup>p{color:#9ca3ad;letter-spacing:.08em;font-weight:700}
+#torvo-v2-root .secureDesktopShell aside nav button{border-radius:8px}
+#torvo-v2-root .dealerTop{position:sticky;top:0;z-index:40;padding-inline:14px;background:rgba(255,255,255,.98)}
+#torvo-v2-root .dealerTop .brand{min-width:0}
+#torvo-v2-root .dealerTop .brand span{font-size:11px;letter-spacing:.04em}
+#torvo-v2-root .dealerMain{max-width:1600px;margin-inline:auto}
+#torvo-v2-root :is(.dealerShell,.secureDesktopShell) :is(.panel,.workspace){overflow-wrap:anywhere}
+#torvo-v2-root :is(.dealerShell,.secureDesktopShell) :is(.dataTable,table){font-variant-numeric:tabular-nums}
+#torvo-v2-root :is(.dealerShell,.secureDesktopShell) :is(th,td){padding:10px 12px;vertical-align:middle}
+#torvo-v2-root :is(.dealerShell,.secureDesktopShell) :is(.empty,.miniEmpty,.returnsEmpty){border:1px dashed var(--aurora-line-strong);border-radius:10px;padding:20px}
+#torvo-v2-root :is(.dealerShell,.secureDesktopShell) :is(.errorText,.inlineError,.inlineSuccess){border:1px solid;border-radius:8px;padding:10px 12px}
+@media(max-width:820px){
+ #torvo-v2-root :is(.secureDesktopShell,.dealerShell) :is(.workspaceTabs,.quickActions,.salesmanAppTabs){
+   flex-wrap:nowrap;overflow-x:auto;scrollbar-width:none;padding:6px;
+ }
+ #torvo-v2-root :is(.secureDesktopShell,.dealerShell) :is(.workspaceTabs,.quickActions,.salesmanAppTabs)::-webkit-scrollbar{display:none}
+ #torvo-v2-root :is(.secureDesktopShell,.dealerShell) :is(.workspaceTabs,.quickActions,.salesmanAppTabs)>button{
+   flex:0 0 auto;white-space:nowrap;min-height:42px;
+ }
+ #torvo-v2-root .secureDesktopShell .top{min-height:58px;padding-inline:10px}
+ #torvo-v2-root .dealerTop{min-height:58px;padding-inline:10px}
+ #torvo-v2-root :is(.dealerShell,.secureDesktopShell) :is(th,td){padding:9px 10px}
+}
