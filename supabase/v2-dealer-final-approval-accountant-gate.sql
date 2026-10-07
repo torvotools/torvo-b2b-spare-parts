@@ -19,4 +19,8 @@ declare a app_users%rowtype;d dealers%rowtype;linked_count integer;code text;beg
  return code;
 end$$;
 revoke all on function approve_dealer(uuid,text) from public,anon;grant execute on function approve_dealer(uuid,text) to authenticated;
-revoke all on function approve_dealer(uuid,text,text) from public,anon,authenticated;
+do $ begin
+  if to_regprocedure('public.approve_dealer(uuid,text,text)') is not null then
+    execute 'revoke all on function public.approve_dealer(uuid,text,text) from public,anon,authenticated';
+  end if;
+end $;
