@@ -714,3 +714,37 @@
 #torvo-v2-root .dealerLoginLocked .dealerLockedBottom>*{box-sizing:border-box;min-width:0;min-height:76px;padding:10px;border:1px solid var(--torvo-border-strong);border-radius:8px;background:#fff;color:var(--torvo-ink);font-size:12px;text-decoration:none;display:flex;align-items:center;justify-content:center;gap:6px}
 #torvo-v2-root .dealerLoginLocked .dealerLockedBottom span{min-width:0;display:grid}.dealerLoginLocked .dealerLockedBottom small{font-size:11px}
 @media(max-width:380px){#torvo-v2-root .dealerLoginLocked{padding-inline:10px}#torvo-v2-root .dealerLoginLocked .dealerLockedHero{margin-inline:-10px}#torvo-v2-root .dealerLoginLocked .dealerLockedCard{padding-inline:12px}#torvo-v2-root .dealerLoginLocked .dealerLockedBottom{grid-template-columns:1fr}#torvo-v2-root .dealerLoginLocked .dealerLockedOtpRow{grid-template-columns:1fr 104px}}
+
+
+/* 07 OCT 2026 — DEALER REGISTRATION MOBILE MODAL RECOVERY */
+#torvo-v2-root .dealerRegModal{width:min(100%,720px);max-height:calc(100dvh - 24px);overflow:auto;background:var(--torvo-surface);border:1px solid var(--torvo-border);border-radius:var(--torvo-radius-lg);box-shadow:var(--torvo-shadow);padding:18px}
+#torvo-v2-root .dealerRegModal>header{position:relative;display:flex;align-items:flex-start;justify-content:space-between;gap:12px;padding:0 0 14px;border-bottom:1px solid var(--torvo-border)}
+#torvo-v2-root .dealerRegModal>header>div{min-width:0}
+#torvo-v2-root .dealerRegModal>header .eyebrow{display:block;color:var(--torvo-red);font-size:.75rem;font-weight:750}
+#torvo-v2-root .dealerRegModal>header h2{margin:4px 0;font-size:1.5rem;line-height:1.15;color:var(--torvo-black)}
+#torvo-v2-root .dealerRegModal>header p{margin:0;color:var(--torvo-muted);font-size:.8125rem}
+#torvo-v2-root .dealerRegModal .iconBtn{flex:0 0 42px;width:42px;height:42px;min-height:42px;padding:0;display:grid;place-items:center;border:1px solid var(--torvo-border);border-radius:8px;background:#fff}
+#torvo-v2-root .dealerRegModal .dealerRegistration{margin-top:14px}
+#torvo-v2-root .dealerRegModal .dealerResultNotice{display:flex;align-items:flex-start;gap:10px;padding:11px 12px;margin:0 0 10px}
+#torvo-v2-root .dealerRegModal .dealerResultNotice>svg{flex:0 0 20px;width:20px;margin-top:1px}
+#torvo-v2-root .dealerRegModal .dealerResultNotice :is(span,.dealerAppAccessContent){min-width:0;display:grid;gap:3px}
+#torvo-v2-root .dealerRegModal .dealerResultNotice b{font-size:.8125rem;line-height:1.3}
+#torvo-v2-root .dealerRegModal .dealerResultNotice small{font-size:.75rem;line-height:1.45;color:var(--torvo-muted)}
+#torvo-v2-root .dealerRegModal .dealerAppInstallSlot{display:flex;align-items:center;gap:6px;margin-top:4px}
+#torvo-v2-root .dealerRegModal .formTwo{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:12px;margin-top:12px}
+#torvo-v2-root .dealerRegModal label{display:grid;gap:6px;min-width:0}
+#torvo-v2-root .dealerRegModal :is(input,select){width:100%;min-width:0}
+#torvo-v2-root .dealerRegModal .dealerWhatsAppHint{margin-top:10px;display:flex;align-items:center;gap:8px;flex-wrap:wrap;font-size:.75rem;color:var(--torvo-muted)}
+#torvo-v2-root .dealerRegModal>footer{position:sticky;bottom:-18px;margin:16px -18px -18px;padding:10px 18px;background:#fff;border-top:1px solid var(--torvo-border)}
+@media(max-width:600px){
+ #torvo-v2-root .modalLayer:has(.dealerRegModal){place-items:stretch;padding:0;background:var(--torvo-page);backdrop-filter:none}
+ #torvo-v2-root .dealerRegModal{width:100%;height:100dvh;max-height:100dvh;border:0;border-radius:0;padding:14px 14px 20px;box-shadow:none}
+ #torvo-v2-root .dealerRegModal>header{position:sticky;top:-14px;z-index:4;margin:-14px -14px 12px;padding:14px;background:#fff}
+ #torvo-v2-root .dealerRegModal>header h2{font-size:1.25rem}
+ #torvo-v2-root .dealerRegModal>header p{font-size:.75rem}
+ #torvo-v2-root .dealerRegModal .dealerRegistration{margin-top:0;padding:0}
+ #torvo-v2-root .dealerRegModal .formTwo{grid-template-columns:1fr;gap:10px;margin-top:10px}
+ #torvo-v2-root .dealerRegModal .dealerResultNotice{padding:10px}
+ #torvo-v2-root .dealerRegModal .dealerResultNotice small{font-size:.75rem}
+ #torvo-v2-root .dealerRegModal>footer{bottom:-20px;margin:16px -14px -20px;padding:10px 14px}
+}
