@@ -859,3 +859,22 @@
  #torvo-v2-root :is(.purchaseModal,.purchaseItemFinder,.returnSheet,.roleSheet){border-radius:16px 16px 0 0}
  #torvo-v2-root .backupHero{border-radius:12px}
 }
+
+
+/* TORVO AURORA — SECURE OWNER BOOTSTRAP */
+#torvo-v2-root .ownerBootstrap{min-height:100dvh;display:grid;place-items:center;padding:24px;background:linear-gradient(145deg,#f4f5f7 0%,#fff 48%,#fff3f4 100%);color:var(--torvo-ink)}
+#torvo-v2-root .ownerBootstrapCard{width:min(520px,100%);overflow:hidden;border:1px solid var(--torvo-divider);border-radius:16px;background:#fff;box-shadow:0 24px 60px rgba(17,19,23,.12)}
+#torvo-v2-root .ownerBootstrapCard>header{padding:24px;background:linear-gradient(135deg,#14171b,#20242a 72%,#391116);color:#fff;border-bottom:2px solid var(--torvo-red)}
+#torvo-v2-root .ownerBootstrapCard>header span{font-size:11px;font-weight:800;letter-spacing:.12em;color:#ff9da1}
+#torvo-v2-root .ownerBootstrapCard h1{margin:5px 0 7px;font-size:26px;letter-spacing:-.025em;color:#fff}
+#torvo-v2-root .ownerBootstrapCard header p{margin:0;color:#d9dce1;font-size:13px;line-height:1.5}
+#torvo-v2-root .ownerBootstrapForm{display:grid;gap:14px;padding:24px}
+#torvo-v2-root .ownerBootstrapForm label{display:grid;gap:6px;font-size:12px;font-weight:800;color:var(--torvo-ink)}
+#torvo-v2-root .ownerBootstrapForm input{width:100%;box-sizing:border-box;min-height:46px;padding:10px 12px;border:1px solid var(--torvo-border);border-radius:9px;background:#fff;font:inherit}
+#torvo-v2-root .ownerBootstrapForm input:focus{outline:0;border-color:var(--torvo-red);box-shadow:0 0 0 3px rgba(215,25,32,.09)}
+#torvo-v2-root .ownerBootstrapForm .primary{min-height:44px;border:1px solid var(--torvo-red);border-radius:9px;background:var(--torvo-red);color:#fff;font-weight:800}
+#torvo-v2-root .ownerBootstrapForm .primary:disabled{opacity:.5;cursor:not-allowed}
+#torvo-v2-root :is(.ownerBootstrapSuccess,.ownerBootstrapError){margin:0;padding:10px 12px;border-radius:8px;font-size:12px;font-weight:700;line-height:1.45}
+#torvo-v2-root .ownerBootstrapSuccess{background:#effaf3;border:1px solid #b8e5c7;color:#176b38}
+#torvo-v2-root .ownerBootstrapError{background:#fff4f4;border:1px solid #f3c4c6;color:#a61b22}
+@media(max-width:560px){#torvo-v2-root .ownerBootstrap{padding:12px}#torvo-v2-root .ownerBootstrapCard{border-radius:12px}#torvo-v2-root .ownerBootstrapCard>header,#torvo-v2-root .ownerBootstrapForm{padding:18px}#torvo-v2-root .ownerBootstrapCard h1{font-size:22px}}
