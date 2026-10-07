@@ -27,7 +27,7 @@ export default function SalesWorkspace({role}){
  const setLine=(i,k,v)=>setLines(x=>x.map((r,n)=>n===i?{...r,[k]:v}:r));
  const removeLine=i=>setLines(x=>x.filter((_,n)=>n!==i));
  const addLine=x=>setLines(r=>r.some(v=>v.item_id===x.id)?r:[...r,{item_id:x.id,qty:1,item_code:x.item_code,name:x.name,brand:x.brand}]);
- return <section className="panel workspace">
+ return <section className="panel workspace torvoSemanticOrder" data-torvo-semantic="order">
   <header><div><h3>SALES WORKSPACE</h3><p>DEALER PURCHASE ORDER → CONTROLLED REVISION → DEALER OK → ESTIMATE.</p></div><button className="iconBtn" disabled={!!busy} onClick={load}><RefreshCw size={18}/></button></header>
   <div className="workspaceTabs quickActions"><button className={queue==='orders'?'active':''} onClick={()=>setQueue('orders')}><FileText size={15}/>QUOTATIONS</button><button className={queue==='requests'?'active':''} onClick={()=>setQueue('requests')}><Inbox size={15}/>DEALER CHANGE REQUESTS {pendingRequests.length>0&&<b>{pendingRequests.length}</b>}</button>{canPostSale&&<button className={queue==='sale'?'active':''} onClick={()=>setQueue('sale')}><ShieldCheck size={15}/>MARG BILL / CONFIRM SALE</button>}</div>
   {error&&<div className="inlineError">{error}</div>}{ok&&<div className="inlineSuccess">{ok}</div>}
