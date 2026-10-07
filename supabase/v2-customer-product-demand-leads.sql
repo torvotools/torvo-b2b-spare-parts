@@ -100,3 +100,101 @@ language plpgsql security definer set search_path=public as $$
 declare u app_users%rowtype;
 begin select * into u from app_users where auth_user_id=auth.uid() and active=true;if u.id is null or u.role not in('owner','admin') then raise exception 'OWNER OR ADMIN REQUIRED';end if;return query select d.search_text,count(*)::bigint,count(distinct d.customer_id)::bigint,count(*) filter(where d.torvo_help_requested)::bigint,max(d.created_at) from customer_product_demands d where d.created_at>=now()-make_interval(days=>greatest(1,least(coalesce(p_days,90),730))) and d.status<>'cancelled' group by d.search_text order by count(*) desc,max(d.created_at) desc limit greatest(1,least(coalesce(p_limit,100),500));end$$;
 revoke all on function admin_product_demand_summary(integer,integer) from public,anon;grant execute on function admin_product_demand_summary(integer,integer) to authenticated;
+
+
+-- OWNER/ADMIN consolidated Demand Intelligence.
+-- Combines confirmed customer demand, Dealer missing/non-available requests and public zero-result searches.
+-- Dealer/customer signals carry more weight than anonymous searches. Existing catalog matches are routed as REORDER SIGNAL.
+create or replace function admin_demand_intelligence(p_days integer default 90,p_limit integer default 100)
+returns table(
+  demand_key text, search_text text, brand text, model_number text,
+  customer_requests bigint, unique_customers bigint, dealer_requests bigint, unique_dealers bigint,
+  requested_qty numeric, zero_result_searches bigint, torvo_help_count bigint,
+  matched_item_id uuid, matched_item_code text, matched_item_name text,
+  opportunity_type text, opportunity_score numeric, last_signal_at timestamptz
+)
+language plpgsql security definer set search_path=public as $$
+declare
+  u app_users%rowtype;
+  days_window integer:=greatest(1,least(coalesce(p_days,90),730));
+begin
+  select * into u from app_users where auth_user_id=auth.uid() and active=true;
+  if u.id is null or lower(coalesce(u.role,'')) not in('owner','admin') then
+    raise exception 'OWNER OR ADMIN REQUIRED';
+  end if;
+
+  return query
+  with signals as (
+    select
+      upper(regexp_replace(btrim(d.search_text),'\\s+',' ','g')) key_text,
+      upper(btrim(d.search_text)) display_text,
+      upper(nullif(btrim(d.brand),'')) sig_brand,
+      upper(nullif(btrim(d.model_number),'')) sig_model,
+      1::bigint customer_n, d.customer_id customer_id,
+      0::bigint dealer_n, null::uuid dealer_id,
+      greatest(coalesce(d.quantity,1),1)::numeric qty,
+      0::bigint zero_n,
+      (case when d.torvo_help_requested then 1 else 0 end)::bigint help_n,
+      d.product_id direct_item_id,d.created_at signal_at
+    from customer_product_demands d
+    where d.created_at>=now()-make_interval(days=>days_window) and d.status<>'cancelled'
+    union all
+    select
+      upper(regexp_replace(btrim(m.part_name),'\\s+',' ','g')),upper(btrim(m.part_name)),
+      upper(nullif(btrim(m.machine_brand),'')),upper(nullif(btrim(m.machine_model),'')),
+      0,null::uuid,1,m.dealer_id,greatest(coalesce(m.requested_qty,1),1),0,0,m.identified_item_id,m.created_at
+    from missing_part_requests m
+    where m.created_at>=now()-make_interval(days=>days_window) and lower(coalesce(m.status,'')) not in('cancelled','rejected')
+    union all
+    select
+      upper(regexp_replace(btrim(n.search_text),'\\s+',' ','g')),upper(btrim(n.search_text)),
+      null::text,null::text,0,null::uuid,1,n.dealer_id,greatest(coalesce(n.qty,1),1),0,0,null::uuid,n.created_at
+    from non_available_requests n
+    where n.created_at>=now()-make_interval(days=>days_window) and lower(coalesce(n.status,'')) not in('cancelled','rejected')
+    union all
+    select
+      upper(regexp_replace(btrim(s.search_text),'\\s+',' ','g')),upper(btrim(s.search_text)),
+      null::text,null::text,0,null::uuid,0,null::uuid,0::numeric,1,0,null::uuid,s.created_at
+    from public_product_search_events s
+    where s.created_at>=now()-make_interval(days=>days_window)
+      and coalesce(s.matched,false)=false and coalesce(s.result_count,0)=0
+      and length(btrim(coalesce(s.search_text,'')))>=2
+  ), grouped as (
+    select key_text,max(display_text) display_text,max(sig_brand) sig_brand,max(sig_model) sig_model,
+      sum(customer_n)::bigint customer_n,count(distinct customer_id)::bigint unique_customers,
+      sum(dealer_n)::bigint dealer_n,count(distinct dealer_id)::bigint unique_dealers,
+      sum(qty)::numeric total_qty,sum(zero_n)::bigint zero_n,sum(help_n)::bigint help_n,
+      (array_agg(direct_item_id) filter(where direct_item_id is not null))[1] direct_item_id,
+      max(signal_at) last_at
+    from signals where length(key_text)>=2 group by key_text
+  ), resolved as (
+    select g.*,ci.id item_id,ci.item_code,ci.name item_name
+    from grouped g
+    left join lateral (
+      select i.id,i.item_code,i.name
+      from catalog_items i
+      where coalesce(i.active,true)=true and (
+        i.id=g.direct_item_id or
+        upper(btrim(coalesce(i.item_code,'')))=g.key_text or
+        upper(btrim(coalesce(i.oem_code,'')))=g.key_text or
+        upper(btrim(coalesce(i.name,'')))=g.key_text or
+        (g.sig_brand is not null and upper(btrim(coalesce(i.brand,'')))=g.sig_brand
+          and g.sig_model is not null and upper(btrim(coalesce(i.model,'')))=g.sig_model
+          and upper(btrim(coalesce(i.name,'')))=g.key_text)
+      )
+      order by case when i.id=g.direct_item_id then 0 when upper(btrim(coalesce(i.item_code,'')))=g.key_text then 1 when upper(btrim(coalesce(i.oem_code,'')))=g.key_text then 2 else 3 end
+      limit 1
+    ) ci on true
+  )
+  select r.key_text,r.display_text,r.sig_brand,r.sig_model,
+    r.customer_n,r.unique_customers,r.dealer_n,r.unique_dealers,r.total_qty,r.zero_n,r.help_n,
+    r.item_id,r.item_code,r.item_name,
+    case when r.item_id is not null then 'REORDER SIGNAL' else 'MISSING RANGE' end,
+    round((r.unique_dealers*20 + r.dealer_n*8 + least(r.total_qty,100)*1.5 + r.unique_customers*12 + r.customer_n*5 + r.help_n*10 + least(r.zero_n,50)*0.5)::numeric,2),
+    r.last_at
+  from resolved r
+  order by (r.unique_dealers*20 + r.dealer_n*8 + least(r.total_qty,100)*1.5 + r.unique_customers*12 + r.customer_n*5 + r.help_n*10 + least(r.zero_n,50)*0.5) desc,r.last_at desc
+  limit greatest(1,least(coalesce(p_limit,100),500));
+end$$;
+revoke all on function admin_demand_intelligence(integer,integer) from public,anon;
+grant execute on function admin_demand_intelligence(integer,integer) to authenticated;
