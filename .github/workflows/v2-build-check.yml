@@ -5,6 +5,7 @@ on:
     branches: [torvo-v2-build]
     paths:
       - 'src/v2/**'
+      - 'v2-preview.html'
       - 'v2.html'
       - 'business-login.html'
       - 'owner-bootstrap.html'
@@ -36,6 +37,7 @@ on:
     branches: [main]
     paths:
       - 'src/v2/**'
+      - 'v2-preview.html'
       - 'v2.html'
       - 'business-login.html'
       - 'package.json'
