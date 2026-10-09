@@ -33,6 +33,8 @@ jobs:
     steps:
       - name: Checkout exact branch commit
         uses: actions/checkout@v4
+        with:
+          fetch-depth: 0
 
       - name: Fail closed unless target is isolated
         shell: bash
@@ -76,7 +78,9 @@ jobs:
           test -n "$MANIFEST" && test -f "$MANIFEST" || { echo "::error::manifest.json missing"; exit 1; }
           test -n "$ARTIFACT" && test -f "$ARTIFACT" || { echo "::error::encrypted dump missing"; exit 1; }
           node scripts/verify-v2-backup-artifact.mjs "$MANIFEST" "$ARTIFACT"
-          node -e 'const fs=require("fs");const m=JSON.parse(fs.readFileSync(process.argv[1],"utf8"));if(m.code_commit!==process.env.GITHUB_SHA){console.error("::error::Backup commit differs from checked-out commit");process.exit(1)}' "$MANIFEST"
+          SOURCE_COMMIT="$(node -e 'const fs=require("fs");process.stdout.write(JSON.parse(fs.readFileSync(process.argv[1],"utf8")).code_commit)' "$MANIFEST")"
+          git cat-file -e "${SOURCE_COMMIT}^{commit}" || { echo "::error::Backup source commit is not in trusted repository history"; exit 1; }
+          git merge-base --is-ancestor "$SOURCE_COMMIT" "$GITHUB_SHA" || { echo "::error::Backup source commit is not an ancestor of current branch commit"; exit 1; }
           mkdir -p restore-work
           cp "$MANIFEST" restore-work/source-manifest.json
           cp "$ARTIFACT" restore-work/source.dump.enc
