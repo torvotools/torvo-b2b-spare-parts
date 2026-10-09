@@ -4,6 +4,18 @@ Last updated: 25-09-2026
 Authoritative repository: torvotools/torvo-b2b-spare-parts
 Development branch: torvo-v2-build
 
+## OWNER DIRECTIVE — 09 OCT 2026 — ALL VISUAL DESIGN LOCKS RELEASED
+
+This newer Owner decision supersedes every earlier UI/UX theme, color, typography, layout, component and visual LOCK in this document and older conversations. The team may redesign any TORVO screen or visual component for the best coherent professional experience. Maintain ONE unified TORVO-wide visual design system rather than adding contradictory theme layers. The TORVO brand identity and original logo remain the starting point; the Owner explicitly permits color and visual changes where useful.
+
+**Scope:** Public Website, Dealer App, Salesman App, Store Keeper App, Accountant, Owner/Admin, registration, login, product discovery, all operational modules, mobile and desktop. Deliver consistent fonts, type scales, spacing, button states, inputs, status colors, cards, tables, dialogs, navigation and accessible mobile behavior. Prioritize UI/UX quality alongside working interactions.
+
+**Not unlocked:** Security, server-side authorization, financial integrity, production deployment restrictions, staging-first database safety, one-codebase/one-backend mandate, or privacy/business-model protections. Do not treat visual freedom as permission to alter commercial workflows or touch production. Owner approval remains required for production cutover and destructive production operations.
+
+**Completion contract:** Remaining work is the new 100% pending-work baseline, not a claim that the whole project is unbuilt. Track verified completion and remaining percentages in each subsequent status update. Never invent percentages from commit counts: establish a measured, itemized acceptance ledger first; until then, mark percentage as NOT YET MEASURED. Source complete, CI green, staging runtime PASS, Android physical PASS and final pre-production acceptance are distinct gates. No fake data, credentials, or test evidence.
+
+**Execution:** On owner shorthand N, continue the largest safe compatible batch without repetitive design approvals; request input only for external official datasets, genuine user/device tests, credentials/authorization, or other unavoidable blockers. Fix root causes, avoid superficial repeated CSS append-only patches, and test actual role workflows.
+
 ## START HERE IN EVERY NEW CHAT
 Continue actual development from `torvo-v2-build`. Fetch current repository state before changing anything. V27/main is old/live and MUST remain untouched. Do not merge/replace main without full verification plus explicit Owner permission. Work in large compatible batches where safe. Premium modern responsive UI is non-negotiable.
 
