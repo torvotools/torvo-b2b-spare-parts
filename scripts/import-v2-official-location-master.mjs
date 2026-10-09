@@ -21,9 +21,11 @@ const pick=(r,names)=>{for(const n of names){const v=r[key(n)];if(v)return v}ret
 const digits=v=>clean(v).replace(/\D/g,'');
 const statesRaw=await load(files.states),districtsRaw=await load(files.districts),bodiesRaw=await load(files.localBodies);
 
-const states=statesRaw.map(r=>({lgd_code:digits(pick(r,['State Code','State LGD Code','StateCode'])),name:pick(r,['State Name (In English)','State Name','StateName'])})).filter(x=>x.lgd_code&&x.name);
+const states=statesRaw.map(r=>({lgd_code:digits(pick(r,['State Code','State LGD Code','StateCode'])),name:pick(r,['State Name (In English)','State Name','StateName'])}));
+if(states.some(x=>!x.lgd_code||!x.name))throw new Error('INCOMPLETE OFFICIAL STATE ROW: REFUSING SILENT DATA LOSS');
 const stateCodes=new Set(states.map(x=>x.lgd_code));
-const districts=districtsRaw.map(r=>({lgd_code:digits(pick(r,['District Code','District LGD Code','DistrictCode'])),state_lgd_code:digits(pick(r,['State Code','State LGD Code','StateCode'])),name:pick(r,['District Name (In English)','District Name','DistrictName'])})).filter(x=>x.lgd_code&&x.state_lgd_code&&x.name);
+const districts=districtsRaw.map(r=>({lgd_code:digits(pick(r,['District Code','District LGD Code','DistrictCode'])),state_lgd_code:digits(pick(r,['State Code','State LGD Code','StateCode'])),name:pick(r,['District Name (In English)','District Name','DistrictName'])}));
+if(districts.some(x=>!x.lgd_code||!x.state_lgd_code||!x.name))throw new Error('INCOMPLETE OFFICIAL DISTRICT ROW: REFUSING SILENT DATA LOSS');
 const districtCodes=new Set(districts.map(x=>x.lgd_code));
 const urbanType=r=>pick(r,['Local Body Type Name','Localbody Type Name','Local Body Type','Localbody Type','LocalBodyType','Local Body Type Code','Localbody Type Code']);
 const urbanPattern=/municipal|municipality|corporation|nagar\s*panchayat|town\s*panchayat|notified\s*area|cantonment|urban/i;
@@ -34,7 +36,8 @@ const missingTypeCount=typedBodies.filter(x=>!x.type).length;
 if(missingTypeCount)throw new Error(`LOCAL BODY TYPE MISSING IN ${missingTypeCount} ROWS: REFUSING SILENTLY INCOMPLETE CITY IMPORT`);
 const unknownTypes=[...new Set(typedBodies.map(x=>x.type).filter(Boolean).filter(t=>!urbanPattern.test(t)&&!ruralPattern.test(t)))];
 if(unknownTypes.length)throw new Error('UNKNOWN LOCAL BODY TYPES: '+unknownTypes.slice(0,20).join(', '));
-const cities=typedBodies.filter(x=>urbanPattern.test(x.type)&&!ruralPattern.test(x.type)).map(({row:r,type})=>({lgd_code:digits(pick(r,['Localbody Code','Local Body Code','LocalBodyCode','LGD Code'])),district_lgd_code:digits(pick(r,['District Code','District LGD Code','DistrictCode'])),name:pick(r,['Localbody Name (In English)','Local Body Name (In English)','Local Body Name','LocalBodyName']),local_body_type:type})).filter(x=>x.lgd_code&&x.district_lgd_code&&x.name);
+const cities=typedBodies.filter(x=>urbanPattern.test(x.type)&&!ruralPattern.test(x.type)).map(({row:r,type})=>({lgd_code:digits(pick(r,['Localbody Code','Local Body Code','LocalBodyCode','LGD Code'])),district_lgd_code:digits(pick(r,['District Code','District LGD Code','DistrictCode'])),name:pick(r,['Localbody Name (In English)','Local Body Name (In English)','Local Body Name','LocalBodyName']),local_body_type:type}));
+if(cities.some(x=>!x.lgd_code||!x.district_lgd_code||!x.name))throw new Error('INCOMPLETE OFFICIAL URBAN LOCAL BODY ROW: REFUSING SILENT DATA LOSS');
 
 const uniq=(a,f)=>{const m=new Map();for(const x of a){const k=f(x);if(m.has(k))throw new Error('DUPLICATE OFFICIAL CODE '+k);m.set(k,x)}return [...m.values()]};
 const S=uniq(states,x=>x.lgd_code),D=uniq(districts,x=>x.lgd_code),C=uniq(cities,x=>x.lgd_code);
