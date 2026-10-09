@@ -33,3 +33,10 @@ Initial evidence-based baseline: **0 / 12 newly fully accepted workstreams = 0.0
 - Current known hard blocker: official location tables had zero rows in the last verified staging audit; do not invent Government location records.
 - Previous visual LOCK decisions were superseded by the Owner's 2026-10-09 design-unlock directive. Business security and production boundaries remain protected.
 - No new completion credit is assigned without actual workstream acceptance.
+
+## Block #2 — Mobile registration information architecture
+- Registration app-access explanatory notice was moved into a native, keyboard-accessible `details/summary` disclosure; required text and install control remain reachable. This eliminates a large always-open notice ahead of the form on mobile.
+- Unified disclosure presentation in the canonical design foundation with focus-visible treatment.
+- The registration still contains many required inputs and official location controls; do not promise a single viewport on all phone sizes or while the keyboard is open.
+- Build/Cloudflare/Android checks for this block and physical Android acceptance are pending at commit time.
+- Workstream #2 (shared UI/UX) and #3 (registration/location) remain OPEN until cross-surface and official-location E2E evidence. Completion credit: 0/12 = 0.0%, remaining 100.0%.
