@@ -12,6 +12,15 @@ const structural=['styles.css','login-preview.css','purchase-requirements-ui.css
 const previewImported=cssImports(entries[0].content);
 const appImported=cssImports(entries[1].content);
 const imported=previewImported;
+// Every shared visual surface must inherit the same structural-to-canonical cascade.
+// Additional native-only structural layers are permitted, but none may override
+// the final TORVO design foundation or reorder shared styles between entrypoints.
+const sharedLayers=previewImported.filter(file=>appImported.includes(file));
+const appSharedLayers=appImported.filter(file=>previewImported.includes(file));
+if(JSON.stringify(sharedLayers)!==JSON.stringify(appSharedLayers)){
+  console.error('FAIL: public preview and native app disagree on shared CSS cascade order');
+  process.exitCode=1;
+}else console.log('PASS: public preview and native app share one CSS cascade order');
 const fail=label=>{console.error('FAIL:',label);process.exitCode=1},pass=label=>console.log('PASS:',label);
 if(new Set(imported).size!==imported.length)fail('duplicate CSS imports are forbidden');else pass('no duplicate CSS imports');
 if(new Set(appImported).size!==appImported.length)fail('duplicate CSS imports are forbidden in app entry');else pass('no duplicate CSS imports in app entry');
