@@ -6,6 +6,7 @@ for(const k of ['environment_project_id','accepted_commit_sha','captured_at_utc'
 if(b.environment_project_id!=='jvmhhngjlaqrfopfavur')fail('acceptance bundle must be staging');
 if(!/^[a-f0-9]{40}$/i.test(b.accepted_commit_sha))fail('invalid accepted_commit_sha');
 if(!/^\d{4}-\d{2}-\d{2}T/.test(b.captured_at_utc))fail('captured_at_utc must be ISO timestamp');
+if(!Number.isFinite(Date.parse(b.captured_at_utc))||!/(Z|[+-]\d{2}:\d{2})$/.test(b.captured_at_utc)||Date.parse(b.captured_at_utc)>Date.now()+300000)fail('captured_at_utc must be valid, timezone-aware and not in the future');
 const required=['auth','b2b','inventory','returns','reports','catalog','restore','android_device'];
 for(const name of required){const e=b.evidence?.[name];if(!e||typeof e!=='object')fail('missing evidence '+name);if(e.status!=='PASS')fail(name+' status must be PASS');if(e.commit_sha!==b.accepted_commit_sha)fail(name+' commit SHA mismatch');if(e.environment_project_id&&e.environment_project_id!==b.environment_project_id)fail(name+' environment mismatch');if(!e.evidence_ref)fail(name+' evidence_ref missing');const ref=String(e.evidence_ref).trim();if(ref.length<3||ref.toUpperCase().includes('REPLACE_WITH'))fail(name+' evidence_ref must be real non-placeholder evidence')}
 if(b.evidence.android_device.environment_project_id&&b.evidence.android_device.environment_project_id!==b.environment_project_id)fail('android device environment mismatch');
