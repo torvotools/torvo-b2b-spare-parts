@@ -18,7 +18,7 @@ const key=v=>clean(v).toLowerCase().replace(/[^a-z0-9]/g,'');
 const parseCsv=s=>{const rows=[];let row=[],cell='',q=false;for(let i=0;i<s.length;i++){const c=s[i],n=s[i+1];if(c==='"'&&q&&n==='"'){cell+='"';i++;}else if(c==='"')q=!q;else if(c===','&&!q){row.push(cell);cell='';}else if((c==='\n'||c==='\r')&&!q){if(c==='\r'&&n==='\n')i++;row.push(cell);if(row.some(x=>clean(x)))rows.push(row);row=[];cell='';}else cell+=c;}if(cell||row.length){row.push(cell);rows.push(row)}return rows};
 const load=async path=>{const rows=parseCsv(await fs.readFile(path,'utf8'));const headers=rows.shift().map(key);return rows.map(r=>Object.fromEntries(headers.map((h,i)=>[h,clean(r[i])])));};
 const pick=(r,names)=>{for(const n of names){const v=r[key(n)];if(v)return v}return''};
-const digits=v=>clean(v).replace(/\D/g,'');
+const digits=v=>{const code=clean(v);if(code&&!/^[0-9]+$/.test(code))throw new Error(`INVALID OFFICIAL LGD CODE: ${code}`);return code};
 const statesRaw=await load(files.states),districtsRaw=await load(files.districts),bodiesRaw=await load(files.localBodies);
 
 const states=statesRaw.map(r=>({lgd_code:digits(pick(r,['State Code','State LGD Code','StateCode'])),name:pick(r,['State Name (In English)','State Name','StateName'])}));
