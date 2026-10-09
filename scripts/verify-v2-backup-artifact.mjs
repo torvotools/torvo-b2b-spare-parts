@@ -16,6 +16,8 @@ if(/^0{64}$/i.test(m.checksum_sha256)) fail('checksum_sha256 cannot be placehold
 if(m.encrypted!==true) fail('artifact is not declared encrypted');
 if(m.includes_secrets!==false) fail('manifest does not exclude secrets');
 const bytes=fs.readFileSync(artifactPath);
+if(!Number.isSafeInteger(m.file_size_bytes)||m.file_size_bytes<=0) fail('manifest file_size_bytes must be a positive safe integer');
+if(bytes.length!==m.file_size_bytes) fail('artifact byte size differs from manifest');
 if(!bytes.length) fail('artifact is empty');
 const actual=crypto.createHash('sha256').update(bytes).digest('hex');
 if(actual!==String(m.checksum_sha256).toLowerCase()) fail('artifact SHA256 mismatch');
