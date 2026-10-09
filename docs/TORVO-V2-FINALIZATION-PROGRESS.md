@@ -46,3 +46,10 @@ Initial evidence-based baseline: **0 / 12 newly fully accepted workstreams = 0.0
 - Clearing a state or district also clears pending loading and resets `cityOther` so a prior manually entered city cannot survive a changed location hierarchy.
 - Official State/District/City master import remains OPEN. Source-level fix is not a runtime PASS and requires fresh CI plus actual mobile acceptance.
 - Workstream #3 remains OPEN. Completed 0/12 = 0.0%; remaining 100.0%.
+
+## Block #4 — Batch execution / location hydration safety
+- Owner requests maximum safe compatible work per N, fewer fragmented micro-fixes, and faster completion. Thirty numbered blocks remain a planning estimate, not a guaranteed end date; consolidate related tasks into bulk batches.
+- Existing direct user-driven State/District request race protection was extended to the **saved-value hydration effects** that load dependent options, and to component unmount cleanup. A version check now prevents obsolete async results from repopulating the wrong location after a selection change.
+- Previous HEAD `98fa47119a5f13f9c6fd5c4198c7a208334dd776`: latest Build Check for code SHA `7c292e67644adbc640c0213071155b1c564fc368` SUCCESS; Cloudflare/Android for ledger HEAD were still in progress when checked.
+- No official location data was fabricated or imported; this remains a real deployment gate.
+- Progress 0/12 accepted workstreams = **0.0% verified complete / 100.0% remaining**. Source fixes are PARTIAL until runtime/mobile evidence exists.
