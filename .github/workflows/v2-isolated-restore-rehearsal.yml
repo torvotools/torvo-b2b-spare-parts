@@ -1,0 +1,157 @@
+name: TORVO V2 Isolated Restore Rehearsal
+
+on:
+  workflow_dispatch:
+    inputs:
+      backup_artifact_id:
+        description: "GitHub Actions artifact ID from a VERIFIED TORVO V2 STAGING backup"
+        required: true
+        type: string
+      target_project_ref:
+        description: "Dedicated non-production, non-authoritative restore target project ref"
+        required: true
+        type: string
+
+permissions:
+  actions: read
+  contents: read
+
+concurrency:
+  group: torvo-v2-isolated-restore-rehearsal
+  cancel-in-progress: false
+
+jobs:
+  restore:
+    if: github.ref_name == 'torvo-v2-build'
+    runs-on: ubuntu-latest
+    timeout-minutes: 45
+    env:
+      TARGET_PGURL: ${{ secrets.TORVO_V2_RESTORE_TARGET_DB_URL }}
+      BACKUP_KEY: ${{ secrets.TORVO_V2_BACKUP_ENCRYPTION_KEY }}
+      TARGET_PROJECT_REF: ${{ inputs.target_project_ref }}
+      BACKUP_ARTIFACT_ID: ${{ inputs.backup_artifact_id }}
+    steps:
+      - name: Checkout exact branch commit
+        uses: actions/checkout@v4
+
+      - name: Fail closed unless target is isolated
+        shell: bash
+        run: |
+          set -euo pipefail
+          test -n "$TARGET_PGURL" || { echo "::error::TORVO_V2_RESTORE_TARGET_DB_URL is not configured"; exit 1; }
+          test -n "$BACKUP_KEY" || { echo "::error::TORVO_V2_BACKUP_ENCRYPTION_KEY is not configured"; exit 1; }
+          [[ "$TARGET_PROJECT_REF" =~ ^[a-z0-9]{20}$ ]] || { echo "::error::Invalid target project ref"; exit 1; }
+          [[ "$BACKUP_ARTIFACT_ID" =~ ^[0-9]+$ ]] || { echo "::error::Invalid artifact id"; exit 1; }
+          case "$TARGET_PROJECT_REF" in
+            gckafjiitjocodlrwanm) echo "::error::PRODUCTION target is forbidden"; exit 1 ;;
+            jvmhhngjlaqrfopfavur) echo "::error::Authoritative STAGING target is forbidden"; exit 1 ;;
+          esac
+          case "$TARGET_PGURL" in
+            *gckafjiitjocodlrwanm*|*jvmhhngjlaqrfopfavur*) echo "::error::Restore URL points at a forbidden TORVO environment"; exit 1 ;;
+          esac
+          case "$TARGET_PGURL" in
+            *"$TARGET_PROJECT_REF"*) ;;
+            *) echo "::error::Restore URL does not match declared target project ref"; exit 1 ;;
+          esac
+
+      - name: Install PostgreSQL client
+        shell: bash
+        run: |
+          set -euo pipefail
+          sudo apt-get update -qq
+          sudo apt-get install -y postgresql-client
+
+      - name: Download selected backup artifact
+        uses: actions/download-artifact@v4
+        with:
+          artifact-ids: ${{ inputs.backup_artifact_id }}
+          path: restore-package
+
+      - name: Locate and verify encrypted backup package
+        shell: bash
+        run: |
+          set -euo pipefail
+          MANIFEST="$(find restore-package -type f -name manifest.json -print -quit)"
+          ARTIFACT="$(find restore-package -type f -name 'torvo-v2-staging.dump.enc' -print -quit)"
+          test -n "$MANIFEST" && test -f "$MANIFEST" || { echo "::error::manifest.json missing"; exit 1; }
+          test -n "$ARTIFACT" && test -f "$ARTIFACT" || { echo "::error::encrypted dump missing"; exit 1; }
+          node scripts/verify-v2-backup-artifact.mjs "$MANIFEST" "$ARTIFACT"
+          mkdir -p restore-work
+          cp "$MANIFEST" restore-work/source-manifest.json
+          cp "$ARTIFACT" restore-work/source.dump.enc
+
+      - name: Verify target connectivity and emptiness
+        shell: bash
+        run: |
+          set -euo pipefail
+          ACTUAL_DB="$(psql "$TARGET_PGURL" -Atqc "select current_database()")"
+          test -n "$ACTUAL_DB"
+          USER_TABLES="$(psql "$TARGET_PGURL" -Atqc "select count(*) from pg_class c join pg_namespace n on n.oid=c.relnamespace where c.relkind='r' and n.nspname='public'")"
+          test "$USER_TABLES" = "0" || { echo "::error::Restore target public schema is not clean"; exit 1; }
+
+      - name: Decrypt and restore
+        shell: bash
+        run: |
+          set -euo pipefail
+          STARTED="$(date -u +%Y-%m-%dT%H:%M:%SZ)"
+          echo "$STARTED" > restore-work/started.txt
+          openssl enc -d -aes-256-cbc -pbkdf2 \
+            -in restore-work/source.dump.enc \
+            -out restore-work/source.dump \
+            -pass env:BACKUP_KEY
+          test -s restore-work/source.dump
+          pg_restore "$TARGET_PGURL" --no-owner --no-privileges --exit-on-error restore-work/source.dump
+          rm -f restore-work/source.dump
+          date -u +%Y-%m-%dT%H:%M:%SZ > restore-work/completed.txt
+
+      - name: Verify restored TORVO schema and security boundary
+        shell: bash
+        run: |
+          set -euo pipefail
+          for T in app_users backup_runs backup_restore_manifests; do
+            EXISTS="$(psql "$TARGET_PGURL" -Atqc "select to_regclass('public.'||'$T') is not null")"
+            test "$EXISTS" = "t" || { echo "::error::Missing restored table $T"; exit 1; }
+          done
+          BAD_WORKER_EXEC="$(psql "$TARGET_PGURL" -Atqc "select count(*) from pg_proc p join pg_namespace n on n.oid=p.pronamespace where n.nspname='public' and p.proname in ('worker_start_backup','worker_complete_backup','worker_fail_backup') and (has_function_privilege('anon',p.oid,'EXECUTE') or has_function_privilege('authenticated',p.oid,'EXECUTE'))")"
+          test "$BAD_WORKER_EXEC" = "0" || { echo "::error::Backup worker RPC privilege regression"; exit 1; }
+          psql "$TARGET_PGURL" -Atqc "show server_version" > restore-work/restored-db-version.txt
+          psql "$TARGET_PGURL" -Atqc "select coalesce(max(version::text),'unknown') from supabase_migrations.schema_migrations" > restore-work/restored-schema-version.txt
+
+      - name: Write machine evidence
+        shell: bash
+        run: |
+          set -euo pipefail
+          node --input-type=module <<'NODE'
+          import fs from 'node:fs';
+          const m=JSON.parse(fs.readFileSync('restore-work/source-manifest.json','utf8'));
+          const evidence={
+            source_backup_run_id:m.backup_run_id,
+            source_commit_sha:m.code_commit,
+            source_schema_version:m.schema_version,
+            source_database_version:m.database_version,
+            artifact_sha256:m.checksum_sha256,
+            target_project_id:process.env.TARGET_PROJECT_REF,
+            target_is_production:false,
+            restore_started_at_utc:fs.readFileSync('restore-work/started.txt','utf8').trim(),
+            restore_completed_at_utc:fs.readFileSync('restore-work/completed.txt','utf8').trim(),
+            restored_schema_version:fs.readFileSync('restore-work/restored-schema-version.txt','utf8').trim(),
+            restored_database_version:fs.readFileSync('restore-work/restored-db-version.txt','utf8').trim(),
+            restored_commit_sha:m.code_commit,
+            checksum_verified:true,
+            restore_completed:true,
+            core_schema_checked:true,
+            worker_rpc_privileges_checked:true,
+            secret_values_excluded:m.includes_secrets===false
+          };
+          fs.writeFileSync('restore-work/restore-machine-evidence.json',JSON.stringify(evidence,null,2)+'\n');
+          NODE
+
+      - name: Upload restore rehearsal machine evidence
+        uses: actions/upload-artifact@v4
+        with:
+          name: torvo-v2-restore-machine-evidence-${{ inputs.backup_artifact_id }}
+          path: |
+            restore-work/source-manifest.json
+            restore-work/restore-machine-evidence.json
+          if-no-files-found: error
+          retention-days: 30
