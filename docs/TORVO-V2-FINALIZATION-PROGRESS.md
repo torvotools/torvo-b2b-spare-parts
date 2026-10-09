@@ -59,3 +59,9 @@ Initial evidence-based baseline: **0 / 12 newly fully accepted workstreams = 0.0
 - Read-only staging query confirmed `location_states=0`, `location_districts=0`, `location_cities=0` on 2026-10-09. Official GoI location import remains a hard runtime blocker; no placeholder rows were inserted.
 - At observation: previous `758ecaba...` Build Check in progress; prior `7c292e...` Build Check SUCCESS; Android/Cloudflare for `98fa471...` in progress. Do not infer current SHA deployment PASS.
 - Workstreams #2 and #3 remain OPEN. Completed 0/12 = 0.0%, remaining 100.0%.
+
+## Block #6 — Read-only staging database/security and CI audit
+- Verified STAGING project `jvmhhngjlaqrfopfavur` on 2026-10-09 using read-only SQL: 125 public tables, all 125 have RLS enabled; dealers=1, sales_documents=0, purchase_headers=0, backup_runs=0, backup_restore_manifests=0, app_release_artifacts=0.
+- RLS enabled is not a substitute for per-role permission acceptance. No dealer OTP, staff OTP, financial transaction, stock, backup or release artifacts were fabricated.
+- CI observation: Build Check for code SHA `758ecaba1d2b54cf5d270aa39b88560a31fb7baa` SUCCESS; Cloudflare for ledger SHA `98fa47119a5f13f9c6fd5c4198c7a208334dd776` SUCCESS. Later CI runs for `9b507b6b1ebf9bfeb71815a739d834edc9c3da9d` still pending/in progress.
+- This is an audit/evidence block, not a database migration. Workstreams #4, #6, #7, #8, #11, #12 remain OPEN. Completion 0/12 = 0.0%, remaining 100.0%.
