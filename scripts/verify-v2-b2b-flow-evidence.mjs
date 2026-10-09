@@ -6,6 +6,7 @@ for(const k of ['environment_project_id','commit_sha','captured_at_utc','dealer_
 if(e.environment_project_id!=='jvmhhngjlaqrfopfavur')fail('runtime evidence must come from TORVO V2 STAGING');
 if(!/^[a-f0-9]{40}$/i.test(e.commit_sha))fail('invalid exact commit SHA');
 if(!/^\d{4}-\d{2}-\d{2}T/.test(e.captured_at_utc))fail('captured_at_utc must be ISO timestamp');
+if(!Number.isFinite(Date.parse(e.captured_at_utc))||!/(Z|[+-]\d{2}:\d{2})$/.test(e.captured_at_utc)||Date.parse(e.captured_at_utc)>Date.now()+300000)fail('captured_at_utc must be valid, timezone-aware and not in the future');
 if(!Number.isInteger(Number(e.revision_no))||Number(e.revision_no)<1)fail('revision_no must be positive integer');
 for(const k of ['dealer_identity_ref','purchase_order_ref','sales_order_ref','estimate_ref','marg_bill_sale_ref','marg_bill_no','dispatch_ref','delivery_ref']){const v=String(e[k]).trim();if(v.length<3||v.toUpperCase().includes('REPLACE_WITH'))fail(k+' must be real non-placeholder evidence');}
 const required=['dealer_rate_server_derived','dealer_ok_exact_revision','stale_revision_rejected','estimate_created_from_exact_dealer_ok','original_order_locked_after_estimate','marg_bill_sale_posted','stock_deducted_at_marg_bill_sale','duplicate_marg_bill_rejected','payment_not_sale_gate','dispatch_ready_boundary_checked','delivery_exactly_once_checked','dealer_payment_visibility_device_bound','dealer_delivery_visibility_device_bound'];
