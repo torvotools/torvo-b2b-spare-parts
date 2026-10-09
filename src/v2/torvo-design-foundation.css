@@ -1246,3 +1246,31 @@
  #torvo-v2-root .dealerRegModal .dealerWhatsAppHint :is(b,small){font-size:11px}
  #torvo-v2-root .dealerRegModal>footer{margin-top:9px;padding-top:8px}
 }
+
+
+/* Accessible, expandable registration information: business access requirements
+   stay available without forcing a large introductory block before the form. */
+#torvo-v2-root .dealerRegistration .dealerAppAccessDisclosure{
+ border:1px solid var(--torvo-border);border-radius:8px;background:var(--torvo-soft);margin:0;
+}
+#torvo-v2-root .dealerRegistration .dealerAppAccessDisclosure>summary{
+ cursor:pointer;list-style:revert;padding:9px 12px;font-size:12px;line-height:1.35;
+ font-weight:650;color:var(--torvo-ink);touch-action:manipulation;
+}
+#torvo-v2-root .dealerRegistration .dealerAppAccessDisclosure>summary:focus-visible{
+ outline:2px solid var(--torvo-red);outline-offset:2px;
+}
+#torvo-v2-root .dealerRegistration .dealerAppAccessDisclosure[open]>.dealerAppAccess{
+ margin:0 8px 8px;
+}
+@media(max-width:800px){
+ #torvo-v2-root .dealerRegModal .dealerRegistrationIntro>.dealerAppAccessDisclosure{
+   display:block;width:100%;
+ }
+ #torvo-v2-root .dealerRegModal .dealerRegistrationIntro>.dealerAppAccessDisclosure>summary{
+   padding:7px 10px;font-size:11px;
+ }
+ #torvo-v2-root .dealerRegModal .dealerRegistrationIntro>.dealerAppAccessDisclosure[open] .dealerAppAccessContent>small{
+   display:block;
+ }
+}
