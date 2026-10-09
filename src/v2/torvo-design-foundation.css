@@ -1217,3 +1217,32 @@
    position:relative;bottom:auto;margin:16px 0 0;padding:12px 0 0;
  }
 }
+
+
+/* Mobile registration: show the form first; keep full legal/access text in a
+   user-expandable disclosure rather than occupying the initial viewport. */
+@media(max-width:800px){
+ #torvo-v2-root .dealerRegModal{padding-top:max(env(safe-area-inset-top,0px),18px)}
+ #torvo-v2-root .dealerRegModal>header{margin-bottom:6px;padding:4px 0 9px}
+ #torvo-v2-root .dealerRegModal>header .eyebrow{font-size:11px}
+ #torvo-v2-root .dealerRegModal>header h2{font-size:18px;line-height:1.2}
+ #torvo-v2-root .dealerRegModal>header p{display:none}
+ #torvo-v2-root .dealerRegModal .dealerRegistration{gap:7px}
+ #torvo-v2-root .dealerRegModal .dealerRegistrationIntro{display:flex;flex-direction:column;gap:5px}
+ #torvo-v2-root .dealerRegModal .dealerRegistrationIntro>.dealerResultNotice:first-child{
+   padding:6px 9px;margin:0;gap:8px
+ }
+ #torvo-v2-root .dealerRegModal .dealerRegistrationIntro>.dealerResultNotice:first-child svg{width:17px;height:17px}
+ #torvo-v2-root .dealerRegModal .dealerRegistrationIntro>.dealerResultNotice:first-child small{display:none}
+ #torvo-v2-root .dealerRegModal .dealerRegistrationIntro>.dealerAppAccess{
+   padding:6px 9px;margin:0;gap:8px
+ }
+ #torvo-v2-root .dealerRegModal .dealerRegistrationIntro>.dealerAppAccess .dealerAppAccessContent>small{display:none}
+ #torvo-v2-root .dealerRegModal .dealerRegistrationIntro>.dealerAppAccess .dealerAppInstallSlot{margin-top:0}
+ #torvo-v2-root .dealerRegModal .formTwo{gap:7px;margin:0}
+ #torvo-v2-root .dealerRegModal .formTwo>label{gap:3px;font-size:12px;line-height:1.25}
+ #torvo-v2-root .dealerRegModal :is(input,select){min-height:40px;height:40px;padding:7px 10px;font-size:16px}
+ #torvo-v2-root .dealerRegModal .dealerWhatsAppHint{margin:0;gap:4px;font-size:11px}
+ #torvo-v2-root .dealerRegModal .dealerWhatsAppHint :is(b,small){font-size:11px}
+ #torvo-v2-root .dealerRegModal>footer{margin-top:9px;padding-top:8px}
+}
