@@ -53,3 +53,9 @@ Initial evidence-based baseline: **0 / 12 newly fully accepted workstreams = 0.0
 - Previous HEAD `98fa47119a5f13f9c6fd5c4198c7a208334dd776`: latest Build Check for code SHA `7c292e67644adbc640c0213071155b1c564fc368` SUCCESS; Cloudflare/Android for ledger HEAD were still in progress when checked.
 - No official location data was fabricated or imported; this remains a real deployment gate.
 - Progress 0/12 accepted workstreams = **0.0% verified complete / 100.0% remaining**. Source fixes are PARTIAL until runtime/mobile evidence exists.
+
+## Block #5 — Registration regression guard and real staging location audit
+- Added explicit checks to `scripts/verify-v2-location-dropdowns.mjs` for async request-version guards, mounted/unmount protection, reset of Other City, and accessible expandable app-install disclosure.
+- Read-only staging query confirmed `location_states=0`, `location_districts=0`, `location_cities=0` on 2026-10-09. Official GoI location import remains a hard runtime blocker; no placeholder rows were inserted.
+- At observation: previous `758ecaba...` Build Check in progress; prior `7c292e...` Build Check SUCCESS; Android/Cloudflare for `98fa471...` in progress. Do not infer current SHA deployment PASS.
+- Workstreams #2 and #3 remain OPEN. Completed 0/12 = 0.0%, remaining 100.0%.
