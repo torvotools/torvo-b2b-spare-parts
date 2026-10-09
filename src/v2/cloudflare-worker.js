@@ -4,6 +4,11 @@ const HTML=new Set(['/','/index.html','/business-login','/business-login/','/bus
 export default{
   async fetch(request,env){
     const url=new URL(request.url);
+    // Legacy preview links are shared in owner testing; preserve query parameters.
+    if(url.pathname==='/v2-preview.html'){
+      url.pathname='/';
+      return Response.redirect(url.toString(),308);
+    }
     let response;
     if(url.pathname==='/admin-workspace'||url.pathname==='/accountant-workspace'){const assetUrl=new URL('/index.html',url);response=await env.ASSETS.fetch(new Request(assetUrl,request));}
     else if(url.pathname==='/business-login'||url.pathname==='/business-login/'){const assetUrl=new URL('/business-login.html',url);response=await env.ASSETS.fetch(new Request(assetUrl,request));}
