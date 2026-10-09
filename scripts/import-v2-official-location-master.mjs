@@ -52,11 +52,13 @@ const headers={apikey:token,Authorization:`Bearer ${token}`,'Content-Type':'appl
 const rest=async(path,body)=>{const r=await fetch(`${url}/rest/v1/${path}`,{method:'POST',headers,body:JSON.stringify(body)});if(!r.ok)throw new Error(`${path}: ${r.status} ${await r.text()}`)};
 const chunks=(a,n=250)=>Array.from({length:Math.ceil(a.length/n)},(_,i)=>a.slice(i*n,i*n+n));
 for(const batch of chunks(S))await rest('location_states?on_conflict=lgd_code',batch.map((x,i)=>({lgd_code:x.lgd_code,name:x.name.toUpperCase(),active:true,sort_order:i})));
-const stateRows=await (await fetch(`${url}/rest/v1/location_states?select=id,lgd_code`,{headers:{apikey:token,Authorization:`Bearer ${token}`}})).json();
+const fetchAll=async(table)=>{const all=[];for(let offset=0;;offset+=500){const response=await fetch(`${url}/rest/v1/${table}?select=id,lgd_code&limit=500&offset=${offset}`,{headers:{apikey:token,Authorization:`Bearer ${token}`}});if(!response.ok)throw new Error(`${table} lookup failed: ${response.status}`);const page=await response.json();if(!Array.isArray(page))throw new Error(`${table} lookup returned invalid rows`);all.push(...page);if(page.length<500)break}return all};
+const stateRows=await fetchAll('location_states');
 const stateId=new Map(stateRows.map(x=>[x.lgd_code,x.id]));
 for(const batch of chunks(D))await rest('location_districts?on_conflict=lgd_code',batch.map((x,i)=>({lgd_code:x.lgd_code,state_id:stateId.get(x.state_lgd_code),name:x.name.toUpperCase(),active:true,sort_order:i})));
-const districtRows=await (await fetch(`${url}/rest/v1/location_districts?select=id,lgd_code`,{headers:{apikey:token,Authorization:`Bearer ${token}`}})).json();
+const districtRows=await fetchAll('location_districts');
 const districtId=new Map(districtRows.map(x=>[x.lgd_code,x.id]));
-const today=new Date().toISOString().slice(0,10);
-for(const batch of chunks(C))await rest('location_cities?on_conflict=lgd_code',batch.map((x,i)=>({lgd_code:x.lgd_code,district_id:districtId.get(x.district_lgd_code),name:x.name.toUpperCase(),pincode:null,source_kind:'LGD_LOCAL_BODY',source_updated_on:today,active:true,sort_order:i})));
+if(D.some(x=>!stateId.has(x.state_lgd_code))||C.some(x=>!districtId.has(x.district_lgd_code)))throw new Error('INCOMPLETE OFFICIAL PARENT LOOKUP: REFUSING PARTIAL LOCATION IMPORT');
+// The source publication date must not be replaced with the import date.
+for(const batch of chunks(C))await rest('location_cities?on_conflict=lgd_code',batch.map((x,i)=>({lgd_code:x.lgd_code,district_id:districtId.get(x.district_lgd_code),name:x.name.toUpperCase(),pincode:null,source_kind:'LGD_LOCAL_BODY',source_updated_on:null,active:true,sort_order:i})));
 console.log('TORVO V2 STAGING OFFICIAL LOCATION IMPORT COMPLETE');
