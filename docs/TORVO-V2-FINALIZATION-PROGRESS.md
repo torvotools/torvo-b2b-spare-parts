@@ -1,3 +1,12 @@
+## OWNER FINAL EXECUTION CONTRACT — 2026-10-09
+- Replace arbitrary 30-block countdown with TEN LARGE ACCEPTANCE PHASES: (1) code/database/error audit; (2) unified six-surface responsive UI/UX; (3) public homepage/search/filter/catalog/official locations/registration; (4) dealer/staff OTP and role/session runtime; (5) PO/Quotation/Estimate/Marg Bill/Sale; (6) purchase/inventory/dispatch/delivery/returns; (7) accounting/reports/rewards; (8) service book/notifications/referrals/masters; (9) Android/update/backup/restore/performance/security; (10) all-surface final acceptance/release/live readiness.
+- These are work packages, NOT promises of completion in exactly ten turns. Do not count audits, docs, or isolated CI scripts as completed phases.
+- Each phase requires source changes where needed, green CI for exact SHA, actual UI/functional testing, staging runtime evidence, and external device/release evidence where applicable. Do not declare a phase PASS merely because source exists.
+- Track 12 canonical acceptance workstreams separately. Verified completion = 100 * fully accepted workstreams / 12; verified remaining = 100 minus completion. Current baseline 0/12 = 0.0% verified, 100.0% remaining. This is acceptance completion, NOT fraction of existing code built.
+- Owner delegates all ordinary UI/UX decisions; preserve original TORVO brand/logo and canonical business/security boundaries. Improve existing screens comprehensively, avoiding repetitive cosmetic-only commits.
+- Production Supabase/domain cutover and destructive production operations require explicit Owner authorization. Do not invent official location data, staff/dealer identities, sales, device tests, signing, or backup/restore evidence.
+- Report actual work, evidence, blockers, and both percentages with each meaningful delivery. Do not claim 100% or live-ready before all gates pass.
+
 # TORVO V2 — FINALIZATION PROGRESS LEDGER
 
 Started: 2026-10-09. Owner command: N advances numbered finalization blocks automatically.
