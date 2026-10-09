@@ -1274,3 +1274,31 @@
    display:block;
  }
 }
+
+/* Shared responsive accessibility finish: all six TORVO surfaces inherit
+   predictable long-text wrapping, visible keyboard focus and safe mobile sizing.
+   This layer is presentation-only and does not alter business or role logic. */
+#torvo-v2-root :is(.panel,.workspace,.accountantWorkPanel,.roleSecurity,.roleDeliveryStrip,.dealerEntryCard,.publicProductCard){
+  min-width:0;
+  overflow-wrap:break-word;
+}
+#torvo-v2-root :is(button,[role="button"],a,input,select,textarea,summary):focus-visible{
+  outline:3px solid var(--torvo-red);
+  outline-offset:2px;
+}
+#torvo-v2-root :is(button,[role="button"],a,input,select,textarea):disabled{
+  cursor:not-allowed;
+}
+#torvo-v2-root :is(input,textarea)::placeholder{color:var(--torvo-muted);opacity:1}
+@media(max-width:600px){
+  #torvo-v2-root :is(input,select,textarea){font-size:16px}
+  #torvo-v2-root :is(.panel,.workspace,.accountantWorkPanel,.roleSecurity,.roleDeliveryStrip,.dealerEntryCard,.publicProductCard){max-width:100%}
+}
+@media(prefers-reduced-motion:reduce){
+  #torvo-v2-root *,#torvo-v2-root *::before,#torvo-v2-root *::after{
+    scroll-behavior:auto!important;
+    animation-duration:.01ms!important;
+    animation-iteration-count:1!important;
+    transition-duration:.01ms!important;
+  }
+}
