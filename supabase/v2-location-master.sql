@@ -111,6 +111,12 @@ alter table public.location_cities add column if not exists source_updated_on da
 
 create unique index if not exists location_states_lgd_code_uq on public.location_states(lgd_code) where lgd_code is not null;
 create unique index if not exists location_districts_lgd_code_uq on public.location_districts(lgd_code) where lgd_code is not null;
+-- Non-partial unique indexes are required for PostgREST on_conflict=lgd_code upserts.
+-- Nullable codes remain allowed; PostgreSQL permits multiple NULL values.
+create unique index if not exists location_states_lgd_upsert_uq on public.location_states(lgd_code);
+create unique index if not exists location_districts_lgd_upsert_uq on public.location_districts(lgd_code);
+create unique index if not exists location_cities_lgd_upsert_uq on public.location_cities(lgd_code);
+
 create index if not exists location_cities_pincode_idx on public.location_cities(pincode) where pincode is not null;
 
 alter table public.location_cities drop constraint if exists location_cities_pincode_ck;
