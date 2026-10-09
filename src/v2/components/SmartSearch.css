@@ -28,6 +28,6 @@
  .smartSuggestions{left:10px;right:10px;max-height:310px}
  .smartSuggestionHeading{padding:6px 10px 4px}
  .smartSuggestionGroup+.smartSuggestionGroup{margin-top:2px}
- .smartSuggestionGroup button{gap:6px;min-height:50px;padding:7px 6px}
+ .smartSuggestionGroup button{min-height:50px;gap:6px;padding:7px 6px}
  .smartThumb{width:40px;height:40px;flex-basis:40px}
 }
