@@ -6,6 +6,7 @@ for(const k of ['environment_project_id','commit_sha','captured_at_utc','dealer'
 if(e.environment_project_id!=='jvmhhngjlaqrfopfavur')fail('runtime evidence must come from TORVO V2 STAGING');
 if(!/^[a-f0-9]{40}$/i.test(e.commit_sha))fail('invalid exact commit SHA');
 if(!/^\d{4}-\d{2}-\d{2}T/.test(e.captured_at_utc))fail('captured_at_utc must be ISO timestamp');
+if(!Number.isFinite(Date.parse(e.captured_at_utc))||!/(Z|[+-]\d{2}:\d{2})$/.test(e.captured_at_utc)||Date.parse(e.captured_at_utc)>Date.now()+300000)fail('captured_at_utc must be valid, timezone-aware and not in the future');
 const d=e.dealer,s=e.staff;
 for(const k of ['identity_ref','device_a_ref','device_b_ref','email_otp_login_succeeded','device_b_replaced_a','device_a_revoked_private_reads_failed','device_a_revoked_private_writes_failed','device_b_remained_valid','logout_or_revoke_failed_afterwards'])if(d[k]===undefined||d[k]===null||d[k]==='')fail('dealer missing '+k);
 for(const k of ['identity_ref','role','approved_device_ref','email_otp_consumed_once','otp_replay_failed','unapproved_device_failed','runtime_role_boundary_passed','revoke_invalidated_session'])if(s[k]===undefined||s[k]===null||s[k]==='')fail('staff missing '+k);
