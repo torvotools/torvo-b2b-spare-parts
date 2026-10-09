@@ -69,6 +69,6 @@ for(let start=0;start<D.length;start+=250)await rest('location_districts?on_conf
 const districtRows=await fetchAll('location_districts');
 const districtId=new Map(districtRows.map(x=>[x.lgd_code,x.id]));
 if(C.some(x=>!districtId.has(x.district_lgd_code)))throw new Error('INCOMPLETE DISTRICT LOOKUP: REFUSING CITY IMPORT');
-// The source publication date must not be replaced with the import date.
-for(let start=0;start<C.length;start+=250)await rest('location_cities?on_conflict=lgd_code',C.slice(start,start+250).map((x,i)=>({lgd_code:x.lgd_code,district_id:districtId.get(x.district_lgd_code),name:x.name.toUpperCase(),pincode:null,source_kind:'LGD_LOCAL_BODY',source_updated_on:null,active:true,sort_order:start+i})));
+// Never overwrite an existing verified PIN, provenance or source publication date with empty import values.
+for(let start=0;start<C.length;start+=250)await rest('location_cities?on_conflict=lgd_code',C.slice(start,start+250).map((x,i)=>({lgd_code:x.lgd_code,district_id:districtId.get(x.district_lgd_code),name:x.name.toUpperCase(),active:true,sort_order:start+i})));
 console.log('TORVO V2 STAGING OFFICIAL LOCATION IMPORT COMPLETE');
