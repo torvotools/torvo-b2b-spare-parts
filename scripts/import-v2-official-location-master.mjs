@@ -30,6 +30,8 @@ const urbanPattern=/municipal|municipality|corporation|nagar\s*panchayat|town\s*
 const ruralPattern=/gram\s*panchayat|village\s*panchayat|janpad|panchayat\s*samiti|zilla|zila|district\s*panchayat|block\s*panchayat|intermediate\s*panchayat/i;
 const typedBodies=bodiesRaw.map(r=>({row:r,type:urbanType(r)}));
 if(!typedBodies.some(x=>x.type))throw new Error('LOCAL BODY TYPE COLUMN REQUIRED: REFUSING TO MAP ALL LOCAL BODIES AS CITIES');
+const missingTypeCount=typedBodies.filter(x=>!x.type).length;
+if(missingTypeCount)throw new Error(`LOCAL BODY TYPE MISSING IN ${missingTypeCount} ROWS: REFUSING SILENTLY INCOMPLETE CITY IMPORT`);
 const unknownTypes=[...new Set(typedBodies.map(x=>x.type).filter(Boolean).filter(t=>!urbanPattern.test(t)&&!ruralPattern.test(t)))];
 if(unknownTypes.length)throw new Error('UNKNOWN LOCAL BODY TYPES: '+unknownTypes.slice(0,20).join(', '));
 const cities=typedBodies.filter(x=>urbanPattern.test(x.type)&&!ruralPattern.test(x.type)).map(({row:r,type})=>({lgd_code:digits(pick(r,['Localbody Code','Local Body Code','LocalBodyCode','LGD Code'])),district_lgd_code:digits(pick(r,['District Code','District LGD Code','DistrictCode'])),name:pick(r,['Localbody Name (In English)','Local Body Name (In English)','Local Body Name','LocalBodyName']),local_body_type:type})).filter(x=>x.lgd_code&&x.district_lgd_code&&x.name);
