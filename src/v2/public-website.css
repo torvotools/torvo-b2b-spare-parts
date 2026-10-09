@@ -351,3 +351,34 @@ body:has(.publicSite){padding-bottom:0!important}
  .dealerRegModal .dealerRegistration .dealerAppAccessContent small{font-size:12px}
  .dealerRegModal>footer{position:relative;padding:10px 16px 16px}
 }
+
+
+/* 09 OCT 2026 — DEVICE SCREENSHOT FOLLOW-UP: WEBVIEW STATUS BAR AND FORM DENSITY */
+@media(max-width:800px){
+ .modalLayer:has(> .dealerRegModal)>.dealerRegModal{
+   padding-top:max(env(safe-area-inset-top,0px),32px);
+   padding-bottom:max(env(safe-area-inset-bottom,0px),18px);
+   scroll-padding-top:48px;
+ }
+ .dealerRegModal>header{z-index:5;min-height:0;flex-shrink:0}
+ .dealerRegModal .dealerRegistration{display:flex;flex-direction:column;align-items:stretch;justify-content:flex-start;gap:14px}
+ .dealerRegModal .dealerRegistration>.formTwo,
+ .dealerRegModal .dealerRegistration .torvoSemanticLocation>.formTwo{display:grid;grid-template-columns:minmax(0,1fr);gap:12px}
+ .dealerRegModal .dealerRegistration .torvoSemanticLocation{display:flex;flex-direction:column;gap:12px}
+ .dealerRegModal .dealerRegistration .formTwo>label,
+ .dealerRegModal .dealerRegistration .torvoSemanticLocation label{
+   display:flex!important;flex-direction:column!important;align-items:stretch!important;
+   justify-content:flex-start!important;flex:0 0 auto!important;
+   min-height:0!important;height:auto!important;gap:6px!important
+ }
+ .dealerRegModal .dealerRegistration .formTwo>label>:is(input,select),
+ .dealerRegModal .dealerRegistration .torvoSemanticLocation label>:is(input,select){
+   display:block!important;position:static!important;flex:0 0 46px!important;
+   height:46px!important;min-height:46px!important;max-height:46px!important;
+   width:100%!important;min-width:0!important;margin:0!important;padding:0 12px!important
+ }
+ .dealerRegModal .dealerRegistration .dealerAppAccess{display:flex;align-items:flex-start}
+ .dealerRegModal .dealerRegistration .dealerAppAccessContent{min-width:0}
+ .dealerRegModal .dealerRegistration .dealerAppAccessContent small{display:block}
+ .dealerRegModal>footer{flex-shrink:0}
+}
