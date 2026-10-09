@@ -1082,6 +1082,21 @@
   --torvo-status-neutral:#59616c;
   --torvo-status-neutral-bg:#f1f2f4;
   --torvo-status-neutral-border:#d5d9de;
+  /* Compatibility aliases: existing UI system tokens resolve to one brand palette. */
+  --tv-red:var(--torvo-red);
+  --tv-red-dark:var(--torvo-red-hover);
+  --tv-black:var(--torvo-black);
+  --tv-ink:var(--torvo-ink);
+  --tv-muted:var(--torvo-muted);
+  --tv-page:var(--torvo-page);
+  --tv-surface:var(--torvo-surface);
+  --tv-soft:var(--torvo-soft);
+  --tv-line:var(--torvo-border);
+  --tv-line-strong:var(--torvo-border-strong);
+  --tv-green:var(--torvo-status-success);
+  --tv-amber:var(--torvo-status-warning);
+  --tv-blue:var(--torvo-status-info);
+  --tv-danger:var(--torvo-status-danger);
 }
 #torvo-v2-root [data-status="success"],
 #torvo-v2-root [data-status="approved"],
