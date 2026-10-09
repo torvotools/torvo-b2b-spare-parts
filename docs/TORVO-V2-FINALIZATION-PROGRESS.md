@@ -65,3 +65,10 @@ Initial evidence-based baseline: **0 / 12 newly fully accepted workstreams = 0.0
 - RLS enabled is not a substitute for per-role permission acceptance. No dealer OTP, staff OTP, financial transaction, stock, backup or release artifacts were fabricated.
 - CI observation: Build Check for code SHA `758ecaba1d2b54cf5d270aa39b88560a31fb7baa` SUCCESS; Cloudflare for ledger SHA `98fa47119a5f13f9c6fd5c4198c7a208334dd776` SUCCESS. Later CI runs for `9b507b6b1ebf9bfeb71815a739d834edc9c3da9d` still pending/in progress.
 - This is an audit/evidence block, not a database migration. Workstreams #4, #6, #7, #8, #11, #12 remain OPEN. Completion 0/12 = 0.0%, remaining 100.0%.
+
+## Block #7 — Read-only staging OTP/session RPC privilege audit
+- Confirmed staging `public.dealer_email_otp_begin`, `dealer_email_otp_verify`, `staff_email_otp_begin`, `staff_email_otp_verify`, and v2 variants exist and are executable by service_role, **not** anon or authenticated.
+- Confirmed dealer session create/revoke/validate and staff verified session creation are service-only; dealer self-assert and staff session validate/touch/revoke are authenticated-only.
+- Canonical `approve_dealer(p_dealer uuid,p_rate_group text)` allows authenticated calls (internal authorization must still be enforced); legacy three-argument variant service-only.
+- This is an ACL/metadata audit, not a live OTP challenge, role impersonation, verified session E2E or production security proof. No auth users or transactions were created.
+- Workstream #4 remains PARTIAL; 0/12 workstreams accepted, 0.0% complete and 100.0% remaining.
