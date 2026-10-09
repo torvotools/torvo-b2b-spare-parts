@@ -1160,3 +1160,28 @@
   outline:3px solid var(--torvo-status-info);
   outline-offset:3px;
 }
+
+
+/* TORVO V2 — SHARED FORM CONTROL COMFORT AND TOUCH TARGETS
+   Applies only to opt-in operational form classes; approved search/header layouts stay locked. */
+#torvo-v2-root :is(.dealerRegistration,.roleSecurity,.accountantWorkPanel,.workspace) :is(input,select,textarea){
+  font-weight:400;
+  max-width:100%;
+}
+#torvo-v2-root :is(.dealerRegistration,.roleSecurity,.accountantWorkPanel,.workspace) :is(input,select):not([type="checkbox"]):not([type="radio"]){
+  min-height:46px;
+}
+#torvo-v2-root :is(.dealerRegistration,.roleSecurity,.accountantWorkPanel,.workspace) :is(input,select,textarea):disabled{
+  background:#f1f2f4;
+  color:#59616c;
+  cursor:not-allowed;
+}
+#torvo-v2-root :is(.dealerRegistration,.roleSecurity,.accountantWorkPanel,.workspace) :is(input,select,textarea)[aria-invalid="true"]{
+  border-color:var(--torvo-status-danger);
+  box-shadow:0 0 0 2px var(--torvo-status-danger-bg);
+}
+@media(max-width:800px){
+  #torvo-v2-root :is(.dealerRegistration,.roleSecurity,.accountantWorkPanel,.workspace) :is(input,select,textarea){
+    font-size:16px;
+  }
+}
