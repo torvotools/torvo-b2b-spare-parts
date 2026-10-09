@@ -76,6 +76,7 @@ jobs:
           test -n "$MANIFEST" && test -f "$MANIFEST" || { echo "::error::manifest.json missing"; exit 1; }
           test -n "$ARTIFACT" && test -f "$ARTIFACT" || { echo "::error::encrypted dump missing"; exit 1; }
           node scripts/verify-v2-backup-artifact.mjs "$MANIFEST" "$ARTIFACT"
+          node -e 'const fs=require("fs");const m=JSON.parse(fs.readFileSync(process.argv[1],"utf8"));if(m.code_commit!==process.env.GITHUB_SHA){console.error("::error::Backup commit differs from checked-out commit");process.exit(1)}' "$MANIFEST"
           mkdir -p restore-work
           cp "$MANIFEST" restore-work/source-manifest.json
           cp "$ARTIFACT" restore-work/source.dump.enc
@@ -95,11 +96,13 @@ jobs:
           set -euo pipefail
           STARTED="$(date -u +%Y-%m-%dT%H:%M:%SZ)"
           echo "$STARTED" > restore-work/started.txt
+          trap 'rm -f restore-work/source.dump' EXIT
           openssl enc -d -aes-256-cbc -pbkdf2 \
             -in restore-work/source.dump.enc \
             -out restore-work/source.dump \
             -pass env:BACKUP_KEY
           test -s restore-work/source.dump
+          pg_restore --list restore-work/source.dump >/dev/null
           pg_restore "$TARGET_PGURL" --no-owner --no-privileges --exit-on-error restore-work/source.dump
           rm -f restore-work/source.dump
           date -u +%Y-%m-%dT%H:%M:%SZ > restore-work/completed.txt
