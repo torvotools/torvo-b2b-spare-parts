@@ -119,6 +119,11 @@ jobs:
             EXISTS="$(psql "$TARGET_PGURL" -Atqc "select to_regclass('public.'||'$T') is not null")"
             test "$EXISTS" = "t" || { echo "::error::Missing restored table $T"; exit 1; }
           done
+          # Every restored application table must have row-level security enabled.
+          UNPROTECTED_TABLES="$(psql "$TARGET_PGURL" -Atqc "select count(*) from pg_class c join pg_namespace n on n.oid=c.relnamespace where n.nspname='public' and c.relkind in ('r','p') and not c.relrowsecurity")"
+          test "$UNPROTECTED_TABLES" = "0" || { echo "::error::Restored public tables without RLS"; exit 1; }
+          WORKER_FUNCTION_COUNT="$(psql "$TARGET_PGURL" -Atqc "select count(*) from pg_proc p join pg_namespace n on n.oid=p.pronamespace where n.nspname='public' and p.proname in ('worker_start_backup','worker_complete_backup','worker_fail_backup')")"
+          test "$WORKER_FUNCTION_COUNT" = "3" || { echo "::error::Backup worker RPC definitions missing or duplicated"; exit 1; }
           BAD_WORKER_EXEC="$(psql "$TARGET_PGURL" -Atqc "select count(*) from pg_proc p join pg_namespace n on n.oid=p.pronamespace where n.nspname='public' and p.proname in ('worker_start_backup','worker_complete_backup','worker_fail_backup') and (has_function_privilege('anon',p.oid,'EXECUTE') or has_function_privilege('authenticated',p.oid,'EXECUTE'))")"
           test "$BAD_WORKER_EXEC" = "0" || { echo "::error::Backup worker RPC privilege regression"; exit 1; }
           psql "$TARGET_PGURL" -Atqc "show server_version" > restore-work/restored-db-version.txt
