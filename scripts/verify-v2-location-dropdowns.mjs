@@ -1,6 +1,10 @@
 import fs from'node:fs';
 const read=p=>fs.readFileSync(p,'utf8'),fail=m=>{console.error(`LOCATION DROPDOWN CONTRACT FAILED: ${m}`);process.exit(1)};
 const sql=read('supabase/v2-location-master.sql');
+const importer=read('scripts/import-v2-official-location-master.mjs');
+for(const token of ['location_states_lgd_upsert_uq','location_districts_lgd_upsert_uq','location_cities_lgd_upsert_uq'])if(!sql.includes(token))fail(`OFFICIAL LOCATION UPSERT UNIQUE INDEX MISSING: ${token}`);
+for(const token of ['INVALID OFFICIAL LGD CODE','INCOMPLETE OFFICIAL STATE ROW','INCOMPLETE OFFICIAL DISTRICT ROW','INCOMPLETE OFFICIAL URBAN LOCAL BODY ROW','DUPLICATE OFFICIAL CODE','DUPLICATE ${label} NAME','MALFORMED CSV: UNCLOSED QUOTED FIELD','MALFORMED CSV ROW','REFUSING NON-STAGING TARGET','INCOMPLETE STATE LOOKUP','INCOMPLETE DISTRICT LOOKUP'])if(!importer.includes(token))fail(`OFFICIAL LOCATION IMPORT SAFETY MISSING: ${token}`);
+
 const dealerSql=read('supabase/v2-public-dealer-registration.sql');
 const service=read('src/v2/services/publicWebsite.js');
 const ui=read('src/v2/components/PublicLocationDropdowns.jsx');
