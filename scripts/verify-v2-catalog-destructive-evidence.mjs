@@ -6,6 +6,7 @@ for(const k of ['environment_project_id','commit_sha','captured_at_utc','actor_r
 if(e.environment_project_id!=='jvmhhngjlaqrfopfavur')fail('catalog destructive acceptance must be staging');
 if(!/^[a-f0-9]{40}$/i.test(e.commit_sha))fail('invalid exact commit SHA');
 if(!/^\d{4}-\d{2}-\d{2}T/.test(e.captured_at_utc))fail('captured_at_utc must be ISO timestamp');
+if(!Number.isFinite(Date.parse(e.captured_at_utc))||!/(Z|[+-]\d{2}:\d{2})$/.test(e.captured_at_utc)||Date.parse(e.captured_at_utc)>Date.now()+300000)fail('captured_at_utc must be valid, timezone-aware and not in the future');
 if(!['OWNER','ADMIN'].includes(String(e.actor_role).toUpperCase()))fail('real Owner/Admin actor required');
 if(!Array.isArray(e.test_master_refs)||e.test_master_refs.length<3)fail('at least three non-secret test master references required');
 {const v=String(e.actor_ref).trim();if(v.length<3||v.toUpperCase().includes('REPLACE_WITH'))fail('actor_ref must be real non-placeholder evidence');}
