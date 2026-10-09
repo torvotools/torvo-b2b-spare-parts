@@ -1061,3 +1061,57 @@
  #torvo-v2-root .dealerCatalog article{border-radius:8px}
  #torvo-v2-root .dealerCardActions :is(a,button){flex:1 1 auto;justify-content:center}
 }
+
+
+/* TORVO V2 — CROSS-SURFACE OPERATIONAL STATUS COLORS (09 OCT 2026)
+   Brand stays red/black/white/grey; semantic colors communicate business states.
+   Scoped to explicit data-status/aria-status hooks: no workflow, role or locked layout changes. */
+#torvo-v2-root{
+  --torvo-status-success:#147a4b;
+  --torvo-status-success-bg:#eaf7ef;
+  --torvo-status-success-border:#b9e2c8;
+  --torvo-status-warning:#995900;
+  --torvo-status-warning-bg:#fff4de;
+  --torvo-status-warning-border:#f0d49d;
+  --torvo-status-info:#1769aa;
+  --torvo-status-info-bg:#eaf4fd;
+  --torvo-status-info-border:#bad9f2;
+  --torvo-status-danger:#b42318;
+  --torvo-status-danger-bg:#fff0ef;
+  --torvo-status-danger-border:#edc3bf;
+  --torvo-status-neutral:#59616c;
+  --torvo-status-neutral-bg:#f1f2f4;
+  --torvo-status-neutral-border:#d5d9de;
+}
+#torvo-v2-root [data-status="success"],
+#torvo-v2-root [data-status="approved"],
+#torvo-v2-root [data-status="delivered"]{
+  color:var(--torvo-status-success);
+  background:var(--torvo-status-success-bg);
+  border-color:var(--torvo-status-success-border);
+}
+#torvo-v2-root [data-status="pending"],
+#torvo-v2-root [data-status="warning"]{
+  color:var(--torvo-status-warning);
+  background:var(--torvo-status-warning-bg);
+  border-color:var(--torvo-status-warning-border);
+}
+#torvo-v2-root [data-status="info"],
+#torvo-v2-root [data-status="tracking"]{
+  color:var(--torvo-status-info);
+  background:var(--torvo-status-info-bg);
+  border-color:var(--torvo-status-info-border);
+}
+#torvo-v2-root [data-status="error"],
+#torvo-v2-root [data-status="rejected"],
+#torvo-v2-root [data-status="danger"]{
+  color:var(--torvo-status-danger);
+  background:var(--torvo-status-danger-bg);
+  border-color:var(--torvo-status-danger-border);
+}
+#torvo-v2-root [data-status="inactive"],
+#torvo-v2-root [data-status="disabled"]{
+  color:var(--torvo-status-neutral);
+  background:var(--torvo-status-neutral-bg);
+  border-color:var(--torvo-status-neutral-border);
+}
