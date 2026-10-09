@@ -6,6 +6,7 @@ for(const k of ['environment_project_id','commit_sha','captured_at_utc','sales_r
 if(e.environment_project_id!=='jvmhhngjlaqrfopfavur')fail('runtime evidence must come from TORVO V2 STAGING');
 if(!/^[a-f0-9]{40}$/i.test(e.commit_sha))fail('invalid exact commit SHA');
 if(!/^\d{4}-\d{2}-\d{2}T/.test(e.captured_at_utc))fail('captured_at_utc must be ISO timestamp');
+if(!Number.isFinite(Date.parse(e.captured_at_utc))||!/(Z|[+-]\d{2}:\d{2})$/.test(e.captured_at_utc)||Date.parse(e.captured_at_utc)>Date.now()+300000)fail('captured_at_utc must be valid, timezone-aware and not in the future');
 const check=(name,x,sign)=>{
  for(const k of ['source_ref','approval_ref','return_ref','item_ref','qty','stock_before','stock_after','movement_qty','maker_checker_distinct_or_owner_override','same_request_key_replay_no_extra_effect','over_return_rejected','unauthorized_role_rejected'])if(x[k]===undefined||x[k]===null||x[k]==='')fail(name+' missing '+k);
  for(const k of ['source_ref','approval_ref','return_ref','item_ref']){const v=String(x[k]).trim();if(v.length<3||v.toUpperCase().includes('REPLACE_WITH'))fail(name+' '+k+' must be real non-placeholder evidence');}
