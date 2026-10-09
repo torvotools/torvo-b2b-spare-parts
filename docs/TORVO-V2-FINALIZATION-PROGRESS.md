@@ -87,3 +87,9 @@ Initial evidence-based baseline: **0 / 12 newly fully accepted workstreams = 0.0
 - Reviewed source verification contracts: `verify-v2-final-dealer-approval.mjs` already checks owner/admin gate, accountant verification, server-generated dealer code, canonical 2-arg RPC, and role UI visibility. `verify-v2-auth-runtime-evidence.mjs` explicitly requires real staging device/OTP evidence.
 - Extended dealer approval regression verifier with explicit server-side auth identity check, active accountant review gate, and legacy approval RPC authenticated-access restriction.
 - Source checks are not live role-impersonation proof. Workstream #4 remains PARTIAL; accepted 0/12 (0.0%), remaining 100.0%.
+
+## Ten-phase execution — Phase 1 evidence snapshot (2026-10-09)
+- Fresh staging read-only count: location_states=0, location_districts=0, location_cities=0, dealer_device_sessions=0, staff_auth_sessions=11 (total records, not active count), sales_documents=0, purchase_headers=0, dispatches=0, backup_runs=0, backup_restore_manifests=0, app_release_artifacts=0.
+- Inspected canonical install-order contract, acceptance bundle verifier, final-readiness verifier, and runtime-readiness verifier. Source checks exist; no runtime acceptance can be inferred from their existence.
+- Critical path: official location dataset; genuine Dealer OTP/device and role-based staff login; real PO-to-delivery/purchase/report reconciliation; verified backup/isolated restore; physical Android acceptance and signed release; exact final SHA and explicit Owner production cutover approval.
+- Phase 1 status IN PROGRESS, not PASS. Canonical 12-workstream acceptance 0/12 (0.0% verified), 100.0% remaining. This is not percentage of source implementation.
