@@ -198,6 +198,14 @@ jobs:
           gh release view "${TEST_RELEASE_TAG}" --json isPrerelease,tagName --jq 'select(.isPrerelease == true and .tagName == "torvo-v2-test-latest")' >/dev/null
           gh release view "${TEST_RELEASE_TAG}" --json assets --jq '.assets[].name' | grep -qx "${TEST_RELEASE_ASSET}"
           gh release view "${TEST_RELEASE_TAG}" --json assets --jq '.assets[].name' | grep -qx 'release-manifest.json'
+          # Verify the bytes actually served by the durable release, not just local build output.
+          mkdir -p verified-release-download
+          gh release download "${TEST_RELEASE_TAG}" --pattern "${TEST_RELEASE_ASSET}" --dir verified-release-download
+          test -s "verified-release-download/${TEST_RELEASE_ASSET}"
+          DOWNLOADED_SHA="$(sha256sum "verified-release-download/${TEST_RELEASE_ASSET}" | cut -d' ' -f1)"
+          test "$DOWNLOADED_SHA" = "${{ steps.release_meta.outputs.sha256 }}" || { echo "::error::Published APK checksum differs from verified build"; exit 1; }
+          gh release download "${TEST_RELEASE_TAG}" --pattern 'release-manifest.json' --dir verified-release-download
+          cmp -s durable-release/release-manifest.json verified-release-download/release-manifest.json || { echo "::error::Published release manifest differs from verified build"; exit 1; }
       - name: TEST APK EVIDENCE
         run: |
           echo "### TORVO TOOLS ANDROID TEST APK" >> "$GITHUB_STEP_SUMMARY"
