@@ -40,3 +40,9 @@ Initial evidence-based baseline: **0 / 12 newly fully accepted workstreams = 0.0
 - The registration still contains many required inputs and official location controls; do not promise a single viewport on all phone sizes or while the keyboard is open.
 - Build/Cloudflare/Android checks for this block and physical Android acceptance are pending at commit time.
 - Workstream #2 (shared UI/UX) and #3 (registration/location) remain OPEN until cross-surface and official-location E2E evidence. Completion credit: 0/12 = 0.0%, remaining 100.0%.
+
+## Block #3 — Cascading location request integrity
+- Fixed stale asynchronous district and city fetches in `PublicLocationDropdowns.jsx`: user-driven state/district changes increment request versions and ignore outdated responses, including stale error/finally updates.
+- Clearing a state or district also clears pending loading and resets `cityOther` so a prior manually entered city cannot survive a changed location hierarchy.
+- Official State/District/City master import remains OPEN. Source-level fix is not a runtime PASS and requires fresh CI plus actual mobile acceptance.
+- Workstream #3 remains OPEN. Completed 0/12 = 0.0%; remaining 100.0%.
