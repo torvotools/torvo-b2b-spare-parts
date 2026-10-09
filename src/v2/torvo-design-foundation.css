@@ -1130,3 +1130,33 @@
   background:var(--torvo-status-neutral-bg);
   border-color:var(--torvo-status-neutral-border);
 }
+
+
+/* TORVO V2 — OPERATIONAL ACCESSIBILITY: STATUS MUST REMAIN LEGIBLE ON CONTROLS */
+#torvo-v2-root :is(button,[role="button"])[data-status="success"],
+#torvo-v2-root :is(button,[role="button"])[data-status="approved"]{
+  background:var(--torvo-status-success);
+  border-color:var(--torvo-status-success);
+  color:#fff;
+}
+#torvo-v2-root :is(button,[role="button"])[data-status="warning"],
+#torvo-v2-root :is(button,[role="button"])[data-status="pending"]{
+  background:var(--torvo-status-warning-bg);
+  border-color:var(--torvo-status-warning-border);
+  color:var(--torvo-status-warning);
+}
+#torvo-v2-root :is(button,[role="button"])[data-status="danger"],
+#torvo-v2-root :is(button,[role="button"])[data-status="rejected"]{
+  background:var(--torvo-status-danger);
+  border-color:var(--torvo-status-danger);
+  color:#fff;
+}
+#torvo-v2-root :is(button,[role="button"])[data-status="info"]{
+  background:var(--torvo-status-info);
+  border-color:var(--torvo-status-info);
+  color:#fff;
+}
+#torvo-v2-root :is(button,[role="button"])[data-status]:focus-visible{
+  outline:3px solid var(--torvo-status-info);
+  outline-offset:3px;
+}
