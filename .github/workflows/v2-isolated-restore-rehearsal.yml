@@ -123,6 +123,15 @@ jobs:
           test "$BAD_WORKER_EXEC" = "0" || { echo "::error::Backup worker RPC privilege regression"; exit 1; }
           psql "$TARGET_PGURL" -Atqc "show server_version" > restore-work/restored-db-version.txt
           psql "$TARGET_PGURL" -Atqc "select coalesce(max(version::text),'unknown') from supabase_migrations.schema_migrations" > restore-work/restored-schema-version.txt
+          # Reject mismatched restore evidence instead of uploading a misleading success record.
+          node --input-type=module <<'NODE'
+          import fs from 'node:fs';
+          const m=JSON.parse(fs.readFileSync('restore-work/source-manifest.json','utf8'));
+          const schema=fs.readFileSync('restore-work/restored-schema-version.txt','utf8').trim();
+          const database=fs.readFileSync('restore-work/restored-db-version.txt','utf8').trim();
+          if(String(m.schema_version)!==schema) throw Error('Restored schema version does not match backup manifest');
+          if(String(m.database_version)!==database) throw Error('Restored database version does not match backup manifest');
+          NODE
 
       - name: Write machine evidence
         shell: bash
