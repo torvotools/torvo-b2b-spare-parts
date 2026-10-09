@@ -318,3 +318,36 @@ body:has(.publicSite){padding-bottom:0!important}
  .dealerRegModal .compactDealerNotice{padding:10px;gap:8px}
  .dealerRegModal>footer{padding:10px 14px}
 }
+
+
+/* 09 OCT 2026 — ANDROID REGISTRATION: ISOLATED COMPACT, SAFE-AREA FORM CONTRACT */
+.modalLayer:has(> .dealerRegModal){box-sizing:border-box}
+.dealerRegModal{box-sizing:border-box;display:flex;flex-direction:column;min-width:0}
+.dealerRegModal>header{flex:0 0 auto}
+.dealerRegModal .dealerRegistration{flex:1 0 auto;min-width:0;align-content:start;grid-auto-rows:max-content}
+.dealerRegModal .dealerRegistration .formTwo,
+.dealerRegModal .dealerRegistration .torvoSemanticLocation{min-width:0;align-content:start}
+.dealerRegModal .dealerRegistration .formTwo>label,
+.dealerRegModal .dealerRegistration .torvoSemanticLocation label{display:flex;flex-direction:column;justify-content:flex-start;align-items:stretch;min-height:0!important;height:auto!important;margin:0!important;padding:0!important;gap:6px}
+.dealerRegModal .dealerRegistration :is(input,select){display:block;flex:none;min-height:46px!important;height:46px!important;width:100%;margin:0!important;box-sizing:border-box;border:1px solid #bfc5ce;border-radius:9px;background:#fff;color:#171a20}
+.dealerRegModal .dealerRegistration :is(input,select):focus-visible{outline:2px solid #e32636;outline-offset:1px}
+.dealerRegModal .dealerRegistration .dealerResultNotice{align-items:flex-start}
+.dealerRegModal .dealerRegistration .dealerAppAccessContent small{line-height:1.4}
+.dealerRegModal>footer{flex:0 0 auto}
+@media(max-width:800px){
+ .modalLayer:has(> .dealerRegModal){padding:0!important;display:block;overflow:hidden}
+ .dealerRegModal{position:relative;width:100%;height:100dvh;max-height:100dvh;overflow-y:auto;overscroll-behavior:contain;box-shadow:none;padding-top:env(safe-area-inset-top,0px);padding-bottom:env(safe-area-inset-bottom,0px)}
+ .dealerRegModal>header{position:relative;top:auto;display:flex;gap:10px;padding:16px 16px 12px;background:#fff}
+ .dealerRegModal>header>div{min-width:0;flex:1}
+ .dealerRegModal>header .eyebrow{font-size:11px;line-height:1.3;letter-spacing:.04em}
+ .dealerRegModal>header h2{font-size:22px;line-height:1.2}
+ .dealerRegModal>header p{font-size:12px;line-height:1.45}
+ .dealerRegModal>header .iconBtn{flex:0 0 42px;width:42px;height:42px;align-self:flex-start}
+ .dealerRegModal .dealerRegistration{padding:14px 16px 18px;gap:12px}
+ .dealerRegModal .dealerRegistration .formTwo{grid-template-columns:minmax(0,1fr);gap:12px}
+ .dealerRegModal .dealerRegistration .torvoSemanticLocation{display:grid;gap:12px}
+ .dealerRegModal .dealerRegistration label{font-size:13px;line-height:1.3}
+ .dealerRegModal .dealerRegistration .compactDealerNotice{padding:11px 12px;gap:10px}
+ .dealerRegModal .dealerRegistration .dealerAppAccessContent small{font-size:12px}
+ .dealerRegModal>footer{position:relative;padding:10px 16px 16px}
+}
