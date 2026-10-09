@@ -41,6 +41,10 @@ if(cities.some(x=>!x.lgd_code||!x.district_lgd_code||!x.name))throw new Error('I
 
 const uniq=(a,f)=>{const m=new Map();for(const x of a){const k=f(x);if(m.has(k))throw new Error('DUPLICATE OFFICIAL CODE '+k);m.set(k,x)}return [...m.values()]};
 const S=uniq(states,x=>x.lgd_code),D=uniq(districts,x=>x.lgd_code),C=uniq(cities,x=>x.lgd_code);
+const rejectDuplicateNames=(rows,scope,label)=>{const seen=new Set();for(const row of rows){const name=clean(row.name).toUpperCase();const id=scope(row)+'|'+name;if(seen.has(id))throw new Error(`DUPLICATE ${label} NAME IN OFFICIAL DATA: ${id}`);seen.add(id)}};
+rejectDuplicateNames(S,()=> 'INDIA','STATE');
+rejectDuplicateNames(D,x=>x.state_lgd_code,'DISTRICT');
+rejectDuplicateNames(C,x=>x.district_lgd_code,'CITY');
 const badD=D.filter(x=>!stateCodes.has(x.state_lgd_code));
 const badC=C.filter(x=>!districtCodes.has(x.district_lgd_code));
 if(!S.length||!D.length||!C.length)throw new Error('OFFICIAL DATASET EMPTY OR HEADERS NOT RECOGNIZED');
