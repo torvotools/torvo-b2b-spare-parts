@@ -72,3 +72,9 @@ Initial evidence-based baseline: **0 / 12 newly fully accepted workstreams = 0.0
 - Canonical `approve_dealer(p_dealer uuid,p_rate_group text)` allows authenticated calls (internal authorization must still be enforced); legacy three-argument variant service-only.
 - This is an ACL/metadata audit, not a live OTP challenge, role impersonation, verified session E2E or production security proof. No auth users or transactions were created.
 - Workstream #4 remains PARTIAL; 0/12 workstreams accepted, 0.0% complete and 100.0% remaining.
+
+## Block #9 — Corrected counting policy and dealer approval regression checks
+- Owner correctly flagged that audit-only blocks were being counted too quickly. From this point, number a completion block only for a meaningful implemented change with an accompanying verification plan. Read-only audits alone are status work, not new completed blocks.
+- Reviewed source verification contracts: `verify-v2-final-dealer-approval.mjs` already checks owner/admin gate, accountant verification, server-generated dealer code, canonical 2-arg RPC, and role UI visibility. `verify-v2-auth-runtime-evidence.mjs` explicitly requires real staging device/OTP evidence.
+- Extended dealer approval regression verifier with explicit server-side auth identity check, active accountant review gate, and legacy approval RPC authenticated-access restriction.
+- Source checks are not live role-impersonation proof. Workstream #4 remains PARTIAL; accepted 0/12 (0.0%), remaining 100.0%.
