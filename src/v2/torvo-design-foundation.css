@@ -1454,3 +1454,19 @@
 @media(prefers-reduced-motion:reduce){
  #torvo-v2-root :is(.publicSite,.adminPreview,.accountantPreview,.roleApp,.dealerShell) *{scroll-behavior:auto}
 }
+
+
+/* TORVO V2 SIGNATURE ROLE-APP SHELL: Dealer / Salesman / Storekeeper. */
+#torvo-v2-root .roleApp .roleSignatureWelcome{position:relative;display:flex;flex-direction:column;align-items:flex-start;gap:12px;min-width:0;margin:0 0 18px;padding:clamp(20px,3.5vw,36px);border:1px solid #273342;border-radius:16px;background:linear-gradient(125deg,#131b25 0%,#232f3c 72%,#86202d 100%);color:#fff;overflow:hidden}
+#torvo-v2-root .roleApp .roleSignatureWelcome:after{content:"";position:absolute;right:-48px;top:-64px;width:200px;height:200px;border:1px solid rgba(255,255,255,.14);border-radius:50%;box-shadow:0 0 0 40px rgba(255,255,255,.025),0 0 0 80px rgba(255,255,255,.018);pointer-events:none}
+#torvo-v2-root .roleApp .roleSignatureEyebrow{display:flex;align-items:center;gap:9px;font-size:11px;letter-spacing:.12em;font-weight:700;color:#ffc6ce}
+#torvo-v2-root .roleApp .roleSignatureDot{width:8px;height:8px;border-radius:50%;background:#ed3345;box-shadow:0 0 0 4px rgba(237,51,69,.18)}
+#torvo-v2-root .roleApp .roleSignatureWelcome h1{position:relative;z-index:1;max-width:18ch;margin:0;font-size:clamp(25px,3vw,42px);line-height:1.1;letter-spacing:-.035em;color:#fff!important;-webkit-text-fill-color:#fff!important;font-weight:800}
+#torvo-v2-root .roleApp .roleSignatureWelcome p{position:relative;z-index:1;max-width:70ch;margin:0;font-size:13px;line-height:1.65;color:#dce5ed!important}
+#torvo-v2-root .roleApp .roleSignatureQuick{display:flex;flex-wrap:wrap;gap:10px 22px;margin-top:8px}
+#torvo-v2-root .roleApp .roleSignatureQuick span{display:flex;align-items:center;gap:7px;font-size:10px;font-weight:700;letter-spacing:.05em;color:#f5c7cd}
+#torvo-v2-root .roleApp .roleSignatureQuick svg{color:#ff6776}
+#torvo-v2-root .roleApp .roleGrid{display:grid;grid-template-columns:repeat(auto-fit,minmax(min(100%,210px),1fr));gap:12px}
+#torvo-v2-root .roleApp .roleGrid>button{min-width:0;min-height:86px;border:1px solid var(--torvo-border);border-radius:12px;background:#fff;color:var(--torvo-ink);text-align:left}
+#torvo-v2-root .roleApp .roleGrid>button:focus-visible{outline:2px solid var(--torvo-red);outline-offset:2px}
+@media(max-width:600px){#torvo-v2-root .roleApp .roleSignatureWelcome{padding:22px 18px;border-radius:12px}#torvo-v2-root .roleApp .roleSignatureWelcome h1{font-size:clamp(25px,7vw,34px)}#torvo-v2-root .roleApp .roleGrid{grid-template-columns:repeat(2,minmax(0,1fr));gap:9px}#torvo-v2-root .roleApp .roleGrid>button{min-height:90px}}
