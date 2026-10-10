@@ -27,7 +27,7 @@ begin
  if not found then raise exception 'DRAFT CONVERSION FAILED';end if;
  v_item:=public.upsert_catalog_item(null,p_item_type,p_item_code,p_name,p_oem_code,p_brand,p_category,p_model,p_image_url,p_gst_mode,p_active);
  update product_draft_library set status='converted',converted_item_id=v_item,converted_at=now(),updated_by=v_user.id,updated_at=now()
- where id=p_draft_id and status='draft';
+ where id=p_draft_id and status='converted' and converted_item_id is null;
  if not found then raise exception 'DRAFT CONVERSION FAILED';end if;
  insert into audit_log(actor_id,action,entity_type,entity_id,details)
  values(v_user.id,'PRODUCT_DRAFT_CONVERTED','CATALOG_ITEM',v_item::text,jsonb_build_object('draft_id',p_draft_id,'atomic',true));
