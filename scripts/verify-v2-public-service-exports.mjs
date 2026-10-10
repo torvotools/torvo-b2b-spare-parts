@@ -37,3 +37,11 @@ if(!supportSql.includes('create or replace function public.public_create_product
 for(const guard of['STATE REQUIRED','DISTRICT REQUIRED','CITY REQUIRED','VALID PRODUCT TYPE REQUIRED','REQUIRED PRODUCT / ITEM REQUIRED','VALID QUANTITY REQUIRED'])if(!supportSql.includes(guard))fail(`PRODUCT REQUIREMENT SERVER VALIDATION MISSING: ${guard}`);
 for(const token of['public_set_product_requirement_marketing_opt_out','public_create_customer_complaint','torvo_admin_update_customer_complaint'])if(!supportSql.includes(token))fail(`SUPPORT/PRIVACY CONTRACT MISSING: ${token}`);
 console.log('TORVO V2 dealer locator/profile + common website requirement + enquiry/referral + privacy/support service contract OK');
+
+// Public catalog search must stay within the price-free RPC contract and its 120-row ceiling.
+const catalogSql=read('supabase/v2-public-price-free-catalog-runtime.sql');
+if(!/export async function searchProducts\(search,limit=120\)/.test(service))fail('PUBLIC SEARCH DEFAULT LIMIT MUST MATCH SERVER CEILING');
+if(!service.includes("Math.max(1,Math.min(Number(limit)||120,120))"))fail('PUBLIC SEARCH LIMIT MUST BE CLAMPED');
+if(!service.includes("if(!q)return[]"))fail('EMPTY PUBLIC SEARCH MUST NOT FETCH THE ENTIRE CATALOG');
+if(!service.includes("rpc('public_customer_catalog',{p_search:q,p_limit:safeLimit})"))fail('PUBLIC SEARCH MUST USE PRICE-FREE RPC');
+if(!catalogSql.includes('limit least(greatest(coalesce(p_limit,20),1),120)'))fail('PUBLIC SEARCH SERVER LIMIT CONTRACT CHANGED');
