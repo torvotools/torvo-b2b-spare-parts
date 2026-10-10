@@ -950,3 +950,6 @@ body:has(.publicSite){padding-bottom:0!important}
   overflow-x:hidden!important;
  }
 }
+
+/* Owner-approved multi-brand strip immediately below hero: animate only approved admin logos. */
+.publicSite .publicBrandRail{display:block!important;margin-top:12px}.publicSite .brandLogoViewport{overflow:hidden}.publicSite .brandLogoTrack{display:flex;align-items:center;width:max-content;animation:torvoBrandScroll 32s linear infinite;will-change:transform}.publicSite .brandLogoViewport:hover .brandLogoTrack,.publicSite .brandLogoViewport:focus-within .brandLogoTrack{animation-play-state:paused}.publicSite .brandLogoItem{flex:0 0 110px}@keyframes torvoBrandScroll{from{transform:translateX(0)}to{transform:translateX(-50%)}}@media(prefers-reduced-motion:reduce){.publicSite .brandLogoTrack{animation:none;will-change:auto}.publicSite .brandLogoViewport{overflow-x:auto}}@media(max-width:680px){.publicSite .publicBrandRail{margin-top:8px}.publicSite .brandLogoItem{flex-basis:90px;height:34px}.publicSite .brandLogoItem img{max-height:30px}}
