@@ -22,6 +22,9 @@ begin
   raise exception 'DRAFT CODE CHANGED: UPDATE DRAFT FIRST';end if;
  if exists(select 1 from product_draft_library where status='draft' and id<>p_draft_id and torvo_normalize_business_text(item_code)=v_code) then
   raise exception 'ALREADY EXISTS: ITEM CODE IN ANOTHER DRAFT';end if;
+ -- Release this draft code before inserting the catalog row; the entire RPC rolls back on any failure.
+ update product_draft_library set status='converted',converted_at=now(),updated_by=v_user.id,updated_at=now() where id=p_draft_id and status='draft';
+ if not found then raise exception 'DRAFT CONVERSION FAILED';end if;
  v_item:=public.upsert_catalog_item(null,p_item_type,p_item_code,p_name,p_oem_code,p_brand,p_category,p_model,p_image_url,p_gst_mode,p_active);
  update product_draft_library set status='converted',converted_item_id=v_item,converted_at=now(),updated_by=v_user.id,updated_at=now()
  where id=p_draft_id and status='draft';
