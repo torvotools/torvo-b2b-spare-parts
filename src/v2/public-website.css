@@ -731,3 +731,25 @@ body:has(.publicSite){padding-bottom:0!important}
  #torvo-v2-root .publicSite main#top>.torvoSignatureHero{width:100%!important;max-width:none!important;margin:0!important;border-radius:0!important;grid-template-columns:minmax(0,1.15fr) minmax(0,.85fr)}
  #torvo-v2-root .publicSite main#top>.publicBrandRail{width:100%;max-width:none;box-sizing:border-box}
 }
+
+
+/* FULL-BLEED HERO — counteract inherited centered/max-width desktop wrappers.
+   Deliberately scoped to the hero; other catalog sections retain readable gutters. */
+@media(min-width:901px){
+ #torvo-v2-root .publicSite main#top>.torvoSignatureHero{
+  position:relative!important;
+  left:50%!important;
+  width:100vw!important;
+  max-width:none!important;
+  margin-left:-50vw!important;
+  margin-right:0!important;
+  padding:0!important;
+  border:0!important;
+  border-radius:0!important;
+  box-sizing:border-box!important;
+ }
+ #torvo-v2-root .publicSite main#top>.torvoSignatureHero .torvoSignatureHeroContent{
+  padding-left:clamp(32px,5vw,100px)!important;
+  padding-right:clamp(28px,4vw,76px)!important;
+ }
+}
