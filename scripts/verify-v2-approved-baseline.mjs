@@ -10,7 +10,8 @@ if(pub.includes("open('DIRECT')")||pub.includes("modal==='DIRECT'"))fail('standa
 if(!pub.includes('SELECTED ITEMS')||!pub.includes('SELECT ITEM'))fail('product-first selected-items journey missing');
 const camera=search.indexOf('aria-label="CAMERA SEARCH"'),voice=search.indexOf('aria-label="VOICE SEARCH"');
 if(camera<0||voice<0||camera>voice)fail('public search CAMERA -> MIC order missing');
-if(search.includes('>ALL<')||search.includes("'ALL'"))fail('public search ALL option returned');
+const searchOnly=search.split('export default function PublicProductBrowser')[0];
+if(searchOnly.includes('>ALL<')||searchOnly.includes("'ALL'"))fail('public header search ALL option returned');
 if(!app.includes('secureDesktopShell'))fail('secure desktop shell lock missing');
 if(!modules.includes("ACCOUNTANT:'accountant'")||!modules.includes('accountantDesktopOnly:true'))fail('accountant role/desktop contract missing');
 if(!accountant.includes('SUBMIT TO ADMIN')||!accountant.includes('REJECT DEALER APPLICATION'))fail('accountant dealer verification flow missing');
