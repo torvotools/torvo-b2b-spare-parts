@@ -1470,3 +1470,20 @@
 #torvo-v2-root .roleApp .roleGrid>button{min-width:0;min-height:86px;border:1px solid var(--torvo-border);border-radius:12px;background:#fff;color:var(--torvo-ink);text-align:left}
 #torvo-v2-root .roleApp .roleGrid>button:focus-visible{outline:2px solid var(--torvo-red);outline-offset:2px}
 @media(max-width:600px){#torvo-v2-root .roleApp .roleSignatureWelcome{padding:22px 18px;border-radius:12px}#torvo-v2-root .roleApp .roleSignatureWelcome h1{font-size:clamp(25px,7vw,34px)}#torvo-v2-root .roleApp .roleGrid{grid-template-columns:repeat(2,minmax(0,1fr));gap:9px}#torvo-v2-root .roleApp .roleGrid>button{min-height:90px}}
+
+
+/* TORVO V2 SIGNATURE DESKTOP SHELL — shared Owner/Admin + Accountant visual language.
+   Keeps existing verified routes, role gates, data grids and business actions intact. */
+#torvo-v2-root :is(.adminVisualPreview,.accountantPreview){--torvo-shell-ink:#16202b;--torvo-shell-muted:#667484;--torvo-shell-surface:#fff;--torvo-shell-line:#e4e9ee;--torvo-shell-accent:#cf2032;color:var(--torvo-shell-ink)}
+#torvo-v2-root :is(.adminVisualPreview,.accountantPreview) :is(.premiumAdminTop,.accountantTopFinder){background:linear-gradient(120deg,#17222e,#263544)!important;border-bottom:1px solid #384758;color:#fff;box-shadow:0 10px 28px rgba(12,21,32,.08)}
+#torvo-v2-root :is(.adminVisualPreview,.accountantPreview) :is(.premiumAdminTop,.accountantTopFinder) .adminTitleBlock h1{color:#fff!important;-webkit-text-fill-color:#fff!important;font-size:clamp(19px,2vw,27px);line-height:1.2;letter-spacing:-.025em}
+#torvo-v2-root :is(.adminVisualPreview,.accountantPreview) :is(.premiumAdminTop,.accountantTopFinder) .eyebrow{color:#ffa8b2!important;font-size:10px;letter-spacing:.14em}
+#torvo-v2-root :is(.adminVisualPreview,.accountantPreview) :is(.adminUniversalBar,.accountantSharedSearch .adminUniversalBar){border:1px solid #d6dee6;border-radius:10px;background:#fff;box-shadow:0 2px 8px rgba(8,15,23,.05)}
+#torvo-v2-root :is(.adminVisualPreview,.accountantPreview) :is(.adminUniversalBar,.accountantSharedSearch .adminUniversalBar) input{min-width:0;max-width:100%;color:#1b2633;background:transparent;font-weight:400}
+#torvo-v2-root :is(.adminVisualPreview,.accountantPreview) :is(.adminUniversalBar,.accountantSharedSearch .adminUniversalBar) input::placeholder{color:#758291;opacity:1}
+#torvo-v2-root :is(.adminVisualPreview,.accountantPreview) :is(.adminUniversalBar,.accountantSharedSearch .adminUniversalBar) button{flex-shrink:0}
+#torvo-v2-root .adminVisualPreview aside,#torvo-v2-root .accountantPreview .accountantSideNav{background:linear-gradient(180deg,#121c27,#202d3b);color:#eaf0f6}
+#torvo-v2-root :is(.adminVisualPreview,.accountantPreview) :is(.navGroup,.accountantSideNav) button:focus-visible{outline:2px solid #ff6775;outline-offset:2px}
+#torvo-v2-root :is(.adminVisualPreview,.accountantPreview) :is(.navGroup,.accountantSideNav) button.active{border-left:3px solid #ff4255}
+@media(max-width:900px){#torvo-v2-root :is(.adminVisualPreview,.accountantPreview) :is(.premiumAdminTop,.accountantTopFinder){gap:12px;padding:12px 16px}#torvo-v2-root :is(.adminVisualPreview,.accountantPreview) .adminTitleBlock h1{font-size:20px}}
+@media(max-width:600px){#torvo-v2-root :is(.adminVisualPreview,.accountantPreview) :is(.premiumAdminTop,.accountantTopFinder){padding:12px}#torvo-v2-root :is(.adminVisualPreview,.accountantPreview) .adminTitleBlock h1{font-size:18px}}
