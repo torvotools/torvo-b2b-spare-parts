@@ -4,7 +4,8 @@
 .smartFilterTop{display:flex;align-items:center;gap:10px}
 .smartFilterTop>span{margin-left:auto}
 .smartFilterClear{display:flex;align-items:center;gap:5px}
-.smartFilterDesktop{display:grid;grid-template-columns:minmax(280px,1.5fr) repeat(4,minmax(130px,.65fr));gap:10px;align-items:end}
+.smartFilterDesktop{display:grid;grid-template-columns:repeat(auto-fit,minmax(min(100%,190px),1fr));gap:10px;align-items:end}
+.smartFilterDesktop .smartFilterSearch{grid-column:span 2}
 .smartFilterDesktop label,.smartFilterSheetBody label{display:grid;gap:6px;min-width:0}
 .smartFilterSearch>div{display:grid;grid-template-columns:36px minmax(0,1fr);align-items:center;overflow:hidden}
 .smartFilterSheetBackdrop{position:fixed;inset:0;z-index:120;display:flex;align-items:flex-end}
@@ -12,6 +13,8 @@
 .smartFilterSheet header,.smartFilterSheet footer{display:flex;align-items:center;justify-content:space-between;gap:10px}
 .smartFilterSheetBody{overflow:auto;display:grid;grid-template-columns:1fr 1fr;gap:12px}
 .smartFilterSheet footer button{flex:1}
-@media(max-width:1100px){.smartFilterDesktop{grid-template-columns:minmax(240px,1.3fr) repeat(3,minmax(120px,.7fr))}}
+@media(max-width:1100px){.smartFilterDesktop{grid-template-columns:repeat(auto-fit,minmax(min(100%,170px),1fr))}}
 @media(max-width:800px){.smartFilterDesktop{display:none}.smartFilterOpen{display:flex;align-items:center;gap:7px}.smartFilterTop>span{margin-left:0}.smartFilterSheetBody{grid-template-columns:1fr}}
 @media(min-width:801px){.smartFilterOpen,.smartFilterSheetBackdrop{display:none}}
+@media(max-width:800px){.smartFilterSheetBody{overscroll-behavior:contain}.smartFilterSheet footer{flex-shrink:0}.smartFilterSheetBody label{min-width:0}}
+@media(min-width:801px) and (max-width:1100px){.smartFilterDesktop .smartFilterSearch{grid-column:span 2}}
