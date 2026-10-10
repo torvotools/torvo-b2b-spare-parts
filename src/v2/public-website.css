@@ -425,3 +425,44 @@ body:has(.publicSite){padding-bottom:0!important}
 @media(prefers-reduced-motion:reduce){
  .publicSite :is(button,a,input){scroll-behavior:auto;transition:none}
 }
+
+
+/* TORVO V2 MOBILE WEBSITE: clear navigation, responsive category cards, safe tap areas. */
+@media(max-width:800px){
+ .publicSite .mobileBottomNav{
+  position:fixed;bottom:0;left:0;right:0;z-index:70;
+  display:grid;grid-template-columns:repeat(4,minmax(0,1fr));align-items:stretch;
+  min-height:64px;background:#fff;border-top:1px solid #d9dfe7;
+  box-shadow:0 -4px 20px rgba(20,23,28,.06);
+ }
+ .publicSite .mobileBottomNav>:is(a,button){
+  min-width:0;min-height:60px;padding:8px 2px;
+  display:flex;flex-direction:column;align-items:center;justify-content:center;gap:3px;
+  color:#303945;font-size:10px;line-height:1.2;text-align:center;
+ }
+ .publicSite .mobileBottomNav>:is(a,button) svg{width:21px;height:21px;flex:none}
+ .publicSite .mobileBottomNav>:is(a,button):focus-visible{outline:2px solid #cf1725;outline-offset:-3px}
+ .publicSite .torvoPrimaryCategories{
+  display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:9px;
+ }
+ .publicSite .torvoPrimaryCategories>button{min-width:0;overflow:hidden}
+ .publicSite .torvoPrimaryCategories .categoryCopy{min-width:0}
+ .publicSite .torvoPrimaryCategories .categoryCopy :is(b,small,em){overflow-wrap:anywhere}
+ .publicSite .publicActionGrid{display:grid;grid-template-columns:repeat(2,minmax(0,1fr))}
+ .publicSite .publicActionGrid>*{min-width:0}
+ .publicSite .publicHeaderPrimary .mobileHeaderMark{min-width:44px;min-height:44px}
+}
+@media(max-width:460px){
+ .publicSite .torvoPrimaryCategories{grid-template-columns:minmax(0,1fr);gap:10px}
+ .publicSite .torvoPrimaryCategories>button{
+  display:grid;grid-template-columns:minmax(100px,38%) minmax(0,1fr);
+  align-items:center;min-height:120px;text-align:left;
+ }
+ .publicSite .torvoPrimaryCategories>button>img,
+ .publicSite .torvoPrimaryCategories>button>.categoryPhotoPending{
+  width:100%;height:100%;min-height:120px;max-height:160px;object-fit:contain;
+ }
+ .publicSite .torvoPrimaryCategories .categoryCopy{padding:10px}
+ .publicSite .torvoPrimaryCategories .categoryCopy small{line-height:1.4}
+ .publicSite .publicActionGrid{grid-template-columns:minmax(0,1fr)}
+}
