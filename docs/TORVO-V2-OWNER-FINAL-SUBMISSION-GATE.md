@@ -46,3 +46,9 @@ Owner requests a 15–20 day INTERNAL live-testing period starting no earlier th
 - Verify original TORVO logo, registration State→District→City + Other City, all six role surfaces and Android install on a physical device.
 - Track each defect with severity, screenshot/log reference, exact SHA, owner and retest result. Stop pilot writes on any data-integrity, authentication, privacy, inventory or restore critical failure.
 - Public announcement and production cutover remain separate explicit Owner approvals after 15–20 days and evidence-based signoff.
+
+## Owner final rule — 10 October 2026: 100% before ANY live launch
+- Complete ALL TORVO V2 features, role workflows, data/security, integrations, reports, backup/restore, Android readiness, and final UI/UX before proposing live/public launch. Do not interpret a passing build or a partially implemented feature as 100%.
+- One premium, coherent TORVO design system (RED/BLACK/WHITE/GREY) across public website, Owner/Admin, Accountant, Dealer, Salesman and Store Keeper surfaces. Preserve approved original logo and LOCK-1; use shared components/tokens and consistent buttons, inputs, tables, spacing, responsive behavior and typography. Do not redesign approved screens unnecessarily.
+- Completion requires real staging/runtime/device evidence for each of 12 acceptance workstreams, documented defects resolved, exact-SHA CI, backup/restore and owner review. Zero remaining critical blockers; owner receives a clear final handover and independently confirms approval.
+- NO private operational live launch, public announcement, production deployment/domain cutover or signing until all non-launch project work is 100% accepted AND Owner separately approves launch. The earlier tentative pilot window is superseded by this stricter prerequisite; never treat a date as launch authorization.
