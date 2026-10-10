@@ -710,3 +710,24 @@ body:has(.publicSite){padding-bottom:0!important}
  #torvo-v2-root .publicSite .publicHeader.topSearchHeader .publicHeaderSearchRow .finderFilterRow button{max-width:100%}
 }
 @media(max-width:900px){#torvo-v2-root .publicSite .publicHeader.topSearchHeader .publicHeaderNavRow{display:none}}
+
+
+/* OWNER DESKTOP SCREENSHOT CORRECTION — header rows and edge-to-edge content. */
+@media(min-width:901px){
+ #torvo-v2-root .publicSite{width:100%;max-width:none;margin:0;overflow-x:clip}
+ #torvo-v2-root .publicSite .publicHeader.topSearchHeader{position:relative!important;display:grid!important;grid-template-columns:clamp(150px,13vw,205px) minmax(0,1fr) max-content!important;grid-template-rows:auto auto!important;align-items:start!important;column-gap:clamp(16px,2vw,32px)!important;row-gap:0!important;width:100%!important;max-width:none!important;padding:12px clamp(20px,3vw,52px) 0!important;box-sizing:border-box}
+ #torvo-v2-root .publicSite .publicHeader.topSearchHeader .publicHeaderPrimary{grid-area:1/1/2/2!important;align-self:center!important;width:100%!important;margin:0!important;padding:0!important}
+ #torvo-v2-root .publicSite .publicHeader.topSearchHeader .publicHeaderSearchRow{grid-area:1/2/2/3!important;align-self:start!important;display:block!important;width:100%!important;min-width:0!important;max-width:none!important;margin:0!important;padding:0!important}
+ #torvo-v2-root .publicSite .publicHeader.topSearchHeader .publicHeaderSearchRow .publicSmartFinder{display:flex!important;flex-direction:column!important;align-items:stretch!important;width:100%!important;max-width:none!important;min-width:0!important;gap:7px!important;margin:0!important;padding:0!important}
+ #torvo-v2-root .publicSite .publicHeader.topSearchHeader .publicHeaderSearchRow .publicHeroSearch{width:100%!important;max-width:none!important;min-width:0!important;margin:0!important}
+ #torvo-v2-root .publicSite .publicHeader.topSearchHeader .publicHeaderSearchRow .publicHeroSearchBar{display:flex!important;width:100%!important;max-width:none!important;min-width:0!important;box-sizing:border-box}
+ #torvo-v2-root .publicSite .publicHeader.topSearchHeader .publicHeaderSearchRow .publicHeroSearchBar input{flex:1 1 auto;min-width:0}
+ #torvo-v2-root .publicSite .publicHeader.topSearchHeader .publicHeaderSearchRow .publicProductFilterToggle{position:static!important;transform:none!important;align-self:flex-start!important;display:inline-flex!important;align-items:center!important;justify-content:center!important;gap:8px!important;min-height:37px!important;width:auto!important;margin:0 0 5px!important;padding:8px 15px!important;border:1px solid #d9e1e8!important;border-radius:9px!important;background:#f6f8fa!important;color:#273545!important;box-shadow:none!important;font-size:11px!important;font-weight:700!important;letter-spacing:.025em!important}
+ #torvo-v2-root .publicSite .publicHeader.topSearchHeader .headerSelectedItems{grid-area:1/3/2/4!important;align-self:start!important;justify-self:end!important;position:static!important;transform:none!important;margin:0!important;min-height:44px}
+ #torvo-v2-root .publicSite .publicHeader.topSearchHeader .publicHeaderNavRow{grid-area:2/1/3/4!important;position:static!important;display:flex!important;align-items:center!important;justify-content:center!important;width:100%!important;max-width:none!important;min-width:0!important;margin:3px 0 0!important;padding:0!important;border-top:1px solid #e7ebef}
+ #torvo-v2-root .publicSite .publicHeader.topSearchHeader .desktopPublicNav{position:static!important;display:flex!important;align-items:center!important;justify-content:center!important;flex-wrap:wrap!important;gap:clamp(14px,2.5vw,38px)!important;width:100%!important;max-width:none!important;margin:0!important;padding:12px 0!important;background:transparent!important}
+ #torvo-v2-root .publicSite .publicHeader.topSearchHeader .desktopPublicNav a{display:inline-flex!important;white-space:nowrap!important}
+ #torvo-v2-root .publicSite main#top{display:block;width:100%!important;max-width:none!important;margin:0!important;padding:0!important}
+ #torvo-v2-root .publicSite main#top>.torvoSignatureHero{width:100%!important;max-width:none!important;margin:0!important;border-radius:0!important;grid-template-columns:minmax(0,1.15fr) minmax(0,.85fr)}
+ #torvo-v2-root .publicSite main#top>.publicBrandRail{width:100%;max-width:none;box-sizing:border-box}
+}
