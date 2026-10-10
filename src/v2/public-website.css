@@ -1017,3 +1017,8 @@ body:has(.publicSite){padding-bottom:0!important}
 #torvo-v2-root .publicSite .publicCatalog .torvoCategoryFinder>label{grid-column:1/-1;min-width:0;width:100%}
 #torvo-v2-root .publicSite .publicCatalog .torvoCategoryFinder select,#torvo-v2-root .publicSite .publicCatalog .torvoCategoryFinder input{max-width:100%;box-sizing:border-box}
 }
+
+/* Seamless brand loop: the two repeated halves include an extra half-gap at the seam. */
+#torvo-v2-root .publicSite .brandLogoTrack{animation-name:torvoBrandScrollSeamless}
+@keyframes torvoBrandScrollSeamless{from{transform:translateX(0)}to{transform:translateX(calc(-50% - 14px))}}
+@media(prefers-reduced-motion:reduce){#torvo-v2-root .publicSite .brandLogoTrack{animation:none}}
