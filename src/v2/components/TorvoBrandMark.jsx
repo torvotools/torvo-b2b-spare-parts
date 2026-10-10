@@ -1,14 +1,11 @@
 import React from 'react';
 
-/**
- * TORVO V2 canonical brand mark.
- * The approved artwork is served from a single public asset, never rebuilt
- * from letter glyphs. Keep the text fallback until the image asset is present.
- * No business, authentication, or routing behavior lives here.
- */
-export default function TorvoBrandMark({className='',label='TORVO TOOLS'}){
+/** One accessible brand asset across public and authenticated TORVO surfaces. */
+export default function TorvoBrandMark({className='',label='TORVO',width=148}){
  const [imageAvailable,setImageAvailable]=React.useState(true);
- return <span className={`torvoBrandMark ${className}`.trim()} role="img" aria-label={label}>
-  {imageAvailable?<img className="torvoBrandApprovedImage" style={{display:"block",width:"100%",maxWidth:"100%",height:"auto",objectFit:"contain"}} src="/torvo-approved-logo.webp" alt="" aria-hidden="true" onError={()=>setImageAvailable(false)}/>:<span className="torvoBrandFallback">TORVO</span>}
+ return <span className={`torvoBrandMark ${className}`.trim()} role="img" aria-label={label} style={{width,maxWidth:'100%'}}>
+  {imageAvailable
+   ? <img className="torvoBrandApprovedImage" src="/torvo-approved-logo.webp" alt="" aria-hidden="true" onError={()=>setImageAvailable(false)}/>
+   : <span className="torvoBrandFallback" aria-hidden="true">TORVO</span>}
  </span>;
 }

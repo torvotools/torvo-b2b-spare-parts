@@ -1,4 +1,5 @@
 import React, { useEffect, useRef, useState } from 'react';
+import TorvoBrandMark from './TorvoBrandMark';
 import {
   BarChart3,
   Check,
@@ -132,7 +133,7 @@ export default function LoginVisualPreview() {
         <div className="businessFinalHeroShade" />
         <div className="businessFinalHeroContent">
           <div className="businessFinalLogo">
-            <img src="/torvo-approved-logo.webp" alt="TORVO" style={{display:"block",width:160,maxWidth:"100%",height:"auto",objectFit:"contain",background:"#fff",borderRadius:5}}/>
+            <TorvoBrandMark width={160}/>
           </div>
           <p className="businessFinalPortal">SECURE BUSINESS ACCESS</p>
           <h1>TORVO TOOLS<br /><em>CONTROL CENTER</em></h1>
@@ -150,7 +151,7 @@ export default function LoginVisualPreview() {
       <section className="businessFinalFormSide">
         <div className="businessFinalCard">
           <div className="businessFinalCardLogo">
-            <img src="/torvo-approved-logo.webp" alt="TORVO" style={{display:"block",width:160,maxWidth:"100%",height:"auto",objectFit:"contain",background:"#fff",borderRadius:5}}/>
+            <TorvoBrandMark width={160}/>
           </div>
           <p className="businessFinalCardPortal">TORVO TOOLS B2B PORTAL</p>
           <h2>WELCOME</h2>
