@@ -868,3 +868,85 @@ body:has(.publicSite){padding-bottom:0!important}
 @media(min-width:901px) and (max-width:1120px){
  #torvo-v2-root .publicSite .publicHeader.topSearchHeader .desktopPublicNav{padding-left:170px!important;gap:12px!important}
 }
+
+
+/* TORVO V2 FILTER POPOVER — definitive desktop positioning, overrides legacy centered/dropdown rules. */
+@media(min-width:901px){
+ #torvo-v2-root .publicSite .publicHeader.topSearchHeader .publicHeaderSearchRow,
+ #torvo-v2-root .publicSite .publicHeader.topSearchHeader .publicHeaderSearchRow .publicSmartFinder{
+  overflow:visible!important;
+ }
+ #torvo-v2-root .publicSite .publicHeader.topSearchHeader .publicHeaderSearchRow .finderFilterRow{
+  position:absolute!important;
+  z-index:250!important;
+  top:86px!important;
+  left:0!important;
+  right:auto!important;
+  transform:none!important;
+  display:grid!important;
+  grid-template-columns:minmax(0,1fr)!important;
+  align-items:stretch!important;
+  gap:12px!important;
+  box-sizing:border-box!important;
+  width:min(660px,calc(100vw - 80px))!important;
+  max-width:min(660px,calc(100vw - 80px))!important;
+  max-height:min(72dvh,580px)!important;
+  margin:0!important;
+  padding:18px!important;
+  overflow-x:hidden!important;
+  overflow-y:auto!important;
+  border:1px solid #dbe3ea!important;
+  border-radius:12px!important;
+  background:#fff!important;
+  box-shadow:0 18px 48px rgba(14,25,39,.22)!important;
+ }
+ #torvo-v2-root .publicSite .publicHeader.topSearchHeader .publicHeaderSearchRow .finderFilterTitle{
+  display:grid!important;
+  grid-template-columns:22px minmax(0,1fr) auto 34px!important;
+  align-items:center!important;
+  gap:9px!important;
+  margin:0!important;
+ }
+ #torvo-v2-root .publicSite .publicHeader.topSearchHeader .publicHeaderSearchRow .finderFilterTop{display:block!important;margin:0!important}
+ #torvo-v2-root .publicSite .publicHeader.topSearchHeader .publicHeaderSearchRow .smartFinderFilters.dynamic{
+  display:grid!important;
+  grid-template-columns:repeat(2,minmax(0,1fr))!important;
+  gap:12px!important;
+  margin:0!important;
+ }
+ #torvo-v2-root .publicSite .publicHeader.topSearchHeader .publicHeaderSearchRow .smartFinderFilters.dynamic label{
+  display:grid!important;
+  grid-template-rows:auto 42px!important;
+  gap:5px!important;
+  min-width:0!important;
+ }
+ #torvo-v2-root .publicSite .publicHeader.topSearchHeader .publicHeaderSearchRow .smartFinderFilters.dynamic select{
+  width:100%!important;
+  height:42px!important;
+  min-width:0!important;
+  padding:0 10px!important;
+  font-size:12px!important;
+ }
+ #torvo-v2-root .publicSite .publicHeader.topSearchHeader .publicHeaderSearchRow .smartFinderFoot{
+  min-width:0!important;
+  border-top:1px solid #e7edf2!important;
+  padding-top:12px!important;
+ }
+}
+@media(min-width:901px) and (max-width:1050px){
+ #torvo-v2-root .publicSite .publicHeader.topSearchHeader .publicHeaderSearchRow .finderFilterRow{
+  width:min(560px,calc(100vw - 60px))!important;
+  max-width:min(560px,calc(100vw - 60px))!important;
+ }
+}
+@media(max-width:900px){
+ #torvo-v2-root .publicSite .publicHeaderSearchRow .finderFilterRow{
+  box-sizing:border-box!important;
+  left:0!important;
+  right:auto!important;
+  transform:none!important;
+  width:min(100%,calc(100vw - 20px))!important;
+  max-width:calc(100vw - 20px)!important;
+  overflow-x:hidden!important;
+ }
+}
