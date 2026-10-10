@@ -18,7 +18,9 @@ if(/\b(rate_a|rate_b|rate_c|purchase_cost|dealer_rate)\b/i.test(dealerForm))fail
 if(/\b(rate_a|rate_b|rate_c|purchase_cost|dealer_rate)\b/i.test(requirementForm))fail('PRIVATE RATE/COST IDENTIFIER LEAKED INTO PUBLIC PRODUCT REQUIREMENT FORM');
 if(!requirementForm.includes('DOES NOT DISPLAY TORVO DEALER RATES OR PURCHASE COSTS'))fail('PRODUCT REQUIREMENT PRIVACY NOTICE MISSING');
 if(!dealerForm.includes('GENERAL CUSTOMERS CAN USE THE TORVO WEBSITE.'))fail('BUSINESS-ONLY APP ACCESS NOTICE MISSING');
-if(/['\"]ALL['\"]/.test(browser))fail('PUBLIC PRODUCT FINDER MUST NOT RESTORE VISIBLE ALL FILTER OPTION');
+const headerFinder=browser.split('export default function PublicProductBrowser')[0];
+if(/['\"]ALL['\"]/.test(headerFinder))fail('PUBLIC HEADER SEARCH MUST NOT RESTORE ALL OPTION');
+if(!browser.includes('aria-pressed={mode==="ALL"}')||!browser.includes('aria-pressed={mode==="FILTER"}'))fail('APPROVED CATEGORY ALL / FILTER TABS MISSING');
 const camera=browser.indexOf('aria-label="CAMERA SEARCH"'),voice=browser.indexOf('aria-label="VOICE SEARCH"');
 if(camera<0||voice<0||camera>voice)fail('PUBLIC SEARCH MUST KEEP CAMERA BEFORE MIC');
 if(!browser.includes('placeholder="MACHINE CATEGORY"')||!browser.includes('placeholder="BRAND"'))fail('PUBLIC FILTER PLACEHOLDERS MISSING');
