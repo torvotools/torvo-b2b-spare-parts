@@ -671,3 +671,24 @@ body:has(.publicSite){padding-bottom:0!important}
 #torvo-v2-root .publicSite .publicModal .dealerActions :is(a,button){display:inline-flex;align-items:center;justify-content:center;gap:6px;min-height:38px;border-radius:8px;text-decoration:none}
 #torvo-v2-root .publicSite .publicModal .errorText{color:#b91c1c;overflow-wrap:anywhere}
 @media(max-width:650px){#torvo-v2-root .publicSite .publicModalBackdrop{align-items:flex-end;padding:7px}#torvo-v2-root .publicSite .publicModal{max-height:calc(100dvh - 10px);border-radius:16px 16px 8px 8px}#torvo-v2-root .publicSite .publicModal>header{padding:12px 15px}#torvo-v2-root .publicSite .publicModal :is(input:not([type="checkbox"]),select,textarea){font-size:16px}#torvo-v2-root .publicSite .publicModal .dealerActions :is(a,button){flex:1 1 115px}}
+
+
+/* TORVO SIGNATURE DEALER ONBOARDING — complete form, app access and confirmation. */
+#torvo-v2-root .publicSite .dealerRegistration{box-sizing:border-box;min-width:0;max-width:100%;color:#1b2633}
+#torvo-v2-root .publicSite .dealerRegistration .dealerRegistrationIntro{padding:clamp(14px,2vw,24px);border:1px solid #e2e8ee;border-radius:12px;background:linear-gradient(135deg,#f8fafb,#edf2f6)}
+#torvo-v2-root .publicSite .dealerRegistration .dealerRegistrationIntro :is(h2,h3,b){color:#182331;line-height:1.3}
+#torvo-v2-root .publicSite .dealerRegistration .formTwo{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:clamp(10px,1.5vw,18px);min-width:0}
+#torvo-v2-root .publicSite .dealerRegistration :is(label,.formTwo>div){min-width:0;max-width:100%;overflow-wrap:anywhere}
+#torvo-v2-root .publicSite .dealerRegistration label{color:#374456;font-size:12px;font-weight:650;line-height:1.45}
+#torvo-v2-root .publicSite .dealerRegistration :is(input,select,textarea){box-sizing:border-box;display:block;max-width:100%;min-width:0;width:100%;min-height:44px;margin-top:6px;padding:10px 12px;border:1px solid #d5dee7;border-radius:9px;background:#fff;color:#1b2633;font-weight:400;letter-spacing:0}
+#torvo-v2-root .publicSite .dealerRegistration :is(input,select,textarea):focus-visible{outline:2px solid #d22337;outline-offset:2px}
+#torvo-v2-root .publicSite .dealerRegistration .dealerAppAccess{display:flex;align-items:flex-start;gap:13px;padding:clamp(12px,1.7vw,20px);border:1px solid #e2e8ee;border-radius:12px;background:#f5f7f9}
+#torvo-v2-root .publicSite .dealerRegistration .dealerAppAccessContent{min-width:0;flex:1;overflow-wrap:anywhere}
+#torvo-v2-root .publicSite .dealerRegistration .dealerAppAccessContent small{display:block;margin:7px 0;color:#647487;font-size:11px;line-height:1.6}
+#torvo-v2-root .publicSite .dealerRegistration .dealerAppInstallSlot{display:flex;align-items:center;flex-wrap:wrap;gap:10px;min-width:0}
+#torvo-v2-root .publicSite .dealerRegistration button.primary{min-height:46px;border:1px solid #d22337;border-radius:9px;background:#d22337;color:#fff;font-weight:750}
+#torvo-v2-root .publicSite .dealerRegistration .errorText{padding:10px 12px;border-left:3px solid #c82936;border-radius:5px;background:#fff3f3;color:#a81726;overflow-wrap:anywhere}
+#torvo-v2-root .publicSite .dealerRegistrationSuccess{min-width:0;max-width:100%;padding:clamp(18px,3vw,32px);border:1px solid #dfe7ee;border-radius:12px;background:#f8fafb;text-align:center;overflow-wrap:anywhere}
+#torvo-v2-root .publicSite .dealerRegistrationSuccess>svg{width:42px;height:42px;color:#22835a}
+#torvo-v2-root .publicSite .dealerRegistrationSuccess h3{color:#17212d;font-size:clamp(19px,2vw,26px)}
+@media(max-width:650px){#torvo-v2-root .publicSite .dealerRegistration .formTwo{grid-template-columns:minmax(0,1fr);gap:10px}#torvo-v2-root .publicSite .dealerRegistration :is(input,select,textarea){font-size:16px}#torvo-v2-root .publicSite .dealerRegistration .dealerAppAccess{gap:9px}#torvo-v2-root .publicSite .dealerRegistration .dealerAppAccessContent small{font-size:11px}}
