@@ -466,3 +466,26 @@ body:has(.publicSite){padding-bottom:0!important}
  .publicSite .torvoPrimaryCategories .categoryCopy small{line-height:1.4}
  .publicSite .publicActionGrid{grid-template-columns:minmax(0,1fr)}
 }
+
+
+/* TORVO V2: product-first public hero, mobile-priority and no invented claims. */
+.publicSite .torvoMobileHero{display:grid;grid-template-columns:minmax(0,1.4fr) minmax(220px,.6fr);gap:22px;align-items:center;margin:0 auto;padding:38px clamp(18px,4vw,56px);background:linear-gradient(120deg,#15191f 0%,#252a33 65%,#951321 100%);color:#fff;overflow:hidden}
+.publicSite .torvoMobileHeroCopy{min-width:0;max-width:820px}
+.publicSite .torvoHeroEyebrow{display:block;color:#ffb8c0;font-size:12px;letter-spacing:.13em;font-weight:650}
+.publicSite .torvoMobileHero h1{font-size:clamp(26px,3.4vw,48px);line-height:1.13;letter-spacing:-.035em;margin:12px 0 14px;color:#fff;max-width:17em}
+.publicSite .torvoMobileHero p{color:#e0e3e8;font-size:clamp(13px,1.25vw,16px);line-height:1.55;max-width:58ch}
+.publicSite .torvoHeroActions{display:flex;gap:11px;flex-wrap:wrap;margin-top:24px}
+.publicSite .torvoHeroActions a{display:inline-flex;align-items:center;justify-content:center;gap:9px;min-height:46px;padding:10px 17px;border-radius:8px;font-size:13px;font-weight:700;text-decoration:none;border:1px solid rgba(255,255,255,.55);color:#fff}
+.publicSite .torvoHeroActions a:first-child{background:#cf1725;border-color:#cf1725}
+.publicSite .torvoHeroActions a:focus-visible{outline:2px solid #fff;outline-offset:3px}
+.publicSite .torvoHeroVisual{min-height:195px;display:flex;flex-direction:column;gap:16px;align-items:center;justify-content:center;border:1px solid rgba(255,255,255,.24);border-radius:16px;color:#fff;background:rgba(255,255,255,.055)}
+.publicSite .torvoHeroVisual span{font-size:12px;letter-spacing:.12em;font-weight:650}
+@media(max-width:800px){
+ .publicSite .torvoMobileHero{grid-template-columns:minmax(0,1fr);gap:0;padding:30px 18px 32px}
+ .publicSite .torvoMobileHero h1{font-size:clamp(25px,6.5vw,36px);max-width:18em}
+ .publicSite .torvoMobileHero p{font-size:14px}
+ .publicSite .torvoHeroActions{gap:9px;margin-top:20px}
+ .publicSite .torvoHeroActions a{flex:1 1 150px;min-width:0;min-height:48px;padding:10px}
+ .publicSite .torvoHeroVisual{display:none}
+}
+@media(max-width:360px){.publicSite .torvoHeroActions a{flex-basis:100%}}
