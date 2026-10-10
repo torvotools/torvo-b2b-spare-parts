@@ -384,6 +384,8 @@ body:has(.publicSite){padding-bottom:0!important}
 }
 
 /* Approved TORVO identity: image owns its proportions; retired wordmark typography must not leak into the logo. */
-.publicBrand.torvoWordmark{display:inline-flex;align-items:center;min-width:0;max-width:160px;flex:0 0 auto}
-.publicBrand.torvoWordmark>img{display:block;width:148px;max-width:100%;height:auto;object-fit:contain}
-@media(max-width:800px){.publicBrand.torvoWordmark{max-width:124px}.publicBrand.torvoWordmark>img{width:124px}}
+.publicHeaderPrimary .publicBrand.torvoWordmark{display:inline-flex;align-items:center;justify-content:flex-start;min-width:0;width:118px;max-width:118px;flex:0 0 118px;line-height:1}
+.publicHeaderPrimary .publicBrand.torvoWordmark>img{display:block;width:100%!important;max-width:100%;height:auto;max-height:44px;object-fit:contain;object-position:left center}
+.torvoPremiumFooter .publicBrand.torvoWordmark{display:inline-flex;align-items:center;max-width:140px}
+.torvoPremiumFooter .publicBrand.torvoWordmark>img{display:block;width:140px!important;max-width:100%;height:auto;object-fit:contain}
+@media(max-width:800px){.publicHeaderPrimary .publicBrand.torvoWordmark{width:112px;max-width:112px;flex-basis:112px}.publicHeaderPrimary .publicBrand.torvoWordmark>img{max-height:40px}}
