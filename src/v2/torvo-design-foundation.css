@@ -1336,7 +1336,6 @@
  #torvo-v2-root :is(button,[role="button"],summary){min-height:40px}
  #torvo-v2-root :is(input,select,textarea){min-height:44px}
 }
-#torvo-v2-root :is(button,[role="button"]){touch-action:manipulation}
 #torvo-v2-root :is(input,select,textarea){max-width:100%;min-width:0}
 #torvo-v2-root :is(input,textarea){overflow-wrap:anywhere}
 #torvo-v2-root :is(button,[role="button"],.panel,.workspace,.publicProductCard){overflow-wrap:break-word}
@@ -1348,7 +1347,6 @@
 
 /* Six-surface finishing pass: resilient native controls and predictable
    table navigation without changing any role, product or business behavior. */
-#torvo-v2-root :is(input,select,textarea){box-sizing:border-box}
 #torvo-v2-root :is(button,[role="button"]):disabled{opacity:.62;filter:none}
 #torvo-v2-root :is(input,textarea):read-only:not(:disabled){cursor:default}
 #torvo-v2-root :is(table,.dataTable) :is(th,td){vertical-align:middle}
