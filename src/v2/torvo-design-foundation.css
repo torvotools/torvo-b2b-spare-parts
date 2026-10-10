@@ -60,6 +60,7 @@
 #torvo-v2-root *,#torvo-v2-root *::before,#torvo-v2-root *::after{box-sizing:border-box}
 #torvo-v2-root img,#torvo-v2-root video,#torvo-v2-root svg{max-width:100%}
 #torvo-v2-root button,#torvo-v2-root input,#torvo-v2-root select,#torvo-v2-root textarea{font:inherit}
+#torvo-v2-root :is(input,select,textarea){max-width:100%;min-width:0}
 #torvo-v2-root button,#torvo-v2-root [role="button"],#torvo-v2-root a{touch-action:manipulation}
 #torvo-v2-root input,#torvo-v2-root select,#torvo-v2-root textarea{
   min-width:0;
@@ -1336,7 +1337,6 @@
  #torvo-v2-root :is(button,[role="button"],summary){min-height:40px}
  #torvo-v2-root :is(input,select,textarea){min-height:44px}
 }
-#torvo-v2-root :is(input,select,textarea){max-width:100%;min-width:0}
 #torvo-v2-root :is(input,textarea){overflow-wrap:anywhere}
 #torvo-v2-root :is(button,[role="button"],.panel,.workspace,.publicProductCard){overflow-wrap:break-word}
 #torvo-v2-root :is([role="alert"],[aria-live="assertive"]){overflow-wrap:anywhere}
