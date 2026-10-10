@@ -836,3 +836,35 @@ body:has(.publicSite){padding-bottom:0!important}
  }
  #torvo-v2-root .publicSite .publicHeader.topSearchHeader .desktopPublicNav a{font-size:10px!important}
 }
+
+
+/* OWNER FILTER PLACEMENT — distinct premium filter action at left of compact nav row. */
+@media(min-width:901px){
+ #torvo-v2-root .publicSite .publicHeader.topSearchHeader .publicHeaderSearchRow .publicProductFilterToggle{
+  position:absolute!important;
+  top:52px!important;
+  left:0!important;
+  display:inline-flex!important;
+  align-items:center!important;
+  justify-content:center!important;
+  gap:7px!important;
+  height:32px!important;
+  min-height:32px!important;
+  padding:0 13px!important;
+  border:1px solid #cdd7e0!important;
+  border-radius:7px!important;
+  background:#f5f7f9!important;
+  color:#202e3e!important;
+  box-shadow:0 1px 2px rgba(20,30,44,.04)!important;
+  white-space:nowrap!important;
+  font-size:11px!important;
+  font-weight:700!important;
+  letter-spacing:.01em!important;
+ }
+ #torvo-v2-root .publicSite .publicHeader.topSearchHeader .publicHeaderSearchRow .publicProductFilterToggle .torvoProductFunnelIcon{width:17px!important;height:17px!important;flex:none;color:#d22337}
+ #torvo-v2-root .publicSite .publicHeader.topSearchHeader .publicHeaderSearchRow .publicProductFilterToggle:hover{border-color:#d22337!important;background:#fff5f6!important}
+ #torvo-v2-root .publicSite .publicHeader.topSearchHeader .desktopPublicNav{padding-left:165px!important;justify-content:center!important;gap:clamp(12px,2vw,30px)!important}
+}
+@media(min-width:901px) and (max-width:1120px){
+ #torvo-v2-root .publicSite .publicHeader.topSearchHeader .desktopPublicNav{padding-left:170px!important;gap:12px!important}
+}
