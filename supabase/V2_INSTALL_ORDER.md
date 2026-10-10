@@ -92,7 +92,7 @@ After Step 17 is installed in a fresh environment, `bootstrap_initial_owner_staf
 Install these files **after catalog_items, product_draft_library, catalog upsert and product draft RPC foundations exist**, in this exact dependency order (never alphabetical):
 1. `supabase/v2-product-duplicate-search.sql` — privileged duplicate search for Product Master and active Draft Library.
 2. `supabase/v2-product-draft-duplicate-guard.sql` — normalized active-draft unique code and draft-save catalog checks/advisory locking.
-3. `supabase/v2-product-draft-atomic-conversion.sql` — owner/admin-only transactional Draft -> Catalog conversion. Its latest source must be installed: mark draft converted inside the same transaction **before** catalog insert, then attach catalog ID/audit; rollback restores draft on any error. Stored draft code must equal submitted code.
+3. `supabase/v2-product-draft-atomic-conversion.sql` — owner/admin-only transactional Draft -> Catalog conversion. Its latest source must be installed: mark draft converted inside the same transaction **before** catalog insert, then attach catalog ID/audit using `status='converted' and converted_item_id is null` (not `status='draft'`); rollback restores draft on any error. Stored draft code must equal submitted code.
 4. `supabase/v2-product-cross-table-trigger.sql` — catalog INSERT/item-code UPDATE guard against active draft codes, with the same transaction advisory key.
 5. `supabase/v2-product-draft-catalog-trigger.sql` — reject direct active-draft INSERT/code/status changes that conflict with Catalog, using the same advisory key.
 6. `supabase/v2-product-retire-legacy-conversion.sql` — revoke API EXECUTE for the older non-atomic draft conversion endpoint after the new atomic RPC is installed.
