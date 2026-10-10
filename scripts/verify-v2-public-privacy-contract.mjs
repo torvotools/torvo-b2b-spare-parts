@@ -26,6 +26,8 @@ if(!pub.includes('WHATSAPP TORVO')||!pub.includes('https://wa.me/91'))fail('PUBL
 if(/(?:admin|security)[_-]?email\s*[:=]/i.test(pub))fail('PRIVATE ADMIN/SECURITY EMAIL IDENTIFIER LEAKED INTO PUBLIC WEBSITE');
 if(/rate_a|rate_b|rate_c|purchase_cost/i.test(sql))fail('PUBLIC SHOWCASE SQL EXPOSES PRIVATE RATE/COST FIELDS');
 if(!release.includes('PUBLIC CUSTOMER HAS NO TORVO RETAIL CHECKOUT OR PUBLIC SELLING PRICE.'))fail('RELEASE GATE DOES NOT LOCK PUBLIC NO-PRICE RULE');
+if(publicService.includes("console.error('TORVO DEALER FINDER HISTORY RECORD FAILED',e)"))fail('PUBLIC DEALER FINDER MUST NOT LOG RAW BACKEND ERRORS');
+if(!publicService.includes("console.error('TORVO DEALER FINDER HISTORY RECORD FAILED')"))fail('PUBLIC DEALER FINDER SAFE FAILURE LOG MISSING');
 if(!publicService.includes("did=dealerId?uuid(dealerId,'DEALER ID'):null"))fail('OPTIONAL REFERRAL DEALER ID MUST NOT BE FORCED THROUGH UUID VALIDATION');
 if(!publicService.includes('p_dealer_id:did'))fail('REFERRAL DEALER ID RPC WIRING MISSING');
 console.log('TORVO V2 public privacy + common website form boundary contract OK');
