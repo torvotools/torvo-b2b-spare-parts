@@ -1004,3 +1004,16 @@ body:has(.publicSite){padding-bottom:0!important}
 #torvo-v2-root .publicSite .torvoCategoryFinder>span[role=status]{flex:1 0 100%;margin-left:0!important;text-align:left}
 }
 @media(max-width:360px){#torvo-v2-root .publicSite .torvoPrimaryCategories{grid-template-columns:repeat(3,minmax(0,1fr))}#torvo-v2-root .publicSite .torvoPrimaryCategories .categoryCopy b{font-size:10px}#torvo-v2-root .publicSite .torvoPrimaryCategories .categoryCopy em{font-size:8px;padding:5px 4px}}
+
+/* Screenshot audit: catalog title and controls must flow vertically on narrow screens. */
+@media(max-width:680px){
+#torvo-v2-root .publicSite .publicCatalog .publicCatalogTop,#torvo-v2-root .publicSite .publicCatalog .publicSectionHead{display:block!important;width:100%!important;max-width:100%!important;min-width:0!important;box-sizing:border-box}
+#torvo-v2-root .publicSite .publicCatalog .publicSectionHead>div{width:100%;max-width:100%;min-width:0}
+#torvo-v2-root .publicSite .publicCatalog .catalogResultBar{display:flex!important;flex-direction:row!important;align-items:center!important;justify-content:space-between!important;gap:10px!important;width:100%!important;max-width:100%!important;min-height:0!important;margin:12px 0 0!important;padding:10px 12px!important;box-shadow:none!important;border-radius:10px!important;box-sizing:border-box}
+#torvo-v2-root .publicSite .publicCatalog .catalogResultBar b,#torvo-v2-root .publicSite .publicCatalog .catalogResultBar span{font-size:12px!important;line-height:1.4!important;min-width:0;overflow-wrap:anywhere}
+#torvo-v2-root .publicSite .publicCatalog .torvoCategoryFinder{display:grid!important;grid-template-columns:repeat(2,minmax(0,1fr))!important;gap:8px!important;align-items:stretch!important}
+#torvo-v2-root .publicSite .publicCatalog .torvoCategoryFinder>button{width:100%!important;min-height:42px!important;margin:0!important;box-sizing:border-box}
+#torvo-v2-root .publicSite .publicCatalog .torvoCategoryFinder>span[role=status]{grid-column:1/-1;flex:auto!important;width:100%;margin:0!important;text-align:center!important}
+#torvo-v2-root .publicSite .publicCatalog .torvoCategoryFinder>label{grid-column:1/-1;min-width:0;width:100%}
+#torvo-v2-root .publicSite .publicCatalog .torvoCategoryFinder select,#torvo-v2-root .publicSite .publicCatalog .torvoCategoryFinder input{max-width:100%;box-sizing:border-box}
+}
