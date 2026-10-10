@@ -753,3 +753,86 @@ body:has(.publicSite){padding-bottom:0!important}
   padding-right:clamp(28px,4vw,76px)!important;
  }
 }
+
+
+/* OWNER HEADER HEIGHT CORRECTION: filter shares slim navigation row, not a third row. */
+@media(min-width:901px){
+ #torvo-v2-root .publicSite .publicHeader.topSearchHeader{
+  grid-template-rows:54px 38px!important;
+  align-items:center!important;
+  row-gap:0!important;
+  padding-top:5px!important;
+  padding-bottom:0!important;
+ }
+ #torvo-v2-root .publicSite .publicHeader.topSearchHeader .publicHeaderPrimary,
+ #torvo-v2-root .publicSite .publicHeader.topSearchHeader .headerSelectedItems{
+  align-self:center!important;
+ }
+ #torvo-v2-root .publicSite .publicHeader.topSearchHeader .publicHeaderSearchRow{
+  position:relative!important;
+  align-self:center!important;
+  height:46px!important;
+  overflow:visible!important;
+ }
+ #torvo-v2-root .publicSite .publicHeader.topSearchHeader .publicHeaderSearchRow .publicSmartFinder{
+  display:block!important;
+  position:relative!important;
+  height:46px!important;
+  min-height:0!important;
+  overflow:visible!important;
+ }
+ #torvo-v2-root .publicSite .publicHeader.topSearchHeader .publicHeaderSearchRow .publicHeroSearch,
+ #torvo-v2-root .publicSite .publicHeader.topSearchHeader .publicHeaderSearchRow .publicHeroSearchBar{
+  height:44px!important;
+  min-height:44px!important;
+ }
+ #torvo-v2-root .publicSite .publicHeader.topSearchHeader .publicHeaderSearchRow .publicProductFilterToggle{
+  position:absolute!important;
+  top:52px!important;
+  left:0!important;
+  z-index:3!important;
+  min-height:30px!important;
+  height:30px!important;
+  margin:0!important;
+  padding:4px 11px!important;
+  border-radius:6px!important;
+  background:#fff!important;
+  font-size:10px!important;
+  line-height:1!important;
+ }
+ #torvo-v2-root .publicSite .publicHeader.topSearchHeader .publicHeaderSearchRow .finderFilterRow{
+  position:absolute!important;
+  z-index:90!important;
+  top:85px!important;
+  left:0!important;
+  width:min(720px,calc(100vw - 48px))!important;
+  max-height:min(70vh,650px)!important;
+  overflow:auto!important;
+  box-shadow:0 16px 38px rgba(18,30,42,.18)!important;
+ }
+ #torvo-v2-root .publicSite .publicHeader.topSearchHeader .publicHeaderNavRow{
+  height:38px!important;
+  min-height:38px!important;
+  margin:0!important;
+  border-top:1px solid #edf0f3!important;
+ }
+ #torvo-v2-root .publicSite .publicHeader.topSearchHeader .desktopPublicNav{
+  height:38px!important;
+  min-height:38px!important;
+  justify-content:center!important;
+  padding:0 0 0 110px!important;
+  gap:clamp(10px,1.7vw,25px)!important;
+ }
+ #torvo-v2-root .publicSite .publicHeader.topSearchHeader .desktopPublicNav a{
+  font-size:11px!important;
+  line-height:1.2!important;
+ }
+}
+@media(min-width:901px) and (max-width:1120px){
+ #torvo-v2-root .publicSite .publicHeader.topSearchHeader .desktopPublicNav{
+  justify-content:flex-end!important;
+  padding-left:115px!important;
+  gap:10px!important;
+ }
+ #torvo-v2-root .publicSite .publicHeader.topSearchHeader .desktopPublicNav a{font-size:10px!important}
+}
