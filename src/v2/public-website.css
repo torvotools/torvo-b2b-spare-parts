@@ -692,3 +692,21 @@ body:has(.publicSite){padding-bottom:0!important}
 #torvo-v2-root .publicSite .dealerRegistrationSuccess>svg{width:42px;height:42px;color:#22835a}
 #torvo-v2-root .publicSite .dealerRegistrationSuccess h3{color:#17212d;font-size:clamp(19px,2vw,26px)}
 @media(max-width:650px){#torvo-v2-root .publicSite .dealerRegistration .formTwo{grid-template-columns:minmax(0,1fr);gap:10px}#torvo-v2-root .publicSite .dealerRegistration :is(input,select,textarea){font-size:16px}#torvo-v2-root .publicSite .dealerRegistration .dealerAppAccess{gap:9px}#torvo-v2-root .publicSite .dealerRegistration .dealerAppAccessContent small{font-size:11px}}
+
+
+/* OWNER-APPROVED HEADER HIERARCHY: LOGO | WIDE SEARCH | SELECT ITEM,
+   THEN FULL NAVIGATION, WITH FILTER ALIGNED UNDER THE SEARCH. */
+@media(min-width:901px){
+ #torvo-v2-root .publicSite .publicHeader.topSearchHeader{display:grid!important;grid-template-columns:minmax(140px,185px) minmax(0,1fr) auto;grid-template-rows:auto auto;column-gap:clamp(14px,2vw,30px);row-gap:0;align-items:center;padding:10px clamp(16px,3vw,48px) 0;box-sizing:border-box}
+ #torvo-v2-root .publicSite .publicHeader.topSearchHeader .publicHeaderPrimary{grid-column:1;grid-row:1;display:flex;align-items:center;min-width:0}
+ #torvo-v2-root .publicSite .publicHeader.topSearchHeader .publicBrand{display:flex;align-items:center;max-width:100%;min-width:0}
+ #torvo-v2-root .publicSite .publicHeader.topSearchHeader .publicHeaderSearchRow{grid-column:2;grid-row:1;min-width:0;width:100%;max-width:none;margin:0}
+ #torvo-v2-root .publicSite .publicHeader.topSearchHeader .headerSelectedItems{grid-column:3;grid-row:1;justify-self:end;white-space:nowrap;margin:0}
+ #torvo-v2-root .publicSite .publicHeader.topSearchHeader .publicHeaderNavRow{grid-column:1/-1;grid-row:2;display:flex;align-items:center;justify-content:center;min-width:0;width:100%;margin-top:10px;border-top:1px solid #e7ebef}
+ #torvo-v2-root .publicSite .publicHeader.topSearchHeader .desktopPublicNav{display:flex;align-items:center;justify-content:center;flex-wrap:wrap;gap:clamp(12px,2vw,32px);width:100%;min-width:0;padding:11px 0}
+ #torvo-v2-root .publicSite .publicHeader.topSearchHeader .desktopPublicNav a{white-space:nowrap;font-size:12px;font-weight:650;text-decoration:none}
+ #torvo-v2-root .publicSite .publicHeader.topSearchHeader .publicHeaderSearchRow :is(.publicHeroSearch,.publicHeroSearchBar){min-width:0;width:100%;max-width:none}
+ #torvo-v2-root .publicSite .publicHeader.topSearchHeader .publicHeaderSearchRow .finderFilterRow{display:flex;justify-content:flex-start;max-width:100%;margin:6px 0 0;padding:0}
+ #torvo-v2-root .publicSite .publicHeader.topSearchHeader .publicHeaderSearchRow .finderFilterRow button{max-width:100%}
+}
+@media(max-width:900px){#torvo-v2-root .publicSite .publicHeader.topSearchHeader .publicHeaderNavRow{display:none}}
