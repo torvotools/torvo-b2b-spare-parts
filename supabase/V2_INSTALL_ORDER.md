@@ -88,3 +88,12 @@ After Step 17 is installed in a fresh environment, `bootstrap_initial_owner_staf
 - Machine-spare, fitment, referral, missing-part, repair inbox/update and protected order actions require current device proof.
 - Sales Order confirmation, revision, modification request, approved Add More Items read/create, Additional Purchase Order request and 30-day order history require current device proof.
 - Dealer payment/fulfilment and delivery/tracking reads require current device proof and return only that Dealer's own Estimate/order status. Tracking codes are display data only and are never accepted from the browser as authorization.
+### PRODUCT DRAFT / CATALOG CROSS-TABLE INTEGRITY — REQUIRED STAGING REBUILD ORDER
+Install these files **after catalog_items, product_draft_library, catalog upsert and product draft RPC foundations exist**, in this exact dependency order (never alphabetical):
+1. `supabase/v2-product-duplicate-search.sql` — privileged duplicate search for Product Master and active Draft Library.
+2. `supabase/v2-product-draft-duplicate-guard.sql` — normalized active-draft unique code and draft-save catalog checks/advisory locking.
+3. `supabase/v2-product-draft-atomic-conversion.sql` — owner/admin-only transactional Draft -> Catalog conversion. Its latest source must be installed: mark draft converted inside the same transaction **before** catalog insert, then attach catalog ID/audit; rollback restores draft on any error. Stored draft code must equal submitted code.
+4. `supabase/v2-product-cross-table-trigger.sql` — catalog INSERT/item-code UPDATE guard against active draft codes, with the same transaction advisory key.
+5. Verify role EXECUTE grants, enabled `trg_torvo_catalog_draft_code_guard`, duplicate race rejection, legitimate conversion, rollback and audit through authenticated staging tests. Never claim full acceptance from empty-table/anonymous tests alone.
+
+**DO NOT INSTALL** `supabase/v2-product-cross-table-lock.sql`: intentionally inert abandoned design hold, superseded by the trigger above. Keep production untouched until Owner authorization.
