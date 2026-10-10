@@ -94,6 +94,7 @@ Install these files **after catalog_items, product_draft_library, catalog upsert
 2. `supabase/v2-product-draft-duplicate-guard.sql` — normalized active-draft unique code and draft-save catalog checks/advisory locking.
 3. `supabase/v2-product-draft-atomic-conversion.sql` — owner/admin-only transactional Draft -> Catalog conversion. Its latest source must be installed: mark draft converted inside the same transaction **before** catalog insert, then attach catalog ID/audit; rollback restores draft on any error. Stored draft code must equal submitted code.
 4. `supabase/v2-product-cross-table-trigger.sql` — catalog INSERT/item-code UPDATE guard against active draft codes, with the same transaction advisory key.
-5. Verify role EXECUTE grants, enabled `trg_torvo_catalog_draft_code_guard`, duplicate race rejection, legitimate conversion, rollback and audit through authenticated staging tests. Never claim full acceptance from empty-table/anonymous tests alone.
+5. `supabase/v2-product-retire-legacy-conversion.sql` — revoke API EXECUTE for the older non-atomic draft conversion endpoint after the new atomic RPC is installed.
+6. Verify role EXECUTE grants, enabled `trg_torvo_catalog_draft_code_guard`, duplicate race rejection, legitimate conversion, rollback and audit through authenticated staging tests. Never claim full acceptance from empty-table/anonymous tests alone.
 
 **DO NOT INSTALL** `supabase/v2-product-cross-table-lock.sql`: intentionally inert abandoned design hold, superseded by the trigger above. Keep production untouched until Owner authorization.
