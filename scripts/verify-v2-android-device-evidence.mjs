@@ -16,6 +16,7 @@ if(String(e.commit_sha).toLowerCase()!==String(m.commit_sha).toLowerCase())fail(
 if(String(e.apk_sha256).toLowerCase()!==String(m.apk_sha256).toLowerCase())fail('device evidence APK SHA256 does not match release manifest');
 for(const k of ['apk_installed','app_opened','login_logout_revoke_checked','screenshots_recorded'])if(e[k]!==true)fail(k+' is not true');
 if(!/^\d{4}-\d{2}-\d{2}T/.test(e.tested_at_utc))fail('tested_at_utc must be ISO timestamp');
+if(!Number.isFinite(Date.parse(e.tested_at_utc))||!/(Z|[+-]\\d{2}:\\d{2})$/.test(e.tested_at_utc)||Date.parse(e.tested_at_utc)>Date.now()+300000)fail('tested_at_utc must be valid, timezone-aware and not in the future');
 console.log('PASS TORVO V2 ANDROID REAL-DEVICE EVIDENCE');
 console.log('commit_sha='+m.commit_sha);console.log('apk_sha256='+m.apk_sha256);console.log('device_model='+e.device_model);
 console.log('NOTE: this cross-validates recorded physical-test evidence against the CI release manifest; it does not fabricate or independently perform the physical device test');
