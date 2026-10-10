@@ -22,3 +22,10 @@ Owner-approved requirement, 10 October 2026. This is part of the ONE TORVO V2 co
 - Stage 4: Real staging runtime and device acceptance. Do not mark the feature complete on static UI/CI alone.
 
 No provider has been selected, no vision API has been connected, and no live AI analysis or photo enhancement has been verified as of this contract.
+
+## Owner-approved duplicate prevention (10 October 2026)
+- Check the authoritative Product Master **and** unconverted Product Draft Library before both MANUAL ADD and ADD WITH AI create or convert a product.
+- Exact normalized TORVO item code must be unique, enforced by the backend/database (not only browser state). Verified OEM code plus brand/model/type can flag potential duplicates; OEM code alone is not necessarily unique across all products.
+- Similar product name, category, brand, model and future image similarity produce **POSSIBLE DUPLICATE** suggestions with existing item code, name and photo. Image similarity is not proof of identity; do not block different-looking-equivalent or visually similar but incompatible spare parts without review.
+- Display **ALREADY EXISTS** for verified exact matches and provide OPEN EXISTING ITEM. For possible matches, let authorized staff review the existing item and explicitly resolve whether it is distinct. Never silently merge, overwrite, or create a second record.
+- Repeat duplicate check atomically on server at final save to prevent concurrent submissions/races. Include draft conversion and retry/idempotency cases. Do not claim AI photo matching is active until the real provider and staging tests pass.
