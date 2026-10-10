@@ -33,3 +33,6 @@ Verified fully accepted workstreams currently 0/12 = 0%; remaining 100% (accepta
 
 ## Execution
 Fix the complete product in compatible bulk, not repetitive cosmetic-only micro-commits. Reuse the canonical design system; keep approved business/security decisions intact. After each batch verify exact-SHA CI, staging behavior and applicable physical-device evidence. Keep this document as an acceptance contract, not as a substitute for implementation.
+
+## Owner decision — 10 October 2026: private live trial before public launch
+Owner requests a 15–20 day INTERNAL live-testing period starting no earlier than 11 October 2026, followed by public announcement/rollout only after Owner confirmation and required acceptance gates pass. Internal live testing means restricted, authenticated owner/staff/dealer access; it does NOT authorize public marketing, public dealer rollout, production database changes, domain cutover, production signing, or bypassing backup/security prerequisites. Prepare a controlled staging/private-preview pilot first; obtain explicit Owner approval for any production cutover. Record real login, catalog, transaction, stock, reports, backup and device evidence, with incident tracking and rollback readiness. Tentative public decision window 26–31 October 2026 is conditional, not a committed launch date.
