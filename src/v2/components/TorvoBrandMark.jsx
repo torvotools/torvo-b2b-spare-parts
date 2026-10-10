@@ -1,14 +1,14 @@
-import React from'react';
+import React from 'react';
 
 /**
- * Shared TORVO identity mark for V2 application surfaces.
- * Presentation only: no auth, routing, business or data behavior.
- * Keep the compact mark legible at app-icon/header sizes and expose
- * a stable accessible label instead of duplicating one-off letter marks.
+ * TORVO V2 canonical brand mark.
+ * The approved artwork is served from a single public asset, never rebuilt
+ * from letter glyphs. Keep the text fallback until the image asset is present.
+ * No business, authentication, or routing behavior lives here.
  */
 export default function TorvoBrandMark({className='',label='TORVO TOOLS'}){
+ const [imageAvailable,setImageAvailable]=React.useState(true);
  return <span className={`torvoBrandMark ${className}`.trim()} role="img" aria-label={label}>
-  <span className="torvoBrandMarkT">T</span>
-  <span className="torvoBrandMarkV">V</span>
- </span>
+  {imageAvailable?<img className="torvoBrandApprovedImage" src="/torvo-approved-logo.webp" alt="" aria-hidden="true" onError={()=>setImageAvailable(false)}/>:<span className="torvoBrandFallback">TORVO</span>}
+ </span>;
 }
