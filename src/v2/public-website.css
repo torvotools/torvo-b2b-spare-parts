@@ -543,3 +543,36 @@ body:has(.publicSite){padding-bottom:0!important}
  #torvo-v2-root .publicSite .publicHeaderSearchRow,
  .publicSite .publicHeaderSearchRow{min-width:0}
 }
+
+
+/* TORVO V2 FOOTER SCREENSHOT CORRECTION — identity preserved, copy readable. */
+#torvo-v2-root .publicSite .torvoPremiumFooter .torvoFooterCompany,
+.publicSite .torvoPremiumFooter .torvoFooterCompany{min-width:0;max-width:100%}
+#torvo-v2-root .publicSite .torvoPremiumFooter .torvoFooterCompany h2,
+.publicSite .torvoPremiumFooter .torvoFooterCompany h2{
+ font-size:clamp(13px,1.05vw,16px);font-weight:650;line-height:1.45;
+ letter-spacing:.015em;color:#fff;overflow-wrap:anywhere
+}
+#torvo-v2-root .publicSite .torvoPremiumFooter .torvoFooterCompany p,
+.publicSite .torvoPremiumFooter .torvoFooterCompany p{
+ display:flex;align-items:flex-start;gap:10px;max-width:100%;min-width:0;
+ margin:10px 0;color:#e4e9ef;font-size:clamp(12px,.9vw,14px);
+ line-height:1.55;font-weight:400;letter-spacing:0;
+ overflow-wrap:anywhere;word-break:normal;white-space:normal
+}
+#torvo-v2-root .publicSite .torvoPremiumFooter .torvoFooterCompany p b,
+.publicSite .torvoPremiumFooter .torvoFooterCompany p b{
+ font-weight:550;color:#f5f7fa;overflow-wrap:anywhere;white-space:normal
+}
+#torvo-v2-root .publicSite .torvoPremiumFooter .torvoFooterCompany p svg,
+.publicSite .torvoPremiumFooter .torvoFooterCompany p svg{
+ flex:0 0 19px;width:19px;height:19px;margin-top:1px;stroke-width:2.2
+}
+@media(max-width:800px){
+ #torvo-v2-root .publicSite .torvoPremiumFooter .torvoFooterCompany p,
+ .publicSite .torvoPremiumFooter .torvoFooterCompany p{
+  font-size:12px;line-height:1.55;gap:9px;margin:9px 0
+ }
+ #torvo-v2-root .publicSite .torvoPremiumFooter .torvoFooterCompany h2,
+ .publicSite .torvoPremiumFooter .torvoFooterCompany h2{font-size:14px}
+}
