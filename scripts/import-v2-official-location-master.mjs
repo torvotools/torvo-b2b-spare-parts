@@ -71,4 +71,13 @@ const districtId=new Map(districtRows.map(x=>[x.lgd_code,x.id]));
 if(C.some(x=>!districtId.has(x.district_lgd_code)))throw new Error('INCOMPLETE DISTRICT LOOKUP: REFUSING CITY IMPORT');
 // Never overwrite an existing verified PIN, provenance or source publication date with empty import values.
 for(let start=0;start<C.length;start+=250)await rest('location_cities?on_conflict=lgd_code',C.slice(start,start+250).map((x,i)=>({lgd_code:x.lgd_code,district_id:districtId.get(x.district_lgd_code),name:x.name.toUpperCase(),active:true,sort_order:start+i})));
-console.log('TORVO V2 STAGING OFFICIAL LOCATION IMPORT COMPLETE');
+// Confirm all imported LGD identifiers are present before reporting success.
+const verifyImported=(expected,actual,label)=>{
+ const actualCodes=new Set(actual.map(x=>String(x.lgd_code)));
+ const missing=expected.filter(x=>!actualCodes.has(String(x.lgd_code)));
+ if(missing.length)throw new Error(`POST-IMPORT ${label} VERIFICATION FAILED: ${missing.length} LGD CODES MISSING`);
+};
+verifyImported(S,await fetchAll('location_states'),'STATES');
+verifyImported(D,await fetchAll('location_districts'),'DISTRICTS');
+verifyImported(C,await fetchAll('location_cities'),'CITIES');
+console.log('TORVO V2 STAGING OFFICIAL LOCATION IMPORT COMPLETE — LGD CODE VERIFICATION PASSED');
