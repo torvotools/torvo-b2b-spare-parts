@@ -1022,3 +1022,9 @@ body:has(.publicSite){padding-bottom:0!important}
 #torvo-v2-root .publicSite .brandLogoTrack{animation-name:torvoBrandScrollSeamless}
 @keyframes torvoBrandScrollSeamless{from{transform:translateX(0)}to{transform:translateX(calc(-50% - 14px))}}
 @media(prefers-reduced-motion:reduce){#torvo-v2-root .publicSite .brandLogoTrack{animation:none}}
+
+/* Empty published catalog: accessible requirement fallback rather than a dead end. */
+#torvo-v2-root .publicSite .publicShowcaseEmpty a.finderViewButton{display:inline-flex;align-items:center;justify-content:center;gap:8px;width:max-content;max-width:100%;min-height:42px;margin-top:12px;padding:10px 18px;box-sizing:border-box;background:#d71927;color:#fff;border-radius:8px;text-decoration:none;font-weight:700;font-size:13px}
+#torvo-v2-root .publicSite .publicShowcaseEmpty a.finderViewButton:hover{background:#b8101e}
+#torvo-v2-root .publicSite .publicShowcaseEmpty a.finderViewButton:focus-visible{outline:3px solid #101114;outline-offset:3px}
+#torvo-v2-root .publicSite .publicShowcaseEmpty a.finderViewButton svg{width:16px;height:16px}
