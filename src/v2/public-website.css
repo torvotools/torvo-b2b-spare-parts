@@ -521,3 +521,25 @@ body:has(.publicSite){padding-bottom:0!important}
  .publicSite .publicBenefitStrip>article b{font-size:11px}
  .publicSite .publicAboutProof{grid-template-columns:minmax(0,1fr)}
 }
+
+/* SCREENSHOT FIX 2026-10-10: prevent inherited global heading ink on dark hero. */
+#torvo-v2-root .publicSite .torvoMobileHero .torvoMobileHeroCopy h1,
+#torvo-v2-root .publicSite .torvoMobileHero h1,
+.publicSite .torvoMobileHero .torvoMobileHeroCopy h1{
+ color:#fff!important;-webkit-text-fill-color:#fff!important;
+ opacity:1!important;text-shadow:0 2px 12px rgba(0,0,0,.28);
+}
+#torvo-v2-root .publicSite .torvoMobileHero .torvoHeroEyebrow,
+.publicSite .torvoMobileHero .torvoHeroEyebrow{color:#ffc7ce!important;-webkit-text-fill-color:#ffc7ce!important}
+#torvo-v2-root .publicSite .torvoMobileHero .torvoMobileHeroCopy p,
+.publicSite .torvoMobileHero .torvoMobileHeroCopy p{color:#eef0f3!important;-webkit-text-fill-color:#eef0f3!important;opacity:1!important}
+#torvo-v2-root .publicSite .torvoMobileHero .torvoHeroActions a,
+.publicSite .torvoMobileHero .torvoHeroActions a{color:#fff!important;-webkit-text-fill-color:#fff!important}
+#torvo-v2-root .publicSite .torvoMobileHero .torvoHeroVisual,
+.publicSite .torvoMobileHero .torvoHeroVisual{color:#fff}
+@media(min-width:801px){
+ #torvo-v2-root .publicSite .publicHeader.compact.topSearchHeader,
+ .publicSite .publicHeader.compact.topSearchHeader{min-width:0}
+ #torvo-v2-root .publicSite .publicHeaderSearchRow,
+ .publicSite .publicHeaderSearchRow{min-width:0}
+}
