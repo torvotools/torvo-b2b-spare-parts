@@ -1345,3 +1345,17 @@
  #torvo-v2-root :is(input,select,textarea,button){border-width:2px}
  #torvo-v2-root :is(button,a,input,select,textarea,summary):focus-visible{outline-width:4px}
 }
+
+/* Six-surface finishing pass: resilient native controls and predictable
+   table navigation without changing any role, product or business behavior. */
+#torvo-v2-root :is(input,select,textarea){box-sizing:border-box}
+#torvo-v2-root :is(button,[role="button"]):disabled{opacity:.62;filter:none}
+#torvo-v2-root :is(input,textarea):read-only:not(:disabled){cursor:default}
+#torvo-v2-root :is(table,.dataTable) :is(th,td){vertical-align:middle}
+#torvo-v2-root :is(table,.dataTable) th{text-align:start}
+#torvo-v2-root :is(table,.dataTable) :is(th,td) :is(button,a){white-space:normal}
+#torvo-v2-root :is(.panel,.workspace,.accountantWorkPanel) :is(h1,h2,h3){text-wrap:balance}
+#torvo-v2-root :is(.panel,.workspace,.accountantWorkPanel) p{text-wrap:pretty}
+@media (max-width:600px){
+ #torvo-v2-root :is(.panel,.workspace,.accountantWorkPanel) :is(h1,h2,h3){overflow-wrap:anywhere}
+}
