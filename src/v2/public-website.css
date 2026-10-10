@@ -979,3 +979,10 @@ body:has(.publicSite){padding-bottom:0!important}
 #torvo-v2-root .publicSite .torvoAboutRefined .publicAboutLead h2{max-width:780px;margin-inline:auto}
 #torvo-v2-root .publicSite .torvoAboutRefined .publicAboutLead p{max-width:800px;margin-inline:auto;line-height:1.75}
 @media(max-width:560px){#torvo-v2-root .publicSite .torvoAboutRefined{padding:32px 18px}#torvo-v2-root .publicSite .torvoAboutRefined .publicAboutLead{text-align:left}}
+
+/* Footer contact information remains legible alongside fixed contact/social icons. */
+#torvo-v2-root .publicSite .torvoFooterRefresh .torvoFooterContactDetails{display:grid;gap:10px;margin:14px 0 22px;min-width:0}
+#torvo-v2-root .publicSite .torvoFooterRefresh .torvoFooterContactDetails a{display:flex;align-items:center;gap:10px;max-width:100%;color:#fff;text-decoration:none;font-size:clamp(13px,1vw,15px);font-weight:500;overflow-wrap:anywhere}
+#torvo-v2-root .publicSite .torvoFooterRefresh .torvoFooterContactDetails a:hover{text-decoration:underline}
+#torvo-v2-root .publicSite .torvoFooterRefresh .torvoFooterContactDetails svg{width:17px;height:17px;flex-shrink:0;stroke-width:2}
+#torvo-v2-root .publicSite .torvoFooterRefresh .torvoFooterContactDetails span{min-width:0;overflow-wrap:anywhere}
