@@ -33,4 +33,5 @@ declare u app_users%rowtype;v_code text;v_name text;v_brand text;v_model text;be
  limit greatest(1,least(coalesce(p_limit,20),100));
 end$$;
 revoke all on function admin_product_duplicate_matches(text,text,text,text,uuid,integer) from public;
+revoke all on function admin_product_duplicate_matches(text,text,text,text,uuid,integer) from anon;
 grant execute on function admin_product_duplicate_matches(text,text,text,text,uuid,integer) to authenticated;
