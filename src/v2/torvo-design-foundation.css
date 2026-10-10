@@ -1430,3 +1430,27 @@
 @media(prefers-reduced-motion:reduce){
  #torvo-v2-root :is(.adminPreview,.accountantPreview,.roleApp,.dealerShell) :is(button,.primary){transition:none}
 }
+
+
+/* TORVO V2 RESPONSIVE DESIGN CONTRACT — shared across six surfaces.
+   Owner-approved device-adaptive behavior; CSS only, no workflow changes. */
+#torvo-v2-root{--torvo-viewport-gutter:clamp(12px,2.4vw,36px);--torvo-section-gap:clamp(16px,2.2vw,32px);--torvo-heading-scale:clamp(22px,2.3vw,34px)}
+#torvo-v2-root :is(.publicSite,.adminPreview,.accountantPreview,.roleApp,.dealerShell){max-width:100%;min-width:0}
+#torvo-v2-root :is(.publicSite,.adminPreview,.accountantPreview,.roleApp,.dealerShell) :is(.panel,.workspace,.content,.accountantMain,.dealerMain,.roleGrid,.publicDiscoverySection){min-width:0;max-width:100%}
+#torvo-v2-root :is(.publicSite,.adminPreview,.accountantPreview,.roleApp,.dealerShell) :is(img,video,canvas,svg){max-width:100%}
+#torvo-v2-root :is(.publicSite,.adminPreview,.accountantPreview,.roleApp,.dealerShell) img{height:auto}
+#torvo-v2-root :is(.publicSite,.adminPreview,.accountantPreview,.roleApp,.dealerShell) :is(input,select,textarea,button){max-width:100%;box-sizing:border-box}
+#torvo-v2-root :is(.publicSite,.adminPreview,.accountantPreview,.roleApp,.dealerShell) :is(table,.dataTable){max-width:100%}
+#torvo-v2-root :is(.publicSite,.adminPreview,.accountantPreview,.roleApp,.dealerShell) :is(h1,h2,h3,p){overflow-wrap:break-word}
+@media(max-width:900px){
+ #torvo-v2-root{--torvo-viewport-gutter:16px;--torvo-section-gap:20px}
+ #torvo-v2-root :is(.adminPreview,.accountantPreview,.roleApp,.dealerShell) :is(.workspace,.panel,.accountantWorkPanel){min-width:0}
+}
+@media(max-width:600px){
+ #torvo-v2-root{--torvo-viewport-gutter:12px;--torvo-section-gap:16px}
+ #torvo-v2-root :is(.publicSite,.adminPreview,.accountantPreview,.roleApp,.dealerShell) :is(input,select,textarea){font-size:16px}
+ #torvo-v2-root :is(.publicSite,.adminPreview,.accountantPreview,.roleApp,.dealerShell) :is(button,[role="button"]){touch-action:manipulation}
+}
+@media(prefers-reduced-motion:reduce){
+ #torvo-v2-root :is(.publicSite,.adminPreview,.accountantPreview,.roleApp,.dealerShell) *{scroll-behavior:auto}
+}
