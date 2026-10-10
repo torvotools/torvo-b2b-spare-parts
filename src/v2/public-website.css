@@ -966,3 +966,9 @@ body:has(.publicSite){padding-bottom:0!important}
 #torvo-v2-root .publicSite .torvoPrimaryCategories>button>img,#torvo-v2-root .publicSite .torvoPrimaryCategories>button>.categoryPhotoPending{order:1;width:100%;flex:1 1 auto;object-fit:contain}
 @media(max-width:520px){#torvo-v2-root .publicSite .torvoPrimaryCategories .categoryCopy{padding:10px 5px 8px;gap:4px}#torvo-v2-root .publicSite .torvoPrimaryCategories .categoryCopy b{font-size:clamp(10px,2.8vw,14px)}#torvo-v2-root .publicSite .torvoPrimaryCategories .categoryCopy small{font-size:9px}#torvo-v2-root .publicSite .torvoPrimaryCategories .categoryCopy em{font-size:9px}}
 @media(max-width:350px){#torvo-v2-root .publicSite .torvoPrimaryCategories>button{flex-direction:column!important}#torvo-v2-root .publicSite .torvoPrimaryCategories>button>img,#torvo-v2-root .publicSite .torvoPrimaryCategories>button>.categoryPhotoPending{width:100%}}
+
+/* Three distinct lower actions only: dealer finder, registration, requirement support. */
+#torvo-v2-root .publicSite .publicActionGrid{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:clamp(12px,1.7vw,24px);align-items:stretch}
+#torvo-v2-root .publicSite .publicActionGrid>.publicActionCard{min-width:0;width:100%;box-sizing:border-box}
+@media(max-width:850px){#torvo-v2-root .publicSite .publicActionGrid{grid-template-columns:repeat(2,minmax(0,1fr))}}
+@media(max-width:560px){#torvo-v2-root .publicSite .publicActionGrid{grid-template-columns:minmax(0,1fr);gap:12px}}
