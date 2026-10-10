@@ -6,6 +6,7 @@ const dealerForm=read('src/v2/components/PublicDealerRegistrationForm.jsx');
 const requirementForm=read('src/v2/components/PublicProductRequirementForm.jsx');
 const sql=read('supabase/v2-public-product-showcase.sql');
 const release=read('docs/TORVO-V2-RELEASE-GATES.md');
+const publicService=read('src/v2/services/publicWebsite.js');
 const fail=m=>{console.error(`PUBLIC PRIVACY CONTRACT FAILED: ${m}`);process.exit(1)};
 if(!(pub.includes('SELECT. SHARE AREA. CONNECT.')||pub.includes('HOW TO CONNECT WITH A TORVO DEALER'))||!pub.includes("open('REQUIREMENT_TYPE')")||!pub.includes("open('DEALER_FINDER')"))fail('PUBLIC PRODUCT-FIRST DEALER/REQUIREMENT ACTIONS MISSING');
 if(!pub.includes('detail.image_url')||!pub.includes('detailed_description'))fail('PUBLIC PRODUCT PHOTO/DETAIL VIEW MISSING');
@@ -25,4 +26,6 @@ if(!pub.includes('WHATSAPP TORVO')||!pub.includes('https://wa.me/91'))fail('PUBL
 if(/(?:admin|security)[_-]?email\s*[:=]/i.test(pub))fail('PRIVATE ADMIN/SECURITY EMAIL IDENTIFIER LEAKED INTO PUBLIC WEBSITE');
 if(/rate_a|rate_b|rate_c|purchase_cost/i.test(sql))fail('PUBLIC SHOWCASE SQL EXPOSES PRIVATE RATE/COST FIELDS');
 if(!release.includes('PUBLIC CUSTOMER HAS NO TORVO RETAIL CHECKOUT OR PUBLIC SELLING PRICE.'))fail('RELEASE GATE DOES NOT LOCK PUBLIC NO-PRICE RULE');
+if(!publicService.includes("did=dealerId?uuid(dealerId,'DEALER ID'):null"))fail('OPTIONAL REFERRAL DEALER ID MUST NOT BE FORCED THROUGH UUID VALIDATION');
+if(!publicService.includes('p_dealer_id:did'))fail('REFERRAL DEALER ID RPC WIRING MISSING');
 console.log('TORVO V2 public privacy + common website form boundary contract OK');
