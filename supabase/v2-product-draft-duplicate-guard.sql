@@ -27,6 +27,8 @@ declare u app_users%rowtype;v_id uuid;v_code text;begin
  if nullif(btrim(coalesce(p_image_url,'')),'') is null and nullif(btrim(coalesce(p_name,'')),'') is null and nullif(btrim(coalesce(p_notes,'')),'') is null then raise exception 'PHOTO, NAME OR NOTE REQUIRED';end if;
  v_code:=upper(nullif(btrim(p_item_code),''));
  if v_code is not null then
+  -- Serialize writes for the same normalized code, including concurrent catalog/draft attempts.
+  perform pg_advisory_xact_lock(hashtextextended('TORVO_PRODUCT_DRAFT_CODE:'||v_code,0));
   if exists(select 1 from catalog_items where upper(btrim(item_code))=v_code) then
    raise exception 'ALREADY EXISTS: ITEM CODE IN PRODUCT MASTER';
   end if;
