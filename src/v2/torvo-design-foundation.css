@@ -1302,3 +1302,30 @@
     transition-duration:.01ms!important;
   }
 }
+
+/* Shared professional finish — consistent selection, table readability and
+   keyboard navigation across all six TORVO surfaces. No business logic changes. */
+#torvo-v2-root{accent-color:var(--torvo-red)}
+#torvo-v2-root ::selection{background:rgba(215,25,32,.17);color:var(--torvo-ink)}
+#torvo-v2-root :is(input,select,textarea){font-weight:400}
+#torvo-v2-root :is(input,select,textarea):disabled{
+  background:var(--torvo-soft);color:var(--torvo-muted);opacity:1
+}
+#torvo-v2-root :is(input,select,textarea)[aria-invalid="true"]{
+  border-color:var(--torvo-danger)
+}
+#torvo-v2-root :is(input,select,textarea)[aria-invalid="true"]:focus-visible{
+  outline-color:var(--torvo-danger)
+}
+#torvo-v2-root :is(table, .table, .dataTable){font-variant-numeric:tabular-nums}
+#torvo-v2-root :is(table, .table, .dataTable) :is(th,td){
+  overflow-wrap:anywhere
+}
+@media(forced-colors:active){
+  #torvo-v2-root :is(button,a,input,select,textarea):focus-visible{
+    outline:3px solid Highlight
+  }
+  #torvo-v2-root :is(input,select,textarea)[aria-invalid="true"]{
+    border:2px solid Mark
+  }
+}
