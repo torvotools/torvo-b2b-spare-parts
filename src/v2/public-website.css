@@ -650,3 +650,24 @@ body:has(.publicSite){padding-bottom:0!important}
 @media(max-width:420px){#torvo-v2-root .publicSite .publicShowcaseGrid{gap:9px}#torvo-v2-root .publicSite .publicProductCard{border-radius:10px}#torvo-v2-root .publicSite .publicProductCard .publicProductPhoto{height:130px;padding:9px}#torvo-v2-root .publicSite .publicProductCard .publicProductBody{padding:10px;gap:7px}#torvo-v2-root .publicSite .publicProductCard .publicProductBody h3{font-size:12px}#torvo-v2-root .publicSite .publicProductCard .publicProductBody>p{font-size:10px}#torvo-v2-root .publicSite .publicProductCard .publicProductMeta small{font-size:9px}#torvo-v2-root .publicSite .publicProductCard .formTwo{grid-template-columns:1fr}#torvo-v2-root .publicSite .publicProductCard .formTwo button{min-height:35px;font-size:10px}#torvo-v2-root .publicSite .publicProductCard .publicCardQty button{width:32px;height:32px}}
 @media(max-width:320px){#torvo-v2-root .publicSite .publicShowcaseGrid{grid-template-columns:1fr}#torvo-v2-root .publicSite .publicProductCard .publicProductPhoto{height:190px}#torvo-v2-root .publicSite .publicProductCard .formTwo{grid-template-columns:1fr 1fr}}
 @media(prefers-reduced-motion:reduce){#torvo-v2-root .publicSite .publicProductCard{transition:none}}
+
+
+/* TORVO SIGNATURE DEEP PUBLIC JOURNEY — product details, contact and dealer results. */
+#torvo-v2-root .publicSite .publicModalBackdrop{position:fixed;inset:0;z-index:1000;display:flex;align-items:center;justify-content:center;box-sizing:border-box;padding:clamp(10px,3vw,28px);background:rgba(10,18,29,.72);backdrop-filter:blur(5px)}
+#torvo-v2-root .publicSite .publicModal{box-sizing:border-box;display:flex;flex-direction:column;width:min(100%,880px);max-width:100%;max-height:calc(100dvh - 20px);overflow:auto;overscroll-behavior:contain;border:1px solid #e0e7ed;border-radius:17px;background:#fff;color:#1b2633;box-shadow:0 30px 90px rgba(5,15,27,.32)}
+#torvo-v2-root .publicSite .publicModal>header{position:sticky;top:0;z-index:5;display:flex;align-items:center;justify-content:space-between;gap:14px;min-width:0;padding:17px 22px;border-bottom:1px solid #e3e9ef;background:#fff}
+#torvo-v2-root .publicSite .publicModal>header :is(h2,h3){margin:0;color:#1b2633;font-size:clamp(18px,2vw,25px);line-height:1.25;overflow-wrap:anywhere}
+#torvo-v2-root .publicSite .publicModal>header button{flex:none;display:grid;place-items:center;min-width:40px;min-height:40px;border:1px solid #e1e7ed;border-radius:9px;background:#f6f8fa;color:#1b2633}
+#torvo-v2-root .publicSite .publicModal :is(.publicProductDetail,.publicForm,.dealerProfile){min-width:0;max-width:100%;box-sizing:border-box}
+#torvo-v2-root .publicSite .publicModal .publicProductDetail{gap:clamp(15px,2vw,26px)}
+#torvo-v2-root .publicSite .publicModal .publicProductDetailCopy{min-width:0;overflow-wrap:anywhere}
+#torvo-v2-root .publicSite .publicModal .publicProductDetailCopy h2{color:#1b2633;font-size:clamp(20px,2.4vw,32px);line-height:1.2;overflow-wrap:anywhere}
+#torvo-v2-root .publicSite .publicModal :is(input:not([type="checkbox"]),select,textarea){box-sizing:border-box;max-width:100%;min-width:0;border:1px solid #dce3e9;border-radius:9px;background:#fff;color:#1b2633;font-weight:400}
+#torvo-v2-root .publicSite .publicModal :is(input:not([type="checkbox"]),select,textarea):focus-visible{outline:2px solid #d22337;outline-offset:2px}
+#torvo-v2-root .publicSite .publicModal :is(button,a):focus-visible{outline:2px solid #d22337;outline-offset:2px}
+#torvo-v2-root .publicSite .publicModal :is(.dealerResult,.dealerResultNotice){box-sizing:border-box;max-width:100%;min-width:0;overflow-wrap:anywhere}
+#torvo-v2-root .publicSite .publicModal .dealerResult{border:1px solid #e3e9ef;border-radius:11px;background:#fff}
+#torvo-v2-root .publicSite .publicModal .dealerActions{display:flex;flex-wrap:wrap;gap:8px}
+#torvo-v2-root .publicSite .publicModal .dealerActions :is(a,button){display:inline-flex;align-items:center;justify-content:center;gap:6px;min-height:38px;border-radius:8px;text-decoration:none}
+#torvo-v2-root .publicSite .publicModal .errorText{color:#b91c1c;overflow-wrap:anywhere}
+@media(max-width:650px){#torvo-v2-root .publicSite .publicModalBackdrop{align-items:flex-end;padding:7px}#torvo-v2-root .publicSite .publicModal{max-height:calc(100dvh - 10px);border-radius:16px 16px 8px 8px}#torvo-v2-root .publicSite .publicModal>header{padding:12px 15px}#torvo-v2-root .publicSite .publicModal :is(input:not([type="checkbox"]),select,textarea){font-size:16px}#torvo-v2-root .publicSite .publicModal .dealerActions :is(a,button){flex:1 1 115px}}
