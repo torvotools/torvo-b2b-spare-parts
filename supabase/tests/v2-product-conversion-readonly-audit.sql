@@ -30,7 +30,7 @@ begin
  end if;
  select has_function_privilege('anon','public.admin_convert_product_draft(uuid,text,text,text,text,text,text,text,text,text,boolean)','EXECUTE')
  into v_conversion_anon;
- select has_function_privilege('authenticated','public.admin_convert_product_draft(uuid,text,text,text,text,text,text,text,text,text,text,boolean)','EXECUTE')
+ select has_function_privilege('authenticated','public.admin_convert_product_draft(uuid,text,text,text,text,text,text,text,text,text,boolean)','EXECUTE')
  into v_conversion_auth;
  if v_conversion_anon or not v_conversion_auth then raise exception 'ATOMIC CONVERSION EXECUTE GRANTS INVALID';end if;
  if to_regprocedure('public.admin_mark_product_draft_converted(uuid,uuid)') is not null then
