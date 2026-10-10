@@ -17,7 +17,8 @@ begin
  perform pg_advisory_xact_lock(hashtextextended('TORVO_PRODUCT_DRAFT_CODE:'||upper(btrim(p_item_code)),0));
  select * into v_draft from product_draft_library where id=p_draft_id and status='draft' for update;
  if not found then raise exception 'DRAFT NOT FOUND OR ALREADY CONVERTED';end if;
- if v_draft.item_code is not null and torvo_normalize_business_text(v_draft.item_code)<>v_code then
+ if nullif(torvo_normalize_business_text(v_draft.item_code),'') is null then raise exception 'DRAFT ITEM CODE REQUIRED: SAVE CODE TO DRAFT BEFORE CONVERSION';end if;
+ if torvo_normalize_business_text(v_draft.item_code)<>v_code then
   raise exception 'DRAFT CODE CHANGED: UPDATE DRAFT FIRST';end if;
  if exists(select 1 from product_draft_library where status='draft' and id<>p_draft_id and torvo_normalize_business_text(item_code)=v_code) then
   raise exception 'ALREADY EXISTS: ITEM CODE IN ANOTHER DRAFT';end if;
