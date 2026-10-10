@@ -1329,3 +1329,19 @@
     border:2px solid Mark
   }
 }
+
+/* Shared UX quality: predictable touch targets and readable content on every
+   TORVO surface, including public site and five authenticated workspaces. */
+@media (pointer:coarse){
+ #torvo-v2-root :is(button,[role="button"],summary){min-height:40px}
+ #torvo-v2-root :is(input,select,textarea){min-height:44px}
+}
+#torvo-v2-root :is(button,[role="button"]){touch-action:manipulation}
+#torvo-v2-root :is(input,select,textarea){max-width:100%;min-width:0}
+#torvo-v2-root :is(input,textarea){overflow-wrap:anywhere}
+#torvo-v2-root :is(button,[role="button"],.panel,.workspace,.publicProductCard){overflow-wrap:break-word}
+#torvo-v2-root :is([role="alert"],[aria-live="assertive"]){overflow-wrap:anywhere}
+@media (prefers-contrast:more){
+ #torvo-v2-root :is(input,select,textarea,button){border-width:2px}
+ #torvo-v2-root :is(button,a,input,select,textarea,summary):focus-visible{outline-width:4px}
+}
