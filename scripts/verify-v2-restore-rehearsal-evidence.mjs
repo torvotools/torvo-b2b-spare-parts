@@ -13,6 +13,7 @@ if(e.source_commit_sha!==e.restored_commit_sha)fail('restored commit does not ma
 if(String(e.source_schema_version)!==String(e.restored_schema_version))fail('restored schema version mismatch');
 if(String(e.source_database_version)!==String(e.restored_database_version))fail('restored database version mismatch');
 for(const k of ['restore_started_at_utc','restore_completed_at_utc'])if(!/^\d{4}-\d{2}-\d{2}T/.test(e[k]))fail(k+' must be ISO timestamp');
+for(const k of ['restore_started_at_utc','restore_completed_at_utc'])if(!Number.isFinite(Date.parse(e[k]))||!/(Z|[+-]\\d{2}:\\d{2})$/.test(e[k])||Date.parse(e[k])>Date.now()+300000)fail(k+' must be valid, timezone-aware and not in the future');
 if(Date.parse(e.restore_completed_at_utc)<=Date.parse(e.restore_started_at_utc))fail('restore completion must be after start');
 const gates=['checksum_verified','restore_completed','core_schema_checked','rls_security_checked','dealer_auth_checked','staff_auth_checked','b2b_flow_checked','inventory_returns_checked','reports_reconciled','secret_values_excluded'];
 for(const k of gates)if(e[k]!==true)fail(k+' is not true');
