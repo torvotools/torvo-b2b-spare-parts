@@ -36,3 +36,13 @@ Fix the complete product in compatible bulk, not repetitive cosmetic-only micro-
 
 ## Owner decision — 10 October 2026: private live trial before public launch
 Owner requests a 15–20 day INTERNAL live-testing period starting no earlier than 11 October 2026, followed by public announcement/rollout only after Owner confirmation and required acceptance gates pass. Internal live testing means restricted, authenticated owner/staff/dealer access; it does NOT authorize public marketing, public dealer rollout, production database changes, domain cutover, production signing, or bypassing backup/security prerequisites. Prepare a controlled staging/private-preview pilot first; obtain explicit Owner approval for any production cutover. Record real login, catalog, transaction, stock, reports, backup and device evidence, with incident tracking and rollback readiness. Tentative public decision window 26–31 October 2026 is conditional, not a committed launch date.
+
+## Private pilot go/no-go checklist (owner internal trial)
+- Confirm the exact branch HEAD and matching Build/Preview/APK CI; a PASS from an earlier SHA is not enough.
+- Use a restricted preview and approved test accounts only. Public homepage visibility alone is not authorization for public marketing or B2B data access.
+- Verify genuine Owner and Dealer OTP sessions, device replacement and role privacy before real business use.
+- Verify one complete PO→Quotation→Dealer OK→Estimate→Marg Bill Approval→Sale→Stock Out→Dispatch→Delivery cycle with authorized real pilot data; reconcile inventory and financial reports.
+- Require a verified encrypted backup artifact, checksum, independent restore rehearsal and documented rollback contact before treating pilot as operationally safe.
+- Verify original TORVO logo, registration State→District→City + Other City, all six role surfaces and Android install on a physical device.
+- Track each defect with severity, screenshot/log reference, exact SHA, owner and retest result. Stop pilot writes on any data-integrity, authentication, privacy, inventory or restore critical failure.
+- Public announcement and production cutover remain separate explicit Owner approvals after 15–20 days and evidence-based signoff.
