@@ -393,3 +393,35 @@ body:has(.publicSite){padding-bottom:0!important}
 /* Dark-footer identity: transparent SVG variant prevents the white rectangle while preserving the red TORVO accents. */
 .torvoPremiumFooter .torvoFooterBrand{background:transparent!important;box-shadow:none!important;border:0!important;padding:0!important}
 .torvoPremiumFooter .torvoFooterBrand>img{background:transparent!important;mix-blend-mode:normal}
+
+
+/* TORVO V2 — WEBSITE MOBILE-FIRST POLISH, OCT 2026.
+   Preserve owner-approved identity, category order and business flows. */
+@media(max-width:800px){
+ .publicSite{width:100%;min-width:0;overflow-x:clip}
+ .publicSite :is(.publicHeader,.publicHeaderPrimary,.publicHeaderSearchRow,.publicDiscoverySection,.torvoPrimaryCategories,.publicActionGrid,.torvoPremiumFooter){min-width:0}
+ .publicHeaderPrimary{gap:10px;align-items:center}
+ .publicHeaderPrimary .publicBrand.torvoWordmark{width:120px;max-width:120px;flex:0 0 120px}
+ .publicHeaderPrimary .publicBrand.torvoWordmark>img{max-height:42px}
+ .publicHeaderSearchRow.mobileHeaderSearch{width:100%;max-width:none;min-width:0}
+ .publicHeaderSearchRow.mobileHeaderSearch :is(input,[role="searchbox"]){min-width:0;font-weight:400}
+ .publicSite :is(input,select,textarea){font-size:16px}
+ .publicSite :is(button,[role="button"]){touch-action:manipulation}
+ .publicSite :is(.torvoPrimaryCategories,.publicActionGrid){gap:10px}
+ .publicSite .torvoPrimaryCategories>*{min-width:0}
+ .publicSite :is(.publicSectionHead,.categoryCopy,.publicAboutLead){overflow-wrap:anywhere}
+ .publicSite .publicSectionHead :is(h1,h2,h3){line-height:1.2;letter-spacing:-.015em}
+ .publicSite .torvoPremiumFooter{padding-bottom:max(80px,calc(68px + env(safe-area-inset-bottom,0px)))}
+ .publicSite .torvoPremiumFooter :is(.torvoFooterCompany,.torvoFooterExplore,.torvoFooterConnect){min-width:0}
+ .publicSite .torvoPremiumFooter :is(a,p){overflow-wrap:anywhere}
+ .publicSite .mobileBottomNav{padding-bottom:env(safe-area-inset-bottom,0px)}
+ .publicSite .publicModalBackdrop{padding:env(safe-area-inset-top,0px) 10px env(safe-area-inset-bottom,0px)}
+ .publicSite :is(.publicModal,.publicProductDetail){max-width:100%;min-width:0}
+}
+@media(max-width:390px){
+ .publicHeaderPrimary .publicBrand.torvoWordmark{width:112px;max-width:112px;flex-basis:112px}
+ .publicSite :is(.publicActionGrid,.torvoPrimaryCategories){gap:8px}
+}
+@media(prefers-reduced-motion:reduce){
+ .publicSite :is(button,a,input){scroll-behavior:auto;transition:none}
+}
