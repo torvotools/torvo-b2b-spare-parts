@@ -107,3 +107,16 @@ The Owner has explicitly unlocked prior visual/UI locks for the current deep-aud
 
 ## OWNER OVERRIDE — 10 OCTOBER 2026: PROFESSIONAL DESIGN FREEDOM
 Owner explicitly authorizes professional redesign and color changes across TORVO V2. The earlier RED/BLACK/WHITE/GREY palette and visual locks are no longer mandatory restrictions where an improved cohesive professional design is justified. This supersedes visual-only constraints, including prior LOCK-1 styling, but NOT functional/security requirements, original TORVO brand identity/logo, approved business workflows, public privacy boundaries or production-release gates. Select one premium accessible palette and unified reusable design system across all six surfaces; do not make arbitrary per-screen color changes. Preserve usable responsiveness, search order, form behavior and functional controls. Implement changes in reviewed compatible batches with exact-SHA CI and device/visual acceptance, avoiding needless disruption. Owner's goal: best professional quality, not a fixed color.
+
+
+## CONTINUOUS DEVELOPMENT + OWNER FEEDBACK RULE (2026-10-10)
+Owner direction: Keep the full TORVO V2 premium redesign and functional-completion program moving forward. The owner will refresh staging and send visual or behavioral feedback as needed. Each new feedback item is an addition to the active plan, not a replacement for the unfinished work.
+
+Mandatory execution discipline:
+1. At each NEXT/N, read fresh remote HEAD, CI state, this constitution and relevant source; continue the highest-priority safe unfinished module.
+2. Maintain two parallel tracks: (A) main six-surface screen-to-screen premium UI/UX, working backend flows and acceptance; (B) owner-reported issues integrated into the relevant module.
+3. Fix owner-reported regressions promptly, then resume track A automatically. Do not get stuck endlessly polishing one component while other screens remain unfinished.
+4. Cover every click-through screen, form, dialog, empty/loading/error/success state and mobile/tablet/desktop layout. Do not claim that CSS-only changes complete functional acceptance.
+5. Preserve the approved logo, data, permissions and business rules. Never invent business transactions or success states; keep unconnected controls explicitly unavailable until implemented.
+6. For each batch record exact commit, verified CI/deployment status, what changed, what remains and the next continuation point. Avoid claiming 100% until actual device and end-to-end acceptance.
+7. Work only on torvo-v2-build and staging. Production changes require explicit owner approval.
