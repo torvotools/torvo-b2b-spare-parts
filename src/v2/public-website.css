@@ -972,3 +972,10 @@ body:has(.publicSite){padding-bottom:0!important}
 #torvo-v2-root .publicSite .publicActionGrid>.publicActionCard{min-width:0;width:100%;box-sizing:border-box}
 @media(max-width:850px){#torvo-v2-root .publicSite .publicActionGrid{grid-template-columns:repeat(2,minmax(0,1fr))}}
 @media(max-width:560px){#torvo-v2-root .publicSite .publicActionGrid{grid-template-columns:minmax(0,1fr);gap:12px}}
+
+/* About TORVO now tells the company story once; benefit strip above carries the proof points. */
+#torvo-v2-root .publicSite .torvoAboutRefined{display:block;max-width:1440px;margin-inline:auto;padding:clamp(30px,5vw,68px) var(--torvo-viewport-gutter,24px);box-sizing:border-box}
+#torvo-v2-root .publicSite .torvoAboutRefined .publicAboutLead{max-width:880px;margin:0 auto;text-align:center}
+#torvo-v2-root .publicSite .torvoAboutRefined .publicAboutLead h2{max-width:780px;margin-inline:auto}
+#torvo-v2-root .publicSite .torvoAboutRefined .publicAboutLead p{max-width:800px;margin-inline:auto;line-height:1.75}
+@media(max-width:560px){#torvo-v2-root .publicSite .torvoAboutRefined{padding:32px 18px}#torvo-v2-root .publicSite .torvoAboutRefined .publicAboutLead{text-align:left}}
