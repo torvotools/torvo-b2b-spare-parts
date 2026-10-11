@@ -12,7 +12,13 @@ const reversalSql=extractFunction('reverse_marg_bill_sale');
 const deliverySql=extractFunction('finalize_actual_delivery');
 if(!revisionSql||!reversalSql||!deliverySql){console.error('MARG SALE SAFETY: SQL FUNCTION BODY MISSING');process.exit(1)}
 const saleUi=fs.readFileSync('src/v2/components/MargBillSaleWorkspace.jsx','utf8');
+const saleService=fs.readFileSync('src/v2/services/margBillSale.js','utf8');
 const checks=[
+ ['SALE SERVICE BLOCKS EMPTY ESTIMATE',saleService.includes("String(estimateNumber||'').trim()")],
+ ['SALE SERVICE BILL MAX LENGTH',saleService.includes('bill.length>80')],
+ ['REVISION SERVICE REQUIRES ITEMS',saleService.includes('!Array.isArray(lines)||lines.length===0')],
+ ['REVISION SERVICE REASON MAX LENGTH',saleService.includes('VALID ESTIMATE AND REVISION REASON REQUIRED')&&saleService.includes('String(reason).trim().length>500')],
+ ['REVERSAL SERVICE REASON MAX LENGTH',saleService.includes('VALID ESTIMATE AND REVERSAL REASON REQUIRED')],
  ['SALE UI ENFORCES BILL LENGTH',saleUi.includes('bill.trim().length>80')&&saleUi.includes('maxLength={80}')],
  ['REVERSAL UI ENFORCES REASON LENGTH',saleUi.includes('reason.trim().length>500')&&saleUi.includes('maxLength={500}')],
  ['DELIVERED REVERSAL ACTION DISABLED',saleUi.includes("U(r.dispatch_status)==='DELIVERED'")],
