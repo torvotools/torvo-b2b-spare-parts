@@ -12,9 +12,18 @@ const reversalSql=extractFunction('reverse_marg_bill_sale');
 const deliverySql=extractFunction('finalize_actual_delivery');
 if(!revisionSql||!reversalSql||!deliverySql){console.error('MARG SALE SAFETY: SQL FUNCTION BODY MISSING');process.exit(1)}
 const saleUi=fs.readFileSync('src/v2/components/MargBillSaleWorkspace.jsx','utf8');
+const dispatchUi=fs.readFileSync('src/v2/components/DispatchWorkspace.jsx','utf8');
 const saleService=fs.readFileSync('src/v2/services/margBillSale.js','utf8');
 const packageScripts=JSON.parse(fs.readFileSync('package.json','utf8')).scripts;
 const checks=[
+ ['DISPATCH REFRESH CLEARS STALE ROWS',dispatchUi.includes('catch(e){setRows([]);setLoaded(false);setError(U(e.message))}')],
+ ['DISPATCH ACTIONS REQUIRE LOADED QUEUE',dispatchUi.includes('if(!action||busy||loading||!loaded)return')],
+ ['DISPATCH REFRESH INVALIDATES OPEN ACTION',dispatchUi.includes('setLoading(true);setAction(null);setError')],
+ ['DISPATCH ACTIONS FOLLOW NEXT STAGE',dispatchUi.includes("action.target!==(action.row.dispatch_status==='ready_for_dispatch'?'delivered':next[action.row.dispatch_status])")],
+ ['DISPATCH COURIER AND TRACKING LENGTH',dispatchUi.includes('COURIER / TRANSPORT COMPANY TOO LONG')&&dispatchUi.includes('TRACKING / DISPATCH CODE TOO LONG')],
+ ['DISPATCH EMPTY STATE AFTER LOAD',dispatchUi.includes('loaded&&!loading&&!error&&view.length===0')],
+ ['DISPATCH REFRESH DISABLED WHILE LOADING',dispatchUi.includes('disabled={!!busy||loading} onClick={load}')],
+ ['DISPATCH INPUT LIMITS',dispatchUi.includes('maxLength={128} required')],
  ['SALE QUEUE CLEARS STALE DATA ON FAILURE',saleUi.includes('catch(e){setRows([]);setLoaded(false);setErr(U(e.message))}')],
  ['ALL BUILD TARGETS ENFORCE SALE SAFETY',['build','build:v2','build:app'].every(k=>packageScripts[k]?.includes('npm run verify:v2-marg-sale-delivery-safety'))],
  ['SALE QUEUE EMPTY STATE REQUIRES SUCCESSFUL LOAD',saleUi.includes('setLoaded(true)')&&saleUi.includes('loaded&&!refreshing&&!err&&view.length===0')],
