@@ -14,6 +14,9 @@ if(!revisionSql||!reversalSql||!deliverySql){console.error('MARG SALE SAFETY: SQ
 const saleUi=fs.readFileSync('src/v2/components/MargBillSaleWorkspace.jsx','utf8');
 const saleService=fs.readFileSync('src/v2/services/margBillSale.js','utf8');
 const checks=[
+ ['SALE QUEUE REFRESH FEEDBACK',saleUi.includes('REFRESHING SALE RECORDS')&&saleUi.includes('setRefreshing(true)')&&saleUi.includes('setRefreshing(false)')],
+ ['SALE QUEUE EMPTY STATE',saleUi.includes('NO POSTED SALES FOUND.')&&saleUi.includes('NO MATCHING SALE RECORDS.')],
+ ['SALE QUEUE REFRESH BUTTON LOCK',saleUi.includes('disabled={busy||refreshing} aria-label="REFRESH"')],
  ['REVERSAL UI EXPLICIT CONFIRMATION',saleUi.includes('if(!reverse||!reverseConfirmed')&&saleUi.includes('!reverseConfirmed||!reason.trim()')],
  ['REVERSAL UI RESET ON OPEN',saleUi.includes("setReverse(r);setReason('');setReverseConfirmed(false)")],
  ['REVERSAL UI RESET AFTER SUCCESS',saleUi.includes("setReverse(null);setReason('');setReverseConfirmed(false);await load()")],
