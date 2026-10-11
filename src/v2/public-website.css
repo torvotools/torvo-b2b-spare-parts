@@ -1126,3 +1126,12 @@ body:has(.publicSite){padding-bottom:0!important}
 #torvo-v2-root .publicSite .torvoGstGatePanel input{width:100%;min-width:0;box-sizing:border-box;background:#fff;color:#111;border:1px solid #ccc;border-radius:5px;padding:9px;font-size:16px}
 #torvo-v2-root .publicSite .torvoGstGateClose{justify-self:end;display:grid;place-items:center;width:25px;height:25px;border:0;border-radius:4px;background:#30343c;color:#fff;cursor:pointer}
 #torvo-v2-root .publicSite .torvoGstGateClose svg{width:16px;height:16px}
+
+/* Owner screenshot correction: compact GST access popup, visible close control and no GST text overlap. */
+#torvo-v2-root .publicSite .torvoGstGatePanel{left:0;right:auto;bottom:calc(100% + 12px);width:190px;max-width:calc(100vw - 32px);padding:12px;gap:7px;border:1px solid rgba(255,255,255,.24);border-radius:8px;box-shadow:0 10px 24px rgba(0,0,0,.3)}
+#torvo-v2-root .publicSite .torvoGstGateClose{position:absolute;right:8px;top:8px;justify-self:auto;width:28px;height:28px;border:1px solid rgba(255,255,255,.6);border-radius:6px;background:#c61e2c;color:#fff;opacity:1;z-index:2}
+#torvo-v2-root .publicSite .torvoGstGateClose svg{width:18px;height:18px;stroke:#fff;stroke-width:3;opacity:1}
+#torvo-v2-root .publicSite .torvoGstGatePanel label{padding-right:36px;font-size:11px;line-height:28px}
+#torvo-v2-root .publicSite .torvoGstGatePanel input{height:40px;padding:7px 10px;border-radius:6px}
+#torvo-v2-root .publicSite .torvoGstGatePanel:focus-within{border-color:#e44a55}
+@media(max-width:700px){#torvo-v2-root .publicSite .torvoGstGatePanel{width:180px;max-width:calc(100vw - 24px)}}
