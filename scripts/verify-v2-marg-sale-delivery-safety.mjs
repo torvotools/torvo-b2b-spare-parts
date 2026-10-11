@@ -14,6 +14,8 @@ if(!revisionSql||!reversalSql||!deliverySql){console.error('MARG SALE SAFETY: SQ
 const saleUi=fs.readFileSync('src/v2/components/MargBillSaleWorkspace.jsx','utf8');
 const saleService=fs.readFileSync('src/v2/services/margBillSale.js','utf8');
 const checks=[
+ ['SALE QUEUE EMPTY STATE REQUIRES SUCCESSFUL LOAD',saleUi.includes('setLoaded(true)')&&saleUi.includes('loaded&&!refreshing&&!err&&view.length===0')],
+ ['SALE QUEUE LOAD STATE TRACKED',saleUi.includes('const[loaded,setLoaded]=useState(false)')],
  ['SALE QUEUE REFRESH FEEDBACK',saleUi.includes('REFRESHING SALE RECORDS')&&saleUi.includes('setRefreshing(true)')&&saleUi.includes('setRefreshing(false)')],
  ['SALE QUEUE EMPTY STATE',saleUi.includes('NO POSTED SALES FOUND.')&&saleUi.includes('NO MATCHING SALE RECORDS.')],
  ['SALE QUEUE REFRESH BUTTON LOCK',saleUi.includes('disabled={busy||refreshing} aria-label="REFRESH"')],
