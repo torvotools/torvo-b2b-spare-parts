@@ -3665,3 +3665,10 @@ body{margin:0;min-width:0;overflow-x:hidden}
  #torvo-v2-root .dealerLoginLocked .dealerLockedBottom{order:4!important;display:grid!important;grid-template-columns:1fr 1fr!important;gap:8px!important}
  #torvo-v2-root .dealerLoginLocked .dealerLockedBottom>*{min-height:76px!important;border-radius:8px!important;font-size:12px!important}
 }
+
+/* Unified TORVO V2 field focus: a single red outline on the complete control (including its icon). */
+#torvo-v2-root :is(.businessFinalUserField,.businessFinalInput,.dealerLockedIdentity,.publicForm label):focus-within{border-color:#d71920!important}
+#torvo-v2-root :is(.businessFinalUserField,.businessFinalInput,.dealerLockedIdentity):focus-within{box-shadow:0 0 0 1px rgba(215,25,32,.12)!important}
+#torvo-v2-root :is(.businessFinalUserField,.businessFinalInput,.dealerLockedIdentity) :is(input,textarea,select):focus,#torvo-v2-root :is(.businessFinalUserField,.businessFinalInput,.dealerLockedIdentity) :is(input,textarea,select):focus-visible{outline:0!important;box-shadow:none!important;border-color:transparent!important}
+#torvo-v2-root :is(.publicForm,.dealerLoginLocked) :is(input,textarea,select):focus-visible{outline:0!important;box-shadow:0 0 0 1px rgba(215,25,32,.12)!important;border-color:#d71920!important}
+#torvo-v2-root .publicForm label:focus-within :is(input,textarea,select):focus-visible{outline:0!important;box-shadow:none!important}
