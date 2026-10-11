@@ -12,6 +12,9 @@ const reversalSql=extractFunction('reverse_marg_bill_sale');
 const deliverySql=extractFunction('finalize_actual_delivery');
 if(!revisionSql||!reversalSql||!deliverySql){console.error('MARG SALE SAFETY: SQL FUNCTION BODY MISSING');process.exit(1)}
 const checks=[
+ ['REVERSAL RECONCILES EACH ITEM',reversalSql.includes('SALE STOCK POSTING QUANTITY MISMATCH')],
+ ['REVERSAL CHECKS POSTED QUANTITY',reversalSql.includes('posted.qty_change is distinct from -expected.qty')],
+ ['REVERSAL CHECKS MISSING MOVEMENT',reversalSql.includes('posted.item_id is null')],
  ['SALE REJECTS INVALID PAYABLE [SCOPED]',sql.includes('INVALID ESTIMATE PAYABLE FOR SALE')],
  ['REVERSAL REQUIRES STOCK POSTING EVIDENCE [SCOPED]',reversalSql.includes('SALE STOCK POSTING EVIDENCE MISSING')],
 
