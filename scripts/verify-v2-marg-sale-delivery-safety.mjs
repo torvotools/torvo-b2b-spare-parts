@@ -1,8 +1,15 @@
 import fs from 'node:fs';
 const sql=fs.readFileSync('supabase/v2-marg-bill-sale-posting.sql','utf8');
-const revisionSql=sql.split('create or replace function public.revise_estimate_before_sale')[1]?.split('end;'+String.fromCharCode(36,36)+';')[0]??'';
-const reversalSql=sql.split('create or replace function public.reverse_marg_bill_sale')[1]?.split('end;'+String.fromCharCode(36,36)+';')[0]??'';
-const deliverySql=sql.split('create or replace function public.finalize_actual_delivery')[1]?.split('end;'+String.fromCharCode(36,36)+';')[0]??'';
+function extractFunction(name){
+ const marker='create or replace function public.'+name;
+ const start=sql.indexOf(marker);
+ if(start<0||sql.indexOf(marker,start+marker.length)>=0) return '';
+ const end=sql.indexOf('end;'+String.fromCharCode(36,36)+';',start);
+ return end<0?'':sql.slice(start,end+7);
+}
+const revisionSql=extractFunction('revise_estimate_before_sale');
+const reversalSql=extractFunction('reverse_marg_bill_sale');
+const deliverySql=extractFunction('finalize_actual_delivery');
 if(!revisionSql||!reversalSql||!deliverySql){console.error('MARG SALE SAFETY: SQL FUNCTION BODY MISSING');process.exit(1)}
 const checks=[
  ['REVISION REQUIRES ESTIMATE NUMBER',revisionSql.includes("if nullif(btrim(coalesce(p_estimate_number,'')),'') is null then raise exception 'ESTIMATE NUMBER REQUIRED'")],
