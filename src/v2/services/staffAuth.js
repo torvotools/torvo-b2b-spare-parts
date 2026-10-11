@@ -1,6 +1,8 @@
 import{requireBackend}from'./supabase';import{isNativeApp}from'./runtimePlatform';
 const digits=v=>String(v||'').replace(/\D/g,'').slice(-10);const STAFF=new Set(['owner','admin','accountant','salesman','store_keeper']);const SESSION_KEY='torvo_staff_session_id';export const DEALER_SESSION_KEY='torvo_dealer_session_token';
-const codeDigits=(v,n)=>String(v||'').replace(/\D/g,'').slice(0,n);const assertDevice=v=>{const x=String(v||'').trim();if(!x||x.length>180)throw new Error('SECURE DEVICE ID REQUIRED.');return x};
+const codeDigits=(v,n)=>{const s=String(v??'').trim();if(!new RegExp(`^[0-9]{${n}}import{requireBackend}from'./supabase';import{isNativeApp}from'./runtimePlatform';
+const digits=v=>String(v||'').replace(/\D/g,'').slice(-10);const STAFF=new Set(['owner','admin','accountant','salesman','store_keeper']);const SESSION_KEY='torvo_staff_session_id';export const DEALER_SESSION_KEY='torvo_dealer_session_token';
+).test(s))throw new Error(`ENTER ${n}-DIGIT OTP.`);return s};const assertDevice=v=>{const x=String(v||'').trim();if(!x||x.length>180)throw new Error('SECURE DEVICE ID REQUIRED.');return x};
 export const normalizeStaffUsername=v=>String(v||'').trim().toUpperCase();
 export const BUSINESS_STAFF_USER_IDS=new Set(['OR@000','AD@001','AC@002','AC@003']);
 export const isStaffUserIdFormat=v=>/^[A-Z]{2,8}@[0-9]{2,6}$/.test(normalizeStaffUsername(v));
