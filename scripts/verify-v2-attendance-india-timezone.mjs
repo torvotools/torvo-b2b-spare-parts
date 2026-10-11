@@ -9,7 +9,7 @@ assert.ok(sql.includes('attendance_date date not null default (' + india + ')'),
 for (const fn of ['salesman_my_attendance_today', 'salesman_attendance_check_in', 'salesman_attendance_check_out']) {
   const start = sql.indexOf('function public.' + fn + '(');
   assert.ok(start >= 0, fn + ' missing');
-  const end = sql.indexOf('$;', start);
+  const end = sql.indexOf(String.fromCharCode(36, 36) + ';', start);
   assert.ok(end > start, fn + ' body missing');
   assert.ok(sql.slice(start, end).includes(india), fn + ' does not use India-local date');
 }
