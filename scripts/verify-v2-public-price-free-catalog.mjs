@@ -11,5 +11,8 @@ if(!/m\.public_visible\s*=\s*true/i.test(sql))fail('MACHINE -> SPARE MUST REQUIR
 if(!/grant execute on function public\.public_customer_catalog\(text,integer\) to anon,authenticated/i.test(sql))fail('PUBLIC SEARCH EXECUTE GRANT MISSING');
 if(!/grant execute on function public\.public_customer_catalog_filtered\(text,text,text,text,text,uuid,boolean,text,integer\) to anon,authenticated/i.test(sql))fail('PUBLIC FILTER EXECUTE GRANT MISSING');
 if(!/grant execute on function public\.public_product_showcase\(integer\) to anon,authenticated/i.test(sql))fail('PUBLIC SHOWCASE EXECUTE GRANT MISSING');
+if(!sql.includes('public_customer_catalog_page(')||!sql.includes('order by c.created_at desc,c.id desc')||!sql.includes('(c.created_at,c.id)<(p_before_created_at,p_before_id)'))fail('PAGINATED PUBLIC CATALOG KEYSET CONTRACT MISSING');
+if(!/grant execute on function public\.public_customer_catalog_page\(text,timestamptz,uuid,integer\) to anon,authenticated/i.test(sql))fail('PAGINATED PUBLIC CATALOG GRANT MISSING');
+for(const token of["export async function loadPublicCatalogPage(","rpc('public_customer_catalog_page'","p_before_created_at:before","p_before_id:beforeId","nextCursor:"])if(!service.includes(token))fail(`PAGINATED FRONTEND SERVICE MISSING: ${token}`);
 if(!install.includes('v2-public-price-free-catalog-runtime.sql'))fail('CANONICAL INSTALL ORDER MISSING');
 console.log('TORVO V2 public price-free catalog frontend/SQL/privacy contract OK');
