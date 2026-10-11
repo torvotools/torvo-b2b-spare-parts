@@ -29,6 +29,7 @@ const checks=[
  ['SALE APPROVAL CHECKS SUFFICIENT INVENTORY',sql.includes('INSUFFICIENT STOCK FOR ITEM')],
  ['SALE POSTS DISPATCH PICK LIST',sql.includes("values(e.id,'pick_list',a.id)")],
  ['REVERSAL DOES NOT DELETE SALE AUDIT ROW',sql.includes("set status='reversed'")],
+ ['SALE APPROVAL REJECTS POSTED STATUS',sql.includes("'delivered','sale_posted','sale_reversed'")],
  ['SALE APPROVAL REJECTS REVERSED ESTIMATE',sql.includes("'sale_reversed'")&&sql.includes('ESTIMATE STATUS DOES NOT ALLOW SALE POSTING')],
  ['SALE APPROVAL REJECTS CANCELLED ESTIMATE',sql.includes("'cancelled'")&&sql.includes("'canceled'")],
  ['SALE APPROVAL REJECTS VOIDED ESTIMATE',sql.includes("'void'")&&sql.includes("'voided'")],
