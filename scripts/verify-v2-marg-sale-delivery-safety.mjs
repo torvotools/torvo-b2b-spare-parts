@@ -13,9 +13,13 @@ const deliverySql=extractFunction('finalize_actual_delivery');
 if(!revisionSql||!reversalSql||!deliverySql){console.error('MARG SALE SAFETY: SQL FUNCTION BODY MISSING');process.exit(1)}
 const saleUi=fs.readFileSync('src/v2/components/MargBillSaleWorkspace.jsx','utf8');
 const dispatchUi=fs.readFileSync('src/v2/components/DispatchWorkspace.jsx','utf8');
+const repository=fs.readFileSync('src/v2/services/repository.js','utf8');
 const saleService=fs.readFileSync('src/v2/services/margBillSale.js','utf8');
 const packageScripts=JSON.parse(fs.readFileSync('package.json','utf8')).scripts;
 const checks=[
+ ['DELIVERY USES CANONICAL RPC',repository.includes("db().rpc('finalize_actual_delivery'")],
+ ['DELIVERY SENDS STABLE REQUEST KEY',dispatchUi.includes("'STORE-DELIVERY-'+r.dispatch_id")],
+ ['LEGACY DELIVERY RPC NOT CALLED',!repository.includes("db().rpc('deliver_estimate'")],
  ['DISPATCH REFRESH CLEARS STALE ROWS',dispatchUi.includes('catch(e){setRows([]);setLoaded(false);setError(U(e.message))}')],
  ['DISPATCH ACTIONS REQUIRE LOADED QUEUE',dispatchUi.includes('if(!action||busy||loading||!loaded)return')],
  ['DISPATCH REFRESH INVALIDATES OPEN ACTION',dispatchUi.includes('setLoading(true);setAction(null);setError')],
