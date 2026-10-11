@@ -108,6 +108,7 @@ begin
  if not found then raise exception 'ESTIMATE NOT FOUND';end if;
  select * into s from public.marg_bill_sales where estimate_id=d.id and status in('posted','corrected');
  if not found then raise exception 'POSTED MARG BILL SALE REQUIRED BEFORE DELIVERY';end if;
+ if lower(btrim(coalesce(d.status,''))) not in('sale_posted','delivered') then raise exception 'ESTIMATE STATUS DOES NOT ALLOW DELIVERY';end if;
  select * into disp from public.dispatches where estimate_id=d.id for update;
  if not found then raise exception 'DISPATCH NOT FOUND';end if;
  if disp.status='delivered' then return;end if;
