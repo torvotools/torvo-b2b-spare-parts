@@ -8,7 +8,7 @@ const checks=[
  ['REVISION REJECTS NONFINITE RATE',sql.includes("r::text in('NaN','Infinity','-Infinity')")],
  ['REVISION REJECTS NULL ITEM ID',sql.includes('if iid is null or q is null or r is null')],
  ['REVISION REJECTS NULL QUANTITY',sql.includes('q is null or r is null')],
- ['REVISION REJECTS NULL RATE',sql.includes('r is null or q<=0')],
+ ['REVISION REJECTS NULL RATE',sql.includes('r is null or q::text in')],
  ['REVISION REJECTS NONPOSITIVE QUANTITY',sql.includes('q<=0 or r<0')],
  ['REVISION REJECTS NEGATIVE RATE',sql.includes('r<0 or not exists')],
  ['REVISION REQUIRES ACTIVE CATALOG ITEM',sql.includes('public.catalog_items where id=iid and active=true')],
