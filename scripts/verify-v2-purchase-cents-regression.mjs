@@ -17,6 +17,9 @@ assert.throws(() => validate([]), /AT LEAST ONE/);
 assert.throws(() => validate([line(1)[0], line(2)[0]]), /DUPLICATE/);
 assert.throws(() => validate([{item_id:'TEST-ITEM',qty:0,purchase_rate:1}]), /QUANTITY/);
 assert.throws(() => validate([{item_id:'TEST-ITEM',qty:1,purchase_rate:'abc'}]), /RATE/);
+assert.throws(() => validate([{item_id:'TEST-ITEM',qty:1,purchase_rate:'  '}]), /RATE/);
+assert.throws(() => validate([{item_id:'TEST-ITEM',qty:1,purchase_rate:false}]), /RATE/);
+
 for (const qty of [0, -1, 1.5, 1000000, Infinity, NaN, '', null]) {
   assert.throws(() => validate([{item_id:'TEST-ITEM',qty,purchase_rate:1}]), 'invalid qty accepted: ' + String(qty));
 }
