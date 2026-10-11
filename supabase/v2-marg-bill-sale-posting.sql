@@ -103,7 +103,8 @@ declare a public.app_users%rowtype;d public.sales_documents%rowtype;disp public.
 begin
  select * into a from public.app_users where auth_user_id=auth.uid() and active=true;
  if not found or a.role not in('owner','admin','store_keeper') then raise exception 'NOT AUTHORIZED';end if;
- if nullif(btrim(coalesce(p_request_key,'')),'') is null then raise exception 'DELIVERY REQUEST KEY REQUIRED';end if;
+ if nullif(btrim(coalesce(p_request_key,'')),'') is null or length(btrim(p_request_key))>128 then raise exception 'VALID DELIVERY REQUEST KEY REQUIRED';end if;
+ if p_tracking_code is not null and length(btrim(p_tracking_code))>128 then raise exception 'TRACKING CODE TOO LONG';end if;
  select * into d from public.sales_documents where id=p_estimate and doc_type='estimate' for update;
  if not found then raise exception 'ESTIMATE NOT FOUND';end if;
  select * into s from public.marg_bill_sales where estimate_id=d.id and status in('posted','corrected');
