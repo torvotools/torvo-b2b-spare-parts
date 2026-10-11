@@ -1100,3 +1100,15 @@ body:has(.publicSite){padding-bottom:0!important}
 #torvo-v2-root .publicSite .torvoPremiumFooter .torvoSocialLinks .socialYoutube svg{width:37px;height:37px}
 #torvo-v2-root .publicSite .torvoPremiumFooter .torvoSocialLinks .socialInstagram svg{width:29px;height:29px}
 @media(max-width:700px){#torvo-v2-root .publicSite .torvoPremiumFooter .torvoFooterConnect{grid-template-columns:minmax(0,1fr) max-content;gap:14px 8px;padding:14px 10px}#torvo-v2-root .publicSite .torvoPremiumFooter .torvoContactActions,#torvo-v2-root .publicSite .torvoPremiumFooter .torvoSocialLinks{grid-template-columns:repeat(3,38px);gap:7px}#torvo-v2-root .publicSite .torvoPremiumFooter .torvoContactActions a,#torvo-v2-root .publicSite .torvoPremiumFooter .torvoSocialLinks a{width:38px;height:38px}}
+
+/* Owner final correction: phone/email beside icons; preserve compact footer height and approved icon size. */
+@media(min-width:701px){
+#torvo-v2-root .publicSite .torvoPremiumFooter .torvoFooterConnect{grid-template-columns:minmax(0,116px) max-content minmax(0,1fr);grid-template-rows:40px 40px;column-gap:clamp(8px,1vw,16px);row-gap:12px;padding:12px;align-content:center}
+#torvo-v2-root .publicSite .torvoPremiumFooter .torvoFooterConnect>h3{grid-column:1;grid-row:1}
+#torvo-v2-root .publicSite .torvoPremiumFooter .torvoContactActions{grid-column:2;grid-row:1}
+#torvo-v2-root .publicSite .torvoPremiumFooter .torvoFollowBlock>h3{grid-column:1;grid-row:2}
+#torvo-v2-root .publicSite .torvoPremiumFooter .torvoSocialLinks{grid-column:2;grid-row:2}
+#torvo-v2-root .publicSite .torvoPremiumFooter .torvoFooterContactDetails{grid-column:3;grid-row:1/3;align-self:center;gap:8px;margin:0;min-width:0}
+#torvo-v2-root .publicSite .torvoPremiumFooter .torvoFooterContactDetails a{font-size:clamp(11px,.85vw,14px);overflow-wrap:anywhere;line-height:1.3}
+}
+@media(min-width:701px) and (max-width:1000px){#torvo-v2-root .publicSite .torvoPremiumFooter .torvoFooterConnect{grid-template-columns:minmax(0,94px) max-content minmax(0,1fr);column-gap:7px;padding:10px}#torvo-v2-root .publicSite .torvoPremiumFooter .torvoContactActions,#torvo-v2-root .publicSite .torvoPremiumFooter .torvoSocialLinks{grid-template-columns:repeat(3,36px);gap:6px}#torvo-v2-root .publicSite .torvoPremiumFooter .torvoContactActions a,#torvo-v2-root .publicSite .torvoPremiumFooter .torvoSocialLinks a{width:36px;height:36px}}
