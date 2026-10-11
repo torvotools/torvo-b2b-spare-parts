@@ -42,7 +42,7 @@ begin
  if nullif(upper(btrim(coalesce(p_estimate_number,''))),'') is null then raise exception 'ESTIMATE NUMBER REQUIRED';end if;
  select * into e from public.sales_documents where estimate_number=upper(btrim(p_estimate_number)) and doc_type='estimate' for update;
  if not found then raise exception 'ESTIMATE NOT FOUND';end if;
- if e.status is null or lower(btrim(e.status)) in('delivered','sale_reversed','cancelled','canceled','rejected','void','voided') then raise exception 'ESTIMATE STATUS DOES NOT ALLOW SALE POSTING';end if;
+ if e.status is null or lower(btrim(e.status)) in('delivered','sale_posted','sale_reversed','cancelled','canceled','rejected','void','voided') then raise exception 'ESTIMATE STATUS DOES NOT ALLOW SALE POSTING';end if;
  if exists(select 1 from public.marg_bill_sales where estimate_id=e.id) then raise exception 'ESTIMATE ALREADY POSTED AS SALE';end if;
  if exists(select 1 from public.marg_bill_sales where upper(btrim(marg_bill_no))=bill) then raise exception 'MARG BILL NUMBER ALREADY USED';end if;
  if not exists(select 1 from public.sales_document_lines where document_id=e.id) then raise exception 'ESTIMATE HAS NO ITEMS';end if;
