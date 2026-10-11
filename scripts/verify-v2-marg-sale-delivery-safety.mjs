@@ -46,7 +46,7 @@ const checks=[
  ['DELIVERY IDEMPOTENT WHEN ALREADY DELIVERED',sql.includes("if disp.status='delivered' then return")],
  ['REVERSAL OWNER ADMIN ONLY',sql.includes("a.role not in('owner','admin')")],
  ['DELIVERED SALE REVERSAL BLOCKED',sql.includes("DELIVERED SALE CANNOT BE REVERSED HERE")],
- ['SECOND REVERSAL BLOCKED',sql.includes("s.status='reversed'")&&sql.includes("ACTIVE POSTED SALE REQUIRED")],
+ ['SECOND REVERSAL BLOCKED',sql.includes("s.status not in('posted','corrected')")&&sql.includes("ACTIVE POSTED SALE REQUIRED")],
  ['REVERSAL RESTORES STOCK',sql.includes("current_qty=public.inventory.current_qty+excluded.current_qty")],
  ['REVERSAL CANCELS OPEN DISPATCH',sql.includes("delete from public.dispatches where estimate_id=e.id and status<>'delivered'")]
 ];
