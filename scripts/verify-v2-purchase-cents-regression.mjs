@@ -23,7 +23,7 @@ assert.throws(() => validate([{item_id:'TEST-ITEM',qty:1,purchase_rate:false}]),
 for (const qty of [0, -1, 1.5, 1000000, Infinity, NaN, '', '  ', null, true, false]) {
   assert.throws(() => validate([{item_id:'TEST-ITEM',qty,purchase_rate:1}]), 'invalid qty accepted: ' + String(qty));
 }
-for (const item_id of ['', ' ', null]) {
+for (const item_id of ['', ' ', null, 123, true, {}, ['TEST-ITEM']]) {
   assert.throws(() => validate([{item_id,qty:1,purchase_rate:1}]), /ITEM/);
 }
 assert.throws(() => validate(Array.from({length:501},(_,i)=>({item_id:'I'+i,qty:1,purchase_rate:1}))), /TOO MANY/);
