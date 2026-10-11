@@ -1,17 +1,28 @@
 import fs from 'node:fs';
 const sql=fs.readFileSync('supabase/v2-marg-bill-sale-posting.sql','utf8');
 function extractFunction(name){
- const marker='create or replace function public.'+name;
+ const marker='create or replace function public.'+name+'(';
  const start=sql.indexOf(marker);
  if(start<0||sql.indexOf(marker,start+marker.length)>=0) return '';
  const end=sql.indexOf('end;'+String.fromCharCode(36,36)+';',start);
- return end<0?'':sql.slice(start,end+7);
+ return end<0?'':sql.slice(start,end+('end;'+String.fromCharCode(36,36)+';').length);
 }
 const revisionSql=extractFunction('revise_estimate_before_sale');
 const reversalSql=extractFunction('reverse_marg_bill_sale');
 const deliverySql=extractFunction('finalize_actual_delivery');
 if(!revisionSql||!reversalSql||!deliverySql){console.error('MARG SALE SAFETY: SQL FUNCTION BODY MISSING');process.exit(1)}
 const checks=[
+ ['SALE REJECTS INVALID STATUS [SCOPED]',sql.includes('ESTIMATE STATUS DOES NOT ALLOW SALE POSTING')],
+ ['REVERSAL REJECTS INVALID LINES [SCOPED]',reversalSql.includes('INVALID SALE LINES FOR REVERSAL')],
+ ['REVERSAL REQUIRES POSTED ESTIMATE [SCOPED]',reversalSql.includes('ESTIMATE STATUS DOES NOT ALLOW SALE REVERSAL')],
+ ['DELIVERY REQUIRES POSTED ESTIMATE [SCOPED]',deliverySql.includes('ESTIMATE STATUS DOES NOT ALLOW DELIVERY')],
+ ['DELIVERY REJECTS NULL ESTIMATE ID [SCOPED]',deliverySql.includes('ESTIMATE ID REQUIRED FOR DELIVERY')],
+ ['DELIVERY REJECTS LONG REQUEST KEY [SCOPED]',deliverySql.includes('length(btrim(p_request_key))>128')],
+ ['DELIVERY REJECTS LONG TRACKING CODE [SCOPED]',deliverySql.includes('length(btrim(p_tracking_code))>128')],
+ ['REVISION REJECTS NONFINITE RATE [SCOPED]',revisionSql.includes("r::text in('NaN','Infinity','-Infinity')")],
+ ['REVISION REJECTS EMPTY ARRAY [SCOPED]',revisionSql.includes('jsonb_array_length(p_lines)=0')],
+ ['REVERSAL REQUIRES EXPLANATION [SCOPED]',reversalSql.includes('VALID REVERSAL REASON REQUIRED')],
+
  ['REVISION REQUIRES ESTIMATE NUMBER',revisionSql.includes("if nullif(btrim(coalesce(p_estimate_number,'')),'') is null then raise exception 'ESTIMATE NUMBER REQUIRED'")],
  ['REVISION REJECTS NULL PAYLOAD',revisionSql.includes("p_lines is null or jsonb_typeof(p_lines) is distinct from 'array'")],
  ['REVISION REJECTS EMPTY PAYLOAD',revisionSql.includes('jsonb_array_length(p_lines)=0')],
