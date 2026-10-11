@@ -13,6 +13,10 @@ const deliverySql=extractFunction('finalize_actual_delivery');
 if(!revisionSql||!reversalSql||!deliverySql){console.error('MARG SALE SAFETY: SQL FUNCTION BODY MISSING');process.exit(1)}
 const saleUi=fs.readFileSync('src/v2/components/MargBillSaleWorkspace.jsx','utf8');
 const checks=[
+ ['SALE UI ENFORCES BILL LENGTH',saleUi.includes('bill.trim().length>80')&&saleUi.includes('maxLength={80}')],
+ ['REVERSAL UI ENFORCES REASON LENGTH',saleUi.includes('reason.trim().length>500')&&saleUi.includes('maxLength={500}')],
+ ['DELIVERED REVERSAL ACTION DISABLED',saleUi.includes("U(r.dispatch_status)==='DELIVERED'")],
+ ['REVERSAL CANCEL DISABLED DURING POSTING',saleUi.includes('disabled={busy} onClick={()=>setReverse(null)}')],
  ['SALE UI REQUIRES EXPLICIT CONFIRMATION',saleUi.includes('if(busy||!confirmed)return')&&saleUi.includes('disabled={busy||!estimate||!bill||!confirmed}')],
  ['SALE UI RESETS CONFIRMATION ON EDIT',saleUi.includes('setEstimate(e.target.value.trim());setConfirmed(false)')&&saleUi.includes('setBill(U(e.target.value));setConfirmed(false)')],
  ['SALE UI OWNER APPROVAL LABEL',saleUi.includes('APPROVE BILL & CONFIRM SALE')&&!saleUi.includes('SAVE MARG BILL & POST SALE')],
