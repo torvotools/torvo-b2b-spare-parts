@@ -146,7 +146,7 @@ begin
  create temporary table if not exists pg_temp.torvo_estimate_revision(item_id uuid,qty numeric,rate numeric,amount numeric) on commit drop;truncate pg_temp.torvo_estimate_revision;
  for ln in select * from jsonb_array_elements(p_lines) loop
   begin iid:=(ln->>'item_id')::uuid;q:=(ln->>'qty')::numeric;r:=(ln->>'rate')::numeric;exception when others then raise exception 'INVALID ESTIMATE LINE';end;
-  if iid is null or q is null or r is null or q<=0 or r<0 or not exists(select 1 from public.catalog_items where id=iid and active=true) then raise exception 'INVALID ESTIMATE LINE / ITEM';end if;
+  if iid is null or q is null or r is null or q::text in('NaN','Infinity','-Infinity') or r::text in('NaN','Infinity','-Infinity') or q<=0 or r<0 or not exists(select 1 from public.catalog_items where id=iid and active=true) then raise exception 'INVALID ESTIMATE LINE / ITEM';end if;
   amt:=round(q*r,2);sub:=sub+amt;insert into pg_temp.torvo_estimate_revision values(iid,q,r,amt);
  end loop;
  delete from public.sales_document_lines where document_id=e.id;
