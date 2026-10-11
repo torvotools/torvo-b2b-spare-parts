@@ -1,6 +1,8 @@
 import fs from 'node:fs';
 const sql=fs.readFileSync('supabase/v2-marg-bill-sale-posting.sql','utf8');
 const checks=[
+ ['REVISION REJECTS NULL PAYLOAD',sql.includes("p_lines is null or jsonb_typeof(p_lines) is distinct from 'array'")],
+ ['REVISION REJECTS EMPTY PAYLOAD',sql.includes('jsonb_array_length(p_lines)=0')],
  ['REVISION REJECTS NONFINITE QUANTITY',sql.includes("q::text in('NaN','Infinity','-Infinity')")],
  ['REVISION REJECTS NONFINITE RATE',sql.includes("r::text in('NaN','Infinity','-Infinity')")],
  ['REVISION REJECTS NULL ITEM ID',sql.includes('if iid is null or q is null or r is null')],
