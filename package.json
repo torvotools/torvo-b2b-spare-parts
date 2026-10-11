@@ -89,7 +89,8 @@
     "verify:v2-final-dealer-approval": "node scripts/verify-v2-final-dealer-approval.mjs",
     "verify:v2-marg-sale-delivery-safety": "node scripts/verify-v2-marg-sale-delivery-safety.mjs",
     "verify:v2-purchase-inventory-return-safety": "node scripts/verify-v2-purchase-inventory-return-safety.mjs",
-    "verify:v2-purchase-cents": "node scripts/verify-v2-purchase-cents-regression.mjs"
+    "verify:v2-purchase-cents": "node scripts/verify-v2-purchase-cents-regression.mjs",
+    "verify:v2-attendance-timezone": "node scripts/verify-v2-attendance-india-timezone.mjs"
   },
   "dependencies": {
     "@capacitor/android": "^7.4.3",
