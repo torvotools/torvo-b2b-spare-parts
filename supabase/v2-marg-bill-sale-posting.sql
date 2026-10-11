@@ -136,7 +136,7 @@ declare a public.app_users%rowtype;e public.sales_documents%rowtype;ln jsonb;iid
 begin
  select * into a from public.app_users where auth_user_id=auth.uid() and active=true;
  if not found or a.role not in('owner','admin','accountant') then raise exception 'OWNER / ADMIN / ACCOUNTANT AUTHORIZATION REQUIRED';end if;
- if nullif(btrim(coalesce(p_reason,'')),'') is null then raise exception 'REVISION REASON REQUIRED';end if;
+ if nullif(btrim(coalesce(p_reason,'')),'') is null or length(btrim(p_reason))>500 then raise exception 'VALID REVISION REASON REQUIRED';end if;
  select * into e from public.sales_documents where estimate_number=upper(btrim(p_estimate_number)) and doc_type='estimate' for update;
  if not found then raise exception 'ESTIMATE NOT FOUND';end if;
  if e.status is null or lower(btrim(e.status)) in('delivered','sale_reversed','cancelled','canceled','rejected','void','voided','sale_posted') then raise exception 'ESTIMATE STATUS DOES NOT ALLOW REVISION';end if;
@@ -166,13 +166,13 @@ declare a public.app_users%rowtype;e public.sales_documents%rowtype;s public.mar
 begin
  select * into a from public.app_users where auth_user_id=auth.uid() and active=true;
  if not found or a.role not in('owner','admin') then raise exception 'OWNER / ADMIN AUTHORIZATION REQUIRED';end if;
- if nullif(btrim(coalesce(p_reason,'')),'') is null then raise exception 'REVERSAL REASON REQUIRED';end if;
+ if nullif(btrim(coalesce(p_reason,'')),'') is null or length(btrim(p_reason))>500 then raise exception 'VALID REVERSAL REASON REQUIRED';end if;
  select * into e from public.sales_documents where estimate_number=upper(btrim(p_estimate_number)) and doc_type='estimate' for update;
  if not found then raise exception 'ESTIMATE NOT FOUND';end if;
  select * into s from public.marg_bill_sales where estimate_id=e.id for update;
  if not found or s.status not in('posted','corrected') then raise exception 'ACTIVE POSTED SALE REQUIRED';end if;
  select * into d from public.dispatches where estimate_id=e.id for update;
- if e.status='delivered' or (found and d.status='delivered') then raise exception 'DELIVERED SALE CANNOT BE REVERSED HERE';end if;
+ if lower(btrim(coalesce(e.status,'')))='delivered' or (found and d.status='delivered') then raise exception 'DELIVERED SALE CANNOT BE REVERSED HERE';end if;
  for ln in select item_id,sum(qty) qty from public.sales_document_lines where document_id=e.id group by item_id order by item_id loop
   insert into public.inventory(item_id,current_qty,updated_at) values(ln.item_id,ln.qty,now()) on conflict(item_id) do update set current_qty=public.inventory.current_qty+excluded.current_qty,updated_at=now();
   insert into public.inventory_movements(item_id,qty_change,reason,reference_type,reference_id,created_by) values(ln.item_id,ln.qty,'MARG BILL SALE REVERSAL','marg_bill_sale',s.id,a.id);
