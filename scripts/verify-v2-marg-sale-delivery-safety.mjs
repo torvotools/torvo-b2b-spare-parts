@@ -14,6 +14,10 @@ if(!revisionSql||!reversalSql||!deliverySql){console.error('MARG SALE SAFETY: SQ
 const saleUi=fs.readFileSync('src/v2/components/MargBillSaleWorkspace.jsx','utf8');
 const saleService=fs.readFileSync('src/v2/services/margBillSale.js','utf8');
 const checks=[
+ ['REVERSAL UI EXPLICIT CONFIRMATION',saleUi.includes('if(!reverse||!reverseConfirmed')&&saleUi.includes('!reverseConfirmed||!reason.trim()')],
+ ['REVERSAL UI RESET ON OPEN',saleUi.includes("setReverse(r);setReason('');setReverseConfirmed(false)")],
+ ['REVERSAL UI RESET AFTER SUCCESS',saleUi.includes("setReverse(null);setReason('');setReverseConfirmed(false);await load()")],
+ ['REVERSAL UI CONFIRMATION LABEL',saleUi.includes('I CONFIRM THIS UNDELIVERED SALE MUST BE REVERSED')],
  ['SALE SERVICE BLOCKS EMPTY ESTIMATE',saleService.includes("String(estimateNumber||'').trim()")],
  ['SALE SERVICE BILL MAX LENGTH',saleService.includes('bill.length>80')],
  ['REVISION SERVICE REQUIRES ITEMS',saleService.includes('!Array.isArray(lines)||lines.length===0')],
