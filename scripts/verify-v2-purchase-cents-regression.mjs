@@ -20,7 +20,7 @@ assert.throws(() => validate([{item_id:'TEST-ITEM',qty:1,purchase_rate:'abc'}]),
 assert.throws(() => validate([{item_id:'TEST-ITEM',qty:1,purchase_rate:'  '}]), /RATE/);
 assert.throws(() => validate([{item_id:'TEST-ITEM',qty:1,purchase_rate:false}]), /RATE/);
 
-for (const qty of [0, -1, 1.5, 1000000, Infinity, NaN, '', null]) {
+for (const qty of [0, -1, 1.5, 1000000, Infinity, NaN, '', '  ', null, true, false]) {
   assert.throws(() => validate([{item_id:'TEST-ITEM',qty,purchase_rate:1}]), 'invalid qty accepted: ' + String(qty));
 }
 for (const item_id of ['', ' ', null]) {
