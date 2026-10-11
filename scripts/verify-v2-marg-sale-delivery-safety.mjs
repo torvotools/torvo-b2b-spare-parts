@@ -1,6 +1,12 @@
 import fs from 'node:fs';
 const sql=fs.readFileSync('supabase/v2-marg-bill-sale-posting.sql','utf8');
 const checks=[
+ ['SALE APPROVAL REQUIRES AUTHORIZED STAFF',sql.includes("a.role not in('owner','admin','accountant')")],
+ ['SALE APPROVAL REJECTS EXISTING ESTIMATE SALE',sql.includes("ESTIMATE ALREADY POSTED AS SALE")],
+ ['MARG BILL NUMBER CANNOT BE REUSED',sql.includes("MARG BILL NUMBER ALREADY USED")],
+ ['SALE APPROVAL DOES NOT REQUIRE PAYMENT',sql.includes("'payment_gate',false")],
+ ['STOCK LOCKED BEFORE SALE DEDUCTION',sql.includes("current_qty into stock")&&sql.includes("for update")],
+ ['SALE REVERSAL REQUIRES REASON',sql.includes("REVERSAL REASON REQUIRED")],
  ['SALE STOCK DEDUCTION AT MARG POST',sql.includes("values(ln.item_id,-ln.qty,'MARG BILL SALE POSTED'")],
  ['DELIVERY REQUIRES POSTED MARG SALE',sql.includes("POSTED MARG BILL SALE REQUIRED BEFORE DELIVERY")],
  ['DELIVERY READY STAGE REQUIRED',sql.includes("disp.status not in('ready_for_dispatch')")],
