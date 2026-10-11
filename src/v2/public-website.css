@@ -1170,3 +1170,9 @@ body:has(.publicSite){padding-bottom:0!important}
 #torvo-v2-root .publicSite .publicHeaderSearchRow .publicHeroSearchBar{align-items:center!important}
 #torvo-v2-root .publicSite .publicHeaderSearchRow .publicHeroSearchBar input{box-sizing:border-box!important;align-self:center!important;height:100%!important;min-height:0!important;margin:0!important;padding-top:0!important;padding-bottom:0!important;line-height:normal!important;vertical-align:middle!important;font-weight:400!important;transform:none!important}
 #torvo-v2-root .publicSite .publicHeaderSearchRow .publicHeroSearchBar input::placeholder{line-height:normal!important;font-weight:400!important;opacity:1}
+
+/* Single clean search outline: no inner input focus ring or vertical separator. */
+#torvo-v2-root .publicSite .publicHeaderSearchRow .publicHeroSearchBar input,#torvo-v2-root .publicSite .publicHeaderSearchRow .publicHeroSearchBar input:focus,#torvo-v2-root .publicSite .publicHeaderSearchRow .publicHeroSearchBar input:focus-visible{border:0!important;border-right:0!important;border-radius:0!important;outline:0!important;box-shadow:none!important;background:transparent!important;appearance:none!important;-webkit-appearance:none!important}
+#torvo-v2-root .publicSite .publicHeaderSearchRow .publicHeroSearchBar button{border-left:0!important;box-shadow:none!important}
+#torvo-v2-root .publicSite .publicHeaderSearchRow .publicHeroSearchBar{overflow:hidden}
+#torvo-v2-root .publicSite .publicHeaderSearchRow .publicHeroSearchBar:focus-within{border-color:#d71927!important;outline:0;box-shadow:0 0 0 1px rgba(215,25,39,.14)!important}
