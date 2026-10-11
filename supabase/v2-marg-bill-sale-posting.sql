@@ -168,6 +168,7 @@ begin
  select * into a from public.app_users where auth_user_id=auth.uid() and active=true;
  if not found or a.role not in('owner','admin') then raise exception 'OWNER / ADMIN AUTHORIZATION REQUIRED';end if;
  if nullif(btrim(coalesce(p_reason,'')),'') is null or length(btrim(p_reason))>500 then raise exception 'VALID REVERSAL REASON REQUIRED';end if;
+ if nullif(btrim(coalesce(p_estimate_number,'')),'') is null then raise exception 'ESTIMATE NUMBER REQUIRED';end if;
  select * into e from public.sales_documents where estimate_number=upper(btrim(p_estimate_number)) and doc_type='estimate' for update;
  if not found then raise exception 'ESTIMATE NOT FOUND';end if;
  select * into s from public.marg_bill_sales where estimate_id=e.id for update;
