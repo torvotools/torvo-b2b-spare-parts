@@ -82,7 +82,7 @@ returns table(
   page_created_at timestamptz
 )
 language sql security definer set search_path=public
-as $
+as $catalog_page$
   select c.id,c.item_code,c.oem_code,c.name,c.item_type,c.brand,c.category,c.model,
          c.image_url,c.short_description,c.created_at
   from public.catalog_items c
@@ -94,7 +94,7 @@ as $
       (p_before_id is not null and (c.created_at,c.id)<(p_before_created_at,p_before_id)))
   order by c.created_at desc,c.id desc
   limit least(greatest(coalesce(p_limit,60),1),120)
-$;
+$catalog_page$;
 
 revoke all on function public.public_customer_catalog_page(text,timestamptz,uuid,integer) from public;
 grant execute on function public.public_customer_catalog_page(text,timestamptz,uuid,integer) to anon,authenticated;
