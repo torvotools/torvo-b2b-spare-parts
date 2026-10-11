@@ -1058,3 +1058,27 @@ body:has(.publicSite){padding-bottom:0!important}
 #torvo-v2-root .publicSite .torvoPremiumFooter .torvoContactActions .contactWhatsapp{background:#25d366}
 #torvo-v2-root .publicSite .torvoPremiumFooter .torvoContactActions .contactEmail{background:#ea4335}
 #torvo-v2-root .publicSite .torvoPremiumFooter .torvoContactActions a{border:0;box-shadow:0 3px 10px rgba(0,0,0,.2)}
+
+/* OWNER-APPROVED FOOTER REFERENCE: identical vertical icon columns, two clean rows. */
+#torvo-v2-root .publicSite .torvoPremiumFooter .torvoFooterConnect{display:grid;grid-template-columns:minmax(170px,auto) max-content minmax(210px,1fr);grid-template-rows:auto auto;align-items:center;justify-content:stretch;column-gap:clamp(18px,2vw,36px);row-gap:28px;width:100%;padding:22px 24px;white-space:normal;background:#101012;border:0;border-radius:0;box-shadow:none}
+#torvo-v2-root .publicSite .torvoPremiumFooter .torvoFooterConnect>h3{grid-column:1;grid-row:1;margin:0;font-size:clamp(14px,1.15vw,19px);font-weight:750;letter-spacing:0;white-space:nowrap}
+#torvo-v2-root .publicSite .torvoPremiumFooter .torvoContactActions{grid-column:2;grid-row:1}
+#torvo-v2-root .publicSite .torvoPremiumFooter .torvoFooterContactDetails{grid-column:3;grid-row:1;margin:0;align-self:center;gap:12px}
+#torvo-v2-root .publicSite .torvoPremiumFooter .torvoFollowBlock{display:contents}
+#torvo-v2-root .publicSite .torvoPremiumFooter .torvoFollowBlock>h3{grid-column:1;grid-row:2;margin:0;font-size:clamp(14px,1.15vw,19px);font-weight:750;white-space:nowrap}
+#torvo-v2-root .publicSite .torvoPremiumFooter .torvoSocialLinks{grid-column:2;grid-row:2}
+#torvo-v2-root .publicSite .torvoPremiumFooter .torvoContactActions,#torvo-v2-root .publicSite .torvoPremiumFooter .torvoSocialLinks{display:grid;grid-template-columns:repeat(3,58px);gap:18px;align-items:center;margin:0}
+#torvo-v2-root .publicSite .torvoPremiumFooter .torvoContactActions a,#torvo-v2-root .publicSite .torvoPremiumFooter .torvoSocialLinks a{width:58px;height:58px;box-sizing:border-box;display:grid;place-items:center;border:0;border-radius:13px;overflow:hidden;opacity:1}
+#torvo-v2-root .publicSite .torvoPremiumFooter .torvoContactActions a svg{width:33px;height:33px;stroke:#fff;color:#fff;stroke-width:2.8}
+#torvo-v2-root .publicSite .torvoPremiumFooter .torvoSocialLinks .socialFacebook svg{width:37px;height:37px}
+#torvo-v2-root .publicSite .torvoPremiumFooter .torvoSocialLinks .socialYoutube svg{width:43px;height:43px}
+#torvo-v2-root .publicSite .torvoPremiumFooter .torvoSocialLinks .socialYoutube svg rect{fill:#fff;stroke:none}
+#torvo-v2-root .publicSite .torvoPremiumFooter .torvoSocialLinks .socialYoutube svg path{fill:#ff0000;stroke:none}
+#torvo-v2-root .publicSite .torvoPremiumFooter .torvoSocialLinks .socialInstagram svg{width:39px;height:39px;stroke:#fff;fill:none;stroke-width:2.4}
+#torvo-v2-root .publicSite .torvoPremiumFooter .torvoContactActions .contactPhone{background:#06bf50}
+#torvo-v2-root .publicSite .torvoPremiumFooter .torvoContactActions .contactWhatsapp{background:#06bf50}
+#torvo-v2-root .publicSite .torvoPremiumFooter .torvoContactActions .contactEmail{background:#e91d2a}
+#torvo-v2-root .publicSite .torvoPremiumFooter .torvoFooterContactDetails a{font-size:clamp(13px,1vw,17px);font-weight:650}
+#torvo-v2-root .publicSite .torvoPremiumFooter .torvoStaffGate{right:8px;bottom:8px}
+@media(max-width:1250px){#torvo-v2-root .publicSite .torvoPremiumFooter .torvoFooterConnect{grid-template-columns:minmax(140px,auto) max-content minmax(0,1fr);column-gap:16px;padding:18px 12px}#torvo-v2-root .publicSite .torvoPremiumFooter .torvoContactActions,#torvo-v2-root .publicSite .torvoPremiumFooter .torvoSocialLinks{grid-template-columns:repeat(3,48px);gap:12px}#torvo-v2-root .publicSite .torvoPremiumFooter .torvoContactActions a,#torvo-v2-root .publicSite .torvoPremiumFooter .torvoSocialLinks a{width:48px;height:48px}}
+@media(max-width:700px){#torvo-v2-root .publicSite .torvoPremiumFooter .torvoFooterConnect{grid-template-columns:minmax(0,1fr) max-content;grid-template-rows:auto auto auto;gap:20px 10px;padding:18px 12px}#torvo-v2-root .publicSite .torvoPremiumFooter .torvoFooterConnect>h3{grid-column:1;grid-row:1;font-size:12px}#torvo-v2-root .publicSite .torvoPremiumFooter .torvoContactActions{grid-column:2;grid-row:1}#torvo-v2-root .publicSite .torvoPremiumFooter .torvoFollowBlock>h3{grid-column:1;grid-row:2;font-size:12px}#torvo-v2-root .publicSite .torvoPremiumFooter .torvoSocialLinks{grid-column:2;grid-row:2}#torvo-v2-root .publicSite .torvoPremiumFooter .torvoFooterContactDetails{grid-column:1/-1;grid-row:3}#torvo-v2-root .publicSite .torvoPremiumFooter .torvoContactActions,#torvo-v2-root .publicSite .torvoPremiumFooter .torvoSocialLinks{grid-template-columns:repeat(3,40px);gap:7px}#torvo-v2-root .publicSite .torvoPremiumFooter .torvoContactActions a,#torvo-v2-root .publicSite .torvoPremiumFooter .torvoSocialLinks a{width:40px;height:40px;border-radius:10px}#torvo-v2-root .publicSite .torvoPremiumFooter .torvoContactActions a svg{width:25px;height:25px}#torvo-v2-root .publicSite .torvoPremiumFooter .torvoSocialLinks .socialFacebook svg{width:30px;height:30px}#torvo-v2-root .publicSite .torvoPremiumFooter .torvoSocialLinks .socialYoutube svg{width:36px;height:36px}#torvo-v2-root .publicSite .torvoPremiumFooter .torvoSocialLinks .socialInstagram svg{width:29px;height:29px}}
