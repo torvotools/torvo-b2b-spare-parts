@@ -1135,3 +1135,6 @@ body:has(.publicSite){padding-bottom:0!important}
 #torvo-v2-root .publicSite .torvoGstGatePanel input{height:40px;padding:7px 10px;border-radius:6px}
 #torvo-v2-root .publicSite .torvoGstGatePanel:focus-within{border-color:#e44a55}
 @media(max-width:700px){#torvo-v2-root .publicSite .torvoGstGatePanel{width:180px;max-width:calc(100vw - 24px)}}
+
+/* Owner photo: keep the red footer band the same width from top to bottom; remove the expanding diagonal wedge. */
+@media(min-width:681px){#torvo-v2-root .publicSite .torvoPremiumFooter{background:linear-gradient(90deg,#11151b 0%,#11151b 77%,#c82131 77%,#c82131 100%)}}
