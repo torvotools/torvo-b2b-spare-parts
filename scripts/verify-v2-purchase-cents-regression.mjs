@@ -31,4 +31,14 @@ for (const item_id of ['', ' ', 'NOT-A-UUID', null, 123, true, {}, ['123e4567-e8
 }
 assert.throws(() => validate(Array.from({length:501},(_,i)=>({item_id:'123e4567-e89b-42d3-a456-'+String(i).padStart(12,'0'),qty:1,purchase_rate:1}))), /TOO MANY/);
 
+const invalidQtyStrings = ['1e2', '0x10', '+2', '2.0', '2abc'];
+for (const qty of invalidQtyStrings) {
+  assert.throws(() => validate([{item_id:'123e4567-e89b-42d3-a456-426614174000',qty,purchase_rate:1}]), /QUANTITY/);
+}
+const invalidRateStrings = ['1e2', '0x10', '+2', '2.345', '1abc'];
+for (const rate of invalidRateStrings) {
+  assert.throws(() => validate(line(rate)), /RATE/);
+}
+assert.equal(validate(line(' 19.99 '))[0].purchase_rate, 19.99);
+
 console.log('PASS TORVO V2 purchase cents and validation regression');
