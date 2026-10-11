@@ -1,6 +1,12 @@
 import fs from 'node:fs';
 const sql=fs.readFileSync('supabase/v2-marg-bill-sale-posting.sql','utf8');
 const checks=[
+ ['MARG SALE ESTIMATE UNIQUENESS IS DATABASE ENFORCED',/estimate_id uuid not null unique references public\.sales_documents/.test(sql)],
+ ['MARG BILL UNIQUENESS IS DATABASE ENFORCED',sql.includes('create unique index if not exists uq_marg_bill_sales_bill_no')],
+ ['SALE APPROVAL LOCKS ESTIMATE ROW',sql.includes("doc_type='estimate' for update")],
+ ['SALE APPROVAL CHECKS SUFFICIENT INVENTORY',sql.includes('INSUFFICIENT STOCK FOR ITEM')],
+ ['SALE POSTS DISPATCH PICK LIST',sql.includes("values(e.id,'pick_list',a.id)")],
+ ['REVERSAL DOES NOT DELETE SALE AUDIT ROW',sql.includes("set status='reversed'")],
  ['SALE APPROVAL REQUIRES AUTHORIZED STAFF',sql.includes("a.role not in('owner','admin','accountant')")],
  ['SALE APPROVAL REJECTS EXISTING ESTIMATE SALE',sql.includes("ESTIMATE ALREADY POSTED AS SALE")],
  ['MARG BILL NUMBER CANNOT BE REUSED',sql.includes("MARG BILL NUMBER ALREADY USED")],
