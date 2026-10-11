@@ -199,3 +199,8 @@
 
 /* Retired 06 OCT 2026: unused .loginPreview/.loginV2 compatibility generation.
    Live staff auth surface is LoginVisualPreview.jsx using .businessFinal* classes. */
+
+/* TORVO unified focus theme: one red border around the full icon+input field, never an inner red rectangle. */
+.businessFinalLogin .businessFinalUserField:focus-within,.businessFinalLogin .businessFinalInput:focus-within{border-color:#d71927!important;outline:0!important;box-shadow:0 0 0 1px rgba(215,25,39,.12)!important}
+.businessFinalLogin .businessFinalUserField input,.businessFinalLogin .businessFinalUserField input:focus,.businessFinalLogin .businessFinalUserField input:focus-visible,.businessFinalLogin .businessFinalInput input,.businessFinalLogin .businessFinalInput input:focus,.businessFinalLogin .businessFinalInput input:focus-visible{border:0!important;border-radius:0!important;outline:0!important;box-shadow:none!important;-webkit-box-shadow:none!important;background-color:transparent!important;background-image:none!important;appearance:none!important;-webkit-appearance:none!important}
+.businessFinalLogin .businessFinalUserField input:focus-visible,.businessFinalLogin .businessFinalInput input:focus-visible{outline:0!important}
