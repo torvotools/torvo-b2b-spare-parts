@@ -43,6 +43,7 @@ const checks=[
  ['SALE REVERSAL REQUIRES REASON',sql.includes("REVERSAL REASON REQUIRED")],
  ['SALE STOCK DEDUCTION AT MARG POST',sql.includes("values(ln.item_id,-ln.qty,'MARG BILL SALE POSTED'")],
  ['DELIVERY REQUIRES POSTED MARG SALE',sql.includes("POSTED MARG BILL SALE REQUIRED BEFORE DELIVERY")],
+ ['DELIVERY REQUIRES SALE-POSTED ESTIMATE STATUS',sql.includes("not in('sale_posted','delivered') then raise exception 'ESTIMATE STATUS DOES NOT ALLOW DELIVERY'")],
  ['DELIVERY READY STAGE REQUIRED',sql.includes("disp.status not in('ready_for_dispatch')")],
  ['DELIVERY DOES NOT DEDUCT STOCK AGAIN',sql.includes("'stock_deducted_again',false")],
  ['DELIVERY IDEMPOTENT WHEN ALREADY DELIVERED',sql.includes("if disp.status='delivered' then return")],
