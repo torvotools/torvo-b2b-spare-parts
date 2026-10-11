@@ -1138,3 +1138,12 @@ body:has(.publicSite){padding-bottom:0!important}
 
 /* Owner photo: keep the red footer band the same width from top to bottom; remove the expanding diagonal wedge. */
 @media(min-width:681px){#torvo-v2-root .publicSite .torvoPremiumFooter{background:linear-gradient(90deg,#11151b 0%,#11151b 77%,#c82131 77%,#c82131 100%)}}
+
+/* Thin continuous dealer-brand ticker between hero and the three product category cards. */
+#torvo-v2-root .publicSite .publicBrandRail{margin:0!important;padding:7px 16px!important;background:#f6f6f7;border-top:1px solid #e8e8e9;border-bottom:1px solid #e8e8e9;min-height:0}
+#torvo-v2-root .publicSite .publicBrandRail>span{font-size:10px!important;margin:0 0 3px!important;font-weight:650;letter-spacing:.06em}
+#torvo-v2-root .publicSite .brandLogoViewport{width:100%;overflow:hidden}
+#torvo-v2-root .publicSite .brandLogoItem{width:auto!important;min-width:105px;max-width:180px;height:30px!important;padding:2px 16px;border:0;background:transparent;display:flex;align-items:center;justify-content:center;white-space:nowrap}
+#torvo-v2-root .publicSite .brandLogoItem strong{font-size:13px;font-weight:700;letter-spacing:.035em;color:#25272d}
+#torvo-v2-root .publicSite .brandLogoItem img{max-height:26px!important;max-width:150px;object-fit:contain}
+@media(max-width:680px){#torvo-v2-root .publicSite .publicBrandRail{padding:6px 10px!important}#torvo-v2-root .publicSite .brandLogoItem{min-width:92px;height:28px!important;padding:2px 12px}#torvo-v2-root .publicSite .brandLogoItem strong{font-size:12px}}
