@@ -139,13 +139,14 @@ begin
  if nullif(btrim(coalesce(p_reason,'')),'') is null then raise exception 'REVISION REASON REQUIRED';end if;
  select * into e from public.sales_documents where estimate_number=upper(btrim(p_estimate_number)) and doc_type='estimate' for update;
  if not found then raise exception 'ESTIMATE NOT FOUND';end if;
+ if e.status is null or lower(btrim(e.status)) in('delivered','sale_reversed','cancelled','canceled','rejected','void','voided','sale_posted') then raise exception 'ESTIMATE STATUS DOES NOT ALLOW REVISION';end if;
  if exists(select 1 from public.marg_bill_sales where estimate_id=e.id) then raise exception 'SALE ALREADY POSTED; USE CONTROLLED SALE REVERSAL';end if;
  if jsonb_typeof(p_lines)<>'array' or jsonb_array_length(p_lines)=0 then raise exception 'ESTIMATE ITEMS REQUIRED';end if;
  select coalesce(jsonb_agg(jsonb_build_object('item_id',item_id,'qty',qty,'rate',rate,'amount',amount) order by id),'[]'::jsonb) into before_json from public.sales_document_lines where document_id=e.id;
  create temporary table if not exists pg_temp.torvo_estimate_revision(item_id uuid,qty numeric,rate numeric,amount numeric) on commit drop;truncate pg_temp.torvo_estimate_revision;
  for ln in select * from jsonb_array_elements(p_lines) loop
   begin iid:=(ln->>'item_id')::uuid;q:=(ln->>'qty')::numeric;r:=(ln->>'rate')::numeric;exception when others then raise exception 'INVALID ESTIMATE LINE';end;
-  if q<=0 or r<0 or not exists(select 1 from public.catalog_items where id=iid and active=true) then raise exception 'INVALID ESTIMATE LINE / ITEM';end if;
+  if iid is null or q is null or r is null or q<=0 or r<0 or not exists(select 1 from public.catalog_items where id=iid and active=true) then raise exception 'INVALID ESTIMATE LINE / ITEM';end if;
   amt:=round(q*r,2);sub:=sub+amt;insert into pg_temp.torvo_estimate_revision values(iid,q,r,amt);
  end loop;
  delete from public.sales_document_lines where document_id=e.id;
@@ -169,9 +170,9 @@ begin
  select * into e from public.sales_documents where estimate_number=upper(btrim(p_estimate_number)) and doc_type='estimate' for update;
  if not found then raise exception 'ESTIMATE NOT FOUND';end if;
  select * into s from public.marg_bill_sales where estimate_id=e.id for update;
- if not found or s.status='reversed' then raise exception 'ACTIVE POSTED SALE REQUIRED';end if;
+ if not found or s.status not in('posted','corrected') then raise exception 'ACTIVE POSTED SALE REQUIRED';end if;
  select * into d from public.dispatches where estimate_id=e.id for update;
- if found and d.status='delivered' then raise exception 'DELIVERED SALE CANNOT BE REVERSED HERE';end if;
+ if e.status='delivered' or (found and d.status='delivered') then raise exception 'DELIVERED SALE CANNOT BE REVERSED HERE';end if;
  for ln in select item_id,sum(qty) qty from public.sales_document_lines where document_id=e.id group by item_id order by item_id loop
   insert into public.inventory(item_id,current_qty,updated_at) values(ln.item_id,ln.qty,now()) on conflict(item_id) do update set current_qty=public.inventory.current_qty+excluded.current_qty,updated_at=now();
   insert into public.inventory_movements(item_id,qty_change,reason,reference_type,reference_id,created_by) values(ln.item_id,ln.qty,'MARG BILL SALE REVERSAL','marg_bill_sale',s.id,a.id);
