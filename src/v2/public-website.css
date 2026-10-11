@@ -1176,3 +1176,20 @@ body:has(.publicSite){padding-bottom:0!important}
 #torvo-v2-root .publicSite .publicHeaderSearchRow .publicHeroSearchBar button{border-left:0!important;box-shadow:none!important}
 #torvo-v2-root .publicSite .publicHeaderSearchRow .publicHeroSearchBar{overflow:hidden}
 #torvo-v2-root .publicSite .publicHeaderSearchRow .publicHeroSearchBar:focus-within{border-color:#d71927!important;outline:0;box-shadow:0 0 0 1px rgba(215,25,39,.14)!important}
+
+/* OWNER APPROVED BRAND RIBBON — OPTION 5: clean white band, fine red underline, colorful brand names, no click action. */
+#torvo-v2-root .publicSite main#top>.publicBrandRail{background:#fff!important;border-top:0!important;border-bottom:2px solid #d71920!important;padding:2px 8px!important;box-shadow:none!important}
+#torvo-v2-root .publicSite .brandLogoViewport,#torvo-v2-root .publicSite .brandLogoTrack{height:32px!important}
+#torvo-v2-root .publicSite .brandLogoItem{height:32px!important;cursor:default!important;pointer-events:none!important;border:0!important;background:transparent!important}
+#torvo-v2-root .publicSite .brandLogoItem strong{font-size:16px!important;font-weight:750!important;letter-spacing:.01em!important}
+#torvo-v2-root .publicSite .brandLogoItem:nth-child(10n + 1) strong{color:#d71920!important}
+#torvo-v2-root .publicSite .brandLogoItem:nth-child(10n + 2) strong{color:#00858e!important}
+#torvo-v2-root .publicSite .brandLogoItem:nth-child(10n + 3) strong{color:#151515!important}
+#torvo-v2-root .publicSite .brandLogoItem:nth-child(10n + 4) strong{color:#d39a00!important}
+#torvo-v2-root .publicSite .brandLogoItem:nth-child(10n + 5) strong{color:#e65c16!important}
+#torvo-v2-root .publicSite .brandLogoItem:nth-child(10n + 6) strong{color:#19469e!important}
+#torvo-v2-root .publicSite .brandLogoItem:nth-child(10n + 7) strong{color:#d71920!important}
+#torvo-v2-root .publicSite .brandLogoItem:nth-child(10n + 8) strong{color:#161616!important}
+#torvo-v2-root .publicSite .brandLogoItem:nth-child(10n + 9) strong{color:#19469e!important}
+#torvo-v2-root .publicSite .brandLogoItem:nth-child(10n + 10) strong{color:#d71920!important}
+@media(max-width:680px){#torvo-v2-root .publicSite main#top>.publicBrandRail{padding:2px 5px!important}#torvo-v2-root .publicSite .brandLogoViewport,#torvo-v2-root .publicSite .brandLogoTrack,#torvo-v2-root .publicSite .brandLogoItem{height:29px!important}#torvo-v2-root .publicSite .brandLogoItem strong{font-size:14px!important}}
