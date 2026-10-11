@@ -45,6 +45,7 @@ begin
  if e.status is null or lower(btrim(e.status)) in('delivered','sale_posted','sale_reversed','cancelled','canceled','rejected','void','voided') then raise exception 'ESTIMATE STATUS DOES NOT ALLOW SALE POSTING';end if;
  if exists(select 1 from public.marg_bill_sales where estimate_id=e.id) then raise exception 'ESTIMATE ALREADY POSTED AS SALE';end if;
  if exists(select 1 from public.marg_bill_sales where upper(btrim(marg_bill_no))=bill) then raise exception 'MARG BILL NUMBER ALREADY USED';end if;
+ if e.final_payable is null or e.final_payable<0 or e.final_payable::text in('NaN','Infinity','-Infinity') then raise exception 'INVALID ESTIMATE PAYABLE FOR SALE';end if;
  if not exists(select 1 from public.sales_document_lines where document_id=e.id) then raise exception 'ESTIMATE HAS NO ITEMS';end if;
  if exists(select 1 from public.sales_document_lines where document_id=e.id and (item_id is null or qty is null or qty<=0)) then raise exception 'ESTIMATE HAS INVALID ITEM OR LINE QUANTITY';end if;
 
@@ -180,6 +181,7 @@ begin
  if lower(btrim(coalesce(e.status,'')))='delivered' or (found and d.status='delivered') then raise exception 'DELIVERED SALE CANNOT BE REVERSED HERE';end if;
  if not exists(select 1 from public.sales_document_lines where document_id=e.id) or exists(select 1 from public.sales_document_lines where document_id=e.id and (item_id is null or qty is null or qty<=0)) then raise exception 'INVALID SALE LINES FOR REVERSAL';end if;
  if e.status is null or lower(btrim(e.status)) not in('sale_posted') then raise exception 'ESTIMATE STATUS DOES NOT ALLOW SALE REVERSAL';end if;
+ if not exists(select 1 from public.inventory_movements where reference_type='marg_bill_sale' and reference_id=s.id and reason='MARG BILL SALE POSTED') then raise exception 'SALE STOCK POSTING EVIDENCE MISSING';end if;
  for ln in select item_id,sum(qty) qty from public.sales_document_lines where document_id=e.id group by item_id order by item_id loop
   insert into public.inventory(item_id,current_qty,updated_at) values(ln.item_id,ln.qty,now()) on conflict(item_id) do update set current_qty=public.inventory.current_qty+excluded.current_qty,updated_at=now();
   insert into public.inventory_movements(item_id,qty_change,reason,reference_type,reference_id,created_by) values(ln.item_id,ln.qty,'MARG BILL SALE REVERSAL','marg_bill_sale',s.id,a.id);
