@@ -13,7 +13,10 @@ const deliverySql=extractFunction('finalize_actual_delivery');
 if(!revisionSql||!reversalSql||!deliverySql){console.error('MARG SALE SAFETY: SQL FUNCTION BODY MISSING');process.exit(1)}
 const saleUi=fs.readFileSync('src/v2/components/MargBillSaleWorkspace.jsx','utf8');
 const saleService=fs.readFileSync('src/v2/services/margBillSale.js','utf8');
+const packageScripts=JSON.parse(fs.readFileSync('package.json','utf8')).scripts;
 const checks=[
+ ['SALE QUEUE CLEARS STALE DATA ON FAILURE',saleUi.includes('catch(e){setRows([]);setLoaded(false);setErr(U(e.message))}')],
+ ['ALL BUILD TARGETS ENFORCE SALE SAFETY',['build','build:v2','build:app'].every(k=>packageScripts[k]?.includes('npm run verify:v2-marg-sale-delivery-safety'))],
  ['SALE QUEUE EMPTY STATE REQUIRES SUCCESSFUL LOAD',saleUi.includes('setLoaded(true)')&&saleUi.includes('loaded&&!refreshing&&!err&&view.length===0')],
  ['SALE QUEUE LOAD STATE TRACKED',saleUi.includes('const[loaded,setLoaded]=useState(false)')],
  ['SALE QUEUE REFRESH FEEDBACK',saleUi.includes('REFRESHING SALE RECORDS')&&saleUi.includes('setRefreshing(true)')&&saleUi.includes('setRefreshing(false)')],
