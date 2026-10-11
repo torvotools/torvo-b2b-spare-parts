@@ -1193,3 +1193,6 @@ body:has(.publicSite){padding-bottom:0!important}
 #torvo-v2-root .publicSite .brandLogoItem:nth-child(10n + 9) strong{color:#19469e!important}
 #torvo-v2-root .publicSite .brandLogoItem:nth-child(10n + 10) strong{color:#d71920!important}
 @media(max-width:680px){#torvo-v2-root .publicSite main#top>.publicBrandRail{padding:2px 5px!important}#torvo-v2-root .publicSite .brandLogoViewport,#torvo-v2-root .publicSite .brandLogoTrack,#torvo-v2-root .publicSite .brandLogoItem{height:29px!important}#torvo-v2-root .publicSite .brandLogoItem strong{font-size:14px!important}}
+
+/* Admin-managed brand text colors override Option 5 defaults only when explicitly configured. */
+#torvo-v2-root .publicSite .brandLogoItem strong[style*="--torvo-brand-text-color"]{color:var(--torvo-brand-text-color)!important}
