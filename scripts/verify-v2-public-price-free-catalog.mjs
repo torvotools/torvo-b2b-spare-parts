@@ -27,5 +27,6 @@ if(!browser.includes('[retryCount,type,mode,brandFilter,category,codeFilter]'))f
 if(browser.includes("brandFilter&&mode==='FILTER'?(brandItems||[]):items"))fail('LEGACY CAPPED BRAND RESULTS OVERRIDE SERVER PAGES');
 if(!browser.includes('const typeItems=useMemo(()=>items.filter('))fail('LEGACY SEARCH LIST OVERRIDES SERVER PAGINATION');
 if(browser.includes("mode==='ALL'&&pageCursor"))fail('FILTERED PAGINATION HIDDEN');
+if(browser.includes('searchTerm===codeFilter.trim()&&searchItems!==null'))fail('STALE SEARCH RESULTS BYPASS FILTERS');
 if(!install.includes('v2-public-price-free-catalog-runtime.sql'))fail('CANONICAL INSTALL ORDER MISSING');
 console.log('TORVO V2 public price-free catalog frontend/SQL/privacy contract OK');
