@@ -1,7 +1,9 @@
 import fs from'node:fs';
 const read=p=>fs.readFileSync(p,'utf8');
 const runtime=read('src/v2/services/runtimePlatform.js'),router=read('src/v2/services/experienceRouter.js'),login=read('src/v2/components/LoginVisualPreview.jsx'),modules=read('src/v2/config/modules.js'),release=read('docs/TORVO-V2-RELEASE-GATES.md'),staging=read('docs/TORVO-V2-STAGING-ACCEPTANCE.md');
+const app=read('src/v2/App.jsx');
 const checks=[
+ ['UNLINKED DEALER PROFILE FAILS CLOSED',app.includes('if(!dealer?.id)return')&&app.includes('VERIFIED DEALER PROFILE REQUIRED')&&app.includes('<DealerPortalMounted user={dealerUser}/>')],
  ['NATIVE PLATFORM DETECTION',runtime.includes('Capacitor.isNativePlatform()')&&runtime.includes('dealerAppRuntimeAllowed')],
  ['WEB OPERATIONAL LANDING BLOCKED',router.includes('roleRuntimeAllowed(appUser.role)')&&router.includes("['dealer','salesman','store_keeper'].includes(appUser.role)")&&router.includes('operationalAppOnlyReason(appUser.role)')],
  ['WEB LOGIN IS STAFF ONLY',login.includes('beginStaffEmailOtp(normalized)')&&login.includes('verifyStaffEmailOtp(normalized, challenge, otp)')&&!login.includes('beginDealerEmailOtp')&&!login.includes('verifyDealerEmailOtp')],
