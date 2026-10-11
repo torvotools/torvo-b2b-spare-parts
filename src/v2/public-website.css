@@ -1162,3 +1162,6 @@ body:has(.publicSite){padding-bottom:0!important}
 #torvo-v2-root .publicSite .brandLogoItem strong{font-size:16px!important;font-weight:750;line-height:1.1;letter-spacing:.015em;color:#17191e}
 #torvo-v2-root .publicSite .brandLogoItem img{max-height:27px!important;max-width:150px}
 @media(max-width:680px){#torvo-v2-root .publicSite main#top>.publicBrandRail{padding:1px 6px!important}#torvo-v2-root .publicSite .brandLogoViewport,#torvo-v2-root .publicSite .brandLogoTrack{height:28px}#torvo-v2-root .publicSite .brandLogoItem{height:28px!important;min-width:105px;padding:0 13px!important}#torvo-v2-root .publicSite .brandLogoItem strong{font-size:14px!important}#torvo-v2-root .publicSite .brandLogoItem img{max-height:25px!important}}
+
+/* Desktop header: center all five navigation links beneath the search row, without legacy left offsets. */
+@media(min-width:901px){#torvo-v2-root .publicSite .publicHeader.topSearchHeader .publicHeaderNavRow{grid-column:1/-1!important;justify-content:center!important;padding-inline:0!important}#torvo-v2-root .publicSite .publicHeader.topSearchHeader .desktopPublicNav{box-sizing:border-box;width:100%!important;max-width:100%!important;margin-inline:auto!important;padding-left:0!important;padding-right:0!important;justify-content:center!important;gap:clamp(20px,2.7vw,40px)!important}}
