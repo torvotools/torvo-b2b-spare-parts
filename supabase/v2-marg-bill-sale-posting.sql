@@ -141,7 +141,7 @@ begin
  if not found then raise exception 'ESTIMATE NOT FOUND';end if;
  if e.status is null or lower(btrim(e.status)) in('delivered','sale_reversed','cancelled','canceled','rejected','void','voided','sale_posted') then raise exception 'ESTIMATE STATUS DOES NOT ALLOW REVISION';end if;
  if exists(select 1 from public.marg_bill_sales where estimate_id=e.id) then raise exception 'SALE ALREADY POSTED; USE CONTROLLED SALE REVERSAL';end if;
- if jsonb_typeof(p_lines)<>'array' or jsonb_array_length(p_lines)=0 then raise exception 'ESTIMATE ITEMS REQUIRED';end if;
+ if p_lines is null or jsonb_typeof(p_lines) is distinct from 'array' or jsonb_array_length(p_lines)=0 then raise exception 'ESTIMATE ITEMS REQUIRED';end if;
  select coalesce(jsonb_agg(jsonb_build_object('item_id',item_id,'qty',qty,'rate',rate,'amount',amount) order by id),'[]'::jsonb) into before_json from public.sales_document_lines where document_id=e.id;
  create temporary table if not exists pg_temp.torvo_estimate_revision(item_id uuid,qty numeric,rate numeric,amount numeric) on commit drop;truncate pg_temp.torvo_estimate_revision;
  for ln in select * from jsonb_array_elements(p_lines) loop
