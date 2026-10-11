@@ -16,7 +16,7 @@ if(!/grant execute on function public\.public_customer_catalog_page\(text,timest
 for(const token of["export async function loadPublicCatalogPage(","'public_customer_catalog_page'","p_before_created_at:before","p_before_id:beforeId","nextCursor:"])if(!service.includes(token))fail(`PAGINATED FRONTEND SERVICE MISSING: ${token}`);
 const browser=read('src/v2/components/PublicProductBrowser.jsx');
 for(const token of["loadPublicCatalogPage({limit:60,itemType:type,search:mode==='FILTER'?codeFilter:'',brand:mode==='FILTER'?brandFilter:'',category:mode==='FILTER'?category:''})","loadPublicCatalogPage({cursor:pageCursor,limit:60,itemType:type,search:mode==='FILTER'?codeFilter:'',brand:mode==='FILTER'?brandFilter:'',category:mode==='FILTER'?category:''})","LOAD MORE PRODUCTS","pageRequestRef.current+=1","request!==pageRequestRef.current","return()=>{ok=false;pageRequestRef.current+=1}"])if(!browser.includes(token))fail(`PUBLIC PAGINATION UI SAFETY MISSING: ${token}`);
-if(!browser.includes("mode==='ALL'&&pageCursor&&!busy")||!browser.includes("mode==='ALL'&&pageError")||browser.includes("!type&&mode==='ALL'&&pageCursor"))fail('CATEGORY CATALOG PAGINATION MUST REMAIN ACCESSIBLE');
+if(!browser.includes("pageCursor&&!busy")||!browser.includes("pageError")||browser.includes("!type&&mode==='ALL'&&pageCursor"))fail('CATEGORY CATALOG PAGINATION MUST REMAIN ACCESSIBLE');
 if(!sql.includes('public_customer_catalog_page_by_type(')||!sql.includes('lower(c.item_type)=lower(btrim(p_item_type))'))fail('SERVER-SIDE CATEGORY PAGE FILTER MISSING');
 if(!/grant execute on function public\.public_customer_catalog_page_by_type\(text,timestamptz,uuid,integer,text\) to anon,authenticated/i.test(sql))fail('CATEGORY PAGE GRANT MISSING');
 if(!service.includes("type?'public_customer_catalog_page_by_type':'public_customer_catalog_page'"))fail('CATEGORY PAGE SERVICE MISSING');
@@ -26,5 +26,6 @@ if(!service.includes("filtered?'public_customer_catalog_page_filtered'"))fail('F
 if(!browser.includes('[retryCount,type,mode,brandFilter,category,codeFilter]'))fail('CATALOG FILTER CURSOR RESET MISSING');
 if(browser.includes("brandFilter&&mode==='FILTER'?(brandItems||[]):items"))fail('LEGACY CAPPED BRAND RESULTS OVERRIDE SERVER PAGES');
 if(!browser.includes('const typeItems=useMemo(()=>items.filter('))fail('LEGACY SEARCH LIST OVERRIDES SERVER PAGINATION');
+if(browser.includes("mode==='ALL'&&pageCursor"))fail('FILTERED PAGINATION HIDDEN');
 if(!install.includes('v2-public-price-free-catalog-runtime.sql'))fail('CANONICAL INSTALL ORDER MISSING');
 console.log('TORVO V2 public price-free catalog frontend/SQL/privacy contract OK');
