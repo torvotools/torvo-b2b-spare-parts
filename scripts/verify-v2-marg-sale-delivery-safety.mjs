@@ -15,6 +15,7 @@ const checks=[
  ['REVISION REJECTS DELIVERED ESTIMATE',sql.includes('ESTIMATE STATUS DOES NOT ALLOW REVISION')],
  ['REVISION REJECTS CANCELLED ESTIMATE',sql.includes("'cancelled','canceled','rejected'")],
  ['REVISION REJECTS POSTED ESTIMATE',sql.includes("'sale_posted') then raise exception 'ESTIMATE STATUS DOES NOT ALLOW REVISION'")],
+ ['REVERSAL REQUIRES ESTIMATE NUMBER',sql.includes("if nullif(btrim(coalesce(p_estimate_number,'')),'') is null then raise exception 'ESTIMATE NUMBER REQUIRED'")],
  ['REVERSAL REQUIRES ACTIVE POSTED STATUS',sql.includes("s.status not in('posted','corrected')")],
  ['REVERSAL BLOCKS DELIVERED ESTIMATE',sql.includes("lower(btrim(coalesce(e.status,'')))='delivered' or (found and d.status='delivered')")],
  ['SALE VALIDATES INDIVIDUAL LINES',sql.includes('ESTIMATE HAS INVALID ITEM OR LINE QUANTITY')],
