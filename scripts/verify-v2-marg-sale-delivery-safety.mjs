@@ -4,6 +4,8 @@ const checks=[
  ['MARG SALE ESTIMATE UNIQUENESS IS DATABASE ENFORCED',/estimate_id uuid not null unique references public\.sales_documents/.test(sql)],
  ['MARG BILL UNIQUENESS IS DATABASE ENFORCED',sql.includes('create unique index if not exists uq_marg_bill_sales_bill_no')],
  ['SALE APPROVAL LOCKS ESTIMATE ROW',sql.includes("doc_type='estimate' for update")],
+ ['SALE APPROVAL REJECTS NULL OR NONPOSITIVE QUANTITY',sql.includes("ln.qty is null or ln.qty<=0")],
+ ['SALE APPROVAL REJECTS NULL INVENTORY',sql.includes("stock is null or stock<ln.qty")],
  ['SALE APPROVAL CHECKS SUFFICIENT INVENTORY',sql.includes('INSUFFICIENT STOCK FOR ITEM')],
  ['SALE POSTS DISPATCH PICK LIST',sql.includes("values(e.id,'pick_list',a.id)")],
  ['REVERSAL DOES NOT DELETE SALE AUDIT ROW',sql.includes("set status='reversed'")],
