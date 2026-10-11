@@ -29,6 +29,6 @@ if(!browser.includes('const typeItems=useMemo(()=>items.filter('))fail('LEGACY S
 if(browser.includes("mode==='ALL'&&pageCursor"))fail('FILTERED PAGINATION HIDDEN');
 if(browser.includes('searchTerm===codeFilter.trim()&&searchItems!==null'))fail('STALE SEARCH RESULTS BYPASS FILTERS');
 if(browser.includes('!codeFilter||[x.item_code'))fail('CLIENT SEARCH FILTER DISAGREES WITH DATABASE MATCH');
-if(browser.includes('loadPublicBrandProducts(brandFilter).then(')||browser.includes('searchProducts(q).then('))fail('DUPLICATE LEGACY SEARCH REQUESTS');
+if(browser.includes('loadPublicBrandProducts(brandFilter).then(')||browser.includes('useEffect(()=>{const q=codeFilter.trim();'))fail('DUPLICATE LEGACY CATALOG REQUESTS');
 if(!install.includes('v2-public-price-free-catalog-runtime.sql'))fail('CANONICAL INSTALL ORDER MISSING');
 console.log('TORVO V2 public price-free catalog frontend/SQL/privacy contract OK');
