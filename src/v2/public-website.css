@@ -1153,3 +1153,12 @@ body:has(.publicSite){padding-bottom:0!important}
 #torvo-v2-root .publicSite .publicBrandRail>span{display:none!important}
 #torvo-v2-root .publicSite .brandLogoItem{height:27px!important;padding-top:0;padding-bottom:0}
 @media(max-width:680px){#torvo-v2-root .publicSite main#top>.publicBrandRail{padding:3px 8px!important}#torvo-v2-root .publicSite .brandLogoItem{height:26px!important}}
+
+/* Brand ticker final proportions: larger legible names in a genuinely slim single-line strip. */
+#torvo-v2-root .publicSite main#top>.publicBrandRail{padding:1px 8px!important;line-height:1;min-height:0!important}
+#torvo-v2-root .publicSite .brandLogoViewport{height:30px;min-height:0;display:flex;align-items:center}
+#torvo-v2-root .publicSite .brandLogoTrack{height:30px;align-items:center}
+#torvo-v2-root .publicSite .brandLogoItem{height:30px!important;min-height:0!important;min-width:118px;max-width:190px;padding:0 18px!important;line-height:1;flex-shrink:0}
+#torvo-v2-root .publicSite .brandLogoItem strong{font-size:16px!important;font-weight:750;line-height:1.1;letter-spacing:.015em;color:#17191e}
+#torvo-v2-root .publicSite .brandLogoItem img{max-height:27px!important;max-width:150px}
+@media(max-width:680px){#torvo-v2-root .publicSite main#top>.publicBrandRail{padding:1px 6px!important}#torvo-v2-root .publicSite .brandLogoViewport,#torvo-v2-root .publicSite .brandLogoTrack{height:28px}#torvo-v2-root .publicSite .brandLogoItem{height:28px!important;min-width:105px;padding:0 13px!important}#torvo-v2-root .publicSite .brandLogoItem strong{font-size:14px!important}#torvo-v2-root .publicSite .brandLogoItem img{max-height:25px!important}}
