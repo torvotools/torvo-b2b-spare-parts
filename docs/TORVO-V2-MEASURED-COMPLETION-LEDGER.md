@@ -63,3 +63,6 @@ Canonical criteria: `docs/TORVO-V2-STAGING-ACCEPTANCE.md`. The statuses below ar
 6. Freeze final SHA; re-run exact build, preview and Android evidence; request explicit Owner permission for production cutover.
 
 Update each gate with dated evidence, actor/environment, exact SHA, observed result and remaining blocker. Do not count documentation itself as a passed runtime gate.
+
+## 2026-10-11 follow-up: static verifier inventory
+The repository contains source-level verifier entrypoints `scripts/verify-v2-final-readiness.mjs`, `scripts/verify-v2-runtime-readiness.mjs`, `scripts/verify-v2-acceptance-bundle.mjs`, `scripts/verify-v2-location-dropdowns.mjs`, and `scripts/verify-v2-admin-managed-experience.mjs`. Their presence does **not** establish execution success or close any of the 27 real-world acceptance checks. Latest pre-ledger exact SHA `1a02b90` had Build/Cloudflare/Android CI success. Ledger-only commit requires its own CI evidence if triggered. Next safe batch should inspect these verifier outputs and fix source defects before requesting genuine role/device acceptance.
