@@ -42,6 +42,8 @@ const checks=[
  ['STOCK LOCKED BEFORE SALE DEDUCTION',sql.includes("current_qty into stock")&&sql.includes("for update")],
  ['SALE REVERSAL REQUIRES REASON',sql.includes("REVERSAL REASON REQUIRED")],
  ['SALE STOCK DEDUCTION AT MARG POST',sql.includes("values(ln.item_id,-ln.qty,'MARG BILL SALE POSTED'")],
+ ['DELIVERY REQUEST KEY BOUNDED',sql.includes('length(btrim(p_request_key))>128')],
+ ['DELIVERY TRACKING CODE BOUNDED',sql.includes('length(btrim(p_tracking_code))>128')],
  ['DELIVERY REQUIRES POSTED MARG SALE',sql.includes("POSTED MARG BILL SALE REQUIRED BEFORE DELIVERY")],
  ['DELIVERY REQUIRES SALE-POSTED ESTIMATE STATUS',sql.includes("not in('sale_posted','delivered') then raise exception 'ESTIMATE STATUS DOES NOT ALLOW DELIVERY'")],
  ['DELIVERY READY STAGE REQUIRED',sql.includes("disp.status not in('ready_for_dispatch')")],
