@@ -16,4 +16,13 @@ for (const rate of [-0.01, 0.001, 0.009, 1.234, 100000000.01, Infinity, NaN, '',
 assert.throws(() => validate([]), /AT LEAST ONE/);
 assert.throws(() => validate([line(1)[0], line(2)[0]]), /DUPLICATE/);
 assert.throws(() => validate([{item_id:'TEST-ITEM',qty:0,purchase_rate:1}]), /QUANTITY/);
+assert.throws(() => validate([{item_id:'TEST-ITEM',qty:1,purchase_rate:'abc'}]), /RATE/);
+for (const qty of [0, -1, 1.5, 1000000, Infinity, NaN, '', null]) {
+  assert.throws(() => validate([{item_id:'TEST-ITEM',qty,purchase_rate:1}]), 'invalid qty accepted: ' + String(qty));
+}
+for (const item_id of ['', ' ', null]) {
+  assert.throws(() => validate([{item_id,qty:1,purchase_rate:1}]), /ITEM/);
+}
+assert.throws(() => validate(Array.from({length:501},(_,i)=>({item_id:'I'+i,qty:1,purchase_rate:1}))), /TOO MANY/);
+
 console.log('PASS TORVO V2 purchase cents and validation regression');
