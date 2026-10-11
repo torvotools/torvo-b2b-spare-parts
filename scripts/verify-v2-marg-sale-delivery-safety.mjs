@@ -1,6 +1,18 @@
 import fs from 'node:fs';
 const sql=fs.readFileSync('supabase/v2-marg-bill-sale-posting.sql','utf8');
 const checks=[
+ ['REVISION REJECTS NULL ITEM ID',sql.includes('if iid is null or q is null or r is null')],
+ ['REVISION REJECTS NULL QUANTITY',sql.includes('q is null or r is null')],
+ ['REVISION REJECTS NULL RATE',sql.includes('r is null or q<=0')],
+ ['REVISION REJECTS NONPOSITIVE QUANTITY',sql.includes('q<=0 or r<0')],
+ ['REVISION REJECTS NEGATIVE RATE',sql.includes('r<0 or not exists')],
+ ['REVISION REQUIRES ACTIVE CATALOG ITEM',sql.includes('public.catalog_items where id=iid and active=true')],
+ ['REVISION REJECTS DELIVERED ESTIMATE',sql.includes('ESTIMATE STATUS DOES NOT ALLOW REVISION')],
+ ['REVISION REJECTS CANCELLED ESTIMATE',sql.includes("'cancelled','canceled','rejected'")],
+ ['REVISION REJECTS POSTED ESTIMATE',sql.includes("'sale_posted') then raise exception 'ESTIMATE STATUS DOES NOT ALLOW REVISION'")],
+ ['REVERSAL REQUIRES ACTIVE POSTED STATUS',sql.includes("s.status not in('posted','corrected')")],
+ ['REVERSAL BLOCKS DELIVERED ESTIMATE',sql.includes("e.status='delivered' or (found and d.status='delivered')")],
+ ['SALE VALIDATES INDIVIDUAL LINES',sql.includes('ESTIMATE HAS INVALID ITEM OR LINE QUANTITY')],
  ['MARG SALE ESTIMATE UNIQUENESS IS DATABASE ENFORCED',/estimate_id uuid not null unique references public\.sales_documents/.test(sql)],
  ['MARG BILL UNIQUENESS IS DATABASE ENFORCED',sql.includes('create unique index if not exists uq_marg_bill_sales_bill_no')],
  ['SALE APPROVAL LOCKS ESTIMATE ROW',sql.includes("doc_type='estimate' for update")],
