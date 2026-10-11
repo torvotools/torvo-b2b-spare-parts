@@ -24,5 +24,6 @@ for(const token of["loadPublicCatalogPage({limit:60,itemType:type,brand:mode==='
 if(!sql.includes('public_customer_catalog_page_filtered(')||!sql.includes('lower(c.brand)=lower(btrim(p_brand))')||!sql.includes('lower(c.category)=lower(btrim(p_category))'))fail('SERVER FILTERED BRAND CATEGORY PAGE MISSING');
 if(!service.includes("filtered?'public_customer_catalog_page_filtered'"))fail('FILTERED CATALOG PAGE SERVICE ROUTE MISSING');
 if(!browser.includes('[retryCount,type,mode,brandFilter,category,codeFilter]'))fail('CATALOG FILTER CURSOR RESET MISSING');
+if(browser.includes("brandFilter&&mode==='FILTER'?(brandItems||[]):items"))fail('LEGACY CAPPED BRAND RESULTS OVERRIDE SERVER PAGES');
 if(!install.includes('v2-public-price-free-catalog-runtime.sql'))fail('CANONICAL INSTALL ORDER MISSING');
 console.log('TORVO V2 public price-free catalog frontend/SQL/privacy contract OK');
