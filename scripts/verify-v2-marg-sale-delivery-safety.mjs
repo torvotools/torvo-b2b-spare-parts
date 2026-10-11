@@ -11,7 +11,11 @@ const revisionSql=extractFunction('revise_estimate_before_sale');
 const reversalSql=extractFunction('reverse_marg_bill_sale');
 const deliverySql=extractFunction('finalize_actual_delivery');
 if(!revisionSql||!reversalSql||!deliverySql){console.error('MARG SALE SAFETY: SQL FUNCTION BODY MISSING');process.exit(1)}
+const saleUi=fs.readFileSync('src/v2/components/MargBillSaleWorkspace.jsx','utf8');
 const checks=[
+ ['SALE UI REQUIRES EXPLICIT CONFIRMATION',saleUi.includes('if(busy||!confirmed)return')&&saleUi.includes('disabled={busy||!estimate||!bill||!confirmed}')],
+ ['SALE UI RESETS CONFIRMATION ON EDIT',saleUi.includes('setEstimate(e.target.value.trim());setConfirmed(false)')&&saleUi.includes('setBill(U(e.target.value));setConfirmed(false)')],
+ ['SALE UI OWNER APPROVAL LABEL',saleUi.includes('APPROVE BILL & CONFIRM SALE')&&!saleUi.includes('SAVE MARG BILL & POST SALE')],
  ['REVERSAL RECONCILES EACH ITEM',reversalSql.includes('SALE STOCK POSTING QUANTITY MISMATCH')],
  ['REVERSAL CHECKS POSTED QUANTITY',reversalSql.includes('posted.qty_change is distinct from -expected.qty')],
  ['REVERSAL CHECKS MISSING MOVEMENT',reversalSql.includes('posted.item_id is null')],
