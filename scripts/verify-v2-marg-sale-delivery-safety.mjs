@@ -1,6 +1,8 @@
 import fs from 'node:fs';
 const sql=fs.readFileSync('supabase/v2-marg-bill-sale-posting.sql','utf8');
 const checks=[
+ ['REVISION REJECTS NONFINITE QUANTITY',sql.includes("q::text in('NaN','Infinity','-Infinity')")],
+ ['REVISION REJECTS NONFINITE RATE',sql.includes("r::text in('NaN','Infinity','-Infinity')")],
  ['REVISION REJECTS NULL ITEM ID',sql.includes('if iid is null or q is null or r is null')],
  ['REVISION REJECTS NULL QUANTITY',sql.includes('q is null or r is null')],
  ['REVISION REJECTS NULL RATE',sql.includes('r is null or q<=0')],
