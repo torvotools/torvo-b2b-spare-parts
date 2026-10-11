@@ -1047,3 +1047,14 @@ body:has(.publicSite){padding-bottom:0!important}
 /* Footer social marks: filled Facebook F and white YouTube play triangle. */
 #torvo-v2-root .publicSite .torvoPremiumFooter .torvoSocialLinks .socialFacebook svg path,#torvo-v2-root .publicSite .torvoPremiumFooter .torvoSocialLinks .socialYoutube svg path{fill:#fff;stroke:none}
 #torvo-v2-root .publicSite .torvoPremiumFooter .torvoSocialLinks .socialYoutube svg{width:27px;height:27px}
+
+/* Owner screenshot QA: clean logo glyphs, remove Instagram box outline, contact brand colors. */
+#torvo-v2-root .publicSite .torvoPremiumFooter .torvoSocialLinks a{border:0;box-shadow:0 3px 10px rgba(0,0,0,.22);overflow:hidden}
+#torvo-v2-root .publicSite .torvoPremiumFooter .torvoSocialLinks .socialInstagram{border:0;outline:0;background:linear-gradient(35deg,#feda75 0%,#fa7e1e 24%,#d62976 52%,#962fbf 78%,#4f5bd5 100%)}
+#torvo-v2-root .publicSite .torvoPremiumFooter .torvoSocialLinks .socialInstagram svg{fill:none;stroke:#fff;stroke-width:2.3}
+#torvo-v2-root .publicSite .torvoPremiumFooter .torvoSocialLinks .socialFacebook svg{width:26px;height:26px}
+#torvo-v2-root .publicSite .torvoPremiumFooter .torvoSocialLinks .socialYoutube svg{width:30px;height:30px}
+#torvo-v2-root .publicSite .torvoPremiumFooter .torvoContactActions .contactPhone{background:#159447}
+#torvo-v2-root .publicSite .torvoPremiumFooter .torvoContactActions .contactWhatsapp{background:#25d366}
+#torvo-v2-root .publicSite .torvoPremiumFooter .torvoContactActions .contactEmail{background:#ea4335}
+#torvo-v2-root .publicSite .torvoPremiumFooter .torvoContactActions a{border:0;box-shadow:0 3px 10px rgba(0,0,0,.2)}
