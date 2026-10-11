@@ -137,6 +137,7 @@ begin
  select * into a from public.app_users where auth_user_id=auth.uid() and active=true;
  if not found or a.role not in('owner','admin','accountant') then raise exception 'OWNER / ADMIN / ACCOUNTANT AUTHORIZATION REQUIRED';end if;
  if nullif(btrim(coalesce(p_reason,'')),'') is null or length(btrim(p_reason))>500 then raise exception 'VALID REVISION REASON REQUIRED';end if;
+ if nullif(btrim(coalesce(p_estimate_number,'')),'') is null then raise exception 'ESTIMATE NUMBER REQUIRED';end if;
  select * into e from public.sales_documents where estimate_number=upper(btrim(p_estimate_number)) and doc_type='estimate' for update;
  if not found then raise exception 'ESTIMATE NOT FOUND';end if;
  if e.status is null or lower(btrim(e.status)) in('delivered','sale_reversed','cancelled','canceled','rejected','void','voided','sale_posted') then raise exception 'ESTIMATE STATUS DOES NOT ALLOW REVISION';end if;
