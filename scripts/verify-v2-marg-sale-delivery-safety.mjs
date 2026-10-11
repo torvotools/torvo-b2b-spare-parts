@@ -3,6 +3,7 @@ const sql=fs.readFileSync('supabase/v2-marg-bill-sale-posting.sql','utf8');
 const revisionSql=sql.split('create or replace function public.revise_estimate_before_sale')[1]?.split('end;'+String.fromCharCode(36,36)+';')[0]??'';
 const reversalSql=sql.split('create or replace function public.reverse_marg_bill_sale')[1]?.split('end;'+String.fromCharCode(36,36)+';')[0]??'';
 const deliverySql=sql.split('create or replace function public.finalize_actual_delivery')[1]?.split('end;'+String.fromCharCode(36,36)+';')[0]??'';
+if(!revisionSql||!reversalSql||!deliverySql){console.error('MARG SALE SAFETY: SQL FUNCTION BODY MISSING');process.exit(1)}
 const checks=[
  ['REVISION REQUIRES ESTIMATE NUMBER',revisionSql.includes("if nullif(btrim(coalesce(p_estimate_number,'')),'') is null then raise exception 'ESTIMATE NUMBER REQUIRED'")],
  ['REVISION REJECTS NULL PAYLOAD',revisionSql.includes("p_lines is null or jsonb_typeof(p_lines) is distinct from 'array'")],
