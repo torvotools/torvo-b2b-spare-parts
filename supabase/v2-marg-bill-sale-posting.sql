@@ -51,7 +51,8 @@ begin
  for ln in select item_id,sum(qty) qty from public.sales_document_lines where document_id=e.id group by item_id order by item_id loop
    select current_qty into stock from public.inventory where item_id=ln.item_id for update;
    if not found then raise exception 'INVENTORY ROW MISSING FOR ITEM %',ln.item_id;end if;
-   if stock<ln.qty then raise exception 'INSUFFICIENT STOCK FOR ITEM %',ln.item_id;end if;
+   if ln.qty is null or ln.qty<=0 then raise exception 'INVALID SALE QUANTITY FOR ITEM %',ln.item_id;end if;
+   if stock is null or stock<ln.qty then raise exception 'INSUFFICIENT STOCK FOR ITEM %',ln.item_id;end if;
  end loop;
 
  insert into public.marg_bill_sales(estimate_id,marg_bill_no,approved_by,estimate_total_snapshot)
