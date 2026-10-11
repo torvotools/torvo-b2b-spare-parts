@@ -1028,3 +1028,18 @@ body:has(.publicSite){padding-bottom:0!important}
 #torvo-v2-root .publicSite .publicShowcaseEmpty a.finderViewButton:hover{background:#b8101e}
 #torvo-v2-root .publicSite .publicShowcaseEmpty a.finderViewButton:focus-visible{outline:3px solid #101114;outline-offset:3px}
 #torvo-v2-root .publicSite .publicShowcaseEmpty a.finderViewButton svg{width:16px;height:16px}
+
+/* TORVO V2 footer polish: original social brand colors and responsive contact layout. */
+#torvo-v2-root .publicSite .torvoPremiumFooter{grid-template-columns:minmax(0,1.25fr) minmax(0,.9fr) minmax(0,1.2fr);gap:clamp(18px,2.4vw,38px);background:linear-gradient(110deg,#11151b 0%,#11151b 66%,#aa1725 66.15%,#c82131 100%)}
+#torvo-v2-root .publicSite .torvoPremiumFooter .torvoFooterConnect{min-width:0;max-width:100%;box-sizing:border-box;flex-wrap:wrap;justify-content:flex-start;white-space:normal;gap:16px;padding:16px}
+#torvo-v2-root .publicSite .torvoPremiumFooter .torvoFollowBlock{margin-left:0;flex-wrap:wrap;gap:10px}
+#torvo-v2-root .publicSite .torvoPremiumFooter .torvoSocialLinks{gap:12px}
+#torvo-v2-root .publicSite .torvoPremiumFooter .torvoSocialLinks a{width:42px;height:42px;border-radius:10px;border:1px solid rgba(255,255,255,.2);opacity:1}
+#torvo-v2-root .publicSite .torvoPremiumFooter .torvoSocialLinks .socialFacebook{background:#1877f2}
+#torvo-v2-root .publicSite .torvoPremiumFooter .torvoSocialLinks .socialYoutube{background:#ff0000}
+#torvo-v2-root .publicSite .torvoPremiumFooter .torvoSocialLinks .socialInstagram{background:linear-gradient(35deg,#feda75 0%,#fa7e1e 24%,#d62976 52%,#962fbf 78%,#4f5bd5 100%)}
+#torvo-v2-root .publicSite .torvoPremiumFooter .torvoSocialLinks a svg{width:23px;height:23px;color:#fff;stroke:#fff;stroke-width:2.4}
+#torvo-v2-root .publicSite .torvoPremiumFooter .torvoSocialLinks .socialYoutube svg polygon{fill:#fff;stroke:#fff}
+#torvo-v2-root .publicSite .torvoPremiumFooter .torvoSocialLinks a:focus-visible{outline:3px solid #fff;outline-offset:3px}
+@media(max-width:1100px){#torvo-v2-root .publicSite .torvoPremiumFooter{grid-template-columns:repeat(2,minmax(0,1fr))}#torvo-v2-root .publicSite .torvoPremiumFooter .torvoFooterConnect{grid-column:1/-1}}
+@media(max-width:680px){#torvo-v2-root .publicSite .torvoPremiumFooter{grid-template-columns:minmax(0,1fr);gap:20px;padding:26px 18px;background:linear-gradient(165deg,#11151b 0%,#11151b 74%,#a91928 74.2%,#c82131 100%)}#torvo-v2-root .publicSite .torvoPremiumFooter .torvoFooterConnect{grid-column:auto;width:100%;gap:14px}#torvo-v2-root .publicSite .torvoPremiumFooter .torvoContactActions,#torvo-v2-root .publicSite .torvoPremiumFooter .torvoSocialLinks{flex-wrap:wrap}#torvo-v2-root .publicSite .torvoPremiumFooter .torvoFollowBlock{width:100%;justify-content:flex-start}}
