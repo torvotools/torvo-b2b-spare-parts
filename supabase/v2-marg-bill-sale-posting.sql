@@ -46,6 +46,7 @@ begin
  if exists(select 1 from public.marg_bill_sales where estimate_id=e.id) then raise exception 'ESTIMATE ALREADY POSTED AS SALE';end if;
  if exists(select 1 from public.marg_bill_sales where upper(btrim(marg_bill_no))=bill) then raise exception 'MARG BILL NUMBER ALREADY USED';end if;
  if not exists(select 1 from public.sales_document_lines where document_id=e.id) then raise exception 'ESTIMATE HAS NO ITEMS';end if;
+ if exists(select 1 from public.sales_document_lines where document_id=e.id and (item_id is null or qty is null or qty<=0)) then raise exception 'ESTIMATE HAS INVALID ITEM OR LINE QUANTITY';end if;
 
  -- Serialize inventory rows in deterministic item order and validate all stock before any deduction.
  for ln in select item_id,sum(qty) qty from public.sales_document_lines where document_id=e.id group by item_id order by item_id loop
