@@ -179,6 +179,7 @@ begin
  select * into d from public.dispatches where estimate_id=e.id for update;
  if lower(btrim(coalesce(e.status,'')))='delivered' or (found and d.status='delivered') then raise exception 'DELIVERED SALE CANNOT BE REVERSED HERE';end if;
  if not exists(select 1 from public.sales_document_lines where document_id=e.id) or exists(select 1 from public.sales_document_lines where document_id=e.id and (item_id is null or qty is null or qty<=0)) then raise exception 'INVALID SALE LINES FOR REVERSAL';end if;
+ if e.status is null or lower(btrim(e.status)) not in('sale_posted') then raise exception 'ESTIMATE STATUS DOES NOT ALLOW SALE REVERSAL';end if;
  for ln in select item_id,sum(qty) qty from public.sales_document_lines where document_id=e.id group by item_id order by item_id loop
   insert into public.inventory(item_id,current_qty,updated_at) values(ln.item_id,ln.qty,now()) on conflict(item_id) do update set current_qty=public.inventory.current_qty+excluded.current_qty,updated_at=now();
   insert into public.inventory_movements(item_id,qty_change,reason,reference_type,reference_id,created_by) values(ln.item_id,ln.qty,'MARG BILL SALE REVERSAL','marg_bill_sale',s.id,a.id);
