@@ -3,7 +3,7 @@ import{establishSession,secureDevice}from'../_shared/torvo-auth.ts';
 const cors={'Access-Control-Allow-Origin':'*','Access-Control-Allow-Headers':'authorization,x-client-info,apikey,content-type','Access-Control-Allow-Methods':'POST,OPTIONS'};
 const json=(b:unknown,s=200)=>new Response(JSON.stringify(b),{status:s,headers:{...cors,'content-type':'application/json'}});
 const hash=async(s:string)=>Array.from(new Uint8Array(await crypto.subtle.digest('SHA-256',new TextEncoder().encode(s)))).map(b=>b.toString(16).padStart(2,'0')).join('');
-const otp=()=>{const b=new Uint32Array(1);crypto.getRandomValues(b);return String(b[0]%1e6).padStart(6,'0')};
+const otp=()=>{const range=1_000_000,limit=Math.floor(0x1_0000_0000/range)*range,b=new Uint32Array(1);do{crypto.getRandomValues(b)}while(b[0]>=limit);return String(b[0]%range).padStart(6,'0')};
 async function mail(email:string,code:string,m:{role:string;username:string;name:string}){
  const token=Deno.env.get('TORVO_EMAIL_OTP_TOKEN');if(!token)throw Error('EMAIL_PROVIDER_NOT_CONFIGURED');
  const h={'authorization':`Bearer ${token}`,'content-type':'application/json','accept':'application/json'};
