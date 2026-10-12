@@ -1365,3 +1365,55 @@ body:has(.publicSite){padding-bottom:0!important}
  }
 }
 
+
+/* Owner-approved logo-only marquee: identical logo cells on mobile and desktop.
+   Logos are managed through ADMIN > WEBSITE & APP SETTINGS > BRAND LOGOS. */
+#torvo-v2-root .publicSite .publicBrandRail .brandLogoViewport,
+#torvo-v2-root .publicSite .publicBrandRail .brandLogoTrack{
+ height:66px!important;
+ min-height:66px!important;
+}
+#torvo-v2-root .publicSite .publicBrandRail .brandLogoItem{
+ box-sizing:border-box!important;
+ width:172px!important;
+ min-width:172px!important;
+ max-width:172px!important;
+ height:66px!important;
+ min-height:66px!important;
+ padding:9px 18px!important;
+ display:flex!important;
+ justify-content:center!important;
+ align-items:center!important;
+ flex:0 0 172px!important;
+ background:#fff!important;
+}
+#torvo-v2-root .publicSite .publicBrandRail .brandLogoItem img{
+ display:block!important;
+ width:100%!important;
+ max-width:136px!important;
+ height:44px!important;
+ max-height:44px!important;
+ object-fit:contain!important;
+ object-position:center!important;
+}
+@media(max-width:680px){
+ #torvo-v2-root .publicSite .publicBrandRail .brandLogoViewport,
+ #torvo-v2-root .publicSite .publicBrandRail .brandLogoTrack{
+  height:56px!important;
+  min-height:56px!important;
+ }
+ #torvo-v2-root .publicSite .publicBrandRail .brandLogoItem{
+  width:142px!important;
+  min-width:142px!important;
+  max-width:142px!important;
+  flex-basis:142px!important;
+  height:56px!important;
+  min-height:56px!important;
+  padding:8px 12px!important;
+ }
+ #torvo-v2-root .publicSite .publicBrandRail .brandLogoItem img{
+  max-width:118px!important;
+  height:40px!important;
+  max-height:40px!important;
+ }
+}
