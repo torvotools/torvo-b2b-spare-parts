@@ -1479,7 +1479,7 @@
 #torvo-v2-root :is(.adminVisualPreview,.accountantPreview) :is(.premiumAdminTop,.accountantTopFinder) .adminTitleBlock h1{color:#fff!important;-webkit-text-fill-color:#fff!important;font-size:clamp(19px,2vw,27px);line-height:1.2;letter-spacing:-.025em}
 #torvo-v2-root :is(.adminVisualPreview,.accountantPreview) :is(.premiumAdminTop,.accountantTopFinder) .eyebrow{color:#ffa8b2!important;font-size:10px;letter-spacing:.14em}
 #torvo-v2-root :is(.adminVisualPreview,.accountantPreview) :is(.adminUniversalBar,.accountantSharedSearch .adminUniversalBar){border:1px solid #d6dee6;border-radius:10px;background:#fff;box-shadow:0 2px 8px rgba(8,15,23,.05)}
-#torvo-v2-root :is(.adminVisualPreview,.accountantPreview) :is(.adminUniversalBar,.accountantSharedSearch .adminUniversalBar) input{min-width:0;max-width:100%;color:#1b2633;background:transparent;font-weight:400}
+#torvo-v2-root :is(.adminVisualPreview,.accountantPreview) :is(.adminUniversalBar,.accountantSharedSearch .adminUniversalBar) input{min-width:0;max-width:100%;color:var(--torvo-ink);background:transparent;font-weight:400}
 #torvo-v2-root :is(.adminVisualPreview,.accountantPreview) :is(.adminUniversalBar,.accountantSharedSearch .adminUniversalBar) input::placeholder{color:#758291;opacity:1}
 #torvo-v2-root :is(.adminVisualPreview,.accountantPreview) :is(.adminUniversalBar,.accountantSharedSearch .adminUniversalBar) button{flex-shrink:0}
 #torvo-v2-root .adminVisualPreview aside,#torvo-v2-root .accountantPreview .accountantSideNav{background:linear-gradient(180deg,#121c27,#202d3b);color:#eaf0f6}
@@ -1510,13 +1510,13 @@
 /* TORVO V2 DEEP-SCREEN CONTRACT — dialogs, drawers, forms and error states.
    The same premium experience must continue after every click. */
 #torvo-v2-root :is(.modalLayer,.roleSheetBack){position:fixed;inset:0;z-index:1000;display:flex;align-items:center;justify-content:center;box-sizing:border-box;padding:clamp(12px,3vw,30px);background:rgba(10,18,28,.7);backdrop-filter:blur(4px)}
-#torvo-v2-root :is(.modalLayer .modal,.roleSheetBack .roleSheet){box-sizing:border-box;width:min(100%,820px);max-width:100%;max-height:calc(100dvh - 24px);overflow:auto;overscroll-behavior:contain;border:1px solid #e2e8ee;border-radius:16px;background:#fff;color:#1b2633;box-shadow:0 28px 80px rgba(4,13,24,.28)}
+#torvo-v2-root :is(.modalLayer .modal,.roleSheetBack .roleSheet){box-sizing:border-box;width:min(100%,820px);max-width:100%;max-height:calc(100dvh - 24px);overflow:auto;overscroll-behavior:contain;border:1px solid #e2e8ee;border-radius:16px;background:#fff;color:var(--torvo-ink);box-shadow:0 28px 80px rgba(4,13,24,.28)}
 #torvo-v2-root :is(.modalLayer .modal,.roleSheetBack .roleSheet)>header{position:sticky;top:0;z-index:2;display:flex;align-items:center;justify-content:space-between;gap:12px;min-width:0;padding:16px 20px;border-bottom:1px solid #e3e9ef;background:#fff}
 #torvo-v2-root :is(.modalLayer .modal,.roleSheetBack .roleSheet)>header h2,#torvo-v2-root :is(.modalLayer .modal,.roleSheetBack .roleSheet)>header h3{margin:4px 0 0;color:#17212c;font-size:clamp(17px,2vw,23px);line-height:1.3;overflow-wrap:anywhere}
-#torvo-v2-root :is(.modalLayer .modal,.roleSheetBack .roleSheet)>header button{flex:none;display:grid;place-items:center;min-width:40px;min-height:40px;border:1px solid #e1e7ed;border-radius:9px;background:#f6f8fa;color:#1b2633}
-#torvo-v2-root :is(.modalLayer .modal,.roleSheetBack .roleSheet) :is(input,select,textarea){box-sizing:border-box;max-width:100%;min-width:0;border:1px solid #dce3e9;border-radius:9px;background:#fff;color:#1b2633;font-weight:400}
-#torvo-v2-root :is(.modalLayer .modal,.roleSheetBack .roleSheet) :is(input,select,textarea):focus-visible{outline:2px solid #d22337;outline-offset:2px}
-#torvo-v2-root :is(.modalLayer .modal,.roleSheetBack .roleSheet) button:focus-visible{outline:2px solid #d22337;outline-offset:2px}
+#torvo-v2-root :is(.modalLayer .modal,.roleSheetBack .roleSheet)>header button{flex:none;display:grid;place-items:center;min-width:40px;min-height:40px;border:1px solid #e1e7ed;border-radius:9px;background:#f6f8fa;color:var(--torvo-ink)}
+#torvo-v2-root :is(.modalLayer .modal,.roleSheetBack .roleSheet) :is(input,select,textarea){box-sizing:border-box;max-width:100%;min-width:0;border:1px solid #dce3e9;border-radius:9px;background:#fff;color:var(--torvo-ink);font-weight:400}
+#torvo-v2-root :is(.modalLayer .modal,.roleSheetBack .roleSheet) :is(input,select,textarea):focus-visible{outline:2px solid var(--torvo-red);outline-offset:2px}
+#torvo-v2-root :is(.modalLayer .modal,.roleSheetBack .roleSheet) button:focus-visible{outline:2px solid var(--torvo-red);outline-offset:2px}
 #torvo-v2-root :is(.modalLayer .modal,.roleSheetBack .roleSheet) :is(.roleHint,.accountantFutureNote,.adminSearchState){overflow-wrap:anywhere;line-height:1.6}
 @media(max-width:600px){#torvo-v2-root :is(.modalLayer,.roleSheetBack){padding:8px;align-items:flex-end}#torvo-v2-root :is(.modalLayer .modal,.roleSheetBack .roleSheet){max-height:calc(100dvh - 12px);border-radius:16px 16px 10px 10px}#torvo-v2-root :is(.modalLayer .modal,.roleSheetBack .roleSheet)>header{padding:13px 15px}#torvo-v2-root :is(.modalLayer .modal,.roleSheetBack .roleSheet) :is(input,select,textarea){font-size:16px}}
 @media(prefers-reduced-motion:reduce){#torvo-v2-root :is(.modalLayer,.roleSheetBack){backdrop-filter:none}}
