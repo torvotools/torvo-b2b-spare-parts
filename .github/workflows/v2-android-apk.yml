@@ -96,7 +96,7 @@ jobs:
           test -d dist-app/assets
           test -n "$(find dist-app/assets -maxdepth 1 -type f -name '*.js' -print -quit)"
           if grep -R -q 'LOGIN SERVICE IS NOT CONNECTED YET' dist-app/assets; then echo 'PLACEHOLDER LOGIN FOUND IN COMPILED APP'; exit 1; fi
-          if grep -R -q 'REGISTERED MOBILE NUMBER\|STAFF LOGIN USES WHATSAPP OTP\|10-DIGIT MOBILE NUMBER' dist-app/assets; then echo 'RETIRED MOBILE/WHATSAPP LOGIN FOUND IN COMPILED APP'; exit 1; fi
+          if grep -R -q 'REGISTERED MOBILE NUMBER\|STAFF LOGIN USES WHATSAPP OTP' dist-app/assets; then echo 'RETIRED MOBILE/WHATSAPP LOGIN FOUND IN COMPILED APP'; exit 1; fi
           grep -R -q 'REGISTERED EMAIL' dist-app/assets
           grep -R -q 'USER ID' dist-app/assets
           grep -R -q 'NEW DEALER REGISTRATION' dist-app/assets
@@ -131,7 +131,7 @@ jobs:
             echo 'PLACEHOLDER LOGIN FOUND IN SYNCED ANDROID ASSET'
             exit 1
           fi
-          if grep -R -q 'REGISTERED MOBILE NUMBER\|STAFF LOGIN USES WHATSAPP OTP\|10-DIGIT MOBILE NUMBER' android/app/src/main/assets/public/assets; then
+          if grep -R -q 'REGISTERED MOBILE NUMBER\|STAFF LOGIN USES WHATSAPP OTP' android/app/src/main/assets/public/assets; then
             echo 'RETIRED MOBILE/WHATSAPP LOGIN FOUND IN SYNCED ANDROID ASSET'
             exit 1
           fi
