@@ -1305,3 +1305,15 @@ body:has(.publicSite){padding-bottom:0!important}
   background-position:72% bottom!important;
  }
 }
+
+/* Owner mobile hero visibility: show the mechanical subject, not a dim collage.
+   Temporary until a clean 3–4-part photograph is added to the repository. */
+@media(max-width:800px){
+ #torvo-v2-root .publicSite main#top>.torvoSignatureHero::before{
+  opacity:.85!important;
+  background-position:75% bottom!important;
+ }
+ #torvo-v2-root .publicSite main#top>.torvoSignatureHero::after{
+  background:linear-gradient(90deg,rgba(9,14,21,.95) 0%,rgba(9,14,21,.83) 43%,rgba(9,14,21,.35) 100%),linear-gradient(0deg,rgba(9,14,21,.56),transparent 46%)!important;
+ }
+}
