@@ -1389,3 +1389,19 @@ body:has(.publicSite){padding-bottom:0!important}
   line-height:1!important;
  }
 }
+
+/* Screenshot QA 12 Oct: never render captured UI/status text as hero imagery.
+   The old mechanical JPG contains a phone screenshot, not clean product art.
+   Suppress it until an isolated four-part asset is committed. */
+@media(max-width:800px){
+ #torvo-v2-root .publicSite main#top>.torvoSignatureHero{
+  background:linear-gradient(115deg,#070b11 0%,#101823 62%,#340c15 100%)!important;
+ }
+ #torvo-v2-root .publicSite main#top>.torvoSignatureHero::before{
+  background-image:none!important;
+  opacity:0!important;
+ }
+ #torvo-v2-root .publicSite main#top>.torvoSignatureHero::after{
+  background:linear-gradient(135deg,transparent 0%,transparent 70%,rgba(224,0,32,.24) 100%)!important;
+ }
+}
