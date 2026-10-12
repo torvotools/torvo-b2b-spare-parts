@@ -17,6 +17,11 @@ const repository=fs.readFileSync('src/v2/services/repository.js','utf8');
 const saleService=fs.readFileSync('src/v2/services/margBillSale.js','utf8');
 const packageScripts=JSON.parse(fs.readFileSync('package.json','utf8')).scripts;
 const checks=[
+ ['DISPATCH SERVICE REJECTS INVALID STAGES',repository.includes("!['picked','packed','ready_for_dispatch'].includes(status)")],
+ ['DISPATCH SERVICE REQUIRES COURIER TRACKING',repository.includes("throw new Error('COURIER AND TRACKING REQUIRED')")],
+ ['DISPATCH SERVICE LIMITS DETAILS',repository.includes("throw new Error('DISPATCH DETAILS TOO LONG')")],
+ ['DELIVERY SERVICE LIMITS TRACKING',repository.includes("throw new Error('TRACKING CODE TOO LONG')")],
+ ['STORE QUEUE SERVICE REJECTS INVALID RESPONSE',repository.includes("if(!Array.isArray(data))throw new Error('INVALID DISPATCH QUEUE RESPONSE')")],
  ['DISPATCH QUEUE ARRAY VALIDATION',dispatchUi.includes("if(!Array.isArray(queue))throw new Error('INVALID DISPATCH QUEUE RESPONSE')")],
  ['DISPATCH QUEUE ROW FILTER',dispatchUi.includes("rows.filter(r=>r&&typeof r==='object'&&!Array.isArray(r))")],
  ['DISPATCH GROUPING REQUIRES IDS',dispatchUi.includes('if(!r?.dispatch_id||!r?.estimate_id)return a')],
