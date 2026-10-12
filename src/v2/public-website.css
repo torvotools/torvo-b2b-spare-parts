@@ -1444,3 +1444,16 @@ body:has(.publicSite){padding-bottom:0!important}
   scroll-margin-bottom:116px;
  }
 }
+
+/* TORVO V2 mobile footer: readable section labels and balanced social panel. */
+@media(max-width:700px){
+#torvo-v2-root .publicSite .torvoPremiumFooter .torvoFooterExplore h3,
+#torvo-v2-root .publicSite .torvoPremiumFooter .torvoFooterConnect h3,
+#torvo-v2-root .publicSite .torvoPremiumFooter .torvoFollowBlock h3{color:#f4f6f9!important;opacity:1!important;text-shadow:none!important;font-size:12px!important;letter-spacing:.08em!important;font-weight:650!important}
+#torvo-v2-root .publicSite .torvoPremiumFooter .torvoFooterConnect{min-width:0}
+#torvo-v2-root .publicSite .torvoPremiumFooter .torvoContactActions a,
+#torvo-v2-root .publicSite .torvoPremiumFooter .torvoSocialLinks a{width:48px!important;height:48px!important;min-width:0!important;border-radius:11px!important}
+#torvo-v2-root .publicSite .torvoPremiumFooter .torvoContactActions,
+#torvo-v2-root .publicSite .torvoPremiumFooter .torvoSocialLinks{gap:7px!important;justify-content:flex-end}
+#torvo-v2-root .publicSite .torvoPremiumFooter .torvoFooterContactDetails{overflow-wrap:anywhere}
+}
