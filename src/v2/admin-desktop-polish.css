@@ -14,3 +14,50 @@
 @media(min-width:821px){.adminVisualPreview{--side:clamp(250px,18vw,304px)}.adminVisualPreview .premiumAdminTop{grid-template-columns:minmax(150px,190px) minmax(360px,1fr) auto}.adminUniversalResults>button{grid-template-columns:46px minmax(0,1fr) auto}.adminResultIcon{width:42px;height:42px}.adminVisualPreview .navGroup button{min-height:44px}.adminVisualPreview .workspaceTools button{min-height:40px}}
 @media(min-width:1920px){.adminVisualPreview .content{max-width:1760px}.adminVisualPreview .premiumAdminTop{padding-inline:clamp(28px,3vw,58px)}.adminVisualPreview .adminHeroV2 h2{font-size:clamp(31px,2vw,40px)}}
 @media(max-width:1180px) and (min-width:821px){.adminVisualPreview .adminActionGrid{grid-template-columns:repeat(3,minmax(0,1fr))}.adminVisualPreview .premiumKpis{grid-template-columns:repeat(4,minmax(0,1fr))}}
+
+/* AURORA ADMIN DEEP SCREEN — consistent workspace actions and narrow desktops.
+   Presentation-only; owner/admin permissions and workflows remain unchanged. */
+#torvo-v2-root .adminVisualPreview .content,
+#torvo-v2-root .adminVisualPreview .workspace,
+#torvo-v2-root .adminVisualPreview .workspaceTools{
+ min-width:0;
+}
+#torvo-v2-root .adminVisualPreview .workspaceTitle{
+ min-width:0;
+ overflow-wrap:anywhere;
+}
+#torvo-v2-root .adminVisualPreview .workspaceTools{
+ display:flex;
+ align-items:center;
+ flex-wrap:wrap;
+ gap:8px;
+}
+#torvo-v2-root .adminVisualPreview .workspaceTools :is(button,a){
+ min-height:40px;
+ max-width:100%;
+}
+#torvo-v2-root .adminVisualPreview .adminActionGrid > *,
+#torvo-v2-root .adminVisualPreview .premiumKpis > *{
+ min-width:0;
+}
+#torvo-v2-root .adminVisualPreview :is(.adminUniversalResults,.adminUniversalBar,.adminResultIcon){
+ min-width:0;
+}
+@media(max-width:820px){
+ #torvo-v2-root .adminVisualPreview .workspaceTools{
+  overflow-x:visible;
+ }
+ #torvo-v2-root .adminVisualPreview .workspaceTools :is(button,a){
+  min-height:44px;
+ }
+ #torvo-v2-root .adminVisualPreview .adminActionGrid,
+ #torvo-v2-root .adminVisualPreview .premiumKpis{
+  gap:10px;
+ }
+}
+@media(max-width:420px){
+ #torvo-v2-root .adminVisualPreview .adminActionGrid,
+ #torvo-v2-root .adminVisualPreview .premiumKpis{
+  grid-template-columns:repeat(2,minmax(0,1fr));
+ }
+}
