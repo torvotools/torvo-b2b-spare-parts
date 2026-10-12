@@ -1491,3 +1491,62 @@ body:has(.publicSite){padding-bottom:0!important}
 #torvo-v2-root .publicSite .torvoPremiumFooter .torvoFooterExplore{min-width:0!important}
 #torvo-v2-root .publicSite .torvoPremiumFooter .torvoContactActions,#torvo-v2-root .publicSite .torvoPremiumFooter .torvoSocialLinks{align-items:center!important}
 }
+
+/* Owner-approved category strip — MOBILE ONLY, below the existing brand ticker.
+   Three equal white/red cards, compact corners, red VIEW with black outline.
+   Desktop category cards retain their previous design. */
+#torvo-v2-root .publicSite .torvoPrimaryCategories .torvoMobileCategoryName{display:none}
+@media(max-width:700px){
+ #torvo-v2-root .publicSite .torvoPrimaryCategories{
+  display:grid!important;grid-template-columns:repeat(3,minmax(0,1fr))!important;
+  gap:6px!important;padding:8px 7px 12px!important;margin:0!important;
+  align-items:stretch!important;width:100%!important;box-sizing:border-box!important;
+ }
+ #torvo-v2-root .publicSite .torvoPrimaryCategories>button{
+  display:flex!important;flex-direction:column!important;justify-content:flex-start!important;
+  align-items:center!important;gap:0!important;width:100%!important;min-width:0!important;
+  height:177px!important;min-height:177px!important;padding:5px!important;
+  background:#fff!important;color:#10151c!important;border:1.5px solid #ed001c!important;
+  border-radius:9px!important;box-shadow:0 3px 8px rgba(13,20,30,.08)!important;
+  overflow:hidden!important;box-sizing:border-box!important;
+ }
+ #torvo-v2-root .publicSite .torvoPrimaryCategories>button>img,
+ #torvo-v2-root .publicSite .torvoPrimaryCategories>button>.categoryPhotoPending{
+  flex:none!important;display:flex!important;align-items:center!important;justify-content:center!important;
+  width:100%!important;height:82px!important;min-height:82px!important;max-height:82px!important;
+  object-fit:contain!important;object-position:center!important;
+  background:transparent!important;border:0!important;border-radius:0!important;
+  filter:none!important;box-shadow:none!important;
+ }
+ #torvo-v2-root .publicSite .torvoPrimaryCategories>button>.categoryPhotoPending svg{
+  width:48px!important;height:48px!important;stroke:#c90019!important;opacity:1!important;
+  filter:none!important;
+ }
+ #torvo-v2-root .publicSite .torvoPrimaryCategories .categoryCopy{
+  display:flex!important;flex-direction:column!important;align-items:center!important;
+  justify-content:space-between!important;flex:1!important;width:100%!important;
+  min-width:0!important;min-height:0!important;padding:2px 0 0!important;
+  text-align:center!important;gap:3px!important;background:transparent!important;
+ }
+ #torvo-v2-root .publicSite .torvoPrimaryCategories .categoryCopy>b,
+ #torvo-v2-root .publicSite .torvoPrimaryCategories .categoryCopy>small{display:none!important}
+ #torvo-v2-root .publicSite .torvoPrimaryCategories .categoryCopy .torvoMobileCategoryName{
+  display:block!important;font-size:clamp(9px,2.45vw,12px)!important;line-height:1.15!important;
+  font-weight:800!important;letter-spacing:-.025em!important;color:#111820!important;
+  white-space:normal!important;overflow-wrap:normal!important;word-break:normal!important;
+  text-align:center!important;
+ }
+ #torvo-v2-root .publicSite .torvoPrimaryCategories .categoryCopy em{
+  display:flex!important;align-items:center!important;justify-content:center!important;
+  gap:5px!important;width:100%!important;min-height:31px!important;box-sizing:border-box!important;
+  padding:4px 5px!important;margin:0!important;background:#ec001b!important;color:#fff!important;
+  border:2px solid #101010!important;border-radius:9px!important;box-shadow:none!important;
+  font-size:0!important;font-style:normal!important;line-height:1!important;
+ }
+ #torvo-v2-root .publicSite .torvoPrimaryCategories .categoryCopy em:before{
+  content:"VIEW";font-size:12px!important;font-weight:800!important;letter-spacing:.02em!important;
+ }
+ #torvo-v2-root .publicSite .torvoPrimaryCategories .categoryCopy em svg{
+  width:15px!important;height:15px!important;flex:none!important;color:#fff!important;
+ }
+}
