@@ -1,8 +1,8 @@
 import{requireBackend}from'./supabase';
 import{detectLeadSource,normalizeLeadSource}from'./publicLeadSource';
 const db=()=>requireBackend();
-const cleanMobile=v=>String(v||'').replace(/\D/g,'').slice(-10);
-const cleanPin=v=>String(v||'').replace(/\D/g,'').slice(0,6);
+const cleanMobile=v=>String(v||'').trim();
+const cleanPin=v=>String(v||'').trim();
 const cleanId=v=>String(v||'').trim();
 const leadSource=v=>normalizeLeadSource(v)||detectLeadSource();
 const UUID_RE=/^[0-9a-f]{8}-[0-9a-f]{4}-[1-8][0-9a-f]{3}-[89ab][0-9a-f]{3}-[0-9a-f]{12}$/i;
