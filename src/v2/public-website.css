@@ -1482,3 +1482,12 @@ body:has(.publicSite){padding-bottom:0!important}
 #torvo-v2-root .publicSite .torvoPrimaryCategories>button.spare>.categoryPhotoPending{background:radial-gradient(circle at 65% 35%,#a92c36 0%,#621921 52%,#22151a 100%)!important}
 #torvo-v2-root .publicSite .torvoPrimaryCategories>button.accessory>.categoryPhotoPending{background:radial-gradient(circle at 65% 35%,#62636b 0%,#34313a 52%,#19171d 100%)!important}
 @media(max-width:700px){#torvo-v2-root .publicSite .torvoPrimaryCategories>button>.categoryPhotoPending{min-height:142px!important;height:100%!important}#torvo-v2-root .publicSite .torvoPrimaryCategories>button>.categoryPhotoPending svg{width:70px!important;height:70px!important}}
+
+/* Mobile footer: tighten the red base and keep contact details readable. */
+@media(max-width:700px){
+#torvo-v2-root .publicSite .torvoPremiumFooter{padding-bottom:18px!important}
+#torvo-v2-root .publicSite .torvoPremiumFooter .torvoFooterConnect{margin-bottom:0!important}
+#torvo-v2-root .publicSite .torvoPremiumFooter .torvoFooterContactDetails{min-width:0!important;overflow-wrap:anywhere!important;word-break:normal!important}
+#torvo-v2-root .publicSite .torvoPremiumFooter .torvoFooterExplore{min-width:0!important}
+#torvo-v2-root .publicSite .torvoPremiumFooter .torvoContactActions,#torvo-v2-root .publicSite .torvoPremiumFooter .torvoSocialLinks{align-items:center!important}
+}
