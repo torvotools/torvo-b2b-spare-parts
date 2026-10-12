@@ -19,6 +19,7 @@ const sessionChecks=[
  ['ACCOUNT SWITCH RELEASES OLD CHECK',mounted.includes('epoch.current+=1;checking.current=false;revoked.current=false;dealerIdentity.current=identity')],
  ['STALE CHECK CANNOT RELEASE NEW CHECK',mounted.includes('finally{if(ticket===epoch.current)checking.current=false}')],
  ['SESSION FAILURE RELEASES CHECK',mounted.includes('epoch.current+=1;checking.current=false;revoked.current=true')],
+ ['RENDER HIDES WRONG DEALER IDENTITY',mounted.includes("if(!linked||dealerIdentity.current!==String(user?.dealer_id||''))return")],
  ['LOGOUT INVALIDATES IN-FLIGHT SESSION',mounted.includes('if(!linked){epoch.current+=1;checking.current=false;revoked.current=true;setReady(false)')],
  ['EXPLICIT DEVICE RECHECK',mounted.includes('revoked.current=false;verify()')],
  ['SESSION VERIFICATION ON TAB CHANGE',mounted.includes('const changeMode=async next')&&mounted.includes('setMode(next)')],
