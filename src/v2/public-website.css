@@ -1235,3 +1235,63 @@ body:has(.publicSite){padding-bottom:0!important}
   display:none!important;
  }
 }
+
+/* 12 OCT MOBILE SCREENSHOT FIX — category names must never break mid-word.
+   Keep existing real product photos, click-to-filter behavior and desktop layout. */
+@media(max-width:520px){
+ #torvo-v2-root .publicSite,
+ #torvo-v2-root .publicSite main#top,
+ #torvo-v2-root .publicSite .torvoSignatureHero{
+  box-sizing:border-box;
+  min-width:0;
+  max-width:100%;
+ }
+ #torvo-v2-root .publicSite .torvoPrimaryCategories{
+  grid-template-columns:1fr!important;
+  gap:12px!important;
+  padding-inline:14px!important;
+ }
+ #torvo-v2-root .publicSite .torvoPrimaryCategories>button{
+  box-sizing:border-box;
+  display:grid!important;
+  grid-template-columns:minmax(110px,36%) minmax(0,1fr);
+  min-width:0;
+  width:100%;
+  min-height:142px;
+  overflow:hidden;
+ }
+ #torvo-v2-root .publicSite .torvoPrimaryCategories>button>img,
+ #torvo-v2-root .publicSite .torvoPrimaryCategories>button>.categoryPhotoPending{
+  width:100%!important;
+  height:100%!important;
+  min-height:142px!important;
+  object-fit:cover;
+ }
+ #torvo-v2-root .publicSite .torvoPrimaryCategories .categoryCopy{
+  width:100%;
+  min-width:0;
+  padding:12px!important;
+  align-items:flex-start!important;
+  text-align:left!important;
+ }
+ #torvo-v2-root .publicSite .torvoPrimaryCategories .categoryCopy b{
+  font-size:clamp(17px,4.7vw,21px)!important;
+  text-align:left!important;
+  overflow-wrap:normal!important;
+  word-break:keep-all!important;
+  white-space:normal!important;
+ }
+ #torvo-v2-root .publicSite .torvoPrimaryCategories .categoryCopy small{
+  text-align:left!important;
+  font-size:11px!important;
+  line-height:1.4!important;
+ }
+ #torvo-v2-root .publicSite .torvoPrimaryCategories .categoryCopy em{
+  font-size:11px!important;
+ }
+ #torvo-v2-root .publicSite .mobileBottomNav>:is(a,button){
+  min-width:0;
+  font-size:clamp(9px,2.35vw,11px)!important;
+  line-height:1.15;
+ }
+}
