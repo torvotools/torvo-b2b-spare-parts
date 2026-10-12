@@ -1708,3 +1708,17 @@
   min-height:44px;
  }
 }
+
+/* Mobile-only approved TORVO category navigation, enforced in final stylesheet. */
+@media screen and (max-width:800px){
+ #torvo-v2-root .publicSite section.torvoPrimaryCategories{display:grid!important;grid-template-columns:repeat(3,minmax(0,1fr))!important;gap:6px!important;padding:8px 7px 12px!important;width:100%!important;box-sizing:border-box!important}
+ #torvo-v2-root .publicSite section.torvoPrimaryCategories>button{display:flex!important;flex-direction:column!important;align-items:center!important;justify-content:flex-start!important;box-sizing:border-box!important;min-width:0!important;width:100%!important;height:174px!important;min-height:174px!important;padding:5px!important;overflow:hidden!important;background:#fff!important;border:1.5px solid #ed001c!important;border-radius:9px!important;box-shadow:0 3px 8px rgba(0,0,0,.07)!important}
+ #torvo-v2-root .publicSite section.torvoPrimaryCategories>button>img,#torvo-v2-root .publicSite section.torvoPrimaryCategories>button>.categoryPhotoPending{display:flex!important;align-items:center!important;justify-content:center!important;flex:0 0 82px!important;width:100%!important;height:82px!important;min-height:82px!important;max-height:82px!important;object-fit:contain!important;background:transparent!important;border:0!important;border-radius:0!important;filter:none!important}
+ #torvo-v2-root .publicSite section.torvoPrimaryCategories>button>.categoryPhotoPending svg{display:block!important;width:46px!important;height:46px!important;stroke:#c90019!important;opacity:1!important;filter:none!important}
+ #torvo-v2-root .publicSite section.torvoPrimaryCategories .categoryCopy{display:flex!important;flex-direction:column!important;align-items:center!important;justify-content:space-between!important;flex:1 1 auto!important;gap:3px!important;width:100%!important;min-width:0!important;padding:2px 0 0!important;text-align:center!important;background:transparent!important}
+ #torvo-v2-root .publicSite section.torvoPrimaryCategories .categoryCopy>b,#torvo-v2-root .publicSite section.torvoPrimaryCategories .categoryCopy>small{display:none!important}
+ #torvo-v2-root .publicSite section.torvoPrimaryCategories .categoryCopy>.torvoMobileCategoryName{display:block!important;color:#111820!important;font-size:clamp(9px,2.5vw,12px)!important;line-height:1.15!important;font-weight:800!important;text-align:center!important;white-space:normal!important}
+ #torvo-v2-root .publicSite section.torvoPrimaryCategories .categoryCopy>em{display:flex!important;align-items:center!important;justify-content:center!important;gap:4px!important;width:100%!important;min-height:31px!important;margin:0!important;padding:3px!important;box-sizing:border-box!important;background:#ed001c!important;color:#fff!important;border:2px solid #101010!important;border-radius:9px!important;box-shadow:none!important;font-size:0!important;font-style:normal!important}
+ #torvo-v2-root .publicSite section.torvoPrimaryCategories .categoryCopy>em:before{content:"VIEW";font-size:12px!important;font-weight:800!important;color:#fff!important}
+ #torvo-v2-root .publicSite section.torvoPrimaryCategories .categoryCopy>em svg{width:15px!important;height:15px!important;color:#fff!important;flex:none!important}
+}
