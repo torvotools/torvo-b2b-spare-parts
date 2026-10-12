@@ -17,6 +17,9 @@ const repository=fs.readFileSync('src/v2/services/repository.js','utf8');
 const saleService=fs.readFileSync('src/v2/services/margBillSale.js','utf8');
 const packageScripts=JSON.parse(fs.readFileSync('package.json','utf8')).scripts;
 const checks=[
+ ['DISPATCH CONFLICT GROUP QUARANTINED',dispatchUi.includes('groups.delete(k);conflicts.add(k);continue')],
+ ['DISPATCH CONFLICT GROUP NOT RECREATED',dispatchUi.includes('if(conflicts.has(k))continue')],
+ ['DISPATCH GROUPING USES MAP',dispatchUi.includes('const groups=new Map(),conflicts=new Set()')],
  ['DISPATCH GROUPING ISOLATES ESTIMATES',dispatchUi.includes("String(r.dispatch_id)+'_'+String(r.estimate_id)")],
  ['DISPATCH UNKNOWN STATUS QUARANTINED',dispatchUi.includes("!['pick_list','picked','packed','ready_for_dispatch','delivered'].includes(r.dispatch_status)")],
  ['DISPATCH INVALID ROWS REPORTED',dispatchUi.includes('INVALID DISPATCH QUEUE ROW(S) WERE NOT SHOWN')],
