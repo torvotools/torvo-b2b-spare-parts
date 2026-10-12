@@ -13,3 +13,52 @@
  .accountantPreview .accountantNotificationPreview{top:62px}
  .accountantAlertGroups>button{min-height:60px}
 }
+
+/* AURORA ACCOUNTANT DEEP SCREEN — keep authenticated accounting tools usable
+   across narrower desktop windows; do not expose hidden financial controls. */
+#torvo-v2-root .accountantPreview :is(.accountantTopFinder,.accountantFilterPanel,.accountantSelectedProduct,.accountantNotificationPreview){
+ box-sizing:border-box;
+ max-width:100%;
+}
+#torvo-v2-root .accountantPreview :is(.accountantFilterPanel,.accountantSelectedProduct,.accountantNotificationPreview){
+ overflow-wrap:anywhere;
+}
+#torvo-v2-root .accountantPreview .accountantFilterPanel :is(input,select,button){
+ min-width:0;
+ max-width:100%;
+}
+#torvo-v2-root .accountantPreview .accountantFilterPanel .smartFinderFilters.dynamic > *{
+ min-width:0;
+}
+#torvo-v2-root .accountantPreview .accountantNotificationPreview>header{
+ display:flex;
+ align-items:center;
+ gap:10px;
+}
+#torvo-v2-root .accountantPreview .accountantNotificationPreview>header > *:first-child{
+ min-width:0;
+}
+#torvo-v2-root .accountantPreview .accountantNotificationPreview>header button{
+ flex-shrink:0;
+ min-width:44px;
+ min-height:44px;
+}
+@media(min-width:821px) and (max-width:1100px){
+ #torvo-v2-root .accountantPreview .accountantFilterPanel .smartFinderFilters.dynamic{
+  grid-template-columns:repeat(2,minmax(0,1fr));
+ }
+}
+@media(max-width:820px){
+ #torvo-v2-root .accountantPreview :is(.accountantFilterPanel,.accountantSelectedProduct){
+  max-width:calc(100vw - 18px);
+  overflow-x:hidden;
+ }
+ #torvo-v2-root .accountantPreview .accountantNotificationPreview{
+  left:9px;
+  right:9px;
+  width:auto;
+  max-height:calc(100dvh - 80px);
+  overflow-y:auto;
+  overscroll-behavior:contain;
+ }
+}
