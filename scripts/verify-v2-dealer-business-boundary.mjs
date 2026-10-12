@@ -16,6 +16,9 @@ const sessionChecks=[
  ['STALE LEADS/TABS FAIL CLOSED',mounted.includes("if(ticket===epoch.current)fail(e)")&&mounted.includes('setMode(next)')],
  ['ACCOUNT SWITCH INVALIDATES OLD SESSION',mounted.includes('dealerIdentity.current!==identity')&&mounted.includes('epoch.current+=1;revoked.current=false;dealerIdentity.current=identity')],
  ['ACCOUNT SWITCH CLOSES PRIVATE VIEW',mounted.includes("dealerIdentity.current=identity;setReady(false);setErr('');setMode('business')")],
+ ['ACCOUNT SWITCH RELEASES OLD CHECK',mounted.includes('epoch.current+=1;checking.current=false;revoked.current=false;dealerIdentity.current=identity')],
+ ['STALE CHECK CANNOT RELEASE NEW CHECK',mounted.includes('finally{if(ticket===epoch.current)checking.current=false}')],
+ ['SESSION FAILURE RELEASES CHECK',mounted.includes('epoch.current+=1;checking.current=false;revoked.current=true')],
  ['EXPLICIT DEVICE RECHECK',mounted.includes('revoked.current=false;verify()')],
  ['SESSION VERIFICATION ON TAB CHANGE',mounted.includes('const changeMode=async next')&&mounted.includes('setMode(next)')],
 ];
