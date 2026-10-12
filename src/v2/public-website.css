@@ -1452,8 +1452,16 @@ body:has(.publicSite){padding-bottom:0!important}
 #torvo-v2-root .publicSite .torvoPremiumFooter .torvoFollowBlock h3{color:#f4f6f9!important;opacity:1!important;text-shadow:none!important;font-size:12px!important;letter-spacing:.08em!important;font-weight:650!important}
 #torvo-v2-root .publicSite .torvoPremiumFooter .torvoFooterConnect{min-width:0}
 #torvo-v2-root .publicSite .torvoPremiumFooter .torvoContactActions a,
-#torvo-v2-root .publicSite .torvoPremiumFooter .torvoSocialLinks a{width:48px!important;height:48px!important;min-width:0!important;border-radius:11px!important}
+#torvo-v2-root .publicSite .torvoPremiumFooter .torvoSocialLinks a{width:42px!important;height:42px!important;min-width:0!important;border-radius:10px!important}
 #torvo-v2-root .publicSite .torvoPremiumFooter .torvoContactActions,
 #torvo-v2-root .publicSite .torvoPremiumFooter .torvoSocialLinks{gap:7px!important;justify-content:flex-end}
 #torvo-v2-root .publicSite .torvoPremiumFooter .torvoFooterContactDetails{overflow-wrap:anywhere}
+}
+
+/* Mobile footer final polish: compact contact panel without changing the approved navigation. */
+@media(max-width:700px){
+#torvo-v2-root .publicSite .torvoPremiumFooter .torvoFooterConnect{padding-top:14px!important;padding-bottom:14px!important}
+#torvo-v2-root .publicSite .torvoPremiumFooter .torvoContactActions svg,
+#torvo-v2-root .publicSite .torvoPremiumFooter .torvoSocialLinks svg{width:22px!important;height:22px!important}
+#torvo-v2-root .publicSite .torvoPremiumFooter .torvoFooterContactDetails{line-height:1.5}
 }
