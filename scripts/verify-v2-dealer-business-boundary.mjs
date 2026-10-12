@@ -10,8 +10,11 @@ const sessionChecks=[
  ['DEALER WORKSPACE FAILS CLOSED',mounted.includes('DEALER ACCESS NOT AVAILABLE')&&!mounted.includes('if(!linked)return <DealerPortal')],
  ['SESSION REVOCATION HIDES CONTENT',mounted.includes('torvo:dealer-session-revoked')&&mounted.includes("setReady(false);setMode('business')")],
  ['FOREGROUND REVALIDATION HIDES CONTENT',mounted.includes('verify({silent:false})')],
- ['PRIVATE MODE CHANGE SERIALIZED',mounted.includes("checking.current=true;setReady(false);try{await assertDealerSession()")],
+ ['PRIVATE MODE CHANGE SERIALIZED',mounted.includes("checking.current=true;const ticket=epoch.current;setReady(false);try{await assertDealerSession()")],
  ['LEADS EVENT STATE REFRESH',mounted.includes('[linked,ready,err,fail]')],
+ ['STALE SESSION RESPONSE INVALIDATION',mounted.includes('ticket!==epoch.current')&&mounted.includes('epoch.current+=1')],
+ ['STALE LEADS/TABS FAIL CLOSED',mounted.includes("if(ticket===epoch.current)fail(e)")&&mounted.includes('setMode(next)')],
+ ['EXPLICIT DEVICE RECHECK',mounted.includes('revoked.current=false;verify()')],
  ['SESSION VERIFICATION ON TAB CHANGE',mounted.includes('const changeMode=async next')&&mounted.includes('setMode(next)')],
 ];
 checks.push(...sessionChecks);
