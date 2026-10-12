@@ -1615,3 +1615,57 @@
   scroll-behavior:auto;
  }
 }
+
+/* AURORA DEEP PAGE PASS 2 — action-opened dialogs, menus, table tools and
+   responsive surfaces across all role workspaces. Never change business rules. */
+#torvo-v2-root :is([role="dialog"],[aria-modal="true"]){
+ box-sizing:border-box;
+ max-width:calc(100vw - 20px);
+ max-height:calc(100dvh - 20px);
+}
+#torvo-v2-root :is([role="dialog"],[aria-modal="true"]) :is(input,select,textarea,button){
+ box-sizing:border-box;
+ max-width:100%;
+}
+#torvo-v2-root :is([role="dialog"],[aria-modal="true"]) :is(h1,h2,h3,p,label){
+ overflow-wrap:anywhere;
+}
+#torvo-v2-root :is([role="dialog"],[aria-modal="true"]) :is(input,select,textarea):focus-visible{
+ outline:2px solid var(--torvo-red);
+ outline-offset:1px;
+}
+#torvo-v2-root :is(.workspace,.adminWorkspace,.accountantWorkPanel,.roleApp,.publicSite) :is(.tableWrap,.tableWrapper,.tableContainer,.tableScroll,.dataTableWrap,.reportTableWrap){
+ max-width:100%;
+ overflow-x:auto;
+ overscroll-behavior-x:contain;
+}
+#torvo-v2-root :is(.workspace,.adminWorkspace,.accountantWorkPanel,.roleApp,.publicSite) :is(.toolbar,.filterBar,.tableToolbar,.actionBar){
+ min-width:0;
+ flex-wrap:wrap;
+}
+#torvo-v2-root :is(.workspace,.adminWorkspace,.accountantWorkPanel,.roleApp,.publicSite) :is(.toolbar,.filterBar,.tableToolbar,.actionBar) > *{
+ min-width:0;
+}
+#torvo-v2-root :is(.workspace,.adminWorkspace,.accountantWorkPanel,.roleApp,.publicSite) :is(.emptyState,.noResults,.loadingState,.errorState){
+ overflow-wrap:anywhere;
+}
+#torvo-v2-root :is(.workspace,.adminWorkspace,.accountantWorkPanel,.roleApp,.publicSite) :is(.tabs,[role="tablist"]){
+ max-width:100%;
+ overflow-x:auto;
+ overscroll-behavior-x:contain;
+}
+#torvo-v2-root :is(.workspace,.adminWorkspace,.accountantWorkPanel,.roleApp,.publicSite) :is(.tabs,[role="tablist"]) :is(button,[role="tab"]){
+ flex-shrink:0;
+}
+@media(max-width:760px){
+ #torvo-v2-root :is([role="dialog"],[aria-modal="true"]){
+  width:min(100%,calc(100vw - 16px));
+  max-width:calc(100vw - 16px);
+  max-height:calc(100dvh - 16px);
+  overflow-y:auto;
+  overscroll-behavior:contain;
+ }
+ #torvo-v2-root :is(.workspace,.adminWorkspace,.accountantWorkPanel,.roleApp,.publicSite) :is(.toolbar,.filterBar,.tableToolbar,.actionBar) :is(input,select){
+  max-width:100%;
+ }
+}
