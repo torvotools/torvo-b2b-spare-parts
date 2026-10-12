@@ -1905,3 +1905,18 @@
   transform:translateX(-2px) rotate(45deg)!important;border-radius:1px!important;
  }
 }
+
+/* Owner's exact two-line category wording; no tile or arrow geometry changes. */
+@media screen and (max-width:800px){
+ #torvo-v2-root .publicSite section.torvoPrimaryCategories .categoryCopy>.torvoMobileCategoryName{
+  display:flex!important;flex-direction:column!important;align-items:flex-start!important;
+  justify-content:flex-start!important;gap:0!important;width:100%!important;
+  font-size:clamp(15px,3.9vw,19px)!important;line-height:1.04!important;
+  letter-spacing:-.045em!important;font-weight:900!important;
+  text-align:left!important;white-space:normal!important;
+ }
+ #torvo-v2-root .publicSite section.torvoPrimaryCategories .categoryCopy>.torvoMobileCategoryName>span{
+  display:block!important;width:100%!important;white-space:nowrap!important;
+  font:inherit!important;color:inherit!important;line-height:inherit!important;
+ }
+}
