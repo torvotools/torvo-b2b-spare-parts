@@ -17,6 +17,7 @@ const repository=fs.readFileSync('src/v2/services/repository.js','utf8');
 const saleService=fs.readFileSync('src/v2/services/margBillSale.js','utf8');
 const packageScripts=JSON.parse(fs.readFileSync('package.json','utf8')).scripts;
 const checks=[
+ ['DISPATCH GROUPING KEYS NAMESPACED',dispatchUi.includes("const k='id_'+String(r.dispatch_id)")],
  ['DELIVERY ESTIMATE IDENTIFIER NONBLANK',repository.includes("throw new Error('ESTIMATE ID REQUIRED')")],
  ['STORE QUEUE REJECTS NULL RESPONSE',repository.includes("if(!Array.isArray(data))throw new Error('INVALID DISPATCH QUEUE RESPONSE')")],
  ['DISPATCH DETAILS RESTRICTED TO READY STAGE',repository.includes("throw new Error('DISPATCH DETAILS ONLY ALLOWED AT READY STAGE')")],
