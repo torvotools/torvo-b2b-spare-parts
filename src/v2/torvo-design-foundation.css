@@ -1669,3 +1669,42 @@
   max-width:100%;
  }
 }
+
+/* AURORA DEEP PAGE PASS 3 — nested form controls, table row actions and
+   drawer/mobile safety for every role surface. Visual-only, no auth changes. */
+#torvo-v2-root :is(.publicSite,.adminVisualPreview,.accountantPreview,.roleApp,.dealerEntry,.workspace,.adminWorkspace,.accountantWorkPanel) :is(fieldset,.formRow,.formGrid,.fieldRow,.formGroup,.filterGroup,.detailGrid,.cardGrid){
+ min-width:0;
+}
+#torvo-v2-root :is(.publicSite,.adminVisualPreview,.accountantPreview,.roleApp,.dealerEntry,.workspace,.adminWorkspace,.accountantWorkPanel) :is(.formRow,.formGrid,.fieldRow,.formGroup,.filterGroup,.detailGrid,.cardGrid) > *{
+ min-width:0;
+}
+#torvo-v2-root :is(.publicSite,.adminVisualPreview,.accountantPreview,.roleApp,.dealerEntry,.workspace,.adminWorkspace,.accountantWorkPanel) :is(.formRow,.formGrid,.fieldRow,.formGroup,.filterGroup,.detailGrid,.cardGrid) :is(input,select,textarea){
+ max-width:100%;
+}
+#torvo-v2-root :is(.publicSite,.adminVisualPreview,.accountantPreview,.roleApp,.dealerEntry,.workspace,.adminWorkspace,.accountantWorkPanel) :is(.formError,.fieldError,.validationError,.formHint,.fieldHint,.helperText){
+ overflow-wrap:anywhere;
+}
+#torvo-v2-root :is(.publicSite,.adminVisualPreview,.accountantPreview,.roleApp,.dealerEntry,.workspace,.adminWorkspace,.accountantWorkPanel) :is(.rowActions,.tableActions,.cardActions,.modalActions,.dialogActions){
+ display:flex;
+ align-items:center;
+ gap:8px;
+ flex-wrap:wrap;
+ min-width:0;
+}
+#torvo-v2-root :is(.publicSite,.adminVisualPreview,.accountantPreview,.roleApp,.dealerEntry,.workspace,.adminWorkspace,.accountantWorkPanel) :is(.rowActions,.tableActions,.cardActions,.modalActions,.dialogActions) > *{
+ min-width:0;
+}
+#torvo-v2-root :is(.publicSite,.adminVisualPreview,.accountantPreview,.roleApp,.dealerEntry,.workspace,.adminWorkspace,.accountantWorkPanel) :is(.drawer,.sideDrawer,.slidePanel,.detailDrawer){
+ max-width:100vw;
+}
+@media(max-width:760px){
+ #torvo-v2-root :is(.publicSite,.adminVisualPreview,.accountantPreview,.roleApp,.dealerEntry,.workspace,.adminWorkspace,.accountantWorkPanel) :is(.drawer,.sideDrawer,.slidePanel,.detailDrawer){
+  width:min(100%,100vw);
+  max-height:100dvh;
+  overflow-y:auto;
+  overscroll-behavior:contain;
+ }
+ #torvo-v2-root :is(.publicSite,.adminVisualPreview,.accountantPreview,.roleApp,.dealerEntry,.workspace,.adminWorkspace,.accountantWorkPanel) :is(.modalActions,.dialogActions) > button{
+  min-height:44px;
+ }
+}
