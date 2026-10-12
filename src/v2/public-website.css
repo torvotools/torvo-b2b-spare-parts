@@ -1417,3 +1417,30 @@ body:has(.publicSite){padding-bottom:0!important}
   max-height:40px!important;
  }
 }
+
+/* Brand section stays discoverable even before first admin-managed image URL. */
+#torvo-v2-root .publicSite .brandLogoEmpty{
+ display:flex;
+ align-items:center;
+ justify-content:center;
+ min-height:56px;
+ padding:10px 16px;
+ background:#fff;
+ color:#657181;
+ font-size:11px;
+ font-weight:500;
+ letter-spacing:.035em;
+ text-align:center;
+}
+#torvo-v2-root .publicSite .brandLogoTrack:empty{
+ display:none!important;
+}
+@media(max-width:800px){
+ /* Reserve enough scroll space for the floating four-item navigation. */
+ #torvo-v2-root .publicSite{
+  padding-bottom:calc(116px + env(safe-area-inset-bottom))!important;
+ }
+ #torvo-v2-root .publicSite .torvoPrimaryCategories{
+  scroll-margin-bottom:116px;
+ }
+}
