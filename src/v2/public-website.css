@@ -1317,3 +1317,75 @@ body:has(.publicSite){padding-bottom:0!important}
   background:linear-gradient(90deg,rgba(9,14,21,.95) 0%,rgba(9,14,21,.83) 43%,rgba(9,14,21,.35) 100%),linear-gradient(0deg,rgba(9,14,21,.56),transparent 46%)!important;
  }
 }
+
+/* OWNER-APPROVED MOBILE BOTTOM NAV — screenshot reference 12 Oct 2026.
+   Four equal columns, white rounded panel, red HOME and selected-item badge. */
+@media(max-width:800px){
+ #torvo-v2-root .publicSite .mobileBottomNav{
+  box-sizing:border-box!important;
+  position:fixed;
+  left:8px!important;
+  right:8px!important;
+  bottom:max(8px,env(safe-area-inset-bottom))!important;
+  width:auto!important;
+  min-height:76px!important;
+  padding:8px 4px!important;
+  display:grid!important;
+  grid-template-columns:repeat(4,minmax(0,1fr))!important;
+  align-items:stretch!important;
+  gap:0!important;
+  background:#fff!important;
+  border:1px solid #dce1e6!important;
+  border-radius:17px!important;
+  box-shadow:0 5px 20px rgba(15,23,42,.09)!important;
+  z-index:60;
+ }
+ #torvo-v2-root .publicSite .mobileBottomNav>:is(a,button){
+  position:relative;
+  box-sizing:border-box;
+  min-width:0!important;
+  min-height:60px!important;
+  padding:5px 1px!important;
+  display:flex!important;
+  flex-direction:column!important;
+  align-items:center!important;
+  justify-content:center!important;
+  gap:4px!important;
+  border:0!important;
+  background:transparent!important;
+  color:#364150!important;
+  font-size:clamp(9px,2.7vw,12px)!important;
+  font-weight:700!important;
+  line-height:1.15!important;
+  text-align:center!important;
+  white-space:nowrap!important;
+ }
+ #torvo-v2-root .publicSite .mobileBottomNav>:first-child,
+ #torvo-v2-root .publicSite .mobileBottomNav>:first-child :is(svg,span){
+  color:#e60020!important;
+  stroke:#e60020!important;
+ }
+ #torvo-v2-root .publicSite .mobileBottomNav>:is(a,button)>svg{
+  width:26px!important;
+  height:26px!important;
+  flex:none!important;
+  stroke-width:2.15;
+ }
+ #torvo-v2-root .publicSite .mobileBottomNav>button>b{
+  position:absolute!important;
+  top:0!important;
+  right:clamp(8px,5vw,27px)!important;
+  min-width:21px!important;
+  height:21px!important;
+  padding:0 3px!important;
+  display:flex!important;
+  align-items:center!important;
+  justify-content:center!important;
+  border-radius:999px!important;
+  background:#ed0023!important;
+  color:white!important;
+  font-size:11px!important;
+  font-weight:700!important;
+  line-height:1!important;
+ }
+}
