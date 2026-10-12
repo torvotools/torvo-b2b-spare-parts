@@ -17,6 +17,14 @@ const repository=fs.readFileSync('src/v2/services/repository.js','utf8');
 const saleService=fs.readFileSync('src/v2/services/margBillSale.js','utf8');
 const packageScripts=JSON.parse(fs.readFileSync('package.json','utf8')).scripts;
 const checks=[
+ ['DISPATCH QUEUE ARRAY VALIDATION',dispatchUi.includes("if(!Array.isArray(queue))throw new Error('INVALID DISPATCH QUEUE RESPONSE')")],
+ ['DISPATCH QUEUE ROW FILTER',dispatchUi.includes("rows.filter(r=>r&&typeof r==='object'&&!Array.isArray(r))")],
+ ['DISPATCH GROUPING REQUIRES IDS',dispatchUi.includes('if(!r?.dispatch_id||!r?.estimate_id)return a')],
+ ['DISPATCH UNKNOWN STATUS FALLBACK',dispatchUi.includes("String(r.dispatch_status||'UNKNOWN').replaceAll")],
+ ['DISPATCH MODAL OPEN REQUIRES ID',dispatchUi.includes('!r?.dispatch_id||!r?.estimate_id')],
+ ['DISPATCH SUBMIT REQUIRES ID',dispatchUi.includes('VALID DISPATCH RECORD REQUIRED')],
+ ['DISPATCH DELIVERY REQUIRES TRACKING',dispatchUi.includes('TRACKING / DISPATCH CODE REQUIRED BEFORE DELIVERY')],
+ ['DISPATCH NEW ACTION CLEARS ERROR',dispatchUi.includes("setError('');setAction({row:r")],
  ['DELIVERY USES CANONICAL RPC',repository.includes("db().rpc('finalize_actual_delivery'")],
  ['DELIVERY SENDS STABLE REQUEST KEY',dispatchUi.includes("'STORE-DELIVERY-'+r.dispatch_id")],
  ['LEGACY DELIVERY RPC NOT CALLED',!repository.includes("db().rpc('deliver_estimate'")],
