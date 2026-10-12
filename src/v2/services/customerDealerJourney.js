@@ -5,7 +5,7 @@ const validId=v=>{const id=cleanId(v);return UUID_RE.test(id)?id:null};
 export const customerJourneyProductId=product=>validId(product?.id||product?.product_id||product?.item_id);
 const dealerIdOf=dealer=>validId(dealer?.dealer_id||dealer?.id);
 export async function findCustomerDealers(pin){const p=String(pin||'').replace(/\D/g,'').slice(0,6);if(p.length!==6)throw new Error('6-DIGIT PIN CODE REQUIRED');const dealers=await findDealers(p,false);if(!Array.isArray(dealers))throw new Error('DEALER SEARCH RESPONSE INVALID');return dealers.filter(x=>x?.product_sales_available===true&&dealerIdOf(x)&&String(x?.match_type||'').toUpperCase()==='EXACT_PIN')}
-export async function openCustomerDealerProfile(dealer,product=null,enquiryId=null){const dealerId=dealerIdOf(dealer);if(!dealerId)throw new Error('VERIFIED DEALER REQUIRED');const profile=await loadDealerProfile(dealerId);if(!dealerIdOf(profile)||profile?.product_sales_available!==true)throw new Error('VERIFIED DEALER PROFILE NOT AVAILABLE');return profile}
+export async function openCustomerDealerProfile(dealer,product=null,enquiryId=null){const dealerId=dealerIdOf(dealer);if(!dealerId)throw new Error('VERIFIED DEALER REQUIRED');const profile=await loadDealerProfile(dealerId);if(dealerIdOf(profile)!==dealerId||profile?.product_sales_available!==true)throw new Error('VERIFIED DEALER PROFILE NOT AVAILABLE');return profile}
 export async function selectCustomerDealer(dealer,product=null,enquiryId=null){if(dealer?.shop_name&&dealerIdOf(dealer)&&dealer?.product_sales_available===true){return dealer}return openCustomerDealerProfile(dealer,product,enquiryId)}
 export function recordCustomerDealerCall(){return Promise.resolve(true)}
 export function recordCustomerDealerWhatsApp(){return Promise.resolve(true)}
