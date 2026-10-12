@@ -1520,3 +1520,98 @@
 #torvo-v2-root :is(.modalLayer .modal,.roleSheetBack .roleSheet) :is(.roleHint,.accountantFutureNote,.adminSearchState){overflow-wrap:anywhere;line-height:1.6}
 @media(max-width:600px){#torvo-v2-root :is(.modalLayer,.roleSheetBack){padding:8px;align-items:flex-end}#torvo-v2-root :is(.modalLayer .modal,.roleSheetBack .roleSheet){max-height:calc(100dvh - 12px);border-radius:16px 16px 10px 10px}#torvo-v2-root :is(.modalLayer .modal,.roleSheetBack .roleSheet)>header{padding:13px 15px}#torvo-v2-root :is(.modalLayer .modal,.roleSheetBack .roleSheet) :is(input,select,textarea){font-size:16px}}
 @media(prefers-reduced-motion:reduce){#torvo-v2-root :is(.modalLayer,.roleSheetBack){backdrop-filter:none}}
+
+
+/* TORVO AURORA — OWNER-APPROVED ALL-SURFACE DEEP UX PASS (12 OCT 2026).
+   Covers nested pages opened by actions as well as top-level screens.
+   Presentation only: never alter auth, permissions, stock or transaction logic. */
+#torvo-v2-root{
+ --torvo-ui-focus:rgba(215,25,32,.18);
+ --torvo-ui-hover:#f8f9fb;
+ --torvo-ui-heading:#171b20;
+ --torvo-ui-caption:#596472;
+ --torvo-ui-card-radius:14px;
+}
+#torvo-v2-root :is(.publicSite,.adminVisualPreview,.accountantPreview,.roleApp,.dealerEntry,.workspace,.adminWorkspace,.accountantWorkPanel){
+ min-width:0;
+}
+#torvo-v2-root :is(.publicSite,.adminVisualPreview,.accountantPreview,.roleApp,.dealerEntry,.workspace,.adminWorkspace,.accountantWorkPanel) :is(h1,h2,h3){
+ color:var(--torvo-ui-heading);
+ text-wrap:pretty;
+ overflow-wrap:break-word;
+}
+#torvo-v2-root :is(.publicSite,.adminVisualPreview,.accountantPreview,.roleApp,.dealerEntry,.workspace,.adminWorkspace,.accountantWorkPanel) :is(p,small,label){
+ overflow-wrap:anywhere;
+}
+#torvo-v2-root :is(.publicSite,.adminVisualPreview,.accountantPreview,.roleApp,.dealerEntry,.workspace,.adminWorkspace,.accountantWorkPanel) :is(input:not([type="checkbox"]):not([type="radio"]),select,textarea){
+ min-width:0;max-width:100%;font-weight:400;
+ accent-color:var(--torvo-red);
+}
+#torvo-v2-root :is(.publicSite,.adminVisualPreview,.accountantPreview,.roleApp,.dealerEntry,.workspace,.adminWorkspace,.accountantWorkPanel) :is(input:not([type="checkbox"]):not([type="radio"]),select,textarea):focus-visible{
+ border-color:var(--torvo-red);
+ outline:2px solid var(--torvo-ui-focus);
+ outline-offset:1px;
+}
+#torvo-v2-root :is(.publicSite,.adminVisualPreview,.accountantPreview,.roleApp,.dealerEntry,.workspace,.adminWorkspace,.accountantWorkPanel) :is(button,a,[role="button"]):focus-visible{
+ outline:2px solid var(--torvo-red);
+ outline-offset:2px;
+}
+#torvo-v2-root :is(.publicSite,.adminVisualPreview,.accountantPreview,.roleApp,.dealerEntry,.workspace,.adminWorkspace,.accountantWorkPanel) :is(button,a,[role="button"]){
+ -webkit-tap-highlight-color:transparent;
+}
+#torvo-v2-root :is(.publicSite,.adminVisualPreview,.accountantPreview,.roleApp,.dealerEntry,.workspace,.adminWorkspace,.accountantWorkPanel) :is(button,[role="button"]):disabled{
+ cursor:not-allowed;
+}
+#torvo-v2-root :is(.modalLayer,.roleSheetBack) :is(.modal,.roleSheet,.dealerRegModal){
+ max-width:min(100%,920px);
+ max-height:calc(100dvh - 28px);
+ overflow-y:auto;
+ overscroll-behavior:contain;
+}
+#torvo-v2-root :is(.modalLayer,.roleSheetBack) :is(.modal,.roleSheet,.dealerRegModal) :is(input,select,textarea){
+ min-width:0;max-width:100%;
+ font-weight:400;
+}
+#torvo-v2-root :is(.modalLayer,.roleSheetBack) :is(.modal,.roleSheet,.dealerRegModal) :is(button,a):focus-visible{
+ outline:2px solid var(--torvo-red);
+ outline-offset:2px;
+}
+#torvo-v2-root :is(.modalLayer,.roleSheetBack) :is(.modal,.roleSheet,.dealerRegModal) :is(h1,h2,h3){
+ overflow-wrap:anywhere;
+}
+#torvo-v2-root :is(.dataTable,.stockTable,.reportTable,.workspace table,.adminWorkspace table,.accountantWorkPanel table){
+ max-width:100%;
+}
+#torvo-v2-root :is(.dataTable,.stockTable,.reportTable,.workspace table,.adminWorkspace table,.accountantWorkPanel table) :is(th,td){
+ vertical-align:middle;
+ overflow-wrap:anywhere;
+}
+#torvo-v2-root :is(.dataTable,.stockTable,.reportTable,.workspace table,.adminWorkspace table,.accountantWorkPanel table) tbody tr:hover{
+ background:var(--torvo-ui-hover);
+}
+#torvo-v2-root :is(.publicSite,.adminVisualPreview,.accountantPreview,.roleApp,.dealerEntry) img{
+ max-width:100%;
+}
+#torvo-v2-root :is(.productCard,.publicProductCard,.dealerProductCard,.catalogCard) img{
+ object-fit:contain;
+}
+@media(max-width:760px){
+ #torvo-v2-root :is(.publicSite,.adminVisualPreview,.accountantPreview,.roleApp,.dealerEntry,.workspace,.adminWorkspace,.accountantWorkPanel) :is(input:not([type="checkbox"]):not([type="radio"]),select,textarea){
+  font-size:16px;
+ }
+ #torvo-v2-root :is(.modalLayer,.roleSheetBack){
+  padding:8px;
+ }
+ #torvo-v2-root :is(.modalLayer,.roleSheetBack) :is(.modal,.roleSheet,.dealerRegModal){
+  width:100%;
+  max-height:calc(100dvh - 16px);
+ }
+ #torvo-v2-root :is(.modalLayer,.roleSheetBack) :is(.modal,.roleSheet,.dealerRegModal) :is(button,a){
+  min-height:40px;
+ }
+}
+@media(prefers-reduced-motion:reduce){
+ #torvo-v2-root :is(.publicSite,.adminVisualPreview,.accountantPreview,.roleApp,.dealerEntry) :is(button,a,[role="button"]){
+  scroll-behavior:auto;
+ }
+}
