@@ -1204,7 +1204,7 @@ body:has(.publicSite){padding-bottom:0!important}
  #torvo-v2-root .publicSite main#top>.torvoSignatureHero{
   position:relative;
   isolation:isolate;
-  background:#101923!important;
+  background:linear-gradient(115deg,#070b11 0%,#101823 62%,#340c15 100%)!important;
  }
  #torvo-v2-root .publicSite main#top>.torvoSignatureHero::before{
   content:"";
@@ -1212,11 +1212,8 @@ body:has(.publicSite){padding-bottom:0!important}
   inset:0;
   z-index:0;
   pointer-events:none;
-  background-image:url('/torvo-hero-mechanical.jpg');
-  background-position:72% center;
-  background-size:cover;
-  background-repeat:no-repeat;
-  opacity:.44;
+  background:none;
+  opacity:0;
  }
  #torvo-v2-root .publicSite main#top>.torvoSignatureHero::after{
   content:"";
@@ -1224,7 +1221,7 @@ body:has(.publicSite){padding-bottom:0!important}
   inset:0;
   z-index:0;
   pointer-events:none;
-  background:linear-gradient(90deg,rgba(11,17,24,.96) 0%,rgba(11,17,24,.86) 52%,rgba(11,17,24,.66) 100%),linear-gradient(0deg,rgba(11,17,24,.68),transparent 35%);
+  background:none;
  }
  #torvo-v2-root .publicSite main#top>.torvoSignatureHero .torvoSignatureHeroContent{
   position:relative;
@@ -1293,28 +1290,6 @@ body:has(.publicSite){padding-bottom:0!important}
   min-width:0;
   font-size:clamp(9px,2.35vw,11px)!important;
   line-height:1.15;
- }
-}
-
-/* MOBILE HERO PHOTO CROP — source JPG contains captured phone status icons.
-   Zoom into the lower mechanical area so the source's upper UI strip is outside
-   the visible hero; preserve mobile hero text, buttons and desktop unchanged. */
-@media(max-width:800px){
- #torvo-v2-root .publicSite main#top>.torvoSignatureHero::before{
-  background-size:auto 185%!important;
-  background-position:72% bottom!important;
- }
-}
-
-/* Owner mobile hero visibility: show the mechanical subject, not a dim collage.
-   Temporary until a clean 3–4-part photograph is added to the repository. */
-@media(max-width:800px){
- #torvo-v2-root .publicSite main#top>.torvoSignatureHero::before{
-  opacity:.85!important;
-  background-position:75% bottom!important;
- }
- #torvo-v2-root .publicSite main#top>.torvoSignatureHero::after{
-  background:linear-gradient(90deg,rgba(9,14,21,.95) 0%,rgba(9,14,21,.83) 43%,rgba(9,14,21,.35) 100%),linear-gradient(0deg,rgba(9,14,21,.56),transparent 46%)!important;
  }
 }
 
@@ -1390,18 +1365,3 @@ body:has(.publicSite){padding-bottom:0!important}
  }
 }
 
-/* Screenshot QA 12 Oct: never render captured UI/status text as hero imagery.
-   The old mechanical JPG contains a phone screenshot, not clean product art.
-   Suppress it until an isolated four-part asset is committed. */
-@media(max-width:800px){
- #torvo-v2-root .publicSite main#top>.torvoSignatureHero{
-  background:linear-gradient(115deg,#070b11 0%,#101823 62%,#340c15 100%)!important;
- }
- #torvo-v2-root .publicSite main#top>.torvoSignatureHero::before{
-  background-image:none!important;
-  opacity:0!important;
- }
- #torvo-v2-root .publicSite main#top>.torvoSignatureHero::after{
-  background:linear-gradient(135deg,transparent 0%,transparent 70%,rgba(224,0,32,.24) 100%)!important;
- }
-}
