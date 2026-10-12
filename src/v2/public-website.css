@@ -1196,3 +1196,42 @@ body:has(.publicSite){padding-bottom:0!important}
 
 /* Admin-managed brand text colors override Option 5 defaults only when explicitly configured. */
 #torvo-v2-root .publicSite .brandLogoItem strong[style*="--torvo-brand-text-color"]{color:var(--torvo-brand-text-color)!important}
+
+
+/* 12 OCT 2026 — Owner request: genuine mechanical spare-part photograph behind
+   MOBILE homepage hero only. Preserve headline, CTAs, readability and desktop. */
+@media(max-width:800px){
+ #torvo-v2-root .publicSite main#top>.torvoSignatureHero{
+  position:relative;
+  isolation:isolate;
+  background:#101923!important;
+ }
+ #torvo-v2-root .publicSite main#top>.torvoSignatureHero::before{
+  content:"";
+  position:absolute;
+  inset:0;
+  z-index:0;
+  pointer-events:none;
+  background-image:url('/torvo-hero-mechanical.jpg');
+  background-position:72% center;
+  background-size:cover;
+  background-repeat:no-repeat;
+  opacity:.44;
+ }
+ #torvo-v2-root .publicSite main#top>.torvoSignatureHero::after{
+  content:"";
+  position:absolute;
+  inset:0;
+  z-index:0;
+  pointer-events:none;
+  background:linear-gradient(90deg,rgba(11,17,24,.96) 0%,rgba(11,17,24,.86) 52%,rgba(11,17,24,.66) 100%),linear-gradient(0deg,rgba(11,17,24,.68),transparent 35%);
+ }
+ #torvo-v2-root .publicSite main#top>.torvoSignatureHero .torvoSignatureHeroContent{
+  position:relative;
+  z-index:1;
+  background:transparent!important;
+ }
+ #torvo-v2-root .publicSite main#top>.torvoSignatureHero .torvoSignatureHeroArt{
+  display:none!important;
+ }
+}
