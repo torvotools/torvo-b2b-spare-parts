@@ -3672,3 +3672,21 @@ body{margin:0;min-width:0;overflow-x:hidden}
 #torvo-v2-root :is(.businessFinalUserField,.businessFinalInput,.dealerLockedIdentity) :is(input,textarea,select):focus,#torvo-v2-root :is(.businessFinalUserField,.businessFinalInput,.dealerLockedIdentity) :is(input,textarea,select):focus-visible{outline:0!important;box-shadow:none!important;border-color:transparent!important}
 #torvo-v2-root :is(.publicForm,.dealerLoginLocked) :is(input,textarea,select):focus-visible{outline:0!important;box-shadow:0 0 0 1px rgba(215,25,32,.12)!important;border-color:#d71920!important}
 #torvo-v2-root .publicForm label:focus-within :is(input,textarea,select):focus-visible{outline:0!important;box-shadow:none!important}
+
+/* 12 OCT 2026 — dealer login mobile visual balance; retain canonical OTP-only auth. */
+#torvo-v2-root .dealerLoginLocked .dealerLoginBrand{display:flex;align-items:center;justify-content:space-between;gap:12px;margin:0 0 18px;padding-bottom:14px;border-bottom:1px solid #edf0f2}
+#torvo-v2-root .dealerLoginLocked .dealerLoginBrand>span{font-size:10px;letter-spacing:.07em;color:#69717d;text-align:right}
+#torvo-v2-root .dealerLoginLocked .dealerLockedIdentity input:focus-visible,
+#torvo-v2-root .dealerLoginLocked .dealerLockedOtpRow>input:focus-visible{outline:2px solid #d71920!important;outline-offset:1px}
+@media(max-width:760px){
+ #torvo-v2-root .dealerLoginLocked{padding-top:max(12px,env(safe-area-inset-top))!important;gap:12px!important}
+ #torvo-v2-root .dealerLoginLocked .dealerLockedHero{display:none!important}
+ #torvo-v2-root .dealerLoginLocked .dealerLockedCard{order:1!important;margin:0!important;padding:18px 16px 20px!important;border-radius:16px!important}
+ #torvo-v2-root .dealerLoginLocked .dealerLockedCard>header{align-items:center!important;gap:10px!important}
+ #torvo-v2-root .dealerLoginLocked .dealerLockedCard h1{font-size:clamp(23px,6vw,29px)!important}
+ #torvo-v2-root .dealerLoginLocked .dealerLockedVideo{order:2!important;border-radius:12px!important}
+ #torvo-v2-root .dealerLoginLocked .dealerLockedBottom{order:3!important}
+ #torvo-v2-root .dealerLoginLocked .dealerLockedBottom>*{border-radius:12px!important}
+ #torvo-v2-root .dealerLoginLocked .dealerLockedOtpRow{margin-top:10px!important}
+ #torvo-v2-root .dealerLoginLocked .dealerLockedLogin:not(:disabled){background:#d71920!important;color:#fff!important}
+}
