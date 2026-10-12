@@ -1295,3 +1295,13 @@ body:has(.publicSite){padding-bottom:0!important}
   line-height:1.15;
  }
 }
+
+/* MOBILE HERO PHOTO CROP — source JPG contains captured phone status icons.
+   Zoom into the lower mechanical area so the source's upper UI strip is outside
+   the visible hero; preserve mobile hero text, buttons and desktop unchanged. */
+@media(max-width:800px){
+ #torvo-v2-root .publicSite main#top>.torvoSignatureHero::before{
+  background-size:auto 185%!important;
+  background-position:72% bottom!important;
+ }
+}
