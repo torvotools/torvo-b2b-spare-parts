@@ -72,6 +72,25 @@ jobs:
           test -f dist-app/v2.html
           test -d dist-app/assets
           grep -q 'torvo-v2-root' dist-app/v2.html
+      - name: DIAGNOSE RETIRED LOGIN TEXT IN NATIVE BUNDLE
+        run: |
+          node --input-type=module <<'NODE'
+          import fs from 'node:fs';
+          import path from 'node:path';
+          const terms=['REGISTERED MOBILE NUMBER','STAFF LOGIN USES WHATSAPP OTP','10-DIGIT MOBILE NUMBER'];
+          const dir='dist-app/assets';
+          for(const file of fs.readdirSync(dir).filter(x=>x.endsWith('.js'))){
+            const content=fs.readFileSync(path.join(dir,file),'utf8');
+            for(const term of terms){
+              let pos=content.indexOf(term);
+              while(pos!==-1){
+                const context=content.slice(Math.max(0,pos-110),Math.min(content.length,pos+term.length+110)).replace(/\s+/g,' ');
+                console.log('RETIRED LOGIN TEXT:',JSON.stringify({file,term,context}));
+                pos=content.indexOf(term,pos+term.length);
+              }
+            }
+          }
+          NODE
       - name: VERIFY CURRENT LOGIN UI
         run: |
           test -d dist-app/assets
