@@ -1475,3 +1475,10 @@ body:has(.publicSite){padding-bottom:0!important}
 #torvo-v2-root .publicSite .publicCatalog .torvoCategoryFinder>[role=status]{grid-column:1/-1!important;margin-left:0!important;text-align:center!important}
 #torvo-v2-root .publicSite .publicCatalog .torvoCategoryFinder>label{grid-column:1/-1!important;min-width:0!important}
 }
+
+/* Category cards: visible, accessible fallback until genuine category photos are published. */
+#torvo-v2-root .publicSite .torvoPrimaryCategories>button>.categoryPhotoPending{display:flex!important;align-items:center!important;justify-content:center!important;flex:1 1 auto!important;min-width:0!important;min-height:120px!important;position:relative!important;background:radial-gradient(circle at 65% 35%,#4d5560 0%,#222831 50%,#101419 100%)!important;color:#fff!important;opacity:1!important;visibility:visible!important}
+#torvo-v2-root .publicSite .torvoPrimaryCategories>button>.categoryPhotoPending svg{display:block!important;width:clamp(58px,10vw,112px)!important;height:clamp(58px,10vw,112px)!important;stroke:#f6f7f8!important;stroke-width:1.35!important;opacity:.88!important;filter:drop-shadow(0 7px 12px rgba(0,0,0,.35))}
+#torvo-v2-root .publicSite .torvoPrimaryCategories>button.spare>.categoryPhotoPending{background:radial-gradient(circle at 65% 35%,#a92c36 0%,#621921 52%,#22151a 100%)!important}
+#torvo-v2-root .publicSite .torvoPrimaryCategories>button.accessory>.categoryPhotoPending{background:radial-gradient(circle at 65% 35%,#62636b 0%,#34313a 52%,#19171d 100%)!important}
+@media(max-width:700px){#torvo-v2-root .publicSite .torvoPrimaryCategories>button>.categoryPhotoPending{min-height:142px!important;height:100%!important}#torvo-v2-root .publicSite .torvoPrimaryCategories>button>.categoryPhotoPending svg{width:70px!important;height:70px!important}}
