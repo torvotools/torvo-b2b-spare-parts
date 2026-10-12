@@ -7,16 +7,7 @@ const checks=[
  ['STAFF OTP PLATFORM SENT ON BOTH ACTIONS',(staffClient.match(/device_type:isNativeApp\(\)\?'mobile_app':'desktop'/g)||[]).length===2],
  ['STAFF OTP SERVER ROLE PLATFORM MATRIX',staffEmail.includes("['desktop','mobile_app'].includes(deviceType)")&&staffEmail.includes("['owner','admin','accountant'].includes(role)&&deviceType!=='desktop'")&&staffEmail.includes("['salesman','store_keeper'].includes(role)&&deviceType!=='mobile_app'")],
  ['DEALER OTP UNBIASED SIX DIGITS',login.includes('Math.floor(0x1_0000_0000/range)*range')&&login.includes('while(b[0]>=limit)')],
- ['OTP INPUT STRICT SIX DIGITS',staffClient.includes("new RegExp(`^[0-9]{${n}}import fs from'node:fs';
-const read=p=>fs.readFileSync(p,'utf8');
-const gates=read('docs/TORVO-V2-RELEASE-GATES.md'),install=read('supabase/V2_INSTALL_ORDER.md'),auth=read('supabase/functions/_shared/torvo-auth.ts'),login=read('supabase/functions/dealer-email-otp/index.ts'),staffEmail=read('supabase/functions/staff-email-otp/index.ts'),release=read('supabase/v2-app-release-center.sql'),accountant=read('supabase/v2-accountant-workspace-buttons.sql'),accountantClient=read('src/v2/services/accountantWorkspace.js'),staffClient=read('src/v2/services/staffAuth.js');
-const checks=[
- ['AUTH SHARED RUNTIME PRESENT',auth.includes("Deno.env.get('SUPABASE_SERVICE_ROLE_KEY')")&&auth.includes("Deno.env.get('SUPABASE_URL')")&&auth.includes("Deno.env.get('SUPABASE_ANON_KEY')")],
- ['DEALER LOGIN EDGE FUNCTION PRESENT',login.includes("rpc('dealer_email_otp_begin'")&&login.includes("rpc('dealer_email_otp_verify'")&&login.includes("rpc('dealer_start_device_session'")&&login.includes('establishSession')],
- ['STAFF OTP PLATFORM SENT ON BOTH ACTIONS',(staffClient.match(/device_type:isNativeApp\(\)\?'mobile_app':'desktop'/g)||[]).length===2],
- ['STAFF OTP SERVER ROLE PLATFORM MATRIX',staffEmail.includes("['desktop','mobile_app'].includes(deviceType)")&&staffEmail.includes("['owner','admin','accountant'].includes(role)&&deviceType!=='desktop'")&&staffEmail.includes("['salesman','store_keeper'].includes(role)&&deviceType!=='mobile_app'")],
- ['DEALER OTP UNBIASED SIX DIGITS',login.includes('Math.floor(0x1_0000_0000/range)*range')&&login.includes('while(b[0]>=limit)')],
-).test(s)")&&staffClient.includes('return s};const assertDevice=')&&!staffClient.includes("slice(0,n);const assertDevice=")],
+ ['OTP INPUT STRICT SIX DIGITS',staffClient.includes('const codeDigits=')&&staffClient.includes('if(!new RegExp(')&&staffClient.includes(').test(s))throw new Error(')&&!staffClient.includes('slice(0,n);const assertDevice=')],
  ['DEALER AUTH SESSION BEFORE DEVICE TOKEN',staffClient.includes("await client.auth.setSession({access_token:data.session.access_token,refresh_token:data.session.refresh_token})")&&staffClient.includes("if(sessionError)throw sessionError;localStorage.setItem(DEALER_SESSION_KEY,data.dealer_session_token)")],
  ['STAFF OTP CONSUME RECHECKS EXPIRY AND ATTEMPTS',staffEmail.includes(".eq('otp_hash',await hash(code)).lt('failed_attempts',5).gt('expires_at',new Date().toISOString())")&&staffEmail.includes(".is('consumed_at',null).is('revoked_at',null).select('id').maybeSingle()")],
  ['STAFF OTP UNBIASED SIX DIGITS',staffEmail.includes('Math.floor(0x1_0000_0000/range)*range')&&staffEmail.includes('while(b[0]>=limit)')],
