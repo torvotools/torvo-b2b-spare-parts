@@ -17,6 +17,9 @@ const repository=fs.readFileSync('src/v2/services/repository.js','utf8');
 const saleService=fs.readFileSync('src/v2/services/margBillSale.js','utf8');
 const packageScripts=JSON.parse(fs.readFileSync('package.json','utf8')).scripts;
 const checks=[
+ ['DISPATCH INVALID ROWS REPORTED',dispatchUi.includes('INVALID DISPATCH QUEUE ROW(S) WERE NOT SHOWN')],
+ ['DISPATCH GROUPING PROTOTYPE FREE',dispatchUi.includes('return a},Object.create(null)))')],
+ ['DISPATCH INVALID ROWS NOT GROUPED',dispatchUi.includes('!r.dispatch_id||!r.estimate_id')],
  ['DISPATCH COUNTS USE PROTOTYPE FREE ACCUMULATOR',dispatchUi.includes('Object.create(null)')],
  ['DISPATCH GROUPING KEYS NAMESPACED',dispatchUi.includes("const k='id_'+String(r.dispatch_id)")],
  ['DELIVERY ESTIMATE IDENTIFIER NONBLANK',repository.includes("throw new Error('ESTIMATE ID REQUIRED')")],
