@@ -17,6 +17,7 @@ const repository=fs.readFileSync('src/v2/services/repository.js','utf8');
 const saleService=fs.readFileSync('src/v2/services/margBillSale.js','utf8');
 const packageScripts=JSON.parse(fs.readFileSync('package.json','utf8')).scripts;
 const checks=[
+ ['DISPATCH DETAILS RESTRICTED TO READY STAGE',repository.includes("throw new Error('DISPATCH DETAILS ONLY ALLOWED AT READY STAGE')")],
  ['STORE DELIVERY KEY VALIDATION',repository.includes("INVALID STORE DELIVERY REQUEST KEY")],
  ['STORE DELIVERY KEY DOES NOT REQUIRE UUID',!repository.includes('[0-9a-f-]{36}')],
  ['STORE DELIVERY USES STABLE DISPATCH ID',dispatchUi.includes("'STORE-DELIVERY-'+r.dispatch_id")],
