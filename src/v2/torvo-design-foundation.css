@@ -1878,3 +1878,30 @@
   stroke-width:3!important;flex:none!important;
  }
 }
+
+/* OWNER LOCK: text/chevron ONLY. Preserve approved tile dimensions and placement. */
+@media screen and (max-width:800px){
+ #torvo-v2-root .publicSite section.torvoPrimaryCategories .categoryCopy{
+  padding:11px 8px!important;
+ }
+ #torvo-v2-root .publicSite section.torvoPrimaryCategories .categoryCopy>.torvoMobileCategoryName{
+  display:block!important;width:100%!important;max-width:100%!important;
+  font-size:clamp(13px,3.55vw,18px)!important;line-height:1.03!important;
+  font-weight:900!important;letter-spacing:-.035em!important;
+  color:#fff!important;text-shadow:0 2px 5px rgba(0,0,0,.8)!important;
+  text-align:left!important;white-space:normal!important;
+ }
+ #torvo-v2-root .publicSite section.torvoPrimaryCategories .categoryCopy>em{
+  right:8px!important;bottom:8px!important;
+  width:35px!important;height:35px!important;min-height:35px!important;max-height:35px!important;
+  background:#f0001c!important;border-radius:50%!important;
+ }
+ #torvo-v2-root .publicSite section.torvoPrimaryCategories .categoryCopy>em svg{
+  display:none!important;
+ }
+ #torvo-v2-root .publicSite section.torvoPrimaryCategories .categoryCopy>em::after{
+  content:""!important;display:block!important;width:11px!important;height:11px!important;
+  border-top:4px solid #fff!important;border-right:4px solid #fff!important;
+  transform:translateX(-2px) rotate(45deg)!important;border-radius:1px!important;
+ }
+}
