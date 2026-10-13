@@ -2043,3 +2043,25 @@
   max-width:200px!important;
  }
 }
+
+/* NUMBER 1 — FIX ROOT CAUSE: legacy wordmark anchor was capped at
+   112–120px and its image at 40–44px, preventing previous size updates
+   from being visible. Keep the same centered position and header height. */
+@media (max-width:680px){
+ #torvo-v2-root .publicSite .publicHeader.topSearchHeader .publicHeaderPrimary>.publicBrand.torvoWordmark{
+  width:200px!important;
+  max-width:200px!important;
+  min-width:0!important;
+  flex:0 0 200px!important;
+  justify-content:center!important;
+ }
+ #torvo-v2-root .publicSite .publicHeader.topSearchHeader .publicHeaderPrimary>.publicBrand.torvoWordmark>img{
+  display:block!important;
+  width:200px!important;
+  max-width:100%!important;
+  max-height:none!important;
+  height:auto!important;
+  object-fit:contain!important;
+  object-position:center!important;
+ }
+}
