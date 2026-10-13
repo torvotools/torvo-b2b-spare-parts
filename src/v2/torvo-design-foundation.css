@@ -2035,3 +2035,11 @@
   max-width:188px!important;
  }
 }
+
+/* NUMBER 1 — slightly larger original mobile logo, same fixed header spacing. */
+@media (max-width:680px){
+ #torvo-v2-root .publicSite .publicHeader.topSearchHeader .publicHeaderPrimary>.publicBrand img{
+  width:200px!important;
+  max-width:200px!important;
+ }
+}
