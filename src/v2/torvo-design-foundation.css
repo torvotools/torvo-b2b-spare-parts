@@ -2139,3 +2139,12 @@
   margin-right:0!important;
  }
 }
+
+/* NUMBER 1: trim unused horizontal whitespace in the RIGHT mobile menu.
+   Keep all menu items, top placement, styling and locked header untouched. */
+@media (max-width:680px){
+ #torvo-v2-root .publicSite .publicModal.torvoTopMenuPanel{
+  width:min(258px,calc(100vw - 24px))!important;
+  max-width:min(258px,calc(100vw - 24px))!important;
+ }
+}
