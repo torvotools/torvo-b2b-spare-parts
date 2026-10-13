@@ -2026,3 +2026,12 @@
   height:22px!important;
  }
 }
+
+/* NUMBER 1 — enlarge only the centered TORVO artwork; preserve existing
+   header row height, search position, menu geometry and surrounding space. */
+@media (max-width:680px){
+ #torvo-v2-root .publicSite .publicHeader.topSearchHeader .publicHeaderPrimary>.publicBrand img{
+  width:188px!important;
+  max-width:188px!important;
+ }
+}
