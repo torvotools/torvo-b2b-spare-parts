@@ -2127,3 +2127,15 @@
   margin-right:0!important;
  }
 }
+
+/* NUMBER 1: hamburger is on RIGHT, so its approved compact top menu
+   opens from the RIGHT edge too. No changes to logo, menu contents or height. */
+@media (max-width:680px){
+ #torvo-v2-root .publicSite .publicModalBackdrop.torvoTopMenuBackdrop{
+  justify-content:flex-end!important;
+ }
+ #torvo-v2-root .publicSite .publicModal.torvoTopMenuPanel{
+  margin-left:auto!important;
+  margin-right:0!important;
+ }
+}
