@@ -1980,3 +1980,19 @@
   padding-top:0!important;
  }
 }
+
+/* NUMBER 1 — owner follow-up: logo just slightly larger and search closer
+   to the header row. The approved three-line menu remains unchanged. */
+@media (max-width:680px){
+ #torvo-v2-root .publicSite .publicHeader.topSearchHeader .publicHeaderPrimary>.publicBrand img{
+  width:174px!important;
+  max-width:174px!important;
+ }
+ #torvo-v2-root .publicSite .publicHeader.topSearchHeader .publicHeaderPrimary{
+  min-height:46px!important;
+ }
+ #torvo-v2-root .publicSite .publicHeader.topSearchHeader{
+  padding-top:1px!important;
+  padding-bottom:3px!important;
+ }
+}
