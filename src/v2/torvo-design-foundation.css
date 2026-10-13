@@ -2308,3 +2308,48 @@
   clip-path:polygon(0 22%,10% 43%,25% 66%,42% 78%,60% 73%,78% 55%,91% 31%,100% 9%,100% 100%,0 100%);
  }
 }
+
+/* Mobile refresh flash fix: never paint legacy hero while approved image loads.
+   Reserve its exact ratio immediately to prevent layout shift. */
+@media (max-width:680px){
+ #torvo-v2-root .publicSite main#top>.torvoSignatureHero{
+  display:block!important;
+  position:relative!important;
+  min-height:0!important;
+  height:auto!important;
+  padding:0!important;
+  margin:9px 0 0!important;
+  overflow:hidden!important;
+  border:0!important;
+  background:transparent!important;
+  box-shadow:none!important;
+ }
+ #torvo-v2-root .publicSite main#top>.torvoSignatureHero>.torvoSignatureHeroContent,
+ #torvo-v2-root .publicSite main#top>.torvoSignatureHero>.torvoSignatureHeroArt{
+  display:none!important;
+ }
+ #torvo-v2-root .publicSite main#top>.torvoSignatureHero>.torvoApprovedMobileHero{
+  display:block!important;
+  position:relative!important;
+  width:100%!important;
+  aspect-ratio:1536/578;
+  overflow:hidden!important;
+  background:#f3f3f3;
+ }
+ #torvo-v2-root .publicSite main#top>.torvoSignatureHero>.torvoApprovedMobileHero img{
+  display:block;
+  width:100%;
+  height:auto;
+  aspect-ratio:1536/578;
+ }
+ #torvo-v2-root .publicSite main#top>.torvoSignatureHero>.torvoApprovedMobileHero::after{
+  content:"";
+  position:absolute;
+  left:0;right:0;bottom:0;
+  height:13px;
+  pointer-events:none;
+  z-index:1;
+  background:linear-gradient(to bottom,#121316 0%,#08090a 70%,#e00014 71%,#e00014 100%);
+  clip-path:polygon(0 22%,10% 43%,25% 66%,42% 78%,60% 73%,78% 55%,91% 31%,100% 9%,100% 100%,0 100%);
+ }
+}
