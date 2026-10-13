@@ -2201,3 +2201,20 @@
   filter:none!important;
  }
 }
+
+/* NUMBER 1 — make hamburger button outline match the approved mobile
+   search bar outline; do not change either control's geometry or content. */
+@media (max-width:680px){
+ #torvo-v2-root .publicSite .publicHeader.topSearchHeader .mobileHeaderMark{
+  border:1px solid #d9dde3!important;
+  border-radius:10px!important;
+  box-shadow:none!important;
+  outline:none!important;
+  background:#fff!important;
+ }
+ #torvo-v2-root .publicSite .publicHeader.topSearchHeader .publicHeaderSearchRow .publicHeroSearchBar{
+  border:1px solid #d9dde3!important;
+  border-radius:10px!important;
+  box-shadow:none!important;
+ }
+}
