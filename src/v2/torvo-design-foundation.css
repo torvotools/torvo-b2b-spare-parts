@@ -2382,3 +2382,68 @@
  #torvo-v2-root .publicSite .torvoApprovedMobileHero a.torvoApprovedHeroDealer{left:26%!important;width:18%!important}
  #torvo-v2-root .publicSite .torvoApprovedMobileHero a span{display:none!important}
 }
+
+/* Mobile-only readability: slightly larger subtitle and button lettering.
+   Cover the tiny text embedded in the approved artwork; keep the photo and wave. */
+@media(max-width:680px){
+ #torvo-v2-root .publicSite main#top .torvoApprovedMobileHero .torvoApprovedHeroCategories{
+  display:flex!important;
+  position:absolute!important;
+  z-index:6!important;
+  left:3.4%!important;
+  top:47.2%!important;
+  width:auto!important;
+  max-width:43%!important;
+  height:7.2%!important;
+  box-sizing:border-box!important;
+  padding:0 4px!important;
+  align-items:center!important;
+  gap:3px!important;
+  background:#f6d0a2!important;
+  color:#141414!important;
+  font-family:Arial,sans-serif!important;
+  font-size:clamp(8px,1.95vw,13px)!important;
+  font-weight:800!important;
+  line-height:1!important;
+  letter-spacing:-.15px!important;
+  white-space:nowrap!important;
+  border-radius:2px!important;
+ }
+ #torvo-v2-root .publicSite main#top .torvoApprovedMobileHero .torvoApprovedHeroCategories span{color:#c90019!important}
+ #torvo-v2-root .publicSite main#top .torvoApprovedMobileHero a.torvoApprovedHeroExplore,
+ #torvo-v2-root .publicSite main#top .torvoApprovedMobileHero a.torvoApprovedHeroDealer{
+  top:60.5%!important;
+  height:17%!important;
+  display:flex!important;
+  align-items:center!important;
+  justify-content:center!important;
+  padding:0 3px!important;
+  box-sizing:border-box!important;
+  border-radius:3px!important;
+  box-shadow:0 1px 3px rgba(0,0,0,.2)!important;
+  font-size:0!important;
+  line-height:1!important;
+  text-decoration:none!important;
+  overflow:hidden!important;
+ }
+ #torvo-v2-root .publicSite main#top .torvoApprovedMobileHero a.torvoApprovedHeroExplore{
+  left:3.3%!important;width:20.1%!important;background:#e00017!important;
+ }
+ #torvo-v2-root .publicSite main#top .torvoApprovedMobileHero a.torvoApprovedHeroDealer{
+  left:24.2%!important;width:17.2%!important;background:#171719!important;
+ }
+ #torvo-v2-root .publicSite main#top .torvoApprovedMobileHero a.torvoApprovedHeroExplore::before,
+ #torvo-v2-root .publicSite main#top .torvoApprovedMobileHero a.torvoApprovedHeroDealer::before{
+  display:block!important;
+  color:white!important;
+  font-family:Arial,sans-serif!important;
+  font-size:clamp(8px,2.05vw,13px)!important;
+  font-weight:800!important;
+  line-height:1!important;
+  letter-spacing:-.2px!important;
+  white-space:nowrap!important;
+  text-decoration:none!important;
+ }
+ #torvo-v2-root .publicSite main#top .torvoApprovedMobileHero a.torvoApprovedHeroExplore::before{content:"EXPLORE RANGE →"!important}
+ #torvo-v2-root .publicSite main#top .torvoApprovedMobileHero a.torvoApprovedHeroDealer::before{content:"FIND DEALER →"!important}
+}
