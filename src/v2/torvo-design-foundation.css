@@ -2267,116 +2267,67 @@
  }
 }
 
-/* TORVO V2 mobile hero: extend the actual artwork vertically, not a black strip.
-   Category names sit ON the lower portion of the hero image. */
+/* TORVO V2 approved mobile hero — one CTA, no duplicate baked-in labels,
+   integrated category text and a subtle rounded lower red accent. */
 .torvoApprovedMobileHero{display:none}
 @media(max-width:680px){
  #torvo-v2-root .publicSite main#top>.torvoSignatureHero{
-  display:block!important;
-  position:relative!important;
-  height:auto!important;
-  min-height:0!important;
-  padding:0!important;
-  margin:9px 0 0!important;
-  overflow:hidden!important;
-  border:0!important;
-  background:transparent!important;
-  box-shadow:none!important;
+  display:block!important;position:relative!important;
+  height:auto!important;min-height:0!important;padding:0!important;
+  margin:9px 0 0!important;overflow:hidden!important;
+  border:0!important;background:transparent!important;box-shadow:none!important;
  }
  #torvo-v2-root .publicSite main#top>.torvoSignatureHero>.torvoSignatureHeroContent,
- #torvo-v2-root .publicSite main#top>.torvoSignatureHero>.torvoSignatureHeroArt{
-  display:none!important;
- }
+ #torvo-v2-root .publicSite main#top>.torvoSignatureHero>.torvoSignatureHeroArt{display:none!important}
  #torvo-v2-root .publicSite main#top>.torvoSignatureHero>.torvoApprovedMobileHero{
-  display:block!important;
-  position:relative!important;
-  width:100%!important;
+  display:block!important;position:relative!important;width:100%!important;
   height:calc(100vw * 578 / 1536 + 38px)!important;
-  min-height:0!important;
-  aspect-ratio:auto!important;
-  padding:0!important;
-  margin:0!important;
-  overflow:hidden!important;
-  background:transparent!important;
-  isolation:isolate;
+  min-height:0!important;aspect-ratio:auto!important;
+  padding:0!important;margin:0!important;overflow:hidden!important;
+  background:#161719!important;isolation:isolate;
  }
  #torvo-v2-root .publicSite main#top>.torvoSignatureHero>.torvoApprovedMobileHero>img{
-  display:block!important;
-  position:absolute!important;
-  inset:0!important;
-  width:100%!important;
-  height:100%!important;
-  max-height:none!important;
-  aspect-ratio:auto!important;
-  object-fit:fill!important;
+  display:block!important;position:absolute!important;inset:0!important;
+  width:100%!important;height:100%!important;max-height:none!important;
+  aspect-ratio:auto!important;object-fit:fill!important;
  }
- #torvo-v2-root .publicSite main#top>.torvoSignatureHero>.torvoApprovedMobileHero>.torvoApprovedHeroCategories{
-  display:flex!important;
-  position:absolute!important;
-  left:0!important;
-  right:0!important;
-  top:auto!important;
-  bottom:3px!important;
-  transform:none!important;
-  visibility:visible!important;
-  opacity:1!important;
-  z-index:4!important;
-  width:100%!important;
-  max-width:none!important;
-  height:36px!important;
-  min-height:0!important;
-  margin:0!important;
-  padding:0 5px 5px!important;
-  box-sizing:border-box!important;
-  align-items:center!important;
-  justify-content:center!important;
-  gap:clamp(3px,1.5vw,9px)!important;
-  background:linear-gradient(0deg,rgba(12,13,16,.78),rgba(12,13,16,.44) 75%,transparent)!important;
-  color:#fff!important;
-  font:800 clamp(10px,2.75vw,15px)/1.1 Arial,sans-serif!important;
-  white-space:nowrap!important;
-  letter-spacing:0!important;
-  border:0!important;
-  box-shadow:none!important;
-  text-shadow:0 1px 2px rgba(0,0,0,.55)!important;
- }
- #torvo-v2-root .publicSite main#top>.torvoSignatureHero>.torvoApprovedMobileHero>.torvoApprovedHeroCategories span{
-  color:#ff3548!important;
- }
- #torvo-v2-root .publicSite main#top>.torvoSignatureHero>.torvoApprovedMobileHero>a.torvoApprovedHeroExplore,
- #torvo-v2-root .publicSite main#top>.torvoSignatureHero>.torvoApprovedMobileHero>a.torvoApprovedHeroDealer{
-  display:block!important;
-  position:absolute!important;
-  top:calc(100vw * .234 + 10px)!important;
-  height:clamp(26px,6.3vw,36px)!important;
-  min-height:0!important;
-  margin:0!important;
-  padding:0!important;
-  overflow:hidden!important;
-  box-sizing:border-box!important;
-  z-index:5!important;
-  color:transparent!important;
-  font-size:0!important;
-  line-height:0!important;
-  text-decoration:none!important;
-  background:transparent!important;
-  box-shadow:none!important;
-  border:0!important;
+ /* Dark translucent gradient masks the image's two baked-in small buttons
+    and tiny subtitle, without replacing the approved industrial artwork. */
+ #torvo-v2-root .publicSite main#top>.torvoSignatureHero>.torvoApprovedMobileHero::before{
+  content:"";position:absolute;z-index:2;pointer-events:none;
+  left:0;top:49%;width:48%;height:35%;
+  background:linear-gradient(90deg,rgba(19,20,24,.96) 0%,rgba(19,20,24,.96) 73%,rgba(19,20,24,.78) 88%,rgba(19,20,24,0) 100%);
  }
  #torvo-v2-root .publicSite main#top>.torvoSignatureHero>.torvoApprovedMobileHero>a.torvoApprovedHeroExplore{
-  left:3.5%!important;width:21.5%!important;
+  display:flex!important;position:absolute!important;z-index:5!important;
+  left:4%!important;top:63%!important;width:32%!important;
+  height:clamp(32px,8vw,46px)!important;min-height:0!important;
+  padding:0 7px!important;margin:0!important;box-sizing:border-box!important;
+  align-items:center!important;justify-content:center!important;gap:5px!important;
+  border:0!important;border-radius:5px!important;background:#e00017!important;
+  color:#fff!important;font:800 clamp(10px,2.7vw,15px)/1 Arial,sans-serif!important;
+  letter-spacing:0!important;text-decoration:none!important;white-space:nowrap!important;
+  text-indent:0!important;box-shadow:0 2px 5px rgba(0,0,0,.24)!important;
  }
- #torvo-v2-root .publicSite main#top>.torvoSignatureHero>.torvoApprovedMobileHero>a.torvoApprovedHeroDealer{
-  left:25.8%!important;width:18.5%!important;
+ #torvo-v2-root .publicSite main#top>.torvoSignatureHero>.torvoApprovedMobileHero>a.torvoApprovedHeroExplore span{
+  display:inline!important;color:#fff!important;font-size:1.15em!important;
  }
+ #torvo-v2-root .publicSite main#top>.torvoSignatureHero>.torvoApprovedMobileHero>.torvoApprovedHeroCategories{
+  display:flex!important;position:absolute!important;z-index:4!important;
+  left:0!important;right:0!important;top:auto!important;bottom:1px!important;
+  transform:none!important;visibility:visible!important;opacity:1!important;
+  width:100%!important;max-width:none!important;height:37px!important;min-height:0!important;
+  margin:0!important;padding:4px 5px 8px!important;box-sizing:border-box!important;
+  align-items:center!important;justify-content:center!important;gap:clamp(3px,1.5vw,9px)!important;
+  background:linear-gradient(0deg,rgba(12,13,16,.78),rgba(12,13,16,.45) 76%,transparent)!important;
+  color:#fff!important;font:800 clamp(10px,2.75vw,15px)/1.1 Arial,sans-serif!important;
+  white-space:nowrap!important;letter-spacing:0!important;border:0!important;
+  box-shadow:none!important;text-shadow:0 1px 2px rgba(0,0,0,.55)!important;
+ }
+ #torvo-v2-root .publicSite main#top>.torvoSignatureHero>.torvoApprovedMobileHero>.torvoApprovedHeroCategories span{color:#ff3548!important}
  #torvo-v2-root .publicSite main#top>.torvoSignatureHero>.torvoApprovedMobileHero::after{
-  content:"";
-  position:absolute;
-  left:0;right:0;bottom:0;
-  height:6px;
-  pointer-events:none;
-  z-index:6;
-  background:linear-gradient(to bottom,#111216 0%,#111216 55%,#e00014 56%,#e00014 100%);
-  clip-path:polygon(0 20%,20% 52%,45% 78%,70% 60%,100% 8%,100% 100%,0 100%);
+  content:"";position:absolute;left:-2%;right:-2%;bottom:-5px;height:10px;
+  pointer-events:none;z-index:6;background:#e00014;
+  border-radius:50% 50% 0 0 / 100% 100% 0 0;
  }
 }
