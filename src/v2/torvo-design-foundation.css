@@ -1996,3 +1996,33 @@
   padding-bottom:3px!important;
  }
 }
+
+/* NUMBER 1 mobile homepage search: clearer regular-weight hint and slightly
+   larger camera/mic/search glyphs, grouped more closely without shrinking
+   their touch targets. Header/menu/desktop remain unchanged. */
+@media (max-width:680px){
+ #torvo-v2-root .publicSite .publicHeader.topSearchHeader .publicHeaderSearchRow .publicHeroSearchBar{
+  gap:0!important;
+ }
+ #torvo-v2-root .publicSite .publicHeader.topSearchHeader .publicHeaderSearchRow .publicHeroSearchBar input{
+  min-width:0!important;
+  flex:1 1 auto!important;
+  font-size:14px!important;
+  font-weight:400!important;
+ }
+ #torvo-v2-root .publicSite .publicHeader.topSearchHeader .publicHeaderSearchRow .publicHeroSearchBar input::placeholder{
+  font-size:14px!important;
+  font-weight:400!important;
+ }
+ #torvo-v2-root .publicSite .publicHeader.topSearchHeader .publicHeaderSearchRow .publicHeroSearchBar button{
+  flex:0 0 38px!important;
+  width:38px!important;
+  min-width:38px!important;
+  padding:0 7px!important;
+  margin:0!important;
+ }
+ #torvo-v2-root .publicSite .publicHeader.topSearchHeader .publicHeaderSearchRow .publicHeroSearchBar button svg{
+  width:22px!important;
+  height:22px!important;
+ }
+}
