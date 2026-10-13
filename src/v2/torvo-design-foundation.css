@@ -2266,3 +2266,23 @@
   margin-top:0!important;
  }
 }
+
+/* NUMBER 1: APPROVED MOBILE HERO. Desktop and locked header remain unchanged.
+   The existing hero stays visible until the approved image asset loads successfully. */
+.torvoApprovedMobileHero{display:none}
+@media(max-width:680px){
+ #torvo-v2-root .publicSite main#top>.torvoSignatureHero:has(.torvoApprovedMobileHeroReady){
+  display:block!important;min-height:0!important;height:auto!important;padding:0!important;
+  margin:0!important;overflow:hidden!important;border:0!important;
+  background:transparent!important;box-shadow:none!important;
+ }
+ #torvo-v2-root .publicSite main#top>.torvoSignatureHero:has(.torvoApprovedMobileHeroReady)>.torvoSignatureHeroContent,
+ #torvo-v2-root .publicSite main#top>.torvoSignatureHero:has(.torvoApprovedMobileHeroReady)>.torvoSignatureHeroArt{display:none!important}
+ #torvo-v2-root .publicSite main#top>.torvoSignatureHero>.torvoApprovedMobileHeroReady{
+  display:block!important;position:relative;width:100%;aspect-ratio:1536/578;
+ }
+ .torvoApprovedMobileHero img{display:block;width:100%;height:auto}
+ .torvoApprovedMobileHero a{position:absolute;display:block;z-index:2;top:72%;height:17%}
+ .torvoApprovedHeroExplore{left:4%;width:18%}
+ .torvoApprovedHeroDealer{left:23%;width:17%}
+}
