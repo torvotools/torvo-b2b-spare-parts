@@ -1945,3 +1945,38 @@
   margin:0!important;
  }
 }
+
+/* NUMBER 1 mobile header refinement: tighter vertical rhythm, larger original
+   wordmark and balanced three-line menu touch target. Desktop unchanged. */
+@media (max-width:680px){
+ #torvo-v2-root .publicSite .publicHeader.topSearchHeader{
+  row-gap:0!important;
+  padding-top:3px!important;
+  padding-bottom:5px!important;
+ }
+ #torvo-v2-root .publicSite .publicHeader.topSearchHeader .publicHeaderPrimary{
+  min-height:51px!important;
+  padding-top:0!important;
+  padding-bottom:0!important;
+ }
+ #torvo-v2-root .publicSite .publicHeader.topSearchHeader .publicHeaderPrimary>.publicBrand img{
+  width:164px!important;
+  max-width:164px!important;
+  height:auto!important;
+ }
+ #torvo-v2-root .publicSite .publicHeader.topSearchHeader .mobileHeaderMark{
+  width:43px!important;
+  height:43px!important;
+  min-width:43px!important;
+  min-height:43px!important;
+  display:flex!important;
+  align-items:center!important;
+  justify-content:center!important;
+  padding:9px!important;
+  border-radius:10px!important;
+ }
+ #torvo-v2-root .publicSite .publicHeader.topSearchHeader .publicHeaderSearchRow{
+  margin-top:0!important;
+  padding-top:0!important;
+ }
+}
