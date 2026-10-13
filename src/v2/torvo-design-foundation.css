@@ -2161,3 +2161,14 @@
   min-height:44px!important;
  }
 }
+
+/* NUMBER 1 — slightly darker CAMERA, MIC and SEARCH icons only.
+   Keep icon dimensions, input text, search box and locked header untouched. */
+@media (max-width:680px){
+ #torvo-v2-root .publicSite .publicHeader.topSearchHeader .publicHeaderSearchRow .publicHeroSearchBar button{
+  color:#444b54!important;
+ }
+ #torvo-v2-root .publicSite .publicHeader.topSearchHeader .publicHeaderSearchRow .publicHeroSearchBar button svg{
+  stroke:#444b54!important;
+ }
+}
