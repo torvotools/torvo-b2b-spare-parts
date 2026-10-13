@@ -2454,7 +2454,7 @@
  #torvo-v2-root .publicSite main#top>.torvoSignatureHero>.torvoApprovedMobileHero{
   aspect-ratio:auto!important;
   height:auto!important;
-  padding-bottom:46px!important;
+  padding-bottom:68px!important;
   background:linear-gradient(180deg,#202125 0%,#111216 100%)!important;
  }
  #torvo-v2-root .publicSite main#top>.torvoSignatureHero>.torvoApprovedMobileHero>img{
@@ -2493,7 +2493,7 @@
  }
  #torvo-v2-root .publicSite main#top .torvoApprovedMobileHero .torvoApprovedHeroCategories{
   top:auto!important;
-  bottom:14px!important;
+  bottom:21px!important;
   left:3.4%!important;
   width:93.2%!important;
   max-width:none!important;
