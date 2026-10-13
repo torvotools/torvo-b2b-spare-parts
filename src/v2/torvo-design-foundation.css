@@ -2065,3 +2065,53 @@
   object-position:center!important;
  }
 }
+
+/* NUMBER 1 mobile homepage — menu at LEFT; compact TOP dropdown, not
+   a bottom sheet or full-page panel. Preserve centered locked TORVO logo. */
+@media (max-width:680px){
+ #torvo-v2-root .publicSite .publicHeader.topSearchHeader .publicHeaderPrimary{
+  justify-content:flex-start!important;
+ }
+ #torvo-v2-root .publicSite .publicHeader.topSearchHeader .mobileHeaderMark{
+  margin-left:0!important;
+  margin-right:auto!important;
+ }
+ #torvo-v2-root .publicSite .publicModalBackdrop.torvoTopMenuBackdrop{
+  position:fixed!important;
+  inset:0!important;
+  z-index:1100!important;
+  display:flex!important;
+  align-items:flex-start!important;
+  justify-content:flex-start!important;
+  padding:calc(env(safe-area-inset-top,0px) + 8px) 10px 10px!important;
+  background:rgba(10,18,29,.38)!important;
+  backdrop-filter:none!important;
+ }
+ #torvo-v2-root .publicSite .publicModal.torvoTopMenuPanel{
+  box-sizing:border-box!important;
+  display:flex!important;
+  flex-direction:column!important;
+  width:min(290px,calc(100vw - 24px))!important;
+  max-width:min(290px,calc(100vw - 24px))!important;
+  height:auto!important;
+  min-height:0!important;
+  max-height:min(440px,calc(100dvh - 26px))!important;
+  margin:0!important;
+  overflow-y:auto!important;
+  border-radius:12px!important;
+  background:#fff!important;
+  box-shadow:0 12px 32px rgba(0,0,0,.22)!important;
+ }
+ #torvo-v2-root .publicSite .publicModal.torvoTopMenuPanel>header{
+  position:sticky!important;
+  top:0!important;
+  padding:10px 12px!important;
+ }
+ #torvo-v2-root .publicSite .publicModal.torvoTopMenuPanel .mobileMenuSheetNav{
+  padding:2px 10px 9px!important;
+ }
+ #torvo-v2-root .publicSite .publicModal.torvoTopMenuPanel .mobileMenuSheetNav a{
+  min-height:43px!important;
+  font-size:13px!important;
+ }
+}
