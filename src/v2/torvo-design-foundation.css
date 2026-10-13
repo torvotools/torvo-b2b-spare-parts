@@ -2148,3 +2148,16 @@
   max-width:min(258px,calc(100vw - 24px))!important;
  }
 }
+
+/* NUMBER 1 — search bar: extend gently toward both screen edges while
+   slimming only the bar height. LOCKED logo/menu and input/icon sizing stay. */
+@media (max-width:680px){
+ #torvo-v2-root .publicSite .publicHeader.topSearchHeader .publicHeaderSearchRow.mobileHeaderSearch{
+  padding-left:8px!important;
+  padding-right:8px!important;
+ }
+ #torvo-v2-root .publicSite .publicHeader.topSearchHeader .publicHeaderSearchRow .publicHeroSearchBar{
+  height:44px!important;
+  min-height:44px!important;
+ }
+}
