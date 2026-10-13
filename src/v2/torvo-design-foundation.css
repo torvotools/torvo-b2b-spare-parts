@@ -2226,3 +2226,14 @@
   border-color:#b7bdc5!important;
  }
 }
+
+/* NUMBER 1 — owner refinement: slightly deepen BOTH matching outlines.
+   No changes to approved logo, menu position, dimensions or icons. */
+@media (max-width:680px){
+ #torvo-v2-root .publicSite .publicHeader.topSearchHeader .mobileHeaderMark,
+ #torvo-v2-root .publicSite .publicHeader.topSearchHeader .publicHeaderSearchRow .publicHeroSearchBar{
+  border-color:#b9bec6!important;
+  border-width:1px!important;
+  border-style:solid!important;
+ }
+}
