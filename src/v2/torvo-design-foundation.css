@@ -2172,3 +2172,13 @@
   stroke:#444b54!important;
  }
 }
+
+/* NUMBER 1 — owner approved slightly blacker search icons, without changing size. */
+@media (max-width:680px){
+ #torvo-v2-root .publicSite .publicHeader.topSearchHeader .publicHeaderSearchRow .publicHeroSearchBar button{
+  color:#25282c!important;
+ }
+ #torvo-v2-root .publicSite .publicHeader.topSearchHeader .publicHeaderSearchRow .publicHeroSearchBar button svg{
+  stroke:#25282c!important;
+ }
+}
