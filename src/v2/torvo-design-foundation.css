@@ -2295,12 +2295,12 @@
     and tiny subtitle, without replacing the approved industrial artwork. */
  #torvo-v2-root .publicSite main#top>.torvoSignatureHero>.torvoApprovedMobileHero::before{
   content:"";position:absolute;z-index:2;pointer-events:none;
-  left:0;top:49%;width:48%;height:35%;
-  background:linear-gradient(90deg,rgba(19,20,24,.96) 0%,rgba(19,20,24,.96) 73%,rgba(19,20,24,.78) 88%,rgba(19,20,24,0) 100%);
+  left:0;top:52%;width:45%;height:30%;
+  background:linear-gradient(105deg,#b97c55 0%,#b68155 31%,#b38b63 58%,#8c765e 83%,rgba(110,91,72,0) 100%);
  }
  #torvo-v2-root .publicSite main#top>.torvoSignatureHero>.torvoApprovedMobileHero>a.torvoApprovedHeroExplore{
   display:flex!important;position:absolute!important;z-index:5!important;
-  left:4%!important;top:63%!important;width:32%!important;
+  left:4%!important;top:64%!important;width:32%!important;
   height:clamp(32px,8vw,46px)!important;min-height:0!important;
   padding:0 7px!important;margin:0!important;box-sizing:border-box!important;
   align-items:center!important;justify-content:center!important;gap:5px!important;
@@ -2314,13 +2314,13 @@
  }
  #torvo-v2-root .publicSite main#top>.torvoSignatureHero>.torvoApprovedMobileHero>.torvoApprovedHeroCategories{
   display:flex!important;position:absolute!important;z-index:4!important;
-  left:0!important;right:0!important;top:auto!important;bottom:1px!important;
+  left:0!important;right:0!important;top:auto!important;bottom:0!important;
   transform:none!important;visibility:visible!important;opacity:1!important;
-  width:100%!important;max-width:none!important;height:37px!important;min-height:0!important;
-  margin:0!important;padding:4px 5px 8px!important;box-sizing:border-box!important;
+  width:100%!important;max-width:none!important;height:32px!important;min-height:0!important;
+  margin:0!important;padding:7px 5px 3px!important;box-sizing:border-box!important;
   align-items:center!important;justify-content:center!important;gap:clamp(3px,1.5vw,9px)!important;
-  background:linear-gradient(0deg,rgba(12,13,16,.78),rgba(12,13,16,.45) 76%,transparent)!important;
-  color:#fff!important;font:800 clamp(10px,2.75vw,15px)/1.1 Arial,sans-serif!important;
+  background:linear-gradient(0deg,rgba(12,13,16,.74),rgba(12,13,16,.34) 68%,transparent)!important;
+  color:#fff!important;font:800 clamp(11px,2.95vw,16px)/1.1 Arial,sans-serif!important;
   white-space:nowrap!important;letter-spacing:0!important;border:0!important;
   box-shadow:none!important;text-shadow:0 1px 2px rgba(0,0,0,.55)!important;
  }
