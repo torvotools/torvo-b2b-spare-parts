@@ -2237,3 +2237,32 @@
   border-style:solid!important;
  }
 }
+
+/* NUMBER 1 — owner mobile spacing correction (13 Oct 2026).
+   Remove ONLY the hamburger's outer border. Preserve its three lines,
+   size, right alignment, dropdown, logo, and the approved search outline.
+   Balance compact space around search to bring the hero upward. */
+@media (max-width:680px){
+ #torvo-v2-root .publicSite .publicHeader.topSearchHeader .mobileHeaderMark{
+  border:0!important;
+  box-shadow:none!important;
+  outline:0!important;
+ }
+ #torvo-v2-root .publicSite .publicHeader.topSearchHeader .publicHeaderPrimary{
+  min-height:43px!important;
+ }
+ #torvo-v2-root .publicSite .publicHeader.topSearchHeader{
+  padding-top:2px!important;
+  padding-bottom:0!important;
+  row-gap:0!important;
+ }
+ #torvo-v2-root .publicSite .publicHeader.topSearchHeader .publicHeaderSearchRow.mobileHeaderSearch{
+  margin-top:0!important;
+  margin-bottom:0!important;
+  padding-top:4px!important;
+  padding-bottom:4px!important;
+ }
+ #torvo-v2-root .publicSite main#top>.torvoSignatureHero{
+  margin-top:0!important;
+ }
+}
