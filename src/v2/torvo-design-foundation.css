@@ -2115,3 +2115,15 @@
   font-size:13px!important;
  }
 }
+
+/* NUMBER 1 owner revision: hamburger RIGHT again. Keep approved
+   compact TOP menu panel exactly as-is; keep centered logo locked. */
+@media (max-width:680px){
+ #torvo-v2-root .publicSite .publicHeader.topSearchHeader .publicHeaderPrimary{
+  justify-content:flex-end!important;
+ }
+ #torvo-v2-root .publicSite .publicHeader.topSearchHeader .mobileHeaderMark{
+  margin-left:auto!important;
+  margin-right:0!important;
+ }
+}
