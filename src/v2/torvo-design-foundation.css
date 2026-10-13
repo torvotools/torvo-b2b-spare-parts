@@ -2354,65 +2354,31 @@
  }
 }
 
-/* Approved mobile hero: readable category line and accessible CTA text.
-   Cover tiny image-baked lettering with clear live labels; preserve artwork and curved wave. */
+/* Mobile hero final cleanup: use the original artwork's baked-in subtitle and button lettering.
+   Transparent clickable hotspots; no duplicate links or colored text overlay. */
 @media(max-width:680px){
- #torvo-v2-root .publicSite main#top>.torvoSignatureHero>.torvoApprovedMobileHero{
-  isolation:isolate;
- }
- #torvo-v2-root .publicSite .torvoApprovedMobileHero .torvoApprovedHeroCategories{
-  position:absolute;
-  top:47.5%;
-  left:3.2%;
-  z-index:3;
-  display:flex;
-  align-items:center;
-  gap:4px;
-  max-width:53%;
-  padding:4px 5px;
-  color:#101113;
-  background:rgba(255,244,220,.96);
-  border-radius:2px;
-  font-size:clamp(8px,2.2vw,13px);
-  line-height:1.12;
-  font-weight:800;
-  white-space:nowrap;
-  letter-spacing:-.15px;
- }
- #torvo-v2-root .publicSite .torvoApprovedMobileHero .torvoApprovedHeroCategories span{
-  color:#d71920;
- }
+ #torvo-v2-root .publicSite .torvoApprovedMobileHero .torvoApprovedHeroCategories{display:none!important}
  #torvo-v2-root .publicSite .torvoApprovedMobileHero a.torvoApprovedHeroExplore,
  #torvo-v2-root .publicSite .torvoApprovedMobileHero a.torvoApprovedHeroDealer{
-  top:60%;
-  height:auto;
-  min-height:26px;
-  padding:0 7px;
-  display:flex;
-  align-items:center;
-  justify-content:center;
-  gap:4px;
-  font-size:clamp(8px,2.2vw,12px);
-  line-height:1;
-  font-weight:800;
-  white-space:nowrap;
-  text-decoration:none;
-  border-radius:3px;
-  box-shadow:0 1px 3px rgba(0,0,0,.25);
-  box-sizing:border-box;
-  z-index:4;
+  position:absolute!important;
+  top:60%!important;
+  height:16%!important;
+  min-height:0!important;
+  padding:0!important;
+  margin:0!important;
+  display:block!important;
+  font-size:0!important;
+  line-height:0!important;
+  color:transparent!important;
+  text-decoration:none!important;
+  background:transparent!important;
+  box-shadow:none!important;
+  border:0!important;
+  border-radius:0!important;
+  overflow:hidden!important;
+  z-index:5!important;
  }
- #torvo-v2-root .publicSite .torvoApprovedMobileHero a.torvoApprovedHeroExplore{
-  left:3.2%;
-  width:21%;
-  color:#fff;
-  background:#e00016;
- }
- #torvo-v2-root .publicSite .torvoApprovedMobileHero a.torvoApprovedHeroDealer{
-  left:25%;
-  width:18%;
-  color:#fff;
-  background:#141518;
- }
- #torvo-v2-root .publicSite .torvoApprovedMobileHero a span{font-size:1.15em}
+ #torvo-v2-root .publicSite .torvoApprovedMobileHero a.torvoApprovedHeroExplore{left:3%!important;width:23%!important}
+ #torvo-v2-root .publicSite .torvoApprovedMobileHero a.torvoApprovedHeroDealer{left:26%!important;width:18%!important}
+ #torvo-v2-root .publicSite .torvoApprovedMobileHero a span{display:none!important}
 }
