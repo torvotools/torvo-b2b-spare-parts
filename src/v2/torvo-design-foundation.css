@@ -1920,3 +1920,10 @@
   font:inherit!important;color:inherit!important;line-height:inherit!important;
  }
 }
+
+/* Owner reference: subtle separation between ALL and the category name only. */
+@media screen and (max-width:800px){
+ #torvo-v2-root .publicSite section.torvoPrimaryCategories .categoryCopy>.torvoMobileCategoryName{
+  gap:3px!important;
+ }
+}
