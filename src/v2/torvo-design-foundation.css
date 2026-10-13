@@ -2282,7 +2282,7 @@
   display:block!important;position:relative;width:100%;aspect-ratio:1536/578;
  }
  .torvoApprovedMobileHero img{display:block;width:100%;height:auto}
- .torvoApprovedMobileHero a{position:absolute;display:block;z-index:2;top:72%;height:17%}
- .torvoApprovedHeroExplore{left:4%;width:18%}
- .torvoApprovedHeroDealer{left:23%;width:17%}
+ .torvoApprovedMobileHero a{position:absolute;display:block;z-index:2;top:61%;height:16%}
+ .torvoApprovedHeroExplore{left:4%;width:19%}
+ .torvoApprovedHeroDealer{left:24%;width:16%}
 }
