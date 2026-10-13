@@ -2286,3 +2286,25 @@
  .torvoApprovedHeroExplore{left:4%;width:19%}
  .torvoApprovedHeroDealer{left:24%;width:16%}
 }
+
+/* TORVO mobile hero — owner-selected Option 4 curved black/red wave.
+   Only the mobile hero is affected; approved artwork, header, and desktop stay intact. */
+@media (max-width:680px){
+ #torvo-v2-root .publicSite main#top>.torvoSignatureHero:has(.torvoApprovedMobileHeroReady){
+  margin-top:9px!important;
+  position:relative!important;
+ }
+ #torvo-v2-root .publicSite main#top>.torvoSignatureHero>.torvoApprovedMobileHeroReady{
+  overflow:hidden!important;
+ }
+ #torvo-v2-root .publicSite main#top>.torvoSignatureHero>.torvoApprovedMobileHeroReady::after{
+  content:"";
+  position:absolute;
+  left:0;right:0;bottom:0;
+  height:13px;
+  pointer-events:none;
+  z-index:1;
+  background:linear-gradient(to bottom,#121316 0%,#08090a 70%,#e00014 71%,#e00014 100%);
+  clip-path:polygon(0 22%,10% 43%,25% 66%,42% 78%,60% 73%,78% 55%,91% 31%,100% 9%,100% 100%,0 100%);
+ }
+}
