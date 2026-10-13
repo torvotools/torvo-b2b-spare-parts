@@ -2318,6 +2318,10 @@
   box-shadow:none!important;
   font-size:0!important;
   text-decoration:none!important;
+  /* Slightly strengthen the existing baked-in white button lettering,
+     without drawing a second text layer or changing the artwork. */
+  backdrop-filter:contrast(1.2)!important;
+  -webkit-backdrop-filter:contrast(1.2)!important;
  }
  #torvo-v2-root .publicSite main#top>.torvoMobileOnlyHero>.torvoFinalImageHero>.torvoFinalHeroExplore{
   left:4%!important;
