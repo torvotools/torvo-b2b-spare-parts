@@ -1927,3 +1927,21 @@
   gap:3px!important;
  }
 }
+
+/* NUMBER 1 — mobile homepage: center the ORIGINAL TORVO logo in header.
+   Keep the menu on the right and search in its existing second row. */
+@media (max-width:680px){
+ #torvo-v2-root .publicSite .publicHeader.topSearchHeader .publicHeaderPrimary{
+  position:relative!important;
+  display:flex!important;
+  align-items:center!important;
+  justify-content:flex-end!important;
+  width:100%!important;
+ }
+ #torvo-v2-root .publicSite .publicHeader.topSearchHeader .publicHeaderPrimary>.publicBrand{
+  position:absolute!important;
+  left:50%!important;
+  transform:translateX(-50%)!important;
+  margin:0!important;
+ }
+}
