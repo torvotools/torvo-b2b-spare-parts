@@ -2182,3 +2182,22 @@
   stroke:#25282c!important;
  }
 }
+
+/* NUMBER 1 — actual icon visibility fix: disabled camera/voice and
+   empty-query search were faded by opacity. Keep functionality disabled,
+   but render all three search glyphs in clear near-black. */
+@media (max-width:680px){
+ #torvo-v2-root .publicSite .publicHeader.topSearchHeader .publicHeaderSearchRow .publicHeroSearchBar button,
+ #torvo-v2-root .publicSite .publicHeader.topSearchHeader .publicHeaderSearchRow .publicHeroSearchBar button:disabled{
+  opacity:1!important;
+  color:#17191c!important;
+  -webkit-text-fill-color:#17191c!important;
+  filter:none!important;
+ }
+ #torvo-v2-root .publicSite .publicHeader.topSearchHeader .publicHeaderSearchRow .publicHeroSearchBar button svg{
+  opacity:1!important;
+  stroke:#17191c!important;
+  color:#17191c!important;
+  filter:none!important;
+ }
+}
