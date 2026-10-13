@@ -2512,3 +2512,74 @@
   color:#ff3047!important;
  }
 }
+
+/* FINAL MOBILE HERO STRUCTURAL FIX: the category strip is in normal document
+   flow below the image, never an absolute overlay in a padded black void. */
+@media(max-width:680px){
+ #torvo-v2-root .publicSite main#top>.torvoSignatureHero>.torvoApprovedMobileHero{
+  display:block!important;
+  position:relative!important;
+  height:auto!important;
+  min-height:0!important;
+  aspect-ratio:auto!important;
+  padding:0!important;
+  margin:0!important;
+  overflow:hidden!important;
+  background:#17181c!important;
+ }
+ #torvo-v2-root .publicSite main#top>.torvoSignatureHero>.torvoApprovedMobileHero>img{
+  display:block!important;
+  position:relative!important;
+  width:100%!important;
+  height:auto!important;
+  max-height:none!important;
+  aspect-ratio:1536/578!important;
+  object-fit:contain!important;
+ }
+ #torvo-v2-root .publicSite main#top>.torvoSignatureHero>.torvoApprovedMobileHero>.torvoApprovedHeroCategories{
+  display:flex!important;
+  visibility:visible!important;
+  opacity:1!important;
+  position:relative!important;
+  inset:auto!important;
+  left:auto!important;
+  top:auto!important;
+  bottom:auto!important;
+  right:auto!important;
+  transform:none!important;
+  z-index:6!important;
+  width:100%!important;
+  max-width:none!important;
+  height:40px!important;
+  min-height:40px!important;
+  padding:0 5px 5px!important;
+  margin:0!important;
+  box-sizing:border-box!important;
+  align-items:center!important;
+  justify-content:center!important;
+  gap:clamp(3px,1.2vw,8px)!important;
+  background:#17181c!important;
+  color:#fff!important;
+  font-family:Arial,sans-serif!important;
+  font-size:clamp(10px,2.65vw,15px)!important;
+  font-weight:800!important;
+  line-height:1.1!important;
+  letter-spacing:0!important;
+  white-space:nowrap!important;
+  border:0!important;
+  box-shadow:none!important;
+ }
+ #torvo-v2-root .publicSite main#top>.torvoSignatureHero>.torvoApprovedMobileHero>.torvoApprovedHeroCategories span{
+  color:#ff3047!important;
+ }
+ #torvo-v2-root .publicSite main#top>.torvoSignatureHero>.torvoApprovedMobileHero>a.torvoApprovedHeroExplore,
+ #torvo-v2-root .publicSite main#top>.torvoSignatureHero>.torvoApprovedMobileHero>a.torvoApprovedHeroDealer{
+  top:calc(100vw * .234)!important;
+  height:clamp(26px,6.3vw,36px)!important;
+  z-index:7!important;
+ }
+ #torvo-v2-root .publicSite main#top>.torvoSignatureHero>.torvoApprovedMobileHero::after{
+  z-index:8!important;
+  height:7px!important;
+ }
+}
