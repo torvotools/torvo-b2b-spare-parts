@@ -2267,56 +2267,16 @@
  }
 }
 
-/* NUMBER 1: APPROVED MOBILE HERO. Desktop and locked header remain unchanged.
-   The existing hero stays visible until the approved image asset loads successfully. */
+/* TORVO V2 — single canonical approved mobile hero implementation.
+   No stacked legacy overrides. The image, CTAs and category strip occupy
+   their own predictable space; desktop and the locked header are untouched. */
 .torvoApprovedMobileHero{display:none}
 @media(max-width:680px){
- #torvo-v2-root .publicSite main#top>.torvoSignatureHero:has(.torvoApprovedMobileHeroReady){
-  display:block!important;min-height:0!important;height:auto!important;padding:0!important;
-  margin:0!important;overflow:hidden!important;border:0!important;
-  background:transparent!important;box-shadow:none!important;
- }
- #torvo-v2-root .publicSite main#top>.torvoSignatureHero:has(.torvoApprovedMobileHeroReady)>.torvoSignatureHeroContent,
- #torvo-v2-root .publicSite main#top>.torvoSignatureHero:has(.torvoApprovedMobileHeroReady)>.torvoSignatureHeroArt{display:none!important}
- #torvo-v2-root .publicSite main#top>.torvoSignatureHero>.torvoApprovedMobileHeroReady{
-  display:block!important;position:relative;width:100%;aspect-ratio:1536/578;
- }
- .torvoApprovedMobileHero img{display:block;width:100%;height:auto}
- .torvoApprovedMobileHero a{position:absolute;display:block;z-index:2;top:61%;height:16%}
- .torvoApprovedHeroExplore{left:4%;width:19%}
- .torvoApprovedHeroDealer{left:24%;width:16%}
-}
-
-/* TORVO mobile hero — owner-selected Option 4 curved black/red wave.
-   Only the mobile hero is affected; approved artwork, header, and desktop stay intact. */
-@media (max-width:680px){
- #torvo-v2-root .publicSite main#top>.torvoSignatureHero:has(.torvoApprovedMobileHeroReady){
-  margin-top:9px!important;
-  position:relative!important;
- }
- #torvo-v2-root .publicSite main#top>.torvoSignatureHero>.torvoApprovedMobileHeroReady{
-  overflow:hidden!important;
- }
- #torvo-v2-root .publicSite main#top>.torvoSignatureHero>.torvoApprovedMobileHeroReady::after{
-  content:"";
-  position:absolute;
-  left:0;right:0;bottom:0;
-  height:13px;
-  pointer-events:none;
-  z-index:1;
-  background:linear-gradient(to bottom,#121316 0%,#08090a 70%,#e00014 71%,#e00014 100%);
-  clip-path:polygon(0 22%,10% 43%,25% 66%,42% 78%,60% 73%,78% 55%,91% 31%,100% 9%,100% 100%,0 100%);
- }
-}
-
-/* Mobile refresh flash fix: never paint legacy hero while approved image loads.
-   Reserve its exact ratio immediately to prevent layout shift. */
-@media (max-width:680px){
  #torvo-v2-root .publicSite main#top>.torvoSignatureHero{
   display:block!important;
   position:relative!important;
-  min-height:0!important;
   height:auto!important;
+  min-height:0!important;
   padding:0!important;
   margin:9px 0 0!important;
   overflow:hidden!important;
@@ -2332,240 +2292,46 @@
   display:block!important;
   position:relative!important;
   width:100%!important;
-  aspect-ratio:1536/578;
-  overflow:hidden!important;
-  background:#f3f3f3;
- }
- #torvo-v2-root .publicSite main#top>.torvoSignatureHero>.torvoApprovedMobileHero img{
-  display:block;
-  width:100%;
-  height:auto;
-  aspect-ratio:1536/578;
- }
- #torvo-v2-root .publicSite main#top>.torvoSignatureHero>.torvoApprovedMobileHero::after{
-  content:"";
-  position:absolute;
-  left:0;right:0;bottom:0;
-  height:13px;
-  pointer-events:none;
-  z-index:1;
-  background:linear-gradient(to bottom,#121316 0%,#08090a 70%,#e00014 71%,#e00014 100%);
-  clip-path:polygon(0 22%,10% 43%,25% 66%,42% 78%,60% 73%,78% 55%,91% 31%,100% 9%,100% 100%,0 100%);
- }
-}
-
-/* Mobile hero final cleanup: use the original artwork's baked-in subtitle and button lettering.
-   Transparent clickable hotspots; no duplicate links or colored text overlay. */
-@media(max-width:680px){
- #torvo-v2-root .publicSite .torvoApprovedMobileHero .torvoApprovedHeroCategories{display:none!important}
- #torvo-v2-root .publicSite .torvoApprovedMobileHero a.torvoApprovedHeroExplore,
- #torvo-v2-root .publicSite .torvoApprovedMobileHero a.torvoApprovedHeroDealer{
-  position:absolute!important;
-  top:60%!important;
-  height:16%!important;
-  min-height:0!important;
-  padding:0!important;
-  margin:0!important;
-  display:block!important;
-  font-size:0!important;
-  line-height:0!important;
-  color:transparent!important;
-  text-decoration:none!important;
-  background:transparent!important;
-  box-shadow:none!important;
-  border:0!important;
-  border-radius:0!important;
-  overflow:hidden!important;
-  z-index:5!important;
- }
- #torvo-v2-root .publicSite .torvoApprovedMobileHero a.torvoApprovedHeroExplore{left:3%!important;width:23%!important}
- #torvo-v2-root .publicSite .torvoApprovedMobileHero a.torvoApprovedHeroDealer{left:26%!important;width:18%!important}
- #torvo-v2-root .publicSite .torvoApprovedMobileHero a span{display:none!important}
-}
-
-/* Mobile-only readability: slightly larger subtitle and button lettering.
-   Cover the tiny text embedded in the approved artwork; keep the photo and wave. */
-@media(max-width:680px){
- #torvo-v2-root .publicSite main#top .torvoApprovedMobileHero .torvoApprovedHeroCategories{
-  display:flex!important;
-  position:absolute!important;
-  z-index:6!important;
-  left:3.4%!important;
-  top:47.2%!important;
-  width:auto!important;
-  max-width:43%!important;
-  height:7.2%!important;
-  box-sizing:border-box!important;
-  padding:0 4px!important;
-  align-items:center!important;
-  gap:3px!important;
-  background:#f6d0a2!important;
-  color:#141414!important;
-  font-family:Arial,sans-serif!important;
-  font-size:clamp(8px,1.95vw,13px)!important;
-  font-weight:800!important;
-  line-height:1!important;
-  letter-spacing:-.15px!important;
-  white-space:nowrap!important;
-  border-radius:2px!important;
- }
- #torvo-v2-root .publicSite main#top .torvoApprovedMobileHero .torvoApprovedHeroCategories span{color:#c90019!important}
- #torvo-v2-root .publicSite main#top .torvoApprovedMobileHero a.torvoApprovedHeroExplore,
- #torvo-v2-root .publicSite main#top .torvoApprovedMobileHero a.torvoApprovedHeroDealer{
-  top:60.5%!important;
-  height:17%!important;
-  display:flex!important;
-  align-items:center!important;
-  justify-content:center!important;
-  padding:0 3px!important;
-  box-sizing:border-box!important;
-  border-radius:3px!important;
-  box-shadow:0 1px 3px rgba(0,0,0,.2)!important;
-  font-size:0!important;
-  line-height:1!important;
-  text-decoration:none!important;
-  overflow:hidden!important;
- }
- #torvo-v2-root .publicSite main#top .torvoApprovedMobileHero a.torvoApprovedHeroExplore{
-  left:3.3%!important;width:20.1%!important;background:#e00017!important;
- }
- #torvo-v2-root .publicSite main#top .torvoApprovedMobileHero a.torvoApprovedHeroDealer{
-  left:24.2%!important;width:17.2%!important;background:#171719!important;
- }
- #torvo-v2-root .publicSite main#top .torvoApprovedMobileHero a.torvoApprovedHeroExplore::before,
- #torvo-v2-root .publicSite main#top .torvoApprovedMobileHero a.torvoApprovedHeroDealer::before{
-  display:block!important;
-  color:white!important;
-  font-family:Arial,sans-serif!important;
-  font-size:clamp(8px,2.05vw,13px)!important;
-  font-weight:800!important;
-  line-height:1!important;
-  letter-spacing:-.2px!important;
-  white-space:nowrap!important;
-  text-decoration:none!important;
- }
- #torvo-v2-root .publicSite main#top .torvoApprovedMobileHero a.torvoApprovedHeroExplore::before{content:"EXPLORE RANGE →"!important}
- #torvo-v2-root .publicSite main#top .torvoApprovedMobileHero a.torvoApprovedHeroDealer::before{content:"FIND DEALER →"!important}
-}
-
-/* Mobile hero correction: compact extension below photo, legible category row,
-   aligned CTA buttons; no oversized black band or image-covering patch. */
-@media(max-width:680px){
- #torvo-v2-root .publicSite main#top>.torvoSignatureHero>.torvoApprovedMobileHero{
-  aspect-ratio:auto!important;
-  height:auto!important;
-  padding-bottom:36px!important;
-  background:#17181c!important;
- }
- #torvo-v2-root .publicSite main#top>.torvoSignatureHero>.torvoApprovedMobileHero>img{
-  display:block!important;
-  width:100%!important;
-  height:auto!important;
-  aspect-ratio:1536/578!important;
- }
- #torvo-v2-root .publicSite main#top>.torvoSignatureHero>.torvoApprovedMobileHero::before{
-  content:none!important;
-  display:none!important;
- }
- #torvo-v2-root .publicSite main#top .torvoApprovedMobileHero a.torvoApprovedHeroExplore,
- #torvo-v2-root .publicSite main#top .torvoApprovedMobileHero a.torvoApprovedHeroDealer{
-  top:calc(100vw * .234)!important;
-  height:clamp(26px,6.3vw,36px)!important;
-  padding:0 3px!important;
-  border-radius:3px!important;
- }
- #torvo-v2-root .publicSite main#top .torvoApprovedMobileHero a.torvoApprovedHeroExplore{
-  left:3.5%!important;width:21.5%!important;
- }
- #torvo-v2-root .publicSite main#top .torvoApprovedMobileHero a.torvoApprovedHeroDealer{
-  left:25.8%!important;width:18.5%!important;
- }
- #torvo-v2-root .publicSite main#top .torvoApprovedMobileHero a.torvoApprovedHeroExplore::before,
- #torvo-v2-root .publicSite main#top .torvoApprovedMobileHero a.torvoApprovedHeroDealer::before{
-  font-size:clamp(8px,2.1vw,12px)!important;
- }
- #torvo-v2-root .publicSite main#top .torvoApprovedMobileHero .torvoApprovedHeroCategories{
-  display:flex!important;
-  position:absolute!important;
-  top:auto!important;
-  bottom:6px!important;
-  left:0!important;
-  width:100%!important;
-  max-width:none!important;
-  height:27px!important;
-  padding:0 5px!important;
-  box-sizing:border-box!important;
-  align-items:center!important;
-  justify-content:center!important;
-  gap:clamp(3px,1.4vw,8px)!important;
-  background:#17181c!important;
-  color:#fff!important;
-  font-family:Arial,sans-serif!important;
-  font-size:clamp(10px,2.75vw,15px)!important;
-  line-height:1!important;
-  font-weight:800!important;
-  letter-spacing:0!important;
-  white-space:nowrap!important;
-  z-index:6!important;
- }
- #torvo-v2-root .publicSite main#top .torvoApprovedMobileHero .torvoApprovedHeroCategories span{
-  color:#ff3047!important;
- }
-}
-
-/* FINAL MOBILE HERO STRUCTURAL FIX: the category strip is in normal document
-   flow below the image, never an absolute overlay in a padded black void. */
-@media(max-width:680px){
- #torvo-v2-root .publicSite main#top>.torvoSignatureHero>.torvoApprovedMobileHero{
-  display:block!important;
-  position:relative!important;
   height:auto!important;
   min-height:0!important;
   aspect-ratio:auto!important;
-  padding:0!important;
   margin:0!important;
+  padding:0!important;
   overflow:hidden!important;
   background:#17181c!important;
+  isolation:isolate;
  }
  #torvo-v2-root .publicSite main#top>.torvoSignatureHero>.torvoApprovedMobileHero>img{
   display:block!important;
-  position:relative!important;
   width:100%!important;
   height:auto!important;
   max-height:none!important;
-  aspect-ratio:1536/578!important;
+  aspect-ratio:1536/578;
   object-fit:contain!important;
  }
  #torvo-v2-root .publicSite main#top>.torvoSignatureHero>.torvoApprovedMobileHero>.torvoApprovedHeroCategories{
   display:flex!important;
-  visibility:visible!important;
-  opacity:1!important;
   position:relative!important;
   inset:auto!important;
-  left:auto!important;
-  top:auto!important;
-  bottom:auto!important;
-  right:auto!important;
   transform:none!important;
-  z-index:6!important;
+  visibility:visible!important;
+  opacity:1!important;
+  z-index:2!important;
   width:100%!important;
   max-width:none!important;
-  height:40px!important;
-  min-height:40px!important;
-  padding:0 5px 5px!important;
+  height:42px!important;
+  min-height:42px!important;
   margin:0!important;
+  padding:0 7px 5px!important;
   box-sizing:border-box!important;
   align-items:center!important;
   justify-content:center!important;
-  gap:clamp(3px,1.2vw,8px)!important;
+  gap:clamp(4px,1.5vw,9px)!important;
   background:#17181c!important;
   color:#fff!important;
-  font-family:Arial,sans-serif!important;
-  font-size:clamp(10px,2.65vw,15px)!important;
-  font-weight:800!important;
-  line-height:1.1!important;
-  letter-spacing:0!important;
+  font:800 clamp(10px,2.7vw,15px)/1.1 Arial,sans-serif!important;
   white-space:nowrap!important;
+  letter-spacing:0!important;
   border:0!important;
   box-shadow:none!important;
  }
@@ -2574,12 +2340,39 @@
  }
  #torvo-v2-root .publicSite main#top>.torvoSignatureHero>.torvoApprovedMobileHero>a.torvoApprovedHeroExplore,
  #torvo-v2-root .publicSite main#top>.torvoSignatureHero>.torvoApprovedMobileHero>a.torvoApprovedHeroDealer{
+  display:block!important;
+  position:absolute!important;
   top:calc(100vw * .234)!important;
   height:clamp(26px,6.3vw,36px)!important;
-  z-index:7!important;
+  min-height:0!important;
+  margin:0!important;
+  padding:0!important;
+  box-sizing:border-box!important;
+  overflow:hidden!important;
+  z-index:3!important;
+  color:transparent!important;
+  font-size:0!important;
+  line-height:0!important;
+  text-decoration:none!important;
+  background:transparent!important;
+  box-shadow:none!important;
+  border:0!important;
+ }
+ #torvo-v2-root .publicSite main#top>.torvoSignatureHero>.torvoApprovedMobileHero>a.torvoApprovedHeroExplore{
+  left:3.5%!important;width:21.5%!important;
+ }
+ #torvo-v2-root .publicSite main#top>.torvoSignatureHero>.torvoApprovedMobileHero>a.torvoApprovedHeroDealer{
+  left:25.8%!important;width:18.5%!important;
  }
  #torvo-v2-root .publicSite main#top>.torvoSignatureHero>.torvoApprovedMobileHero::after{
-  z-index:8!important;
-  height:7px!important;
+  content:"";
+  display:block;
+  position:absolute;
+  left:0;right:0;bottom:0;
+  height:7px;
+  pointer-events:none;
+  z-index:4;
+  background:linear-gradient(to bottom,#111216 0%,#111216 68%,#e00014 69%,#e00014 100%);
+  clip-path:polygon(0 20%,20% 52%,45% 78%,70% 60%,100% 8%,100% 100%,0 100%);
  }
 }
