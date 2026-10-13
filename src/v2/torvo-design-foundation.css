@@ -2218,3 +2218,11 @@
   box-shadow:none!important;
  }
 }
+
+/* NUMBER 1 — slightly deepen BOTH matching outlines only. */
+@media (max-width:680px){
+ #torvo-v2-root .publicSite .publicHeader.topSearchHeader .mobileHeaderMark,
+ #torvo-v2-root .publicSite .publicHeader.topSearchHeader .publicHeaderSearchRow .publicHeroSearchBar{
+  border-color:#b7bdc5!important;
+ }
+}
