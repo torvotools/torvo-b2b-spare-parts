@@ -2267,45 +2267,64 @@
  }
 }
 
-/* TORVO V2 FINAL: render approved uploaded hero as one flat image.
-   No old baked-in CTA masking, shadow patches, duplicate labels or pseudo layers. */
-.torvoApprovedMobileHero{display:none}
+/* TORVO V2: isolated mobile hero, no legacy mobile hero DOM/layers.
+   Desktop retains its own independent signature hero. */
+.torvoMobileOnlyHero{display:none}
 @media(max-width:680px){
- #torvo-v2-root .publicSite main#top>.torvoSignatureHero{
-  display:block!important;position:relative!important;height:auto!important;
-  min-height:0!important;padding:0!important;margin:9px 0 0!important;
-  border:0!important;overflow:hidden!important;background:transparent!important;
+ #torvo-v2-root .publicSite main#top>.torvoDesktopOnlyHero{display:none!important}
+ #torvo-v2-root .publicSite main#top>.torvoMobileOnlyHero{
+  display:block!important;
+  width:100%!important;
+  height:auto!important;
+  margin:9px 0 0!important;
+  padding:0!important;
+  border:0!important;
   box-shadow:none!important;
+  overflow:hidden!important;
+  background:transparent!important;
  }
- #torvo-v2-root .publicSite main#top>.torvoSignatureHero>.torvoSignatureHeroContent,
- #torvo-v2-root .publicSite main#top>.torvoSignatureHero>.torvoSignatureHeroArt{
+ #torvo-v2-root .publicSite main#top>.torvoMobileOnlyHero>.torvoFinalImageHero{
+  display:block!important;
+  position:relative!important;
+  width:100%!important;
+  height:auto!important;
+  padding:0!important;
+  margin:0!important;
+  overflow:hidden!important;
+  background:transparent!important;
+ }
+ #torvo-v2-root .publicSite main#top>.torvoMobileOnlyHero>.torvoFinalImageHero>img{
+  display:block!important;
+  width:100%!important;
+  height:auto!important;
+  max-height:none!important;
+  object-fit:contain!important;
+ }
+ #torvo-v2-root .publicSite main#top>.torvoMobileOnlyHero>.torvoFinalImageHero::before,
+ #torvo-v2-root .publicSite main#top>.torvoMobileOnlyHero>.torvoFinalImageHero::after{
+  content:none!important;
   display:none!important;
  }
- #torvo-v2-root .publicSite main#top>.torvoSignatureHero>.torvoFinalImageHero{
-  display:block!important;position:relative!important;width:100%!important;
-  height:auto!important;min-height:0!important;aspect-ratio:auto!important;
-  padding:0!important;margin:0!important;background:transparent!important;
-  overflow:hidden!important;isolation:isolate;
+ #torvo-v2-root .publicSite main#top>.torvoMobileOnlyHero>.torvoFinalImageHero>a{
+  position:absolute!important;
+  display:block!important;
+  z-index:2!important;
+  top:54%!important;
+  height:13%!important;
+  margin:0!important;
+  padding:0!important;
+  background:transparent!important;
+  border:0!important;
+  box-shadow:none!important;
+  font-size:0!important;
+  text-decoration:none!important;
  }
- #torvo-v2-root .publicSite main#top>.torvoSignatureHero>.torvoFinalImageHero>img{
-  display:block!important;position:relative!important;inset:auto!important;
-  width:100%!important;height:auto!important;max-height:none!important;
-  object-fit:contain!important;aspect-ratio:auto!important;
+ #torvo-v2-root .publicSite main#top>.torvoMobileOnlyHero>.torvoFinalImageHero>.torvoFinalHeroExplore{
+  left:4%!important;
+  width:23%!important;
  }
- #torvo-v2-root .publicSite main#top>.torvoSignatureHero>.torvoFinalImageHero::before,
- #torvo-v2-root .publicSite main#top>.torvoSignatureHero>.torvoFinalImageHero::after{
-  content:none!important;display:none!important;
- }
- #torvo-v2-root .publicSite main#top>.torvoSignatureHero>.torvoFinalImageHero>a{
-  display:block!important;position:absolute!important;z-index:2!important;
-  top:54%!important;height:13%!important;padding:0!important;margin:0!important;
-  background:transparent!important;border:0!important;box-shadow:none!important;
-  font-size:0!important;text-decoration:none!important;
- }
- #torvo-v2-root .publicSite main#top>.torvoSignatureHero>.torvoFinalImageHero>.torvoFinalHeroExplore{
-  left:4%!important;width:23%!important;
- }
- #torvo-v2-root .publicSite main#top>.torvoSignatureHero>.torvoFinalImageHero>.torvoFinalHeroDealer{
-  left:28%!important;width:19%!important;
+ #torvo-v2-root .publicSite main#top>.torvoMobileOnlyHero>.torvoFinalImageHero>.torvoFinalHeroDealer{
+  left:28%!important;
+  width:19%!important;
  }
 }
