@@ -1,0 +1,19 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="1536" height="864" viewBox="0 0 1536 864" role="img" aria-label="TORVO approved Hero four photo placement guide — draft only">
+<title>Draft image placement guide — not for public Hero</title>
+<desc>Approximate positions of four replaceable photo interiors on owner's approved 1536 by 864 banner. Visual alignment and clean plate required before activation.</desc>
+<defs>
+<clipPath id="machinery"><path d="M143 372 L308 372 Q336 372 330 399 L302 502 L91 502 L118 400 Q125 372 143 372 Z"/></clipPath>
+<clipPath id="spare_part"><path d="M374 372 L542 372 Q570 372 564 400 L536 502 L317 502 L345 400 Q352 372 374 372 Z"/></clipPath>
+<clipPath id="accessori"><path d="M608 372 L772 372 Q802 372 797 400 L765 502 L545 502 L573 400 Q580 372 608 372 Z"/></clipPath>
+<clipPath id="feature"><path d="M929 196 L1203 170 Q1227 168 1248 185 L1446 407 Q1468 432 1450 457 L1285 667 Q1272 686 1246 686 L932 677 Q911 676 899 656 L791 489 Q775 465 790 439 L895 222 Q905 201 929 196 Z"/></clipPath>
+</defs>
+<g fill="#23a9ef" fill-opacity=".12" stroke="#1688bd" stroke-width="3" stroke-dasharray="12 8">
+<path d="M143 372 L308 372 Q336 372 330 399 L302 502 L91 502 L118 400 Q125 372 143 372 Z"/>
+<path d="M374 372 L542 372 Q570 372 564 400 L536 502 L317 502 L345 400 Q352 372 374 372 Z"/>
+<path d="M608 372 L772 372 Q802 372 797 400 L765 502 L545 502 L573 400 Q580 372 608 372 Z"/>
+<path d="M929 196 L1203 170 Q1227 168 1248 185 L1446 407 Q1468 432 1450 457 L1285 667 Q1272 686 1246 686 L932 677 Q911 676 899 656 L791 489 Q775 465 790 439 L895 222 Q905 201 929 196 Z"/>
+</g>
+<g font-family="Arial,sans-serif" font-size="24" font-weight="bold" text-anchor="middle" fill="#124e77">
+<text x="211" y="448">1</text><text x="440" y="448">2</text><text x="674" y="448">3</text><text x="1132" y="443">4 — DRAFT</text>
+</g>
+</svg>
