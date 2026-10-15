@@ -42,9 +42,11 @@ export default function OwnerSelectedHeroDraft({ imageUrl, productHref = '#produ
           style={{ display: 'block', width: '100%', height: 'auto' }}
         />
         {/* Hit areas are proportional to the selected 1536x864 artwork.
-            Re-measure after the final genuine-logo artwork is approved. */}
-        <a href={productHref} aria-label="EXPLORE PRODUCTS" style={actionStyle(3.1, 57.6, 17.5, 6.8)} />
-        <a href={dealerHref} aria-label="FIND A DEALER" style={actionStyle(21.2, 57.6, 15.7, 6.8)} />
+            Measured against the owner-supplied 1536x864 reference: first button
+            x=78..384, y=553..621; second x=408..667, y=553..621.
+            Re-measure after any approved artwork revision. */}
+        <a href={productHref} aria-label="EXPLORE PRODUCTS" style={actionStyle(5.08, 64.0, 19.92, 7.87)} />
+        <a href={dealerHref} aria-label="FIND A DEALER" style={actionStyle(26.56, 64.0, 16.86, 7.87)} />
       </div>
     </section>
   );
