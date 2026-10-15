@@ -1,34 +1,30 @@
 import React from 'react';
 
 /**
- * Staging-only building block for TORVO's owner-approved 1536x864 Hero.
- * NOT mounted in the public website. A clean background plate and verified
- * foreground trim are required before this may replace the flattened image.
- *
- * Coordinates have been refined by inspection of the 1536x864 original.
- * They remain approximate: the original photo, bevel, and border are
- * flattened together. Do not mount until a clean background and foreground
- * frame have been prepared and visually verified against the
- * original approved artwork before use. No design/text/buttons are rendered.
+ * DRAFT ONLY: four image regions for the owner's latest 1536x864 hexagon hero
+ * (uploaded as 1000960302.png). Not mounted in the website.
+ * Bounding polygons were estimated visually and require pixel inspection.
+ * The labels, red frames and imagery are flattened into the reference.
+ * Do not activate without clean plate, border/label overlays and testing.
  */
 const REFERENCE_WIDTH = 1536;
 const REFERENCE_HEIGHT = 864;
 const SLOTS = Object.freeze({
   machinery: {
-    box: [83, 370, 246, 135],
-    clip: 'polygon(20% 0, 100% 0, 85% 100%, 0 100%)',
+    box: [740, 25, 354, 254],
+    clip: 'polygon(24% 0, 81% 0, 100% 53%, 81% 100%, 20% 100%, 0 53%)',
   },
   spare_part: {
-    box: [317, 370, 248, 135],
-    clip: 'polygon(18% 0, 100% 0, 85% 100%, 0 100%)',
+    box: [688, 279, 356, 235],
+    clip: 'polygon(23% 0, 77% 0, 100% 52%, 81% 100%, 19% 100%, 0 52%)',
   },
   accessori: {
-    box: [551, 370, 246, 135],
-    clip: 'polygon(20% 0, 100% 0, 85% 100%, 0 100%)',
+    box: [748, 508, 362, 239],
+    clip: 'polygon(19% 0, 80% 0, 100% 54%, 77% 100%, 18% 100%, 0 53%)',
   },
   feature: {
-    box: [787, 174, 675, 505],
-    clip: 'polygon(19% 5%, 64% 0, 100% 50%, 79% 100%, 19% 100%, 0 51%)',
+    box: [994, 152, 524, 496],
+    clip: 'polygon(23% 0, 73% 0, 100% 51%, 72% 100%, 20% 100%, 0 50%)',
   },
 });
 
