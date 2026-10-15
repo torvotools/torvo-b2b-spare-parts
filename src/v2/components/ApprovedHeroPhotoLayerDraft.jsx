@@ -9,6 +9,8 @@ import React from 'react';
  */
 const REFERENCE_WIDTH = 1536;
 const REFERENCE_HEIGHT = 864;
+export const HERO_PHOTO_SLOT_ORDER = Object.freeze(['machinery', 'spare_part', 'accessori', 'feature']);
+
 const SLOTS = Object.freeze({
   machinery: {
     box: [740, 25, 354, 254],
@@ -28,6 +30,11 @@ const SLOTS = Object.freeze({
   },
 });
 
+export const getHeroSlotGuidance = () => HERO_PHOTO_SLOT_ORDER.map((key) => {
+  const [x, y, width, height] = SLOTS[key].box;
+  return { key, x, y, width, height, referenceWidth: REFERENCE_WIDTH, referenceHeight: REFERENCE_HEIGHT };
+});
+
 const safePhoto = (url) => {
   if (typeof url !== 'string') return '';
   try {
@@ -43,16 +50,17 @@ const safePhoto = (url) => {
  * wrapper ONLY after approved clean background and foreground assets exist.
  * Its presence alone is not a completed or approved public Hero.
  */
-export default function ApprovedHeroPhotoLayerDraft({ photos = {} }) {
+export default function ApprovedHeroPhotoLayerDraft({ photos = {}, showGuides = false }) {
   return (
     <div
       aria-hidden="true"
       data-torvo-hero-photo-layer-status="DRAFT_NOT_APPROVED"
       style={{ position: 'absolute', inset: 0, pointerEvents: 'none' }}
     >
-      {Object.entries(SLOTS).map(([key, slot]) => {
+      {HERO_PHOTO_SLOT_ORDER.map((key) => {
+        const slot = SLOTS[key];
         const url = safePhoto(photos[key]);
-        if (!url) return null;
+        if (!url && !showGuides) return null;
         const [x, y, width, height] = slot.box;
         return (
           <div
@@ -66,15 +74,16 @@ export default function ApprovedHeroPhotoLayerDraft({ photos = {} }) {
               height: `${(height / REFERENCE_HEIGHT) * 100}%`,
               clipPath: slot.clip,
               overflow: 'hidden',
+              background: !url && showGuides ? 'rgba(0, 168, 242, 0.7)' : 'transparent',
             }}
           >
-            <img
+            {url ? <img
               src={url}
               alt=""
               loading="lazy"
               decoding="async"
               style={{ display: 'block', width: '100%', height: '100%', objectFit: 'cover' }}
-            />
+            /> : null}
           </div>
         );
       })}
