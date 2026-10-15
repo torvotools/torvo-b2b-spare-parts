@@ -5,27 +5,30 @@ import React from 'react';
  * NOT mounted in the public website. A clean background plate and verified
  * foreground trim are required before this may replace the flattened image.
  *
- * Positions are approximate and must be visually checked against the
+ * Coordinates have been refined by inspection of the 1536x864 original.
+ * They remain approximate: the original photo, bevel, and border are
+ * flattened together. Do not mount until a clean background and foreground
+ * frame have been prepared and visually verified against the
  * original approved artwork before use. No design/text/buttons are rendered.
  */
 const REFERENCE_WIDTH = 1536;
 const REFERENCE_HEIGHT = 864;
 const SLOTS = Object.freeze({
   machinery: {
-    box: [91, 372, 245, 130],
-    clip: 'polygon(21% 0, 100% 0, 86% 100%, 0 100%)',
+    box: [83, 370, 246, 135],
+    clip: 'polygon(20% 0, 100% 0, 85% 100%, 0 100%)',
   },
   spare_part: {
-    box: [317, 372, 247, 130],
-    clip: 'polygon(23% 0, 100% 0, 89% 100%, 0 100%)',
+    box: [317, 370, 248, 135],
+    clip: 'polygon(18% 0, 100% 0, 85% 100%, 0 100%)',
   },
   accessori: {
-    box: [545, 372, 252, 130],
-    clip: 'polygon(25% 0, 100% 0, 87% 100%, 0 100%)',
+    box: [551, 370, 246, 135],
+    clip: 'polygon(20% 0, 100% 0, 85% 100%, 0 100%)',
   },
   feature: {
-    box: [790, 170, 678, 516],
-    clip: 'polygon(21% 5%, 61% 0, 67% 3%, 100% 51%, 73% 100%, 21% 98%, 0 58%)',
+    box: [787, 174, 675, 505],
+    clip: 'polygon(19% 5%, 64% 0, 100% 50%, 79% 100%, 19% 100%, 0 51%)',
   },
 });
 
