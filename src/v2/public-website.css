@@ -1550,3 +1550,15 @@ body:has(.publicSite){padding-bottom:0!important}
   width:15px!important;height:15px!important;flex:none!important;color:#fff!important;
  }
 }
+
+/* TORVO owner-approved mobile category cards: three compact white cards, arrow only. */
+@media(max-width:700px){
+ #torvo-v2-root .publicSite .torvoPrimaryCategories{display:grid!important;grid-template-columns:repeat(3,minmax(0,1fr))!important;gap:7px!important;padding:9px 9px 14px!important}
+ #torvo-v2-root .publicSite .torvoPrimaryCategories>button{height:92px!important;min-height:92px!important;background:#fff!important;border:1px solid #ececef!important;border-radius:9px!important;box-shadow:0 3px 12px rgba(0,0,0,.09)!important;padding:10px 5px!important;justify-content:space-between!important;align-items:center!important}
+ #torvo-v2-root .publicSite .torvoPrimaryCategories>button>img,#torvo-v2-root .publicSite .torvoPrimaryCategories>button>.categoryPhotoPending{display:none!important}
+ #torvo-v2-root .publicSite .torvoPrimaryCategories .categoryCopy{display:flex!important;flex-direction:column!important;align-items:center!important;justify-content:space-between!important;flex:1!important;width:100%!important;min-width:0!important;gap:7px!important}
+ #torvo-v2-root .publicSite .torvoPrimaryCategories .categoryCopy .torvoMobileCategoryName{display:flex!important;flex-direction:column!important;align-items:center!important;font-size:clamp(10px,2.6vw,13px)!important;line-height:1.18!important;font-weight:800!important;color:#171717!important;letter-spacing:-.02em!important}
+ #torvo-v2-root .publicSite .torvoPrimaryCategories .categoryCopy em{display:flex!important;align-items:center!important;justify-content:center!important;min-height:25px!important;width:28px!important;height:28px!important;margin:0!important;padding:0!important;background:transparent!important;color:#d9001b!important;border:0!important;border-radius:0!important;box-shadow:none!important;font-size:0!important}
+ #torvo-v2-root .publicSite .torvoPrimaryCategories .categoryCopy em:before{content:none!important;display:none!important}
+ #torvo-v2-root .publicSite .torvoPrimaryCategories .categoryCopy em svg{height:21px!important;width:21px!important;color:#d9001b!important;stroke-width:3!important}
+}
