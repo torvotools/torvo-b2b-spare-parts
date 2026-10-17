@@ -5,7 +5,7 @@
 create table if not exists public.owner_staff_permission_grants (
   id uuid primary key default gen_random_uuid(),
   staff_user_id uuid not null references public.app_users(id),
-  permission_key text not null check (permission_key ~ '^[a-z][a-z0-9_]*(\\.[a-z][a-z0-9_]*)+$'),
+  permission_key text not null check (permission_key ~ '^[a-z][a-z0-9_]*([.][a-z][a-z0-9_]*)+$'),
   valid_from timestamptz not null default now(),
   valid_until timestamptz,
   revoked_at timestamptz,
@@ -50,7 +50,7 @@ begin
  if actor.id is null or actor.role<>'owner' then raise exception 'OWNER REQUIRED'; end if;
  select * into target from public.app_users where id=p_staff_user_id and active=true;
  if target.id is null or target.role not in ('admin','salesman','accountant','store_keeper') then raise exception 'ACTIVE STAFF REQUIRED'; end if;
- if p_permission is null or p_permission !~ '^[a-z][a-z0-9_]*(\\.[a-z][a-z0-9_]*)+$'
+ if p_permission is null or p_permission !~ '^[a-z][a-z0-9_]*([.][a-z][a-z0-9_]*)+$'
     or p_permission like 'owner.%' or p_permission like 'permissions.%'
  then raise exception 'INVALID OR RESERVED PERMISSION'; end if;
  if length(btrim(coalesce(p_reason,''))) not between 5 and 500 then raise exception 'CHANGE REASON REQUIRED'; end if;
