@@ -164,6 +164,30 @@ jobs:
           if (!gradle.includes('versionCode ' + code)) throw Error('Android versionCode verification failed');
           console.log('TEST APK Android versionCode:', code);
           NODE
+      - name: RECORD PREVIOUS INSTALLED TEST APK CERTIFICATE
+        shell: bash
+        env:
+          GH_TOKEN: ${{ github.token }}
+        run: |
+          set -euo pipefail
+          mkdir -p prior-test-release
+          gh release download "${TEST_RELEASE_TAG}" --pattern "${TEST_RELEASE_ASSET}" --dir prior-test-release
+          APK="prior-test-release/${TEST_RELEASE_ASSET}"
+          test -s "$APK"
+          ACTUAL_SHA="$(sha256sum "$APK" | cut -d' ' -f1)"
+          # Pinned hash of the previously published TEST APK, independently read from GitHub release metadata.
+          EXPECTED_SHA="7b6ad40acbf8bc9ddee04688d5662a6a0d64596585f154bdf3afd24b9bc9357e"
+          if [ "$ACTUAL_SHA" != "$EXPECTED_SHA" ]; then
+            echo "::error::Previously published TEST APK changed unexpectedly; do not overwrite its signing evidence."
+            exit 1
+          fi
+          BUILD_TOOLS="$(find "${ANDROID_HOME:-${ANDROID_SDK_ROOT:-/opt/android-sdk}}/build-tools" -mindepth 1 -maxdepth 1 -type d | sort -V | tail -1)"
+          test -x "$BUILD_TOOLS/apksigner"
+          "$BUILD_TOOLS/apksigner" verify --verbose "$APK"
+          OLD_CERT="$("$BUILD_TOOLS/apksigner" verify --print-certs "$APK" | sed -n 's/^Signer #1 certificate SHA-256 digest: //p' | head -1 | tr '[:upper:]' '[:lower:]')"
+          test "${#OLD_CERT}" -eq 64
+          printf '%s' "$OLD_CERT" > prior-test-release/previous-cert-sha256.txt
+          echo "Previous TEST APK certificate SHA-256: $OLD_CERT" >> "$GITHUB_STEP_SUMMARY"
       - name: CONFIGURE PERSISTENT TEST APK SIGNING
         shell: bash
         env:
@@ -242,7 +266,12 @@ jobs:
             echo "::error::APK signing certificate does not match the persistent TEST keystore"
             exit 1
           fi
-          echo "APK signature, persistent TEST certificate and versionCode verified."
+          OLD_CERT="$(cat prior-test-release/previous-cert-sha256.txt)"
+          if [ "$APK_CERT" != "$OLD_CERT" ]; then
+            echo "::error::New TEST signing certificate differs from the previously published APK. In-place update is not possible. Publication blocked to preserve existing users."
+            exit 1
+          fi
+          echo "APK signature, existing TEST certificate and versionCode verified."
       - name: PREPARE VERIFIED TEST APK ARTIFACT
         id: release_meta
         shell: bash
