@@ -61,7 +61,7 @@ grant execute on function public.owner_has_staff_permission(text) to authenticat
 -- Owner-only listing API: never expose the underlying grant table.
 create or replace function public.owner_list_staff_permissions(p_staff_user_id uuid default null)
 returns table(grant_id uuid,staff_user_id uuid,permission_key text,valid_from timestamptz,valid_until timestamptz,revoked_at timestamptz,granted_by uuid,reason text)
-language plpgsql security definer set search_path=public,pg_temp as $
+language plpgsql security definer set search_path=public,pg_temp as $$
 declare actor_id uuid;
 begin
  select id into actor_id from public.app_users
@@ -71,7 +71,7 @@ begin
  from public.owner_staff_permission_grants g
  where p_staff_user_id is null or g.staff_user_id=p_staff_user_id
  order by g.created_at desc;
-end$;
+end$$;
 revoke all on function public.owner_list_staff_permissions(uuid) from public,anon;
 grant execute on function public.owner_list_staff_permissions(uuid) to authenticated;
 
