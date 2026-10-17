@@ -58,6 +58,7 @@ jobs:
       - name: BUILD VERIFIED V2 WEB ASSETS FOR NATIVE APP
         env:
           VITE_BUILD_SHA: ${{ env.SOURCE_SHA }}
+          VITE_ANDROID_BUILD_NUMBER: ${{ github.run_number }}
         shell: bash
         run: |
           set -o pipefail
@@ -144,6 +145,25 @@ jobs:
           grep -q 'torvo-v2-root' android/app/src/main/assets/public/index.html
           test -f android/app/src/main/assets/public/v2.html
           grep -q 'torvo-v2-root' android/app/src/main/assets/public/v2.html
+      - name: SET MONOTONIC ANDROID TEST VERSION CODE
+        shell: bash
+        env:
+          TEST_VERSION_CODE: ${{ github.run_number }}
+        run: |
+          set -euo pipefail
+          node --input-type=module <<'NODE'
+          import fs from 'node:fs';
+          const path = 'android/app/build.gradle';
+          let gradle = fs.readFileSync(path, 'utf8');
+          const code = Number(process.env.TEST_VERSION_CODE);
+          if (!Number.isSafeInteger(code) || code < 1 || code > 2100000000) throw Error('Invalid Android versionCode');
+          const match = gradle.match(/\\bversionCode\\s+\\d+/g) || [];
+          if (match.length !== 1) throw Error('Expected exactly one Android versionCode');
+          gradle = gradle.replace(/\\bversionCode\\s+\\d+/, 'versionCode ' + code);
+          fs.writeFileSync(path, gradle);
+          if (!gradle.includes('versionCode ' + code)) throw Error('Android versionCode verification failed');
+          console.log('TEST APK Android versionCode:', code);
+          NODE
       - name: CONFIGURE PERSISTENT TEST APK SIGNING
         shell: bash
         env:
