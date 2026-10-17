@@ -183,7 +183,12 @@ jobs:
           fi
           BUILD_TOOLS="$(find "${ANDROID_HOME:-${ANDROID_SDK_ROOT:-/opt/android-sdk}}/build-tools" -mindepth 1 -maxdepth 1 -type d | sort -V | tail -1)"
           test -x "$BUILD_TOOLS/apksigner"
-          "$BUILD_TOOLS/apksigner" verify --verbose "$APK"
+          # Diagnose old APK verification without weakening the signing gate.
+          if ! "$BUILD_TOOLS/apksigner" verify --verbose "$APK"; then
+            echo "::error::Previous TEST APK signature verification failed; keeping release blocked."
+            "$BUILD_TOOLS/apksigner" verify --verbose --min-sdk-version 24 "$APK" || true
+            exit 1
+          fi
           OLD_CERT="$("$BUILD_TOOLS/apksigner" verify --print-certs "$APK" | sed -n 's/^Signer #1 certificate SHA-256 digest: //p' | head -1 | tr '[:upper:]' '[:lower:]')"
           test "${#OLD_CERT}" -eq 64
           printf '%s' "$OLD_CERT" > prior-test-release/previous-cert-sha256.txt
