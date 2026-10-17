@@ -157,9 +157,9 @@ jobs:
           let gradle = fs.readFileSync(path, 'utf8');
           const code = Number(process.env.TEST_VERSION_CODE);
           if (!Number.isSafeInteger(code) || code < 1 || code > 2100000000) throw Error('Invalid Android versionCode');
-          const match = gradle.match(/\\bversionCode\\s+\\d+/g) || [];
+          const match = gradle.match(/\bversionCode\s+\d+/g) || [];
           if (match.length !== 1) throw Error('Expected exactly one Android versionCode');
-          gradle = gradle.replace(/\\bversionCode\\s+\\d+/, 'versionCode ' + code);
+          gradle = gradle.replace(/\bversionCode\s+\d+/, 'versionCode ' + code);
           fs.writeFileSync(path, gradle);
           if (!gradle.includes('versionCode ' + code)) throw Error('Android versionCode verification failed');
           console.log('TEST APK Android versionCode:', code);
