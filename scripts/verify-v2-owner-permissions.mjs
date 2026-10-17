@@ -25,4 +25,22 @@ assert.match(ui,/role==='owner'&&<OwnerPermissionManagement users=\{rows\}\/>/);
 assert.match(panel,/grantOwnerStaffPermission/);
 assert.match(panel,/revokeOwnerStaffPermission/);
 assert.match(service,/owner_list_staff_permissions/);
+
+// Verify incremental migrations actually guard sensitive RPCs and preserve Owner-only changes.
+const staffGuard=read('supabase/v2-owner-staff-manage-rpc-guard.sql');
+const websiteGuard=read('supabase/v2-owner-website-edit-rpc-guard.sql');
+const snapshotGuard=read('supabase/v2-owner-admin-control-snapshot-guard.sql');
+const roleGuard=read('supabase/v2-owner-active-staff-permission-guard.sql');
+const revokeAll=read('supabase/v2-owner-revoke-all-matching-grants.sql');
+const duplicateGuard=read('supabase/v2-owner-prevent-duplicate-active-grants.sql');
+assert.match(staffGuard,/owner_has_staff_permission\('staff\.manage'\)/);
+assert.match(staffGuard,/a\.role<>'owner'/);
+assert.match(websiteGuard,/owner_has_staff_permission\('website\.edit'\)/);
+assert.match(snapshotGuard,/owner_has_staff_permission\('website\.edit'\)/);
+assert.match(roleGuard,/u\.role in \('admin','salesman','accountant','store_keeper'\)/);
+assert.match(revokeAll,/staff_user_id=selected_grant\.staff_user_id and permission_key=selected_grant\.permission_key/);
+assert.match(duplicateGuard,/pg_advisory_xact_lock/);
+assert.match(duplicateGuard,/PERMISSION ALREADY GRANTED/);
+assert.match(panel,/new Date\(expiry\)\.toISOString\(\)/);
+
 console.log('PASS: Owner delegated permission static contract. Live staging/RLS tests remain required.');
