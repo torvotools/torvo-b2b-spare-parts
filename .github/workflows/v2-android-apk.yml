@@ -194,7 +194,9 @@ jobs:
           OLD_CERT="$(printf '%s\n' "$CERT_OUTPUT" | sed -nE 's/^[[:space:]]*Signer #1 certificate SHA-256 digest:[[:space:]]*([[:xdigit:]]{64})[[:space:]]*$/\1/p' | head -1 | tr '[:upper:]' '[:lower:]')"
           if [ "${#OLD_CERT}" -ne 64 ]; then
             echo "::error::Previous TEST APK certificate digest could not be extracted (expected 64 hex characters)."
-            printf '%s\n' "$CERT_OUTPUT" | grep -E 'Signer #1 certificate|Verified using|Number of signers' || true
+            echo "::group::Previous APK certificate output (diagnostic)"
+      printf '%s\n' "$CERT_OUTPUT" | head -40
+      echo "::endgroup::"
             exit 1
           fi
           printf '%s' "$OLD_CERT" > prior-test-release/previous-cert-sha256.txt
