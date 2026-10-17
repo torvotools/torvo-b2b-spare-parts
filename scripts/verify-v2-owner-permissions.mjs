@@ -43,4 +43,12 @@ assert.match(duplicateGuard,/pg_advisory_xact_lock/);
 assert.match(duplicateGuard,/PERMISSION ALREADY GRANTED/);
 assert.match(panel,/new Date\(expiry\)\.toISOString\(\)/);
 
+const staffIdentityGuards=read('supabase/v2-owner-staff-access-rpc-guards.sql');
+const otpEmailGuard=read('supabase/v2-owner-only-staff-otp-email.sql');
+const scopedListing=read('supabase/v2-owner-staff-permission-list-scope.sql');
+assert.equal((staffIdentityGuards.match(/owner_has_staff_permission\('staff\.manage'\)/g)||[]).length,2);
+assert.equal((staffIdentityGuards.match(/OWNER ROLE PROTECTED/g)||[]).length,2);
+assert.match(otpEmailGuard,/actor\.role<>'owner'/);
+assert.match(scopedListing,/if p_staff_user_id is null then return; end if;/);
+
 console.log('PASS: Owner delegated permission static contract. Live staging/RLS tests remain required.');
