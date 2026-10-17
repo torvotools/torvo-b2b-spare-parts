@@ -144,6 +144,17 @@ jobs:
           grep -q 'torvo-v2-root' android/app/src/main/assets/public/index.html
           test -f android/app/src/main/assets/public/v2.html
           grep -q 'torvo-v2-root' android/app/src/main/assets/public/v2.html
+      - name: VERIFY TEST APK SIGNING CONTINUITY
+        shell: bash
+        run: |
+          set -euo pipefail
+          # Ephemeral runner debug keys cannot safely update previously installed APKs.
+          # Fail closed until a persistent TEST signing identity is configured.
+          if [ -z "${{ secrets.TORVO_TEST_KEYSTORE_BASE64 }}" ] || [ -z "${{ secrets.TORVO_TEST_KEYSTORE_PASSWORD }}" ] || [ -z "${{ secrets.TORVO_TEST_KEY_ALIAS }}" ] || [ -z "${{ secrets.TORVO_TEST_KEY_PASSWORD }}" ]; then
+            echo "::error::Persistent TEST APK signing secrets are required for in-place updates."
+            exit 1
+          fi
+          echo "Persistent TEST signing credentials are configured."
       - name: BUILD DEBUG TEST APK
         working-directory: android
         shell: bash
