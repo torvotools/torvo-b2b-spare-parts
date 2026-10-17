@@ -222,6 +222,27 @@ jobs:
           done
           echo "GRADLE BUILD FAILED AFTER 3 ATTEMPTS"
           exit 1
+      - name: VERIFY APK SIGNATURE AND VERSION BEFORE PUBLISH
+        shell: bash
+        env:
+          TORVO_TEST_KEYSTORE_PASSWORD: ${{ secrets.TORVO_TEST_KEYSTORE_PASSWORD }}
+          TORVO_TEST_KEY_ALIAS: ${{ secrets.TORVO_TEST_KEY_ALIAS }}
+        run: |
+          set -euo pipefail
+          APK=android/app/build/outputs/apk/debug/app-debug.apk
+          test -s "$APK"
+          BUILD_TOOLS="$(find "${ANDROID_HOME:-${ANDROID_SDK_ROOT:-/opt/android-sdk}}/build-tools" -mindepth 1 -maxdepth 1 -type d | sort -V | tail -1)"
+          test -x "$BUILD_TOOLS/apksigner"
+          test -x "$BUILD_TOOLS/aapt"
+          "$BUILD_TOOLS/apksigner" verify --verbose "$APK"
+          "$BUILD_TOOLS/aapt" dump badging "$APK" | grep -E "^package: name='com.torvotools.app' versionCode='${GITHUB_RUN_NUMBER}'"
+          APK_CERT="$("$BUILD_TOOLS/apksigner" verify --print-certs "$APK" | sed -n 's/^Signer #1 certificate SHA-256 digest: //p' | head -1 | tr '[:upper:]' '[:lower:]')"
+          KEY_CERT="$(keytool -list -v -keystore android/.torvo-signing/test.jks -storepass "$TORVO_TEST_KEYSTORE_PASSWORD" -alias "$TORVO_TEST_KEY_ALIAS" | sed -n 's/^[[:space:]]*SHA256: //p' | head -1 | tr -d ':' | tr '[:upper:]' '[:lower:]')"
+          if [ -z "$APK_CERT" ] || [ -z "$KEY_CERT" ] || [ "$APK_CERT" != "$KEY_CERT" ]; then
+            echo "::error::APK signing certificate does not match the persistent TEST keystore"
+            exit 1
+          fi
+          echo "APK signature, persistent TEST certificate and versionCode verified."
       - name: PREPARE VERIFIED TEST APK ARTIFACT
         id: release_meta
         shell: bash
