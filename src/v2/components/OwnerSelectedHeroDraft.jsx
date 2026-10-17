@@ -28,7 +28,7 @@ const actionStyle = (left, top, width, height) => ({
   borderRadius: '4px',
 });
 
-export default function OwnerSelectedHeroDraft({ imageUrl, productHref = '#products', dealerHref = '#torvo-dealer' }) {
+export default function OwnerSelectedHeroDraft({ imageUrl, productHref = '#products', dealerHref = '#torvo-dealer', mobile = false }) {
   const src = safeImageUrl(imageUrl);
   if (!src) return null;
   return (
@@ -41,12 +41,17 @@ export default function OwnerSelectedHeroDraft({ imageUrl, productHref = '#produ
           loading="eager"
           style={{ display: 'block', width: '100%', height: 'auto' }}
         />
-        {/* Hit areas are proportional to the selected 1536x864 artwork.
-            Measured against the owner-supplied 1536x864 reference: first button
-            x=78..384, y=553..621; second x=408..667, y=553..621.
-            Re-measure after any approved artwork revision. */}
-        <a href={productHref} aria-label="EXPLORE PRODUCTS" style={actionStyle(5.08, 64.0, 19.92, 7.87)} />
-        <a href={dealerHref} aria-label="FIND A DEALER" style={actionStyle(26.56, 64.0, 16.86, 7.87)} />
+        {mobile ? (
+          <nav aria-label="HERO ACTIONS" style={{display:'flex',gap:10,padding:'12px 14px',justifyContent:'center',flexWrap:'wrap',background:'#fff'}}>
+            <a href={productHref} style={{padding:'12px 16px',background:'#c81920',color:'#fff',fontWeight:700,textDecoration:'none',borderRadius:4}}>EXPLORE PRODUCTS</a>
+            <a href={dealerHref} style={{padding:'12px 16px',background:'#171717',color:'#fff',fontWeight:700,textDecoration:'none',borderRadius:4}}>FIND A DEALER</a>
+          </nav>
+        ) : (
+          <>
+            <a href={productHref} aria-label="EXPLORE PRODUCTS" style={actionStyle(5.08, 64.0, 19.92, 7.87)} />
+            <a href={dealerHref} aria-label="FIND A DEALER" style={actionStyle(26.56, 64.0, 16.86, 7.87)} />
+          </>
+        )}
       </div>
     </section>
   );
