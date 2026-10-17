@@ -1,4 +1,4 @@
--- TORVO V2 MARG BILL NUMBER SAVE -> SALE POSTED -> STOCK OUT -> DISPATCH
+-- TORVO V2 EXPLICIT MARG BILL APPROVAL -> SALE POSTED -> STOCK OUT -> DISPATCH
 -- Owner-approved replacement for Payment-gated outbound sale posting.
 -- STAGING ONLY until genuine transaction acceptance. Production requires Owner approval.
 -- Internal legacy sales_order names remain compatibility identifiers; user-facing terminology is QUOTATION.
@@ -83,7 +83,7 @@ revoke all on function public.approve_marg_bill_sale(text,text) from public,anon
 grant execute on function public.approve_marg_bill_sale(text,text) to authenticated;
 
 comment on function public.approve_marg_bill_sale(text,text) is
-'TORVO V2 atomic Marg Bill sale-posting boundary. Saving a unique Marg Bill number posts Sale, deducts stock exactly in the same transaction and creates Dispatch pick-list; payment is not a gate.';
+'TORVO V2 atomic Marg Bill sale-posting boundary. Explicit authorized APPROVE BILL & CONFIRM SALE posts Sale, deducts stock exactly once in the same transaction and creates Dispatch pick-list. Entering or saving a Marg Bill number alone does not post Sale; payment is not a gate.';
 
 -- Legacy actual-delivery stock deduction must not double-deduct a Marg-posted Sale.
 create or replace function public.assert_sale_stock_not_already_posted(p_estimate uuid)
