@@ -191,7 +191,7 @@ jobs:
           fi
           # Print certificate data separately: apksigner may emit warnings to stderr.
           CERT_OUTPUT="$("$BUILD_TOOLS/apksigner" verify --verbose --print-certs "$APK")"
-          OLD_CERT="$(printf '%s\n' "$CERT_OUTPUT" | sed -nE 's/^[[:space:]]*(?:Signer #1|V2 Signer): certificate SHA-256 digest:[[:space:]]*([[:xdigit:]]{64})[[:space:]]*$/\1/p' | head -1 | tr '[:upper:]' '[:lower:]')"
+          OLD_CERT="$(printf '%s\n' "$CERT_OUTPUT" | sed -nE 's/^[[:space:]]*(Signer #1|V2 Signer): certificate SHA-256 digest:[[:space:]]*([[:xdigit:]]{64})[[:space:]]*$/\2/p' | head -1 | tr '[:upper:]' '[:lower:]')"
           if [ "${#OLD_CERT}" -ne 64 ]; then
             echo "::error::Previous TEST APK certificate digest could not be extracted (expected 64 hex characters)."
             echo "::group::Previous APK certificate output (diagnostic)"
