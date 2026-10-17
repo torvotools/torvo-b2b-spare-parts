@@ -67,10 +67,12 @@ select to_regclass('public.stock_movements') as legacy_parallel_stock_movements;
 -- Expected: rejection.
 
 -- 8) MARG BILL SALE POSTING / STOCK EXACTLY-ONCE TEST
--- Owner rule: entering/saving the Marg Bill number is the final Sale code. There is no separate payment or approval gate.
+-- Owner rule: entering/saving the Marg Bill number alone MUST NOT post a Sale or deduct stock.
+-- Only explicit authorized APPROVE BILL & CONFIRM SALE may post Sale/Stock Out; payment is not a gate.
+-- Verify save-only leaves Estimate, inventory, movements and Dispatch unchanged.
 -- Capture inventory quantities and inventory_movements count before posting the Marg Bill.
 -- Attempt approve_marg_bill_sale with insufficient stock: entire transaction must fail; no item may be partially deducted and no Dispatch may be created.
--- Post one valid unique Marg Bill number for an eligible Estimate.
+-- Explicitly approve one valid unique Marg Bill number for an eligible Estimate using APPROVE BILL & CONFIRM SALE.
 -- Expected in the SAME transaction: Sale posted, each item deducted exactly ordered quantity,
 -- one negative MARG BILL APPROVED SALE inventory_movements row/item, Dispatch created at PICK_LIST, Estimate marked SALE_POSTED.
 -- Replay the same Estimate or Marg Bill number: expected rejection and no further stock movement.
