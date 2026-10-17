@@ -14,6 +14,10 @@ for(const fn of ['owner_has_staff_permission','owner_grant_staff_permission','ow
  assert.equal((sql.match(new RegExp('create or replace function public\\.'+fn+'\\(','g'))||[]).length,1,fn+' must be defined exactly once');
 }
 assert.match(sql,/actor\.role<>'owner'/);
+const listFunction=sql.slice(sql.indexOf('create or replace function public.owner_list_staff_permissions'),sql.indexOf('create or replace function public.owner_grant_staff_permission'));
+assert.match(listFunction,/set search_path=public,pg_temp as \$\$/);
+assert.match(listFunction,/end\$\$;/);
+assert.doesNotMatch(listFunction,/as \$(?!\$)/);
 assert.match(sql,/role='owner'/);
 assert.match(sql,/permission_key text not null references public\.owner_delegable_permission_catalog/);
 assert.match(sql,/revoke all on public\.owner_staff_permission_grants from public,anon,authenticated/);
