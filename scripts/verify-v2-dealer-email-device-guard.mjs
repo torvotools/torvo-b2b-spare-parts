@@ -1,0 +1,11 @@
+import fs from 'node:fs';
+import assert from 'node:assert/strict';
+const migration=fs.readFileSync('supabase/migrations/20261017_dealer_email_change_device_guard.sql','utf8');
+const service=fs.readFileSync('src/v2/services/dealerSession.js','utf8');
+assert.match(migration,/dealer_assert_my_device_session\s*\(\s*p_device_id\s*,\s*p_session_token\s*\)/i,'RPC must enforce server-side device session');
+assert.match(migration,/DROP FUNCTION\s+public\.request_my_dealer_email_change\s*\(\s*text\s*,\s*text\s*\)/i,'legacy unguarded RPC must be retired');
+assert.match(migration,/GRANT EXECUTE ON FUNCTION public\.request_my_dealer_email_change\(text,text,text,text\) TO authenticated/i);
+assert.match(service,/export async function requestDealerEmailChange\(/);
+assert.match(service,/await assertDealerSession\(\)/);
+assert.match(service,/p_device_id:device,p_session_token:token/);
+console.log('PASS: dealer email change active-device guard contract');
