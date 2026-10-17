@@ -42,6 +42,9 @@ assert.match(revokeAll,/staff_user_id=selected_grant\.staff_user_id and permissi
 assert.match(duplicateGuard,/pg_advisory_xact_lock/);
 assert.match(duplicateGuard,/PERMISSION ALREADY GRANTED/);
 assert.match(panel,/new Date\(expiry\)\.toISOString\(\)/);
+assert.match(panel,/let cancelled=false/);
+assert.match(panel,/disabled=\{busy\|\|loading\|\|!staffId\|\|currentGrant\}/);
+assert.match(panel,/ALREADY GRANTED — REVOKE FIRST/);
 
 const staffIdentityGuards=read('supabase/v2-owner-staff-access-rpc-guards.sql');
 const otpEmailGuard=read('supabase/v2-owner-only-staff-otp-email.sql');
