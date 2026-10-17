@@ -195,8 +195,8 @@ jobs:
           if [ "${#OLD_CERT}" -ne 64 ]; then
             echo "::error::Previous TEST APK certificate digest could not be extracted (expected 64 hex characters)."
             echo "::group::Previous APK certificate output (diagnostic)"
-      printf '%s\n' "$CERT_OUTPUT" | head -40
-      echo "::endgroup::"
+            printf '%s\n' "$CERT_OUTPUT" | head -40
+            echo "::endgroup::"
             exit 1
           fi
           printf '%s' "$OLD_CERT" > prior-test-release/previous-cert-sha256.txt
