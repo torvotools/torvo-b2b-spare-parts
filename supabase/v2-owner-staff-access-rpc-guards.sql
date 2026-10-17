@@ -13,6 +13,7 @@ end$$;
 create or replace function admin_revoke_staff_access(p_app_user_id uuid)
 returns void language plpgsql security definer set search_path=public as $$declare actor app_users%rowtype;begin
  select * into actor from app_users where auth_user_id=auth.uid() and active=true;if actor.id is null or not public.owner_has_staff_permission('staff.manage') then raise exception 'ADMIN REQUIRED';end if;
+ if actor.role<>'owner' and exists(select 1 from public.app_users where id=p_app_user_id and role='owner') then raise exception 'OWNER ROLE PROTECTED';end if;
  update staff_access_identities set active=false,updated_at=now(),updated_by=actor.id where app_user_id=p_app_user_id;
  update staff_auth_sessions set revoked_at=coalesce(revoked_at,now()),revoked_by=actor.id where app_user_id=p_app_user_id and revoked_at is null;
 end$$;
