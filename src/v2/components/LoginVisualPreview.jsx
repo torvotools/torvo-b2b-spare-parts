@@ -60,7 +60,7 @@ export default function LoginVisualPreview() {
   const otpReady = otp.length === 6;
 
   const sendOtp = async () => {
-    if (!userValid || busy) return;
+    if (!userValid || busy || (otpSent && resendIn > 0)) return;
     setBusy(true);
     setErr('');
     setNotice('');
@@ -70,7 +70,7 @@ export default function LoginVisualPreview() {
       setOtp('');
       setOtpSent(true);
       setResendIn(Number(result.resend_after_seconds) || 45);
-      setNotice('OTP SENT TO THE REGISTERED TORVO SECURITY EMAIL.');
+      setNotice('OTP SENT TO REGISTERED EMAIL, VALID 10 MINUTES');
       requestAnimationFrame(() => otpRef.current?.focus());
     } catch (error) {
       setErr(error.message || 'OTP COULD NOT BE SENT.');
@@ -192,7 +192,7 @@ export default function LoginVisualPreview() {
             </div>
           )}
 
-          <button className="businessFinalPrimary" disabled={!userValid || busy} onClick={sendOtp}>
+          <button className="businessFinalPrimary" disabled={!userValid || busy || (otpSent && resendIn > 0)} onClick={sendOtp}>
             {busy && !otpSent ? 'SENDING OTP…' : 'SEND OTP'}
           </button>
 
