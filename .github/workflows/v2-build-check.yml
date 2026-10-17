@@ -84,6 +84,8 @@ jobs:
         run: npm install --no-audit --no-fund
       - name: Verify V2 scripts and app identity
         run: npm run verify:v2-preflight
+      - name: Verify Owner delegated permission contract
+        run: node scripts/verify-v2-owner-permissions.mjs
       - name: Verify app release security contract
         run: node scripts/verify-v2-release-center.mjs
       - name: Verify final readiness fail-closed contracts
