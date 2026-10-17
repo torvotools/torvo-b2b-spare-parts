@@ -36,7 +36,7 @@ Deno.serve(async req=>{if(req.method==='OPTIONS')return new Response('ok',{heade
    if(c.otp_hash!==await hash(code)){const n=Math.min(5,(c.failed_attempts??0)+1);const{error:attemptErr}=await admin.from('staff_email_otp_challenges').update({failed_attempts:n,revoked_at:n>=5?new Date().toISOString():null}).eq('id',cid).eq('failed_attempts',c.failed_attempts??0).is('consumed_at',null).is('revoked_at',null);if(attemptErr)console.error('OTP_ATTEMPT_UPDATE_FAILED',attemptErr);throw Error('LOGIN_FAILED')}
    const{data:used,error:uErr}=await admin.from('staff_email_otp_challenges').update({consumed_at:new Date().toISOString()}).eq('id',cid).eq('app_user_id',app.id).eq('device_id',device).eq('otp_hash',await hash(code)).lt('failed_attempts',5).gt('expires_at',new Date().toISOString()).is('consumed_at',null).is('revoked_at',null).select('id').maybeSingle();if(uErr||!used)throw uErr??Error('LOGIN_FAILED');
    const password=crypto.randomUUID()+'-Aa1!';const session=await establishSession(admin,pub,app,password);
-   await admin.from('staff_auth_sessions').update({revoked_at:new Date().toISOString(),revoked_by:app.id}).eq('app_user_id',app.id).is('revoked_at',null);
+   const{error:revokeErr}=await admin.from('staff_auth_sessions').update({revoked_at:new Date().toISOString(),revoked_by:app.id}).eq('app_user_id',app.id).is('revoked_at',null);if(revokeErr)throw revokeErr;
    const{data:ss,error:ssErr}=await admin.from('staff_auth_sessions').insert({app_user_id:app.id,auth_user_id:app.auth_user_id,login_method:'email_otp',device_id:device,expires_at:new Date(Date.now()+30*86400000).toISOString()}).select('id').single();if(ssErr)throw ssErr;
    return json({ok:true,session,staff_session_id:ss.id,role,username:id.username});
   }
