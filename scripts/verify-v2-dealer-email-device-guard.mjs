@@ -8,4 +8,5 @@ assert.match(migration,/GRANT EXECUTE ON FUNCTION public\.request_my_dealer_emai
 assert.match(service,/export async function requestDealerEmailChange\(/);
 assert.match(service,/await assertDealerSession\(\)/);
 assert.match(service,/p_device_id:device,p_session_token:token/);
+assert.match(service,/if\(error\)throw error;await assertDealerSession\(\);return data/,'dealer email change must revalidate after RPC');
 console.log('PASS: dealer email change active-device guard contract');
