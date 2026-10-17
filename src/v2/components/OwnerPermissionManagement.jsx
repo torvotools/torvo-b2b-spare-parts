@@ -9,7 +9,7 @@ export default function OwnerPermissionManagement({users=[]}){
  const staff=users.filter(u=>['admin','salesman','accountant','store_keeper'].includes(u.role)&&u.active!==false);
  const refresh=async()=>{try{setGrants(await listOwnerStaffPermissions(staffId||null)||[]);setError('')}catch(e){setError(e.message||'UNABLE TO LOAD PERMISSIONS')}};
  useEffect(()=>{refresh()},[staffId]);
- const grant=async e=>{e.preventDefault();if(!staffId||busy)return;setBusy(true);try{await grantOwnerStaffPermission(staffId,permission,reason,expiry||null);setReason('');setExpiry('');await refresh()}catch(e){setError(e.message)}finally{setBusy(false)}};
+ const grant=async e=>{e.preventDefault();if(!staffId||busy)return;setBusy(true);try{await grantOwnerStaffPermission(staffId,permission,reason,expiry?new Date(expiry).toISOString():null);setReason('');setExpiry('');await refresh()}catch(e){setError(e.message)}finally{setBusy(false)}};
  const revoke=async id=>{const why=window.prompt('REASON FOR REVOKING PERMISSION');if(!why)return;setBusy(true);try{await revokeOwnerStaffPermission(id,why);await refresh()}catch(e){setError(e.message)}finally{setBusy(false)}};
  return <section className="panel workspace" aria-label="Owner permission management">
   <h3>OWNER — STAFF PERMISSION CONTROL</h3>
@@ -23,6 +23,6 @@ export default function OwnerPermissionManagement({users=[]}){
   </form>
   {error&&<p role="alert">{error}</p>}
   <button type="button" onClick={refresh} disabled={busy}>REFRESH PERMISSIONS</button>
-  <div>{grants.map(g=><div key={g.grant_id} className="panel"><strong>{g.permission_key}</strong> — {g.revoked_at?'REVOKED':g.valid_until&&new Date(g.valid_until)<=new Date()?'EXPIRED':'GRANTED'} {g.valid_until&&<small> UNTIL {new Date(g.valid_until).toLocaleString()}</small>} {!g.revoked_at&&<button type="button" disabled={busy} onClick={()=>revoke(g.grant_id)}>REVOKE</button>}</div>)}</div>
+  <div>{grants.map(g=><div key={g.grant_id} className="panel"><strong>{g.permission_key}</strong> — {g.revoked_at?'REVOKED':g.valid_until&&new Date(g.valid_until)<=new Date()?'EXPIRED':g.valid_from&&new Date(g.valid_from)>new Date()?'SCHEDULED':'GRANTED'} {g.valid_until&&<small> UNTIL {new Date(g.valid_until).toLocaleString()}</small>} {!g.revoked_at&&<button type="button" disabled={busy} onClick={()=>revoke(g.grant_id)}>REVOKE</button>}</div>)}</div>
  </section>;
 }
