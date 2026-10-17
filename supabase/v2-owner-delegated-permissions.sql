@@ -1,13 +1,25 @@
--- TORVO V2: OWNER-ONLY DELEGATED STAFF PERMISSIONS
--- Staging migration candidate. Do NOT run in production or deploy without verification.
--- Prerequisite: public.app_users and public.audit_log.
+-- TORVO V2 OWNER-ONLY DELEGATED PERMISSIONS
+-- STAGING CANDIDATE ONLY: do not run in production.
+-- Requires public.app_users and public.audit_log.
 
--- Explicit allowlist: new capabilities require a reviewed migration, not arbitrary strings.
 create table if not exists public.owner_delegable_permission_catalog (
  permission_key text primary key,
  description text not null,
  active boolean not null default true,
- check (permission_key ~ '^[a-z][a-z0-9_]*([.][a-z][a-z0-9_]*)+
+ check (permission_key ~ '^[a-z][a-z0-9_]*([.][a-z][a-z0-9_]*)+$')
+);
+insert into public.owner_delegable_permission_catalog(permission_key,description) values
+ ('catalog.view','View catalog'),('catalog.create','Create catalog items'),
+ ('catalog.edit','Edit catalog items'),('dealer.view','View dealers'),
+ ('dealer.approve','Approve dealers'),('inventory.view','View inventory'),
+ ('inventory.manage','Manage inventory'),('dispatch.manage','Manage dispatch'),
+ ('report.view','View reports'),('sales.manage','Manage sales'),
+ ('staff.manage','Manage non-owner staff'),('website.edit','Edit website')
+on conflict(permission_key) do nothing;
+alter table public.owner_delegable_permission_catalog enable row level security;
+revoke all on public.owner_delegable_permission_catalog from public,anon,authenticated;
+
+create table if not exists public.owner_staff_permission_grants (
   id uuid primary key default gen_random_uuid(),
   staff_user_id uuid not null references public.app_users(id),
   permission_key text not null references public.owner_delegable_permission_catalog(permission_key),
