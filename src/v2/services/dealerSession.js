@@ -9,4 +9,4 @@ export function stopDealerSessionWatch(){if(watchStop)watchStop()}
 export const DEALER_SESSION_REVOKED_EVENT=REVOKED_EVENT;
 
 // Call only after a verified dealer login. The RPC enforces the same active-device guard server-side.
-export async function requestDealerEmailChange(dealerCode,newEmail){const{deviceId:device,token}=await assertDealerSession();const{data,error}=await requireBackend().rpc('request_my_dealer_email_change',{p_dealer_code:String(dealerCode||'').trim(),p_new_email:String(newEmail||'').trim().toLowerCase(),p_device_id:device,p_session_token:token});if(error)throw error;return data}
+export async function requestDealerEmailChange(dealerCode,newEmail){const{deviceId:device,token}=await assertDealerSession();const{data,error}=await requireBackend().rpc('request_my_dealer_email_change',{p_dealer_code:String(dealerCode||'').trim(),p_new_email:String(newEmail||'').trim().toLowerCase(),p_device_id:device,p_session_token:token});if(error)throw error;await assertDealerSession();return data}
