@@ -7,8 +7,8 @@ export default function OwnerPermissionManagement({users=[]}){
  const [reason,setReason]=useState(''),[expiry,setExpiry]=useState(''),[grants,setGrants]=useState([]);
  const [error,setError]=useState(''),[busy,setBusy]=useState(false);
  const staff=users.filter(u=>['admin','salesman','accountant','store_keeper'].includes(u.role)&&u.active!==false);
- const refresh=async()=>{try{setGrants(await listOwnerStaffPermissions(staffId||null)||[]);setError('')}catch(e){setError(e.message||'UNABLE TO LOAD PERMISSIONS')}};
- useEffect(()=>{refresh()},[staffId]);
+ const refresh=async()=>{try{const result=await listOwnerStaffPermissions(staffId||null)||[];setGrants(result);setError('')}catch(e){setGrants([]);setError(e.message||'UNABLE TO LOAD PERMISSIONS')}};
+ useEffect(()=>{let cancelled=false;setGrants([]);setError('');listOwnerStaffPermissions(staffId||null).then(result=>{if(!cancelled)setGrants(result||[])}).catch(e=>{if(!cancelled){setGrants([]);setError(e.message||'UNABLE TO LOAD PERMISSIONS')}});return()=>{cancelled=true}},[staffId]);
  const currentGrant=grants.some(g=>g.permission_key===permission&&!g.revoked_at&&(!g.valid_until||new Date(g.valid_until)>new Date()));
  const grant=async e=>{e.preventDefault();if(!staffId||busy||currentGrant)return;setBusy(true);try{await grantOwnerStaffPermission(staffId,permission,reason,expiry?new Date(expiry).toISOString():null);setReason('');setExpiry('');await refresh()}catch(e){setError(e.message)}finally{setBusy(false)}};
  const revoke=async id=>{const why=window.prompt('REASON FOR REVOKING PERMISSION');if(!why)return;setBusy(true);try{await revokeOwnerStaffPermission(id,why);await refresh()}catch(e){setError(e.message)}finally{setBusy(false)}};
