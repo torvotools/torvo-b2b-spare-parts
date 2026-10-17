@@ -30,7 +30,7 @@ Deno.serve(async req=>{if(req.method==='OPTIONS')return new Response('ok',{heade
    const{data:wait,error:waitErr}=await admin.from('staff_email_otp_challenges').select('id,resend_after').eq('app_user_id',app.id).eq('device_id',device).is('revoked_at',null).is('consumed_at',null).gt('resend_after',new Date().toISOString()).limit(1);if(waitErr)throw waitErr;if(wait?.length)return json({error:'RESEND_WAIT_REQUIRED'},429);
    const{error:challengeRevokeErr}=await admin.from('staff_email_otp_challenges').update({revoked_at:new Date().toISOString()}).eq('app_user_id',app.id).is('consumed_at',null).is('revoked_at',null);if(challengeRevokeErr)throw challengeRevokeErr;
    const code=otp(),cid=crypto.randomUUID(),now=Date.now();const{error:cErr}=await admin.from('staff_email_otp_challenges').insert({id:cid,app_user_id:app.id,email_normalized:email,otp_hash:await hash(code),device_id:device,expires_at:new Date(now+600000).toISOString(),resend_after:new Date(now+45000).toISOString()});if(cErr)throw cErr;
-   try{await mail(email,code,{role,username:id.username,name:id.employee_name})}catch(e){await admin.from('staff_email_otp_challenges').update({revoked_at:new Date().toISOString()}).eq('id',cid);throw e}
+   try{await mail(email,code,{role,username:id.username,name:id.employee_name})}catch(e){const{error:cleanupErr}=await admin.from('staff_email_otp_challenges').update({revoked_at:new Date().toISOString()}).eq('id',cid);if(cleanupErr){console.error('OTP_EMAIL_FAILURE_CLEANUP_FAILED',cleanupErr);throw Error('OTP_CHALLENGE_CLEANUP_FAILED')}throw e}
    return json({ok:true,challenge_id:cid,expires_in_seconds:600,resend_after_seconds:45});
   }
   if(action==='verify'){
