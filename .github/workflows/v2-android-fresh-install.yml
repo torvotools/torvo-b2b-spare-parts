@@ -37,8 +37,14 @@ jobs:
           java-version: '21'
       - name: INSTALL AND VERIFY V2
         run: |
-          npm ci --no-audit --no-fund
-          npm run verify:v2-ci
+          npm install --no-audit --no-fund
+          npm run verify:v2-preflight
+          npm run verify:v2-auth
+          npm run verify:v2-ready
+          npm run verify:v2-dealer-business
+          npm run verify:v2-release-gates
+          npm run verify:v2-runtime
+          npm run verify:v2-final-readiness
       - name: BUILD AND SYNC NATIVE APP
         env:
           VITE_BUILD_SHA: ${{ github.sha }}
@@ -49,6 +55,20 @@ jobs:
           npx cap sync android
           test -f android/app/src/main/assets/public/v2.html
           grep -q 'torvo-v2-root' android/app/src/main/assets/public/v2.html
+      - name: SET TEST VERSION CODE
+        env:
+          TEST_VERSION_CODE: ${{ github.run_number }}
+        run: |
+          node --input-type=module <<'NODE'
+          import fs from 'node:fs';
+          const path = 'android/app/build.gradle';
+          let source = fs.readFileSync(path, 'utf8');
+          const code = Number(process.env.TEST_VERSION_CODE);
+          if (!Number.isSafeInteger(code) || code < 1) throw Error('Invalid versionCode');
+          if ((source.match(/\\bversionCode\\s+\\d+/g) || []).length !== 1) throw Error('Expected one versionCode');
+          source = source.replace(/\\bversionCode\\s+\\d+/, 'versionCode ' + code);
+          fs.writeFileSync(path, source);
+          NODE
       - name: CONFIGURE FRESH INSTALL TEST SIGNING
         shell: bash
         env:
