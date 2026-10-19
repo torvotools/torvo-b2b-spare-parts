@@ -2,10 +2,6 @@ name: TORVO V2 Android APK
 
 on:
   workflow_dispatch:
-  workflow_run:
-    workflows: ["TORVO V2 Build Check"]
-    types: [completed]
-    branches: [torvo-v2-build]
 
 permissions:
   contents: write
@@ -21,10 +17,10 @@ env:
 
 jobs:
   apk:
-    if: github.event_name == 'workflow_dispatch' || github.event.workflow_run.conclusion == 'success'
+    if: github.ref_name == 'torvo-v2-build'
     runs-on: ubuntu-latest
     env:
-      SOURCE_SHA: ${{ github.event_name == 'workflow_dispatch' && github.sha || github.event.workflow_run.head_sha }}
+      SOURCE_SHA: ${{ github.sha }}
     timeout-minutes: 25
     steps:
       - name: CHECKOUT EXACT V2 COMMIT
@@ -32,7 +28,7 @@ jobs:
         with:
           ref: ${{ env.SOURCE_SHA }}
       - name: VERIFY V2 BRANCH BOUNDARY
-        run: test "${{ github.event_name == 'workflow_dispatch' && github.ref_name || github.event.workflow_run.head_branch }}" = "torvo-v2-build"
+        run: test "${{ github.ref_name }}" = "torvo-v2-build"
       - name: VERIFY PERSISTENT TEST SIGNING SECRETS BEFORE EXPENSIVE BUILD
         shell: bash
         env:
