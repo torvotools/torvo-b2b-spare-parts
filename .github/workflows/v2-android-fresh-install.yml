@@ -43,6 +43,10 @@ jobs:
           VITE_ANDROID_BUILD_NUMBER: ${{ github.run_number }}
         run: |
           npm run build:app
+          test -f dist-app/v2.html
+          grep -q 'torvo-v2-root' dist-app/v2.html
+          cp dist-app/v2.html dist-app/index.html
+          printf '%s' "${{ github.sha }}" > dist-app/torvo-build-sha.txt
           npx cap add android
           npx cap sync android
           test -f android/app/src/main/assets/public/v2.html
