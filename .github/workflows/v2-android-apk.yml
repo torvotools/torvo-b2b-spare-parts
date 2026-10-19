@@ -33,6 +33,22 @@ jobs:
           ref: ${{ env.SOURCE_SHA }}
       - name: VERIFY V2 BRANCH BOUNDARY
         run: test "${{ github.event_name == 'workflow_dispatch' && github.ref_name || github.event.workflow_run.head_branch }}" = "torvo-v2-build"
+      - name: VERIFY PERSISTENT TEST SIGNING SECRETS BEFORE EXPENSIVE BUILD
+        shell: bash
+        env:
+          TORVO_TEST_KEYSTORE_BASE64: ${{ secrets.TORVO_TEST_KEYSTORE_BASE64 }}
+          TORVO_TEST_KEYSTORE_PASSWORD: ${{ secrets.TORVO_TEST_KEYSTORE_PASSWORD }}
+          TORVO_TEST_KEY_ALIAS: ${{ secrets.TORVO_TEST_KEY_ALIAS }}
+          TORVO_TEST_KEY_PASSWORD: ${{ secrets.TORVO_TEST_KEY_PASSWORD }}
+        run: |
+          set -euo pipefail
+          for key in TORVO_TEST_KEYSTORE_BASE64 TORVO_TEST_KEYSTORE_PASSWORD TORVO_TEST_KEY_ALIAS TORVO_TEST_KEY_PASSWORD; do
+            if [ -z "${!key:-}" ]; then
+              echo "::error::Missing persistent TEST signing credential: ${key}. Configure the existing approved keystore in GitHub Actions secrets; never generate a replacement automatically."
+              exit 1
+            fi
+          done
+          echo "Persistent TEST signing secret names are configured; certificate continuity will be verified before publish."
       - uses: actions/setup-node@v4
         with:
           node-version: 22
