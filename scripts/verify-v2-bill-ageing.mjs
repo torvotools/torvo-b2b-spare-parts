@@ -1,0 +1,16 @@
+import assert from 'node:assert/strict';
+import {calculateBillAgeing,summarizePartyAgeing} from '../src/v2/services/billAgeing.js';
+const asOf='2026-10-19';
+const bill={id:'EST-001',bill_date:'2026-09-01',due_date:'2026-10-01',amount:1500,allocated_payment:500,allocated_credit:100};
+const row=calculateBillAgeing(bill,asOf);
+assert.equal(row.bill_age_days,48);
+assert.equal(row.overdue_days,18);
+assert.equal(row.outstanding,900);
+assert.equal(row.bucket,'1-30');
+assert.equal(calculateBillAgeing({...bill,allocated_payment:1400},asOf).bucket,'PAID');
+assert.equal(calculateBillAgeing({...bill,due_date:'2026-11-01'},asOf).bucket,'NOT DUE');
+assert.equal(summarizePartyAgeing([bill],asOf).total_outstanding,900);
+assert.throws(()=>calculateBillAgeing({...bill,allocated_payment:1600},asOf));
+assert.throws(()=>calculateBillAgeing({...bill,bill_date:'2026-02-30'},asOf));
+assert.throws(()=>calculateBillAgeing({...bill,bill_date:'2026-10-20'},asOf));
+console.log('Bill ageing calculations: PASS');
