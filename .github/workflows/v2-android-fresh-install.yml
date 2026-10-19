@@ -1,0 +1,110 @@
+name: TORVO V2 Fresh Install TEST APK
+
+on:
+  workflow_dispatch:
+
+permissions:
+  contents: read
+
+jobs:
+  fresh-install-apk:
+    if: github.ref_name == 'torvo-v2-build'
+    runs-on: ubuntu-latest
+    timeout-minutes: 30
+    steps:
+      - name: CHECKOUT V2 ONLY
+        uses: actions/checkout@v4
+        with:
+          ref: ${{ github.sha }}
+      - name: VERIFY SIGNING SECRETS
+        shell: bash
+        env:
+          KEYSTORE: ${{ secrets.TORVO_TEST_KEYSTORE_BASE64 }}
+          STORE_PASSWORD: ${{ secrets.TORVO_TEST_KEYSTORE_PASSWORD }}
+          KEY_ALIAS: ${{ secrets.TORVO_TEST_KEY_ALIAS }}
+          KEY_PASSWORD: ${{ secrets.TORVO_TEST_KEY_PASSWORD }}
+        run: |
+          set -euo pipefail
+          for key in KEYSTORE STORE_PASSWORD KEY_ALIAS KEY_PASSWORD; do
+            if [ -z "${!key:-}" ]; then echo "::error::Missing persistent TEST signing secret: $key"; exit 1; fi
+          done
+      - uses: actions/setup-node@v4
+        with:
+          node-version: '22'
+      - uses: actions/setup-java@v5
+        with:
+          distribution: temurin
+          java-version: '21'
+      - name: INSTALL AND VERIFY V2
+        run: |
+          npm ci --no-audit --no-fund
+          npm run verify:v2-ci
+      - name: BUILD AND SYNC NATIVE APP
+        env:
+          VITE_BUILD_SHA: ${{ github.sha }}
+          VITE_ANDROID_BUILD_NUMBER: ${{ github.run_number }}
+        run: |
+          npm run build:app
+          npx cap add android
+          npx cap sync android
+          test -f android/app/src/main/assets/public/v2.html
+          grep -q 'torvo-v2-root' android/app/src/main/assets/public/v2.html
+      - name: CONFIGURE FRESH INSTALL TEST SIGNING
+        shell: bash
+        env:
+          KEYSTORE: ${{ secrets.TORVO_TEST_KEYSTORE_BASE64 }}
+          STORE_PASSWORD: ${{ secrets.TORVO_TEST_KEYSTORE_PASSWORD }}
+          KEY_ALIAS: ${{ secrets.TORVO_TEST_KEY_ALIAS }}
+          KEY_PASSWORD: ${{ secrets.TORVO_TEST_KEY_PASSWORD }}
+        run: |
+          set -euo pipefail
+          mkdir -p android/.torvo-signing
+          chmod 700 android/.torvo-signing
+          printf '%s' "$KEYSTORE" | base64 --decode > android/.torvo-signing/test.jks
+          chmod 600 android/.torvo-signing/test.jks
+          keytool -list -keystore android/.torvo-signing/test.jks -storepass "$STORE_PASSWORD" -alias "$KEY_ALIAS" >/dev/null
+          cat >> android/app/build.gradle <<'GRADLE'
+
+          android {
+              signingConfigs {
+                  torvoFreshTest {
+                      storeFile file('../.torvo-signing/test.jks')
+                      storePassword System.getenv('STORE_PASSWORD')
+                      keyAlias System.getenv('KEY_ALIAS')
+                      keyPassword System.getenv('KEY_PASSWORD')
+                  }
+              }
+              buildTypes {
+                  debug {
+                      signingConfig signingConfigs.torvoFreshTest
+                  }
+              }
+          }
+          GRADLE
+      - name: BUILD FRESH INSTALL APK
+        working-directory: android
+        env:
+          STORE_PASSWORD: ${{ secrets.TORVO_TEST_KEYSTORE_PASSWORD }}
+          KEY_ALIAS: ${{ secrets.TORVO_TEST_KEY_ALIAS }}
+          KEY_PASSWORD: ${{ secrets.TORVO_TEST_KEY_PASSWORD }}
+        run: ./gradlew --no-daemon assembleDebug
+      - name: VERIFY SIGNATURE AND PACKAGE
+        shell: bash
+        run: |
+          set -euo pipefail
+          APK=android/app/build/outputs/apk/debug/app-debug.apk
+          test -s "$APK"
+          BUILD_TOOLS="$(find "${ANDROID_HOME:-${ANDROID_SDK_ROOT:-/opt/android-sdk}}/build-tools" -mindepth 1 -maxdepth 1 -type d | sort -V | tail -1)"
+          "$BUILD_TOOLS/apksigner" verify --verbose "$APK"
+          "$BUILD_TOOLS/aapt" dump badging "$APK" | grep -q "package: name='com.torvotools.app'"
+          mkdir -p fresh-install-artifact
+          cp "$APK" fresh-install-artifact/TORVO-TOOLS-FRESH-INSTALL-TEST.apk
+          sha256sum fresh-install-artifact/TORVO-TOOLS-FRESH-INSTALL-TEST.apk > fresh-install-artifact/SHA256SUMS.txt
+          echo "FRESH-INSTALL TEST ONLY. DO NOT INSTALL OVER THE OLD TORVO APP; CERTIFICATE MAY DIFFER." >> "$GITHUB_STEP_SUMMARY"
+      - name: UPLOAD ISOLATED TEST ARTIFACT ONLY
+        uses: actions/upload-artifact@v4
+        with:
+          name: TORVO-FRESH-INSTALL-TEST-${{ github.run_number }}
+          path: fresh-install-artifact/
+          if-no-files-found: error
+          retention-days: 30
