@@ -87,7 +87,7 @@ jobs:
           "$BUILD_TOOLS/aapt" dump badging "$APK" | grep -q "package: name='com.torvotools.app.test'"
           mkdir -p fresh-install-artifact
           cp "$APK" fresh-install-artifact/TORVO-TOOLS-SIDE-BY-SIDE-QA.apk
-          sha256sum fresh-install-artifact/TORVO-TOOLS-FRESH-INSTALL-TEST.apk > fresh-install-artifact/SHA256SUMS.txt
+          sha256sum fresh-install-artifact/TORVO-TOOLS-SIDE-BY-SIDE-QA.apk > fresh-install-artifact/SHA256SUMS.txt
           echo "SIDE-BY-SIDE QA ONLY: com.torvotools.app.test; disposable debug certificate, NOT suitable for upgrades or production." >> "$GITHUB_STEP_SUMMARY"
       - name: UPLOAD ISOLATED TEST ARTIFACT ONLY
         uses: actions/upload-artifact@v4
