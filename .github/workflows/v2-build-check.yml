@@ -84,6 +84,8 @@ jobs:
         run: npm install --no-audit --no-fund
       - name: Verify V2 scripts and app identity
         run: npm run verify:v2-preflight
+      - name: Verify dealer OTP device-session guards
+        run: npm run verify:v2-dealer-email-device-guard
       - name: Verify Owner delegated permission contract
         run: node scripts/verify-v2-owner-permissions.mjs
       - name: Verify app release security contract
