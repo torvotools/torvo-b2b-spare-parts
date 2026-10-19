@@ -65,8 +65,8 @@ jobs:
           let source = fs.readFileSync(path, 'utf8');
           const code = Number(process.env.TEST_VERSION_CODE);
           if (!Number.isSafeInteger(code) || code < 1) throw Error('Invalid versionCode');
-          if ((source.match(/\\bversionCode\\s+\\d+/g) || []).length !== 1) throw Error('Expected one versionCode');
-          source = source.replace(/\\bversionCode\\s+\\d+/, 'versionCode ' + code);
+          if ((source.match(/\bversionCode\s+\d+/g) || []).length !== 1) throw Error('Expected one versionCode');
+          source = source.replace(/\bversionCode\s+\d+/, 'versionCode ' + code);
           fs.writeFileSync(path, source);
           NODE
       - name: CONFIGURE FRESH INSTALL TEST SIGNING
