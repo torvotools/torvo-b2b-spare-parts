@@ -7,6 +7,7 @@ const hash=async(s:string)=>{const secret=Deno.env.get('TORVO_OTP_HASH_SECRET')|
 // Existing challenges expire after ten minutes; all new challenges use keyed HMAC.
 const legacyHash=async(s:string)=>Array.from(new Uint8Array(await crypto.subtle.digest('SHA-256',new TextEncoder().encode(s)))).map(b=>b.toString(16).padStart(2,'0')).join('');
 const otp=()=>{const range=1_000_000,limit=Math.floor(0x1_0000_0000/range)*range,b=new Uint32Array(1);do{crypto.getRandomValues(b)}while(b[0]>=limit);return String(b[0]%range).padStart(6,'0')};
+const escapeHtml=(value:string)=>value.replace(/&/g,'&amp;').replace(/</g,'&lt;').replace(/>/g,'&gt;').replace(/"/g,'&quot;').replace(/'/g,'&#39;');
 async function mail(email:string,code:string,m:{role:string;username:string;name:string}){
  const token=Deno.env.get('TORVO_EMAIL_OTP_TOKEN');if(!token)throw Error('EMAIL_PROVIDER_NOT_CONFIGURED');
  const h={'authorization':`Bearer ${token}`,'content-type':'application/json','accept':'application/json'};
@@ -14,7 +15,8 @@ async function mail(email:string,code:string,m:{role:string;username:string;name
  const j=await me.json(),box=j?.data?.mailboxes?.find((x:any)=>String(x?.address||'').toLowerCase()==='otp@torvotools.com');if(!box?.resourceId)throw Error('EMAIL_SENDER_NOT_FOUND');
  const role=m.role.toUpperCase(),subject=`TORVO OTP - ${role} ${m.username} Login Code`;
  const text=`TORVO OTP FOR ${m.username} (${role})\n\nUser ID: ${m.username}\nRole: ${role}\nEmployee: ${m.name}\n\nYour 6-digit verification code is: ${code}\n\nLogin: TORVO Staff Sign-in\n\nThis code expires in 10 minutes. Do not share this code with anyone.\n\nDO NOT REPLY - this mailbox is not monitored.`;
- const html=`<div style="font-family:Arial,sans-serif;max-width:520px"><h2>TORVO OTP</h2><p style="font-size:18px"><b>${m.username}</b> &nbsp;|&nbsp; ${role} &nbsp;|&nbsp; ${m.name}</p><p>Your 6-digit verification code is:</p><p style="font-size:32px;letter-spacing:6px;font-weight:700">${code}</p><p><b>Login:</b> TORVO Staff Sign-in</p><p>This code expires in <b>10 minutes</b>. Do not share this code with anyone.</p><hr><p style="font-size:12px">DO NOT REPLY - this mailbox is not monitored.</p></div>`;
+ const safeUser=escapeHtml(m.username),safeRole=escapeHtml(role),safeName=escapeHtml(m.name);
+ const html=`<div style="font-family:Arial,sans-serif;max-width:520px"><h2>TORVO OTP</h2><p style="font-size:18px"><b>${safeUser}</b> &nbsp;|&nbsp; ${safeRole} &nbsp;|&nbsp; ${safeName}</p><p>Your 6-digit verification code is:</p><p style="font-size:32px;letter-spacing:6px;font-weight:700">${code}</p><p><b>Login:</b> TORVO Staff Sign-in</p><p>This code expires in <b>10 minutes</b>. Do not share this code with anyone.</p><hr><p style="font-size:12px">DO NOT REPLY - this mailbox is not monitored.</p></div>`;
  const r=await fetch(`https://api.mail.hostinger.com/api/v1/mailboxes/${encodeURIComponent(box.resourceId)}/send`,{method:'POST',headers:h,body:JSON.stringify({to:[email],displayName:'TORVO OTP',subject,text,html})});if(r.status!==204)throw Error('EMAIL_DELIVERY_FAILED');
 }
 Deno.serve(async req=>{if(req.method==='OPTIONS')return new Response('ok',{headers:cors});if(req.method!=='POST')return json({error:'METHOD_NOT_ALLOWED'},405);
