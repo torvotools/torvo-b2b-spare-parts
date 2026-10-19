@@ -31,6 +31,7 @@ begin
  if coalesce(d.accountant_verification_status,'pending_accountant')<>'submitted_to_admin' or d.accountant_verified_by is null or d.accountant_verified_at is null then raise exception 'ACCOUNTANT VERIFICATION REQUIRED BEFORE FINAL APPROVAL';end if;
  if not exists(select 1 from app_users v where v.id=d.accountant_verified_by and v.active=true and lower(coalesce(v.role,''))='accountant') then raise exception 'ACTIVE ACCOUNTANT VERIFICATION REQUIRED BEFORE FINAL APPROVAL';end if;
  if lower(btrim(coalesce(d.email,'')))!~'^[a-z0-9._%+\-]+@[a-z0-9.\-]+\.[a-z]{2,}$' then raise exception 'VALID REGISTERED EMAIL REQUIRED';end if;
+ if exists(select 1 from dealers x where x.id<>p_dealer and lower(btrim(coalesce(x.email,'')))=lower(btrim(d.email)) and x.status in('pending','approved','hold')) then raise exception 'EMAIL ID ALREADY USED BY ANOTHER DEALER';end if;
  perform 1 from app_users where active=true and lower(coalesce(role,''))='dealer' and dealer_id=p_dealer for update;
  select count(*) into linked_count from app_users where active=true and lower(coalesce(role,''))='dealer' and dealer_id=p_dealer;
  if linked_count>1 then raise exception 'DEALER AUTH IDENTITY AMBIGUOUS';end if;
