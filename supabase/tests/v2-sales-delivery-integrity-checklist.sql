@@ -99,3 +99,16 @@ select to_regclass('public.stock_movements') as legacy_parallel_stock_movements;
 -- 12) RELEASE RULE
 -- Do not mark payment/delivery/stock flow runtime verified until all applicable tests above pass
 -- against the same staging migration set and code commit, with non-secret evidence retained.
+
+-- 13) DEALER DEVICE SESSION NEGATIVE TEST (real authenticated staging dealer only)
+-- Confirm dealer_confirm_sales_order_revision(uuid,integer,text,text) is the only authenticated dealer-OK signature.
+-- Verify anon EXECUTE is denied; verify dealer_start_device_session, dealer_validate_device_session,
+-- and dealer_revoke_device_sessions are service_role-only, not anon/authenticated.
+-- With a valid dealer login, use a deliberately invalid device ID/token for an OWN pending Sales Order.
+-- Expected: device assertion rejects before Dealer OK, status, revision and audit log change.
+-- Login on a second device using the authorized OTP flow; verify the previous session is revoked.
+-- Expected: old device/token cannot confirm; new valid device can confirm only its own latest revision.
+-- After a quotation revision, verify previous Dealer OK is cleared and stale revision confirmation fails.
+-- Evidence: staging timestamp, function signatures/privileges, anonymized order ID, before/after
+-- status and revision, session revoke result, audit delta and CI commit. Never store OTPs or tokens.
+-- Do not call this runtime PASS based on SQL source or privileges alone; no fake dealer/order data.
