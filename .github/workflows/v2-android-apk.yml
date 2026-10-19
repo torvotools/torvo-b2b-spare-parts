@@ -253,7 +253,15 @@ jobs:
               }
           }
           GRADLE
-          echo "Persistent TEST signing configured without committing key material."
+          # Fail before Gradle if a new keystore cannot update the installed TEST app.
+          # A separately named fresh-install test release needs explicit owner approval.
+          KEY_CERT="$(keytool -list -v -keystore android/.torvo-signing/test.jks -storepass "$TORVO_TEST_KEYSTORE_PASSWORD" -alias "$TORVO_TEST_KEY_ALIAS" | sed -n 's/^[[:space:]]*SHA256: //p' | head -1 | tr -d ':' | tr '[:upper:]' '[:lower:]')"
+          OLD_CERT="$(cat prior-test-release/previous-cert-sha256.txt)"
+          if [ "${#KEY_CERT}" -ne 64 ] || [ "$KEY_CERT" != "$OLD_CERT" ]; then
+            echo "::error::TEST keystore certificate does not match the installed-app release. Existing-app update is impossible with this key; refusing to build or overwrite the release."
+            exit 1
+          fi
+          echo "Persistent TEST signing certificate matches previous release."
       - name: BUILD DEBUG TEST APK
         working-directory: android
         shell: bash
