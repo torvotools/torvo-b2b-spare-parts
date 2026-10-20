@@ -22,6 +22,7 @@ export function allocatePaymentsToBills(bills,payments){
     if(payment.status!=null&&!['received','cash'].includes(payment.status))throw new Error('PAYMENT NOT RECEIVED');
     if(!payment.bill_id||!balances.has(String(payment.bill_id)))throw new Error('PAYMENT BILL NOT FOUND');
     const amount=money(payment.amount);
+    if(amount===0)throw new Error('ZERO PAYMENT ALLOCATION');
     const b=balances.get(String(payment.bill_id));
     if(b.party_id!==null&&(payment.party_id==null||String(payment.party_id)!==b.party_id))throw new Error('PAYMENT PARTY MISMATCH');
     if(b.paid+b.credited+amount>b.amount)throw new Error('PAYMENT EXCEEDS BILL BALANCE');
