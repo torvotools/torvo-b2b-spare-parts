@@ -19,4 +19,5 @@ assert.throws(()=>allocatePaymentsToBills([{id:'A',amount:100,allocated_payment:
 assert.throws(()=>allocatePaymentsToBills(bills,[{id:'PENDING',bill_id:'A',status:'pending',amount:10}]),/NOT RECEIVED/);
 assert.throws(()=>allocatePaymentsToBills(bills,[{id:'K1',bill_id:'A',status:'received',request_key:'same',amount:10},{id:'K2',bill_id:'A',status:'received',request_key:'same',amount:10}]),/REQUEST KEY/);
 assert.equal(allocatePaymentsToBills(bills,[{id:'OK',bill_id:'A',status:'received',request_key:'unique',amount:10}]).bills[0].outstanding,990);
+assert.throws(()=>allocatePaymentsToBills(bills,[{id:'ZERO',bill_id:'A',status:'received',amount:0}]),/ZERO PAYMENT/);
 console.log('Payment allocation checks: PASS');
