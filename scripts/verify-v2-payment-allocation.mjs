@@ -16,4 +16,7 @@ assert.equal(existing.bills[0].outstanding,500);
 assert.throws(()=>allocatePaymentsToBills([{id:'A',party_id:'D1',amount:100}],[{id:'BAD',bill_id:'A',party_id:'D2',amount:20}]),/PARTY MISMATCH/);
 assert.throws(()=>allocatePaymentsToBills([{id:'A',party_id:'D1',amount:100}],[{id:'MISSING',bill_id:'A',amount:20}]),/PARTY MISMATCH/);
 assert.throws(()=>allocatePaymentsToBills([{id:'A',amount:100,allocated_payment:101}],[]),/EXISTING ALLOCATION/);
+assert.throws(()=>allocatePaymentsToBills(bills,[{id:'PENDING',bill_id:'A',status:'pending',amount:10}]),/NOT RECEIVED/);
+assert.throws(()=>allocatePaymentsToBills(bills,[{id:'K1',bill_id:'A',status:'received',request_key:'same',amount:10},{id:'K2',bill_id:'A',status:'received',request_key:'same',amount:10}]),/REQUEST KEY/);
+assert.equal(allocatePaymentsToBills(bills,[{id:'OK',bill_id:'A',status:'received',request_key:'unique',amount:10}]).bills[0].outstanding,990);
 console.log('Payment allocation checks: PASS');
