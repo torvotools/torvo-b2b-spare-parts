@@ -9,7 +9,9 @@ export function allocatePaymentsToBills(bills,payments){
   const balances=new Map();
   for(const bill of bills){
     if(!bill?.id||balances.has(String(bill.id)))throw new Error('DUPLICATE OR MISSING BILL');
-    balances.set(String(bill.id),{amount:money(bill.amount),paid:0,credited:money(bill.allocated_credit??0)});
+    const amount=money(bill.amount),credited=money(bill.allocated_credit??0),paid=money(bill.allocated_payment??0);
+    if(credited+paid>amount)throw new Error('EXISTING ALLOCATION EXCEEDS BILL');
+    balances.set(String(bill.id),{amount,paid,credited,party_id:bill.party_id==null?null:String(bill.party_id)});
   }
   const seen=new Set(),rows=[];
   for(const payment of payments){
@@ -18,6 +20,7 @@ export function allocatePaymentsToBills(bills,payments){
     if(!payment.bill_id||!balances.has(String(payment.bill_id)))throw new Error('PAYMENT BILL NOT FOUND');
     const amount=money(payment.amount);
     const b=balances.get(String(payment.bill_id));
+    if(b.party_id!==null&&(payment.party_id==null||String(payment.party_id)!==b.party_id))throw new Error('PAYMENT PARTY MISMATCH');
     if(b.paid+b.credited+amount>b.amount)throw new Error('PAYMENT EXCEEDS BILL BALANCE');
     b.paid+=amount;
     rows.push({payment_id:payment.id,bill_id:payment.bill_id,allocated:amount/100});
