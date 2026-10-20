@@ -14,9 +14,12 @@ export function allocatePaymentsToBills(bills,payments){
     balances.set(String(bill.id),{amount,paid,credited,party_id:bill.party_id==null?null:String(bill.party_id)});
   }
   const seen=new Set(),rows=[];
+  const requestKeys=new Set();
   for(const payment of payments){
     if(!payment?.id||seen.has(String(payment.id)))throw new Error('DUPLICATE OR MISSING PAYMENT');
     seen.add(String(payment.id));
+    if(payment.request_key!=null){const key=String(payment.request_key).trim();if(!key||requestKeys.has(key))throw new Error('DUPLICATE OR INVALID PAYMENT REQUEST KEY');requestKeys.add(key)}
+    if(payment.status!=null&&!['received','cash'].includes(payment.status))throw new Error('PAYMENT NOT RECEIVED');
     if(!payment.bill_id||!balances.has(String(payment.bill_id)))throw new Error('PAYMENT BILL NOT FOUND');
     const amount=money(payment.amount);
     const b=balances.get(String(payment.bill_id));
