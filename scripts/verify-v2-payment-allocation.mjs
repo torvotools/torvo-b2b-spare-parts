@@ -10,4 +10,10 @@ assert.throws(()=>allocatePaymentsToBills(bills,[payments[0],payments[0]]),/DUPL
 assert.throws(()=>allocatePaymentsToBills(bills,[{id:'P4',bill_id:'B',amount:201}]),/EXCEEDS/);
 assert.throws(()=>allocatePaymentsToBills(bills,[{id:'P5',bill_id:'X',amount:1}]),/NOT FOUND/);
 assert.throws(()=>allocatePaymentsToBills([{id:'A',amount:1},{id:'A',amount:1}],[]),/DUPLICATE/);
+const existing=allocatePaymentsToBills([{id:'A',party_id:'D1',amount:1000,allocated_payment:300}],[{id:'NEW',bill_id:'A',party_id:'D1',amount:200}]);
+assert.equal(existing.bills[0].allocated_payment,500);
+assert.equal(existing.bills[0].outstanding,500);
+assert.throws(()=>allocatePaymentsToBills([{id:'A',party_id:'D1',amount:100}],[{id:'BAD',bill_id:'A',party_id:'D2',amount:20}]),/PARTY MISMATCH/);
+assert.throws(()=>allocatePaymentsToBills([{id:'A',party_id:'D1',amount:100}],[{id:'MISSING',bill_id:'A',amount:20}]),/PARTY MISMATCH/);
+assert.throws(()=>allocatePaymentsToBills([{id:'A',amount:100,allocated_payment:101}],[]),/EXISTING ALLOCATION/);
 console.log('Payment allocation checks: PASS');
