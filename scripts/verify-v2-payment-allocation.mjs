@@ -1,0 +1,13 @@
+import assert from 'node:assert/strict';
+import {allocatePaymentsToBills} from '../src/v2/services/paymentAllocation.js';
+const bills=[{id:'A',amount:1000},{id:'B',amount:250,allocated_credit:50}];
+const payments=[{id:'P1',bill_id:'A',amount:200},{id:'P2',bill_id:'A',amount:300},{id:'P3',bill_id:'B',amount:100}];
+const result=allocatePaymentsToBills(bills,payments);
+assert.equal(result.bills[0].outstanding,500);
+assert.equal(result.bills[1].outstanding,100);
+assert.equal(result.allocations.length,3);
+assert.throws(()=>allocatePaymentsToBills(bills,[payments[0],payments[0]]),/DUPLICATE/);
+assert.throws(()=>allocatePaymentsToBills(bills,[{id:'P4',bill_id:'B',amount:201}]),/EXCEEDS/);
+assert.throws(()=>allocatePaymentsToBills(bills,[{id:'P5',bill_id:'X',amount:1}]),/NOT FOUND/);
+assert.throws(()=>allocatePaymentsToBills([{id:'A',amount:1},{id:'A',amount:1}],[]),/DUPLICATE/);
+console.log('Payment allocation checks: PASS');
